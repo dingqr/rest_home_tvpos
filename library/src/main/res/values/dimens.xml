@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common_load_more_progress_size">30dp</dimen>
+    <dimen name="common_load_more_padding">20dp</dimen>
+    <dimen name="common_loading_progress_size">35dp</dimen>
+    <dimen name="common_loading_text_margin">10dp</dimen>
+    <dimen name="common_loading_text_lines_spacing">5dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_padding">20dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_indicator_height">3dp</dimen>
+    <dimen name="fragment_common_list_smart_tab_indicator_radius">2dp</dimen>
+    <dimen name="default_padding_top">8dp</dimen>
+    <dimen name="default_padding_bottom">8dp</dimen>
+    <dimen name="inner_padding_left">0dp</dimen>
+    <dimen name="inner_padding_right">0dp</dimen>
+    <dimen name="floating_label_text_size">12sp</dimen>
+    <dimen name="bottom_text_size">12sp</dimen>
+    <dimen name="inner_components_spacing">8dp</dimen>
+    <dimen name="bottom_ellipsis_height">4dp</dimen>
+    <dimen name="mtf_cardHeight_initial">4dp</dimen>
+    <dimen name="mtf_cardHeight_final">55dp</dimen>
+    <dimen name="mtf_cardview_additionnal">4dp</dimen>
+
+    <!-- 通用 -->
+    <dimen name="dimen_0_dp">0dp</dimen>
+    <dimen name="dimen_3_dp">3dp</dimen>
+    <dimen name="dimen_4_dp">4dp</dimen>
+    <dimen name="dimen_5_dp">5dp</dimen>
+    <dimen name="dimen_6_dp">6dp</dimen>
+    <dimen name="dimen_8_dp">8dp</dimen>
+    <dimen name="dimen_10_dp">10dp</dimen>
+    <dimen name="dimen_12_dp">12dp</dimen>
+    <dimen name="dimen_13_dp">13dp</dimen>
+    <dimen name="dimen_14_dp">14dp</dimen>
+    <dimen name="dimen_15_dp">15dp</dimen>
+    <dimen name="dimen_16_dp">16dp</dimen>
+    <dimen name="dimen_18_dp">18dp</dimen>
+    <dimen name="dimen_190_dp">190dp</dimen>
+
+    <dimen name="dimen_20_dp">20dp</dimen>
+    <dimen name="dimen_30_dp">30dp</dimen>
+</resources>

@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile files('src/main/libs/nineoldandroids-2.4.0.jar')
+    compile files('src/main/libs/eventbus-3.0.0-beta1.jar')
+    compile files('src/main/libs/dom4j-2.0.0-RC1.jar')
+    compile files('src/main/libs/butterknife-7.0.1.jar')
+    compile files('src/main/libs/systembartint-1.0.4.jar')
+    compile files('src/main/libs/picasso-2.5.2.jar')
+    compile files('src/main/libs/gson-2.3.jar')
+    compile files('src/main/libs/android-support-v7-cardview.jar')
+    compile files('src/main/libs/fastjson-1.1.31.jar')
+    compile files('src/main/libs/universal-image-loader-1.9.5.jar')
+    compile files('src/main/libs/xUtils-2.6.14.jar')
+    compile files('src/main/libs/core.jar')
+    compile files('src/main/libs/badgeview.jar')
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile files('src/main/libs/httpclient-4.5.1.jar')
+    compile files('src/main/libs/httpcore-4.4.3.jar')
+    compile 'com.umeng.analytics:analytics:latest.integration'
+}

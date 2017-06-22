@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">餐饮Saas</string>
+
+    <!--接口异常处理-->
+    <string name="common_onfail">访问失败</string>
+    <string name="common_request_fail">服务器错误</string>
+    <string name="common_error_parse">解析异常</string>
+
+    <!--Crash异常处理-->
+    <string name="arise_exception">亲，出现异常了</string>
+</resources>

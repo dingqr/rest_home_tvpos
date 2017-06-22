@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sr_color_primary">#000000</color>
+    <color name="sr_color_primary_dark">#000000</color>
+    <color name="sr_window_background">#FFFFFF</color>
+    <color name="common_list_smart_tab_underline_color">#FFFFFF</color>
+    <color name="base_bg">#ffeeeeee</color>
+    <color name="base_msg_color">#ff999999</color>
+
+
+
+    <!--惠生活风格色-->
+    <color name="black">#565656</color>
+    <color name="benefit_style">#EB6100</color>
+    <color name="shopping_cart_bg">#ff4d4d</color>
+    <color name="dark_gray">#1e1e1e</color>
+    <color name="lightgray">#D3D3D3</color>
+    <color name="left_list">#F4F4F5</color>
+    <color name="user_center_divide_line">#dcdcdc</color>
+    <color name="user_center_black_text">#313131</color>
+    <color name="consumer_bg">#f3f3f3</color>
+    <color name="red">#FF0000</color>
+
+
+    <integer-array name="gplus_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
+
+    <color name="gplus_color_1">#3e802f</color>
+    <color name="gplus_color_2">#f4b400</color>
+    <color name="gplus_color_3">#427fed</color>
+    <color name="gplus_color_4">#b23424</color>
+
+    <drawable name="progress_bar_bg">#80FFFFFF</drawable>
+    <drawable name="sr_primary">@color/gplus_color_2</drawable>
+    <drawable name="transparent">@android:color/transparent</drawable>
+
+</resources>
