@@ -2,9 +2,9 @@ package com.yonyou.hhtpos.db;
 
 import android.content.Context;
 
-import com.yonyou.buyer.MyApplication;
-import com.yonyou.buyer.db.gen.DaoMaster;
-import com.yonyou.buyer.db.gen.DaoSession;
+import com.yonyou.hhtpos.application.MyApplication;
+import com.yonyou.hhtpos.db.gen.DaoMaster;
+import com.yonyou.hhtpos.db.gen.DaoSession;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;

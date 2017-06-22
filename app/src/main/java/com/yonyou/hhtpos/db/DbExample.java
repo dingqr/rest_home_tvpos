@@ -2,10 +2,10 @@ package com.yonyou.hhtpos.db;
 
 import android.content.Context;
 
-import com.yonyou.buyer.MyApplication;
-import com.yonyou.buyer.R;
-import com.yonyou.buyer.db.entity.User;
-import com.yonyou.buyer.db.gen.UserDao;
+import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.application.MyApplication;
+import com.yonyou.hhtpos.db.entity.User;
+import com.yonyou.hhtpos.db.gen.UserDao;
 
 import org.greenrobot.greendao.Property;
 

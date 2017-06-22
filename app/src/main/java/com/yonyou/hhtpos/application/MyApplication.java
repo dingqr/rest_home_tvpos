@@ -12,12 +12,18 @@ import com.yonyou.hhtpos.manager.CrashHandler;
  */
 public class MyApplication extends BaseApplication{
 
+    public static final String DATABASE_NAME = "hhtdb.db";
+
     private static Context mContext;
 
     public static MyApplication mInstance = null;
 
     public static MyApplication getInstance(){
         return mInstance;
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 
     @Override
