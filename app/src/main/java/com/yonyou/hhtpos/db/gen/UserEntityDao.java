@@ -3,7 +3,7 @@ package com.yonyou.hhtpos.db.gen;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
-import com.yonyou.buyer.db.entity.UserEntity;
+import com.yonyou.hhtpos.db.entity.UserEntity;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;

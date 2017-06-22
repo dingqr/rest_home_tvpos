@@ -1,8 +1,9 @@
 package com.yonyou.hhtpos.db.gen;
 
-import com.yonyou.buyer.db.entity.Position;
-import com.yonyou.buyer.db.entity.User;
-import com.yonyou.buyer.db.entity.UserEntity;
+
+import com.yonyou.hhtpos.db.entity.Position;
+import com.yonyou.hhtpos.db.entity.User;
+import com.yonyou.hhtpos.db.entity.UserEntity;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.AbstractDaoSession;
