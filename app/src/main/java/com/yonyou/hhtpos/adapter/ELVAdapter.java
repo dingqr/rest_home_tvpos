@@ -10,11 +10,7 @@ import android.widget.TextView;
 import com.yonyou.hhtpos.R;
 
 import java.util.List;
-/**
- * Created by zj on 2017/6/22.
- * 邮箱：zjuan@yonyou.com
- * 描述：可折叠二级列表适配器
- */
+
 public class ELVAdapter extends BaseExpandableListAdapter {
     private List<String> groupData;
     private List<List<String>> childData;
@@ -165,7 +161,7 @@ public class ELVAdapter extends BaseExpandableListAdapter {
      * @param groupPosition
      * @param selected
      */
-    public void setSelectedItem(int groupPosition, int selected) {
+    public void setSelectChildItem(int groupPosition, int selected) {
         this.parentPosition = groupPosition;
         if (old != -1) {
             this.selected.put(old, false);

@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by zj on 2017/6/22.
  * 邮箱：zjuan@yonyou.com
- * 描述：左侧可折叠二级列表
+ * 描述：
  */
 public class LeftExpandableView extends ExpandableListView {
     /**
@@ -21,7 +22,7 @@ public class LeftExpandableView extends ExpandableListView {
      */
     private Context mContext;
 
-    private String backgroudColor = "#000000";
+    private String backgroudColor = "#2E2E2E";
     //一级菜单数据
     private List<String> mGroupData = new ArrayList<>();
     //二级菜单数据
@@ -41,6 +42,11 @@ public class LeftExpandableView extends ExpandableListView {
     public LeftExpandableView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
+        setBackgroundColor(Color.parseColor(backgroudColor));
+        setDivider(null);
+        setChoiceMode(CHOICE_MODE_SINGLE);
+        setGroupIndicator(null);
+
         initListener();
 
     }
@@ -52,7 +58,7 @@ public class LeftExpandableView extends ExpandableListView {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 mAdapter.setGroupIsClicked(false);
-                mAdapter.setSelectedItem(groupPosition, childPosition);
+                mAdapter.setSelectChildItem(groupPosition, childPosition);
                 //设置点击child时，选中到对应的group
                 mAdapter.setSelectedGroupItem(groupPosition);
                 mAdapter.notifyDataSetChanged();
@@ -96,6 +102,15 @@ public class LeftExpandableView extends ExpandableListView {
         this.mChildData = childData;
         mAdapter = new ELVAdapter(mGroupData, mChildData, mContext);
         setAdapter(mAdapter);
+    }
+
+    /**
+     * 设置默认选中对应的group
+     */
+    public void setCheckCurrentGroup(int position) {
+        if (mAdapter != null) {
+            mAdapter.setSelectedGroupItem(position);
+        }
     }
 
     interface OnELVGroupClickListener {
