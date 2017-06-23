@@ -8,7 +8,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.bean.NevigationEntity;
+import com.yonyou.hhtpos.bean.NavigationEntity;
 import com.yonyou.hhtpos.util.NavigationUtil;
 
 /**
@@ -33,11 +33,11 @@ public class ACT_TestMultiple extends ACT_BaseMultiple {
     }
 
     @Override
-    protected NevigationEntity getNevigationData() {
-        NevigationEntity nevigationEntity = new NevigationEntity();
-        nevigationEntity.groupData = NavigationUtil.getDefaultGroupData();
-        nevigationEntity.childDta = NavigationUtil.getDefaultChildData();
-        return nevigationEntity;
+    protected NavigationEntity getNavigationData() {
+        NavigationEntity navigationEntity = new NavigationEntity();
+        navigationEntity.groupData = NavigationUtil.getDefaultGroupData();
+        navigationEntity.childDta = NavigationUtil.getDefaultChildData();
+        return navigationEntity;
     }
 
     @Override

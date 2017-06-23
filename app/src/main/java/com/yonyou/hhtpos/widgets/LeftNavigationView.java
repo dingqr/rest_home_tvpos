@@ -1,7 +1,6 @@
 package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.NevigationEntity;
-
-import static com.yonyou.hhtpos.R.id.useLogo;
+import com.yonyou.hhtpos.bean.NavigationEntity;
 
 
 /**
@@ -63,21 +59,21 @@ public class LeftNavigationView extends LinearLayout {
      *
      * @param bean
      */
-    public void setData(NevigationEntity bean) {
+    public void setData(NavigationEntity bean) {
         if (bean != null) {
             expandableView.setData(bean.groupData, bean.childDta);
-            if (TextUtils.isEmpty(bean.user_logo)) {
-                Glide.with(mContext).load(useLogo).into(ivUserLogo);
-            }
-            if (TextUtils.isEmpty(bean.message_count)) {
-                tvMessageCount.setText(bean.message_count);
-            }
-            if (TextUtils.isEmpty(bean.business_time)) {
-                tvBusinessTime.setText(bean.business_time);
-            }
-            if (TextUtils.isEmpty(bean.shop_name)) {
-                tvShopName.setText(bean.shop_name);
-            }
+//            if (!TextUtils.isEmpty(bean.user_logo)) {
+//                Glide.with(mContext).load(useLogo).into(ivUserLogo);
+//            }
+//            if (!TextUtils.isEmpty(bean.message_count)) {
+//                tvMessageCount.setText(bean.message_count);
+//            }
+//            if (!TextUtils.isEmpty(bean.business_time)) {
+//                tvBusinessTime.setText(bean.business_time);
+//            }
+//            if (!TextUtils.isEmpty(bean.shop_name)) {
+//                tvShopName.setText(bean.shop_name);
+//            }
         }
 
     }

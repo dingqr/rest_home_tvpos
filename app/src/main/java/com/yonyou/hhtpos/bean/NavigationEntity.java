@@ -8,7 +8,7 @@ import java.util.List;
  * 邮箱：zjuan@yonyou.com
  * 描述：左侧导航栏实体
  */
-public class NevigationEntity {
+public class NavigationEntity {
     /**
      * 用户头像
      */
