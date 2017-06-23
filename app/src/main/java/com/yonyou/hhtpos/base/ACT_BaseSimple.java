@@ -19,9 +19,9 @@ import butterknife.Bind;
 public abstract class ACT_BaseSimple extends BaseActivity {
 
     @Bind(R.id.el_navigation)
-    LeftExpandableView elNavigation;
+    protected LeftExpandableView elNavigation;
     @Bind(R.id.fl_content)
-    FrameLayout flContent;
+    protected FrameLayout flContent;
 
     @Override
     protected int getContentViewLayoutID() {

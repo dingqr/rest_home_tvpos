@@ -20,11 +20,11 @@ import butterknife.Bind;
 public abstract class ACT_BaseMultiple extends BaseActivity {
 
     @Bind(R.id.el_navigation)
-    LeftExpandableView elNavigation;
+    protected LeftExpandableView elNavigation;
     @Bind(R.id.fl_left)
-    FrameLayout flLeft;
+    protected FrameLayout flLeft;
     @Bind(R.id.fl_right)
-    FrameLayout flRight;
+    protected FrameLayout flRight;
 
     @Override
     protected int getContentViewLayoutID() {
