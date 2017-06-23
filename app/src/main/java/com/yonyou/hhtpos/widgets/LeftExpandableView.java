@@ -47,7 +47,7 @@ public class LeftExpandableView extends ExpandableListView {
         setChoiceMode(CHOICE_MODE_SINGLE);
         setGroupIndicator(null);
         //去除child默认点击效果
-        setSelector(R.drawable.bg_child_selector);
+        setSelector(R.drawable.bg_transparent_selector);
         initListener();
 
     }
