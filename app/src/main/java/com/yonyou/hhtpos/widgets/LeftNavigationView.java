@@ -1,7 +1,6 @@
 package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,8 @@ import com.yonyou.hhtpos.R;
 
 import java.util.List;
 
+import static com.yonyou.hhtpos.R.id.expandableview;
+
 
 /**
  * Created by zj on 2017/6/23.
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class LeftNavigationView extends LinearLayout {
     private Context mContext;
-    private LeftExpandableView expandableview;
+    private LeftExpandableView expandableView;
 
     public LeftNavigationView(Context context) {
         this(context, null);
@@ -43,7 +44,7 @@ public class LeftNavigationView extends LinearLayout {
         this.setOrientation(LinearLayout.VERTICAL);
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.left_nevigation_linear, this);
-        expandableview = (LeftExpandableView) view.findViewById(R.id.expandableview);
+        expandableView = (LeftExpandableView) view.findViewById(expandableview);
     }
 
     /**
@@ -54,7 +55,7 @@ public class LeftNavigationView extends LinearLayout {
      */
     public void setData(List<String> groupData, List<List<String>> childData) {
         if (groupData != null && childData != null) {
-            expandableview.setData(groupData, childData);
+            expandableView.setData(groupData, childData);
         }
     }
 }
