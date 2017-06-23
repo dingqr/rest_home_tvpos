@@ -14,4 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <!--<com.yonyou.hhtpos.widgets.LeftExpandableView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--</com.yonyou.hhtpos.widgets.LeftExpandableView>-->
 </RelativeLayout>

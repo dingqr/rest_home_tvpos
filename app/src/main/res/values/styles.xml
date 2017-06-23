@@ -25,4 +25,9 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!-- Activity主题 -->
+    <style name="style_translucent_activity" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>
