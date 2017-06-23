@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <com.yonyou.hhtpos.widgets.LeftNevigationView
-        android:id="@+id/elv_navigation"
+    <com.yonyou.hhtpos.widgets.LeftNavigationView
+        android:id="@+id/v_navigation"
         android:layout_width="125dp"
         android:layout_height="match_parent">
-    </com.yonyou.hhtpos.widgets.LeftNevigationView>
+    </com.yonyou.hhtpos.widgets.LeftNavigationView>
 
     <FrameLayout
         android:id="@+id/fl_left"

@@ -17,6 +17,7 @@ import java.util.List;
  * 作者：liushuofei on 2017/6/23 10:44
  */
 public class ACT_TestMultiple extends ACT_BaseMultiple {
+
     @Override
     protected List<String> getNavigationGroupData() {
         return NavigationUtil.getDefaultGroupData();

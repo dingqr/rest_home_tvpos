@@ -1,7 +1,9 @@
 package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
+import android.text.Layout;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -15,19 +17,19 @@ import java.util.List;
  * 邮箱：zjuan@yonyou.com
  * 描述：左侧导航栏：二次封装二级列表
  */
-public class LeftNevigationView extends LinearLayout {
+public class LeftNavigationView extends LinearLayout {
     private Context mContext;
     private LeftExpandableView expandableview;
 
-    public LeftNevigationView(Context context) {
+    public LeftNavigationView(Context context) {
         this(context, null);
     }
 
-    public LeftNevigationView(Context context, AttributeSet attrs) {
-        this(context, null, 0);
+    public LeftNavigationView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public LeftNevigationView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LeftNavigationView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         initView();
@@ -37,9 +39,11 @@ public class LeftNevigationView extends LinearLayout {
      * 初始化view
      */
     private void initView() {
-        View view = View.inflate(mContext,R.layout.left_nevigation_linear,null);
-        expandableview = (LeftExpandableView) view.findViewById(R.id.expandableview);
+        // 设置方向
+        this.setOrientation(LinearLayout.VERTICAL);
 
+        View view = LayoutInflater.from(mContext).inflate(R.layout.left_nevigation_linear, this);
+        expandableview = (LeftExpandableView) view.findViewById(R.id.expandableview);
     }
 
     /**
