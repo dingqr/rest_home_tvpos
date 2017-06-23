@@ -28,6 +28,11 @@ public class ACT_TestMultiple extends ACT_BaseMultiple {
     }
 
     @Override
+    protected float getLeftWeight() {
+        return 0.77f;
+    }
+
+    @Override
     protected Fragment getLeftContent() {
         return new FRA_TestLeft();
     }

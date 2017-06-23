@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.base;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
@@ -32,8 +33,16 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
+        // 初始化
+        initView();
+
         // 设置导航栏数据
         elNavigation.setData(getNavigationGroupData(), getNavigationChildData());
+
+        // 左侧的权重动态设置
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
+        params.weight = getLeftWeight();
+        flLeft.setLayoutParams(params);
 
         // 替换left fragment
         FragmentTransaction leftTrans = getSupportFragmentManager().beginTransaction();
@@ -44,19 +53,17 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
         FragmentTransaction rightTrans = getSupportFragmentManager().beginTransaction();
         rightTrans.add(R.id.fl_right, getRightContent());
         rightTrans.commitAllowingStateLoss();
-
-        // 初始化
-        initView();
     }
+
+    protected abstract void initView();
 
     protected abstract List<String> getNavigationGroupData();
 
     protected abstract List<List<String>> getNavigationChildData();
 
+    protected abstract float getLeftWeight();
+
     protected abstract Fragment getLeftContent();
 
     protected abstract Fragment getRightContent();
-
-    protected abstract void initView();
-
 }

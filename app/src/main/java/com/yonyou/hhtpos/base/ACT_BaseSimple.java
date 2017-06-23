@@ -30,6 +30,9 @@ public abstract class ACT_BaseSimple extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
+        // 初始化
+        initView();
+
         // 设置导航栏数据
         elNavigation.setData(getNavigationGroupData(), getNavigationChildData());
 
@@ -37,10 +40,9 @@ public abstract class ACT_BaseSimple extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fl_content, getContentFragment());
         transaction.commitAllowingStateLoss();
-
-        // 初始化
-        initView();
     }
+
+    protected abstract void initView();
 
     protected abstract List<String> getNavigationGroupData();
 
@@ -48,5 +50,4 @@ public abstract class ACT_BaseSimple extends BaseActivity {
 
     protected abstract Fragment getContentFragment();
 
-    protected abstract void initView();
 }
