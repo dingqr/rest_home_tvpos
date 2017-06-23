@@ -52,6 +52,12 @@ public class LeftNavigationView extends LinearLayout {
         tvMessageCount = (TextView) view.findViewById(R.id.tv_message_count);
         tvBusinessTime = (TextView) view.findViewById(R.id.tv_business_time);
         tvShopName = (TextView) view.findViewById(R.id.tv_shop_name);
+        expandableView.setOnCommonItemClickListener(new LeftExpandableView.OnCommonItemClickListener() {
+            @Override
+            public void onItemClick(int groupPosition, String bean, long id) {
+//                ToastUtil.makeText(mContext,bean,false);
+            }
+        });
     }
 
     /**

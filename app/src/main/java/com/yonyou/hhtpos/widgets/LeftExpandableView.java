@@ -127,7 +127,7 @@ public class LeftExpandableView extends ExpandableListView {
 
     //设置点击某个item的监听
     interface OnCommonItemClickListener {
-        void onItemClick(int groupPosition, String childPosition, long id);
+        void onItemClick(int groupPosition, String bean, long id);
     }
 
     public void setOnCommonItemClickListener(OnCommonItemClickListener commonListener) {
