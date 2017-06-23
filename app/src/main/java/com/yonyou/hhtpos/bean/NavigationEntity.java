@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * 邮箱：zjuan@yonyou.com
  * 描述：左侧导航栏实体
  */
-public class NavigationEntity {
+public class NavigationEntity implements Serializable{
     /**
      * 用户头像
      */
