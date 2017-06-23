@@ -8,25 +8,14 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
+import com.yonyou.hhtpos.bean.NevigationEntity;
 import com.yonyou.hhtpos.util.NavigationUtil;
-
-import java.util.List;
 
 /**
  * 测试多重布局
  * 作者：liushuofei on 2017/6/23 10:44
  */
 public class ACT_TestMultiple extends ACT_BaseMultiple {
-
-    @Override
-    protected List<String> getNavigationGroupData() {
-        return NavigationUtil.getDefaultGroupData();
-    }
-
-    @Override
-    protected List<List<String>> getNavigationChildData() {
-        return NavigationUtil.getDefaultChildData();
-    }
 
     @Override
     protected float getLeftWeight() {
@@ -41,6 +30,14 @@ public class ACT_TestMultiple extends ACT_BaseMultiple {
     @Override
     protected Fragment getRightContent() {
         return new FRA_TestRight();
+    }
+
+    @Override
+    protected NevigationEntity getNevigationData() {
+        NevigationEntity nevigationEntity = new NevigationEntity();
+        nevigationEntity.groupData = NavigationUtil.getDefaultGroupData();
+        nevigationEntity.childDta = NavigationUtil.getDefaultChildData();
+        return nevigationEntity;
     }
 
     @Override

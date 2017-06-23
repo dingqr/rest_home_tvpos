@@ -7,9 +7,8 @@ import android.widget.LinearLayout;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.bean.NevigationEntity;
 import com.yonyou.hhtpos.widgets.LeftNavigationView;
-
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -37,7 +36,7 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
         initView();
 
         // 设置导航栏数据
-        leftNavigation.setData(getNavigationGroupData(), getNavigationChildData());
+        leftNavigation.setData(getNevigationData());
 
         // 左侧的权重动态设置
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
@@ -55,11 +54,9 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
         rightTrans.commitAllowingStateLoss();
     }
 
+    protected abstract NevigationEntity getNevigationData();
+
     protected abstract void initView();
-
-    protected abstract List<String> getNavigationGroupData();
-
-    protected abstract List<List<String>> getNavigationChildData();
 
     protected abstract float getLeftWeight();
 
