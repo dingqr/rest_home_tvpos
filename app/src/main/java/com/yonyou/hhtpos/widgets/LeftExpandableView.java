@@ -1,11 +1,13 @@
 package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ELVAdapter;
 
 import java.util.ArrayList;
@@ -28,8 +30,6 @@ public class LeftExpandableView extends ExpandableListView {
     //二级菜单数据
     private List<List<String>> mChildData = new ArrayList<>();
     private ELVAdapter mAdapter;
-    private OnELVGroupClickListener mGroupListener;
-    private OnELVChildClickListener mChildListener;
 
     public LeftExpandableView(Context context) {
         this(context, null);
@@ -46,7 +46,8 @@ public class LeftExpandableView extends ExpandableListView {
         setDivider(null);
         setChoiceMode(CHOICE_MODE_SINGLE);
         setGroupIndicator(null);
-
+        //去除child默认点击效果
+        setSelector(R.drawable.bg_child_selector);
         initListener();
 
     }
@@ -62,8 +63,8 @@ public class LeftExpandableView extends ExpandableListView {
                 //设置点击child时，选中到对应的group
                 mAdapter.setSelectedGroupItem(groupPosition);
                 mAdapter.notifyDataSetChanged();
-                if (mChildListener != null) {
-                    mChildListener.onChildClick(parent, v, groupPosition, childPosition, id);
+                if (mCommonListener != null) {
+                    mCommonListener.onItemClick(groupPosition, mChildData.get(groupPosition).get(childPosition), childPosition);
                 }
                 return true;
             }
@@ -72,12 +73,17 @@ public class LeftExpandableView extends ExpandableListView {
         setOnGroupClickListener(new OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListViw, View view, int i, long l) {
+                int childrenCount = expandableListViw.getExpandableListAdapter().getChildrenCount(i);
+                //只有当当前group没有子菜单时，才将该点击事件交个group处理
+                if (childrenCount == 0) {
+                    if (mCommonListener != null) {
+                        mCommonListener.onItemClick(i, mGroupData.get(i), 0);
+                    }
+
+                }
                 mAdapter.setSelectedGroupItem(i);
                 mAdapter.setGroupIsClicked(true);
                 mAdapter.notifyDataSetChanged();
-                if (mGroupListener != null) {
-                    mGroupListener.onGroupClick(expandableListViw, view, i, l);
-                }
                 return false;
             }
         });
@@ -94,6 +100,19 @@ public class LeftExpandableView extends ExpandableListView {
         });
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        int width = 250;
+//        int height = heightMeasureSpec;
+//        setMeasuredDimension(width, height);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
+
     /**
      * 传入数据
      */
@@ -104,31 +123,14 @@ public class LeftExpandableView extends ExpandableListView {
         setAdapter(mAdapter);
     }
 
-    /**
-     * 设置默认选中对应的group
-     */
-    public void setCheckCurrentGroup(int position) {
-        if (mAdapter != null) {
-            mAdapter.setSelectedGroupItem(position);
-        }
+    private OnCommonItemClickListener mCommonListener;
+
+    //设置点击某个item的监听
+    interface OnCommonItemClickListener {
+        void onItemClick(int groupPosition, String childPosition, long id);
     }
 
-    interface OnELVGroupClickListener {
-        void onGroupClick(ExpandableListView expandableListViw, View view, int groupPosition, long l);
+    public void setOnCommonItemClickListener(OnCommonItemClickListener commonListener) {
+        this.mCommonListener = commonListener;
     }
-
-    interface OnELVChildClickListener {
-        void onChildClick(ExpandableListView parent, View v,
-                          int groupPosition, int childPosition, long id);
-    }
-
-    public void setGroupListener(OnELVGroupClickListener mGroupListener) {
-        this.mGroupListener = mGroupListener;
-    }
-
-    public void setChildListener(OnELVChildClickListener mChildListener) {
-        this.mChildListener = mChildListener;
-    }
-
-
 }

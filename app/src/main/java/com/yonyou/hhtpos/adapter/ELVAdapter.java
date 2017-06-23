@@ -26,6 +26,7 @@ public class ELVAdapter extends BaseExpandableListAdapter {
     private boolean isGroupClicked;
 
     private int preGroupPos;
+
     public ELVAdapter(List<String> groupData, List<List<String>> childData,
                       Context context) {
         super();
@@ -71,6 +72,7 @@ public class ELVAdapter extends BaseExpandableListAdapter {
     public boolean hasStableIds() {
         return true;
     }
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
