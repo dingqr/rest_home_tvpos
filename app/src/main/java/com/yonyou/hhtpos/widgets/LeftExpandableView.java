@@ -133,4 +133,32 @@ public class LeftExpandableView extends ExpandableListView {
     public void setOnCommonItemClickListener(OnCommonItemClickListener commonListener) {
         this.mCommonListener = commonListener;
     }
+
+
+    /**
+     * 测试数据
+     */
+    private static final String[] mGroup = {"堂食", "外带", "外卖", "预定", "会员管理"};
+    //子视图显示文字
+    private String[][] mChild = new String[][]{
+            {},
+            {},
+            {"百度外卖", "饿了么", "美团外卖"},
+            {"预定申请", "预定总览", "桌台预定查询"},
+            {}
+
+    };
+
+    private void setDefaultData() {
+        for (int i = 0; i < mGroup.length; i++) {
+            mGroupData.add(mGroup[i]);
+        }
+        for (int i = 0; i < mGroup.length; i++) {
+            List<String> child = new ArrayList<String>();
+            for (int j = 0; j < mChild[i].length; j++) {
+                child.add(mChild[i][j]);
+            }
+            mChildData.add(child);
+        }
+    }
 }
