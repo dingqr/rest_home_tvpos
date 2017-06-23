@@ -6,11 +6,12 @@ import android.widget.FrameLayout;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.widgets.LeftExpandableView;
+import com.yonyou.hhtpos.widgets.LeftNevigationView;
 
 import java.util.List;
 
 import butterknife.Bind;
+
 
 /**
  * 作者：liushuofei on 2017/6/23 09:29
@@ -18,8 +19,9 @@ import butterknife.Bind;
  */
 public abstract class ACT_BaseMultiple extends BaseActivity {
 
-    @Bind(R.id.el_navigation)
-    LeftExpandableView elNavigation;
+
+    @Bind(R.id.elv_navigation)
+    LeftNevigationView elvNavigation;
     @Bind(R.id.fl_left)
     FrameLayout flLeft;
     @Bind(R.id.fl_right)
@@ -33,7 +35,7 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
     @Override
     protected void initViewsAndEvents() {
         // 设置导航栏数据
-        elNavigation.setData(getNavigationGroupData(), getNavigationChildData());
+        elvNavigation.setData(getNavigationGroupData(), getNavigationChildData());
 
         // 替换left fragment
         FragmentTransaction leftTrans = getSupportFragmentManager().beginTransaction();
