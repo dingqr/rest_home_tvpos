@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.NevigationEntity;
+import com.yonyou.hhtpos.bean.NavigationEntity;
 
 import static com.yonyou.hhtpos.R.id.useLogo;
 
@@ -63,7 +63,7 @@ public class LeftNavigationView extends LinearLayout {
      *
      * @param bean
      */
-    public void setData(NevigationEntity bean) {
+    public void setData(NavigationEntity bean) {
         if (bean != null) {
             expandableView.setData(bean.groupData, bean.childDta);
             if (TextUtils.isEmpty(bean.user_logo)) {
