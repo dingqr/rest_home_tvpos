@@ -149,7 +149,7 @@ public class LeftExpandableView extends ExpandableListView {
 
     };
 
-    private void setDefaultData() {
+    public void setDefaultData() {
         for (int i = 0; i < mGroup.length; i++) {
             mGroupData.add(mGroup[i]);
         }
