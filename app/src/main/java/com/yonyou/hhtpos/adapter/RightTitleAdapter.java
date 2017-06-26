@@ -12,6 +12,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.RightTitleEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zj on 2017/6/22.
@@ -20,14 +21,14 @@ import java.util.ArrayList;
  */
 public class RightTitleAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<RightTitleEntity> mDishTypes = new ArrayList<>();
+    private List<RightTitleEntity> mDishTypes = new ArrayList<>();
     private int mSelectedPos;
     private int count;
     private boolean isRefreshCount;
     private int itemCheckColor = R.color.color_FF4d4d;
     private int itemUnCheckColor = R.color.color_e5e5e5;
 
-    public RightTitleAdapter(Context context, ArrayList<RightTitleEntity> datas) {
+    public RightTitleAdapter(Context context, List<RightTitleEntity> datas) {
         this.mContext = context;
         this.mDishTypes = datas;
     }
@@ -138,7 +139,7 @@ public class RightTitleAdapter extends BaseAdapter {
      *
      * @param mData
      */
-    public void refreshData(ArrayList<RightTitleEntity> mData) {
+    public void refreshData(List<RightTitleEntity> mData) {
         this.mDishTypes = mData;
         notifyDataSetChanged();
     }

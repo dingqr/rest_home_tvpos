@@ -7,4 +7,10 @@
     tools:context="com.yonyou.hhtpos.MainActivity"
     android:background="@android:color/darker_gray">
 
+    <com.yonyou.hhtpos.widgets.RightNavigationView
+        android:id="@+id/v_navigation_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"/>
+
 </RelativeLayout>

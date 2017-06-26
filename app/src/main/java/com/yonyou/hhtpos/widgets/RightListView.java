@@ -12,6 +12,7 @@ import com.yonyou.hhtpos.adapter.RightTitleAdapter;
 import com.yonyou.hhtpos.bean.RightTitleEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zj on 2017/6/22.
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class RightListView extends ListView {
     private final Context mContext;
     private RightTitleAdapter mAdapter;
-    private ArrayList<RightTitleEntity> mData = new ArrayList<>();
+    private List<RightTitleEntity> mData = new ArrayList<>();
     private OnRightListViewItemClickListener mClickListener;
 
     public RightListView(Context context) {
@@ -68,7 +69,7 @@ public class RightListView extends ListView {
         });
     }
 
-    public void setData(ArrayList<RightTitleEntity> datas) {
+    public void setData(List<RightTitleEntity> datas) {
         this.mData = datas;
         mAdapter.refreshData(mData);
         setAdapter(mAdapter);

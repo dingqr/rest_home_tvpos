@@ -38,7 +38,7 @@
         <!-- </activity> -->
 
         <activity
-            android:name=".ACT_TestFiltration"
+            android:name=".ACT_TestMultiple"
             android:screenOrientation="portrait"
             android:theme="@style/style_translucent_activity">
             <intent-filter>

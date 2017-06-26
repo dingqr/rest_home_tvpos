@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.util;
 
+import com.yonyou.hhtpos.bean.RightTitleEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,58 @@ public class NavigationUtil {
         }
         return mChildData;
     }
+
+    /**
+     * 右侧导航栏测试数据
+     * @return
+     */
+    public static List<RightTitleEntity> getRightDefaultData(){
+        List<RightTitleEntity> dataList = new ArrayList<>();
+        RightTitleEntity bean = null;
+        String title = null;
+        for (int i = 0; i < 7; i++){
+            switch (i){
+                case 0:
+                    title = "招牌必吃";
+                    break;
+
+                case 1:
+                    title = "下饭菜";
+                    break;
+
+                case 2:
+                    title = "热菜";
+                    break;
+
+                case 3:
+                    title = "凉菜";
+                    break;
+
+                case 4:
+                    title = "蒸煮";
+                    break;
+
+                case 5:
+                    title = "甜品";
+                    break;
+
+                case 6:
+                    title = "主食";
+                    break;
+
+                default:
+                    break;
+            }
+
+            bean = new RightTitleEntity();
+            bean.name = title;
+            dataList.add(bean);
+        }
+
+        return dataList;
+    }
+
+
 
 
 }
