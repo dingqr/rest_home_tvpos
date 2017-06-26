@@ -8,7 +8,6 @@ import android.widget.ListView;
 /**
  * 禁止滑动的listview
  * 作者：liushuofei on 2016/12/7 15:14
- * 邮箱：lsf@yonyou.com
  */
 public class BanSlideListView extends ListView {
 

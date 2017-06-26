@@ -5,8 +5,8 @@ import android.util.AttributeSet;
 import android.widget.GridView;
 
 /**
+ * 禁止滑动的gridview
  * 作者：liushuofei on 2016/12/7 15:38
- * 邮箱：lsf@yonyou.com
  */
 public class BanSlideGridView extends GridView {
     public BanSlideGridView(Context context, AttributeSet attrs) {
