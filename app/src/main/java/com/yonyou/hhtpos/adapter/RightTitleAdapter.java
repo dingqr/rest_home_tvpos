@@ -2,12 +2,14 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.RightTitleEntity;
 
@@ -22,7 +24,6 @@ public class RightTitleAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<RightTitleEntity> mDishTypes = new ArrayList<>();
     private int mSelectedPos;
-    private int count;
     private boolean isRefreshCount;
     private int itemCheckColor = R.color.color_FF4d4d;
     private int itemUnCheckColor = R.color.color_e5e5e5;
@@ -61,7 +62,7 @@ public class RightTitleAdapter extends BaseAdapter {
         }
         //设置初始值
         holder.tv_title.setText(mDishTypes.get(position).name);
-        holder.tv_count.setText(mDishTypes.get(position).count + "");
+        holder.tv_count.setText(StringUtil.getString(mDishTypes.get(position).count));
         //控制角标是否显示
         if (holder.tv_count.getText().equals("0")) {
             holder.tv_count.setVisibility(View.INVISIBLE);
@@ -72,9 +73,11 @@ public class RightTitleAdapter extends BaseAdapter {
         if (isRefreshCount) {
             holder.tv_title.setText(mDishTypes.get(position).name);
             String s = holder.tv_count.getText().toString();
-            holder.tv_count.setText(Integer.parseInt(s) + count + "");
-            if (refreshCurrentItemListener != null) {
-                refreshCurrentItemListener.onRefreshCount(position, Integer.parseInt(s) + count);
+            if (!TextUtils.isEmpty(s)) {
+                holder.tv_count.setText(Integer.parseInt(s) + StringUtil.getString(1));
+                if (refreshCurrentItemListener != null) {
+                    refreshCurrentItemListener.onRefreshCount(position, Integer.parseInt(s) + 1);
+                }
             }
             isRefreshCount = false;
         } else {
@@ -115,8 +118,6 @@ public class RightTitleAdapter extends BaseAdapter {
                 RightTitleEntity dishType = (RightTitleEntity) listView.getItemAtPosition(i);
                 if (id.equals(dishType.id)) {
                     View view = listView.getChildAt(i - start);
-                    count = 0;
-                    count++;
                     getView(i, view, listView);
                     break;
                 }
