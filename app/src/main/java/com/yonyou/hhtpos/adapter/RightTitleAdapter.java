@@ -108,12 +108,12 @@ public class RightTitleAdapter extends BaseAdapter {
      * @param listView
      * @param id
      */
-    public void updateSingleRow(ListView listView, int id) {
+    public void updateSingleRow(ListView listView, String id) {
         if (listView != null) {
             int start = listView.getFirstVisiblePosition();
             for (int i = start, j = listView.getLastVisiblePosition(); i <= j; i++) {
                 RightTitleEntity dishType = (RightTitleEntity) listView.getItemAtPosition(i);
-                if (id == dishType.id) {
+                if (id.equals(dishType.id)) {
                     View view = listView.getChildAt(i - start);
                     count = 0;
                     count++;
@@ -128,7 +128,7 @@ public class RightTitleAdapter extends BaseAdapter {
     /**
      * 刷新右上角标的数量
      */
-    public void refreshCount(ListView listView, int id, boolean refreshCount) {
+    public void refreshCount(ListView listView, String id, boolean refreshCount) {
         this.isRefreshCount = refreshCount;
         updateSingleRow(listView, id);
     }

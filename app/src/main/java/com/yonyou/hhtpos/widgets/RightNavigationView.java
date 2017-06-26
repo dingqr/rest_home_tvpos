@@ -82,7 +82,7 @@ public class RightNavigationView extends LinearLayout {
      * @param id
      * @param refreshCount
      */
-    public void refreshCount(int id, boolean refreshCount) {
+    public void refreshCount(String id, boolean refreshCount) {
         RightTitleAdapter adapter = (RightTitleAdapter) rightListView.getAdapter();
         adapter.refreshCount(rightListView, id, refreshCount);
     }

@@ -9,7 +9,7 @@ public class RightTitleEntity {
     /**
      * id-唯一标识
      */
-    public int id;
+    public String id;
     /**
      * 标题栏title名称
      */
