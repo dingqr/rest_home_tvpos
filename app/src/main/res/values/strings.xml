@@ -11,4 +11,6 @@
 
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="tv_confirm">确认</string>
+    <string name="tv_cancel">取消</string>
 </resources>

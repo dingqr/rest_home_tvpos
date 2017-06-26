@@ -72,12 +72,16 @@ public class FilterDataEntity implements Serializable, Cloneable{
                 ", isCheck=" + isCheck +
                 '}';
     }
-
+    public FilterDataEntity() {
+    }
     public FilterDataEntity(String txt,boolean isCheck) {
         this.txt = txt;
         this.isCheck = isCheck;
     }
-    public FilterDataEntity() {
-
+    /**type:0 餐别 1 餐区 2 预定状态*/
+    public FilterDataEntity(String txt,int type,boolean isCheck) {
+        this.txt = txt;
+        this.type = type;
+        this.isCheck = isCheck;
     }
 }

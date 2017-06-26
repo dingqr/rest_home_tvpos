@@ -1,41 +1,32 @@
 package com.yonyou.hhtpos;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
+import android.widget.Button;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.bean.FilterDataEntity;
-import com.yonyou.hhtpos.widgets.FiltrationView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 
 //测试筛选布局
 public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener{
-    @Bind(R.id.flv_flitration1)
-    FiltrationView mFiltrationView1;
-    @Bind(R.id.flv_flitration2)
-    FiltrationView mFiltrationView2;
-    @Bind(R.id.flv_flitration3)
-    FiltrationView mFiltrationView3;
 
     @Bind(R.id.btn_confirm)
-    RadioButton btnConfirm;
-    @Bind(R.id.btn_cancel)
-    RadioButton btnCancel;
+    Button btnConfirm;
 
-    private String title = "餐别";
+    private String title1 = "餐别";
+    private String title2 = "餐区";
+    private String title3 = "预定状态";
+
+    private ArrayList<FilterDataEntity> dishType = new ArrayList<>();
+    private ArrayList<FilterDataEntity> dishArea = new ArrayList<>();
+    private ArrayList<FilterDataEntity> reserveStatus = new ArrayList<>();
 
     @Override
     protected boolean isApplyKitKatTranslucency() {
@@ -64,52 +55,42 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initViewsAndEvents() {
-         List<FilterDataEntity> options1 = new ArrayList<>();
-         List<FilterDataEntity> options2 = new ArrayList<>();
-
-        FilterDataEntity fde1 = new FilterDataEntity("早餐",true);
-        FilterDataEntity fde2 = new FilterDataEntity("午餐",false);
-        FilterDataEntity fde3 = new FilterDataEntity("晚餐",false);
-        FilterDataEntity fde4 = new FilterDataEntity("夜宵",false);
-
-        FilterDataEntity fde5 = new FilterDataEntity("早餐",true);
-        FilterDataEntity fde6 = new FilterDataEntity("午餐",false);
-        FilterDataEntity fde7 = new FilterDataEntity("晚餐",false);
-        FilterDataEntity fde8 = new FilterDataEntity("夜宵",false);
 
 
-        options1.add(fde1);
-        options1.add(fde2);
-        options1.add(fde3);
-        options1.add(fde4);
+        FilterDataEntity fde1 = new FilterDataEntity("早餐",0,true);
+        FilterDataEntity fde2 = new FilterDataEntity("午餐",0,false);
+        FilterDataEntity fde3 = new FilterDataEntity("晚餐",0,false);
+        FilterDataEntity fde4 = new FilterDataEntity("夜宵",0,false);
 
-        options2.add(fde5);
-        options2.add(fde6);
-        options2.add(fde7);
-        options2.add(fde8);
-//
-//
-//        options3.add(fde1);
-//        options3.add(fde2);
-//        options3.add(fde3);
-//        options3.add(fde4);
+        FilterDataEntity fde5 = new FilterDataEntity("全部餐区",1,true);
+        FilterDataEntity fde6 = new FilterDataEntity("一楼",1,false);
+        FilterDataEntity fde7 = new FilterDataEntity("二楼",1,false);
+        FilterDataEntity fde8 = new FilterDataEntity("三楼",1,false);
+        FilterDataEntity fde9 = new FilterDataEntity("包房",1,false);
 
-        RecyclerView.LayoutManager layoutManager1 = new GridLayoutManager(this,3);
-        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayout.VERTICAL,false);
-        layoutManager2.setAutoMeasureEnabled(true);
-//        RecyclerView.LayoutManager layoutManager3 = new GridLayoutManager(this,3);
+        FilterDataEntity fde10 = new FilterDataEntity("预约过期关闭",2,true);
+        FilterDataEntity fde11= new FilterDataEntity("客人已取消",2,false);
+        FilterDataEntity fde12 = new FilterDataEntity("等待客人中",2,false);
+        FilterDataEntity fde13 = new FilterDataEntity("客人已到达",2,false);
 
-        mFiltrationView1.setLayoutManager(layoutManager1);
-        mFiltrationView1.setTitle(title);
-        mFiltrationView1.setData(options1);
-        mFiltrationView2.setLayoutManager(layoutManager2);
-        mFiltrationView2.setTitle(title);
-        mFiltrationView2.setData(options2);
-//        mFiltrationView3.setLayoutManager(layoutManager3);
-//        mFiltrationView3.setTitle(title);
-//        mFiltrationView3.setData(options3);
+        dishType.add(fde1);
+        dishType.add(fde2);
+        dishType.add(fde3);
+        dishType.add(fde4);
+
+        dishArea.add(fde5);
+        dishArea.add(fde6);
+        dishArea.add(fde7);
+        dishArea.add(fde8);
+        dishArea.add(fde9);
+
+        reserveStatus.add(fde10);
+        reserveStatus.add(fde11);
+        reserveStatus.add(fde12);
+        reserveStatus.add(fde13);
 
         btnConfirm.setOnClickListener(this);
+
     }
 
     @Override
@@ -151,12 +132,10 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_confirm:
-                FilterDataEntity dataBean1 = mFiltrationView1.getSelectedData();
-                FilterDataEntity dataBean2 = mFiltrationView2.getSelectedData();
-                //获取了两个筛选框的结果。
+                DIA_ReserveFiltration dia_reserveFiltration = new DIA_ReserveFiltration(mContext,dishType,dishArea,reserveStatus,title1,title2,title3);
+                dia_reserveFiltration.getDialog().show();
                 break;
-            case R.id.btn_cancel:
-                break;
+
             default:
                 break;
         }

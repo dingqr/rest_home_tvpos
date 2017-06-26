@@ -18,9 +18,11 @@ import java.util.List;
 
 /**
  * Created by ybing on 2017/6/23.
+ * 邮箱：ybing@yonyou.com
+ * 描述：单项筛选组件
  */
 
-public class FiltrationView extends LinearLayout implements FiltrationAdapter.OnItemClickListener{
+public class FiltrationView extends LinearLayout implements FiltrationAdapter.OnItemClickListener {
     /**筛选框的标题*/
     private String title;
     private TextView filtrationType;
@@ -44,11 +46,11 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
     private FilterDataEntity currentBean;
 
     public FiltrationView(Context context) {
-       this(context,null);
+        this(context, null);
     }
 
     public FiltrationView(Context context, AttributeSet attrs) {
-        this(context,attrs,0);
+        this(context, attrs, 0);
     }
 
     public FiltrationView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -60,9 +62,9 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
 
     private void initView() {
         //初始化view
-        View convertView = LayoutInflater.from(mContext).inflate(R.layout.filtration_view,this);
-        filtrationType = (TextView)convertView.findViewById(R.id.tv_filtration_type);
-        mRecyclerView = (RecyclerView)convertView.findViewById(R.id.rv_filtration_options);
+        View convertView = LayoutInflater.from(mContext).inflate(R.layout.filtration_view, this);
+        filtrationType = (TextView) convertView.findViewById(R.id.tv_filtration_type);
+        mRecyclerView = (RecyclerView) convertView.findViewById(R.id.rv_filtration_options);
     }
 
     @Override
@@ -74,6 +76,7 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -82,15 +85,15 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
         this.layoutManager = layoutManager;
     }
 
-    public void setData(List<FilterDataEntity> mDatas) {
+    public void setData(List<FilterDataEntity> mDatas,String title) {
         this.mDatas = mDatas;
         filtrationType.setText(title);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new FiltrationAdapter(mContext,mDatas);
+        mAdapter = new FiltrationAdapter(mContext, mDatas);
         mAdapter.setmOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         //找到当前选中的实体
-        for (int i=0;i<mDatas.size();i++){
+        for (int i = 0; i < mDatas.size(); i++) {
             FilterDataEntity bean = mDatas.get(i);
             if (bean.isCheck()) {
                 // 当前选中实体类
@@ -100,7 +103,7 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
         }
     }
 
-    public FilterDataEntity getSelectedData(){
+    public FilterDataEntity getSelectedData() {
         return currentBean;
     }
 

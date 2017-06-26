@@ -2,7 +2,6 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,10 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
     private FilterDataEntity currentBean;
     private OnItemClickListener mOnItemClickListener;
 
+    private final int VIEWTYPE_DISHTYPE = 0;
+    private final int VIEWTYPE_DISHAREA = 1;
+    private final int VIEWTYPE_RESERVESTATUS = 2;
+
     public FiltrationAdapter(Context mContext, List<FilterDataEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
@@ -35,11 +38,37 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
     }
 
     @Override
+    public int getItemViewType(int position){
+        final FilterDataEntity dataBean = mDatas.get(position);
+        return dataBean.getType();
+    }
+
+
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = mInflater.inflate(R.layout.item_filtration_adapter, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
-        return viewHolder;
+        switch (viewType){
+            case VIEWTYPE_DISHTYPE:{
+                View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case VIEWTYPE_DISHAREA:{
+                View view = mInflater.inflate(R.layout.item_filtration_ada_type2, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+
+            case VIEWTYPE_RESERVESTATUS: {
+                View view = mInflater.inflate(R.layout.item_filtration_ada_type3, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            default: break;
+        }
+        return null;
     }
 
     @Override
