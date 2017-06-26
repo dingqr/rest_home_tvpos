@@ -27,7 +27,7 @@ public class RightTitleAdapter extends BaseAdapter {
     private int mSelectedPos;
     private boolean isRefreshCount;
     private int itemCheckColor = R.color.color_FF4d4d;
-    private int itemUnCheckColor = R.color.color_e5e5e5;
+    private int itemUnCheckColor = R.color.color_E5E5E5;
 
     public RightTitleAdapter(Context context, List<RightTitleEntity> datas) {
         this.mContext = context;
