@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" >
+        <!--左抽屉按钮-->
+        <ImageButton
+            android:id="@+id/btn_left_drawer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="0dp"
+            android:background="@null"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="260dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="23sp" />
+        <!--右抽屉按钮-->
+        <ImageButton
+            android:id="@+id/btn_right_drawer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"
+            android:layout_toRightOf="@+id/title_text"
+            android:background="@null"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"/>
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/main_content_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@color/base_bg" />
+</LinearLayout>

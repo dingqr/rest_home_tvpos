@@ -8,4 +8,7 @@
 
     <!--Crash异常处理-->
     <string name="arise_exception">亲，出现异常了</string>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>
