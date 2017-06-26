@@ -12,4 +12,6 @@
     <string name="open">打开</string>
     <string name="close">关闭</string>
     <string name="exit">退出</string>
+    <string name="tv_confirm">确认</string>
+    <string name="tv_cancel">取消</string>
 </resources>
