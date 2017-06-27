@@ -21,4 +21,11 @@
     <color name="color_333333">#333333</color>
     <color name="color_666666">#666666</color>
     <color name="color_999999">#999999</color>
+    <color name="color_c4c4c4">#c4c4c4</color>
+    <color name="color_f9f9f9">#f9f9f9</color>
+    <color name="color_eaeaea">#eaeaea</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_f0f0f0">#f0f0f0</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_fef2f0">#fef2f0</color>
 </resources>

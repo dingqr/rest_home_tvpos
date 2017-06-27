@@ -23,13 +23,14 @@ public class DashGridView extends GridView {
     private Paint mLinePaint;
     private Path mPath;
     //虚线的颜色
-    private int mDashColor = Color.parseColor("#ff0000");
+    private int mDashColor = Color.parseColor("#cccccc");
+
     //虚线之间的间隔
-    private int mDashSpace = 4;
+    private int mDashSpace = 2;
     //虚线的宽度
-    private int mDashWidth = 10;
+    private int mDashWidth = 4;
     //虚线粗细
-    private int mDashStroke = 1;
+    private float mDashStroke = 0.3f;
 
     public DashGridView(Context context) {
         super(context);
@@ -47,9 +48,9 @@ public class DashGridView extends GridView {
     }
 
     private void init(Context context) {
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.parseColor("#ff0000"));
+//        mPaint = new Paint();
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setColor(Color.parseColor("#ff0000"));
 
         mLinePaint = new Paint();
         mLinePaint.reset();
@@ -59,7 +60,7 @@ public class DashGridView extends GridView {
         //控制虚线的颜色
         mLinePaint.setColor(mDashColor);
         mLinePaint.setAntiAlias(true);
-        DashPathEffect pathEffect = new DashPathEffect(new float[]{dp2px(mDashSpace), dp2px(mDashWidth)}, 1);
+        DashPathEffect pathEffect = new DashPathEffect(new float[]{dp2px(mDashWidth), dp2px(mDashSpace)}, mDashStroke);
         mLinePaint.setPathEffect(pathEffect);
 
         mPath = new Path();
@@ -107,13 +108,14 @@ public class DashGridView extends GridView {
         }
     }
 
+
     /**
      * @param canvas
      * @des 在item底部绘制虚线
      */
     private void drawLine(Canvas canvas) {
         int childCount = getChildCount();
-        // 最后一行不绘制
+
         for (int i = 0; i < childCount; i++) {
             View view = getChildAt(i);
             int left = view.getLeft();
@@ -127,37 +129,29 @@ public class DashGridView extends GridView {
             canvas.drawPath(mPath, mLinePaint);
             mPath.reset();
 
-
             //画横向虚线
             mPath.moveTo(left, top);
             mPath.lineTo(right, top);
             canvas.drawPath(mPath, mLinePaint);
             mPath.reset();
 
-            //对最后一行底部进行特殊处理
+            //画最后一行虚线
             if (i >= childCount - getNumColumns() * (getNumColumns() - 1) - 1) {
                 //画横向底部的虚线
                 mPath.moveTo(left, bottom);
                 mPath.lineTo(right, bottom);
                 canvas.drawPath(mPath, mLinePaint);
                 mPath.reset();
-                //画竖直底部的虚线
+            }
+            //画最后一根竖直虚线,加上画最后一个view的竖直虚线
+            if ((i + 1) % (getNumColumns()) == 0 || i == childCount - 1) {
+
                 mPath.moveTo(right, top);
                 mPath.lineTo(right, bottom);
                 canvas.drawPath(mPath, mLinePaint);
                 mPath.reset();
             }
-//            if ((i + 1) % column == 0) {
-//                mPath.moveTo(left, bottom);
-//                mPath.lineTo(right, bottom);
-//                canvas.drawPath(mPath, mLinePaint);
-//                mPath.reset();
-//            } else {
-//                mPath.moveTo(left, bottom);
-//                mPath.lineTo(right, bottom);
-//                canvas.drawPath(mPath, mLinePaint);
-//                mPath.reset();
-//            }
+
         }
     }
 
