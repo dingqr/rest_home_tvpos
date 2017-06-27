@@ -95,6 +95,7 @@ public class DIA_ChooseStore {
     }
 
     public Dialog show() {
+        mDialog.setCanceledOnTouchOutside(false);
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.8f; //背景灰度 -0.0全透明

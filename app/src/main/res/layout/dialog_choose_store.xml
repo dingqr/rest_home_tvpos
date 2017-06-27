@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/px_1280"
     android:layout_height="@dimen/px_598"
-    android:background="@color/color_FFFFFF"
+    android:background="@drawable/bg_white_side_white_4"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -48,7 +48,6 @@
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:numColumns="2"
             android:scrollbars="none"></com.yonyou.hhtpos.widgets.DashGridView>
     </android.support.v4.widget.SwipeRefreshLayout>
