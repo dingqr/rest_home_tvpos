@@ -2,4 +2,68 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- 尺寸2:3-->
+    <dimen name="px_1">0.66dp</dimen>
+    <dimen name="px_2">1.3dp</dimen>
+    <dimen name="px_4">2.6dp</dimen>
+    <dimen name="px_6">4dp</dimen>
+    <dimen name="px_8">5.3dp</dimen>
+    <dimen name="px_10">6.6dp</dimen>
+    <dimen name="px_12">8dp</dimen>
+    <dimen name="px_14">9.3dp</dimen>
+    <dimen name="px_16">10.6dp</dimen>
+    <dimen name="px_18">12dp</dimen>
+    <dimen name="px_20">13.3dp</dimen>
+    <dimen name="px_22">14.6dp</dimen>
+    <dimen name="px_24">16dp</dimen>
+    <dimen name="px_26">17.3dp</dimen>
+    <dimen name="px_28">18.6dp</dimen>
+    <dimen name="px_30">20dp</dimen>
+    <dimen name="px_32">21.3dp</dimen>
+
+    <dimen name="px_34">22.6dp</dimen>
+    <dimen name="px_36">24</dimen>
+    <dimen name="px_38">25.3dp</dimen>
+    <dimen name="px_40">26.6dp</dimen>
+    <dimen name="px_42">28dp</dimen>
+    <dimen name="px_44">29.3dp</dimen>
+    <dimen name="px_46">30.6dp</dimen>
+    <dimen name="px_48">32dp</dimen>
+    <dimen name="px_50">33.3dp</dimen>
+    <dimen name="px_52">34.6dp</dimen>
+    <dimen name="px_54">36dp</dimen>
+    <dimen name="px_56">37.3dp</dimen>
+    <dimen name="px_58">38.6dp</dimen>
+    <dimen name="px_60">40dp</dimen>
+    <dimen name="px_62">41.3dp</dimen>
+    <dimen name="px_64">42.6dp</dimen>
+    <dimen name="px_66">44dp</dimen>
+
+    <dimen name="px_68">45.3dp</dimen>
+    <dimen name="px_70">46.6dp</dimen>
+    <dimen name="px_72">48dp</dimen>
+    <dimen name="px_74">49.3dp</dimen>
+    <dimen name="px_76">50.6dp</dimen>
+    <dimen name="px_78">52dp</dimen>
+    <dimen name="px_80">53.3dp</dimen>
+    <dimen name="px_82">54.6dp</dimen>
+    <dimen name="px_84">56dp</dimen>
+    <dimen name="px_86">57.3dp</dimen>
+    <dimen name="px_88">58.6dp</dimen>
+    <dimen name="px_90">60dp</dimen>
+    <dimen name="px_92">61.3dp</dimen>
+    <dimen name="px_94">62.6dp</dimen>
+    <dimen name="px_96">64dp</dimen>
+    <dimen name="px_98">65.3dp</dimen>
+    <dimen name="px_100">66.6dp</dimen>
+
+    <!-- 字号2:3-->
+    <dimen name="sp_20">13.3sp</dimen>
+    <dimen name="sp_24">16sp</dimen>
+    <dimen name="sp_26">17.3sp</dimen>
+    <dimen name="sp_28">18.6sp</dimen>
+    <dimen name="sp_30">20sp</dimen>
+    <dimen name="sp_32">21.3sp</dimen>
+
 </resources>

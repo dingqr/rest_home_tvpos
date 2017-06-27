@@ -38,8 +38,8 @@
         <!-- </activity> -->
 
         <activity
-            android:name=".ACT_TestFullScreen"
-            android:screenOrientation="portrait"
+            android:name=".ui.activation.ACT_ActivateApplication"
+            android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_F7F7F7"
+    android:orientation="vertical"
+    android:paddingBottom="46dp"
+    android:paddingLeft="60dp"
+    android:paddingRight="60dp"
+    android:paddingTop="33dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="激活当前应用"
+        android:textColor="@color/color_222222"
+        android:textSize="23sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="所属企业：四川海底捞餐饮服务有限公司"
+        android:textColor="@color/color_999999"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="设备IMEI：8612 9903 1027 838"
+        android:textColor="@color/color_999999"
+        android:textSize="16sp" />
+
+    <EditText
+        android:layout_width="466dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/bg_white_side_gray_1"
+        android:gravity="center"
+        android:hint="输入N位数字激活码"
+        android:padding="18dp"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/color_cccccc"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
+        android:text="获取激活码？"
+        android:textColor="@color/color_666666"
+        android:textSize="17sp" />
+
+    <RadioButton
+        android:layout_width="466dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rb_next_step_bg"
+        android:button="@null"
+        android:checked="false"
+        android:padding="16dp"
+        android:text="下一步"
+        android:textColor="@drawable/rb_next_step_txt"
+        android:textSize="21sp"
+        android:gravity="center"/>
+
+</LinearLayout>
