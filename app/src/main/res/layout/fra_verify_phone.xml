@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px_90"
+    android:paddingTop="@dimen/px_50"
+    android:paddingRight="@dimen/px_90"
+    android:paddingBottom="@dimen/px_70"
+    android:background="@color/color_F7F7F7">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/verify_phone"
+        android:textSize="@dimen/sp_34"
+        android:textColor="@color/color_222222"/>
+
+    <EditText
+        android:layout_width="@dimen/px_700"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_60"
+        android:background="@drawable/bg_white_side_gray_1"
+        android:gravity="center"
+        android:hint="@string/verify_phone_number_hint"
+        android:padding="@dimen/px_30"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/color_cccccc"
+        android:textSize="@dimen/sp_28" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/px_26">
+
+        <EditText
+            android:layout_width="@dimen/px_474"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_side_gray_1"
+            android:gravity="center"
+            android:hint="@string/verify_phone_code_hint"
+            android:padding="@dimen/px_30"
+            android:textColor="@color/color_333333"
+            android:textColorHint="@color/color_cccccc"
+            android:textSize="@dimen/sp_28" />
+        
+        <TextView
+            android:layout_width="@dimen/px_196"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30"
+            android:text="@string/verify_phone_get_code"
+            android:padding="@dimen/px_32"
+            android:textSize="@dimen/sp_24"
+            android:textColor="@color/color_999999"
+            android:background="@color/color_FFFFFF"/>
+
+
+    </LinearLayout>
+
+    <RadioButton
+        android:layout_width="@dimen/px_700"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rb_next_step_bg"
+        android:button="@null"
+        android:checked="false"
+        android:padding="@dimen/px_24"
+        android:text="@string/submit"
+        android:textColor="@drawable/rb_next_step_txt"
+        android:textSize="@dimen/sp_32"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/px_80"/>
+
+
+</LinearLayout>

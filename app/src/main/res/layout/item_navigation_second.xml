@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/rb_category_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/px_66"
+        android:paddingTop="@dimen/px_34"
+        android:paddingRight="@dimen/px_30"
+        android:paddingBottom="@dimen/px_34"
+        android:textSize="@dimen/sp_32"
+        android:textColor="@drawable/rb_navigation_txt"
+        android:button="@null"/>
+
+</LinearLayout>

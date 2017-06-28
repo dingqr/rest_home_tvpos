@@ -8,10 +8,10 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 
 /**
- * 作者：liushuofei on 2017/6/26 18:02
- * 邮箱：lsf@yonyou.com
+ * 验证手机号fragment
+ * 作者：liushuofei on 2017/6/27 10:21
  */
-public class FRA_ActivateApplication extends BaseFragment {
+public class FRA_VerifyPhone extends BaseFragment {
 
     @Override
     protected void onFirstUserVisible() {
@@ -40,7 +40,7 @@ public class FRA_ActivateApplication extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fra_activate_application;
+        return R.layout.fra_verify_phone;
     }
 
     @Override

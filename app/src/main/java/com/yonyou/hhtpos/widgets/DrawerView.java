@@ -19,7 +19,7 @@ public class DrawerView extends LinearLayout{
     /**上下文*/
     private Context mContext;
     /**是否包含左、右抽屉*/
-    private boolean isContainsLeft = false;
+    private boolean isContainsLeft = true;
     private boolean isContainsRight = true;
 
     private DrawerLayout drawerLayout;

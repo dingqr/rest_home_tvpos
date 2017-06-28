@@ -70,6 +70,11 @@
     <dimen name="px_590">393.3dp</dimen>
     <dimen name="px_598">398.6dp</dimen>
     <dimen name="px_1280">853.3dp</dimen>
+    <dimen name="px_150">100dp</dimen>
+    <dimen name="px_196">130.6dp</dimen>
+    <dimen name="px_340">226.6dp</dimen>
+    <dimen name="px_474">316dp</dimen>
+    <dimen name="px_680">453.3dp</dimen>
 
 
     <!-- 字号2:3-->

@@ -34,7 +34,7 @@ public abstract class DIA_Base {
                 mContentView= LayoutInflater.from(context).inflate(getLayoutId(), null);
                 ButterKnife.bind(this,mContentView);
                 mDialog.setContentView(mContentView);
-                application = (MyApplication) context.getApplicationContext();
+                //application = (MyApplication) context.getApplicationContext();
             }
         }
     }

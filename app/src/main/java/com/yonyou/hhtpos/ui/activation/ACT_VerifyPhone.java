@@ -10,10 +10,10 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
 
 /**
- * 作者：liushuofei on 2017/6/26 18:01
- * 邮箱：lsf@yonyou.com
+ * 验证手机号
+ * 作者：liushuofei on 2017/6/27 10:20
  */
-public class ACT_ActivateApplication extends ACT_BaseFullScreen{
+public class ACT_VerifyPhone extends ACT_BaseFullScreen {
 
     @Override
     protected void initView() {
@@ -22,7 +22,7 @@ public class ACT_ActivateApplication extends ACT_BaseFullScreen{
 
     @Override
     protected Fragment getContentFragment() {
-        return new FRA_ActivateApplication();
+        return new FRA_VerifyPhone();
     }
 
     @Override

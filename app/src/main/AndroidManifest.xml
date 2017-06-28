@@ -37,20 +37,20 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
 
-        <!--<activity-->
-            <!--android:name=".ui.activation.ACT_ActivateApplication"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:theme="@style/style_translucent_activity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".ui.activation.ACT_ActivateApp"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!---->
 
         <!--<activity android:name=".ACT_TestDrawer"-->
-            <!--android:screenOrientation="landscape"-->
+            <!--android:screenOrientation="portrait"-->
             <!--android:theme="@style/style_translucent_activity">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -58,34 +58,6 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
-
-        <!--<activity android:name=".ui.login.ACT_Login"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:theme="@style/style_translucent_activity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--<activity android:name=".ui.login.ACT_ResetNewPwd"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:theme="@style/style_translucent_activity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <activity android:name=".ACT_TestDrawer"
-        android:screenOrientation="portrait"
-        android:theme="@style/style_translucent_activity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
     </application>
 
 </manifest>
