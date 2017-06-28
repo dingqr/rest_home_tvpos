@@ -3,14 +3,14 @@ package com.yonyou.hhtpos.bean;
 import java.io.Serializable;
 
 /**
- * 餐厅预定筛选控件化数据实体类
+ * 餐厅预定筛选选项实体类
  * 作者：liushuofei on 2017/1/17 18:30
  * 邮箱：lsf@yonyou.com
  */
-public class FilterDataEntity implements Serializable, Cloneable{
+public class FilterOptionsEntity implements Serializable, Cloneable{
 
-    /**展示数据 */
-    private String txt;
+    /**展示选项数据 */
+    private String option;
 
     /**传递数据 */
     private String data;
@@ -21,12 +21,12 @@ public class FilterDataEntity implements Serializable, Cloneable{
     /**是否选中 */
     private boolean isCheck;
 
-    public String getTxt() {
-        return txt;
+    public String getOption() {
+        return option;
     }
 
-    public void setTxt(String txt) {
-        this.txt = txt;
+    public void setOption(String option) {
+        this.option = option;
     }
 
     public String getData() {
@@ -53,10 +53,10 @@ public class FilterDataEntity implements Serializable, Cloneable{
         this.type = type;
     }
 
-    public FilterDataEntity clone() {
-        FilterDataEntity bean = null;
+    public FilterOptionsEntity clone() {
+        FilterOptionsEntity bean = null;
         try {
-            bean = (FilterDataEntity) super.clone();
+            bean = (FilterOptionsEntity) super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -65,22 +65,23 @@ public class FilterDataEntity implements Serializable, Cloneable{
 
     @Override
     public String toString() {
-        return "FilterDataEntity{" +
-                "txt='" + txt + '\'' +
+        return "FilterOptionsEntity{" +
+                "option='" + option + '\'' +
                 ", data='" + data + '\'' +
                 ", type=" + type +
                 ", isCheck=" + isCheck +
                 '}';
     }
-    public FilterDataEntity() {
+
+    public FilterOptionsEntity() {
     }
-    public FilterDataEntity(String txt,boolean isCheck) {
-        this.txt = txt;
+    public FilterOptionsEntity(String option, boolean isCheck) {
+        this.option = option;
         this.isCheck = isCheck;
     }
     /**type:0 餐别 1 餐区 2 预定状态*/
-    public FilterDataEntity(String txt,int type,boolean isCheck) {
-        this.txt = txt;
+    public FilterOptionsEntity(String option, int type, boolean isCheck) {
+        this.option = option;
         this.type = type;
         this.isCheck = isCheck;
     }

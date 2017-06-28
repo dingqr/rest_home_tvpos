@@ -2,6 +2,8 @@ package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,7 +13,8 @@ import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.FiltrationAdapter;
-import com.yonyou.hhtpos.bean.FilterDataEntity;
+import com.yonyou.hhtpos.bean.FilterItemEntity;
+import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 
 import java.util.List;
 
@@ -24,7 +27,6 @@ import java.util.List;
 
 public class FiltrationView extends LinearLayout implements FiltrationAdapter.OnItemClickListener {
     /**筛选框的标题*/
-    private String title;
     private TextView filtrationType;
 
     /**上下文*/
@@ -32,18 +34,17 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
 
     /**筛选列表*/
     private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager gridLayoutManger1;
 
     /**筛选框的选项数据*/
-    private List<FilterDataEntity> mDatas;
+    private FilterItemEntity filterItemEntity;
 
     /**数据适配器*/
     private FiltrationAdapter mAdapter;
 
-    /**recycView的布局管理器*/
-    private RecyclerView.LayoutManager layoutManager;
 
     /**当前实体*/
-    private FilterDataEntity currentBean;
+    private FilterOptionsEntity currentBean;
 
     public FiltrationView(Context context) {
         this(context, null);
@@ -65,6 +66,7 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.filtration_view, this);
         filtrationType = (TextView) convertView.findViewById(R.id.tv_filtration_type);
         mRecyclerView = (RecyclerView) convertView.findViewById(R.id.rv_filtration_options);
+        gridLayoutManger1 = new GridLayoutManager(mContext,3);
     }
 
     @Override
@@ -77,24 +79,17 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
         super.onDraw(canvas);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
-
-    public void setData(List<FilterDataEntity> mDatas,String title) {
-        this.mDatas = mDatas;
-        filtrationType.setText(title);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new FiltrationAdapter(mContext, mDatas);
+    public void setData(FilterItemEntity filterItemEntity) {
+        this.filterItemEntity = filterItemEntity;
+        filtrationType.setText(filterItemEntity.getTitle());
+        mAdapter = new FiltrationAdapter(mContext, filterItemEntity.getOptions());
+        mRecyclerView.setLayoutManager(gridLayoutManger1);
         mAdapter.setmOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
         //找到当前选中的实体
-        for (int i = 0; i < mDatas.size(); i++) {
-            FilterDataEntity bean = mDatas.get(i);
+        for (int i = 0; i < filterItemEntity.getOptions().size(); i++) {
+            FilterOptionsEntity bean = filterItemEntity.getOptions().get(i);
             if (bean.isCheck()) {
                 // 当前选中实体类
                 currentBean = bean;
@@ -103,12 +98,12 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
         }
     }
 
-    public FilterDataEntity getSelectedData() {
+    public FilterOptionsEntity getSelectedData() {
         return currentBean;
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        currentBean = mDatas.get(position);
+        currentBean = filterItemEntity.getOptions().get(position);
     }
 }

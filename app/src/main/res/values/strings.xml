@@ -12,8 +12,17 @@
     <string name="open">打开</string>
     <string name="close">关闭</string>
     <string name="exit">退出</string>
-    <string name="tv_confirm">确认</string>
-    <string name="tv_cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="equipment_imei">设备IMEI:</string>
+    <string name="enter_phone">请输入手机号</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="forget_pwd">忘记密码？</string>
+    <string name="login">登录</string>
+    <string name="reset_new_pwd">设置新密码</string>
+    <string name="new_pwd">新密码</string>
+    <string name="confirm_new_pwd">确认新密码</string>
+    <string name="finish">完成</string>
 
     <string name="string_choose_store">绑定门店</string>
 </resources>

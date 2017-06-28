@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.FilterDataEntity;
+import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 
 import java.util.List;
 
@@ -19,15 +19,15 @@ import java.util.List;
 
 public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.ViewHolder>  {
     private LayoutInflater mInflater;
-    private List<FilterDataEntity> mDatas;
-    private FilterDataEntity currentBean;
+    private List<FilterOptionsEntity> mDatas;
+    private FilterOptionsEntity currentBean;
     private OnItemClickListener mOnItemClickListener;
 
     private final int VIEWTYPE_DISHTYPE = 0;
     private final int VIEWTYPE_DISHAREA = 1;
     private final int VIEWTYPE_RESERVESTATUS = 2;
 
-    public FiltrationAdapter(Context mContext, List<FilterDataEntity> mDatas) {
+    public FiltrationAdapter(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
     }
@@ -39,7 +39,7 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
 
     @Override
     public int getItemViewType(int position){
-        final FilterDataEntity dataBean = mDatas.get(position);
+        final FilterOptionsEntity dataBean = mDatas.get(position);
         return dataBean.getType();
     }
 
@@ -73,9 +73,8 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final FilterDataEntity dataBean = mDatas.get(position);
-        holder.mBtn.setText(dataBean.getTxt());
-
+        final FilterOptionsEntity dataBean = mDatas.get(position);
+        holder.mBtn.setText(dataBean.getOption());
         if (dataBean.isCheck()){
             holder.mBtn.setChecked(true);
             currentBean = dataBean;
@@ -92,7 +91,7 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
                 }
                 //实现单选功能
                 if(null != dataBean && null != currentBean){
-                    if (!dataBean.getTxt().equals(currentBean.getTxt())){
+                    if (!dataBean.getOption().equals(currentBean.getOption())){
                         dataBean.setCheck(true);
                         currentBean.setCheck(false);
                         currentBean = dataBean;
@@ -124,7 +123,7 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
      * 更新数据
      * @param mDatas
      */
-    public void update(List<FilterDataEntity> mDatas) {
+    public void update(List<FilterOptionsEntity> mDatas) {
         if (null != mDatas) {
             this.mDatas = mDatas;
         }
@@ -138,5 +137,4 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
         }
         public RadioButton mBtn;
     }
-
 }

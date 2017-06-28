@@ -3,11 +3,12 @@ package com.yonyou.hhtpos;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ACT_TestDrawer extends AppCompatActivity {
+public class ACT_TestDrawer  extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_test_drawer);
     }
+
 }
