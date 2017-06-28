@@ -8,7 +8,6 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
-import com.yonyou.hhtpos.ui.activation.FRA_ActivateApplication;
 
 /**
  * 作者：ybing on 2017/6/27 10:01

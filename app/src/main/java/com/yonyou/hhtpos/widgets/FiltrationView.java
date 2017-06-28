@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,11 @@ import java.util.List;
  */
 
 public class FiltrationView extends LinearLayout implements FiltrationAdapter.OnItemClickListener {
+    /**筛选框的类别*/
+    private static final int VIEW_DISH_TYPE = 0;
+    private static final int VIEW_DISH_AREA = 1;
+    private static final int VIEW_RESERVE_STATUS = 2;
+
     /**筛选框的标题*/
     private TextView filtrationType;
 
@@ -34,14 +40,13 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
 
     /**筛选列表*/
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager gridLayoutManger1;
+    private RecyclerView.LayoutManager layoutManger;
 
     /**筛选框的选项数据*/
     private FilterItemEntity filterItemEntity;
 
     /**数据适配器*/
     private FiltrationAdapter mAdapter;
-
 
     /**当前实体*/
     private FilterOptionsEntity currentBean;
@@ -66,7 +71,6 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.filtration_view, this);
         filtrationType = (TextView) convertView.findViewById(R.id.tv_filtration_type);
         mRecyclerView = (RecyclerView) convertView.findViewById(R.id.rv_filtration_options);
-        gridLayoutManger1 = new GridLayoutManager(mContext,3);
     }
 
     @Override
@@ -82,18 +86,44 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
 
     public void setData(FilterItemEntity filterItemEntity) {
         this.filterItemEntity = filterItemEntity;
-        filtrationType.setText(filterItemEntity.getTitle());
-        mAdapter = new FiltrationAdapter(mContext, filterItemEntity.getOptions());
-        mRecyclerView.setLayoutManager(gridLayoutManger1);
-        mAdapter.setmOnItemClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
-        //找到当前选中的实体
-        for (int i = 0; i < filterItemEntity.getOptions().size(); i++) {
-            FilterOptionsEntity bean = filterItemEntity.getOptions().get(i);
-            if (bean.isCheck()) {
-                // 当前选中实体类
-                currentBean = bean;
-                break;
+        if (filterItemEntity != null) {
+            if (!TextUtils.isEmpty(filterItemEntity.getTitle())){
+                filtrationType.setText(filterItemEntity.getTitle());
+            }
+            if (filterItemEntity.getOptions() != null){
+                mAdapter = new FiltrationAdapter(mContext, filterItemEntity.getOptions());
+            }
+            //按照类别设置recyclerView的layoutManager
+            if (filterItemEntity.getOptions().get(0).getType() != -1){
+                switch (filterItemEntity.getOptions().get(0).getType()){
+                    case VIEW_DISH_TYPE:
+                        layoutManger = new GridLayoutManager(mContext, 4);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case VIEW_DISH_AREA:
+                        layoutManger = new GridLayoutManager(mContext, 4);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case VIEW_RESERVE_STATUS:
+                        layoutManger = new GridLayoutManager(mContext, 2);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    default:
+                        layoutManger = new GridLayoutManager(mContext, 3);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                }
+            }
+            mAdapter.setmOnItemClickListener(this);
+            mRecyclerView.setAdapter(mAdapter);
+            //找到当前选中的实体
+            for (int i = 0; i < filterItemEntity.getOptions().size(); i++) {
+                FilterOptionsEntity bean = filterItemEntity.getOptions().get(i);
+                if (bean.isCheck()) {
+                    // 当前选中实体类
+                    currentBean = bean;
+                    break;
+                }
             }
         }
     }

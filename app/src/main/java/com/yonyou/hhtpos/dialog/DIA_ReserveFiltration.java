@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos;
+package com.yonyou.hhtpos.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RadioButton;
+
 import com.yonyou.framework.library.common.utils.ScreenUtil;
+import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.widgets.MultFiltrationView;
@@ -36,7 +38,7 @@ public class DIA_ReserveFiltration implements View.OnClickListener{
     private RadioButton btn_confirm;
     private RadioButton btn_cancel;
 
-    public DIA_ReserveFiltration(Context context ,ArrayList<FilterItemEntity> filterItemList) {
+    public DIA_ReserveFiltration(Context context , ArrayList<FilterItemEntity> filterItemList) {
         this.mContext = context;
         this.filterItemList = filterItemList;
         initView();

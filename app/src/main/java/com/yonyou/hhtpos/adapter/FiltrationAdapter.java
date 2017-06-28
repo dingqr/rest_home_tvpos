@@ -23,9 +23,9 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
     private FilterOptionsEntity currentBean;
     private OnItemClickListener mOnItemClickListener;
 
-    private final int VIEWTYPE_DISHTYPE = 0;
-    private final int VIEWTYPE_DISHAREA = 1;
-    private final int VIEWTYPE_RESERVESTATUS = 2;
+    private static final int DISH_TYPE = 0;
+    private static final int DISH_AREA = 1;
+    private static final int RESERVE_STATUS = 2;
 
     public FiltrationAdapter(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
@@ -47,20 +47,20 @@ public class FiltrationAdapter extends RecyclerView.Adapter<FiltrationAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         switch (viewType){
-            case VIEWTYPE_DISHTYPE:{
+            case DISH_TYPE:{
                 View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
-            case VIEWTYPE_DISHAREA:{
+            case DISH_AREA:{
                 View view = mInflater.inflate(R.layout.item_filtration_ada_type2, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
 
-            case VIEWTYPE_RESERVESTATUS: {
+            case RESERVE_STATUS: {
                 View view = mInflater.inflate(R.layout.item_filtration_ada_type3, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);

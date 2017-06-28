@@ -16,8 +16,8 @@ public class FilterItemEntity implements Serializable, Cloneable{
     private ArrayList<FilterOptionsEntity> options;
     /**筛选列表表头 tabletitle*/
     private String title;
-    /**筛选列表RecylerView的布局管理器*/
-    private RecyclerView.LayoutManager layoutManager;
+//    /**筛选列表RecylerView的布局管理器*/
+//    private RecyclerView.LayoutManager layoutManager;
 
 
     public FilterItemEntity clone() {
@@ -35,18 +35,15 @@ public class FilterItemEntity implements Serializable, Cloneable{
         return "FilterItemEntity{" +
                 "options=" + options +
                 ", title='" + title + '\'' +
-                ", layoutManager=" + layoutManager +
                 '}';
     }
 
     public FilterItemEntity() {
     }
 
-    public FilterItemEntity(ArrayList<FilterOptionsEntity> options, String title,
-                            RecyclerView.LayoutManager layoutManager) {
+    public FilterItemEntity(ArrayList<FilterOptionsEntity> options, String title) {
         this.options = options;
         this.title = title;
-        this.layoutManager = layoutManager;
     }
 
     public ArrayList<FilterOptionsEntity> getOptions() {
@@ -65,11 +62,4 @@ public class FilterItemEntity implements Serializable, Cloneable{
         this.title = title;
     }
 
-    public RecyclerView.LayoutManager getLayoutManager() {
-        return layoutManager;
-    }
-
-    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
 }
