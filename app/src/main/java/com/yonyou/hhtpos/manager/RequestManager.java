@@ -14,13 +14,27 @@ import com.yonyou.hhtpos.bean.ResultBean;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
+import java.security.KeyStore;
+import java.security.SecureRandom;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -79,16 +93,33 @@ public class RequestManager {
      * @param context
      */
     public RequestManager(Context context) {
+        //初始化Handler
+        if(null == context){
+            context = MyApplication.getInstance();
+        }
+
         //初始化OkHttpClient
         mOkHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(CONNECT_TIMEOIUT, TimeUnit.SECONDS)//设置超时时间
                 .readTimeout(CONNECT_TIMEOIUT, TimeUnit.SECONDS)//设置读取超时时间
                 .writeTimeout(CONNECT_TIMEOIUT, TimeUnit.SECONDS)//设置写入超时时间
+
+                .cookieJar(new CookieJar() {//OkHttpClient创建时，传入这个CookieJar的实现，就能完成对Cookie的自动管理
+                    private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                        cookieStore.put(url, cookies);
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        List<Cookie> cookies = cookieStore.get(url);
+                        return cookies != null ? cookies : new ArrayList<Cookie>();
+                    }
+                })
+                .sslSocketFactory(getSSLSocketFactory(context, "srca.cer"))//添加https
+
                 .build();
-        //初始化Handler
-        if(null==context){
-            context = MyApplication.getInstance();
-        }
         okHttpHandler = new Handler(context.getMainLooper());
     }
 
@@ -119,8 +150,6 @@ public class RequestManager {
     public static RequestManager getInstance() {
         return getInstance(null);
     }
-
-
 
 
     /**
@@ -524,5 +553,97 @@ public class RequestManager {
                 .addHeader("appVersion", HEADER_APPVERSION);
         return builder;
     }
+
+    /**
+     * 实现https请求
+     */
+    private static SSLSocketFactory getSSLSocketFactory(Context context, String name) {
+
+
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+
+        //CertificateFactory用来证书生成
+        CertificateFactory certificateFactory;
+        InputStream inputStream = null;
+        Certificate certificate;
+
+        try {
+            inputStream = context.getResources().getAssets().open(name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+
+            certificateFactory = CertificateFactory.getInstance("X.509");
+            certificate = certificateFactory.generateCertificate(inputStream);
+
+            //Create a KeyStore containing our trusted CAs
+            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry(name,certificate);
+
+            //Create a TrustManager that trusts the CAs in our keyStore
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(keyStore);
+
+            //Create an SSLContext that uses our TrustManager
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
+            return sslContext.getSocketFactory();
+
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+//    /**
+//     * 设置证书
+//     * @param certificates
+//     */
+//    public void setCertificates(InputStream... certificates)
+//    {
+//        try
+//        {
+//            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+//            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+//            keyStore.load(null);
+//            int index = 0;
+//            for (InputStream certificate : certificates)
+//            {
+//                String certificateAlias = Integer.toString(index++);
+//                keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));
+//
+//                try
+//                {
+//                    if (certificate != null)
+//                        certificate.close();
+//                } catch (IOException e)
+//                {
+//                }
+//            }
+//
+//            SSLContext sslContext = SSLContext.getInstance("TLS");
+//
+//            TrustManagerFactory trustManagerFactory =
+//                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+//
+//            trustManagerFactory.init(keyStore);
+//            sslContext.init
+//                    (
+//                            null,
+//                            trustManagerFactory.getTrustManagers(),
+//                            new SecureRandom()
+//                    );
+//            mOkHttpClient.setSslSocketFactory(sslContext.getSocketFactory());
+//
+//        } catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 }

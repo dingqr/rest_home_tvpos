@@ -13,13 +13,11 @@ import com.yonyou.hhtpos.widgets.LeftNavigationView;
 import butterknife.Bind;
 
 /**
+ * 多重布局基类
  * 作者：liushuofei on 2017/6/23 09:29
- * 邮箱：lsf@yonyou.com
  */
 public abstract class ACT_BaseMultiple extends BaseActivity {
 
-    @Bind(R.id.v_navigation)
-    protected LeftNavigationView leftNavigation;
     @Bind(R.id.fl_left)
     protected FrameLayout flLeft;
     @Bind(R.id.fl_right)
@@ -34,9 +32,6 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
     protected void initViewsAndEvents() {
         // 初始化
         initView();
-
-        // 设置导航栏数据
-        leftNavigation.setData(getNavigationData());
 
         // 左侧的权重动态设置
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
@@ -53,8 +48,6 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
         rightTrans.add(R.id.fl_right, getRightContent());
         rightTrans.commitAllowingStateLoss();
     }
-
-    protected abstract NavigationEntity getNavigationData();
 
     protected abstract void initView();
 

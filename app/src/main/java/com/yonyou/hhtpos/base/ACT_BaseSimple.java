@@ -18,8 +18,6 @@ import butterknife.Bind;
  */
 public abstract class ACT_BaseSimple extends BaseActivity {
 
-    @Bind(R.id.el_navigation)
-    protected LeftExpandableView elNavigation;
     @Bind(R.id.fl_content)
     protected FrameLayout flContent;
 
@@ -33,8 +31,6 @@ public abstract class ACT_BaseSimple extends BaseActivity {
         // 初始化
         initView();
 
-        // 设置导航栏数据
-        elNavigation.setData(getNavigationGroupData(), getNavigationChildData());
 
         // 替换fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -43,10 +39,6 @@ public abstract class ACT_BaseSimple extends BaseActivity {
     }
 
     protected abstract void initView();
-
-    protected abstract List<String> getNavigationGroupData();
-
-    protected abstract List<List<String>> getNavigationChildData();
 
     protected abstract Fragment getContentFragment();
 

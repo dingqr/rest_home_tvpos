@@ -2,13 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <com.yonyou.hhtpos.widgets.LeftExpandableView
-        android:id="@+id/el_navigation"
-        android:layout_width="125dp"
-        android:layout_height="match_parent">
-    </com.yonyou.hhtpos.widgets.LeftExpandableView>
+    <include layout="@layout/common_title"/>
 
     <FrameLayout
         android:id="@+id/fl_content"

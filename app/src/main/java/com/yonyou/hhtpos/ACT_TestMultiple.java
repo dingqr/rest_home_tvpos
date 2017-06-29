@@ -33,14 +33,6 @@ public class ACT_TestMultiple extends ACT_BaseMultiple {
     }
 
     @Override
-    protected NavigationEntity getNavigationData() {
-        NavigationEntity bean = new NavigationEntity();
-        bean.groupData = NavigationUtil.getDefaultGroupData();
-        bean.childDta = NavigationUtil.getDefaultChildData();
-        return bean;
-    }
-
-    @Override
     protected void initView() {
 
     }

@@ -5,10 +5,15 @@ import android.widget.RadioButton;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.ToastUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.manager.ReqCallBack;
+import com.yonyou.hhtpos.manager.RequestManager;
 import com.yonyou.hhtpos.view.IActivateAppView;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -44,7 +49,24 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView{
 
     @Override
     protected void initViewsAndEvents() {
+        HashMap<String,String> hashMap = new HashMap<>();
+        RequestManager.getInstance().requestGetByAsyn("https://kyfw.12306.cn/otn/", hashMap, new ReqCallBack<String>() {
 
+            @Override
+            public void onReqSuccess(String bean) {
+                ToastUtil.makeText(mContext, "request success", false);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                ToastUtil.makeText(mContext, "failure", false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                ToastUtil.makeText(mContext, "request failed", false);
+            }
+        });
     }
 
     @Override

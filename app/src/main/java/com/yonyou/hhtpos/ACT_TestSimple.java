@@ -74,16 +74,6 @@ public class ACT_TestSimple extends ACT_BaseSimple {
     }
 
     @Override
-    protected List<String> getNavigationGroupData() {
-        return NavigationUtil.getDefaultGroupData();
-    }
-
-    @Override
-    protected List<List<String>> getNavigationChildData() {
-        return NavigationUtil.getDefaultChildData();
-    }
-
-    @Override
     protected Fragment getContentFragment() {
         return new FRA_TestLeft();
     }
