@@ -11,6 +11,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
+import com.yonyou.hhtpos.ui.store.ACT_BindStore;
 import com.yonyou.hhtpos.view.IActivateAppView;
 
 import java.util.HashMap;
@@ -49,24 +50,24 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView{
 
     @Override
     protected void initViewsAndEvents() {
-        HashMap<String,String> hashMap = new HashMap<>();
-        RequestManager.getInstance().requestGetByAsyn("https://kyfw.12306.cn/otn/", hashMap, new ReqCallBack<String>() {
-
-            @Override
-            public void onReqSuccess(String bean) {
-                ToastUtil.makeText(mContext, "request success", false);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                ToastUtil.makeText(mContext, "failure", false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean errorBean) {
-                ToastUtil.makeText(mContext, "request failed", false);
-            }
-        });
+//        HashMap<String,String> hashMap = new HashMap<>();
+//        RequestManager.getInstance().requestGetByAsyn("https://kyfw.12306.cn/otn/", hashMap, new ReqCallBack<String>() {
+//
+//            @Override
+//            public void onReqSuccess(String bean) {
+//                ToastUtil.makeText(mContext, "request success", false);
+//            }
+//
+//            @Override
+//            public void onFailure(String result) {
+//                ToastUtil.makeText(mContext, "failure", false);
+//            }
+//
+//            @Override
+//            public void onReqFailed(ErrorBean errorBean) {
+//                ToastUtil.makeText(mContext, "request failed", false);
+//            }
+//        });
     }
 
     @Override
@@ -92,8 +93,10 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView{
 
     @OnClick(R.id.rb_next_step)
     public void onClick() {
-        DIA_Navigation mDialog = new DIA_Navigation(mContext);
-        mDialog.getDialog().show();
+//        DIA_Navigation mDialog = new DIA_Navigation(mContext);
+//        mDialog.getDialog().show();
+
+        readyGoThenKill(ACT_BindStore.class);
     }
 
     @Override

@@ -39,6 +39,7 @@
             android:textSize="@dimen/sp_28"
             android:focusableInTouchMode="false"/>
         <TextView
+            android:id="@+id/tv_forget_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/forget_pwd"
@@ -49,6 +50,7 @@
             android:layout_marginRight="@dimen/px_90"/>
         
         <RadioButton
+            android:id="@+id/rb_login"
             android:layout_width="@dimen/px_700"
             android:layout_height="@dimen/px_80"
             android:background="@drawable/rb_next_step_bg_checked"

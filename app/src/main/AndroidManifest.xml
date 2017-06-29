@@ -12,34 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- <activity android:name="com.yonyou.hhtpos.MainActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-
-
-        <!-- <activity -->
-        <!-- android:name=".ACT_TestSimple" -->
-        <!-- android:screenOrientation="landscape" -->
-        <!-- android:theme="@style/style_translucent_activity"/> -->
-
-
-        <!-- <activity -->
-        <!-- android:name=".ACT_TestMultiple" -->
-        <!-- android:screenOrientation="landscape" -->
-        <!-- android:theme="@style/style_translucent_activity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-
         <activity
             android:name=".ui.activation.ACT_ActivateApp"
             android:screenOrientation="landscape"
@@ -50,17 +22,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!---->
 
-        <!--<activity android:name=".ACT_TestDrawer"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/style_translucent_activity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--绑定门店 -->
+        <activity
+            android:name=".ui.store.ACT_BindStore"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <!--登录页面 -->
+        <activity
+            android:name=".ui.login.ACT_Login"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
+        <!--验证手机号 -->
+        <activity
+            android:name=".ui.activation.ACT_VerifyPhone"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
+        <!--设置新密码 -->
+        <activity
+            android:name=".ui.login.ACT_ResetNewPwd"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
+        <!--首页 -->
+        <activity
+            android:name=".ui.home.ACT_Home"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>

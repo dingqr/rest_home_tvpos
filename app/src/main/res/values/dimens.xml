@@ -73,6 +73,7 @@
     <dimen name="px_880">586.6dp</dimen>
     <dimen name="px_700">466.6dp</dimen>
     <dimen name="px_600">400dp</dimen>
+    <dimen name="px_258">172dp</dimen>
 
 
     <!-- 字号2:3-->
@@ -84,5 +85,6 @@
     <dimen name="sp_30">20sp</dimen>
     <dimen name="sp_32">21.3sp</dimen>
     <dimen name="sp_34">22.6sp</dimen>
+    <dimen name="sp_40">26.6sp</dimen>
 
 </resources>

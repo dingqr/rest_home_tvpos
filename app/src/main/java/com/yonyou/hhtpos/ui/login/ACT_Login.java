@@ -67,12 +67,12 @@ public class ACT_Login extends ACT_BaseFullScreen{
 
     @Override
     protected boolean toggleOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override
     protected TransitionMode getOverridePendingTransitionMode() {
-        return null;
+        return TransitionMode.RIGHT;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.ui.activation;
+package com.yonyou.hhtpos.ui.store;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +10,10 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
 
 /**
- * 验证手机号
- * 作者：liushuofei on 2017/6/27 10:20
+ * 绑定门店页面
+ * 作者：liushuofei on 2017/6/29 13:51
  */
-public class ACT_VerifyPhone extends ACT_BaseFullScreen {
+public class ACT_BindStore extends ACT_BaseFullScreen {
 
     @Override
     protected void initView() {
@@ -22,7 +22,7 @@ public class ACT_VerifyPhone extends ACT_BaseFullScreen {
 
     @Override
     protected Fragment getContentFragment() {
-        return new FRA_VerifyPhone();
+        return new FRA_BindStore();
     }
 
     @Override

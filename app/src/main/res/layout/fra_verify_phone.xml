@@ -60,6 +60,7 @@
     </LinearLayout>
 
     <RadioButton
+        android:id="@+id/rb_submit"
         android:layout_width="@dimen/px_700"
         android:layout_height="wrap_content"
         android:background="@drawable/rb_next_step_bg"

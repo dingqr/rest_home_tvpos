@@ -35,4 +35,8 @@
 
     <string name="string_choose_store">绑定门店</string>
 
+    <!--首页 -->
+    <string name="home_company_name">红火台餐饮云服务有限公司</string>
+    <string name="home_company_phone">400-0000-0000</string>
+
 </resources>

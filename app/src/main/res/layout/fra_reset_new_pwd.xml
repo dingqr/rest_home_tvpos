@@ -50,6 +50,7 @@
 
         
         <RadioButton
+            android:id="@+id/rb_finish"
             android:layout_width="@dimen/px_700"
             android:layout_height="@dimen/px_80"
             android:background="@drawable/rb_next_step_bg_checked"

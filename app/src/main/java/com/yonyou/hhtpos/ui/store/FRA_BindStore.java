@@ -10,6 +10,7 @@ import com.yonyou.framework.library.common.utils.ToastUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.dialog.DIA_ChooseStore;
+import com.yonyou.hhtpos.ui.login.ACT_Login;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -56,7 +57,7 @@ public class FRA_BindStore extends BaseFragment {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.rb_finish:
-
+                readyGoThenKill(ACT_Login.class);
                 break;
             case R.id.choose_store:
                 new DIA_ChooseStore(mContext, new DIA_ChooseStore.OnChoosStoreListener() {
