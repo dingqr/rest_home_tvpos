@@ -5,16 +5,10 @@ import android.widget.RadioButton;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.utils.ToastUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.dialog.DIA_Navigation;
-import com.yonyou.hhtpos.manager.ReqCallBack;
-import com.yonyou.hhtpos.manager.RequestManager;
-import com.yonyou.hhtpos.ui.store.ACT_BindStore;
+import com.yonyou.hhtpos.dialog.DIA_CollectForegift;
 import com.yonyou.hhtpos.view.IActivateAppView;
-
-import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -91,12 +85,23 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView{
     }
 
 
-    @OnClick(R.id.rb_next_step)
+    @OnClick(R.id.ee)
     public void onClick() {
 //        DIA_Navigation mDialog = new DIA_Navigation(mContext);
 //        mDialog.getDialog().show();
 
-        readyGoThenKill(ACT_BindStore.class);
+//        readyGoThenKill(ACT_BindStore.class);
+
+//        new DIA_ChooseStore(getContext(), new DIA_ChooseStore.OnChoosStoreListener() {
+//            @Override
+//            public void onChooseStore(String storeName) {
+//
+//            }
+//        }).show();
+        new DIA_CollectForegift(mContext).show();
+//        new DIA_ReturnForegift(mContext).show();
+//        new DIA_InputOrderInfo(mContext).show();
+//        new DIA_ChooseWaiter(mContext).show();
     }
 
     @Override

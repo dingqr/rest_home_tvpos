@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ds="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yonyou.hhtpos.widgets.DashGridView
+        android:id="@+id/number_gridView"
+        android:layout_width="@dimen/px_870"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        ds:is_dash = "false"
+        ds:solid_line_color = "@color/color_c5c5c5"
+        android:scrollbars="none">
+    </com.yonyou.hhtpos.widgets.DashGridView>
+</LinearLayout>

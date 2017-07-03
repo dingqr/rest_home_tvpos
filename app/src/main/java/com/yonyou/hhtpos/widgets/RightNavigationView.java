@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.RightTitleAdapter;
+import com.yonyou.hhtpos.adapter.ADA_RightTitle;
 import com.yonyou.hhtpos.bean.RightTitleEntity;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class RightNavigationView extends LinearLayout {
      * @param refreshCount
      */
     public void refreshCount(String id, boolean refreshCount) {
-        RightTitleAdapter adapter = (RightTitleAdapter) rightListView.getAdapter();
+        ADA_RightTitle adapter = (ADA_RightTitle) rightListView.getAdapter();
         adapter.refreshCount(rightListView, id, refreshCount);
     }
 

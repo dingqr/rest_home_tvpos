@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.ELVAdapter;
+import com.yonyou.hhtpos.adapter.ADA_ELV;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class LeftExpandableView extends ExpandableListView {
     private List<String> mGroupData = new ArrayList<>();
     //二级菜单数据
     private List<List<String>> mChildData = new ArrayList<>();
-    private ELVAdapter mAdapter;
+    private ADA_ELV mAdapter;
 
     public LeftExpandableView(Context context) {
         this(context, null);
@@ -119,7 +119,7 @@ public class LeftExpandableView extends ExpandableListView {
     public void setData(List<String> groupData, List<List<String>> childData) {
         this.mGroupData = groupData;
         this.mChildData = childData;
-        mAdapter = new ELVAdapter(mGroupData, mChildData, mContext);
+        mAdapter = new ADA_ELV(mGroupData, mChildData, mContext);
         setAdapter(mAdapter);
     }
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white_side_white_4"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="@string/string_get_foregift"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_30" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px_40"
+            android:padding="@dimen/px_20"
+            android:src="@drawable/ic_close" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"
+        android:background="@color/color_c4c4c4"></View>
+
+    <EditText
+        android:id="@+id/et_money"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_30"
+        android:paddingLeft="@dimen/px_20"
+        android:layout_marginTop="@dimen/px_30"
+        android:hint="退款金额，由（现金方式退回）"
+        android:background="@drawable/bg_side_dark_gray_4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/px_36"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_40"
+        android:orientation="horizontal">
+
+        <com.yonyou.hhtpos.widgets.NumberKeybordView
+            android:id="@+id/number_keybord_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></com.yonyou.hhtpos.widgets.NumberKeybordView>
+
+        <RadioButton
+            android:layout_width="@dimen/px_260"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/px_10"
+            android:background="@drawable/bg_gray_side_gray_4"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/string_confirm"
+            android:textColor="@color/color_eb6247"
+            android:textSize="@dimen/sp_40" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -11,7 +11,7 @@ import com.yonyou.hhtpos.R;
 
 import java.util.List;
 
-public class ELVAdapter extends BaseExpandableListAdapter {
+public class ADA_ELV extends BaseExpandableListAdapter {
     private List<String> groupData;
     private List<List<String>> childData;
     private Context context;
@@ -27,8 +27,8 @@ public class ELVAdapter extends BaseExpandableListAdapter {
 
     private int preGroupPos;
 
-    public ELVAdapter(List<String> groupData, List<List<String>> childData,
-                      Context context) {
+    public ADA_ELV(List<String> groupData, List<List<String>> childData,
+                   Context context) {
         super();
         this.groupData = groupData;
         this.childData = childData;

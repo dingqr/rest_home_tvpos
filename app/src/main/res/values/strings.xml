@@ -38,5 +38,30 @@
     <!--首页 -->
     <string name="home_company_name">红火台餐饮云服务有限公司</string>
     <string name="home_company_phone">400-0000-0000</string>
+    <string name="string_get_foregift">收预定押金</string>
+
+    <!--顾客预订录入-->
+    <string name="string_input_order_info">顾客预订录入</string>
+    <string name="string_man">先生</string>
+    <string name="string_lady">女士</string>
+    <string name="string_commit">提交</string>
+    <string name="hint_arrive_shop_time">到店时间</string>
+    <string name="string_choose_arrive_time">选择到店时间</string>
+    <string name="string_table">桌台</string>
+    <string name="string_number_of_people">人数</string>
+    <string name="string_respect_name">尊称</string>
+    <string name="string_sex">性别</string>
+    <string name="string_phone_number">手机号</string>
+    <string name="hint_choose_table">选择桌台</string>
+    <string name="hint_input_guests_num">输入就餐人数</string>
+    <string name="hint_guests_respect_name">输入顾客的尊称</string>
+    <string name="hint_input_phone_number">请输入手机号</string>
+    <string name="string_remarks">备注</string>
+    <string name="hint_customer_requirement">输入顾客的就餐要求</string>
+    <string name="string_not_neccessary">（非必填）</string>
+
+    <!--选择服务员-->
+    <string name="string_choose_waiter">选择服务员</string>
+    <string name="string_confirm">确定</string>
 
 </resources>

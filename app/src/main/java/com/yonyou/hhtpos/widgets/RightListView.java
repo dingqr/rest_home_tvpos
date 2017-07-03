@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.RightTitleAdapter;
+import com.yonyou.hhtpos.adapter.ADA_RightTitle;
 import com.yonyou.hhtpos.bean.RightTitleEntity;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class RightListView extends ListView {
     private final Context mContext;
-    private RightTitleAdapter mAdapter;
+    private ADA_RightTitle mAdapter;
     private List<RightTitleEntity> mData = new ArrayList<>();
     private OnRightListViewItemClickListener mClickListener;
 
@@ -36,7 +36,7 @@ public class RightListView extends ListView {
     public RightListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
-        mAdapter = new RightTitleAdapter(mContext, mData);
+        mAdapter = new ADA_RightTitle(mContext, mData);
         setDivider(null);
         //去除默认点击效果
         setSelector(R.drawable.bg_transparent_selector);
@@ -59,7 +59,7 @@ public class RightListView extends ListView {
             }
         });
         //外界刷新角标数量事，回调所刷新的位置和刷新后的数量
-        mAdapter.setRefreshCurrentItemListener(new RightTitleAdapter.OnRefreshCurrentItemListener() {
+        mAdapter.setRefreshCurrentItemListener(new ADA_RightTitle.OnRefreshCurrentItemListener() {
             @Override
             public void onRefreshCount(int refreshPos, int curCount) {
                 //给当前被刷新的实体count重新赋值

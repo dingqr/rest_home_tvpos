@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="dashgridview">
+        <attr name="is_dash" format="boolean"/>
+        <attr name="solid_line_color" format="color"/>
+    </declare-styleable>
+</resources>

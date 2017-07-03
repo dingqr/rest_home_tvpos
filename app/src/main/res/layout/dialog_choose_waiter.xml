@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/px_1280"
-    android:layout_height="@dimen/px_598"
-    xmlns:ds="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/bg_white_side_white_4"
     android:orientation="vertical">
 
@@ -16,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:text="@string/string_choose_store"
+            android:text="@string/string_choose_waiter"
             android:textColor="@color/color_222222"
             android:textSize="@dimen/sp_30" />
 
@@ -26,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/px_40"
+            android:layout_marginRight="@dimen/px_10"
             android:padding="@dimen/px_20"
             android:src="@drawable/ic_close" />
     </RelativeLayout>
@@ -34,25 +33,40 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_1"
-        android:layout_marginBottom="@dimen/px_40"
         android:background="@color/color_c4c4c4"></View>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/px_40"
-        android:layout_marginLeft="@dimen/px_50"
-        android:layout_marginRight="@dimen/px_50">
+        android:layout_marginBottom="@dimen/px_36"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_20"
+        android:layout_weight="1">
 
-        <com.yonyou.hhtpos.widgets.DashGridView
-            android:id="@+id/gridview"
+        <GridView
+            android:id="@+id/waiters_gridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="2"
-            ds:is_dash = "true"
-            android:scrollbars="none">
-        </com.yonyou.hhtpos.widgets.DashGridView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:background="@color/color_d9d9d9"
+            android:numColumns="5"
+            android:paddingLeft="@dimen/px_10"
+            android:paddingRight="@dimen/px_10"
+            android:horizontalSpacing="@dimen/px_12"
+            android:scrollbars="none"></GridView>
+    </LinearLayout>
 
+    <RadioButton
+        android:id="@+id/rb_next_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/rb_next_step_bg"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:padding="@dimen/px_20"
+        android:text="@string/string_confirm"
+        android:textColor="@drawable/rb_next_step_txt"
+        android:textSize="@dimen/sp_28" />
 </LinearLayout>

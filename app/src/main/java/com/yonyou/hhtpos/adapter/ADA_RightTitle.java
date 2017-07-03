@@ -21,7 +21,7 @@ import java.util.List;
  * 邮箱：zjuan@yonyou.com
  * 描述：右侧导航栏-Adapter
  */
-public class RightTitleAdapter extends BaseAdapter {
+public class ADA_RightTitle extends BaseAdapter {
     private Context mContext;
     private List<RightTitleEntity> mDishTypes = new ArrayList<>();
     private int mSelectedPos;
@@ -29,7 +29,7 @@ public class RightTitleAdapter extends BaseAdapter {
     private int itemCheckColor = R.color.color_FF4d4d;
     private int itemUnCheckColor = R.color.color_E5E5E5;
 
-    public RightTitleAdapter(Context context, List<RightTitleEntity> datas) {
+    public ADA_RightTitle(Context context, List<RightTitleEntity> datas) {
         this.mContext = context;
         this.mDishTypes = datas;
     }
