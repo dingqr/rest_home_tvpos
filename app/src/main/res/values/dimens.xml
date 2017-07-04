@@ -61,6 +61,8 @@
     <dimen name="px_100">66.6dp</dimen>
 
     <!--大于100-->
+    <dimen name="px_110">73.3dp</dimen>
+    <dimen name="px_115">76.6dp</dimen>
     <dimen name="px_120">80dp</dimen>
     <dimen name="px_146">97.3dp</dimen>
     <dimen name="px_160">106.6dp</dimen>
@@ -84,10 +86,16 @@
     <dimen name="px_606">404dp</dimen>
     <dimen name="px_870">580dp</dimen>
     <dimen name="px_880">586.6dp</dimen>
+    <dimen name="px_808">538.6dp</dimen>
     <dimen name="px_900">600dp</dimen>
     <dimen name="px_700">466.6dp</dimen>
     <dimen name="px_600">400dp</dimen>
     <dimen name="px_258">172dp</dimen>
+    <dimen name="px_200">133.3dp</dimen>
+    <dimen name="px_205">136.6dp</dimen>
+    <dimen name="px_248">165.3dp</dimen>
+    <dimen name="px_190">126.6dp</dimen>
+    <dimen name="px_658">438.6dp</dimen>
     <dimen name="px_260">173.3dp</dimen>
 
 

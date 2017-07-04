@@ -165,26 +165,52 @@ public class VaryViewHelperController {
         helper.showLayout(layout);
     }
 
+//    /**
+//     * 不可点击的无数据
+//     * @param emptyImg
+//     * @param emptyMsg
+//     */
+//    public void showEmpty(int emptyImg, String emptyMsg){
+//        View layout = helper.inflate(R.layout.message);
+//        TextView textView = (TextView) layout.findViewById(R.id.message_info);
+//        if (!CommonUtils.isEmpty(emptyMsg)) {
+//            textView.setText(emptyMsg);
+//        } else {
+//            textView.setText(helper.getContext().getResources().getString(R.string.common_empty_msg));
+//        }
+//
+//        ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
+//        imageView.setImageResource(emptyImg);
+//
+//        helper.showLayout(layout);
+//    }
+
     /**
      * 不可点击的无数据
      * @param emptyImg
      * @param emptyMsg
      */
     public void showEmpty(int emptyImg, String emptyMsg){
-        View layout = helper.inflate(R.layout.message);
-        TextView textView = (TextView) layout.findViewById(R.id.message_info);
+        View layout = helper.inflate(R.layout.empty_layout);
+        ImageView imageView = (ImageView) layout.findViewById(R.id.iv_empty_img);
+        TextView textView = (TextView) layout.findViewById(R.id.tv_empty_txt);
+
+        // 图片
+        imageView.setImageResource(emptyImg);
+        // 文本
         if (!CommonUtils.isEmpty(emptyMsg)) {
             textView.setText(emptyMsg);
-        } else {
-            textView.setText(helper.getContext().getResources().getString(R.string.common_empty_msg));
         }
-
-        ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
-        imageView.setImageResource(emptyImg);
-
         helper.showLayout(layout);
     }
 
+    /**
+     * 显示公司信息
+     */
+    public void showCompanyInfo(){
+        View layout = helper.inflate(R.layout.company_info);
+        helper.showLayout(layout);
+    }
 
     public void restore() {
         helper.restoreView();

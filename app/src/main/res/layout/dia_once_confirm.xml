@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white_side_white_4"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/px_60"
+        android:text="标题单行"
+        android:textColor="@color/color_222222"
+        android:textSize="@dimen/sp_32"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="说明当前状态、提示解决方案"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_28"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_title"
+        android:layout_above="@+id/ll_bottom"
+        android:layout_marginTop="@dimen/px_40"
+        android:layout_marginBottom="@dimen/px_40"
+        android:lineSpacingExtra="@dimen/px_22"
+        android:layout_marginLeft="@dimen/px_32"
+        android:layout_marginRight="@dimen/px_32"/>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:background="@color/color_c4c4c4" />
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/px_36"
+            android:text="@string/confirm"
+            android:textColor="@color/color_eb6247"
+            android:textSize="@dimen/sp_30" />
+
+    </LinearLayout>
+
+</RelativeLayout>

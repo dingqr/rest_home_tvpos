@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="激活当前应用"
+        android:text="@string/activate_app"
         android:textColor="@color/color_222222"
         android:textSize="@dimen/sp_34" />
 
@@ -39,19 +39,22 @@
         android:layout_marginTop="@dimen/px_40"
         android:background="@drawable/bg_white_side_gray_1"
         android:gravity="center"
-        android:hint="输入N位数字激活码"
+        android:hint="@string/activate_app_code_hint"
         android:padding="@dimen/px_30"
         android:textColor="@color/color_333333"
         android:textColorHint="@color/color_cccccc"
-        android:textSize="@dimen/sp_28" />
+        android:textSize="@dimen/sp_28"
+        android:inputType="number"
+        android:singleLine="true"/>
 
     <TextView
+        android:id="@+id/tv_get_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginBottom="@dimen/px_60"
         android:layout_marginTop="@dimen/px_30"
-        android:text="获取激活码？"
+        android:text="@string/activate_app_get_code"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_26" />
 
@@ -63,7 +66,7 @@
         android:button="@null"
         android:checked="false"
         android:padding="@dimen/px_24"
-        android:text="下一步"
+        android:text="@string/next_step"
         android:textColor="@drawable/rb_next_step_txt"
         android:textSize="@dimen/sp_32"
         android:gravity="center"/>

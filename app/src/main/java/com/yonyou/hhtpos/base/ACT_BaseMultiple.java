@@ -34,7 +34,7 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
         initView();
 
         // 左侧的权重动态设置
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.FILL_PARENT);
         params.weight = getLeftWeight();
         flLeft.setLayoutParams(params);
 

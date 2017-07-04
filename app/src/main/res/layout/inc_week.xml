@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px_90"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="#f2f1f1"
+    android:paddingLeft="@dimen/px_30"
+    android:paddingRight="@dimen/px_30">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/sunday"
+        android:textColor="@color/color_eb6247"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/monday"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/tuesday"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/wednesday"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/thursday"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/friday"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/saturday"
+        android:textColor="@color/color_eb6247"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"/>
+
+</LinearLayout>

@@ -52,5 +52,6 @@ public abstract class DIA_Base {
 
 
     protected abstract int getLayoutId();
+
 }
 

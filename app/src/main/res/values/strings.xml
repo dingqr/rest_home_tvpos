@@ -15,6 +15,14 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="submit">提交</string>
+    <string name="next_step">下一步</string>
+    <string name="retry">重新获取</string>
+
+    <!--激活当前应用 -->
+    <string name="activate_app">激活当前应用</string>
+    <string name="activate_app_company_name">所属企业：</string>
+    <string name="activate_app_code_hint">输入N位数字激活码</string>
+    <string name="activate_app_get_code">获取激活码？</string>
 
     <!--验证手机号 -->
     <string name="verify_phone">验证手机号</string>
@@ -63,5 +71,25 @@
     <!--选择服务员-->
     <string name="string_choose_waiter">选择服务员</string>
     <string name="string_confirm">确定</string>
+
+    <!--预定总览 -->
+    <string name="book_no_data">当日无预定~</string>
+    <string name="order_status_all">全部</string>
+    <string name="order_status_accept">已接单</string>
+    <string name="order_status_arrive">已到店</string>
+    <string name="order_status_cancel">取消</string>
+
+    <!--外带信息 -->
+    <string name="take_out_info">外带信息</string>
+
+    <!--日历 -->
+    <string name="sunday">日</string>
+    <string name="monday">一</string>
+    <string name="tuesday">二</string>
+    <string name="wednesday">三</string>
+    <string name="thursday">四</string>
+    <string name="friday">五</string>
+    <string name="saturday">六</string>
+
 
 </resources>

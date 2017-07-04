@@ -418,6 +418,17 @@ public abstract class BaseLazyFragment extends Fragment {
     }
 
     /**
+     * show company info
+     */
+    protected void showCompanyInfo() {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        mVaryViewHelperController.showCompanyInfo();
+    }
+
+    /**
      * toggle show error
      *
      * @param toggle
