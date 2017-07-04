@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.widgets;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -25,7 +26,9 @@ public class NumberKeybordView extends LinearLayout {
     private ADA_CustomKeybord mAdapter;
     //输入的内容
     private String content;
-    public onKeybordClickListener mKeybordListener;
+    private onKeybordClickListener mKeybordListener;
+    //标记是否有长按的动作
+    private boolean isLongClick = false;
 
     public NumberKeybordView(Context context) {
         this(context, null);
@@ -65,31 +68,8 @@ public class NumberKeybordView extends LinearLayout {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //清除数字按钮
                 if (position == mAdapter.getCount() - 1 && mKeybordListener != null) {
+                    //每次只删除一个
                     mKeybordListener.clearNumber();
-//                    view.setOnTouchListener(new OnTouchListener() {
-//                        @Override
-//                        public boolean onTouch(View v, MotionEvent event) {
-//                            switch (event.getAction()) {
-//                                case MotionEvent.ACTION_DOWN :
-//                                    Log.e("TAG", "MotionEvent.ACTION_DOWN");
-//
-//                                    mKeybordListener.clearAllNumber();
-//                                    break;
-//                                case MotionEvent.ACTION_MOVE:
-//                                    mKeybordListener.clearAllNumber();
-//                                    Log.e("TAG", "MotionEvent.ACTION_MOVE");
-//                                    break;
-//                                case MotionEvent.ACTION_UP:
-//                                    Log.e("TAG", "MotionEvent.ACTION_UP");
-//                                    mKeybordListener.clearNumber();
-//                                    break;
-//                                case MotionEvent.ACTION_CANCEL:
-//                                    Log.e("TAG", "MotionEvent.ACTION_CANCEL");
-//                                    break;
-//                            }
-//                            return true;
-//                        }
-//                    });
                     return;
                 }
                 //点击的数字内容
@@ -99,6 +79,33 @@ public class NumberKeybordView extends LinearLayout {
                     mKeybordListener.onNumberReturn(content);
                 }
 
+            }
+        });
+        numberGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == mAdapter.getCount() - 1 && mKeybordListener != null) {
+                    //第一次长按时响应
+                    mKeybordListener.onLongClickClearAllNumber(false);
+                    view.setOnTouchListener(new OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            switch (event.getAction()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    mKeybordListener.onLongClickClearAllNumber(false);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    mKeybordListener.onLongClickClearAllNumber(true);
+                                    break;
+                                case MotionEvent.ACTION_CANCEL:
+                                    mKeybordListener.onLongClickClearAllNumber(true);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+                }
+                return false;
             }
         });
     }
@@ -131,8 +138,9 @@ public class NumberKeybordView extends LinearLayout {
         void onNumberReturn(String number);
 
         void clearNumber();
+
         //连续清除文字
-        void clearAllNumber();
+        void onLongClickClearAllNumber(boolean isStop);
     }
 
     public void setOnKeybordListener(onKeybordClickListener mKeybordListener) {

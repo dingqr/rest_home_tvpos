@@ -85,7 +85,7 @@ public class DIA_ReturnForegift {
             }
 
             @Override
-            public void clearAllNumber() {
+            public void onLongClickClearAllNumber(boolean b) {
 
             }
         });

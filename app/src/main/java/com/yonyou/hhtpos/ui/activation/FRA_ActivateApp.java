@@ -85,7 +85,7 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView{
     }
 
 
-    @OnClick(R.id.ee)
+    @OnClick(R.id.rb_next_step)
     public void onClick() {
 //        DIA_Navigation mDialog = new DIA_Navigation(mContext);
 //        mDialog.getDialog().show();
@@ -98,7 +98,7 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView{
 //
 //            }
 //        }).show();
-        new DIA_CollectForegift(mContext).show();
+        new DIA_CollectForegift(getActivity()).show();
 //        new DIA_ReturnForegift(mContext).show();
 //        new DIA_InputOrderInfo(mContext).show();
 //        new DIA_ChooseWaiter(mContext).show();
