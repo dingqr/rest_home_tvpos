@@ -1,38 +1,41 @@
-package com.yonyou.hhtpos.ui.home;
+package com.yonyou.hhtpos.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
-import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.base.ACT_BaseSimple;
-import com.yonyou.hhtpos.dialog.DIA_Navigation;
-import com.yonyou.hhtpos.ui.ACT_TakeOut;
-import com.yonyou.hhtpos.ui.book.ACT_BookPreview;
-
-import butterknife.Bind;
+import com.yonyou.hhtpos.base.ACT_BaseMultiple;
+import com.yonyou.hhtpos.ui.book.FRA_BookDetail;
 
 /**
- * 首页
- * 作者：liushuofei on 2017/6/29 11:48
+ * 外带页面
+ * 作者：liushuofei on 2017/7/4 16:41
  */
-public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener{
+public class ACT_TakeOut extends ACT_BaseMultiple {
 
-    @Bind(R.id.iv_menu)
-    ImageView mMenuImg;
+    private FRA_TakeOutLeft mTakeOutLeft;
 
     @Override
     protected void initView() {
-        mMenuImg.setOnClickListener(this);
+        mTakeOutLeft = new FRA_TakeOutLeft();
     }
 
     @Override
-    protected Fragment getContentFragment() {
-        return new FRA_Home();
+    protected float getLeftWeight() {
+        return 0.65f;
+    }
+
+    @Override
+    protected Fragment getLeftContent() {
+        return mTakeOutLeft;
+    }
+
+    @Override
+    protected Fragment getRightContent() {
+        return new FRA_BookDetail();
     }
 
     @Override
@@ -88,21 +91,5 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener{
     @Override
     public void showBusinessError(ErrorBean error) {
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_menu:
-//                readyGoThenKill(ACT_BookPreview.class);
-                readyGoThenKill(ACT_TakeOut.class);
-
-//                DIA_Navigation dia_navigation = new DIA_Navigation(mContext);
-//                dia_navigation.getDialog().show();
-                break;
-
-            default:
-                break;
-        }
     }
 }

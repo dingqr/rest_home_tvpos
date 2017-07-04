@@ -79,8 +79,14 @@
     <string name="order_status_arrive">已到店</string>
     <string name="order_status_cancel">取消</string>
 
-    <!--外带信息 -->
+    <!--外带 -->
     <string name="take_out_info">外带信息</string>
+    <string name="take_out_status_all">全部</string>
+    <string name="take_out_status_out_standing">未结账</string>
+    <string name="take_out_status_checked_out">结清</string>
+
+
+    <string name="order_no_data">今天还没有订单哦~</string>
 
     <!--日历 -->
     <string name="sunday">日</string>

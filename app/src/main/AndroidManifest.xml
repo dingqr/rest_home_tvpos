@@ -59,6 +59,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--外带 -->
+        <activity
+            android:name=".ui.ACT_TakeOut"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>
