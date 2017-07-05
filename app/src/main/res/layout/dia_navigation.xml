@@ -18,13 +18,13 @@
             android:paddingTop="@dimen/px_24"
             android:paddingRight="@dimen/px_60"
             android:paddingBottom="@dimen/px_24"
-            android:src="@drawable/ic_exit"/>
+            android:src="@drawable/ic_back"/>
 
         <ListView
             android:id="@+id/lv_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@color/color_333333"
+            android:divider="@color/color_000000"
             android:dividerHeight="@dimen/px_1"
             android:footerDividersEnabled="false"
             android:scrollbars="none">

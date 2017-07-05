@@ -15,6 +15,7 @@
         android:paddingRight="@dimen/px_30"
         android:paddingBottom="@dimen/px_34"
         android:button="@null"
-        android:background="@drawable/bg_navigation"/>
+        android:background="@drawable/bg_navigation"
+        android:drawablePadding="@dimen/px_30"/>
 
 </LinearLayout>

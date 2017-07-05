@@ -67,6 +67,8 @@
 
     <!--大于100-->
     <dimen name="px_110">73.3dp</dimen>
+    <dimen name="px_111">74dp</dimen>
+    <dimen name="px_112">74.6dp</dimen>
     <dimen name="px_114">76dp</dimen>
     <dimen name="px_123">82dp</dimen>
     <dimen name="px_139">92.6dp</dimen>

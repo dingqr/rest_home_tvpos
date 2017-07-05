@@ -1,6 +1,8 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,29 +51,37 @@ public class ADA_NavigationMain extends BaseAbsAdapter<String> {
 
     private void handleDataSource(int position, final ViewHolder holder) {
         String category = "";
+        int resId = 0;
+
         switch (position) {
             case 0:
                 category = "堂食";
+                resId = R.drawable.rb_ts_draw_left;
                 break;
 
             case 1:
                 category = "外卖";
+                resId = R.drawable.rb_wm_draw_left;
                 break;
 
             case 2:
                 category = "预订";
+                resId = R.drawable.rb_book_draw_left;
                 break;
 
             case 3:
                 category = "会员管理";
+                resId = R.drawable.rb_member_draw_left;
                 break;
 
             case 4:
                 category = "基础设置";
+                resId = R.drawable.rb_basic_draw_left;
                 break;
 
             case 5:
                 category = "营业概况";
+                resId = R.drawable.rb_business_draw_left;
                 break;
 
             default:
@@ -79,6 +89,17 @@ public class ADA_NavigationMain extends BaseAbsAdapter<String> {
         }
 
         holder.mTxt.setText(category);
+
+        Drawable left, right;
+        Resources res = mContext.getResources();
+        left = res.getDrawable(resId);
+        //调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
+        left.setBounds(0, 0, left.getMinimumWidth(), left.getMinimumHeight());
+
+        right = res.getDrawable(R.drawable.rb_navigation_main_right);
+        //调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
+        right.setBounds(0, 0, right.getMinimumWidth(), right.getMinimumHeight());
+        holder.mTxt.setCompoundDrawables(left, null, right, null); //设置左图标
 
         holder.mTxt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
