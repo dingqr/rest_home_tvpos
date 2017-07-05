@@ -26,7 +26,8 @@
     </style>
 
     <!-- Activity主题 -->
-    <style name="style_translucent_activity" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="style_translucent_activity"
+           parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
@@ -42,5 +43,8 @@
         <item name="android:windowEnterAnimation">@anim/dialog_left_in_anim</item>
         <item name="android:windowExitAnimation">@anim/dialog_left_out_anim</item>
     </style>
-
+    <style name="style_right_in_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_right_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_right_out_anim</item>
+    </style>
 </resources>

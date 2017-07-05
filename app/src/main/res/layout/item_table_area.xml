@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RadioButton
+        android:id="@+id/btn_option"
+        android:layout_width="@dimen/px_170"
+        android:layout_height="@dimen/px_60"
+        android:background="@drawable/bg_table_area_selector"
+        android:button="@null"
+        android:gravity="center"
+        android:clickable="true"
+        android:textSize="@dimen/sp_24"
+        android:layout_marginRight="@dimen/px_60"/>
+</RelativeLayout>

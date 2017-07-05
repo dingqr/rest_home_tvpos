@@ -7,8 +7,6 @@ import android.widget.LinearLayout;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.NavigationEntity;
-import com.yonyou.hhtpos.widgets.LeftNavigationView;
 
 import butterknife.Bind;
 

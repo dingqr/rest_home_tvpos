@@ -3,7 +3,6 @@ package com.yonyou.hhtpos.widgets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -13,11 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.FiltrationAdapter;
+import com.yonyou.hhtpos.adapter.ADA_Filtration;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
-
-import java.util.List;
 
 
 /**
@@ -26,7 +23,7 @@ import java.util.List;
  * 描述：单项筛选组件
  */
 
-public class FiltrationView extends LinearLayout implements FiltrationAdapter.OnItemClickListener {
+public class FiltrationView extends LinearLayout implements ADA_Filtration.OnItemClickListener {
     /**筛选框的类别*/
     private static final int VIEW_DISH_TYPE = 0;
     private static final int VIEW_DISH_AREA = 1;
@@ -40,13 +37,13 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
 
     /**筛选列表*/
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager layoutManger;
+
 
     /**筛选框的选项数据*/
     private FilterItemEntity filterItemEntity;
 
     /**数据适配器*/
-    private FiltrationAdapter mAdapter;
+    private ADA_Filtration mAdapter;
 
     /**当前实体*/
     private FilterOptionsEntity currentBean;
@@ -86,26 +83,27 @@ public class FiltrationView extends LinearLayout implements FiltrationAdapter.On
 
     public void setData(FilterItemEntity filterItemEntity) {
         this.filterItemEntity = filterItemEntity;
+        RecyclerView.LayoutManager layoutManger;
         if (filterItemEntity != null) {
             if (!TextUtils.isEmpty(filterItemEntity.getTitle())){
                 filtrationType.setText(filterItemEntity.getTitle());
             }
             if (filterItemEntity.getOptions() != null){
-                mAdapter = new FiltrationAdapter(mContext, filterItemEntity.getOptions());
+                mAdapter = new ADA_Filtration(mContext, filterItemEntity.getOptions());
             }
             //按照类别设置recyclerView的layoutManager
             if (filterItemEntity.getOptions().get(0).getType() != -1){
                 switch (filterItemEntity.getOptions().get(0).getType()){
                     case VIEW_DISH_TYPE:
-                        layoutManger = new GridLayoutManager(mContext, 4);
+                        layoutManger = new GridLayoutManager(mContext, 3);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case VIEW_DISH_AREA:
-                        layoutManger = new GridLayoutManager(mContext, 4);
+                        layoutManger = new GridLayoutManager(mContext, 3);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case VIEW_RESERVE_STATUS:
-                        layoutManger = new GridLayoutManager(mContext, 2);
+                        layoutManger = new GridLayoutManager(mContext, 3);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     default:

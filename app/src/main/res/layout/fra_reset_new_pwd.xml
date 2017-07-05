@@ -26,6 +26,7 @@
             android:textSize="@dimen/sp_34"
             android:textColor="@color/color_222222" />
         <EditText
+            android:id="@+id/et_new_pwd"
             android:layout_width="@dimen/px_700"
             android:layout_height="@dimen/px_90"
             android:layout_marginTop="@dimen/px_40"
@@ -35,8 +36,9 @@
             android:gravity="center"
             android:background="@drawable/bg_gray_side_gray"
             android:textSize="@dimen/sp_28"
-            android:focusableInTouchMode="false"/>
+            android:clickable="true"/>
         <EditText
+            android:id="@+id/et_confirm_new_pwd"
             android:layout_width="@dimen/px_700"
             android:layout_height="@dimen/px_90"
             android:layout_marginTop="@dimen/px_26"
@@ -46,7 +48,7 @@
             android:gravity="center"
             android:background="@drawable/bg_gray_side_gray"
             android:textSize="@dimen/sp_28"
-            android:focusableInTouchMode="false"/>
+            android:clickable="true"/>
 
         
         <RadioButton

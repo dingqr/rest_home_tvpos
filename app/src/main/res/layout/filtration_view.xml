@@ -8,12 +8,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_filtration_type"
-        android:padding="10dp"
-        android:text="筛选种类"/>
+        android:text="筛选种类"
+        android:textSize="@dimen/sp_24"
+        android:textColor="@color/color_999999"
+        android:layout_marginTop="@dimen/px_28"
+        android:layout_marginBottom="@dimen/px_10"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_filtration_options"
-        android:padding="10dp">
+        android:id="@+id/rv_filtration_options">
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

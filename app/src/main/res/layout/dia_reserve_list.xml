@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px_590"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/rl_content">
+    <FrameLayout
+        android:id="@+id/fl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:orientation="horizontal"
+        android:background="@color/color_ededed">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_title_order_number"
+            android:textSize="@dimen/sp_28"
+            android:textColor="@color/color_333333"
+            android:layout_marginTop="@dimen/px_24"
+            android:layout_marginBottom="@dimen/px_24"
+            android:gravity="center"/>
+        <ImageButton
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_close"
+            android:layout_marginTop="@dimen/px_27"
+            android:layout_marginLeft="@dimen/px_20"
+            android:padding="10dp"
+            android:layout_gravity="left"/>
+    </FrameLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/order_list_swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_890"
+        android:layout_below="@+id/fl_title">
+        <com.github.jdsjlzx.recyclerview.LuRecyclerView
+            android:id="@+id/order_list_lrv_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>
+

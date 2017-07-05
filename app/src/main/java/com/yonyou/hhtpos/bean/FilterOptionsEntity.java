@@ -42,7 +42,7 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
     }
 
     public void setCheck(boolean check) {
-        isCheck = check;
+        this.isCheck = check;
     }
 
     public int getType() {
