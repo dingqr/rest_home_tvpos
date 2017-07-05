@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.ui.FRA_TakeOutLeft;
-import com.yonyou.hhtpos.ui.FRA_TakeOutList;
+import com.yonyou.hhtpos.ui.dinner.wd.FRA_TakeOutLeft;
+import com.yonyou.hhtpos.ui.dinner.wd.FRA_TakeOutList;
 
 /**
  * 作者：liushuofei on 2017/7/4 16:55

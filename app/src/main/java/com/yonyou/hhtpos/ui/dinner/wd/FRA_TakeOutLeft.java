@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.ui;
+package com.yonyou.hhtpos.ui.dinner.wd;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

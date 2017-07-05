@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.ui;
+package com.yonyou.hhtpos.ui.dinner.wd;
 
 import android.os.Bundle;
 import android.view.View;

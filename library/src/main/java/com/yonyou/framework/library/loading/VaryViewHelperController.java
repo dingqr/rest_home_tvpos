@@ -2,6 +2,7 @@ package com.yonyou.framework.library.loading;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.R;
@@ -102,7 +103,7 @@ public class VaryViewHelperController {
     /**
      * 服务器错误
      */
-    public void showServerError(){
+    public void showServerError() {
         View layout = helper.inflate(R.layout.message_center);
         TextView tvServerError = (TextView) layout.findViewById(R.id.message_info);
         ImageView ivServerError = (ImageView) layout.findViewById(R.id.message_icon);
@@ -152,9 +153,9 @@ public class VaryViewHelperController {
         imageView.setImageResource(emptyImg);
 
         TextView mRefreshTxt = (TextView) layout.findViewById(R.id.message_network_refresh);
-        if (!CommonUtils.isEmpty(refreshTxt)){
+        if (!CommonUtils.isEmpty(refreshTxt)) {
             mRefreshTxt.setText(refreshTxt);
-        }else{
+        } else {
             mRefreshTxt.setText("刷新");
         }
         if (null != onClickListener) {
@@ -187,10 +188,11 @@ public class VaryViewHelperController {
 
     /**
      * 不可点击的无数据
+     *
      * @param emptyImg
      * @param emptyMsg
      */
-    public void showEmpty(int emptyImg, String emptyMsg){
+    public void showEmpty(int emptyImg, String emptyMsg) {
         View layout = helper.inflate(R.layout.empty_layout);
         ImageView imageView = (ImageView) layout.findViewById(R.id.iv_empty_img);
         TextView textView = (TextView) layout.findViewById(R.id.tv_empty_txt);
@@ -205,9 +207,33 @@ public class VaryViewHelperController {
     }
 
     /**
+     * 不可点击的无数据
+     *
+     * @param emptyImg
+     * @param emptyMsg
+     */
+    public void showEmpty(int emptyImg, String emptyMsg, int bgColor, int textColor) {
+        View layout = helper.inflate(R.layout.empty_layout);
+        LinearLayout llEmpty = (LinearLayout) layout.findViewById(R.id.ll_empty);
+        ImageView imageView = (ImageView) layout.findViewById(R.id.iv_empty_img);
+        TextView textView = (TextView) layout.findViewById(R.id.tv_empty_txt);
+        //文字颜色
+        textView.setTextColor(textColor);
+        //空页面背景
+        llEmpty.setBackgroundColor(bgColor);
+        // 图片
+        imageView.setImageResource(emptyImg);
+        // 文本
+        if (!CommonUtils.isEmpty(emptyMsg)) {
+            textView.setText(emptyMsg);
+        }
+        helper.showLayout(layout);
+    }
+
+    /**
      * 显示公司信息
      */
-    public void showCompanyInfo(){
+    public void showCompanyInfo() {
         View layout = helper.inflate(R.layout.company_info);
         helper.showLayout(layout);
     }

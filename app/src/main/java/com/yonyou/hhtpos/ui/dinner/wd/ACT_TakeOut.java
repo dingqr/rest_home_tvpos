@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.ui;
+package com.yonyou.hhtpos.ui.dinner.wd;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,6 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.ui.book.FRA_BookDetail;
 
 /**
  * 外带页面
@@ -35,7 +34,7 @@ public class ACT_TakeOut extends ACT_BaseMultiple {
 
     @Override
     protected Fragment getRightContent() {
-        return new FRA_BookDetail();
+        return new FRA_TakeOutDetail();
     }
 
     @Override
