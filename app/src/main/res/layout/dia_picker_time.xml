@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:picker="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px_430"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_100"
+        android:background="@color/color_F8F8F8"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/px_10"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:paddingTop="@dimen/px_10"
+            android:text="取消"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_26" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_current_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今年（2017年）"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_22" />
+
+            <TextView
+                android:id="@+id/tv_next_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_44"
+                android:text="明年（2018年）"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_22" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/px_10"
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30"
+            android:paddingTop="@dimen/px_10"
+            android:text="确定"
+            android:textColor="@color/color_eb6247"
+            android:textSize="@dimen/sp_26" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_eaeaea"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.yonyou.hhtpos.widgets.WheelView
+            android:id="@+id/wheel_month"
+            android:layout_width="@dimen/px_94"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30"
+            picker:pickerview_dividerColor="@color/color_eb6247"
+            picker:pickerview_textColorCenter="@color/color_222222"
+            picker:pickerview_textSize="@dimen/px_28" />
+
+        <com.yonyou.hhtpos.widgets.WheelView
+            android:id="@+id/wheel_day"
+            android:layout_width="@dimen/px_160"
+            android:layout_height="wrap_content"
+            picker:pickerview_dividerColor="@color/color_eb6247"
+            picker:pickerview_textColorCenter="@color/color_222222"
+            picker:pickerview_textSize="@dimen/px_28" />
+
+        <!--<com.yonyou.hhtpos.widgets.WheelView-->
+        <!--android:id="@+id/wheel_zhanwei"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--picker:pickerview_dividerColor="@color/color_eb6247"-->
+        <!--picker:pickerview_textColorCenter="@color/color_222222"-->
+        <!--picker:pickerview_textSize="@dimen/px_28" />-->
+
+        <com.yonyou.hhtpos.widgets.WheelView
+            android:id="@+id/wheel_hour"
+            android:layout_width="@dimen/px_310"
+            android:layout_height="wrap_content"
+            picker:pickerview_dividerColor="@color/color_eb6247"
+            picker:pickerview_textColorCenter="@color/color_222222"
+            picker:pickerview_textSize="@dimen/px_28" />
+
+        <com.yonyou.hhtpos.widgets.WheelView
+            android:id="@+id/wheel_second"
+            android:layout_width="@dimen/px_150"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/px_30"
+            picker:pickerview_dividerColor="@color/color_eb6247"
+            picker:pickerview_textColorCenter="@color/color_222222"
+            picker:pickerview_textSize="@dimen/px_28" />
+    </LinearLayout>
+
+</LinearLayout>

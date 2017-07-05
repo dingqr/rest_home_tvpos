@@ -43,9 +43,13 @@ public class DIA_ChooseStore {
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
         swipeRefreshLayout = (SwipeRefreshLayout) mContentView.findViewById(R.id.swipeRefreshLayout);
 
+
+
         mDialog.setContentView(mContentView);
         initListener();
+
         setData();
+
         adapter = new ADA_ChooseStore(mContext);
         gridView.setAdapter(adapter);
         adapter.update(datas);
@@ -61,7 +65,10 @@ public class DIA_ChooseStore {
                 adapter.setSelectItem(position);
                 adapter.notifyDataSetChanged();
                 if (chooseStoreListener != null) {
-                    chooseStoreListener.onChooseStore(datas.get(position).store_name);
+                    chooseStoreListener.onChooseStore(datas.get(position).store_name,position);
+                }
+                if(mDialog.isShowing()) {
+                    mDialog.dismiss();
                 }
             }
         });
@@ -110,7 +117,7 @@ public class DIA_ChooseStore {
     }
 
     public interface OnChoosStoreListener {
-        void onChooseStore(String storeName);
+        void onChooseStore(String storeName,int position);
     }
 
 }

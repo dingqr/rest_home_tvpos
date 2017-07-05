@@ -67,15 +67,22 @@
 
     <!--大于100-->
     <dimen name="px_110">73.3dp</dimen>
+    <dimen name="px_118">78.6dp</dimen>
+    <dimen name="px_120">80dp</dimen>
+    <dimen name="px_128">85.3dp</dimen>
+    <dimen name="px_140">93.3dp</dimen>
     <dimen name="px_111">74dp</dimen>
     <dimen name="px_112">74.6dp</dimen>
     <dimen name="px_114">76dp</dimen>
     <dimen name="px_123">82dp</dimen>
     <dimen name="px_139">92.6dp</dimen>
     <dimen name="px_115">76.6dp</dimen>
-    <dimen name="px_120">80dp</dimen>
     <dimen name="px_146">97.3dp</dimen>
+    <dimen name="px_148">98.6dp</dimen>
     <dimen name="px_160">106.6dp</dimen>
+    <dimen name="px_172">114.6dp</dimen>
+    <dimen name="px_180">120dp</dimen>
+    <dimen name="px_190">126.6dp</dimen>
     <dimen name="px_290">193.3dp</dimen>
     <dimen name="px_300">200dp</dimen>
     <dimen name="px_590">393.3dp</dimen>
@@ -84,6 +91,9 @@
     <dimen name="px_150">100dp</dimen>
     <dimen name="px_196">130.6dp</dimen>
     <dimen name="px_340">226.6dp</dimen>
+    <dimen name="px_356">237.3dp</dimen>
+    <dimen name="px_430">286.6dp</dimen>
+    <dimen name="px_436">290.6dp</dimen>
     <dimen name="px_474">316dp</dimen>
     <dimen name="px_640">426.6dp</dimen>
     <dimen name="px_644">429.3dp</dimen>
@@ -125,11 +135,11 @@
     <dimen name="px_1010">673.3dp</dimen>
     <dimen name="px_600">400dp</dimen>
     <dimen name="px_258">172dp</dimen>
+    <dimen name="px_310">206.6dp</dimen>
     <dimen name="px_170">113.3dp</dimen>
     <dimen name="px_200">133.3dp</dimen>
     <dimen name="px_205">136.6dp</dimen>
     <dimen name="px_248">165.3dp</dimen>
-    <dimen name="px_190">126.6dp</dimen>
     <dimen name="px_582">388dp</dimen>
     <dimen name="px_658">438.6dp</dimen>
     <dimen name="px_260">173.3dp</dimen>
@@ -148,5 +158,9 @@
     <dimen name="sp_40">26.6sp</dimen>
     <dimen name="sp_45">30sp</dimen>
     <dimen name="sp_50">33.3sp</dimen>
+
+    <!--WheelView-->
+    <!-- 选项文字大小 需要配合 bools.xml 的 pickerview_customTextSize 为 true 才有效果-->
+    <dimen name="pickerview_textsize">20sp</dimen>
 
 </resources>

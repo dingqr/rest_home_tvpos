@@ -29,11 +29,11 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<OrderDishesEnti
 
 
         //根据菜品的提交订单时间，分组显示列表
-        if (position == getFirstVisiblePosition(orderDishesEntity.order_time)) {
-            holder.setVisible(R.id.tv_header_time, true);
-        } else {
-            holder.setVisible(R.id.tv_header_time, false);
-        }
+//        if (position == getFirstVisiblePosition(orderDishesEntity.order_time)) {
+//            holder.setVisible(R.id.tv_header_time, true);
+//        } else {
+//            holder.setVisible(R.id.tv_header_time, false);
+//        }
     }
 
     /**
