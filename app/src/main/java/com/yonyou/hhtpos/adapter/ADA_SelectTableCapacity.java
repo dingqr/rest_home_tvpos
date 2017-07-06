@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
@@ -50,9 +51,10 @@ public class ADA_SelectTableCapacity extends RecyclerView.Adapter<ADA_SelectTabl
         View view = mInflater.inflate(R.layout.item_table_capacity, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.llSelectTableCapacity = (LinearLayout) view.findViewById(R.id.ll_select_table_capacity);
-        viewHolder.llTableCapacity = (LinearLayout)view.findViewById(R.id.ll_table_capacity);
+        viewHolder.llTableCapacity = (RelativeLayout)view.findViewById(R.id.ll_table_capacity);
         viewHolder.tvTableCapacity = (TextView) view.findViewById(R.id.tv_table_capacity);
         viewHolder.tvTableArea = (TextView) view.findViewById(R.id.tv_table_area);
+        viewHolder.rbSelectTable = (RadioButton)view.findViewById(R.id.rb_select_table);
         return viewHolder;
     }
 
@@ -65,7 +67,7 @@ public class ADA_SelectTableCapacity extends RecyclerView.Adapter<ADA_SelectTabl
             if (dataBean.isCheck()){
                 currentBean = dataBean;
             }
-            holder.llSelectTableCapacity.setOnClickListener(new View.OnClickListener() {
+            holder.rbSelectTable.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnItemClickListener != null) {
@@ -84,9 +86,11 @@ public class ADA_SelectTableCapacity extends RecyclerView.Adapter<ADA_SelectTabl
             });
             //设置选中效果
             if (dataBean.isCheck()) {
-                holder.llSelectTableCapacity.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_4));
+//                holder.llSelectTableCapacity.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_4));
+                holder.rbSelectTable.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.ic_table_selected));
             } else {
-                holder.llSelectTableCapacity.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_gray_4));
+//                holder.llSelectTableCapacity.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_gray_4));
+                holder.rbSelectTable.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.ic_table_un_selected));
             }
         }
     }
@@ -121,9 +125,10 @@ public class ADA_SelectTableCapacity extends RecyclerView.Adapter<ADA_SelectTabl
             super(itemView);
         }
         public LinearLayout llSelectTableCapacity;
-        public LinearLayout llTableCapacity;
+        public RelativeLayout llTableCapacity;
         public TextView tvTableCapacity;
         public TextView tvTableArea;
+        public RadioButton rbSelectTable;
     }
 }
 /** holder.llSelectTableCapacity.setOnClickListener(new View.OnClickListener() {

@@ -6,32 +6,72 @@
     android:layout_height="@dimen/px_170"
     android:layout_marginBottom="@dimen/px_10"
     android:clickable="true">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_table_capacity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/px_2"
-        android:background="@drawable/bg_empty_table">
-    <TextView
-        android:id="@+id/tv_table_capacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@null"
-        android:layout_marginLeft="@dimen/px_80"
-        android:layout_marginTop="@dimen/px_50"
-        android:text="10人"
-        android:textColor="@color/color_333333"
-        android:textSize="@dimen/sp_25"/>
-    <TextView
-        android:id="@+id/tv_table_area"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/px_40"
-        android:text="北京"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/px_91"
-        android:layout_marginTop="@dimen/px_46"
-        android:textColor="@color/color_999999"
-        android:textSize="@dimen/px_24" />
-    </LinearLayout>
+        android:background="@drawable/bg_empty_table_new"
+        android:layout_margin="@dimen/px_2">
+        <TextView
+            android:id="@+id/tv_table_capacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_86"
+            android:layout_marginTop="@dimen/px_50"
+            android:text="10人"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_25"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_select_table"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/px_7"
+            android:layout_marginRight="@dimen/px_10"
+            android:button="@null" />
+        <TextView
+            android:id="@+id/tv_table_area"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_40"
+            android:layout_below="@+id/tv_table_capacity"
+            android:text="北京"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/px_91"
+            android:layout_marginTop="@dimen/px_46"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/px_24" />
+    </RelativeLayout>
 </LinearLayout>
+
+
+<!--
+            android:background="@drawable/rb_table_selector" -->
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_table_capacity"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_margin="@dimen/px_2"-->
+        <!--android:background="@drawable/bg_empty_table">-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_table_capacity"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:button="@null"-->
+        <!--android:layout_marginLeft="@dimen/px_80"-->
+        <!--android:layout_marginTop="@dimen/px_50"-->
+        <!--android:text="10人"-->
+        <!--android:textColor="@color/color_333333"-->
+        <!--android:textSize="@dimen/sp_25"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_table_area"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="@dimen/px_40"-->
+        <!--android:text="北京"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginLeft="@dimen/px_91"-->
+        <!--android:layout_marginTop="@dimen/px_46"-->
+        <!--android:textColor="@color/color_999999"-->
+        <!--android:textSize="@dimen/px_24" />-->
+    <!--</LinearLayout>-->
+<!--</LinearLayout>-->

@@ -102,7 +102,18 @@ public class PatternUtils {
 		Matcher m = p.matcher(passWord);
 		return m.matches();
 	}
-
+	/**
+	 * 密码2格式是否正确（只能是6位数字）
+	 *
+	 * @param passWord
+	 * @return
+	 */
+	// Pattern p = Pattern.compile("^\d{6}$");
+	public static boolean checkPassWordSix(String passWord) {
+		Pattern p = Pattern.compile("^\\d{6}$");
+		Matcher m = p.matcher(passWord);
+		return m.matches();
+	}
 	/**
 	 * 
 	 * @Title: isIdentityValid 

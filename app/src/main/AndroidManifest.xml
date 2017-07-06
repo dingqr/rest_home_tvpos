@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+         <!--<activity-->
+         <!--android:name=".ui.activation.ACT_ActivateApp"-->
+         <!--android:screenOrientation="landscape"-->
+         <!--android:theme="@style/style_translucent_activity"/>-->
+             <!--<intent-filter> -->
+                <!--<action android:name="android.intent.action.MAIN" /> -->
+                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         <activity
             android:name=".ui.activation.ACT_ActivateApp"
             android:screenOrientation="landscape"
@@ -33,7 +41,10 @@
         <activity
             android:name=".ui.login.ACT_Login"
             android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+            android:theme="@style/style_translucent_activity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
 
         <!--验证手机号 -->
         <activity
@@ -45,7 +56,12 @@
         <activity
             android:name=".ui.login.ACT_ResetNewPwd"
             android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+            android:theme="@style/style_translucent_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!--首页 -->
         <activity
@@ -59,17 +75,47 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+
+         <activity
+             android:name=".ACT_TestFiltration"
+             android:screenOrientation="landscape"
+             android:theme="@style/style_translucent_activity"
+             android:windowSoftInputMode="adjustUnspecified|stateHidden"
+             android:configChanges="orientation|keyboardHidden">
+             <!--<intent-filter>-->
+             <!--<action android:name="android.intent.action.MAIN" />-->
+
+             <!--<category android:name="android.intent.category.LAUNCHER" />-->
+             <!--</intent-filter>-->
+         </activity>
+
+        <!--<activity-->
+            <!--android:name=".ACT_TestMultiple"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:theme="@style/style_translucent_activity"-->
+            <!--android:windowSoftInputMode="adjustUnspecified|stateHidden">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+
         <!--外带 -->
-        <activity
-            android:name=".ui.ACT_TakeOut"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+        <!--<activity-->
+            <!--android:name=".ui.ACT_TakeOut"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:theme="@style/style_translucent_activity"/>-->
 
         <!--待确认订单 -->
         <activity
             android:name=".ui.reserve.ACT_TobeConfirmOrder"
             android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+            android:theme="@style/style_translucent_activity">
+
+        </activity>
 
     </application>
 

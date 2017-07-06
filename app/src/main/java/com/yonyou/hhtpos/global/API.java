@@ -28,4 +28,9 @@ public class API {
      */
     public static final String VERIFY_PHONE_NUMBER = BASE_SERVER_IP + "/auth/message";
 
+    /**登录*/
+    public static final String URL_PASSPORT_LOGIN = BASE_SERVER_IP + "/login";
+
+    /**重置密码*/
+    public static final String URL_RESET_PWD = BASE_SERVER_IP + "/changePassword";
 }

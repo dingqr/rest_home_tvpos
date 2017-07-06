@@ -220,6 +220,26 @@ public abstract class ValidateRule{
 		}
 	};
 
+	/**
+	 * 验证密码格式是否正确
+	 * 只能是6位纯数字
+	 */
+	public static String PASSWORDERRORALERTNEW = "密码是6位纯数字";
+	public static ValidateRule IS_VALID_PASSWORD_PURE_NUMBER_SIX = new ValidateRule("IS_VALID_PASSWORD_PURE_NUMBER_SIX"){
+		@Override
+		public ReturnObject doValidate(CharSequence text){
+			ReturnObject ro = new ReturnObject(this.getRuleName());
+			if(!TextUtils.isEmpty(text)&& PatternUtils.checkPassWordSix(text.toString())){
+				ro.isSuccess = true;
+			}
+			else{
+				ro.isSuccess = false;
+				ro.data =PASSWORDERRORALERT;
+			}
+			return ro;
+		}
+	};
+
 	protected abstract ReturnObject doValidate(CharSequence text);
 
 }

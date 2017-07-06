@@ -36,9 +36,9 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
     private ArrayList<TableCapacityEntity> capacityEntities;
     private ArrayList<ReserveOrderListEntity> reserveOrderListEntity;
-//    DIA_SelectTable dia_reserveFiltration;
+    DIA_SelectTable dia_reserveFiltration;
 //    DIA_ReserveFiltration dia_reserveFiltration;
-    DIA_ReserveList dia_reserveFiltration;
+//    DIA_ReserveList dia_reserveFiltration;
 
 
     @Override
@@ -119,10 +119,10 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 //                dia_reserveFiltration.getDialog().show();
 //                dia_reserveFiltration = new DIA_OpenOrder(mContext);
 //                dia_reserveFiltration.getDialog().show();
-//                dia_reserveFiltration = new DIA_SelectTable(mContext,filterOptionsEntities,capacityEntities);
-//                dia_reserveFiltration.getDialog().show();
-                dia_reserveFiltration = new DIA_ReserveList(mContext,reserveOrderListEntity);
+                dia_reserveFiltration = new DIA_SelectTable(mContext,filterOptionsEntities,capacityEntities);
                 dia_reserveFiltration.getDialog().show();
+//                dia_reserveFiltration = new DIA_ReserveList(mContext,reserveOrderListEntity);
+//                dia_reserveFiltration.getDialog().show();
                 break;
 
             default:

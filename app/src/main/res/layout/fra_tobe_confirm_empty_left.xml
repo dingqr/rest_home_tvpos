@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_whole_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical"
+    tools:context="com.yonyou.hhtpos.MainActivity">
+
+   <ImageView
+       android:id="@+id/iv_no_reserve"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/ic_reserve_empty"
+       android:layout_gravity="center"
+       android:layout_marginTop="@dimen/px_338"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hint_reserve_empty"
+        android:layout_marginTop="@dimen/px_30"
+        android:layout_gravity="center"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_24"/>
+</LinearLayout>

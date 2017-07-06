@@ -41,6 +41,7 @@
     <string name="reset_new_pwd">设置新密码</string>
     <string name="new_pwd">新密码</string>
     <string name="confirm_new_pwd">确认新密码</string>
+    <string name="different_pwd">两次输入的密码不同</string>
     <string name="finish">完成</string>
 
     <string name="string_choose_store">绑定门店</string>

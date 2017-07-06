@@ -8,12 +8,15 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
+import com.yonyou.hhtpos.db.entity.UserEntity;
+import com.yonyou.hhtpos.presenter.ILoginPresenter;
+import com.yonyou.hhtpos.view.ILoginView;
 
 /**
  * 作者：ybing on 2017/6/27 10:01
  * 邮箱：ybing@yonyou.com
  */
-public class ACT_Login extends ACT_BaseFullScreen{
+public class ACT_Login extends ACT_BaseFullScreen  implements ILoginView {
 
     @Override
     protected void initView() {
@@ -77,6 +80,11 @@ public class ACT_Login extends ACT_BaseFullScreen{
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void login(UserEntity dataBean) {
 
     }
 }

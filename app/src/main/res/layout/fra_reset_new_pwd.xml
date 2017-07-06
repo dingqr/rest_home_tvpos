@@ -36,7 +36,9 @@
             android:gravity="center"
             android:background="@drawable/bg_gray_side_gray"
             android:textSize="@dimen/sp_28"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:inputType="numberPassword"
+            android:maxLength="6"/>
         <EditText
             android:id="@+id/et_confirm_new_pwd"
             android:layout_width="@dimen/px_700"
@@ -48,14 +50,16 @@
             android:gravity="center"
             android:background="@drawable/bg_gray_side_gray"
             android:textSize="@dimen/sp_28"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:inputType="numberPassword"
+            android:maxLength="6"/>
 
         
         <RadioButton
             android:id="@+id/rb_finish"
             android:layout_width="@dimen/px_700"
             android:layout_height="@dimen/px_80"
-            android:background="@drawable/rb_next_step_bg_checked"
+            android:background="@drawable/bg_red_4_selector"
             android:button="@null"
             android:layout_marginLeft="@dimen/px_90"
             android:layout_marginRight="@dimen/px_90"
@@ -64,7 +68,8 @@
             android:gravity="center"
             android:text="@string/finish"
             android:textColor="@color/color_FFFFFF"
-            android:textSize="@dimen/sp_32"/>
+            android:textSize="@dimen/sp_32"
+            android:checked="false"/>
 
     </LinearLayout>
 
