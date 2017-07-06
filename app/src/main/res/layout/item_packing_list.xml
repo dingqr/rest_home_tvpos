@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/px_110"
+    android:layout_height="@dimen/px_112"
     android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_root"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_109"
+        android:layout_height="@dimen/px_111"
         android:background="@color/color_FFFFFF">
 
         <View
@@ -21,53 +21,23 @@
 
         <TextView
             android:id="@+id/tv_number"
-            android:layout_width="@dimen/px_133"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/px_30"
-            android:text="No.1"
+            android:text="No.0001"
             android:textColor="@color/color_222222"
             android:textSize="@dimen/sp_30"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="@dimen/px_220"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/tv_number"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/iv_channel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_ele_me"
-                    android:layout_marginTop="@dimen/px_10"
-                    android:layout_marginRight="@dimen/px_10"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/iv_channel"
-                    android:text="百度外卖100"
-                    android:textSize="@dimen/sp_24"
-                    android:textColor="@color/color_222222"
-                    android:layout_marginTop="@dimen/px_17"/>
-
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="王先生"
-                android:textSize="@dimen/sp_24"
-                android:textColor="@color/color_999999"
-                android:layout_marginTop="@dimen/px_22"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="¥129.00"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_28" />
 
         <LinearLayout
             android:layout_width="wrap_content"

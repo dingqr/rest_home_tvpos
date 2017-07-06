@@ -123,13 +123,21 @@
     <string name="no_more_note">亲！没有更多了</string>
 
     <!--外带 -->
-    <string name="take_out_info">外带信息</string>
-    <string name="take_out_status_all">全部</string>
-    <string name="take_out_status_out_standing">未结账</string>
-    <string name="take_out_status_checked_out">结清</string>
+    <string name="packing_info">外带信息</string>
+    <string name="packing_status_all">全部</string>
+    <string name="packing_status_out_standing">未结账</string>
+    <string name="packing_status_checked_out">结清</string>
+
+    <!--外卖 -->
+    <string name="take_out_all">全部</string>
+    <string name="take_out_no_order">未下单</string>
+    <string name="take_out_place_order">已下单</string>
+    <string name="take_out_checked_out">已结账</string>
+    <string name="take_out_refunded">已退款</string>
 
 
     <string name="order_no_data">今天还没有订单哦~</string>
+    <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
 
     <!--日历 -->
     <string name="sunday">日</string>

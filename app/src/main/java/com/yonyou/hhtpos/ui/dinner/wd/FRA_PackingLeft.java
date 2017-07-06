@@ -8,7 +8,7 @@ import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.TakeOutFragmentAdapter;
+import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -29,7 +29,7 @@ public class FRA_PackingLeft extends BaseFragment {
     /**记录前一个被选中的tab的位置 */
     private int prePosition;
 
-    private TakeOutFragmentAdapter mFragmentAdapter;
+    private PackingFragmentAdapter mFragmentAdapter;
 
     public static final int RB_ALL = 0;
     public static final int RB_OUT_STANDING = 1;
@@ -63,7 +63,7 @@ public class FRA_PackingLeft extends BaseFragment {
     }
 
     private void setVpAdapter() {
-        mFragmentAdapter = new TakeOutFragmentAdapter(getSupportFragmentManager(), mContext);
+        mFragmentAdapter = new PackingFragmentAdapter(getSupportFragmentManager(), mContext);
         mViewPager.setAdapter(mFragmentAdapter);
     }
 

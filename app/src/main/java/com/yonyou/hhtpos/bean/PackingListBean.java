@@ -3,10 +3,10 @@ package com.yonyou.hhtpos.bean;
 import java.io.Serializable;
 
 /**
- * 外卖列表bean
- * 作者：liushuofei on 2017/7/6 15:14
+ * 外带列表实体类
+ * 作者：liushuofei on 2017/7/5 10:44
  */
-public class TakeOutListBean implements Serializable {
+public class PackingListBean implements Serializable {
 
     /**是否选中 */
     private boolean isCheck;

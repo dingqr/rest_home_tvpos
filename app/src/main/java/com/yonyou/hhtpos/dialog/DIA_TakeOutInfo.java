@@ -42,7 +42,7 @@ public class DIA_TakeOutInfo extends DIA_Base implements View.OnClickListener{
         lp.height = 500; // 设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        mDialogTitle.setText(mContext.getString(R.string.take_out_info));
+        mDialogTitle.setText(mContext.getString(R.string.packing_info));
         mClose.setOnClickListener(this);
         return mDialog;
     }

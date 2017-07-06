@@ -11,6 +11,7 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseSimple;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.ui.dinner.wm.ACT_TakeOut;
 
 import butterknife.Bind;
 
@@ -94,9 +95,10 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener{
             case R.id.iv_menu:
 //                readyGoThenKill(ACT_BookPreview.class);
 //                readyGoThenKill(ACT_Packing.class);
+                readyGoThenKill(ACT_TakeOut.class);
 
-                DIA_Navigation dia_navigation = new DIA_Navigation(mContext);
-                dia_navigation.getDialog().show();
+//                DIA_Navigation dia_navigation = new DIA_Navigation(mContext);
+//                dia_navigation.getDialog().show();
                 break;
 
             default:
