@@ -51,7 +51,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_20"
+                android:layout_marginBottom="@dimen/px_16"
                 android:layout_marginLeft="@dimen/px_18"
                 android:layout_marginRight="@dimen/px_10">
 
@@ -74,7 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_20"
+                android:layout_marginBottom="@dimen/px_16"
                 android:layout_marginLeft="@dimen/px_18"
                 android:layout_marginRight="@dimen/px_10">
 
@@ -124,7 +124,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/px_20"
+                    android:layout_marginBottom="@dimen/px_16"
                     android:gravity="end"
                     android:text="2017-06-08 11:30"
                     android:textColor="@color/color_999999"
@@ -161,7 +161,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/px_20"
+                    android:layout_marginBottom="@dimen/px_16"
                     android:gravity="end"
                     android:text="2017-06-08 11:30"
                     android:textColor="@color/color_999999"
@@ -244,8 +244,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_20"
-                android:layout_marginLeft="@dimen/px_20">
+                android:layout_marginBottom="@dimen/px_16"
+                android:layout_marginLeft="@dimen/px_20"
+                android:layout_marginTop="@dimen/px_16">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -257,6 +258,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/px_10"
@@ -268,7 +270,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_20"
+                android:layout_marginBottom="@dimen/px_16"
                 android:layout_marginLeft="@dimen/px_20"
                 android:orientation="horizontal">
 
@@ -299,7 +301,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_20"
+                android:layout_marginBottom="@dimen/px_16"
                 android:layout_marginLeft="@dimen/px_20"
                 android:drawableLeft="@drawable/ic_wm_people_num"
                 android:drawablePadding="@dimen/px_20"
@@ -310,7 +312,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_20"
+                android:layout_marginBottom="@dimen/px_16"
                 android:layout_marginLeft="@dimen/px_20"
                 android:drawableLeft="@drawable/ic_wm_address"
                 android:drawablePadding="@dimen/px_20"
@@ -321,7 +323,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_42"
+                android:layout_marginBottom="@dimen/px_40"
                 android:layout_marginLeft="@dimen/px_20"
                 android:drawableLeft="@drawable/ic_wm_remark"
                 android:drawablePadding="@dimen/px_20"
@@ -373,7 +375,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
-                android:layout_marginTop="@dimen/px_22">
+                android:layout_marginTop="@dimen/px_16">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -397,7 +399,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
-                android:layout_marginTop="@dimen/px_22">
+                android:layout_marginTop="@dimen/px_16">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -421,7 +423,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
-                android:layout_marginTop="@dimen/px_22">
+                android:layout_marginTop="@dimen/px_16">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -443,9 +445,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/px_34"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
-                android:layout_marginTop="@dimen/px_22">
+                android:layout_marginTop="@dimen/px_16">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -477,8 +480,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/px_22"
-                    android:paddingTop="@dimen/px_22">
+                    android:paddingBottom="@dimen/px_18"
+                    android:paddingTop="@dimen/px_18">
 
                     <TextView
                         android:layout_width="wrap_content"
