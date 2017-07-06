@@ -147,7 +147,10 @@
     <string name="thursday">四</string>
     <string name="friday">五</string>
     <string name="saturday">六</string>
+    <!--空页面提示-->
     <string name="order_no_detail">开通易企餐服务，可以获得更多订单哦~</string>
+    <string name="empty_msg">红火台餐饮云服务有限公司</string>
+    <string name="empty_msg_other">400-0000-0000</string>
 
 
 </resources>

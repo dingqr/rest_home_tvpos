@@ -57,7 +57,7 @@ public class FRA_PackingDetail extends BaseFragment {
         mAdapter.update(dataList);
 
         // 无数据页面
-//        showEmpty(R.drawable.default_no_order_detail, mContext.getString(R.string.order_no_detail), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222));
+//        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
     }
 
     private void setData() {

@@ -1,5 +1,6 @@
 package com.yonyou.framework.library.loading;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -212,11 +213,12 @@ public class VaryViewHelperController {
      * @param emptyImg
      * @param emptyMsg
      */
-    public void showEmpty(int emptyImg, String emptyMsg, int bgColor, int textColor) {
+    public void showEmpty(int emptyImg, String emptyMsg, int bgColor, int textColor, String otherEmptyMsg) {
         View layout = helper.inflate(R.layout.empty_layout);
         LinearLayout llEmpty = (LinearLayout) layout.findViewById(R.id.ll_empty);
         ImageView imageView = (ImageView) layout.findViewById(R.id.iv_empty_img);
         TextView textView = (TextView) layout.findViewById(R.id.tv_empty_txt);
+        TextView tvContactPhone = (TextView) layout.findViewById(R.id.tv_contact_phone);
         //文字颜色
         textView.setTextColor(textColor);
         //空页面背景
@@ -226,6 +228,10 @@ public class VaryViewHelperController {
         // 文本
         if (!CommonUtils.isEmpty(emptyMsg)) {
             textView.setText(emptyMsg);
+        }
+        if (!TextUtils.isEmpty(otherEmptyMsg)) {
+            tvContactPhone.setVisibility(View.VISIBLE);
+            tvContactPhone.setText(otherEmptyMsg);
         }
         helper.showLayout(layout);
     }

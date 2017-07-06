@@ -421,12 +421,12 @@ public abstract class BaseLazyFragment extends Fragment {
      * @param img
      * @param msg
      */
-    protected void showEmpty(int img, String msg,int bgColor,int textColor) {
+    protected void showEmpty(int img, String msg,int bgColor,int textColor,String otherMsg) {
         if (null == mVaryViewHelperController) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
 
-        mVaryViewHelperController.showEmpty(img, msg,bgColor,textColor);
+        mVaryViewHelperController.showEmpty(img, msg,bgColor,textColor,otherMsg);
     }
 
     /**
