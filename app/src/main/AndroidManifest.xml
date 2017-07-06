@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.dinner.wm.ACT_TakeOut"
+            android:name=".ui.activation.ACT_ActivateApp"
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity">
             <intent-filter>
@@ -71,11 +71,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
-        <!--&lt;!&ndash;外带 &ndash;&gt;-->
-        <!--<activity-->
-            <!--android:name=".ui.dinner.wm.ACT_TakeOut"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:theme="@style/style_translucent_activity"/>-->
+        <!--外带 -->
+        <activity
+            android:name=".ui.dinner.wm.ACT_TakeOut"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
 
     </application>
 
