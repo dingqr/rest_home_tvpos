@@ -17,7 +17,7 @@ import butterknife.Bind;
  * 外带列表左侧布局（viewpager + fragment）
  * 作者：liushuofei on 2017/7/4 16:47
  */
-public class FRA_TakeOutLeft extends BaseFragment {
+public class FRA_PackingLeft extends BaseFragment {
 
     @Bind(R.id.vp_order)
     ViewPager mViewPager;
@@ -25,7 +25,7 @@ public class FRA_TakeOutLeft extends BaseFragment {
     PagerSlidingTabStrip mTab;
 
     /**当前Fragment */
-    private FRA_TakeOutList mCurrentFramgent;
+    private FRA_PackingList mCurrentFramgent;
     /**记录前一个被选中的tab的位置 */
     private int prePosition;
 
@@ -87,7 +87,7 @@ public class FRA_TakeOutLeft extends BaseFragment {
                 preTabTextView.setTextColor(mContext.getResources().getColor(R.color.color_222222));
                 prePosition = position;
                 //获取当前显示的Fragment
-                mCurrentFramgent = (FRA_TakeOutList) mFragmentAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
+                mCurrentFramgent = (FRA_PackingList) mFragmentAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
             }
 
             @Override

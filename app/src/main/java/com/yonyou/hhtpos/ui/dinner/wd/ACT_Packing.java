@@ -13,13 +13,13 @@ import com.yonyou.hhtpos.base.ACT_BaseMultiple;
  * 外带页面
  * 作者：liushuofei on 2017/7/4 16:41
  */
-public class ACT_TakeOut extends ACT_BaseMultiple {
+public class ACT_Packing extends ACT_BaseMultiple {
 
-    private FRA_TakeOutLeft mTakeOutLeft;
+    private FRA_PackingLeft mTakeOutLeft;
 
     @Override
     protected void initView() {
-        mTakeOutLeft = new FRA_TakeOutLeft();
+        mTakeOutLeft = new FRA_PackingLeft();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ACT_TakeOut extends ACT_BaseMultiple {
 
     @Override
     protected Fragment getRightContent() {
-        return new FRA_TakeOutDetail();
+        return new FRA_PackingDetail();
     }
 
     @Override

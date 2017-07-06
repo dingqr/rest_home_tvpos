@@ -21,7 +21,7 @@ import butterknife.Bind;
  * 外带列表
  * 作者：liushuofei on 2017/7/4 16:45
  */
-public class FRA_TakeOutList extends BaseFragment {
+public class FRA_PackingList extends BaseFragment {
 
     @Bind(R.id.ll_root)
     LinearLayout mRoot;
@@ -35,9 +35,9 @@ public class FRA_TakeOutList extends BaseFragment {
     private List<TakeOutListBean> dataList;
     private ADA_TakeOutList mAdapter;
 
-    public static final FRA_TakeOutList newInstance(int type)
+    public static final FRA_PackingList newInstance(int type)
     {
-        FRA_TakeOutList f = new FRA_TakeOutList();
+        FRA_PackingList f = new FRA_PackingList();
         Bundle bdl = new Bundle(1);
         bdl.putInt(TYPE, type);
         f.setArguments(bdl);

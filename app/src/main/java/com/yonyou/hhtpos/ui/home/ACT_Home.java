@@ -93,7 +93,7 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener{
         switch (v.getId()){
             case R.id.iv_menu:
 //                readyGoThenKill(ACT_BookPreview.class);
-//                readyGoThenKill(ACT_TakeOut.class);
+//                readyGoThenKill(ACT_Packing.class);
 
                 DIA_Navigation dia_navigation = new DIA_Navigation(mContext);
                 dia_navigation.getDialog().show();

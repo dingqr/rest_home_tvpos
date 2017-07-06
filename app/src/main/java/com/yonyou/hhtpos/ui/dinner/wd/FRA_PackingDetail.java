@@ -20,7 +20,7 @@ import butterknife.Bind;
  * 邮箱：zjuan@yonyou.com
  * 描述：外带订单明细
  */
-public class FRA_TakeOutDetail extends BaseFragment {
+public class FRA_PackingDetail extends BaseFragment {
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
     @Bind(R.id.lv_order_detail)
