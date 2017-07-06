@@ -86,7 +86,7 @@ public class FRA_PackingList extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fra_take_out_list;
+        return R.layout.fra_packing_list;
     }
 
     @Override

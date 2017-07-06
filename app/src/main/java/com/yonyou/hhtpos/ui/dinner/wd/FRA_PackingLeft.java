@@ -99,7 +99,7 @@ public class FRA_PackingLeft extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fra_take_out_left;
+        return R.layout.fra_packing_left;
     }
 
     @Override
