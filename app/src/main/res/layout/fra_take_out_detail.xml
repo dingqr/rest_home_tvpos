@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:text="已结"
                         android:textColor="@color/color_eb6247"
-                        android:textSize="@dimen/px_30" />
+                        android:textSize="@dimen/sp_30" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                         android:layout_toLeftOf="@+id/tv_get_money"
                         android:text="待收："
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_30" />
+                        android:textSize="@dimen/sp_30" />
 
                     <TextView
                         android:id="@+id/tv_get_money"
@@ -169,7 +169,7 @@
                         android:layout_alignParentRight="true"
                         android:text="￥557.00"
                         android:textColor="@color/color_eb6247"
-                        android:textSize="@dimen/px_30" />
+                        android:textSize="@dimen/sp_30" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -184,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:text="会员"
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_24" />
+                        android:textSize="@dimen/sp_24" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -192,7 +192,7 @@
                         android:gravity="end"
                         android:text="135****0000"
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_24" />
+                        android:textSize="@dimen/sp_24" />
                 </LinearLayout>
                 <!--优惠金额-->
                 <LinearLayout
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:text="优惠金额"
                         android:textColor="@color/color_222222"
-                        android:textSize="@dimen/px_24" />
+                        android:textSize="@dimen/sp_24" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -215,7 +215,7 @@
                         android:gravity="end"
                         android:text="￥160.25"
                         android:textColor="@color/color_222222"
-                        android:textSize="@dimen/px_24" />
+                        android:textSize="@dimen/sp_24" />
                 </LinearLayout>
 
                 <View
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:text="折扣："
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                         android:gravity="end"
                         android:text="￥158.75"
                         android:textColor="@color/color_666666"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -260,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:text="抹零："
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -268,7 +268,7 @@
                         android:gravity="end"
                         android:text="￥0.25"
                         android:textColor="@color/color_666666"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
                 </LinearLayout>
                 <!--实际支付-->
                 <LinearLayout
@@ -283,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:text="实际支付"
                         android:textColor="@color/color_222222"
-                        android:textSize="@dimen/px_24" />
+                        android:textSize="@dimen/sp_24" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -291,7 +291,7 @@
                         android:gravity="end"
                         android:text="￥398.00"
                         android:textColor="@color/color_222222"
-                        android:textSize="@dimen/px_24" />
+                        android:textSize="@dimen/sp_24" />
                 </LinearLayout>
 
                 <View
@@ -313,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:text="现金："
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -321,7 +321,7 @@
                         android:gravity="end"
                         android:text="￥398.00"
                         android:textColor="@color/color_666666"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -336,7 +336,7 @@
                         android:layout_height="wrap_content"
                         android:text="收银员："
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -344,7 +344,7 @@
                         android:gravity="end"
                         android:text="王小米"
                         android:textColor="@color/color_666666"
-                        android:textSize="@dimen/px_22" />
+                        android:textSize="@dimen/sp_22" />
                 </LinearLayout>
                 <!--发票-->
                 <LinearLayout
