@@ -35,7 +35,7 @@ public class ACT_TakeOut extends ACT_BaseMultiple {
 
     @Override
     protected Fragment getRightContent() {
-        return new FRA_PackingDetail();
+        return new FRA_TakeOutDetail();
     }
 
     @Override

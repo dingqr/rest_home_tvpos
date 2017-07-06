@@ -15,6 +15,7 @@
     <dimen name="px_12">8dp</dimen>
     <dimen name="px_13">8.6dp</dimen>
     <dimen name="px_14">9.3dp</dimen>
+    <dimen name="px_15">10dp</dimen>
     <dimen name="px_16">10.6dp</dimen>
     <dimen name="px_17">11.3dp</dimen>
     <dimen name="px_18">12dp</dimen>

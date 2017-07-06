@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="@dimen/px_110"
     android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rl_root"
+    <LinearLayout
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_109"
-        android:background="@color/color_FFFFFF">
+        android:background="@color/color_FFFFFF"
+        android:orientation="horizontal">
 
         <View
             android:id="@+id/v_left_line"
@@ -20,10 +20,10 @@
             android:visibility="visible" />
 
         <TextView
-            android:id="@+id/tv_number"
+            android:id="@+id/tv_order_number"
             android:layout_width="@dimen/px_133"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/px_30"
             android:text="No.1"
             android:textColor="@color/color_222222"
@@ -33,7 +33,6 @@
         <LinearLayout
             android:layout_width="@dimen/px_220"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/tv_number"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -49,54 +48,85 @@
                     android:layout_marginRight="@dimen/px_10"/>
 
                 <TextView
+                    android:id="@+id/tv_channel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/iv_channel"
                     android:text="百度外卖100"
                     android:textSize="@dimen/sp_24"
                     android:textColor="@color/color_222222"
-                    android:layout_marginTop="@dimen/px_17"/>
-
+                    android:layout_marginTop="@dimen/px_14"/>
 
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="王先生"
                 android:textSize="@dimen/sp_24"
                 android:textColor="@color/color_999999"
-                android:layout_marginTop="@dimen/px_22"/>
+                android:layout_marginTop="@dimen/px_18"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_16"
-            android:layout_marginRight="@dimen/px_30"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
+            android:layout_marginTop="@dimen/px_13"
+            android:layout_marginRight="@dimen/px_26"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="结清"
-                android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_24" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+                
+                <TextView
+                    android:id="@+id/tv_order_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017-06-20 17:08"
+                    android:textSize="@dimen/sp_22"
+                    android:textColor="@color/color_666666"
+                    android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/tv_order_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥99.00"
+                    android:textSize="@dimen/sp_26"
+                    android:textColor="@color/color_666666"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/px_18"
-                android:text="17:31"
-                android:textColor="@color/color_999999"
-                android:textSize="@dimen/sp_24" />
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_customer_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13566668888"
+                    android:textSize="@dimen/sp_22"
+                    android:textColor="@color/color_999999"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已退款"
+                    android:textSize="@dimen/sp_22"
+                    android:textColor="@color/color_999999"/>
+            </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:id="@+id/v_bottom_line"

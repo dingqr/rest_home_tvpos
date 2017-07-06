@@ -25,7 +25,7 @@ public class FRA_PackingList extends BaseFragment {
 
     @Bind(R.id.ll_root)
     LinearLayout mRoot;
-    @Bind(R.id.lv_take_out)
+    @Bind(R.id.lv_packing)
     ListView mListView;
 
     /**传入数据 */
