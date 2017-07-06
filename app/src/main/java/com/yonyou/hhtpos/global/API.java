@@ -10,12 +10,22 @@ public class API {
      * 服务器ip
      */
 //    public static final String BASE_SERVER_IP = "http://api-c2b.honghuotai.com"; //正式服务器地址
-    public static final String BASE_SERVER_IP = "http://dev-api-c2b.honghuotai.com"; //开发服务器地址
+    public static final String BASE_SERVER_IP = "http://10.220.17.37"; //开发服务器地址
 //    public static final String BASE_SERVER_IP = "http://test-api-c2b.honghuotai.com"; //测试服务器地址
 
     /**
      * 服务器版本
      */
     public static final String BASE_SERVER_URL = BASE_SERVER_IP + "/api/v1/";
+
+    /**
+     * 获取验证码
+     */
+    public static final String GET_SMS_CODE = BASE_SERVER_IP + "/auth/messageSender";
+
+    /**
+     * 验证手机号
+     */
+    public static final String VERIFY_PHONE_NUMBER = BASE_SERVER_IP + "/auth/message";
 
 }

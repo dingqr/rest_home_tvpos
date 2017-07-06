@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -18,6 +19,7 @@
         android:textColor="@color/color_222222"/>
 
     <EditText
+        android:id="@+id/et_mobile_number"
         android:layout_width="@dimen/px_700"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_60"
@@ -38,6 +40,7 @@
         android:layout_marginTop="@dimen/px_26">
 
         <EditText
+            android:id="@+id/et_sms_code"
             android:layout_width="@dimen/px_474"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_white_side_gray_1"
@@ -55,7 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_30"
             android:text="@string/verify_phone_get_code"
-            android:padding="@dimen/px_32"
+            android:paddingTop="@dimen/px_32"
+            android:paddingBottom="@dimen/px_32"
+            android:gravity="center"
             android:textSize="@dimen/sp_24"
             android:textColor="@color/color_999999"
             android:background="@color/color_FFFFFF"/>

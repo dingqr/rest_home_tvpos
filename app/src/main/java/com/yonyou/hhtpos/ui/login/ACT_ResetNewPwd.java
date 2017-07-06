@@ -15,6 +15,12 @@ import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
  */
 public class ACT_ResetNewPwd extends ACT_BaseFullScreen{
 
+    /**传入参数 */
+    public static final String SMS_CODE = "sms.code";
+    public static final String MOBILE_NO = "mobile.no";
+    private String smsCode;
+    private String mobileNo;
+
     @Override
     protected void initView() {
 
@@ -32,7 +38,8 @@ public class ACT_ResetNewPwd extends ACT_BaseFullScreen{
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+        smsCode = extras.getString(SMS_CODE);
+        mobileNo = extras.getString(MOBILE_NO);
     }
 
     @Override
