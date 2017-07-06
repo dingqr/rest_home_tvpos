@@ -1,6 +1,9 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -23,6 +26,9 @@ import butterknife.Bind;
 public class FRA_TakeOutDetail extends BaseFragment {
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
+    //列表上层悬浮的标题，默认隐藏
+    @Bind(R.id.suspension_title)
+    LinearLayout suspension_title;
     @Bind(R.id.lv_wm_order_detail)
     ListView wmListView;
     private ADA_TakeOutOrderDetail mAdapter;
@@ -52,9 +58,33 @@ public class FRA_TakeOutDetail extends BaseFragment {
     protected void initViewsAndEvents() {
         //有数据页面
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
+
+        //添加头布局
+        View header_view = View.inflate(mContext, R.layout.item_take_out_header, null);
+        //列表中需要悬浮的部分
+        View suspension_head_title = View.inflate(mContext, R.layout.suspension_header_view, null);
+        wmListView.addHeaderView(header_view);
+        wmListView.addHeaderView(suspension_head_title);
         wmListView.setAdapter(mAdapter);
+
         setData();
         mAdapter.update(dataList);
+        wmListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.e("TAG", "firstVisibleItem="+firstVisibleItem);
+                if (firstVisibleItem >= 1) {
+                    suspension_title.setVisibility(View.VISIBLE);
+                }else {
+                    suspension_title.setVisibility(View.GONE);
+                }
+            }
+        });
         // 无数据页面
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
     }
