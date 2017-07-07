@@ -80,6 +80,20 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
         timer.setColor(ContextCompat.getColor(mContext, R.color.color_999999));
 
         mVerifyPhonePresenter = new VerifyPhonePresenterImpl(mContext, this);
+
+
+        mMobileNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    // 此处为得到焦点时的处理内容
+
+                }else {
+                    // 此处为失去焦点时的处理内容
+                    verifyMobile();
+                }
+            }
+        });
     }
 
     @Override

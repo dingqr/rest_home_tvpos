@@ -25,11 +25,16 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
     private String inputHint;
     private String inputText;
     private Integer inputMode;
+    private Integer marginLeft;
+    private Integer marginTop;
+    private Integer marginRight;
+    private Integer marginBottom;
 
     private static final int MODE_EDIT = 0;//编辑模式
     private static final int MODE_EDIT_NO = 1;//不可编辑模式
     private static final int MODE_CLICK = 2;//点击模式
 
+    private LinearLayout mRoot;
     private LinearLayout mInputLay;
     private TextView mTitle;
     private TextView mSecondTitle;
@@ -56,6 +61,11 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         inputHint = typedArray.getString(R.styleable.InputView_inputHint);
         inputText = typedArray.getString(R.styleable.InputView_inputText);
         inputMode = typedArray.getInteger(R.styleable.InputView_inputMode, 0);
+        marginLeft = typedArray.getInteger(R.styleable.InputView_marginLeft, 0);
+        marginTop = typedArray.getInteger(R.styleable.InputView_marginTop, 0);
+        marginRight = typedArray.getInteger(R.styleable.InputView_marginRight, 0);
+        marginBottom = typedArray.getInteger(R.styleable.InputView_marginBottom, 0);
+
         initView();
     }
 
@@ -65,6 +75,7 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
 
         // 初始化view
         View v = LayoutInflater.from(mContext).inflate(R.layout.dia_input_view, this);
+        mRoot = (LinearLayout) v.findViewById(R.id.ll_root);
         mInputLay = (LinearLayout) v.findViewById(R.id.ll_input);
         mTitle = (TextView) v.findViewById(R.id.tv_title);
         mSecondTitle = (TextView) v.findViewById(R.id.tv_second_title);
@@ -76,6 +87,11 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         mSecondTitle.setText(StringUtil.getString(secondTitleText));
         mInputEdit.setHint(StringUtil.getString(inputHint));
         mInputEdit.setText(StringUtil.getString(inputText));
+
+        // 设置Margin
+        LinearLayout.LayoutParams lp = (LayoutParams) mRoot.getLayoutParams();
+        lp.setMargins(marginLeft, marginTop, marginRight, marginBottom);
+        mRoot.setLayoutParams(lp);
 
         checkMode();
     }
