@@ -61,9 +61,9 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         inputHint = typedArray.getString(R.styleable.InputView_inputHint);
         inputText = typedArray.getString(R.styleable.InputView_inputText);
         inputMode = typedArray.getInteger(R.styleable.InputView_inputMode, 0);
-        marginLeft = typedArray.getInteger(R.styleable.InputView_marginLeft, 0);
+        marginLeft = typedArray.getInteger(R.styleable.InputView_marginLeft, 80);
         marginTop = typedArray.getInteger(R.styleable.InputView_marginTop, 0);
-        marginRight = typedArray.getInteger(R.styleable.InputView_marginRight, 0);
+        marginRight = typedArray.getInteger(R.styleable.InputView_marginRight, 80);
         marginBottom = typedArray.getInteger(R.styleable.InputView_marginBottom, 0);
 
         initView();
