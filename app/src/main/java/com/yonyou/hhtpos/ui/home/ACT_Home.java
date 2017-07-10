@@ -11,8 +11,6 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseSimple;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
-import com.yonyou.hhtpos.dialog.DIA_QRCode;
-import com.yonyou.hhtpos.ui.dinner.wm.ACT_TakeOut;
 
 import butterknife.Bind;
 
