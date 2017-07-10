@@ -6,7 +6,9 @@
     <!-- 尺寸2:3-->
     <dimen name="px_1">0.66dp</dimen>
     <dimen name="px_2">1.3dp</dimen>
+    <dimen name="px_3">2dp</dimen>
     <dimen name="px_4">2.6dp</dimen>
+    <dimen name="px_5">3.3dp</dimen>
     <dimen name="px_6">4dp</dimen>
     <dimen name="px_7">4.6dp</dimen>
     <dimen name="px_8">5.3dp</dimen>
@@ -20,6 +22,7 @@
     <dimen name="px_17">11.3dp</dimen>
     <dimen name="px_18">12dp</dimen>
     <dimen name="px_20">13.3dp</dimen>
+    <dimen name="px_21">14dp</dimen>
     <dimen name="px_22">14.6dp</dimen>
     <dimen name="px_24">16dp</dimen>
     <dimen name="px_26">17.3dp</dimen>
@@ -73,6 +76,7 @@
     <dimen name="px_112">74.6dp</dimen>
     <dimen name="px_114">76dp</dimen>
     <dimen name="px_115">76.6dp</dimen>
+    <dimen name="px_116">77.3dp</dimen>
     <dimen name="px_118">78.6dp</dimen>
     <dimen name="px_120">80dp</dimen>
     <dimen name="px_123">82dp</dimen>
@@ -83,6 +87,7 @@
     <dimen name="px_146">97.3dp</dimen>
     <dimen name="px_148">98.6dp</dimen>
     <dimen name="px_150">100dp</dimen>
+    <dimen name="px_156">104dp</dimen>
     <dimen name="px_160">106.6dp</dimen>
     <dimen name="px_172">114.6dp</dimen>
     <dimen name="px_180">120dp</dimen>

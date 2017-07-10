@@ -77,6 +77,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--堂食页面 -->
+        <activity
+            android:name=".ui.dinner.ts.ACT_Canteen"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>
