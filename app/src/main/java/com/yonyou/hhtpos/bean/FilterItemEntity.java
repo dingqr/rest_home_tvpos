@@ -16,8 +16,6 @@ public class FilterItemEntity implements Serializable, Cloneable{
     private ArrayList<FilterOptionsEntity> options;
     /**筛选列表表头 tabletitle*/
     private String title;
-//    /**筛选列表RecylerView的布局管理器*/
-//    private RecyclerView.LayoutManager layoutManager;
 
 
     public FilterItemEntity clone() {

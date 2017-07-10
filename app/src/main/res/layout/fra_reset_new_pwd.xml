@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/px_20"
-            android:text="139 **** 0000"
+            android:text=""
             android:textSize="@dimen/sp_34"
             android:textColor="@color/color_222222" />
         <EditText

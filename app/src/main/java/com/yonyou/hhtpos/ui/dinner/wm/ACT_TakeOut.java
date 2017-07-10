@@ -16,11 +16,11 @@ import com.yonyou.hhtpos.ui.dinner.wd.FRA_PackingDetail;
  */
 public class ACT_TakeOut extends ACT_BaseMultiple {
 
-    private FRA_TakeOutLeft mLeftContent;
+//    private FRA_TakeOutLeft mLeftContent;
 
     @Override
     protected void initView() {
-        mLeftContent = new FRA_TakeOutLeft();
+//        mLeftContent = new FRA_TakeOutLeft();
     }
 
     @Override
@@ -30,7 +30,8 @@ public class ACT_TakeOut extends ACT_BaseMultiple {
 
     @Override
     protected Fragment getLeftContent() {
-        return mLeftContent;
+//        return mLeftContent;
+        return null;
     }
 
     @Override

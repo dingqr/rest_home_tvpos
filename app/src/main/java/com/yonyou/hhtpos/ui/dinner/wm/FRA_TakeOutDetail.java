@@ -99,7 +99,8 @@ public class FRA_TakeOutDetail extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fra_take_out_detail;
+//        return R.layout.fra_take_out_detail;
+        return 0;
     }
 
     @Override

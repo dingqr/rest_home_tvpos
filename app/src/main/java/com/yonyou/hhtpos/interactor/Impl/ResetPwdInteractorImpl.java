@@ -31,7 +31,7 @@ public class ResetPwdInteractorImpl implements IResetPwdInteractor{
         hashMap.put("mobileNo", StringUtil.getString(mobileNo));
         hashMap.put("msgCode",StringUtil.getString(msgCode));
         hashMap.put("newPassword",StringUtil.getString(newPassword));
-        RequestManager.getInstance().requestPostByAsyn(API.URL_PASSPORT_LOGIN, hashMap, new ReqCallBack<UserEntity>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_RESET_PWD, hashMap, new ReqCallBack<UserEntity>() {
             @Override
             public void onReqSuccess(UserEntity result) {
                 mBaseLoadedListener.onSuccess(1,result);

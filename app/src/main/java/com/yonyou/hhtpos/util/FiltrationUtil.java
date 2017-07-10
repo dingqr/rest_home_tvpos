@@ -18,14 +18,22 @@ public class FiltrationUtil {
     private static final int VIEW_DISH_TYPE = 0;
     private static final int VIEW_DISH_AREA = 1;
     private static final int VIEW_RESERVE_STATUS = 2;
+    private static final int VIEW_TAKEOUT_TYPE = 3;
+    private static final int REFUND_REASON = 4;
+    private static final int ORDER_RESOURCE = 5;
+
+    private static final int TAKE_OUT_TYPE = 0;
+    private static final int MARKET_TYPE = 1;
 
     private static String title1 = "餐别";
     private static String title2 = "餐区";
     private static String title3 = "预定状态";
+    private static String title4 = "来源";
 
     private static ArrayList<FilterOptionsEntity> dishType = new ArrayList<>();
     private static ArrayList<FilterOptionsEntity> dishArea = new ArrayList<>();
     private static ArrayList<FilterOptionsEntity> reserveStatus = new ArrayList<>();
+    private static ArrayList<FilterOptionsEntity> orderResource = new ArrayList<>();
     private static ArrayList<FilterItemEntity> filterItemList;
 
     public static ArrayList<FilterItemEntity> getFakeData(){
@@ -40,12 +48,18 @@ public class FiltrationUtil {
         FilterOptionsEntity fde8 = new FilterOptionsEntity("三楼",VIEW_DISH_AREA,false);
         FilterOptionsEntity fde9 = new FilterOptionsEntity("包房",VIEW_DISH_AREA,false);
 
-        FilterOptionsEntity fde10 = new FilterOptionsEntity("待门店接单",VIEW_RESERVE_STATUS,true);
-        FilterOptionsEntity fde11= new FilterOptionsEntity("等待客人中",VIEW_RESERVE_STATUS,false);
+//        FilterOptionsEntity fde10 = new FilterOptionsEntity("待门店接单",VIEW_RESERVE_STATUS,true);
+        FilterOptionsEntity fde11= new FilterOptionsEntity("等待客人中",VIEW_RESERVE_STATUS,true);
         FilterOptionsEntity fde12 = new FilterOptionsEntity("客人已到达",VIEW_RESERVE_STATUS,false);
         FilterOptionsEntity fde13 = new FilterOptionsEntity("客人已取消",VIEW_RESERVE_STATUS,false);
         FilterOptionsEntity fde14 = new FilterOptionsEntity("预约过期关闭",VIEW_RESERVE_STATUS,false);
         FilterOptionsEntity fde15 = new FilterOptionsEntity("门店已拒绝",VIEW_RESERVE_STATUS,false);
+
+
+        FilterOptionsEntity fde16 = new FilterOptionsEntity("易企餐",ORDER_RESOURCE,true);
+        FilterOptionsEntity fde17 = new FilterOptionsEntity("店内预定",ORDER_RESOURCE,false);
+        orderResource.add(fde16);
+        orderResource.add(fde17);
 
         dishType.add(fde1);
         dishType.add(fde2);
@@ -58,7 +72,7 @@ public class FiltrationUtil {
         dishArea.add(fde8);
         dishArea.add(fde9);
 
-        reserveStatus.add(fde10);
+//        reserveStatus.add(fde10);
         reserveStatus.add(fde11);
         reserveStatus.add(fde12);
         reserveStatus.add(fde13);
@@ -69,15 +83,20 @@ public class FiltrationUtil {
         FilterItemEntity fie1 = new FilterItemEntity(dishType,title1);
         FilterItemEntity fie2 = new FilterItemEntity(dishArea,title2);
         FilterItemEntity fie3 = new FilterItemEntity(reserveStatus,title3);
+        FilterItemEntity fie4 = new FilterItemEntity(orderResource,title4);
 
         filterItemList = new ArrayList<>();
 
         filterItemList.add(fie1);
         filterItemList.add(fie2);
         filterItemList.add(fie3);
+        filterItemList.add(fie4);
 
         return filterItemList;
     }
+
+
+
     public static ArrayList<FilterOptionsEntity> getOptions(){
         ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
         FilterOptionsEntity fde1 = new FilterOptionsEntity("全部餐厅",VIEW_DISH_TYPE,false);
@@ -92,6 +111,68 @@ public class FiltrationUtil {
         return  filterOptionsEntities;
     }
 
+    public static ArrayList<FilterOptionsEntity> getOrderOptions(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("自外卖",VIEW_TAKEOUT_TYPE,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("美团外卖",VIEW_TAKEOUT_TYPE,false);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("百度外卖",VIEW_TAKEOUT_TYPE,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("饿了么",VIEW_TAKEOUT_TYPE,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+
+        return  filterOptionsEntities;
+    }
+    public static ArrayList<FilterOptionsEntity> getRefundReason(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("菜品质量",REFUND_REASON,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("服务质量",REFUND_REASON,true);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("配送太慢",REFUND_REASON,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("配送太慢配送太慢",REFUND_REASON,false);
+        FilterOptionsEntity fde5 = new FilterOptionsEntity("菜品质量",REFUND_REASON,false);
+        FilterOptionsEntity fde6 = new FilterOptionsEntity("服务质量",REFUND_REASON,false);
+        FilterOptionsEntity fde7 = new FilterOptionsEntity("接单太慢",REFUND_REASON,false);
+        FilterOptionsEntity fde8 = new FilterOptionsEntity("其它原因",REFUND_REASON,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+        filterOptionsEntities.add(fde5);
+        filterOptionsEntities.add(fde6);
+        filterOptionsEntities.add(fde7);
+        filterOptionsEntities.add(fde8);
+
+        return  filterOptionsEntities;
+    }
+
+    public static ArrayList<FilterOptionsEntity> getTakeOutType(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("自外卖",TAKE_OUT_TYPE,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("美团外卖",TAKE_OUT_TYPE,false);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("百度外卖",TAKE_OUT_TYPE,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("饿了么",TAKE_OUT_TYPE,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+
+        return  filterOptionsEntities;
+    }
+
+    public static ArrayList<FilterOptionsEntity> getTakeOutMarket(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("早餐",MARKET_TYPE,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("午餐",MARKET_TYPE,true);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("晚餐",MARKET_TYPE,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("宵夜",MARKET_TYPE,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+
+        return  filterOptionsEntities;
+    }
     /*
     *  public TableCapacityEntity(int capacity, int type, String area, boolean isCheck) {
         this.capacity = capacity;
@@ -256,6 +337,8 @@ public class FiltrationUtil {
         reserveOrderListEntity.add(rol12);
         return reserveOrderListEntity;
     }
+
+
 }
 
 //        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度

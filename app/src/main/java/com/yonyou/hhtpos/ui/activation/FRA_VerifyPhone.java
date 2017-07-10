@@ -158,7 +158,7 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
     public void verifyPhone() {
         Bundle bundle = new Bundle();
         bundle.putString(ACT_ResetNewPwd.SMS_CODE, smsCode);
-        bundle.putString(ACT_ResetNewPwd.MOBILE_NO, smsCode);
+        bundle.putString(ACT_ResetNewPwd.MOBILE_NO, mobileNo);
         readyGo(ACT_ResetNewPwd.class, bundle);
         getActivity().finish();
     }

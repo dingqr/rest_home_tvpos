@@ -3,7 +3,6 @@ package com.yonyou.hhtpos.widgets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -14,28 +13,27 @@ import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_Filtration;
+import com.yonyou.hhtpos.adapter.ADA_MultipleSelector;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 
+import java.util.ArrayList;
+
 
 /**
- * Created by ybing on 2017/6/23.
+ * Created by ybing on 2017/7/7.
  * 邮箱：ybing@yonyou.com
- * 描述：单项筛选组件
+ * 描述：多类型筛选，每个类型内为多项选择组件
  */
 
-public class FiltrationView extends LinearLayout implements ADA_Filtration.OnItemClickListener {
+public class MultipleSelectView extends LinearLayout implements ADA_MultipleSelector.OnItemClickListener {
+
     /**筛选框的类别*/
-    private static final int VIEW_DISH_TYPE = 0;
-    private static final int VIEW_DISH_AREA = 1;
-    private static final int VIEW_RESERVE_STATUS = 2;
-    private static final int VIEW_TAKEOUT_TYPE = 3;
-    private static final int REFUND_REASON = 4;
-    private static final int ORDER_RESOURCE = 5;
+    private static final int TAKE_OUT_TYPE = 0;
+    private static final int MARKET_TYPE = 1;
 
     /**筛选框的标题*/
     private TextView filtrationType;
-    private TextView optionChange;
 
     /**上下文*/
     private Context mContext;
@@ -48,20 +46,20 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
     private FilterItemEntity filterItemEntity;
 
     /**数据适配器*/
-    private ADA_Filtration mAdapter;
+    private ADA_MultipleSelector mAdapter;
 
-    /**当前实体*/
+    /**当前选中的实体*/
     private FilterOptionsEntity currentBean;
 
-    public FiltrationView(Context context) {
+    public MultipleSelectView(Context context) {
         this(context, null);
     }
 
-    public FiltrationView(Context context, AttributeSet attrs) {
+    public MultipleSelectView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public FiltrationView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MultipleSelectView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         initView();
@@ -70,9 +68,8 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
 
     private void initView() {
         //初始化view
-        View convertView = LayoutInflater.from(mContext).inflate(R.layout.filtration_view, this);
+        View convertView = LayoutInflater.from(mContext).inflate(R.layout.mult_select_view, this);
         filtrationType = (TextView) convertView.findViewById(R.id.tv_filtration_type);
-        optionChange = (TextView)convertView.findViewById(R.id.tv_change);
         mRecyclerView = (RecyclerView) convertView.findViewById(R.id.rv_filtration_options);
     }
 
@@ -95,35 +92,17 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                 filtrationType.setText(filterItemEntity.getTitle());
             }
             if (filterItemEntity.getOptions() != null){
-                mAdapter = new ADA_Filtration(mContext, filterItemEntity.getOptions());
+                mAdapter = new ADA_MultipleSelector(mContext, filterItemEntity.getOptions());
             }
             //按照类别设置recyclerView的layoutManager 和adapter
             if (filterItemEntity.getOptions().get(0).getType() != -1){
                 switch (filterItemEntity.getOptions().get(0).getType()){
-                    case VIEW_DISH_TYPE:
+                    case TAKE_OUT_TYPE:
                         layoutManger = new GridLayoutManager(mContext, 3);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
-                    case VIEW_DISH_AREA:
+                    case MARKET_TYPE:
                         layoutManger = new GridLayoutManager(mContext, 3);
-                        mRecyclerView.setLayoutManager(layoutManger);
-                        break;
-                    case VIEW_RESERVE_STATUS:
-                        layoutManger = new GridLayoutManager(mContext, 3);
-                        mRecyclerView.setLayoutManager(layoutManger);
-                        break;
-                    case VIEW_TAKEOUT_TYPE:
-                        filtrationType.setVisibility(View.GONE);
-                        layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
-                        mRecyclerView.setLayoutManager(layoutManger);
-                        break;
-                    case REFUND_REASON:
-                        optionChange.setVisibility(View.VISIBLE);
-                        layoutManger = new GridLayoutManager(mContext, 4);
-                        mRecyclerView.setLayoutManager(layoutManger);
-                        break;
-                    case ORDER_RESOURCE:
-                        layoutManger = new GridLayoutManager(mContext, 2);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     default:
@@ -134,32 +113,21 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
             }
             mAdapter.setmOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
-            //找到当前选中的实体
-            for (int i = 0; i < filterItemEntity.getOptions().size(); i++) {
-                FilterOptionsEntity bean = filterItemEntity.getOptions().get(i);
-                if (bean.isCheck()) {
-                    // 当前选中实体类
-                    currentBean = bean;
-                    break;
-                }
-            }
         }
     }
-
-    public FilterOptionsEntity getSelectedData() {
-        return currentBean;
+    public ArrayList<FilterOptionsEntity> getSelectedList(){
+        mAdapter.notifyDataSetChanged();
+        return  mAdapter.getSelectedItem();
     }
 
+    public void unSelectAll(){
+        for(int i=0;i<filterItemEntity.getOptions().size();i++){
+            filterItemEntity.getOptions().get(i).setCheck(false);
+        }
+        mAdapter.updateDataSet(filterItemEntity.getOptions());
+    }
     @Override
     public void onItemClick(View view, int position) {
         currentBean = filterItemEntity.getOptions().get(position);
-    }
-
-    /**把所有选项都置为未选中*/
-    public void reset(){
-        for (int i=0;i<filterItemEntity.getOptions().size();i++){
-            filterItemEntity.getOptions().get(i).setCheck(false);
-        }
-        mAdapter.update(filterItemEntity.getOptions());
     }
 }

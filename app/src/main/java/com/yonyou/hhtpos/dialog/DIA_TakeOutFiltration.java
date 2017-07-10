@@ -13,45 +13,49 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.widgets.MultipleFiltrationView;
+import com.yonyou.hhtpos.widgets.MultipleSelectView;
 
 import java.util.ArrayList;
 
-
 /**
- * 预定总览筛选对话框
+ * 外卖筛选对话框
  * 作者：ybing on 2017/6/26 10:16
  * 邮箱：ybing@yonyou.com
  */
-public class DIA_ReserveFiltration implements View.OnClickListener{
+public class DIA_TakeOutFiltration implements View.OnClickListener{
 
     /**传入参数 */
     protected Context mContext;
 
-    private ArrayList<FilterItemEntity> filterItemList;
-
+    private FilterItemEntity takeoutTypes;
+    private FilterItemEntity  marketTypes;
 
     protected Dialog mDialog;
     protected View mContentView;
 
     /**界面控件 */
-    private MultipleFiltrationView mfv_options;
+    private MultipleSelectView msvTakeoutType;
+    private MultipleSelectView msvTakeoutMarket;
     private RadioButton btnReset;
     private RadioButton btnFinish;
     private ImageButton close;
 
-    public DIA_ReserveFiltration(Context context , ArrayList<FilterItemEntity> filterItemList) {
+    public DIA_TakeOutFiltration(Context context , FilterItemEntity takeoutTypes,FilterItemEntity marketTypes) {
         this.mContext = context;
-        this.filterItemList = filterItemList;
+        this.takeoutTypes = takeoutTypes;
+        this.marketTypes = marketTypes;
         initView();
         initData();
     }
     private void initView(){
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_multiple_filtration, null);
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_take_out_filtration, null);
         mDialog.setContentView(mContentView);
         close = (ImageButton)mContentView.findViewById(R.id.iv_close);
         close.setOnClickListener(this);
-        mfv_options = (MultipleFiltrationView) mContentView.findViewById(R.id.mfv_options);
+        msvTakeoutType = (MultipleSelectView) mContentView.findViewById(R.id.msv_takeout_type);
+        msvTakeoutMarket = (MultipleSelectView) mContentView.findViewById(R.id.msv_takeout_market);
+
         btnReset = (RadioButton) mContentView.findViewById(R.id.btn_reset);
         btnFinish = (RadioButton) mContentView.findViewById(R.id.btn_finish);
 
@@ -61,7 +65,8 @@ public class DIA_ReserveFiltration implements View.OnClickListener{
 
     }
     private void initData() {
-        mfv_options.setFilterItemLists(filterItemList);
+        msvTakeoutType.setData(takeoutTypes);
+        msvTakeoutMarket.setData(marketTypes);
     }
 
     public Dialog getDialog(){
@@ -82,13 +87,15 @@ public class DIA_ReserveFiltration implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_reset:
-                mfv_options.reset();
+                msvTakeoutType.unSelectAll();
+                msvTakeoutMarket.unSelectAll();
                 break;
             case R.id.iv_close:
                 mDialog.dismiss();
                 break;
             case R.id.btn_finish:
-                ArrayList<FilterOptionsEntity> selectedList = mfv_options.getSelectedItems();
+                ArrayList<FilterOptionsEntity> selectedList = msvTakeoutType.getSelectedList();
+                selectedList.addAll(0,msvTakeoutMarket.getSelectedList());
                 mDialog.dismiss();
                 break;
 

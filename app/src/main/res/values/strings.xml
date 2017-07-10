@@ -41,7 +41,7 @@
     <string name="reset_new_pwd">设置新密码</string>
     <string name="new_pwd">新密码</string>
     <string name="confirm_new_pwd">确认新密码</string>
-    <string name="different_pwd">两次输入的密码不同</string>
+    <string name="different_pwd">两次输入的密码不一致，请检查</string>
     <string name="finish">完成</string>
 
     <string name="string_choose_store">绑定门店</string>
@@ -128,16 +128,28 @@
     <string name="packing_status_out_standing">未结账</string>
     <string name="packing_status_checked_out">结清</string>
 
-    <!--外卖 -->
-    <string name="take_out_all">全部</string>
-    <string name="take_out_no_order">未下单</string>
-    <string name="take_out_place_order">已下单</string>
-    <string name="take_out_checked_out">已结账</string>
-    <string name="take_out_refunded">已退款</string>
+    <!--外卖-->
+    <string name="name">姓名</string>
+    <string name="phone">电话</string>
+    <string name="address">地址</string>
+    <string name="hint_enter_receiver_name">请填写收餐人姓名</string>
+    <string name="take_out_open_order">外卖开单</string>
+    <string name="hint_enter_receiver_phone">请填写收餐人的手机号</string>
+    <string name="hint_enter_receiver_address">例：北京海淀区中关村苏州街29号维亚大厦12层</string>
+    <string name="dinner_number">就餐人数</string>
+    <string name="hint_enter_dinner_number">请确认就餐人数</string>
+    <string name="deliver_time">送餐时间</string>
+    <string name="reserve_deliver_time">预约送餐</string>
+    <string name="deliver_dinner_right_now">立即送餐</string>
+    <string name="please_select_deliver_time">请选择预约送餐时间</string>
+    <string name="take_out_refund">外卖退款处理</string>
+    <string name="refund_reason">退款原因</string>
+    <string name="please_enter_other_reasons">请输入其他原因</string>
+    <string name="confirm_refund">确认退款</string>
+    <string name="refund">退款</string>
 
 
     <string name="order_no_data">今天还没有订单哦~</string>
-    <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
 
     <!--日历 -->
     <string name="sunday">日</string>
@@ -153,5 +165,15 @@
     <string name="empty_msg_other">400-0000-0000</string>
     <string name="title_choose_table">转入桌台选择</string>
 
+    <!--外卖 -->
+    <string name="take_out_all">全部</string>
+    <string name="take_out_no_order">未下单</string>
+    <string name="take_out_place_order">已下单</string>
+    <string name="take_out_checked_out">已结账</string>
+    <string name="take_out_refunded">已退款</string>
+    <string name="change">换一换(1/2)</string>
+    <string name="order_overdue">预约过期关闭</string>
 
+
+    <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
 </resources>

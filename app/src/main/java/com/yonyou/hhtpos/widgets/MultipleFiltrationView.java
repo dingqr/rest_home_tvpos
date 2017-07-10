@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by ybing on 2017/6/23.
  * 邮箱：ybing@yonyou.com
- * 描述：多项筛选组件
+ * 描述：多类型筛选，每个类型内部为单选的组件
  */
 
 public class MultipleFiltrationView extends LinearLayout {
@@ -29,6 +29,7 @@ public class MultipleFiltrationView extends LinearLayout {
     private FiltrationView flvChooseDishType;
     private FiltrationView flvChooseDishArea;
     private FiltrationView flvReserveStatus;
+    private FiltrationView flvOrderResource;
 
     /**多类型筛选数据*/
     private ArrayList<FilterItemEntity> filterItemLists;
@@ -54,6 +55,7 @@ public class MultipleFiltrationView extends LinearLayout {
         flvChooseDishType = (FiltrationView) convertView.findViewById(R.id.flv_dish_type);
         flvChooseDishArea = (FiltrationView) convertView.findViewById(R.id.flv_dish_area);
         flvReserveStatus = (FiltrationView) convertView.findViewById(R.id.flv_reserve_status);
+        flvOrderResource = (FiltrationView) convertView.findViewById(R.id.flv_order_resource);
     }
 
     @Override
@@ -68,10 +70,11 @@ public class MultipleFiltrationView extends LinearLayout {
 
     public void setFilterItemLists(ArrayList<FilterItemEntity> filterItemLists) {
         this.filterItemLists = filterItemLists;
-        if(filterItemLists!=null && filterItemLists.size()==3){
+        if(filterItemLists!=null && filterItemLists.size()==4){
             flvChooseDishType.setData(filterItemLists.get(0));
             flvChooseDishArea.setData(filterItemLists.get(1));
             flvReserveStatus.setData(filterItemLists.get(2));
+            flvOrderResource.setData(filterItemLists.get(3));
         }
     }
 
@@ -80,6 +83,14 @@ public class MultipleFiltrationView extends LinearLayout {
         selectedList.add(flvChooseDishType.getSelectedData());
         selectedList.add(flvChooseDishArea.getSelectedData());
         selectedList.add(flvReserveStatus.getSelectedData());
+        selectedList.add(flvOrderResource.getSelectedData());
         return selectedList;
+    }
+
+    public void reset(){
+        flvChooseDishArea.reset();
+        flvChooseDishType.reset();
+        flvReserveStatus.reset();
+        flvOrderResource.reset();
     }
 }

@@ -26,6 +26,9 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
     private static final int DISH_TYPE = 0;
     private static final int DISH_AREA = 1;
     private static final int RESERVE_STATUS = 2;
+    private static final int VIEW_TAKEOUT_TYPE = 3;
+    private static final int REFUND_REASON = 4;
+    private static final int ORDER_RESOURCE = 5;
 
     public ADA_Filtration(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
@@ -64,6 +67,25 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
                 View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                viewHolder.mBtn.setPadding(3,10,3,10);
+                return viewHolder;
+            }
+            case ORDER_RESOURCE: {
+                View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case VIEW_TAKEOUT_TYPE: {
+                View view = mInflater.inflate(R.layout.item_filtration_ada_type2, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case REFUND_REASON: {
+                View view = mInflater.inflate(R.layout.item_filtration_refund_reason, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
             default: break;
@@ -100,12 +122,6 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
                 }
             }
         });
-        //设置选中效果
-        if (dataBean.isCheck()) {
-            holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_eb6247));
-        } else {
-            holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_222222));
-        }
     }
 
     /**

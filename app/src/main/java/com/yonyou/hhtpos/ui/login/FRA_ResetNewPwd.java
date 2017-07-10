@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.login;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -47,6 +48,7 @@ public class FRA_ResetNewPwd extends BaseFragment implements IResetPwdView{
     RadioButton rbFinish;
 
     private String userPhone;
+    private String msgCode;
     //用户密码 6位数字
     private String userNewPwd;
     //确认新密码 6位数字
@@ -83,6 +85,10 @@ public class FRA_ResetNewPwd extends BaseFragment implements IResetPwdView{
         rbFinish.setClickable(false);
         etNewPwd.addTextChangedListener(new InputWatcher());
         etConfirmNewPwd.addTextChangedListener(new InputWatcher());
+        Bundle argus = getArguments();
+        userPhone = argus.get(ACT_ResetNewPwd.MOBILE_NO).toString();
+        msgCode = argus.get(ACT_ResetNewPwd.SMS_CODE).toString();
+        tvUserPhone.setText(userPhone.substring(0,3)+"****"+ userPhone.substring(8,11));
     }
 
     @Override
@@ -107,8 +113,16 @@ public class FRA_ResetNewPwd extends BaseFragment implements IResetPwdView{
 
     @OnClick(R.id.rb_finish)
     public void onClick() {
-        userPhone = "";
-//        mPresenter.resetPwd();
+        userNewPwd = etNewPwd.getText().toString();
+        userConfirmNewPwd = etConfirmNewPwd.getText().toString();
+        if (doValidatePwd()){
+            if (userNewPwd.equals(userConfirmNewPwd)) {
+                mPresenter.resetPwd(userPhone,msgCode,userNewPwd);
+            }
+            else {
+                CommonUtils.makeEventToast(mContext,mContext.getString(R.string.different_pwd), false);
+            }
+        }
     }
 
     /**

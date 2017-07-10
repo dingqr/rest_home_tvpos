@@ -17,5 +17,6 @@
         android:layout_marginTop="@dimen/px_10"
         android:layout_marginRight="@dimen/px_30"
         android:background="@drawable/bg_multiple_item_select"
+        android:textColor="@drawable/text_color_filtration_selector"
         android:textSize="@dimen/sp_24"/>
 </LinearLayout>

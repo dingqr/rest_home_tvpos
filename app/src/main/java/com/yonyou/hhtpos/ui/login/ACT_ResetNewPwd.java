@@ -21,14 +21,20 @@ public class ACT_ResetNewPwd extends ACT_BaseFullScreen{
     private String smsCode;
     private String mobileNo;
 
+    private FRA_ResetNewPwd fraRestNewPwd;
+
     @Override
     protected void initView() {
-
+        fraRestNewPwd = new FRA_ResetNewPwd();
+        Bundle bundle = new Bundle();
+        bundle.putString(SMS_CODE,smsCode);
+        bundle.putString(MOBILE_NO,mobileNo);
+        fraRestNewPwd.setArguments(bundle);
     }
 
     @Override
     protected Fragment getContentFragment() {
-        return new FRA_ResetNewPwd();
+        return  fraRestNewPwd;
     }
 
     @Override
@@ -40,6 +46,8 @@ public class ACT_ResetNewPwd extends ACT_BaseFullScreen{
     protected void getBundleExtras(Bundle extras) {
         smsCode = extras.getString(SMS_CODE);
         mobileNo = extras.getString(MOBILE_NO);
+//        smsCode = "123456";
+//        mobileNo = "13671205992";
     }
 
     @Override

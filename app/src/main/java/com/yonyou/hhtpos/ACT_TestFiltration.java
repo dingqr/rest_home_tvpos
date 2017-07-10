@@ -12,10 +12,10 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
-import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveFiltration;
-import com.yonyou.hhtpos.dialog.DIA_ReserveList;
-import com.yonyou.hhtpos.dialog.DIA_SelectTable;
+import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
+import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
+import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
 
 import java.util.ArrayList;
 
@@ -25,20 +25,35 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getCapacities;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getFakeData;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getOptions;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getReserveOrderList;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getTakeOutMarket;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getTakeOutType;
 
 //测试筛选布局
 public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener{
 
     @Bind(R.id.btn_confirm)
     Button btnConfirm;
+    @Bind(R.id.btn_confirm1)
+    Button btnConfirm1;
+    @Bind(R.id.btn_confirm2)
+    Button btnConfirm2;
+    @Bind(R.id.btn_confirm3)
+    Button btnConfirm3;
 
     private ArrayList<FilterItemEntity> filterItemList;
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
     private ArrayList<TableCapacityEntity> capacityEntities;
     private ArrayList<ReserveOrderListEntity> reserveOrderListEntity;
-    DIA_SelectTable dia_reserveFiltration;
-//    DIA_ReserveFiltration dia_reserveFiltration;
+
+
+    private FilterItemEntity takeoutType;
+    private FilterItemEntity takeoutMarket;
+//    DIA_SelectTable dia_reserveFiltration;
+    DIA_ReserveFiltration dia_reserveFiltration1;
 //    DIA_ReserveList dia_reserveFiltration;
+    DIA_TakeOutOpenOrder dia_reserveFiltration;
+    DIA_TakeOutRefund dia_reserveFiltration2;
+    DIA_TakeOutFiltration dia_reserveFiltration3;
 
 
     @Override
@@ -69,10 +84,15 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     @Override
     protected void initViewsAndEvents() {
         btnConfirm.setOnClickListener(this);
+        btnConfirm1.setOnClickListener(this);
+        btnConfirm2.setOnClickListener(this);
+        btnConfirm3.setOnClickListener(this);
         filterItemList = getFakeData();
         filterOptionsEntities = getOptions();
         capacityEntities = getCapacities();
         reserveOrderListEntity = getReserveOrderList();
+        takeoutType = new FilterItemEntity(getTakeOutType(),"外卖类型");
+        takeoutMarket = new FilterItemEntity( getTakeOutMarket(),"市别");
     }
 
 
@@ -119,12 +139,25 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 //                dia_reserveFiltration.getDialog().show();
 //                dia_reserveFiltration = new DIA_OpenOrder(mContext);
 //                dia_reserveFiltration.getDialog().show();
-                dia_reserveFiltration = new DIA_SelectTable(mContext,filterOptionsEntities,capacityEntities);
-                dia_reserveFiltration.getDialog().show();
+//                dia_reserveFiltration = new DIA_SelectTable(mContext,filterOptionsEntities,capacityEntities);
+//                dia_reserveFiltration.getDialog().show();
 //                dia_reserveFiltration = new DIA_ReserveList(mContext,reserveOrderListEntity);
 //                dia_reserveFiltration.getDialog().show();
+                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext);
+                dia_reserveFiltration.getDialog().show();
                 break;
-
+            case R.id.btn_confirm1:
+                dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext,filterItemList);
+                dia_reserveFiltration1.getDialog().show();
+                break;
+            case R.id.btn_confirm2:
+                dia_reserveFiltration2 = new DIA_TakeOutRefund(mContext);
+                dia_reserveFiltration2.getDialog().show();
+                break;
+            case R.id.btn_confirm3:
+                dia_reserveFiltration3 = new DIA_TakeOutFiltration(mContext,takeoutType,takeoutMarket);
+                dia_reserveFiltration3.getDialog().show();
+                break;
             default:
                 break;
         }

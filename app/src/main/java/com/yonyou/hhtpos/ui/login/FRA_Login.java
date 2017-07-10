@@ -121,7 +121,6 @@ public class FRA_Login extends BaseFragment implements ILoginView{
                 }else{
                     CommonUtils.makeEventToast(mContext, "手机号和密码输入格式不正确", false);
                 }
-//                readyGoThenKill(ACT_Home.class);
                 break;
         }
     }
@@ -226,6 +225,6 @@ public class FRA_Login extends BaseFragment implements ILoginView{
 
     @Override
     public void login(UserEntity dataBean) {
-
+        readyGoThenKill(ACT_Home.class);
     }
 }

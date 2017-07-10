@@ -10,9 +10,13 @@
         android:padding="@dimen/dimen_10_dp"
         android:button="@null"
         android:gravity="center"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:clickable="true"
-        android:textColor="@drawable/tc_take_out_open_order_selector"
-        android:background="@drawable/bg_take_out_open_order_select"
-        android:textSize="@dimen/sp_24"
-        android:layout_margin="@dimen/px_10"/>
+        android:layout_marginBottom="@dimen/px_10"
+        android:layout_marginTop="@dimen/px_10"
+        android:layout_marginRight="@dimen/px_30"
+        android:background="@drawable/bg_multiple_item_select"
+        android:textColor="@drawable/text_color_filtration_selector"
+        android:textSize="@dimen/sp_24"/>
 </LinearLayout>

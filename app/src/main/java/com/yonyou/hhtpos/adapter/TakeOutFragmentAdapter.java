@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutLeft;
 import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutList;
 
 /**
@@ -33,18 +32,18 @@ public class TakeOutFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int id) {
         switch (id) {
-            case FRA_TakeOutLeft.RB_ALL:
-                return FRA_TakeOutList.newInstance(0);
-            case FRA_TakeOutLeft.RB_NO_ORDER:
-                return FRA_TakeOutList.newInstance(1);
-            case FRA_TakeOutLeft.RB_PLACE_ORDER:
-                return FRA_TakeOutList.newInstance(2);
-            case FRA_TakeOutLeft.RB_CHECKED_OUT:
-                return FRA_TakeOutList.newInstance(3);
-            case FRA_TakeOutLeft.RB_REFUNDED:
-                return FRA_TakeOutList.newInstance(4);
-            default:
-                break;
+//            case FRA_TakeOutLeft.RB_ALL:
+//                return FRA_TakeOutList.newInstance(0);
+//            case FRA_TakeOutLeft.RB_NO_ORDER:
+//                return FRA_TakeOutList.newInstance(1);
+//            case FRA_TakeOutLeft.RB_PLACE_ORDER:
+//                return FRA_TakeOutList.newInstance(2);
+//            case FRA_TakeOutLeft.RB_CHECKED_OUT:
+//                return FRA_TakeOutList.newInstance(3);
+//            case FRA_TakeOutLeft.RB_REFUNDED:
+//                return FRA_TakeOutList.newInstance(4);
+//            default:
+//                break;
         }
         return null;
     }
