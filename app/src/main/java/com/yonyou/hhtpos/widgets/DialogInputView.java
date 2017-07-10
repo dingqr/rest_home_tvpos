@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,12 +20,21 @@ import com.yonyou.hhtpos.R;
  */
 public class DialogInputView extends LinearLayout implements View.OnClickListener{
 
+    /**上下文 */
     private Context mContext;
+    /**标题文本 */
     private String titleText;
+    /**二级标题文本 */
     private String secondTitleText;
+    /**输入框提示语 */
     private String inputHint;
+    /**输入框文字 */
     private String inputText;
+    /**输入框模式 */
     private Integer inputMode;
+    /**输入框高度 */
+    private Integer inputHeight;
+    /**边距 */
     private Integer marginLeft;
     private Integer marginTop;
     private Integer marginRight;
@@ -34,6 +44,7 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
     private static final int MODE_EDIT_NO = 1;//不可编辑模式
     private static final int MODE_CLICK = 2;//点击模式
 
+    /**界面控件 */
     private LinearLayout mRoot;
     private LinearLayout mInputLay;
     private TextView mTitle;
@@ -61,6 +72,7 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         inputHint = typedArray.getString(R.styleable.InputView_inputHint);
         inputText = typedArray.getString(R.styleable.InputView_inputText);
         inputMode = typedArray.getInteger(R.styleable.InputView_inputMode, 0);
+        inputHeight = typedArray.getInteger(R.styleable.InputView_inputHeight, 0);
         marginLeft = typedArray.getInteger(R.styleable.InputView_marginLeft, 80);
         marginTop = typedArray.getInteger(R.styleable.InputView_marginTop, 0);
         marginRight = typedArray.getInteger(R.styleable.InputView_marginRight, 80);
@@ -93,6 +105,14 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         lp.setMargins(marginLeft, marginTop, marginRight, marginBottom);
         mRoot.setLayoutParams(lp);
 
+        // 设置输入框高度
+        if (inputHeight != 0){
+            ViewGroup.LayoutParams params = mInputLay.getLayoutParams();
+            params.height = inputHeight;
+            mInputLay.setLayoutParams(params);
+        }
+
+        // 根据模式设置EditText
         checkMode();
     }
 
@@ -104,26 +124,31 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         this.onClickListener = onClickListener;
     }
 
+    /**
+     * 检测当前输入框类型
+     */
     private void checkMode(){
         if (null == inputMode){
             return;
         }
 
         switch (inputMode){
+            // 编辑模式
             case MODE_EDIT:
                 mArrow.setVisibility(View.GONE);
                 break;
+            // 不可编辑模式
             case MODE_EDIT_NO:
                 mArrow.setVisibility(View.GONE);
                 mInputLay.setBackground(mContext.getResources().getDrawable(R.drawable.bg_input_edit_no));
                 break;
+            // 点击模式
             case MODE_CLICK:
                 mInputEdit.setEnabled(false);
                 break;
 
             default:
                 break;
-
         }
     }
 

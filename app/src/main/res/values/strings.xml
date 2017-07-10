@@ -148,6 +148,30 @@
     <string name="confirm_refund">确认退款</string>
     <string name="refund">退款</string>
 
+    <!--堂食 -->
+    <string name="canteen_billing">开单</string>
+    <string name="canteen_billing_confirm">确认开单</string>
+
+    <string name="dinner_number">就餐人数</string>
+    <string name="dinner_number_hint">输入就餐人数</string>
+    <string name="dinner_member">会员</string>
+    <string name="dinner_member_hint">输入手机号</string>
+    <string name="dinner_waiter">服务员</string>
+    <string name="dinner_waiter_hint">请选择</string>
+    <string name="dinner_pre_order">预订单</string>
+    <string name="dinner_remarks">整单备注</string>
+    <string name="dinner_remarks_hint">输入备注信息</string>
+
+    <string name="free">空闲</string>
+    <string name="settle">结清</string>
+    <string name="book">预订</string>
+    <string name="occupy">占用</string>
+    <string name="locked">锁定</string>
+    <string name="table_turn">转台</string>
+    <string name="table_merge">并台</string>
+    <string name="table_put_together">拼台</string>
+    <string name="table_clear">清台</string>
+
 
     <string name="order_no_data">今天还没有订单哦~</string>
 
@@ -159,6 +183,7 @@
     <string name="thursday">四</string>
     <string name="friday">五</string>
     <string name="saturday">六</string>
+
     <!--空页面提示-->
     <string name="order_no_detail">开通易企餐服务，可以获得更多订单哦~</string>
     <string name="empty_msg">红火台餐饮云服务有限公司</string>

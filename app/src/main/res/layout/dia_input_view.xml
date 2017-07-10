@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_16"
         android:background="@drawable/bg_input_edit"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <EditText
@@ -47,14 +46,16 @@
             android:hint=""
             android:textColor="@color/color_222222"
             android:textColorHint="@color/color_cccccc"
-            android:textSize="@dimen/sp_24"/>
+            android:textSize="@dimen/sp_24"
+            android:gravity="top|left"/>
 
         <ImageView
             android:id="@+id/iv_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/px_20"
-            android:src="@drawable/ic_input_arrow" />
+            android:src="@drawable/ic_input_arrow"
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 

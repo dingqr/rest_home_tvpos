@@ -51,6 +51,7 @@
         <attr name="inputHint" format="string" />
         <attr name="inputText" format="string" />
         <attr name="inputMode" format="integer" />
+        <attr name="inputHeight" format="integer" />
         <attr name="marginLeft" format="integer"/>
         <attr name="marginTop" format="integer"/>
         <attr name="marginRight" format="integer"/>

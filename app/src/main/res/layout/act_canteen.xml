@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="空闲"
+                android:text="@string/free"
                 android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_666666"
                 android:drawableLeft="@drawable/ic_sign_free"
@@ -96,7 +96,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="结清"
+                android:text="@string/settle"
                 android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_666666"
                 android:drawableLeft="@drawable/ic_sign_settle"
@@ -107,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="预订"
+                android:text="@string/book"
                 android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_666666"
                 android:drawableLeft="@drawable/ic_sign_book"
@@ -118,7 +118,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="占用"
+                android:text="@string/occupy"
                 android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_666666"
                 android:drawableLeft="@drawable/ic_sign_occupy"
@@ -129,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="锁定"
+                android:text="@string/locked"
                 android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_666666"
                 android:drawableLeft="@drawable/ic_sign_locked"
@@ -149,7 +149,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="转台"
+                android:text="@string/table_turn"
                 android:textSize="@dimen/sp_26"
                 android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_turn"
@@ -166,7 +166,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="并台"
+                android:text="@string/table_merge"
                 android:textSize="@dimen/sp_26"
                 android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_merge"
@@ -183,7 +183,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="拼台"
+                android:text="@string/table_put_together"
                 android:textSize="@dimen/sp_26"
                 android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_put_together"
@@ -200,7 +200,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="清台"
+                android:text="@string/table_clear"
                 android:textSize="@dimen/sp_26"
                 android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_clear"
