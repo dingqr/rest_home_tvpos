@@ -48,13 +48,14 @@
             android:id="@+id/fv_order_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_20"
             android:layout_marginLeft="@dimen/px_20"
-            android:layout_marginRight="@dimen/px_20"
-            android:layout_marginTop="@dimen/px_20">
+            android:layout_marginRight="@dimen/px_20">
         </com.yonyou.hhtpos.widgets.FiltrationView>
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rb_confirm_open_order"
@@ -205,7 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_50"
                 android:layout_below="@+id/ll_content_open_order"
-                android:layout_marginTop="@dimen/px_14"
+                android:layout_marginBottom="@dimen/px_28"
                 android:background="@drawable/bg_gray_side_gray"
                 android:clickable="true"
                 android:drawableRight="@drawable/ic_select"

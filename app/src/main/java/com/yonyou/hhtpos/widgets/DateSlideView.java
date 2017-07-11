@@ -63,10 +63,10 @@ public class DateSlideView extends LinearLayout implements GestureDetector.OnGes
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ib_turn_ahead:
+                //上翻一天
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
                 currentDate = sdf.format(calendar.getTime());
                 today.setText(currentDate);
-                //上翻一天
                 break;
             case R.id.ib_turn_after:
                 //下翻一天

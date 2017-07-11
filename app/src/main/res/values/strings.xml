@@ -146,12 +146,12 @@
     <string name="please_enter_other_reasons">请输入其他原因</string>
     <string name="confirm_refund">确认退款</string>
     <string name="refund">退款</string>
+    <string name="dinner_number">就餐人数</string>
 
     <!--堂食 -->
     <string name="canteen_billing">开单</string>
     <string name="canteen_billing_confirm">确认开单</string>
 
-    <string name="dinner_number">就餐人数</string>
     <string name="dinner_number_hint">输入就餐人数</string>
     <string name="dinner_member">会员</string>
     <string name="dinner_member_hint">输入手机号</string>
@@ -197,13 +197,31 @@
     <string name="take_out_refunded">已退款</string>
     <string name="change">换一换(1/2)</string>
     <string name="order_overdue">预约过期关闭</string>
+    <string name="RMB_symbol">¥</string>
+
+    <!--点菜-->
+    <string name="hint_dish_count">数量:</string>
+    <string name="hint_dish_cookery">做法:</string>
+    <string name="hint_dish_remark">备注:</string>
+    <string name="hint_dish_weight">重量:</string>
+    <string name="hint_dish_price">时价:</string>
+    <string name="hint_dish_norms">规格:</string>
+    <string name="hot_sale">热销</string>
+    <string name="recommend">推荐</string>
+    <string name="chief_recommend">主厨推荐</string>
+    <string name="other_request">其他要求</string>
+    <string name="dish_taste">微麻、微辣</string>
+    <string name="dish_weight_unit">斤</string>
+    <string name="hint_input_weight">输入重量</string>
+    <string name="hint_input_price">输入时价</string>
+    <string name="unset_price">未设置时价</string>
+
 
     <!--外卖 -->
     <string name="dishes_total_price">合计</string>
     <string name="dishes_order">下单</string>
-    <string name="RMB_symbol">¥</string>
-
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
     <string name="hint_roll_out_num">输入转出数量</string>
     <string name="string_switch_table">转台</string>
+
 </resources>

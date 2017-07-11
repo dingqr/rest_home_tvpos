@@ -12,6 +12,11 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishFixedPrice;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishVegetable;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
 import com.yonyou.hhtpos.dialog.DIA_ReserveFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
@@ -39,6 +44,16 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     Button btnConfirm2;
     @Bind(R.id.btn_confirm3)
     Button btnConfirm3;
+    @Bind(R.id.btn_confirm4)
+    Button btnConfirm4;
+    @Bind(R.id.btn_confirm5)
+    Button btnConfirm5;
+    @Bind(R.id.btn_confirm6)
+    Button btnConfirm6;
+    @Bind(R.id.btn_confirm7)
+    Button btnConfirm7;
+    @Bind(R.id.btn_confirm8)
+    Button btnConfirm8;
 
     private ArrayList<FilterItemEntity> filterItemList;
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
@@ -54,6 +69,12 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_TakeOutOpenOrder dia_reserveFiltration;
     DIA_TakeOutRefund dia_reserveFiltration2;
     DIA_TakeOutFiltration dia_reserveFiltration3;
+    DIA_OrderDishVegetable dia_orderDishVegetable;
+    DIA_OrderDishWeight dia_orderDishWeight;
+    DIA_OrderDishSetPrice dia_orderDishSetPrice;
+    DIA_OrderDishFixedPrice dia_orderDishFixedPrice;
+    DIA_OrderDishNorms dia_orderDishNorms;
+
 
 
     @Override
@@ -87,6 +108,12 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm1.setOnClickListener(this);
         btnConfirm2.setOnClickListener(this);
         btnConfirm3.setOnClickListener(this);
+        btnConfirm4.setOnClickListener(this);
+        btnConfirm5.setOnClickListener(this);
+        btnConfirm6.setOnClickListener(this);
+        btnConfirm7.setOnClickListener(this);
+        btnConfirm8.setOnClickListener(this);
+
         filterItemList = getFakeData();
         filterOptionsEntities = getOptions();
         capacityEntities = getCapacities();
@@ -157,6 +184,26 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
             case R.id.btn_confirm3:
                 dia_reserveFiltration3 = new DIA_TakeOutFiltration(mContext,takeoutType,takeoutMarket);
                 dia_reserveFiltration3.getDialog().show();
+                break;
+            case R.id.btn_confirm4:
+                dia_orderDishVegetable = new DIA_OrderDishVegetable(mContext);
+                dia_orderDishVegetable.getDialog().show();
+                break;
+            case R.id.btn_confirm5:
+                dia_orderDishWeight = new DIA_OrderDishWeight(mContext);
+                dia_orderDishWeight.getDialog().show();
+                break;
+            case R.id.btn_confirm6:
+                dia_orderDishNorms = new DIA_OrderDishNorms(mContext);
+                dia_orderDishNorms.getDialog().show();
+                break;
+            case R.id.btn_confirm7:
+                dia_orderDishSetPrice = new DIA_OrderDishSetPrice(mContext);
+                dia_orderDishSetPrice.getDialog().show();
+                break;
+            case R.id.btn_confirm8:
+                dia_orderDishFixedPrice = new DIA_OrderDishFixedPrice(mContext);
+                dia_orderDishFixedPrice.getDialog().show();
                 break;
             default:
                 break;

@@ -29,6 +29,8 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
     private static final int VIEW_TAKEOUT_TYPE = 3;
     private static final int REFUND_REASON = 4;
     private static final int ORDER_RESOURCE = 5;
+    private static final int COOKERY = 6;
+    private static final int DISH_NORMS = 7;
 
     public ADA_Filtration(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
@@ -84,6 +86,18 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
             }
             case REFUND_REASON: {
                 View view = mInflater.inflate(R.layout.item_filtration_refund_reason, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case COOKERY: {
+                View view = mInflater.inflate(R.layout.item_filtration_cookery, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case DISH_NORMS: {
+                View view = mInflater.inflate(R.layout.item_dish_norms, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;

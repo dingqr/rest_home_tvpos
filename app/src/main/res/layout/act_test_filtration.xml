@@ -22,4 +22,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/multiple_select" />
+    <Button
+        android:id="@+id/btn_confirm4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="时蔬弹框" />
+    <Button
+        android:id="@+id/btn_confirm5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="称重弹框" />
+    <Button
+        android:id="@+id/btn_confirm6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设定规格" />
+    <Button
+        android:id="@+id/btn_confirm7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置时价称重" />
+    <Button
+        android:id="@+id/btn_confirm8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="固定价格称重" />
 </LinearLayout>

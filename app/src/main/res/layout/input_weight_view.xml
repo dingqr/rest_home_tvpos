@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px_430"
+    android:layout_height="@dimen/px_56"
+    android:background="@drawable/bg_gray_4">
+    <EditText
+        android:layout_width="@dimen/px_380"
+        android:layout_height="match_parent"
+        android:id="@+id/ev_dish_weight"
+        android:hint="@string/hint_input_weight"
+        android:textColorHint="@color/color_cccccc"
+        android:textSize="@dimen/sp_24"
+        android:paddingLeft="@dimen/px_10"
+        android:gravity="center_vertical"
+        android:inputType="number"
+        android:background="@null"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_dish_unit"
+        android:text="@string/dish_weight_unit"
+        android:layout_toRightOf="@+id/ev_dish_weight"
+        android:layout_marginRight="@dimen/px_18"
+        android:layout_marginLeft="@dimen/px_5"
+        android:gravity="center"
+        android:textColor="@color/color_222222"
+        android:textSize="@dimen/sp_26"/>
+</RelativeLayout>

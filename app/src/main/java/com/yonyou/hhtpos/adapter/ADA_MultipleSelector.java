@@ -35,7 +35,7 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
 
     private static final int TAKE_OUT_TYPE = 0;
     private static final int MARKET_TYPE = 1;
-
+    private static final int DISH_REMARK = 2;
     public ADA_MultipleSelector(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
@@ -68,7 +68,12 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
                 viewHolder.mBtn = (CheckBox) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
-
+            case DISH_REMARK:{
+                View view = mInflater.inflate(R.layout.item_dish_remark, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (CheckBox) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
             default: break;
         }
         return null;
@@ -107,7 +112,7 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
         final FilterOptionsEntity dataBean = mDatas.get(position);
         holder.mBtn.setText(dataBean.getOption());
         if (isItemChecked(position)){
-            holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_4));
+            holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_eb6247));
             holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_eb6247));
         }else{
             holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_gray_4));
@@ -126,7 +131,7 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
                     holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_222222));
                 }else{
                     setItemChecked(position,true);
-                    holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_4));
+                    holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_eb6247));
                     holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_eb6247));
                 }
             }

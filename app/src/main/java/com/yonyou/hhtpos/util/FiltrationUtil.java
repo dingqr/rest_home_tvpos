@@ -14,16 +14,21 @@ import java.util.ArrayList;
  */
 
 public class FiltrationUtil {
-
+    /**单选*/
     private static final int VIEW_DISH_TYPE = 0;
     private static final int VIEW_DISH_AREA = 1;
     private static final int VIEW_RESERVE_STATUS = 2;
     private static final int VIEW_TAKEOUT_TYPE = 3;
     private static final int REFUND_REASON = 4;
     private static final int ORDER_RESOURCE = 5;
+    private static final int COOKERY = 6;
+    private static final int DISH_NORMS = 7;
 
+    /**多选*/
     private static final int TAKE_OUT_TYPE = 0;
     private static final int MARKET_TYPE = 1;
+    private static final int DISH_REMARK = 2;
+
 
     private static String title1 = "餐别";
     private static String title2 = "餐区";
@@ -337,8 +342,52 @@ public class FiltrationUtil {
         reserveOrderListEntity.add(rol12);
         return reserveOrderListEntity;
     }
+    public static ArrayList<FilterOptionsEntity> getCookery(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("清炒",COOKERY,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("蒜蓉",COOKERY,true);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("白灼",COOKERY,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
 
+        return  filterOptionsEntities;
+    }
+    public static ArrayList<FilterOptionsEntity> getDishRemark(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("不要葱",DISH_REMARK,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("不要蒜",DISH_REMARK,true);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("不要孜然",DISH_REMARK,false);
+        FilterOptionsEntity fde5 = new FilterOptionsEntity("回民",DISH_REMARK,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde5);
 
+        return  filterOptionsEntities;
+    }
+    public static ArrayList<FilterOptionsEntity> getCookeryFish(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("清蒸",COOKERY,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("红烧",COOKERY,true);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+
+        return  filterOptionsEntities;
+    }
+    public static ArrayList<FilterOptionsEntity> getDishNorms(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("罐",DISH_NORMS,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("位",DISH_NORMS,true);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("扎",DISH_NORMS,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("例",DISH_NORMS,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+
+        return  filterOptionsEntities;
+    }
 }
 
 //        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度

@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
@@ -32,17 +33,20 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
     private static final int VIEW_TAKEOUT_TYPE = 3;
     private static final int REFUND_REASON = 4;
     private static final int ORDER_RESOURCE = 5;
+    private static final int COOKERY = 6;
+    private static final int DISH_NORMS = 7;
 
     /**筛选框的标题*/
     private TextView filtrationType;
     private TextView optionChange;
+    private RelativeLayout rlContent;
+
 
     /**上下文*/
     private Context mContext;
 
     /**筛选列表*/
     private RecyclerView mRecyclerView;
-
 
     /**筛选框的选项数据*/
     private FilterItemEntity filterItemEntity;
@@ -71,6 +75,7 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
     private void initView() {
         //初始化view
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.filtration_view, this);
+        rlContent = (RelativeLayout)convertView.findViewById(R.id.rl_content);
         filtrationType = (TextView) convertView.findViewById(R.id.tv_filtration_type);
         optionChange = (TextView)convertView.findViewById(R.id.tv_change);
         mRecyclerView = (RecyclerView) convertView.findViewById(R.id.rv_filtration_options);
@@ -114,6 +119,7 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                         break;
                     case VIEW_TAKEOUT_TYPE:
                         filtrationType.setVisibility(View.GONE);
+                        rlContent.setVisibility(View.GONE);
                         layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
@@ -124,6 +130,18 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                         break;
                     case ORDER_RESOURCE:
                         layoutManger = new GridLayoutManager(mContext, 2);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case COOKERY:
+                        filtrationType.setVisibility(View.GONE);
+                        rlContent.setVisibility(View.GONE);
+                        layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case DISH_NORMS:
+                        filtrationType.setVisibility(View.GONE);
+                        rlContent.setVisibility(View.GONE);
+                        layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     default:

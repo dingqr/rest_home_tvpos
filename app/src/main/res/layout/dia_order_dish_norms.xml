@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/px_756"
+    android:layout_height="@dimen/px_784"
+    android:layout_marginRight="@dimen/px_30"
+    android:background="@color/sr_window_background">
+
+    <ImageButton
+        android:id="@+id/ib_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_30"
+        android:background="@drawable/ic_close"
+        android:padding="@dimen/px_10" />
+
+    <LinearLayout
+        android:id="@+id/ll_dish_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_88"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/px_30">
+
+        <TextView
+            android:id="@+id/tv_dish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_10"
+            android:text="松茸汽锅鸡"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_40" />
+
+        <TextView
+            android:id="@+id/ib_hot_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_dish_name"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_toRightOf="@+id/ib_chief_recommend"
+            android:background="@drawable/bg_green_10"
+            android:paddingLeft="@dimen/px_10"
+            android:paddingRight="@dimen/px_10"
+            android:paddingTop="@dimen/px_3"
+            android:paddingBottom="@dimen/px_3"
+            android:layout_marginBottom="@dimen/px_6"
+            android:text="@string/hot_sale"
+            android:textColor="@color/color_4ecd60"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dish_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dish_name"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_28"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_vip_price"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_vip_price"/>
+        <TextView
+            android:id="@+id/tv_rmb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_10"
+            android:text="@string/RMB_symbol"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_24" />
+        <TextView
+            android:id="@+id/tv_dish_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_3"
+            android:text="78.00"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_34" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dish_norms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dish_price"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_44"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_6"
+            android:text="@string/hint_dish_norms"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_26"/>
+        <com.yonyou.hhtpos.widgets.FiltrationView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fv_dish_norms"
+            android:layout_marginLeft="@dimen/px_34">
+        </com.yonyou.hhtpos.widgets.FiltrationView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dish_cookery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dish_norms"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_30"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_6"
+            android:text="@string/hint_dish_count"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_26" />
+        <com.yonyou.hhtpos.widgets.ModifyCountView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30">
+        </com.yonyou.hhtpos.widgets.ModifyCountView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dish_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dish_cookery"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_30"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_dish_remark"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_26" />
+        <EditText
+            android:id="@+id/et_other_reason"
+            android:layout_width="@dimen/px_560"
+            android:layout_height="@dimen/px_170"
+            android:layout_marginLeft="@dimen/px_30"
+            android:hint="@string/other_request"
+            android:textColorHint="@color/color_cccccc"
+            android:textSize="@dimen/sp_24"
+            android:gravity="top"
+            android:padding="@dimen/px_10"
+            android:background="@drawable/bg_gray_4"/>
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/rb_finish_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_fe563b"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:padding="@dimen/px_20"
+        android:text="@string/finish"
+        android:textColor="@drawable/rb_next_step_txt"
+        android:textSize="@dimen/sp_28" />
+</RelativeLayout>
+
