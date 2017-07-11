@@ -56,7 +56,14 @@
         <attr name="marginTop" format="integer"/>
         <attr name="marginRight" format="integer"/>
         <attr name="marginBottom" format="integer"/>
+    </declare-styleable>
 
+    <declare-styleable name="DashView">
+        <attr name="dashWidth" format="dimension" />
+        <attr name="lineHeight" format="dimension"/>
+        <attr name="lineWidth" format="dimension"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="dashOrientation" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="dashgridview">

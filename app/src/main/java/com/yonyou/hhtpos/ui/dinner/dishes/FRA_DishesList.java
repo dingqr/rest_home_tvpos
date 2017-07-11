@@ -7,6 +7,7 @@ import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.adapter.ADA_DishesList;
 
 import butterknife.Bind;
 
@@ -18,6 +19,8 @@ public class FRA_DishesList extends BaseFragment {
 
     @Bind(R.id.lv_dishes)
     ListView mListView;
+
+    private ADA_DishesList mAdapter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -42,7 +45,15 @@ public class FRA_DishesList extends BaseFragment {
     @Override
     protected void initViewsAndEvents() {
         // 无数据页面
-         showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
+        // showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
+
+        mAdapter = new ADA_DishesList(mContext);
+        mListView.setAdapter(mAdapter);
+
+        // 假数据
+        for (int i = 0; i < 10; i++){
+            mAdapter.update("");
+        }
     }
 
     @Override

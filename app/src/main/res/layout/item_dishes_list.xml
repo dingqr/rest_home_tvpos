@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/px_20"
+        android:paddingTop="@dimen/px_17"
+        android:paddingRight="@dimen/px_20"
+        android:paddingBottom="@dimen/px_17">
+
+        <TextView
+            android:id="@+id/tv_dishes_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="青岛纯生（500ml）"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_24" />
+
+        <TextView
+            android:id="@+id/tv_dishes_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_dishes_name"
+            android:layout_marginTop="@dimen/px_10"
+            android:text="注：不要辣"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_20" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/px_64"
+            android:layout_toLeftOf="@+id/ll_right"
+            android:layout_toRightOf="@+id/tv_dishes_name"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_vip_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_vip" />
+
+            <TextView
+                android:id="@+id/tv_dishes_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_6"
+                android:text="¥68.00"
+                android:textColor="@color/color_eb6247"
+                android:textSize="@dimen/sp_24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_dishes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x1"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_22" />
+
+            <TextView
+                android:id="@+id/tv_dishes_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_10"
+                android:text="等叫"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_22" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.yonyou.hhtpos.widgets.DashView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_2"
+        app:dashWidth="@dimen/px_2"
+        app:lineHeight="@dimen/px_2"
+        app:lineWidth="@dimen/px_6"
+        app:lineColor="@color/color_d5d5d5"/>
+</LinearLayout>
+
