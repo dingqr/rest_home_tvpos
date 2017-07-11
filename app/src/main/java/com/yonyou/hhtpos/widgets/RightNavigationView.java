@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +20,15 @@ import java.util.List;
  * 邮箱：zjuan@yonyou.com
  * 描述：右侧带角标可刷新角标数量的导航栏
  */
-public class RightNavigationView extends LinearLayout {
+public class RightNavigationView extends LinearLayout implements View.OnClickListener {
     private Context mContext;
     private RightListView rightListView;
     private List<RightTitleEntity> mData = new ArrayList<>();
     private TextView headTitle;
     private TextView bottomTitle;
     private OnItemClickListener mListener;
+    private LinearLayout llTopTitle;
+    private LinearLayout llBottomTitle;
 
     public RightNavigationView(Context context) {
         this(context, null);
@@ -50,6 +53,8 @@ public class RightNavigationView extends LinearLayout {
         rightListView = (RightListView) view.findViewById(R.id.rightListView);
         headTitle = (TextView) view.findViewById(R.id.head_title);
         bottomTitle = (TextView) view.findViewById(R.id.bottom_title);
+        llTopTitle = (LinearLayout) view.findViewById(R.id.ll_top_title);
+        llBottomTitle = (LinearLayout) view.findViewById(R.id.ll_bottom_title);
     }
 
     /**
@@ -59,12 +64,39 @@ public class RightNavigationView extends LinearLayout {
         rightListView.setOnRightListViewItemClickListener(new RightListView.OnRightListViewItemClickListener() {
             @Override
             public void onItemClick(int count, String title, int position) {
-//                Toast.makeText(mContext, mData.get(position).count + "", Toast.LENGTH_SHORT).show();
+                //设置点击列表时，重置外部两个标题的字体颜色
+                bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+                headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
                 if (mListener != null) {
                     mListener.onItemClick(count, title, position);
                 }
             }
         });
+        llTopTitle.setOnClickListener(this);
+        llBottomTitle.setOnClickListener(this);
+    }
+
+    /**
+     * 设置外部标题点击时选中颜色
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_top_title:
+                headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
+                bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+                rightListView.getRLAdapter().setSelectItem(-1);
+                rightListView.getRLAdapter().notifyDataSetChanged();
+                break;
+            case R.id.ll_bottom_title:
+                bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
+                headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+                rightListView.getRLAdapter().setSelectItem(-1);
+                rightListView.getRLAdapter().notifyDataSetChanged();
+                break;
+        }
     }
 
     /**
@@ -86,7 +118,9 @@ public class RightNavigationView extends LinearLayout {
     public void refreshCount(String id, boolean refreshCount) {
         ADA_RightTitle adapter = (ADA_RightTitle) rightListView.getAdapter();
         adapter.refreshCount(rightListView, id, refreshCount);
+        adapter.notifyDataSetChanged();
     }
+
 
     interface OnItemClickListener {
         void onItemClick(int count, String title, int postion);

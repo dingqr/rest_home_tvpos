@@ -9,6 +9,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.ui.FRA_OrderDishes;
 
 /**
  * 点菜页面
@@ -51,6 +52,10 @@ public class ACT_OrderDishes extends BaseActivity {
         FragmentTransaction leftTrans = getSupportFragmentManager().beginTransaction();
         leftTrans.add(R.id.fl_left, mDishesLeft);
         leftTrans.commitAllowingStateLoss();
+        // 替换left fragment
+        FragmentTransaction rightTrans = getSupportFragmentManager().beginTransaction();
+        rightTrans.add(R.id.fl_right, new FRA_OrderDishes());
+        rightTrans.commitAllowingStateLoss();
     }
 
     @Override

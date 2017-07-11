@@ -204,4 +204,6 @@
     <string name="RMB_symbol">¥</string>
 
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
+    <string name="hint_roll_out_num">输入转出数量</string>
+    <string name="string_switch_table">转台</string>
 </resources>

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval"
-    android:useLevel="false">
-    <solid android:color="@color/color_FF4d4d" />
+    android:shape="rectangle">
+    <corners
+        android:radius="@dimen/px_12"></corners>
     <padding
-        android:bottom="1dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:top="1dp" />
-    <solid android:color="@color/color_FF4d4d" />
-    <stroke
-        android:width="1dp"
-        android:color="@android:color/white" />
+        android:bottom="@dimen/px_2"
+        android:left="@dimen/px_4"
+        android:right="@dimen/px_4" />
+    <solid android:color="@color/color_eb6247" />
+
+    <!--<solid android:color="@color/color_FF4d4d" />-->
+    <!--<stroke-->
+    <!--android:width="1dp"-->
+    <!--android:color="@android:color/white" />-->
     <size
-        android:width="15dp"
-        android:height="15dp" />
+    android:width="@dimen/px_30"
+    android:height="@dimen/px_24" />
 </shape>

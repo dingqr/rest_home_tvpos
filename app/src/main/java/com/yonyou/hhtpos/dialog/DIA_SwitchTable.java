@@ -13,22 +13,20 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.PayTypeEntity;
 import com.yonyou.hhtpos.widgets.NumberKeybordView;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
 /**
- * Created by zj on 2017/7/1.
+ * Created by zj on 2017/7/11.
  * 邮箱：zjuan@yonyou.com
- * 描述：退预定押金弹窗
+ * 描述：服务员点菜-菜品转台弹窗
  */
-public class DIA_ReturnForegift {
+public class DIA_SwitchTable {
     @Bind(R.id.tv_dialog_title)
     TextView tvDialogTitle;
     private EditText etMoney;
@@ -37,36 +35,23 @@ public class DIA_ReturnForegift {
     private ImageView ivClose;
     private Context mContext;
     private NumberKeybordView numberGridView;
-    private String[] payTypes = {"现金支付", "畅捷支付", "支付宝", "微信支付"};
-    private ArrayList<PayTypeEntity> payTypeList = new ArrayList<>();
 
-    public DIA_ReturnForegift(Context context) {
+    public DIA_SwitchTable(Context context) {
         mContext = context;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
-        mContentView = LayoutInflater.from(context).inflate(R.layout.dia_return_foregift, null);
+        mContentView = LayoutInflater.from(context).inflate(R.layout.dia_switch_table, null);
         ButterKnife.bind(mContentView);
         numberGridView = (NumberKeybordView) mContentView.findViewById(R.id.number_keybord_view);
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
         mDialog.setContentView(mContentView);
-        tvDialogTitle.setText(mContext.getResources().getString(R.string.string_get_foregift));
-        initData();
+
+        tvDialogTitle.setText(mContext.getResources().getString(R.string.string_switch_table));
         initListener();
 
 
         //不使用系统软件盘输入
 //        disableShowInput(etMoney);
 
-    }
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-        for (int i = 0; i < payTypes.length; i++) {
-            PayTypeEntity payTypeEntity = new PayTypeEntity();
-            payTypeEntity.pay_type_name = payTypes[i];
-            payTypeList.add(payTypeEntity);
-        }
     }
 
     private void initListener() {

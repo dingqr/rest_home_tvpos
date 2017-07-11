@@ -4,13 +4,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yonyou.hhtpos.MainActivity"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/darker_gray"
+    tools:context="com.yonyou.hhtpos.MainActivity">
 
     <com.yonyou.hhtpos.widgets.RightNavigationView
         android:id="@+id/v_navigation_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dish_type"
+    android:minHeight="@dimen/px_170"
+    android:minWidth="@dimen/px_276"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/px_12"
+        android:layout_marginTop="@dimen/px_12"
+        android:gravity="end">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_special_side_16"
+            android:paddingBottom="@dimen/px_2"
+            android:paddingLeft="@dimen/px_12"
+            android:paddingRight="@dimen/px_12"
+            android:paddingTop="@dimen/px_2"
+            android:text="特色"
+            android:textColor="@color/color_4ECD60"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_10"
+            android:background="@drawable/bg_recommend_side_16"
+            android:paddingBottom="@dimen/px_2"
+            android:paddingLeft="@dimen/px_12"
+            android:paddingRight="@dimen/px_12"
+            android:paddingTop="@dimen/px_2"
+            android:text="主厨推荐"
+            android:textColor="@color/color_6893ff"
+            android:textSize="@dimen/sp_14" />
+        <!--售罄-默认隐藏-与bg_dish_sell_out背景同时出现-->
+        <ImageView
+            android:id="@+id/iv_sell_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_10"
+            android:background="@drawable/ic_sell_out"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_12"
+        android:layout_marginTop="@dimen/px_14">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_6"
+            android:src="@drawable/ic_weighing" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/px_12"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="云南杨林酸菜鱼"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_26" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_money"
+        android:layout_marginBottom="@dimen/px_20"
+        android:layout_marginLeft="@dimen/px_12"
+        android:layout_marginRight="@dimen/px_10"
+        android:layout_marginTop="@dimen/px_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="￥88/份"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_22" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_20"
+            android:text="微辣"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_20" />
+
+        <RadioButton
+            android:id="@+id/rb_dish_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/rb_table_selector"
+            android:gravity="end"
+            android:textColor="@color/color_333333"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

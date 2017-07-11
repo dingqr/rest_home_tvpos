@@ -35,4 +35,6 @@ dependencies {
 //    compile 'com.github.jdsjlzx:LRecyclerView:1.3.4'
 //    最新版本
     compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
+    //圆角
+    compile 'q.rorbin:badgeview:1.1.2'
 }

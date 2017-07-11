@@ -5,14 +5,14 @@ import android.content.Context;
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.OrderDishesEntity;
+import com.yonyou.hhtpos.bean.DishDetailEntity;
 
 /**
  * Created by zj on 2017/7/5.
  * 邮箱：zjuan@yonyou.com
  * 描述：分组列表-点菜明细的适配器
  */
-public class ADA_OrderDishesDetail extends CommonAdapterListView<OrderDishesEntity> {
+public class ADA_OrderDishesDetail extends CommonAdapterListView<DishDetailEntity> {
     public ADA_OrderDishesDetail(Context context) {
         super(context);
     }
@@ -23,7 +23,7 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<OrderDishesEnti
     }
 
     @Override
-    protected void convert(ViewHolderListView holder, OrderDishesEntity orderDishesEntity, int position) {
+    protected void convert(ViewHolderListView holder, DishDetailEntity orderDishesEntity, int position) {
 
 
 
@@ -43,7 +43,7 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<OrderDishesEnti
      */
     private int getFirstVisiblePosition(String order_time) {
         for (int i = 0; i < mDatas.size(); i++) {
-            OrderDishesEntity orderDishesEntity = mDatas.get(i);
+            DishDetailEntity orderDishesEntity = mDatas.get(i);
             if (order_time.equals(orderDishesEntity.order_time)) {
                 return i;
             }

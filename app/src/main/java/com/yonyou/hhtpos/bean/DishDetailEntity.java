@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 邮箱：zjuan@yonyou.com
  * 描述：点菜明细实体类
  */
-public class OrderDishesEntity implements Serializable{
+public class DishDetailEntity implements Serializable{
     /**下单时间*/
     public String order_time;
     /**菜品名称*/

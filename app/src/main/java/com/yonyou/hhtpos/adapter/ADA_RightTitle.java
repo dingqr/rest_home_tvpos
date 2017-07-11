@@ -26,8 +26,6 @@ public class ADA_RightTitle extends BaseAdapter {
     private List<RightTitleEntity> mDishTypes = new ArrayList<>();
     private int mSelectedPos;
     private boolean isRefreshCount;
-    private int itemCheckColor = R.color.color_FF4d4d;
-    private int itemUnCheckColor = R.color.color_E5E5E5;
 
     public ADA_RightTitle(Context context, List<RightTitleEntity> datas) {
         this.mContext = context;
@@ -57,6 +55,7 @@ public class ADA_RightTitle extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_title, null);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_count = (TextView) convertView.findViewById(R.id.tv_count);
+            holder.right_line = (View) convertView.findViewById(R.id.right_line);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -84,9 +83,11 @@ public class ADA_RightTitle extends BaseAdapter {
         } else {
             //不刷新有角标才设置title的选中效果
             if (mSelectedPos == position) {
-                convertView.setBackgroundColor(ContextCompat.getColor(mContext, itemCheckColor));
+                holder.tv_title.setTextColor(ContextCompat.getColor(mContext,R.color.color_eb6247));
+                holder.right_line.setVisibility(View.VISIBLE);
             } else {
-                convertView.setBackgroundColor(ContextCompat.getColor(mContext, itemUnCheckColor));
+                holder.tv_title.setTextColor(ContextCompat.getColor(mContext,R.color.color_222222));
+                holder.right_line.setVisibility(View.GONE);
             }
         }
         return convertView;
@@ -104,6 +105,7 @@ public class ADA_RightTitle extends BaseAdapter {
     class ViewHolder {
         TextView tv_title;
         TextView tv_count;
+        View right_line;
     }
 
     /**

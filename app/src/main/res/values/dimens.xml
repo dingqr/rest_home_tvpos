@@ -94,6 +94,7 @@
     <dimen name="px_180">120dp</dimen>
     <dimen name="px_190">126.6dp</dimen>
     <dimen name="px_196">130.6dp</dimen>
+    <dimen name="px_276">184dp</dimen>
     <dimen name="px_290">193.3dp</dimen>
     <dimen name="px_300">200dp</dimen>
     <dimen name="px_338">225.3dp</dimen>
@@ -162,6 +163,7 @@
 
 
     <!-- 字号2:3-->
+    <dimen name="sp_14">9.3sp</dimen>
     <dimen name="sp_20">13.3sp</dimen>
     <dimen name="sp_22">14.6sp</dimen>
     <dimen name="sp_24">16sp</dimen>

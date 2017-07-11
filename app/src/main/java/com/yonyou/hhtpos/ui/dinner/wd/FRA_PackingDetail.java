@@ -9,7 +9,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
-import com.yonyou.hhtpos.bean.OrderDishesEntity;
+import com.yonyou.hhtpos.bean.DishDetailEntity;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class FRA_PackingDetail extends BaseFragment {
     @Bind(R.id.lv_order_detail)
     ListView lvOrderDishes;
     private ADA_OrderDishesDetail mAdapter;
-    private ArrayList<OrderDishesEntity> dataList = new ArrayList<>();
+    private ArrayList<DishDetailEntity> dataList = new ArrayList<>();
 
     @Override
     protected void onFirstUserVisible() {
@@ -62,7 +62,7 @@ public class FRA_PackingDetail extends BaseFragment {
 
     private void setData() {
         for (int i = 0; i < 10; i++) {
-            OrderDishesEntity orderDishesEntity = new OrderDishesEntity();
+            DishDetailEntity orderDishesEntity = new DishDetailEntity();
             orderDishesEntity.dishes_name = "肉菜" + i;
             dataList.add(orderDishesEntity);
         }

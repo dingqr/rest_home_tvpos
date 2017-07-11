@@ -82,4 +82,8 @@ public class RightListView extends ListView {
     public void setOnRightListViewItemClickListener(OnRightListViewItemClickListener mClickListener) {
         this.mClickListener = mClickListener;
     }
+
+    public ADA_RightTitle getRLAdapter() {
+        return mAdapter;
+    }
 }

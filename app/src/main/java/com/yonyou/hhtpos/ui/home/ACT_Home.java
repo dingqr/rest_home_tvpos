@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
+import com.yonyou.hhtpos.FRA_TestRight;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseSimple;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
@@ -30,7 +31,7 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener{
 
     @Override
     protected Fragment getContentFragment() {
-        return new FRA_Home();
+        return new FRA_TestRight();
     }
 
     @Override
