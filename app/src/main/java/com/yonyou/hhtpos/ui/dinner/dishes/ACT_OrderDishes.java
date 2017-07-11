@@ -1,41 +1,22 @@
-package com.yonyou.hhtpos.ui.dinner.wm;
+package com.yonyou.hhtpos.ui.dinner.dishes;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
-import com.yonyou.hhtpos.base.ACT_BaseMultiple;
+import com.yonyou.hhtpos.R;
 
 /**
- * 外卖
- * 作者：liushuofei on 2017/7/6 10:44
+ * 点菜页面
+ * 作者：liushuofei on 2017/7/11 10:31
  */
-public class ACT_TakeOut extends ACT_BaseMultiple {
+public class ACT_OrderDishes extends BaseActivity {
 
-    private FRA_TakeOutLeft mLeftContent;
-
-    @Override
-    protected void initView() {
-        mLeftContent = new FRA_TakeOutLeft();
-    }
-
-    @Override
-    protected float getLeftWeight() {
-        return 0.69f;
-    }
-
-    @Override
-    protected Fragment getLeftContent() {
-        return mLeftContent;
-    }
-
-    @Override
-    protected Fragment getRightContent() {
-        return new FRA_TakeOutDetail();
-    }
+    private FRA_DishesList mDishesLeft;
 
     @Override
     protected boolean isApplyKitKatTranslucency() {
@@ -48,6 +29,11 @@ public class ACT_TakeOut extends ACT_BaseMultiple {
     }
 
     @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.act_order_dishes;
+    }
+
+    @Override
     protected void onEventComming(EventCenter eventCenter) {
 
     }
@@ -55,6 +41,16 @@ public class ACT_TakeOut extends ACT_BaseMultiple {
     @Override
     protected View getLoadingTargetView() {
         return null;
+    }
+
+    @Override
+    protected void initViewsAndEvents() {
+        mDishesLeft = new FRA_DishesList();
+
+        // 替换left fragment
+        FragmentTransaction leftTrans = getSupportFragmentManager().beginTransaction();
+        leftTrans.add(R.id.fl_left, mDishesLeft);
+        leftTrans.commitAllowingStateLoss();
     }
 
     @Override

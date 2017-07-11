@@ -63,9 +63,9 @@ public class POP_NavigationSecond extends PopupWindow implements AdapterView.OnI
         // 设置SelectPicPopupWindow的View
         this.setContentView(convertView);
         // 设置SelectPicPopupWindow弹出窗体的宽
-        this.setWidth(LayoutParams.MATCH_PARENT);
+        this.setWidth(400);
         // 设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(LayoutParams.MATCH_PARENT);
+        this.setHeight(400);
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         // 实例化一个ColorDrawable颜色为半透明

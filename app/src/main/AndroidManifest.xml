@@ -83,6 +83,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--服务员点菜页面 -->
+        <activity
+            android:name=".ui.dinner.dishes.ACT_OrderDishes"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>

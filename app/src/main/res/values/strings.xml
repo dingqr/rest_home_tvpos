@@ -136,7 +136,6 @@
     <string name="take_out_open_order">外卖开单</string>
     <string name="hint_enter_receiver_phone">请填写收餐人的手机号</string>
     <string name="hint_enter_receiver_address">例：北京海淀区中关村苏州街29号维亚大厦12层</string>
-    <string name="dinner_number">就餐人数</string>
     <string name="hint_enter_dinner_number">请确认就餐人数</string>
     <string name="deliver_time">送餐时间</string>
     <string name="reserve_deliver_time">预约送餐</string>
@@ -172,7 +171,7 @@
     <string name="table_put_together">拼台</string>
     <string name="table_clear">清台</string>
 
-
+    <string name="dishes_no_data">还没有点菜哦~</string>
     <string name="order_no_data">今天还没有订单哦~</string>
 
     <!--日历 -->
@@ -199,6 +198,10 @@
     <string name="change">换一换(1/2)</string>
     <string name="order_overdue">预约过期关闭</string>
 
+    <!--外卖 -->
+    <string name="dishes_total_price">合计</string>
+    <string name="dishes_order">下单</string>
+    <string name="RMB_symbol">¥</string>
 
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
 </resources>
