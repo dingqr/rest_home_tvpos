@@ -347,9 +347,19 @@ public class FiltrationUtil {
         FilterOptionsEntity fde1 = new FilterOptionsEntity("清炒",COOKERY,false);
         FilterOptionsEntity fde2 = new FilterOptionsEntity("蒜蓉",COOKERY,true);
         FilterOptionsEntity fde3 = new FilterOptionsEntity("白灼",COOKERY,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("爆炒",COOKERY,false);
+//        FilterOptionsEntity fde5 = new FilterOptionsEntity("清炒",COOKERY,false);
+//        FilterOptionsEntity fde6 = new FilterOptionsEntity("蒜蓉",COOKERY,false);
+//        FilterOptionsEntity fde7 = new FilterOptionsEntity("白灼",COOKERY,false);
+//        FilterOptionsEntity fde8 = new FilterOptionsEntity("爆炒",COOKERY,false);
         filterOptionsEntities.add(fde1);
         filterOptionsEntities.add(fde2);
         filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+//        filterOptionsEntities.add(fde5);
+//        filterOptionsEntities.add(fde6);
+//        filterOptionsEntities.add(fde7);
+//        filterOptionsEntities.add(fde8);
 
         return  filterOptionsEntities;
     }

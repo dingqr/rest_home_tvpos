@@ -135,13 +135,13 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                     case COOKERY:
                         filtrationType.setVisibility(View.GONE);
                         rlContent.setVisibility(View.GONE);
-                        layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
+                        layoutManger = new GridLayoutManager(mContext, 4);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case DISH_NORMS:
                         filtrationType.setVisibility(View.GONE);
                         rlContent.setVisibility(View.GONE);
-                        layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
+                        layoutManger = new GridLayoutManager(mContext, 4);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     default:

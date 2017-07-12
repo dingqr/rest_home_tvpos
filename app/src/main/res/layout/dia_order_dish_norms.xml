@@ -4,7 +4,7 @@
     android:layout_width="@dimen/px_756"
     android:layout_height="@dimen/px_784"
     android:layout_marginRight="@dimen/px_30"
-    android:background="@color/sr_window_background">
+    android:background="@drawable/bg_radius_4">
 
     <ImageButton
         android:id="@+id/ib_close"
@@ -13,8 +13,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/px_30"
         android:layout_marginRight="@dimen/px_30"
-        android:background="@drawable/ic_close"
-        android:padding="@dimen/px_10" />
+        android:src="@drawable/ic_close"
+        android:background="@color/color_FFFFFF"
+        android:padding="@dimen/px_20" />
 
     <LinearLayout
         android:id="@+id/ll_dish_name"
@@ -28,7 +29,6 @@
             android:id="@+id/tv_dish_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_10"
             android:text="松茸汽锅鸡"
             android:textColor="@color/color_222222"
             android:textSize="@dimen/sp_40" />
@@ -41,8 +41,8 @@
             android:layout_marginLeft="@dimen/px_30"
             android:layout_toRightOf="@+id/ib_chief_recommend"
             android:background="@drawable/bg_green_10"
-            android:paddingLeft="@dimen/px_10"
-            android:paddingRight="@dimen/px_10"
+            android:paddingLeft="@dimen/px_15"
+            android:paddingRight="@dimen/px_15"
             android:paddingTop="@dimen/px_3"
             android:paddingBottom="@dimen/px_3"
             android:layout_marginBottom="@dimen/px_6"
@@ -57,14 +57,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_dish_name"
         android:layout_marginLeft="@dimen/px_30"
-        android:layout_marginTop="@dimen/px_28"
+        android:layout_marginTop="@dimen/px_16"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/iv_vip_price"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_vip_price"/>
+            android:background="@drawable/ic_vip_price"
+            android:layout_marginTop="@dimen/px_16"/>
         <TextView
             android:id="@+id/tv_rmb"
             android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_dish_price"
         android:layout_marginLeft="@dimen/px_30"
-        android:layout_marginTop="@dimen/px_44"
+        android:layout_marginTop="@dimen/px_28"
         android:orientation="horizontal">
 
         <TextView
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/fv_dish_norms"
-            android:layout_marginLeft="@dimen/px_34">
+            android:layout_marginLeft="@dimen/px_30">
         </com.yonyou.hhtpos.widgets.FiltrationView>
     </LinearLayout>
 
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_dish_norms"
         android:layout_marginLeft="@dimen/px_30"
-        android:layout_marginTop="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_20"
         android:orientation="horizontal">
 
         <TextView
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_dish_cookery"
         android:layout_marginLeft="@dimen/px_30"
-        android:layout_marginTop="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_20"
         android:orientation="horizontal">
 
         <TextView
@@ -147,7 +147,7 @@
             android:textSize="@dimen/sp_26" />
         <EditText
             android:id="@+id/et_other_reason"
-            android:layout_width="@dimen/px_560"
+            android:layout_width="@dimen/px_600"
             android:layout_height="@dimen/px_170"
             android:layout_marginLeft="@dimen/px_30"
             android:hint="@string/other_request"
@@ -163,7 +163,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_fe563b"
+        android:background="@drawable/bg_rb_radius_4"
         android:button="@null"
         android:checked="true"
         android:gravity="center"

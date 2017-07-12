@@ -4,7 +4,7 @@
     android:layout_width="@dimen/px_756"
     android:layout_height="@dimen/px_784"
     android:layout_marginRight="@dimen/px_30"
-    android:background="@color/sr_window_background">
+    android:background="@drawable/bg_radius_4">
 
     <ImageButton
         android:id="@+id/ib_close"
@@ -13,8 +13,9 @@
         android:layout_marginTop="@dimen/px_30"
         android:layout_marginRight="@dimen/px_30"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_close"
-        android:padding="@dimen/px_10"/>
+        android:src="@drawable/ic_close"
+        android:background="@color/color_FFFFFF"
+        android:padding="@dimen/px_20"/>
     <TextView
         android:id="@+id/tv_dish_name"
         android:layout_width="wrap_content"
@@ -51,8 +52,8 @@
         android:textColor="@color/color_4ecd60"
         android:textSize="@dimen/sp_14"
         android:background="@drawable/bg_green_10"
-        android:paddingLeft="@dimen/px_10"
-        android:paddingRight="@dimen/px_10"
+        android:paddingLeft="@dimen/px_15"
+        android:paddingRight="@dimen/px_15"
         android:paddingTop="@dimen/px_3"
         android:paddingBottom="@dimen/px_3"
         android:layout_marginBottom="@dimen/px_6"/>
@@ -62,14 +63,14 @@
         android:id="@+id/ll_dish_price"
         android:orientation="horizontal"
         android:layout_below="@+id/tv_dish_name"
-        android:layout_marginTop="@dimen/px_28"
+        android:layout_marginTop="@dimen/px_10"
         android:layout_marginLeft="@dimen/px_30">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/iv_vip_price"
             android:background="@drawable/ic_vip_price"
-            android:layout_gravity="center"/>
+            android:layout_marginTop="@dimen/px_16"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +101,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/ll_dish_weight"
-        android:layout_marginTop="@dimen/px_44"
+        android:layout_marginTop="@dimen/px_28"
         android:layout_marginLeft="@dimen/px_30"
         android:layout_below="@+id/ll_dish_price">
         <TextView
@@ -116,73 +117,84 @@
             android:layout_marginLeft="@dimen/px_34">
         </com.yonyou.hhtpos.widgets.InputWeightView>
     </LinearLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rb_finish_select"
+        android:layout_below="@+id/ll_dish_weight"
+        android:scrollbars="none">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/ll_dish_cookery"
-        android:layout_marginTop="@dimen/px_30"
-        android:layout_marginLeft="@dimen/px_30"
-        android:layout_below="@+id/ll_dish_weight">
-        <TextView
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hint_dish_cookery"
-            android:textSize="@dimen/sp_26"
-            android:layout_marginTop="@dimen/px_6"
-            android:textColor="@color/color_666666"/>
-        <com.yonyou.hhtpos.widgets.FiltrationView
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/ll_dish_cookery"
+            android:layout_marginTop="@dimen/px_20"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_below="@+id/ll_dish_weight">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_dish_cookery"
+                android:textSize="@dimen/sp_26"
+                android:layout_marginTop="@dimen/px_6"
+                android:textColor="@color/color_666666"/>
+            <com.yonyou.hhtpos.widgets.FiltrationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fv_cookery"
+                android:layout_marginLeft="@dimen/px_34">
+            </com.yonyou.hhtpos.widgets.FiltrationView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/fv_cookery"
-            android:layout_marginLeft="@dimen/px_34">
-        </com.yonyou.hhtpos.widgets.FiltrationView>
+            android:orientation="horizontal"
+            android:id="@+id/ll_dish_remark"
+            android:layout_marginTop="@dimen/px_15"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_below="@+id/ll_dish_cookery">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_dish_remark"
+                android:textSize="@dimen/sp_26"
+                android:textColor="@color/color_666666"
+                android:layout_marginTop="@dimen/px_6"/>
+            <com.yonyou.hhtpos.widgets.MultipleSelectView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fv_remark"
+                android:layout_marginLeft="@dimen/px_34">
+            </com.yonyou.hhtpos.widgets.MultipleSelectView>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_other_reason"
+            android:layout_below="@+id/ll_dish_remark"
+            android:layout_width="@dimen/px_600"
+            android:layout_height="@dimen/px_170"
+            android:hint="@string/other_request"
+            android:padding="@dimen/px_10"
+            android:gravity="top"
+            android:background="@drawable/bg_gray_4"
+            android:textColorHint="@color/color_cccccc"
+            android:textSize="@dimen/sp_24"
+            android:layout_marginTop="@dimen/px_15"
+            android:layout_marginLeft="@dimen/px_123"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/ll_dish_remark"
-        android:layout_marginTop="@dimen/px_20"
-        android:layout_marginLeft="@dimen/px_30"
-        android:layout_below="@+id/ll_dish_cookery">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hint_dish_remark"
-            android:textSize="@dimen/sp_26"
-            android:textColor="@color/color_666666"
-            android:layout_marginTop="@dimen/px_6"/>
-        <com.yonyou.hhtpos.widgets.MultipleSelectView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fv_remark"
-            android:layout_marginLeft="@dimen/px_34">
-        </com.yonyou.hhtpos.widgets.MultipleSelectView>
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/et_other_reason"
-        android:layout_below="@+id/ll_dish_remark"
-        android:layout_width="@dimen/px_580"
-        android:layout_height="@dimen/px_170"
-        android:hint="@string/other_request"
-        android:padding="@dimen/px_10"
-        android:gravity="top"
-        android:background="@drawable/bg_gray_4"
-        android:textColorHint="@color/color_cccccc"
-        android:textSize="@dimen/sp_24"
-        android:layout_marginTop="@dimen/px_15"
-        android:layout_marginLeft="@dimen/px_123"/>
-
+    </ScrollView>
     <RadioButton
         android:id="@+id/rb_finish_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_fe563b"
+        android:background="@drawable/bg_rb_radius_4"
         android:button="@null"
         android:checked="true"
         android:gravity="center"

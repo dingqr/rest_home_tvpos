@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
     <CheckBox
         android:id="@+id/btn_option"
-        android:layout_width="@dimen/px_130"
+        android:layout_width="@dimen/px_135"
         android:layout_height="@dimen/px_50"
         android:button="@null"
         android:gravity="center"
