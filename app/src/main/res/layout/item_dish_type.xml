@@ -106,6 +106,7 @@
             android:id="@+id/rb_dish_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_FFFFFF"
             android:button="@null"
             android:drawableRight="@drawable/rb_table_selector"
             android:gravity="end"
