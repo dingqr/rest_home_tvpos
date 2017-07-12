@@ -1,6 +1,8 @@
 package com.yonyou.framework.library.loading;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.R;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.global.TypeLinkUtils;
 
 /**
  * 作者：addison on 11/12/15 14:53
@@ -208,7 +211,7 @@ public class VaryViewHelperController {
     }
 
     /**
-     * 不可点击的无数据
+     * 不可点击的无数据-新增样式一
      *
      * @param emptyImg
      * @param emptyMsg
@@ -237,6 +240,34 @@ public class VaryViewHelperController {
     }
 
     /**
+     * 带超链接的空页面
+     */
+    public void showEmptyHyperLink(Context context, String linkUrl, String clickText) {
+        View layout = helper.inflate(R.layout.empty_layout_with_url);
+        LinearLayout llEmpty = (LinearLayout) layout.findViewById(R.id.ll_empty_root);
+        ImageView imageView = (ImageView) layout.findViewById(R.id.iv_empty_img);
+        TextView tv_hyper_link = (TextView) layout.findViewById(R.id.tv_hyper_link);
+
+        String defaultClickText = context.getResources().getString(R.string.string_operation_paltform);
+        String mLink;
+        if (!TextUtils.isEmpty(clickText)) {
+            mLink = "<a href=" + "\"" + linkUrl + "\"" + ">" + clickText + "</a>";
+        } else {
+            mLink = "<a href=" + "\"" + linkUrl + "\"" + ">" + defaultClickText + "</a>";
+        }
+        //设置超链接
+
+        //方法重新设置文字背景为透明色，否则点击时文字背景会有颜色
+        tv_hyper_link.setHighlightColor(context.getResources().getColor(android.R.color.transparent));
+        //设置超链接文字的样式
+        tv_hyper_link.setText(TypeLinkUtils.getClickableHtml(tv_hyper_link.getText().toString() + mLink));
+        //设置超链接可点击
+        tv_hyper_link.setMovementMethod(LinkMovementMethod.getInstance());
+
+        helper.showLayout(layout);
+    }
+
+    /**
      * 显示公司信息
      */
     public void showCompanyInfo() {
@@ -247,5 +278,6 @@ public class VaryViewHelperController {
     public void restore() {
         helper.restoreView();
     }
+
 
 }

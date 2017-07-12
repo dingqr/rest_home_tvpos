@@ -14,6 +14,11 @@ public class API {
 //    public static final String BASE_SERVER_IP = "http://test-api-c2b.honghuotai.com"; //测试服务器地址
 
     /**
+     * 运营平台地址
+     */
+    public static final String URL_OPERATION_PALTFORM = "http://blog.csdn.net/zhangjinhuang";//测试地址
+
+    /**
      * 服务器版本
      */
     public static final String BASE_SERVER_URL = BASE_SERVER_IP + "/api/v1/";
@@ -28,9 +33,14 @@ public class API {
      */
     public static final String VERIFY_PHONE_NUMBER = BASE_SERVER_IP + "/auth/message";
 
-    /**登录*/
+    /**
+     * 登录
+     */
     public static final String URL_PASSPORT_LOGIN = BASE_SERVER_IP + "/login";
 
-    /**重置密码*/
+    /**
+     * 重置密码
+     */
     public static final String URL_RESET_PWD = BASE_SERVER_IP + "/changePassword";
+
 }

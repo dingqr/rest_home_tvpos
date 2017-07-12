@@ -17,6 +17,11 @@ public class DishTypeEntity implements Serializable {
      */
     public String name;
 
+    /**
+     * 是否选中
+     */
+    public boolean isCheck;
+
     public DishTypeEntity() {
     }
 

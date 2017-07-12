@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
@@ -53,6 +54,7 @@ public class ADA_RightTitle extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_title, null);
+            holder.rlBadgt = (RelativeLayout) convertView.findViewById(R.id.rl_badge);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_count = (TextView) convertView.findViewById(R.id.tv_count);
             holder.right_line = (View) convertView.findViewById(R.id.right_line);
@@ -65,9 +67,11 @@ public class ADA_RightTitle extends BaseAdapter {
         holder.tv_count.setText(StringUtil.getString(mDishTypes.get(position).count));
         //控制角标是否显示
         if (holder.tv_count.getText().equals("0")) {
-            holder.tv_count.setVisibility(View.INVISIBLE);
+//            holder.tv_count.setVisibility(View.INVISIBLE);
+            holder.rlBadgt.setVisibility(View.INVISIBLE);
         } else {
-            holder.tv_count.setVisibility(View.VISIBLE);
+//            holder.tv_count.setVisibility(View.VISIBLE);
+            holder.rlBadgt.setVisibility(View.VISIBLE);
         }
         //更新右上角标的数量
         if (isRefreshCount) {
@@ -75,6 +79,7 @@ public class ADA_RightTitle extends BaseAdapter {
             String s = holder.tv_count.getText().toString();
             if (!TextUtils.isEmpty(s)) {
                 holder.tv_count.setText(Integer.parseInt(s) + StringUtil.getString(1));
+                //回传右侧标题当前对应的角标的数量
                 if (refreshCurrentItemListener != null) {
                     refreshCurrentItemListener.onRefreshCount(position, Integer.parseInt(s) + 1);
                 }
@@ -83,10 +88,10 @@ public class ADA_RightTitle extends BaseAdapter {
         } else {
             //不刷新有角标才设置title的选中效果
             if (mSelectedPos == position) {
-                holder.tv_title.setTextColor(ContextCompat.getColor(mContext,R.color.color_eb6247));
+                holder.tv_title.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
                 holder.right_line.setVisibility(View.VISIBLE);
             } else {
-                holder.tv_title.setTextColor(ContextCompat.getColor(mContext,R.color.color_222222));
+                holder.tv_title.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
                 holder.right_line.setVisibility(View.GONE);
             }
         }
@@ -106,6 +111,7 @@ public class ADA_RightTitle extends BaseAdapter {
         TextView tv_title;
         TextView tv_count;
         View right_line;
+        RelativeLayout rlBadgt;
     }
 
     /**

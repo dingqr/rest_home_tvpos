@@ -44,10 +44,12 @@
     <dimen name="px_8">5.3dp</dimen>
     <dimen name="px_24">16dp</dimen>
     <dimen name="px_30">20dp</dimen>
+    <dimen name="px_60">40dp</dimen>
     <dimen name="px_276">184dp</dimen>
     <dimen name="px_300">200dp</dimen>
 
     <dimen name="sp_24">16sp</dimen>
+    <dimen name="sp_28">18.6sp</dimen>
     <dimen name="sp_34">22.6sp</dimen>
 
 

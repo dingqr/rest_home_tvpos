@@ -6,14 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
@@ -96,12 +94,12 @@ public class FRA_OrderDishes extends BaseFragment {
 
         mRecyclerView.addItemDecoration(new SpaceItemDecoration());
         //loadmore
-        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-//                loadMore();
-            }
-        });
+//        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+////                loadMore();
+//            }
+//        });
         //设置底部加载颜色-
         mRecyclerView.setFooterViewColor(R.color.colorAccent, R.color.dark, R.color.color_dcdcdc);
         //设置底部加载文字提示
@@ -115,16 +113,21 @@ public class FRA_OrderDishes extends BaseFragment {
         mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
 
         initListener();
+
+//        showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM,"");
     }
 
     private void initListener() {
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                mAdapter.setSelectItem(position);
-                mAdapter.notifyDataSetChanged();
-                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(position).id, false);
-                mRightNavigationView.refreshCount(mAdapter.getDataList().get(position).id,true);
+                //实际位置要在原來的基础上减掉头部占的位置
+                int mPosition = position - 1;
+                DishTypeEntity dishTypeEntity = mAdapter.getDataList().get(mPosition);
+                dishTypeEntity.isCheck = true;
+                mAdapter.notifyItemChanged(mPosition);
+                //刷新角标数量
+                mRightNavigationView.refreshCount(mAdapter.getDataList().get(position).id, true);
             }
 
             @Override
@@ -139,7 +142,7 @@ public class FRA_OrderDishes extends BaseFragment {
             DishTypeEntity dishTypeEntity = new DishTypeEntity();
             dishTypeEntity.name = "item=" + i;
             Random rand = new Random();
-            int uid = rand.nextInt(8);
+            int uid = rand.nextInt(9);
             dishTypeEntity.id = StringUtil.getString(uid);
             datas.add(dishTypeEntity);
         }

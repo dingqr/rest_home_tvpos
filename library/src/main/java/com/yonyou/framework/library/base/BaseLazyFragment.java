@@ -64,6 +64,7 @@ public abstract class BaseLazyFragment extends Fragment {
     private boolean mIsRegisterReceiver = false;
 
     private View container;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -362,9 +363,8 @@ public abstract class BaseLazyFragment extends Fragment {
 
     /**
      * toggle show login
-     *
      */
-    protected void toggleshowLogin(){
+    protected void toggleshowLogin() {
         BaseApplication.getInstance().showLoginDialog();
     }
 
@@ -406,6 +406,7 @@ public abstract class BaseLazyFragment extends Fragment {
 
     /**
      * show no clickable msg
+     *
      * @param img
      * @param msg
      */
@@ -416,17 +417,31 @@ public abstract class BaseLazyFragment extends Fragment {
 
         mVaryViewHelperController.showEmpty(img, msg);
     }
+
     /**
-     * show no clickable msg
+     * 样式一
+     *
      * @param img
      * @param msg
      */
-    protected void showEmpty(int img, String msg,int bgColor,int textColor,String otherMsg) {
+    protected void showEmpty(int img, String msg, int bgColor, int textColor, String otherMsg) {
         if (null == mVaryViewHelperController) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
 
-        mVaryViewHelperController.showEmpty(img, msg,bgColor,textColor,otherMsg);
+        mVaryViewHelperController.showEmpty(img, msg, bgColor, textColor, otherMsg);
+    }
+
+    /**
+     * 样式二-带超链接的空页面
+     *
+     */
+    protected void showEmptyHyperLink(Context context, String linkUrl, String clickText) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+
+        mVaryViewHelperController.showEmptyHyperLink(context,linkUrl,clickText);
     }
 
     /**
@@ -569,5 +584,6 @@ public abstract class BaseLazyFragment extends Fragment {
      *
      * @param intent
      */
-    protected void onReceiveBroadcast(int intent, Bundle bundle) {}
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+    }
 }

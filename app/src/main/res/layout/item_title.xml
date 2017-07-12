@@ -21,28 +21,54 @@
             android:textColor="@color/color_222222"
             android:textSize="@dimen/sp_22" />
 
-        <com.yonyou.hhtpos.widgets.MsgView
-            android:id="@+id/tv_count"
-            android:layout_width="@dimen/px_30"
-            android:layout_height="@dimen/px_22"
+        <!--<com.yonyou.hhtpos.widgets.MsgView-->
+        <!--android:id="@+id/tv_count"-->
+        <!--android:layout_width="@dimen/px_30"-->
+        <!--android:layout_height="@dimen/px_22"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="@dimen/px_8"-->
+        <!--android:layout_marginTop="@dimen/px_16"-->
+        <!--android:layout_toRightOf="@+id/tv_title"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="11.5sp"-->
+        <!--android:visibility="gone"-->
+        <!--mv:mv_backgroundColor="#FD481F"-->
+        <!--mv:mv_cornerRadius="10dp"-->
+        <!--mv:mv_isRadiusHalfHeight="true"-->
+        <!--mv:mv_strokeColor="#ffffff"-->
+        <!--mv:mv_strokeWidth="1dp" />-->
+        <RelativeLayout
+            android:id="@+id/rl_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/px_8"
-            android:layout_marginTop="@dimen/px_16"
-            android:layout_toRightOf="@+id/tv_title"
-            android:textColor="#ffffff"
-            android:textSize="11.5sp"
-            android:visibility="gone"
-            mv:mv_backgroundColor="#FD481F"
-            mv:mv_cornerRadius="10dp"
-            mv:mv_isRadiusHalfHeight="true"
-            mv:mv_strokeColor="#ffffff"
-            mv:mv_strokeWidth="1dp" />
+            android:layout_marginTop="@dimen/px_16">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_selected_dish_count" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="18"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="@dimen/px_16" />
+        </RelativeLayout>
+
         <!--<TextView-->
         <!--android:id="@+id/tv_count"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_alignParentRight="true"-->
         <!--android:layout_marginRight="@dimen/px_8"-->
+        <!--android:paddingRight="@dimen/px_2"-->
         <!--android:layout_marginTop="@dimen/px_16"-->
         <!--android:background="@drawable/ic_selected_dish_count"-->
         <!--android:gravity="center"-->
