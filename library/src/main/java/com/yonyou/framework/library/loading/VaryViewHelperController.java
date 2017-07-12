@@ -1,6 +1,8 @@
 package com.yonyou.framework.library.loading;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -242,10 +244,11 @@ public class VaryViewHelperController {
     /**
      * 带超链接的空页面
      */
-    public void showEmptyHyperLink(Context context, String linkUrl, String clickText) {
+    public void showEmptyHyperLink(final Context context, final String linkUrl, String clickText) {
         View layout = helper.inflate(R.layout.empty_layout_with_url);
         LinearLayout llEmpty = (LinearLayout) layout.findViewById(R.id.ll_empty_root);
         ImageView imageView = (ImageView) layout.findViewById(R.id.iv_empty_img);
+        ImageView iv_jump_html = (ImageView) layout.findViewById(R.id.iv_jump_html);
         TextView tv_hyper_link = (TextView) layout.findViewById(R.id.tv_hyper_link);
 
         String defaultClickText = context.getResources().getString(R.string.string_operation_paltform);
@@ -255,6 +258,7 @@ public class VaryViewHelperController {
         } else {
             mLink = "<a href=" + "\"" + linkUrl + "\"" + ">" + defaultClickText + "</a>";
         }
+
         //设置超链接
 
         //方法重新设置文字背景为透明色，否则点击时文字背景会有颜色
@@ -263,6 +267,15 @@ public class VaryViewHelperController {
         tv_hyper_link.setText(TypeLinkUtils.getClickableHtml(tv_hyper_link.getText().toString() + mLink));
         //设置超链接可点击
         tv_hyper_link.setMovementMethod(LinkMovementMethod.getInstance());
+
+        iv_jump_html.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(linkUrl);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                context.startActivity(intent);
+            }
+        });
 
         helper.showLayout(layout);
     }

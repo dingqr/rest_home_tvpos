@@ -42,6 +42,7 @@
 
     <!--比例2:3 -->
     <dimen name="px_8">5.3dp</dimen>
+    <dimen name="px_20">13.3dp</dimen>
     <dimen name="px_24">16dp</dimen>
     <dimen name="px_30">20dp</dimen>
     <dimen name="px_60">40dp</dimen>

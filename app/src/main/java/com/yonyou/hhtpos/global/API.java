@@ -17,7 +17,7 @@ public class API {
     /**
      * 运营平台地址
      */
-    public static final String URL_OPERATION_PALTFORM = "http://blog.csdn.net/zhangjinhuang";//测试地址
+    public static final String URL_OPERATION_PALTFORM = "http://blog.csdn.net/zhangjinhuang";//超链接测试地址
 
     /**
      * 服务器版本

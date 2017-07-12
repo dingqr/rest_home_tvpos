@@ -44,7 +44,8 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,9 +63,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="获取更多数据服务"
+            android:text="添加餐区与桌台"
             android:textColor="#222222"
             android:textSize="@dimen/sp_24" />
+        <ImageView
+            android:id="@+id/iv_jump_html"
+            android:src="@drawable/ic_jump_html"
+            android:layout_marginLeft="@dimen/px_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 
 </LinearLayout>
