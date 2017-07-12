@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/px_20"
+    android:paddingTop="@dimen/px_18">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="宫保鸡丁"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_22" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x1"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_22" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dishes_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_8"
+        android:text="注：不要辣"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_20"
+        android:visibility="gone"/>
+
+</LinearLayout>

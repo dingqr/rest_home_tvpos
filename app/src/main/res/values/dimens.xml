@@ -82,6 +82,7 @@
     <dimen name="px_120">80dp</dimen>
     <dimen name="px_123">82dp</dimen>
     <dimen name="px_126">84dp</dimen>
+    <dimen name="px_124">82.6dp</dimen>
     <dimen name="px_128">85.3dp</dimen>
     <dimen name="px_130">86.6dp</dimen>
     <dimen name="px_133">88.6dp</dimen>

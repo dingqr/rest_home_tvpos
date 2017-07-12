@@ -10,7 +10,8 @@ public class API {
      * 服务器ip
      */
 //    public static final String BASE_SERVER_IP = "http://api-c2b.honghuotai.com"; //正式服务器地址
-    public static final String BASE_SERVER_IP = "http://10.220.17.37"; //开发服务器地址
+//    public static final String BASE_SERVER_IP = "http://10.220.17.37"; //吴贤川ip
+    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
 //    public static final String BASE_SERVER_IP = "http://test-api-c2b.honghuotai.com"; //测试服务器地址
 
     /**
@@ -43,4 +44,8 @@ public class API {
      */
     public static final String URL_RESET_PWD = BASE_SERVER_IP + "/changePassword";
 
+    /**
+     * 左侧导航栏
+     */
+    public static final String GET_NAVIGATION_LIST = BASE_SERVER_IP + "/proFunction/listProFunction";
 }

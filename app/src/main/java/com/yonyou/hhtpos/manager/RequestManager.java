@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.hhtpos.R;
@@ -15,7 +16,6 @@ import com.yonyou.hhtpos.bean.ResultBean;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.cert.Certificate;
@@ -53,7 +53,8 @@ public class RequestManager {
     private static final String TAG = RequestManager.class.getSimpleName();
 
     /**mdiatype 这个需要和服务端保持一致（请求数据类型）*/
-    private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
+//    private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
+    private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     /**mdiatype 这个需要和服务端保持一致（请求数据类型）*/
     private static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
     /**mdiatype 这个需要和服务端保持一致（请求数据类型）*/
@@ -207,23 +208,31 @@ public class RequestManager {
      */
     public <T> Call requestPostByAsyn(String actionUrl, HashMap<String, String> paramsMap, final ReqCallBack<T> callBack) {
         try {
-            StringBuilder tempParams = new StringBuilder();
-            int pos = 0;
+            // 字符串格式
+//            StringBuilder tempParams = new StringBuilder();
+//            int pos = 0;
+//            for (String key : paramsMap.keySet()) {
+//                if (pos > 0) {
+//                    tempParams.append("&");
+//                }
+//                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), ENCODE)));
+////                tempParams.append(String.format("%s=%s", key, paramsMap.get(key)));
+//                pos++;
+//            }
+
+            // JSONObject格式
+            JSONObject json = new JSONObject();
             for (String key : paramsMap.keySet()) {
-                if (pos > 0) {
-                    tempParams.append("&");
-                }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), ENCODE)));
-//                tempParams.append(String.format("%s=%s", key, paramsMap.get(key)));
-                pos++;
+                json.put(key, paramsMap.get(key));
             }
-            String params = tempParams.toString();
+
+            String params = json.toString();
             RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
             String requestUrl = actionUrl;
 
             Elog.e(TAG, "Method:post");
             Elog.e(TAG, "URL:" + requestUrl);
-            Elog.e(TAG, "Params:" + tempParams);
+            Elog.e(TAG, "Params:" + params);
             final Request request = addHeaders().url(requestUrl).post(body).build();
             Call call = mOkHttpClient.newCall(request);
             call = onRequest(callBack, call);

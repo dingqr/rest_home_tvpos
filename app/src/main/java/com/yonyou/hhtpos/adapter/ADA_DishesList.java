@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 /**
  * 点菜列表adapter
@@ -17,8 +18,15 @@ import com.yonyou.hhtpos.R;
  */
 public class ADA_DishesList extends BaseAbsAdapter<String> {
 
+    private ADA_DishesPackage mAdapter;
+
     public ADA_DishesList(Context context) {
         super(context);
+
+        mAdapter = new ADA_DishesPackage(context);
+        for (int i = 0; i < 10; i++){
+            mAdapter.update("");
+        }
     }
 
     @Override
@@ -37,25 +45,38 @@ public class ADA_DishesList extends BaseAbsAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        if (position == 0){
+            holder.mDishesTime.setVisibility(View.VISIBLE);
+        }else {
+            holder.mDishesTime.setVisibility(View.GONE);
+        }
+
+        // 设置套餐数据
+        holder.mListView.setAdapter(mAdapter);
+
         return convertView;
     }
 
     static class ViewHolder {
 
+        TextView mDishesTime;
         TextView mDishesName;
         TextView mDishesRemark;
         TextView mDishesPrice;
         TextView mDishesCount;
         TextView mDishesStatus;
         ImageView mVipLogo;
+        BanSlideListView mListView;
 
         ViewHolder(View v) {
+            mDishesTime = (TextView) v.findViewById(R.id.tv_dishes_time);
             mDishesName = (TextView) v.findViewById(R.id.tv_dishes_name);
             mDishesRemark = (TextView) v.findViewById(R.id.tv_dishes_remark);
             mDishesPrice = (TextView) v.findViewById(R.id.tv_dishes_price);
             mDishesCount = (TextView) v.findViewById(R.id.tv_dishes_count);
             mDishesStatus = (TextView) v.findViewById(R.id.tv_dishes_status);
             mVipLogo = (ImageView) v.findViewById(R.id.iv_vip_logo);
+            mListView = (BanSlideListView) v.findViewById(R.id.lv_package);
         }
     }
 }
