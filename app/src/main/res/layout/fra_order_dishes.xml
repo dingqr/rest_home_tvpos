@@ -37,8 +37,8 @@
             android:id="@+id/rv_orderdish_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/px_6"
-            android:layout_marginRight="@dimen/px_6">
+            android:layout_marginLeft="@dimen/px_5"
+            android:layout_marginRight="@dimen/px_5">
 
         </com.github.jdsjlzx.recyclerview.LRecyclerView>
     </LinearLayout>
