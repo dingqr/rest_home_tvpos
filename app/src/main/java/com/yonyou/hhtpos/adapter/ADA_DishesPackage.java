@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.AbsListView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.popup.POP_DishesEdit;
 
 /**
  * 作者：liushuofei on 2017/7/12 10:29
@@ -34,6 +36,7 @@ public class ADA_DishesPackage extends BaseAbsAdapter<String> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         return convertView;
     }
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.popup.POP_DishesEdit;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 /**
@@ -53,6 +54,14 @@ public class ADA_DishesList extends BaseAbsAdapter<String> {
 
         // 设置套餐数据
         holder.mListView.setAdapter(mAdapter);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                POP_DishesEdit popup = new POP_DishesEdit(mContext);
+                popup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
+            }
+        });
 
         return convertView;
     }
