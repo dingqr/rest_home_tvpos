@@ -81,7 +81,7 @@ public class FRA_OrderDishes extends BaseFragment {
 //                    getResources().getColor(R.color.gplus_color_4));
 //            mSwiperefreshLayout.setOnRefreshListener(this);
 //        }
-        //去除LRecyclerView的默认的下拉刷新效果
+         // 去除LRecyclerView的默认的下拉刷新效果
         mRecyclerView.setPullRefreshEnabled(false);
 
         mAdapter = new ADA_DishTypeList(mContext);
@@ -113,7 +113,7 @@ public class FRA_OrderDishes extends BaseFragment {
         mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
 
         initListener();
-
+        //空页面
 //        showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM,"");
     }
 
@@ -127,7 +127,7 @@ public class FRA_OrderDishes extends BaseFragment {
                 dishTypeEntity.isCheck = true;
                 mAdapter.notifyItemChanged(mPosition);
                 //刷新角标数量
-                mRightNavigationView.refreshCount(mAdapter.getDataList().get(position).id, true);
+                mRightNavigationView.refreshCount(mAdapter.getDataList().get(mPosition).id, true);
             }
 
             @Override

@@ -112,7 +112,6 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView {
             // 下一步
             case R.id.rb_next_step:
                 readyGoThenKill(ACT_BindStore.class);
-//                new DIA_TurnChooseTable(mContext).show();
                 break;
             default:
                 break;
