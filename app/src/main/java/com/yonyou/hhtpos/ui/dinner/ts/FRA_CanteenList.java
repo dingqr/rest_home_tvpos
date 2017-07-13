@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.dinner.ts;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
+import com.yonyou.hhtpos.ui.dinner.wd.FRA_PackingList;
 import com.yonyou.hhtpos.util.DP2PX;
 
 import java.util.ArrayList;
@@ -43,6 +45,19 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
     private ADA_CanteenList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
     private ArrayList<CanteenTableEntity> datas = new ArrayList<>();
+
+    /**传入数据 */
+    public static final String TYPE = "type";
+    private int type;
+
+    public static final FRA_CanteenList newInstance(int type)
+    {
+        FRA_CanteenList f = new FRA_CanteenList();
+        Bundle bdl = new Bundle(1);
+        bdl.putInt(TYPE, type);
+        f.setArguments(bdl);
+        return f;
+    }
 
     @Override
     protected void onFirstUserVisible() {
