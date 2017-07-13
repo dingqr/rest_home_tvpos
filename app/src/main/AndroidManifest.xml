@@ -24,7 +24,7 @@
         <!--</activity>-->
 
         <activity
-            android:name=".ui.home.ACT_Home"
+            android:name=".ui.login.ACT_Login"
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity">
             <intent-filter>
@@ -40,11 +40,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
-        <!--登录页面 -->
-        <activity
-            android:name=".ui.login.ACT_Login"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+        <!--&lt;!&ndash;登录页面 &ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name=".ui.login.ACT_Login"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:theme="@style/style_translucent_activity"/>-->
 
         <!--验证手机号 -->
         <activity
@@ -58,11 +58,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
-        <!--&lt;!&ndash;首页 &ndash;&gt;-->
-        <!--<activity-->
-            <!--android:name=".ui.home.ACT_Home"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:theme="@style/style_translucent_activity"/>-->
+        <!--首页 -->
+        <activity
+            android:name=".ui.home.ACT_Home"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
 
         <!--预定总览 -->
         <activity

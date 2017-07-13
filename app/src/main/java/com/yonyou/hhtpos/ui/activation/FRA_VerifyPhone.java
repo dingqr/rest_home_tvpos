@@ -2,7 +2,9 @@ package com.yonyou.hhtpos.ui.activation;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -74,6 +76,9 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
 
     @Override
     protected void initViewsAndEvents() {
+        rbSubmit.setChecked(false);
+        rbSubmit.setClickable(false);
+
         timer = new TimeUtil(msgTime, countDownInterval, mContext);
         timer.setView(tvGetCode);
         timer.setTxt(mContext.getString(R.string.verify_phone_get_code));
@@ -92,6 +97,26 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
                     // 此处为失去焦点时的处理内容
                     verifyMobile();
                 }
+            }
+        });
+
+        mSmsCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (null != s && s.length() == 4){
+                    rbSubmit.setChecked(true);
+                    rbSubmit.setClickable(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -122,7 +147,6 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
             case R.id.tv_get_code:
                 if (verifyMobile()){
                     mVerifyPhonePresenter.sendSmsCode("", "", mobileNo);
-                    timer.start();
                 }
                 break;
 
@@ -135,7 +159,7 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
 
     @Override
     public void sendSmsCode() {
-
+        timer.start();
     }
 
     private boolean verifyMobile(){

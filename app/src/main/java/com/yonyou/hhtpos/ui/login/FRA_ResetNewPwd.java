@@ -197,6 +197,6 @@ public class FRA_ResetNewPwd extends BaseFragment implements IResetPwdView{
 
     @Override
     public void resetPwd(String result) {
-
+        readyGoThenKill(ACT_Login.class);
     }
 }
