@@ -12,10 +12,13 @@ import com.yonyou.hhtpos.FRA_TestRight;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseSimple;
 import com.yonyou.hhtpos.bean.NavigationNewEntity;
+import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.presenter.INavigationPresenter;
 import com.yonyou.hhtpos.presenter.Impl.NavigationPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.view.INavigationView;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -29,6 +32,7 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener, IN
     ImageView mMenuImg;
 
     private INavigationPresenter mNavigationPresenter;
+    private List<NavigationNewEntity> dataList;
 
     @Override
     protected void initView() {
@@ -40,7 +44,7 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener, IN
 
     @Override
     protected Fragment getContentFragment() {
-        return new FRA_TestRight();
+        return new FRA_Home();
     }
 
     @Override
@@ -105,10 +109,10 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener, IN
 //                readyGoThenKill(ACT_BookPreview.class);
 //                readyGoThenKill(ACT_Packing.class);
 //                readyGoThenKill(ACT_TakeOut.class);
-                readyGo(ACT_OrderDishes.class);
+//                readyGo(ACT_OrderDishes.class);
 
-//                DIA_Navigation dia_navigation = new DIA_Navigation(mContext);
-//                dia_navigation.getDialog().show();
+                DIA_Navigation dia_navigation = new DIA_Navigation(mContext, dataList);
+                dia_navigation.getDialog().show();
 
 //                DIA_QRCode dia_qrCode = new DIA_QRCode(mContext);
 //                dia_qrCode.getDialog().show();
@@ -125,7 +129,7 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener, IN
     }
 
     @Override
-    public void requestNavigationList(NavigationNewEntity bean) {
-
+    public void requestNavigationList(List<NavigationNewEntity> dataList) {
+        this.dataList = dataList;
     }
 }

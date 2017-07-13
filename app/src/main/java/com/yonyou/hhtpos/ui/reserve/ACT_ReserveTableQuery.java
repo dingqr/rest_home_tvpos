@@ -73,12 +73,12 @@ public class ACT_ReserveTableQuery extends ACT_BaseSimple {
 
     @Override
     protected boolean toggleOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override
     protected TransitionMode getOverridePendingTransitionMode() {
-        return null;
+        return TransitionMode.RIGHT;
     }
 
     @Override

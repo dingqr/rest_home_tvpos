@@ -9,6 +9,7 @@ import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/7/11 17:31
@@ -26,9 +27,9 @@ public class NavigationInteractorImpl implements INavigationInteractor {
     public void requestNavigationList(String functionCode) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
         hashMap.put("functionCode", functionCode);
-        RequestManager.getInstance().requestPostByAsyn(API.GET_NAVIGATION_LIST, hashMap, new ReqCallBack<NavigationNewEntity>() {
+        RequestManager.getInstance().requestPostByAsyn(API.GET_NAVIGATION_LIST, hashMap, new ReqCallBack<List<NavigationNewEntity>>() {
             @Override
-            public void onReqSuccess(NavigationNewEntity result) {
+            public void onReqSuccess(List<NavigationNewEntity> result) {
                 mBaseLoadedListener.onSuccess(1,result);
             }
 

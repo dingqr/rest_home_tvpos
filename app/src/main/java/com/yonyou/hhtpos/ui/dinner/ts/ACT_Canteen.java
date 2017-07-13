@@ -96,12 +96,12 @@ public class ACT_Canteen extends BaseActivity{
 
     @Override
     protected boolean toggleOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override
     protected TransitionMode getOverridePendingTransitionMode() {
-        return null;
+        return TransitionMode.RIGHT;
     }
 
     @Override

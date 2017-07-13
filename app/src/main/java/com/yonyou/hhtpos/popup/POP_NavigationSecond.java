@@ -55,10 +55,10 @@ public class POP_NavigationSecond extends PopupWindow implements AdapterView.OnI
         mAdapter = new ADA_NavigationSecond(context);
         mListView.setAdapter(mAdapter);
 
-        // 测试数据
-        for (int i = 0; i < 3; i++){
-            mAdapter.update("");
-        }
+//        // 测试数据
+//        for (int i = 0; i < 3; i++){
+//            mAdapter.update("");
+//        }
 
         // 设置SelectPicPopupWindow的View
         this.setContentView(convertView);

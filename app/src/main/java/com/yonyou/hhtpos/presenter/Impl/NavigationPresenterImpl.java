@@ -10,6 +10,8 @@ import com.yonyou.hhtpos.interactor.Impl.NavigationInteractorImpl;
 import com.yonyou.hhtpos.presenter.INavigationPresenter;
 import com.yonyou.hhtpos.view.INavigationView;
 
+import java.util.List;
+
 /**
  * 作者：liushuofei on 2017/7/11 17:30
  * 邮箱：lsf@yonyou.com
@@ -31,11 +33,11 @@ public class NavigationPresenterImpl implements INavigationPresenter {
         mInteractor.requestNavigationList(functionCode);
     }
 
-    private class NavigationListener implements BaseLoadedListener<NavigationNewEntity> {
+    private class NavigationListener implements BaseLoadedListener<List<NavigationNewEntity>> {
 
         @Override
-        public void onSuccess(int event_tag, NavigationNewEntity bean) {
-            mView.requestNavigationList(bean);
+        public void onSuccess(int event_tag, List<NavigationNewEntity> dataList) {
+            mView.requestNavigationList(dataList);
         }
 
         @Override

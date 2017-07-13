@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -15,8 +16,12 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_NavigationMain;
 import com.yonyou.hhtpos.adapter.ADA_NavigationSecond;
 import com.yonyou.hhtpos.base.DIA_Base;
+import com.yonyou.hhtpos.bean.NavigationNewEntity;
+
+import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * 左侧导航栏弹窗
@@ -24,6 +29,8 @@ import butterknife.Bind;
  */
 public class DIA_Navigation extends DIA_Base implements AdapterView.OnItemClickListener, ADA_NavigationMain.OnCheckChangedListener {
 
+    @Bind(R.id.iv_back)
+    ImageView mBackImg;
     @Bind(R.id.lv_navigation)
     ListView mListView;
     @Bind(R.id.ll_second_category)
@@ -34,23 +41,18 @@ public class DIA_Navigation extends DIA_Base implements AdapterView.OnItemClickL
     private ADA_NavigationMain mAdatper;
     private ADA_NavigationSecond mSecondAdapter;
 
-    public DIA_Navigation(Context context) {
+    public DIA_Navigation(Context context, List<NavigationNewEntity> dataList) {
         super(context);
 
+        // 一级菜单
         mAdatper = new ADA_NavigationMain(context, this);
         mListView.setAdapter(mAdatper);
         mListView.setOnItemClickListener(this);
-
-        for (int i = 0; i < 6; i++){
-            mAdatper.update("");
-        }
+        mAdatper.update(dataList);
 
         // 二级菜单
         mSecondAdapter = new ADA_NavigationSecond(context);
         mSecondListView.setAdapter(mSecondAdapter);
-        for (int i = 0; i < 3; i++){
-            mSecondAdapter.update("");
-        }
     }
 
     @Override
@@ -58,7 +60,7 @@ public class DIA_Navigation extends DIA_Base implements AdapterView.OnItemClickL
         return R.layout.dia_navigation;
     }
 
-    public Dialog getDialog(){
+    public Dialog getDialog() {
         mDialog.setCanceledOnTouchOutside(true);// 设置点击屏幕Dialog消失
         mDialog.getWindow().setWindowAnimations(R.style.style_left_in_anim);
         mDialog.getWindow().setGravity(Gravity.LEFT);
@@ -77,7 +79,19 @@ public class DIA_Navigation extends DIA_Base implements AdapterView.OnItemClickL
     }
 
     @Override
-    public void onChange() {
-        mSecondCategoryLayout.setVisibility(View.VISIBLE);
+    public void onChange(List<NavigationNewEntity.SecondList> dataList) {
+        if (null == dataList || dataList.size() == 0) {
+            mSecondCategoryLayout.setVisibility(View.GONE);
+        } else {
+            mSecondAdapter.update(dataList, true);
+            mSecondCategoryLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onClick() {
+        if (null != mDialog){
+            mDialog.dismiss();
+        }
     }
 }
