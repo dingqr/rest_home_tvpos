@@ -291,7 +291,7 @@ public class FRA_OrderDishes extends BaseFragment {
         rl_badge = (RelativeLayout) view.findViewById(R.id.rl_badge);
 
         if (endView == null) {
-            Log.e("TAG", "endView==null");
+//            Log.e("TAG", "endView==null");
             layoutRoot.removeView(goods);
             return;
         }
