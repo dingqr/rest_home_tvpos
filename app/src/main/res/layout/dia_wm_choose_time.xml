@@ -33,26 +33,54 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px_72"
-        android:layout_marginRight="@dimen/px_72"
-        android:background="@color/color_eaeaea"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <com.yonyou.hhtpos.widgets.WheelView
-            android:id="@+id/hour_wheel_view"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_72"
+            android:layout_marginRight="@dimen/px_72"
+            android:background="@color/color_eaeaea"
+            android:orientation="horizontal">
+
+            <com.yonyou.hhtpos.widgets.WheelView
+                android:id="@+id/hour_wheel_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                picker:pickerview_dividerColor="@color/color_eb6247" />
+
+            <com.yonyou.hhtpos.widgets.WheelView
+                android:id="@+id/second_wheel_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                picker:pickerview_dividerColor="@color/color_eb6247" />
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            picker:pickerview_dividerColor="@color/color_eb6247" />
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/px_176"
+            android:paddingTop="@dimen/px_6"
+            android:text="@string/string_time_hour"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_28" />
 
-        <com.yonyou.hhtpos.widgets.WheelView
-            android:id="@+id/second_wheel_view"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            picker:pickerview_dividerColor="@color/color_eb6247" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/px_90"
+            android:paddingTop="@dimen/px_6"
+            android:text="@string/string_time_second"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_28" />
+
+    </RelativeLayout>
 </LinearLayout>

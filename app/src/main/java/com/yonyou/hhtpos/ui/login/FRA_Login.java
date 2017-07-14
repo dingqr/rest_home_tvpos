@@ -19,7 +19,6 @@ import com.yonyou.framework.library.common.utils.ValidateRule;
 import com.yonyou.framework.library.common.utils.Validator;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.db.entity.UserEntity;
 import com.yonyou.hhtpos.presenter.ILoginPresenter;
 import com.yonyou.hhtpos.presenter.Impl.LoginPresenterImpl;
