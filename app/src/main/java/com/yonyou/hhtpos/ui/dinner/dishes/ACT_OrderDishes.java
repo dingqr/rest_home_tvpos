@@ -9,7 +9,6 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.ui.FRA_OrderDishes;
 
 /**
  * 点菜页面

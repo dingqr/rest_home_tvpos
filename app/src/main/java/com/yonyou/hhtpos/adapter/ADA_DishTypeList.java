@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.yonyou.hhtpos.bean.DishTypeEntity;
  */
 public class ADA_DishTypeList extends CommonAdapter<DishTypeEntity> {
     private boolean isCheck;
+    private OnActionOrderDishListener mOnActionOrderDishListener;
 
     public ADA_DishTypeList(Context context) {
         super(context);
@@ -29,7 +31,10 @@ public class ADA_DishTypeList extends CommonAdapter<DishTypeEntity> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, DishTypeEntity dishTypeEntity, int position) {
+    protected void convert(ViewHolder holder, DishTypeEntity dishTypeEntity, final int position) {
+
+        final LinearLayout ll_item_root = holder.getView(R.id.ll_item_root);
+        final TextView dish_name = holder.getView(R.id.dish_name);
         //设置选中效果
         RadioButton rbDishCheck = holder.getView(R.id.rb_dish_check);
         TextView specialSign = holder.getView(R.id.tv_special_sign);
@@ -53,10 +58,26 @@ public class ADA_DishTypeList extends CommonAdapter<DishTypeEntity> {
 //            holder.setTextColor(R.id.dish_name, ContextCompat.getColor(mContext, R.color.color_222222));
 //            holder.setTextColor(R.id.tv_dish_price, ContextCompat.getColor(mContext, R.color.color_222222));
 //        }
+        ll_item_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnActionOrderDishListener != null) {
+                    mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position);
+                }
+            }
+        });
 
     }
 
     public void setCheck(boolean check) {
         isCheck = check;
+    }
+
+    public interface OnActionOrderDishListener {
+        void OnActionOrderDish(View iv_start, int pos);
+    }
+
+    public void setOnActionOrderDishListener(OnActionOrderDishListener onActionOrderDishListener) {
+        this.mOnActionOrderDishListener = onActionOrderDishListener;
     }
 }

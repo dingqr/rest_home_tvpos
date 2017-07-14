@@ -20,7 +20,7 @@ public class NavigationUtil {
             {"预定申请", "预定总览", "桌台预定查询"},
             {}
     };
-    private static final String[] mDishTypes = {"招牌必吃", "热饭菜", "凉菜", "热菜", "蒸煮", "甜品", "主食", "热饮", "冷饮"};
+    private static final String[] mDishTypes = {"招牌必吃", "热饭菜", "凉菜", "热菜", "蒸煮", "甜品", "主食", "热饮", "冷饮","泡菜","辣菜","招牌必吃", "热饭菜", "凉菜", "热菜"};
     //一级菜单数据
     private static List<String> mGroupData = new ArrayList<>();
     //二级菜单数据
@@ -58,7 +58,7 @@ public class NavigationUtil {
     public static List<RightTitleEntity> getRightDefaultData() {
         List<RightTitleEntity> dataList = new ArrayList<>();
         //右边标题
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < mDishTypes.length; i++) {
             RightTitleEntity rightTitleEntity = new RightTitleEntity();
             rightTitleEntity.id = i + "";
             rightTitleEntity.name = mDishTypes[i];

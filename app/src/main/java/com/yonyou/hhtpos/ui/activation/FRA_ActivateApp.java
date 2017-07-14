@@ -27,11 +27,17 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView {
     @Bind(R.id.tv_get_code)
     TextView tvGetCode;
 
-    /**倒计时工具类 */
+    /**
+     * 倒计时工具类
+     */
     private TimeUtil timer;
-    /**验证码倒计时总时间 */
+    /**
+     * 验证码倒计时总时间
+     */
     private final int msgTime = 60 * 1000;
-    /**倒计时间隔时间 */
+    /**
+     * 倒计时间隔时间
+     */
     private final int countDownInterval = 1000;
 
     @Override
@@ -102,7 +108,7 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView {
     }
 
     @OnClick({R.id.tv_get_code, R.id.rb_next_step})
-    public void onClick(View v){
+    public void onClick(View v) {
         switch (v.getId()) {
             // 获取激活码
             case R.id.tv_get_code:

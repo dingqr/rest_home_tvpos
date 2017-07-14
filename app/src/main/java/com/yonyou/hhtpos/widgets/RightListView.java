@@ -58,13 +58,21 @@ public class RightListView extends ListView {
                 }
             }
         });
-        //外界刷新角标数量事，回调所刷新的位置和刷新后的数量
+        //外界刷新角标数量时，回调所刷新的位置和刷新后的数量
         mAdapter.setRefreshCurrentItemListener(new ADA_RightTitle.OnRefreshCurrentItemListener() {
             @Override
             public void onRefreshCount(int refreshPos, int curCount) {
                 //给当前被刷新的实体count重新赋值
                 RightTitleEntity dishTypeEntity = mData.get(refreshPos);
                 dishTypeEntity.count = curCount;
+            }
+        });
+        mAdapter.setOnDoAnimListener(new ADA_RightTitle.OnDoAnimListener() {
+            @Override
+            public void doAnim() {
+                if(onDoAnimListener!=null) {
+                    onDoAnimListener.doAnim();
+                }
             }
         });
     }
@@ -85,5 +93,15 @@ public class RightListView extends ListView {
 
     public ADA_RightTitle getRLAdapter() {
         return mAdapter;
+    }
+
+
+    public interface OnDoAnimListener{
+        void doAnim();
+    }
+    private OnDoAnimListener onDoAnimListener;
+
+    public void setOnDoAnimListener(OnDoAnimListener onDoAnimListener) {
+        this.onDoAnimListener = onDoAnimListener;
     }
 }

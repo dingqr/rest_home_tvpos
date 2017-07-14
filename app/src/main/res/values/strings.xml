@@ -215,7 +215,12 @@
     <string name="hint_input_weight">输入重量</string>
     <string name="hint_input_price">输入时价</string>
     <string name="unset_price">未设置时价</string>
-
+    <string name="string_operation_paltform">红火台餐饮云服务运营平台</string>
+    <string name="string_add_temp_dish">添加临时菜</string>
+    <string name="string_input_dish_name">输入菜品名称</string>
+    <string name="hint_dish_name">菜品名称</string>
+    <string name="hint_sale_price">售价</string>
+    <string name="string_input_sale_price">输入销售金额</string>
 
     <!--外卖 -->
     <string name="dishes_total_price">合计</string>
@@ -223,7 +228,5 @@
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
     <string name="hint_roll_out_num">输入转出数量</string>
     <string name="string_switch_table">转台</string>
-    <string name="string_operation_paltform">红火台餐饮云服务运营平台</string>
-
 
 </resources>

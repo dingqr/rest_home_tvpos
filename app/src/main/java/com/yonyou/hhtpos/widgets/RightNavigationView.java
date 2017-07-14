@@ -72,6 +72,17 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
                 }
             }
         });
+
+        rightListView.setOnDoAnimListener(new RightListView.OnDoAnimListener() {
+            @Override
+            public void doAnim() {
+                if(onDoAnimListener!=null) {
+                    onDoAnimListener.doAnim();
+                }
+            }
+        });
+
+
         llTopTitle.setOnClickListener(this);
         llBottomTitle.setOnClickListener(this);
     }
@@ -118,7 +129,6 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
     public void refreshCount(String id, boolean refreshCount) {
         ADA_RightTitle adapter = (ADA_RightTitle) rightListView.getAdapter();
         adapter.refreshCount(rightListView, id, refreshCount);
-        adapter.notifyDataSetChanged();
     }
 
 
@@ -128,5 +138,23 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
 
     public void setOnItemClickListener(OnItemClickListener mListener) {
         this.mListener = mListener;
+    }
+
+    public TextView getBottomTitle() {
+        return bottomTitle;
+    }
+
+    public RightListView getRightListView() {
+        return rightListView;
+    }
+
+
+    public interface OnDoAnimListener{
+        void doAnim();
+    }
+    private OnDoAnimListener onDoAnimListener;
+
+    public void setOnDoAnimListener(OnDoAnimListener onDoAnimListener) {
+        this.onDoAnimListener = onDoAnimListener;
     }
 }

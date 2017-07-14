@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -21,12 +22,16 @@ import java.util.List;
  * Created by zj on 2017/6/22.
  * 邮箱：zjuan@yonyou.com
  * 描述：右侧导航栏-Adapter
+ * 此版本解决了左侧列表点菜时，右侧刷新的title位置如果不可见时，单条刷新不起作用的bug.
+ * 思路:当匹配的右侧刷新的位置不在列表可见范围内时，先滚动到可见范围内，再调用getView()进行单条刷新
  */
 public class ADA_RightTitle extends BaseAdapter {
     private Context mContext;
     private List<RightTitleEntity> mDishTypes = new ArrayList<>();
     private int mSelectedPos;
     private boolean isRefreshCount;
+    //标记是否是因为刷新造成的滑动，去掉滑动右侧标题栏的刷新影响
+    private boolean isRefresh;
 
     public ADA_RightTitle(Context context, List<RightTitleEntity> datas) {
         this.mContext = context;
@@ -65,20 +70,14 @@ public class ADA_RightTitle extends BaseAdapter {
         //设置初始值
         holder.tv_title.setText(mDishTypes.get(position).name);
         holder.tv_count.setText(StringUtil.getString(mDishTypes.get(position).count));
-        //控制角标是否显示
-        if (holder.tv_count.getText().equals("0")) {
-//            holder.tv_count.setVisibility(View.INVISIBLE);
-            holder.rlBadgt.setVisibility(View.INVISIBLE);
-        } else {
-//            holder.tv_count.setVisibility(View.VISIBLE);
-            holder.rlBadgt.setVisibility(View.VISIBLE);
-        }
+
         //更新右上角标的数量
         if (isRefreshCount) {
+            holder.rlBadgt.setVisibility(View.VISIBLE);
             holder.tv_title.setText(mDishTypes.get(position).name);
             String s = holder.tv_count.getText().toString();
             if (!TextUtils.isEmpty(s)) {
-                holder.tv_count.setText(Integer.parseInt(s) + StringUtil.getString(1));
+                holder.tv_count.setText(Integer.parseInt(s) + 1 + "");
                 //回传右侧标题当前对应的角标的数量
                 if (refreshCurrentItemListener != null) {
                     refreshCurrentItemListener.onRefreshCount(position, Integer.parseInt(s) + 1);
@@ -94,6 +93,12 @@ public class ADA_RightTitle extends BaseAdapter {
                 holder.tv_title.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
                 holder.right_line.setVisibility(View.GONE);
             }
+        }
+        //控制角标是否显示
+        if (holder.tv_count.getText().equals("0")) {
+            holder.rlBadgt.setVisibility(View.INVISIBLE);
+        } else {
+            holder.rlBadgt.setVisibility(View.VISIBLE);
         }
         return convertView;
     }
@@ -120,19 +125,57 @@ public class ADA_RightTitle extends BaseAdapter {
      * @param listView
      * @param id
      */
-    public void updateSingleRow(ListView listView, String id) {
+    public void updateSingleRow(final ListView listView, final String id) {
+        //找到id匹配的item的位置
+        int start = listView.getFirstVisiblePosition();
+        int end = listView.getLastVisiblePosition();
         if (listView != null) {
-            int start = listView.getFirstVisiblePosition();
-            for (int i = start, j = listView.getLastVisiblePosition(); i <= j; i++) {
+            for (int i = 0; i < listView.getAdapter().getCount(); i++) {
                 RightTitleEntity dishType = (RightTitleEntity) listView.getItemAtPosition(i);
                 if (id.equals(dishType.id)) {
-                    View view = listView.getChildAt(i - start);
-                    getView(i, view, listView);
-                    break;
+                    //如果刷新的位置在可见范围内
+                    if (i >= start && i <= end) {
+                        View view = listView.getChildAt(i - start);
+                        isRefreshCount = true;
+                        getView(i, view, listView);
+                    } else {
+                        listView.smoothScrollToPosition(i);
+                        isRefresh = true;
+                        isRefreshCount = false;
+                    }
                 }
             }
-
         }
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (isRefresh) {
+                    if (scrollState == SCROLL_STATE_IDLE) {
+                        //单条刷新
+                        int start = listView.getFirstVisiblePosition();
+                        for (int i = start, j = listView.getLastVisiblePosition(); i <= j; i++) {
+                            RightTitleEntity dishType = (RightTitleEntity) listView.getItemAtPosition(i);
+                            if (id.equals(dishType.id)) {
+                                View views = listView.getChildAt(i - start);
+                                isRefreshCount = true;
+                                getView(i, views, listView);
+                                isRefresh = false;
+                                if (onDoAnimListener != null) {
+                                    onDoAnimListener.doAnim();
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     /**
@@ -161,5 +204,15 @@ public class ADA_RightTitle extends BaseAdapter {
 
     public void setRefreshCurrentItemListener(OnRefreshCurrentItemListener refreshCurrentItemListener) {
         this.refreshCurrentItemListener = refreshCurrentItemListener;
+    }
+
+    public interface OnDoAnimListener {
+        void doAnim();
+    }
+
+    private OnDoAnimListener onDoAnimListener;
+
+    public void setOnDoAnimListener(OnDoAnimListener onDoAnimListener) {
+        this.onDoAnimListener = onDoAnimListener;
     }
 }
