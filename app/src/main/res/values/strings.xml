@@ -223,11 +223,23 @@
     <string name="string_input_sale_price">输入销售金额</string>
 
     <!--外卖 -->
-    <string name="dishes_total_price">合计</string>
+    <string name="total_price">合计</string>
     <string name="dishes_order">下单</string>
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
     <string name="hint_roll_out_num">输入转出数量</string>
     <string name="string_switch_table">转台</string>
+
+    <!--结账 -->
+    <string name="consumption_total">消费总计</string>
+    <string name="open_order_time">开单时间</string>
+    <string name="order_source">订单来源</string>
+    <string name="food_consumption">菜品消费</string>
+    <string name="dishes_total_price">菜品总价</string>
+    <string name="give">赠送</string>
+    <string name="service_fee">服务费</string>
+    <string name="box_service_fee">包厢服务费</string>
+    <string name="perform">表演</string>
+
     <string name="string_time_hour">时</string>
     <string name="string_time_second">分</string>
 

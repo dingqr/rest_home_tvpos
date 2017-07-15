@@ -18,4 +18,11 @@ public class PackingListBean implements Serializable {
     public void setCheck(boolean check) {
         isCheck = check;
     }
+
+    @Override
+    public String toString() {
+        return "PackingListBean{" +
+                "isCheck=" + isCheck +
+                '}';
+    }
 }

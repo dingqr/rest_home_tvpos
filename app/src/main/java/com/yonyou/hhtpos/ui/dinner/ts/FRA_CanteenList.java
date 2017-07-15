@@ -11,14 +11,15 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
+import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
-import com.yonyou.hhtpos.ui.dinner.wd.FRA_PackingList;
 import com.yonyou.hhtpos.util.DP2PX;
+import com.yonyou.hhtpos.view.ICanteenListView;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ import butterknife.Bind;
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食列表
  */
-public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnItemClickListener, ICanteenListView{
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
     @Bind(R.id.swiperefresh)
@@ -116,6 +117,8 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
         //设置底部加载文字提示
         mRecyclerView.setFooterViewHint(mContext.getResources().getString(R.string.loading_note), mContext.getResources().getString(R.string.no_more_note), "");
 
+        mAdapter.setOnItemClickListener(this);
+
         mRecyclerView.setHasFixedSize(true);
         setData();
     }
@@ -154,6 +157,21 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
         if (mSwiperefreshLayout.isRefreshing()) {
             mSwiperefreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+        return false;
+    }
+
+    @Override
+    public void openOrder() {
+
     }
 
     /**

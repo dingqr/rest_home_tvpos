@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dishes_ordered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f1f1f1"
+        android:gravity="center"
+        android:padding="@dimen/px_10"
+        android:text="已点菜品（12）"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_22" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_dishes_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_28"
+            android:layout_marginTop="@dimen/px_16"
+            android:text="12:35点菜"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_20" />
+
+        <TextView
+            android:id="@+id/tv_dishes_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_dishes_time"
+            android:layout_below="@+id/tv_dishes_time"
+            android:layout_marginTop="@dimen/px_20"
+            android:text="[大份]云南杨林酸菜鱼"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_22" />
+
+        <TextView
+            android:id="@+id/tv_dishes_single_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_dishes_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px_139"
+            android:text="¥58.00"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_22" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_dishes_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px_40"
+            android:text="x1"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_22" />
+
+        <ImageView
+            android:id="@+id/iv_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/tv_dishes_single_price"
+            android:layout_below="@+id/tv_dishes_single_price"
+            android:paddingBottom="@dimen/px_12"
+            android:paddingTop="@dimen/px_12"
+            android:src="@drawable/ic_coupon" />
+
+        <com.yonyou.hhtpos.widgets.DashView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_2"
+            android:layout_below="@+id/iv_sign"
+            app:dashWidth="@dimen/px_2"
+            app:lineColor="@color/color_d5d5d5"
+            app:lineHeight="@dimen/px_2"
+            app:lineWidth="@dimen/px_6" />
+
+    </RelativeLayout>
+</LinearLayout>
+

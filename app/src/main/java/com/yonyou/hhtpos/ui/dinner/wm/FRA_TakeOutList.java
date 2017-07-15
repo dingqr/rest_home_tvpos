@@ -10,6 +10,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutList;
 import com.yonyou.hhtpos.bean.TakeOutListBean;
+import com.yonyou.hhtpos.view.ITakeOutListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import butterknife.Bind;
  * 外卖列表fragment
  * 作者：liushuofei on 2017/7/6 10:47
  */
-public class FRA_TakeOutList extends BaseFragment {
+public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView{
 
     @Bind(R.id.lv_take_out)
     ListView mListView;
@@ -97,6 +98,11 @@ public class FRA_TakeOutList extends BaseFragment {
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void requestTakeOutList() {
 
     }
 }

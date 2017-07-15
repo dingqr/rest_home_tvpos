@@ -18,4 +18,11 @@ public class PreviewListEntity implements Serializable {
     public void setCheck(boolean check) {
         isCheck = check;
     }
+
+    @Override
+    public String toString() {
+        return "PreviewListEntity{" +
+                "isCheck=" + isCheck +
+                '}';
+    }
 }

@@ -1,6 +1,8 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.yonyou.framework.library.adapter.rv.CommonAdapter;
 import com.yonyou.framework.library.adapter.rv.ViewHolder;
@@ -25,5 +27,13 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
     @Override
     protected void convert(ViewHolder holder, CanteenTableEntity canteenTableEntity, int position) {
             holder.setText(R.id.tv_table_name,canteenTableEntity.table_name);
+
+//        // item点击
+//        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 }

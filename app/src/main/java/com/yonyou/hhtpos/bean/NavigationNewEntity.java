@@ -62,4 +62,13 @@ public class NavigationNewEntity implements Serializable {
             this.functionName = functionName;
         }
     }
+
+    @Override
+    public String toString() {
+        return "NavigationNewEntity{" +
+                "functionName='" + functionName + '\'' +
+                ", id='" + id + '\'' +
+                ", childList=" + childList +
+                '}';
+    }
 }

@@ -106,6 +106,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--结账页面 -->
+        <activity
+            android:name=".ui.check.ACT_CheckOut"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>

@@ -18,4 +18,11 @@ public class TakeOutListBean implements Serializable {
     public void setCheck(boolean check) {
         isCheck = check;
     }
+
+    @Override
+    public String toString() {
+        return "TakeOutListBean{" +
+                "isCheck=" + isCheck +
+                '}';
+    }
 }

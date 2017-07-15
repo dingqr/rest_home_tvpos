@@ -18,4 +18,11 @@ public class MealAreaEntity implements Serializable {
     public void setCheck(boolean check) {
         isCheck = check;
     }
+
+    @Override
+    public String toString() {
+        return "MealAreaEntity{" +
+                "isCheck=" + isCheck +
+                '}';
+    }
 }

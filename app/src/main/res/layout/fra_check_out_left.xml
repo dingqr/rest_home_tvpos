@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_e9e9e9"
+    android:paddingBottom="@dimen/px_20">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_check_out_left"
+        android:paddingBottom="@dimen/px_30">
+
+        <include
+            android:id="@+id/inc_title"
+            layout="@layout/inc_check_title" />
+
+
+        <ListView
+            android:id="@+id/lv_check_out"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px_70"
+            android:divider="@null">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_70"
+            android:gravity="center"
+            android:padding="@dimen/px_10"
+            android:text="已点菜品（12）"
+            android:textSize="@dimen/sp_22"
+            android:textColor="@color/color_666666"
+            android:background="@color/color_f1f1f1"
+            android:visibility="gone"/>
+    </FrameLayout>
+</FrameLayout>
