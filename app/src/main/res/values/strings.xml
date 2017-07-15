@@ -242,5 +242,7 @@
 
     <string name="string_time_hour">时</string>
     <string name="string_time_second">分</string>
+    <string name="string_check_out_cash">现金（现金类）</string>
+    <string name="string_receive_money">收到钱</string>
 
 </resources>

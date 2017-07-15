@@ -4,12 +4,11 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.utils.StringUtil;
@@ -17,7 +16,14 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.DishTypeEntity;
+import com.yonyou.hhtpos.bean.RightTitleEntity;
+import com.yonyou.hhtpos.bean.dish.DishDataEntity;
+import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
+import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
+import com.yonyou.hhtpos.util.AnimationUtil;
 import com.yonyou.hhtpos.util.NavigationUtil;
+import com.yonyou.hhtpos.view.IGetAllDishesView;
+import com.yonyou.hhtpos.widgets.RightListView;
 import com.yonyou.hhtpos.widgets.RightNavigationView;
 
 import java.util.ArrayList;
@@ -25,14 +31,16 @@ import java.util.Random;
 
 import butterknife.Bind;
 
+
 /**
  * Created by zj on 2017/7/11.
  * 邮箱：zjuan@yonyou.com
- * 描述：点菜页面-右侧导航及菜品列表
+ * 描述：点菜页面-获取所有菜品/菜类
+ * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment {
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     @Bind(R.id.layout_dish_root)
-    LinearLayout layoutRoot;
+    RelativeLayout layoutRoot;
     @Bind(R.id.rv_orderdish_list)
     LRecyclerView mRecyclerView;
     @Bind(R.id.view_navigation_right)
@@ -47,6 +55,17 @@ public class FRA_OrderDishes extends BaseFragment {
     private ADA_DishTypeList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
     private ArrayList<DishTypeEntity> datas = new ArrayList<>();
+
+    //点菜飞入动画
+    private int refreshPos;
+    private RightListView mRightListView;
+    public View startView;
+
+    //请求接口
+    private IGetAllDishesPresenter mPresenter;
+    //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
+    private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
+    private String shopId = "C13352966C000000A60000000016E000";
 
     @Override
     protected void onFirstUserVisible() {
@@ -70,18 +89,9 @@ public class FRA_OrderDishes extends BaseFragment {
 
     @Override
     protected void initViewsAndEvents() {
-
-//        //设置刷新时动画的颜色，可以设置4个
-//        if (mSwiperefreshLayout != null) {
-//            mSwiperefreshLayout.setProgressViewOffset(false, 0, DP2PX.dip2px(mContext, 30));
-//            mSwiperefreshLayout.setColorSchemeColors(
-//                    getResources().getColor(R.color.gplus_color_1),
-//                    getResources().getColor(R.color.gplus_color_2),
-//                    getResources().getColor(R.color.gplus_color_3),
-//                    getResources().getColor(R.color.gplus_color_4));
-//            mSwiperefreshLayout.setOnRefreshListener(this);
-//        }
-         // 去除LRecyclerView的默认的下拉刷新效果
+        mPresenter = new GetAllDishesPresenterImpl(mContext, this);
+        mPresenter.getAllDishes(compId, shopId);
+        // 去除LRecyclerView的默认的下拉刷新效果
         mRecyclerView.setPullRefreshEnabled(false);
 
         mAdapter = new ADA_DishTypeList(mContext);
@@ -93,13 +103,6 @@ public class FRA_OrderDishes extends BaseFragment {
         mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
 
         mRecyclerView.addItemDecoration(new SpaceItemDecoration());
-        //loadmore
-//        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-////                loadMore();
-//            }
-//        });
         //设置底部加载颜色-
         mRecyclerView.setFooterViewColor(R.color.colorAccent, R.color.dark, R.color.color_dcdcdc);
         //设置底部加载文字提示
@@ -108,6 +111,8 @@ public class FRA_OrderDishes extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         //去除loadmore
         mRecyclerView.setLoadMoreEnabled(false);
+
+        mRightListView = mRightNavigationView.getRightListView();
 
         setData();
         mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
@@ -118,23 +123,58 @@ public class FRA_OrderDishes extends BaseFragment {
     }
 
     private void initListener() {
-        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+        mAdapter.setOnActionOrderDishListener(new ADA_DishTypeList.OnActionOrderDishListener() {
+
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                //实际位置要在原來的基础上减掉头部占的位置
+            public void OnActionOrderDish(final View iv_start, int position) {
+                //设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
                 int mPosition = position - 1;
                 DishTypeEntity dishTypeEntity = mAdapter.getDataList().get(mPosition);
                 dishTypeEntity.isCheck = true;
                 mAdapter.notifyItemChanged(mPosition);
                 //刷新角标数量
                 mRightNavigationView.refreshCount(mAdapter.getDataList().get(mPosition).id, true);
-            }
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
+                refreshPos = getTitleIdByPosition(mAdapter.getDataList().get(mPosition).id);
+
+                startView = iv_start;
+
+                int startPos = mRightListView.getFirstVisiblePosition();
+                int endPos = mRightListView.getLastVisiblePosition();
+                if (refreshPos >= startPos && refreshPos <= endPos) {
+                    AnimationUtil.doFlyAnimation(mContext, layoutRoot, mRightListView, iv_start, refreshPos, startPos);
+                } else {
+                    return;
+                }
             }
         });
+        //滑动更新完右侧标题角标数量再进行动画
+        mRightNavigationView.setOnDoAnimListener(new RightNavigationView.OnDoAnimListener() {
+            @Override
+            public void doAnim() {
+                int firstVisiblePosition = mRightListView.getFirstVisiblePosition();
+                AnimationUtil.doFlyAnimation(mContext, layoutRoot, mRightListView, startView, refreshPos, firstVisiblePosition);
+
+            }
+        });
+    }
+
+    /**
+     * 根据id得到右侧刷新的位置
+     *
+     * @param mId
+     * @return
+     */
+    private int getTitleIdByPosition(String mId) {
+        int refreshPos = -1;
+        for (int i = 0; i < NavigationUtil.getRightDefaultData().size(); i++) {
+            RightTitleEntity rightTitleEntity = NavigationUtil.getRightDefaultData().get(i);
+            if (rightTitleEntity.id.equals(mId)) {
+                refreshPos = i;
+                break;
+            }
+        }
+        return refreshPos;
     }
 
     private void setData() {
@@ -142,7 +182,7 @@ public class FRA_OrderDishes extends BaseFragment {
             DishTypeEntity dishTypeEntity = new DishTypeEntity();
             dishTypeEntity.name = "item=" + i;
             Random rand = new Random();
-            int uid = rand.nextInt(9);
+            int uid = rand.nextInt(15);
             dishTypeEntity.id = StringUtil.getString(uid);
             datas.add(dishTypeEntity);
         }
@@ -193,4 +233,10 @@ public class FRA_OrderDishes extends BaseFragment {
 
         }
     }
+
+    @Override
+    public void getAllDishes(DishDataEntity dishDataEntity) {
+
+    }
+
 }

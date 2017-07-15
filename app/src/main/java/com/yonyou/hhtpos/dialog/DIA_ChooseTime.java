@@ -33,11 +33,10 @@ public class DIA_ChooseTime {
     WheelView wheelHour;//時
     @Bind(R.id.second_wheel_view)
     WheelView wheelSecond;//分
-//    @Bind(R.id.wheel_zhanwei)
-//    WheelView wheel_zhanwei;//分
     private View mContentView;
     private Dialog mDialog;
     private Context mContext;
+    private ArrayList<String> emptyList = new ArrayList<>();
     private ArrayList<String> secondList = new ArrayList<>();
     private ArrayList<String> hoursList = new ArrayList<>();
 
@@ -45,7 +44,7 @@ public class DIA_ChooseTime {
     private String[] hours = {"14", "15", "16", "17", "18"};
 
     //分
-    private String[] seconds = {"00", "15", "30", "45","55"};
+    private String[] seconds = {"00", "15", "30", "45", "55"};
 
     public DIA_ChooseTime(Context context) {
         mContext = context;

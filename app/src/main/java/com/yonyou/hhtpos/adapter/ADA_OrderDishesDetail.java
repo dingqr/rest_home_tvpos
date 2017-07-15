@@ -10,7 +10,7 @@ import com.yonyou.hhtpos.bean.DishDetailEntity;
 /**
  * Created by zj on 2017/7/5.
  * 邮箱：zjuan@yonyou.com
- * 描述：分组列表-点菜明细的适配器
+ * 描述：外带-分组列表-点菜明细的适配器
  */
 public class ADA_OrderDishesDetail extends CommonAdapterListView<DishDetailEntity> {
     public ADA_OrderDishesDetail(Context context) {

@@ -100,6 +100,7 @@
     <dimen name="px_190">126.6dp</dimen>
     <dimen name="px_196">130.6dp</dimen>
     <dimen name="px_276">184dp</dimen>
+    <dimen name="px_270">180dp</dimen>
     <dimen name="px_290">193.3dp</dimen>
     <dimen name="px_300">200dp</dimen>
     <dimen name="px_338">225.3dp</dimen>

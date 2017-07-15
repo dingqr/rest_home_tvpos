@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white_side_white_4"
+    android:orientation="vertical">
+
+    <include layout="@layout/inc_dialog_title"></include>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"
+        android:background="@color/color_c4c4c4"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_30">
+
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px_270"
+            android:background="@drawable/bg_side_dark_gray_4"
+            android:hint="@string/hint_roll_out_num"
+            android:paddingLeft="@dimen/px_20"
+            android:textColorHint="@color/color_cccccc" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px_20"
+            android:background="@drawable/bg_white_side_gray_25"
+            android:drawableLeft="@drawable/ic_refresh"
+            android:drawablePadding="@dimen/px_20"
+            android:paddingBottom="@dimen/px_12"
+            android:paddingLeft="@dimen/px_36"
+            android:paddingRight="@dimen/px_36"
+            android:paddingTop="@dimen/px_12"
+            android:text="点击刷新"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/px_24" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/px_30"
+        android:layout_marginRight="@dimen/px_30"
+        android:layout_marginTop="@dimen/px_30"
+        android:orientation="horizontal">
+
+        <com.yonyou.hhtpos.widgets.NumberKeybordView
+            android:id="@+id/number_keybord_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></com.yonyou.hhtpos.widgets.NumberKeybordView>
+
+        <RadioButton
+            android:layout_width="@dimen/px_260"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/px_10"
+            android:background="@drawable/bg_gray_side_gray_4"
+            android:button="@null"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/px_86"
+            android:text="@string/string_receive_money"
+            android:textColor="@color/color_eb6247"
+            android:textSize="@dimen/sp_40" />
+    </LinearLayout>
+
+</LinearLayout>

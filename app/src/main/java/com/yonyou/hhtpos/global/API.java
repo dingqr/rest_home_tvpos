@@ -14,6 +14,7 @@ public class API {
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //线上ip
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
+//    public static final String BASE_SERVER_IP = "http://10.220.17.51:8062"; //线上ip
 //    public static final String BASE_SERVER_IP = "http://10.220.23.251:9000"; //吴贤川ip
 //    public static final String BASE_SERVER_IP = "http://test-api-c2b.honghuotai.com"; //测试服务器地址
 
@@ -61,4 +62,9 @@ public class API {
      * 外卖列表接口
      */
     public static final String URL_TAKE_OUT_LIST = BASE_SERVER_SHOP + "/takeOut/orderList";
+
+    /**
+     * 点菜-获取所有菜品/菜类
+     */
+    public static final String URL_GET_ALL_DISHES = BASE_SERVER_SHOP + "/prodish/getalldishs";
 }

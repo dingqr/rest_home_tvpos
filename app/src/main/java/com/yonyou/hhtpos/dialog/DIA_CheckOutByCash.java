@@ -22,29 +22,31 @@ import butterknife.ButterKnife;
 
 
 /**
- * Created by zj on 2017/7/1.
+ * Created by zj on 2017/7/15.
  * 邮箱：zjuan@yonyou.com
- * 描述：退预定押金弹窗
+ * 描述：服务员点菜-菜品转台弹窗
  */
-public class DIA_ReturnForegift {
+public class DIA_CheckOutByCash {
     @Bind(R.id.tv_dialog_title)
     TextView tvDialogTitle;
-    private EditText etMoney;
     private Dialog mDialog;
     private View mContentView;
     private ImageView ivClose;
     private Context mContext;
     private NumberKeybordView numberGridView;
-    public DIA_ReturnForegift(Context context) {
+
+    public DIA_CheckOutByCash(Context context) {
         mContext = context;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
-        mContentView = LayoutInflater.from(context).inflate(R.layout.dia_return_foregift, null);
-        ButterKnife.bind(mContentView);
+        mContentView = LayoutInflater.from(context).inflate(R.layout.dia_checkout_by_cash, null);
+        ButterKnife.bind(this, mContentView);
         numberGridView = (NumberKeybordView) mContentView.findViewById(R.id.number_keybord_view);
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
         mDialog.setContentView(mContentView);
-        tvDialogTitle.setText(mContext.getResources().getString(R.string.string_get_foregift));
+
+        tvDialogTitle.setText(mContext.getResources().getString(R.string.string_check_out_cash));
         initListener();
+
 
         //不使用系统软件盘输入
 //        disableShowInput(etMoney);
@@ -85,7 +87,8 @@ public class DIA_ReturnForegift {
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.8f; //背景灰度 -0.0全透明
         lp.width = 1200; // 设置宽度
-        lp.height = 910;//设置高度
+//        lp.height = 910;//设置高度
+        lp.height = 950;//设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         if (!mDialog.isShowing()) {

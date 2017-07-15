@@ -8,6 +8,7 @@ import java.io.Serializable;
  * 描述：点菜明细实体类
  */
 public class DishDetailEntity implements Serializable{
+    //外带页面-菜品分组测试字段
     /**下单时间*/
     public String order_time;
     /**菜品名称*/
