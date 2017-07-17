@@ -51,11 +51,13 @@
     <dimen name="px_66">44dp</dimen>
 
     <dimen name="px_68">45.3dp</dimen>
+    <dimen name="px_69">46dp</dimen>
     <dimen name="px_70">46.6dp</dimen>
     <dimen name="px_72">48dp</dimen>
     <dimen name="px_74">49.3dp</dimen>
     <dimen name="px_76">50.6dp</dimen>
     <dimen name="px_78">52dp</dimen>
+    <dimen name="px_79">52.6dp</dimen>
     <dimen name="px_80">53.3dp</dimen>
     <dimen name="px_82">54.6dp</dimen>
     <dimen name="px_84">56dp</dimen>
@@ -99,12 +101,15 @@
     <dimen name="px_180">120dp</dimen>
     <dimen name="px_190">126.6dp</dimen>
     <dimen name="px_196">130.6dp</dimen>
+    <dimen name="px_210">140dp</dimen>
+    <dimen name="px_250">160.6dp</dimen>
     <dimen name="px_276">184dp</dimen>
     <dimen name="px_270">180dp</dimen>
     <dimen name="px_290">193.3dp</dimen>
     <dimen name="px_300">200dp</dimen>
     <dimen name="px_338">225.3dp</dimen>
     <dimen name="px_382">254.6dp</dimen>
+    <dimen name="px_384">256dp</dimen>
     <dimen name="px_590">393.3dp</dimen>
     <dimen name="px_598">398.6dp</dimen>
     <dimen name="px_1280">853.3dp</dimen>
@@ -113,6 +118,7 @@
     <dimen name="px_430">286.6dp</dimen>
     <dimen name="px_436">290.6dp</dimen>
     <dimen name="px_474">316dp</dimen>
+    <dimen name="px_486">324dp</dimen>
     <dimen name="px_640">426.6dp</dimen>
     <dimen name="px_644">429.3dp</dimen>
     <dimen name="px_648">432dp</dimen>
@@ -134,6 +140,7 @@
     <dimen name="px_380">253.3dp</dimen>
     <dimen name="px_390">260dp</dimen>
     <dimen name="px_450">300dp</dimen>
+    <dimen name="px_460">306.6dp</dimen>
     <dimen name="px_560">373.3dp</dimen>
     <dimen name="px_580">386.6dp</dimen>
     <dimen name="px_604">402.6dp</dimen>
@@ -155,6 +162,7 @@
     <dimen name="px_798">532dp</dimen>
     <dimen name="px_830">553.3dp</dimen>
     <dimen name="px_850">566.6dp</dimen>
+    <dimen name="px_860">573.3dp</dimen>
     <dimen name="px_862">574.6dp</dimen>
     <dimen name="px_890">593.3dp</dimen>
     <dimen name="px_970">646.6dp</dimen>
@@ -174,6 +182,7 @@
 
     <!-- 字号2:3-->
     <dimen name="sp_14">9.3sp</dimen>
+    <dimen name="sp_18">12sp</dimen>
     <dimen name="sp_20">13.3sp</dimen>
     <dimen name="sp_22">14.6sp</dimen>
     <dimen name="sp_24">16sp</dimen>

@@ -16,7 +16,7 @@ import com.yonyou.hhtpos.view.ILoginView;
  * 作者：ybing on 2017/6/27 10:01
  * 邮箱：ybing@yonyou.com
  */
-public class ACT_Login extends ACT_BaseFullScreen  implements ILoginView {
+public class ACT_Login extends ACT_BaseFullScreen {
 
     @Override
     protected void initView() {
@@ -80,11 +80,6 @@ public class ACT_Login extends ACT_BaseFullScreen  implements ILoginView {
 
     @Override
     public void showBusinessError(ErrorBean error) {
-
-    }
-
-    @Override
-    public void login(UserEntity dataBean) {
 
     }
 }

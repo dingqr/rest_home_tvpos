@@ -12,6 +12,8 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
     /**展示选项数据 */
     private String option;
 
+    private MultipleOption multipleOption;
+
     /**传递数据 */
     private String data;
 
@@ -53,16 +55,6 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
         this.type = type;
     }
 
-    public FilterOptionsEntity clone() {
-        FilterOptionsEntity bean = null;
-        try {
-            bean = (FilterOptionsEntity) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return bean;
-    }
-
     @Override
     public String toString() {
         return "FilterOptionsEntity{" +
@@ -73,15 +65,30 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
                 '}';
     }
 
+
+    public MultipleOption getMultipleOption() {
+        return multipleOption;
+    }
+
+    public void setMultipleOption(MultipleOption multipleOption) {
+        this.multipleOption = multipleOption;
+    }
+
     public FilterOptionsEntity() {
     }
     public FilterOptionsEntity(String option, boolean isCheck) {
         this.option = option;
         this.isCheck = isCheck;
     }
-    /**type:0 餐别 1 餐区 2 预定状态*/
+
     public FilterOptionsEntity(String option, int type, boolean isCheck) {
         this.option = option;
+        this.type = type;
+        this.isCheck = isCheck;
+    }
+
+    public FilterOptionsEntity(MultipleOption multipleOption, int type, boolean isCheck) {
+        this.multipleOption = multipleOption;
         this.type = type;
         this.isCheck = isCheck;
     }

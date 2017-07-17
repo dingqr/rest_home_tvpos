@@ -12,6 +12,8 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
+import com.yonyou.hhtpos.dialog.DIA_ChooseTime;
+import com.yonyou.hhtpos.dialog.DIA_FamilySetMeal;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishFixedPrice;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
@@ -54,6 +56,8 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     Button btnConfirm7;
     @Bind(R.id.btn_confirm8)
     Button btnConfirm8;
+    @Bind(R.id.btn_confirm9)
+    Button btnConfirm9;
 
     private ArrayList<FilterItemEntity> filterItemList;
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
@@ -74,6 +78,8 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_OrderDishSetPrice dia_orderDishSetPrice;
     DIA_OrderDishFixedPrice dia_orderDishFixedPrice;
     DIA_OrderDishNorms dia_orderDishNorms;
+    DIA_FamilySetMeal dia_familySetMeal;
+//    DIA_ChooseTime dia_familySetMeal;
 
 
 
@@ -113,6 +119,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm6.setOnClickListener(this);
         btnConfirm7.setOnClickListener(this);
         btnConfirm8.setOnClickListener(this);
+        btnConfirm9.setOnClickListener(this);
 
         filterItemList = getFakeData();
         filterOptionsEntities = getOptions();
@@ -162,16 +169,9 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_confirm:
-//                dia_reserveFiltration = new DIA_ReserveFiltration(mContext,filterItemList);
-//                dia_reserveFiltration.getDialog().show();
-//                dia_reserveFiltration = new DIA_OpenOrder(mContext);
-//                dia_reserveFiltration.getDialog().show();
-//                dia_reserveFiltration = new DIA_SelectTable(mContext,filterOptionsEntities,capacityEntities);
-//                dia_reserveFiltration.getDialog().show();
-//                dia_reserveFiltration = new DIA_ReserveList(mContext,reserveOrderListEntity);
-//                dia_reserveFiltration.getDialog().show();
-                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext);
-                dia_reserveFiltration.getDialog().show();
+                dia_familySetMeal = new DIA_FamilySetMeal(mContext);
+                dia_familySetMeal.getDialog().show();
+
                 break;
             case R.id.btn_confirm1:
                 dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext,filterItemList);
@@ -205,6 +205,14 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_orderDishFixedPrice = new DIA_OrderDishFixedPrice(mContext);
                 dia_orderDishFixedPrice.getDialog().show();
                 break;
+            case R.id.btn_confirm9:
+                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext);
+                dia_reserveFiltration.getDialog().show();
+                break;
+//            case R.id.btn_confirm9:
+//                dia_familySetMeal = new DIA_ChooseTime(mContext);
+//                dia_familySetMeal.show();
+//                break;
             default:
                 break;
         }

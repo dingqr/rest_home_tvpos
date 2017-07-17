@@ -49,9 +49,7 @@
 
     <!--预定-->
     <string name="hint_user_number">就餐人数</string>
-    <string name="user_number">4</string>
     <string name="hint_user">会员</string>
-    <string name="user_phone_name">13566668888  |  李先生</string>
     <string name="hint_waiter">服务员</string>
     <string name="please_select">请选择</string>
     <string name="reserve_order">预订单</string>
@@ -107,7 +105,7 @@
     <string name="hint_input_phone_number">请输入手机号</string>
     <string name="string_remarks">备注</string>
     <string name="hint_customer_requirement">输入顾客的就餐要求</string>
-    <string name="string_not_neccessary">（非必填）</string>
+    <string name="string_not_necessary">（非必填）</string>
 
     <!--选择服务员-->
     <string name="string_choose_waiter">选择服务员</string>
@@ -198,6 +196,7 @@
     <string name="change">换一换(1/2)</string>
     <string name="order_overdue">预约过期关闭</string>
     <string name="RMB_symbol">¥</string>
+    <string name="big_part">[大份]</string>
 
     <!--点菜-->
     <string name="hint_dish_count">数量:</string>
@@ -215,6 +214,18 @@
     <string name="hint_input_weight">输入重量</string>
     <string name="hint_input_price">输入时价</string>
     <string name="unset_price">未设置时价</string>
+    <string name="dish_vegetable">素菜</string>
+    <string name="dish_meat">荤菜</string>
+    <string name="beverage">饮品</string>
+    <string name="main_course">主食</string>
+    <string name="selected">已选</string>
+    <string name="set_detail_option">套餐明细选择</string>
+    <string name="dish_selected">已选菜品</string>
+    <string name="add_price">加价</string>
+    <string name="add_to_order">加入菜单(</string>
+    <string name="unBracket">)</string>
+    <string name="limit_select">限点</string>
+    <string name="part">份</string>
     <string name="string_operation_paltform">红火台餐饮云服务运营平台</string>
     <string name="string_add_temp_dish">添加临时菜</string>
     <string name="string_input_dish_name">输入菜品名称</string>
@@ -228,6 +239,8 @@
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
     <string name="hint_roll_out_num">输入转出数量</string>
     <string name="string_switch_table">转台</string>
+    <string name="string_operation_platform">红火台餐饮云服务运营平台</string>
+
 
     <!--结账 -->
     <string name="consumption_total">消费总计</string>

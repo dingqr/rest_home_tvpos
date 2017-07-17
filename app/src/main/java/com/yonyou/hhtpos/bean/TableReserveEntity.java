@@ -20,15 +20,6 @@ public class TableReserveEntity implements Serializable, Cloneable{
     /**是否被选中 */
     private boolean isCheck;
 
-    public TableReserveEntity clone() {
-        TableReserveEntity bean = null;
-        try {
-            bean = (TableReserveEntity) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return bean;
-    }
 
     public int getLunchNum() {
         return lunchNum;
@@ -71,29 +62,6 @@ public class TableReserveEntity implements Serializable, Cloneable{
         this.roomName = roomName;
         this.lunchNum = lunchNum;
         this.supperNum = supperNum;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TableReserveEntity)) return false;
-
-        TableReserveEntity that = (TableReserveEntity) o;
-
-        if (getLunchNum() != that.getLunchNum()) return false;
-        if (getSupperNum() != that.getSupperNum()) return false;
-        if (isCheck() != that.isCheck()) return false;
-        return getRoomName() != null ? getRoomName().equals(that.getRoomName()) : that.getRoomName() == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getLunchNum();
-        result = 31 * result + getSupperNum();
-        result = 31 * result + (getRoomName() != null ? getRoomName().hashCode() : 0);
-        result = 31 * result + (isCheck() ? 1 : 0);
-        return result;
     }
 
     @Override

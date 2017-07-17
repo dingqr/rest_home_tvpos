@@ -6,7 +6,7 @@
         android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/confirm" />
+        android:text="全家福" />
     <Button
         android:id="@+id/btn_confirm1"
         android:layout_width="match_parent"
@@ -47,4 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="固定价格称重" />
+    <Button
+        android:id="@+id/btn_confirm9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm" />
 </LinearLayout>

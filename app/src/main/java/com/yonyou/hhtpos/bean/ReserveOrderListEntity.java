@@ -44,16 +44,6 @@ public class ReserveOrderListEntity implements Serializable, Cloneable{
         this.isCheck = check;
     }
 
-    public ReserveOrderListEntity clone() {
-        ReserveOrderListEntity bean = null;
-        try {
-            bean = (ReserveOrderListEntity) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return bean;
-    }
-
     public ReserveOrderListEntity(){}
 
     public ReserveOrderListEntity(String orderId,String orderStatus, String dishType,
@@ -158,44 +148,5 @@ public class ReserveOrderListEntity implements Serializable, Cloneable{
                 ", orderRemark='" + orderRemark + '\'' +
                 ", orderId='" + orderId + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ReserveOrderListEntity)) return false;
-
-        ReserveOrderListEntity that = (ReserveOrderListEntity) o;
-
-        if (getOrderTime() != that.getOrderTime()) return false;
-        if (isCheck() != that.isCheck()) return false;
-        if (getOrderStatus() != null ? !getOrderStatus().equals(that.getOrderStatus()) : that.getOrderStatus() != null)
-            return false;
-        if (getDishType() != null ? !getDishType().equals(that.getDishType()) : that.getDishType() != null)
-            return false;
-        if (getCustomerPhone() != null ? !getCustomerPhone().equals(that.getCustomerPhone()) : that.getCustomerPhone() != null)
-            return false;
-        if (getCustomerHonorific() != null ? !getCustomerHonorific().equals(that.getCustomerHonorific()) : that.getCustomerHonorific() != null)
-            return false;
-        if (getDiningNumber() != null ? !getDiningNumber().equals(that.getDiningNumber()) : that.getDiningNumber() != null)
-            return false;
-        if (getOrderRemark() != null ? !getOrderRemark().equals(that.getOrderRemark()) : that.getOrderRemark() != null)
-            return false;
-        return getOrderId() != null ? getOrderId().equals(that.getOrderId()) : that.getOrderId() == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getOrderStatus() != null ? getOrderStatus().hashCode() : 0;
-        result = 31 * result + (getDishType() != null ? getDishType().hashCode() : 0);
-        result = 31 * result + (int) (getOrderTime() ^ (getOrderTime() >>> 32));
-        result = 31 * result + (getCustomerPhone() != null ? getCustomerPhone().hashCode() : 0);
-        result = 31 * result + (getCustomerHonorific() != null ? getCustomerHonorific().hashCode() : 0);
-        result = 31 * result + (getDiningNumber() != null ? getDiningNumber().hashCode() : 0);
-        result = 31 * result + (getOrderRemark() != null ? getOrderRemark().hashCode() : 0);
-        result = 31 * result + (getOrderId() != null ? getOrderId().hashCode() : 0);
-        result = 31 * result + (isCheck() ? 1 : 0);
-        return result;
     }
 }

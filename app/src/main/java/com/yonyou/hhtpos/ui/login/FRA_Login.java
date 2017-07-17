@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.login;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,16 +15,20 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.utils.AppSharedPreferences;
 import com.yonyou.framework.library.common.utils.ReturnObject;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.common.utils.ValidateRule;
 import com.yonyou.framework.library.common.utils.Validator;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.db.entity.UserEntity;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ILoginPresenter;
 import com.yonyou.hhtpos.presenter.Impl.LoginPresenterImpl;
 import com.yonyou.hhtpos.ui.activation.ACT_VerifyPhone;
 import com.yonyou.hhtpos.ui.home.ACT_Home;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.ILoginView;
 
 import butterknife.Bind;
@@ -33,7 +38,7 @@ import butterknife.OnClick;
  * 登录fragment
  * 作者：liushuofei on 2017/6/26 18:02
  */
-public class FRA_Login extends BaseFragment implements ILoginView{
+public class FRA_Login extends BaseFragment implements ILoginView {
     @Bind(R.id.ll_content)
     LinearLayout llContent;
     @Bind(R.id.et_user_phone)
@@ -50,6 +55,9 @@ public class FRA_Login extends BaseFragment implements ILoginView{
     private String userPwd;
 
     private ILoginPresenter mPresenter;
+
+    private AppSharedPreferences sharePre;
+    private String userToken;
 
     @Override
     protected void onFirstUserVisible() {
@@ -73,14 +81,21 @@ public class FRA_Login extends BaseFragment implements ILoginView{
 
     @Override
     protected void initViewsAndEvents() {
-        mPresenter = new LoginPresenterImpl(this.getContext(),this);
-        showSoftInput(etUserPwd);
-        showSoftInput(etUserPhone);
-        //默认登录按钮不可点击并且是置灰状态
-        rbLogin.setChecked(false);
-        rbLogin.setClickable(false);
-        etUserPhone.addTextChangedListener(new InputWatcher());
-        etUserPwd.addTextChangedListener(new InputWatcher());
+        sharePre = new AppSharedPreferences(mContext);
+        userPhone = sharePre.getString(Constants.DataBean);
+        userToken = sharePre.getString(Constants.DataTitle);
+        if (userToken != null) {
+            readyGoThenKill(ACT_Home.class);
+        } else {
+            mPresenter = new LoginPresenterImpl(this.getContext(), this);
+            showSoftInput(etUserPwd);
+            showSoftInput(etUserPhone);
+            //默认登录按钮不可点击并且是置灰状态
+            rbLogin.setChecked(false);
+            rbLogin.setClickable(false);
+            etUserPhone.addTextChangedListener(new InputWatcher());
+            etUserPwd.addTextChangedListener(new InputWatcher());
+        }
     }
 
     @Override
@@ -113,16 +128,17 @@ public class FRA_Login extends BaseFragment implements ILoginView{
 
             case R.id.rb_login:
                 //登录
-                if (doValidatePhone()&&doValidatePwd()){
+                if (doValidatePhone() && doValidatePwd()) {
                     userPhone = etUserPhone.getText().toString();
                     userPwd = etUserPwd.getText().toString();
-                    mPresenter.login("","",userPhone,userPwd,"");
-                }else{
+                    mPresenter.login("", "", userPhone, userPwd, "");
+                } else {
                     CommonUtils.makeEventToast(mContext, "手机号和密码输入格式不正确", false);
                 }
                 break;
         }
     }
+
     /**
      * 指定输入框获取焦点并且弹出键盘
      *
@@ -204,6 +220,7 @@ public class FRA_Login extends BaseFragment implements ILoginView{
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
+
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             //只有手机号和密码有数据时，登录按钮才可以点击
@@ -224,6 +241,22 @@ public class FRA_Login extends BaseFragment implements ILoginView{
 
     @Override
     public void login(UserEntity dataBean) {
-        readyGoThenKill(ACT_Home.class);
+        if (null != dataBean) {
+            //保存用户信息
+            sharePre.putString(Constants.DataTitle, StringUtil.getString(dataBean.token));
+            sharePre.putBoolean(Constants.DataBooleanBean, false);//清空之前的注销登录信息
+            Constants.TOKEN = dataBean.token;
+        }
+
+        //登录成功后,发送一个广播
+        sendBroadcast(ReceiveConstants.LOGIN_SUCCESS);
+
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.LOGIN_SUCCESS) {
+            readyGoThenKill(ACT_Home.class);
+        }
     }
 }

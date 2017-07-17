@@ -42,15 +42,6 @@ public class TableCapacityEntity implements Serializable, Cloneable{
         this.type = type;
     }
 
-    public TableCapacityEntity clone() {
-        TableCapacityEntity bean = null;
-        try {
-            bean = (TableCapacityEntity) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return bean;
-    }
 
     public int getCapacity() {
         return capacity;
@@ -78,45 +69,10 @@ public class TableCapacityEntity implements Serializable, Cloneable{
 
     public TableCapacityEntity() {
     }
-    public TableCapacityEntity(int capacity, boolean isCheck) {
-        this.capacity = capacity;
-        this.isCheck = isCheck;
-    }
-
-    public TableCapacityEntity(int capacity, int type, boolean isCheck) {
-        this.capacity = capacity;
-        this.type = type;
-        this.isCheck = isCheck;
-    }
     public TableCapacityEntity(int capacity, int type, String area, boolean isCheck) {
         this.capacity = capacity;
         this.type = type;
         this.area = area;
         this.isCheck = isCheck;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TableCapacityEntity)) return false;
-
-        TableCapacityEntity that = (TableCapacityEntity) o;
-
-        if (getCapacity() != that.getCapacity()) return false;
-        if (getType() != that.getType()) return false;
-        if (isCheck() != that.isCheck()) return false;
-        if (!getArea().equals(that.getArea())) return false;
-        return getData() != null ? getData().equals(that.getData()) : that.getData() == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getCapacity();
-        result = 31 * result + getArea().hashCode();
-        result = 31 * result + (getData() != null ? getData().hashCode() : 0);
-        result = 31 * result + getType();
-        result = 31 * result + (isCheck() ? 1 : 0);
-        return result;
     }
 }

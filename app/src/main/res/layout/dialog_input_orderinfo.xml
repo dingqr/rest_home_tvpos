@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/px_17"
                     android:layout_marginLeft="@dimen/px_12"
-                    android:text="@string/string_not_neccessary"
+                    android:text="@string/string_not_necessary"
                     android:textColor="@color/color_cccccc"
                     android:textSize="@dimen/sp_24" />
             </LinearLayout>

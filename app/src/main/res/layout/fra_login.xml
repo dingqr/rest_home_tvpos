@@ -67,7 +67,7 @@
             android:layout_marginBottom="@dimen/px_70"
             android:gravity="center"
             android:text="@string/login"
-            android:textColor="@color/color_FFFFFF"
+            android:textColor="@drawable/rb_next_step_txt"
             android:textSize="@dimen/sp_32"
             android:checked="false"/>
 

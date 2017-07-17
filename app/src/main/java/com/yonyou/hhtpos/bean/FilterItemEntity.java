@@ -14,19 +14,9 @@ public class FilterItemEntity implements Serializable, Cloneable{
 
     /**筛选列表选项 table options*/
     private ArrayList<FilterOptionsEntity> options;
+
     /**筛选列表表头 tabletitle*/
     private String title;
-
-
-    public FilterItemEntity clone() {
-        FilterItemEntity bean = null;
-        try {
-            bean = (FilterItemEntity) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return bean;
-    }
 
     @Override
     public String toString() {

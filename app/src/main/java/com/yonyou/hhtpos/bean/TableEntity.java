@@ -3,7 +3,7 @@ package com.yonyou.hhtpos.bean;
 import java.io.Serializable;
 
 /**
- * Created by dell on 2017/6/30.
+ * Created by ybing on 2017/6/30.
  */
 
 public class TableEntity implements Serializable, Cloneable {

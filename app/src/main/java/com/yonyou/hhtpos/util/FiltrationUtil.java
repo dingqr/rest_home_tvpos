@@ -2,7 +2,10 @@ package com.yonyou.hhtpos.util;
 
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
+import com.yonyou.hhtpos.bean.MultipleOption;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
+import com.yonyou.hhtpos.bean.SetMealGridEntity;
+import com.yonyou.hhtpos.bean.SetMealListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
 import com.yonyou.hhtpos.bean.TableReserveEntity;
 
@@ -23,6 +26,7 @@ public class FiltrationUtil {
     private static final int ORDER_RESOURCE = 5;
     private static final int COOKERY = 6;
     private static final int DISH_NORMS = 7;
+    private static final int SET_DETAIL = 8;
 
     /**多选*/
     private static final int TAKE_OUT_TYPE = 0;
@@ -348,18 +352,10 @@ public class FiltrationUtil {
         FilterOptionsEntity fde2 = new FilterOptionsEntity("蒜蓉",COOKERY,true);
         FilterOptionsEntity fde3 = new FilterOptionsEntity("白灼",COOKERY,false);
         FilterOptionsEntity fde4 = new FilterOptionsEntity("爆炒",COOKERY,false);
-//        FilterOptionsEntity fde5 = new FilterOptionsEntity("清炒",COOKERY,false);
-//        FilterOptionsEntity fde6 = new FilterOptionsEntity("蒜蓉",COOKERY,false);
-//        FilterOptionsEntity fde7 = new FilterOptionsEntity("白灼",COOKERY,false);
-//        FilterOptionsEntity fde8 = new FilterOptionsEntity("爆炒",COOKERY,false);
         filterOptionsEntities.add(fde1);
         filterOptionsEntities.add(fde2);
         filterOptionsEntities.add(fde3);
         filterOptionsEntities.add(fde4);
-//        filterOptionsEntities.add(fde5);
-//        filterOptionsEntities.add(fde6);
-//        filterOptionsEntities.add(fde7);
-//        filterOptionsEntities.add(fde8);
 
         return  filterOptionsEntities;
     }
@@ -397,6 +393,56 @@ public class FiltrationUtil {
         filterOptionsEntities.add(fde4);
 
         return  filterOptionsEntities;
+    }
+
+    public static ArrayList<FilterOptionsEntity> getSetMealType(){
+        MultipleOption mo1 = new MultipleOption("素菜",1,4);
+        MultipleOption mo2 = new MultipleOption("荤菜",1,4);
+        MultipleOption mo3 = new MultipleOption("饮品",2,8);
+        MultipleOption mo4 = new MultipleOption("主食",2,4);
+
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity(mo1,SET_DETAIL,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity(mo2,SET_DETAIL,true);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity(mo3,SET_DETAIL,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity(mo4,SET_DETAIL,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+
+        return  filterOptionsEntities;
+    }
+
+    public static ArrayList<SetMealListEntity> getSetMealList(){
+        SetMealListEntity smle1 = new SetMealListEntity("松茸汽锅鸡",1,0);
+        SetMealListEntity smle2 = new SetMealListEntity("干锅娃娃菜",1,0);
+        SetMealListEntity smle3 = new SetMealListEntity("鲜榨果汁",1,10);
+        SetMealListEntity smle4 = new SetMealListEntity("米饭",1,0);
+
+        ArrayList<SetMealListEntity> setMealList = new ArrayList<>();
+        setMealList.add(smle1);
+        setMealList.add(smle2);
+        setMealList.add(smle3);
+        setMealList.add(smle4);
+
+        return  setMealList;
+    }
+
+    public static ArrayList<SetMealGridEntity> getSetMealGrid(){
+        SetMealGridEntity smge1 = new SetMealGridEntity("大份","麻辣皮皮虾",1,0,true);
+        SetMealGridEntity smge2 = new SetMealGridEntity("小份","毛血旺",1,10,true);
+        SetMealGridEntity smge3 = new SetMealGridEntity(null,"水煮鱼",3,0,true);
+        SetMealGridEntity smge4 = new SetMealGridEntity(null,"葱爆羊肉",1,0,true);
+
+        ArrayList<SetMealGridEntity> setMealGridList = new ArrayList<>();
+        for(int i=0;i<3;i++) {
+            setMealGridList.add(smge1);
+            setMealGridList.add(smge2);
+            setMealGridList.add(smge3);
+            setMealGridList.add(smge4);
+        }
+        return  setMealGridList;
     }
 }
 
