@@ -11,6 +11,8 @@ public interface ITakeOutListPresenter {
      * @param companyId 公司id
      * @param salesMode 就餐类型
      * @param shopId 门店id
+     * @param isRefresh 是否为刷新
+     * @param isEmpty 是否为空页面
      */
-    void requestTakeOutList(String companyId, String salesMode, String shopId);
+    void requestTakeOutList(String companyId, String salesMode, String shopId, boolean isRefresh, boolean isEmpty);
 }

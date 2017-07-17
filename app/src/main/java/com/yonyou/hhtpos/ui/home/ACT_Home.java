@@ -8,14 +8,13 @@ import android.widget.ImageView;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
-import com.yonyou.hhtpos.FRA_TestRight;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.base.ACT_BaseSimple;
 import com.yonyou.hhtpos.bean.NavigationNewEntity;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.presenter.INavigationPresenter;
 import com.yonyou.hhtpos.presenter.Impl.NavigationPresenterImpl;
-import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.view.INavigationView;
 
 import java.util.List;
@@ -106,21 +105,8 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener, IN
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_menu:
-//                readyGoThenKill(ACT_BookPreview.class);
-//                readyGoThenKill(ACT_Packing.class);
-//                readyGoThenKill(ACT_TakeOut.class);
-//                readyGo(ACT_OrderDishes.class);
-
                 DIA_Navigation dia_navigation = new DIA_Navigation(mContext, dataList);
                 dia_navigation.getDialog().show();
-
-//                DIA_QRCode dia_qrCode = new DIA_QRCode(mContext);
-//                dia_qrCode.getDialog().show();
-
-//                POP_NavigationSecond pop_navigationSecond = new POP_NavigationSecond(mContext);
-////                pop_navigationSecond.showAsDropDown(v, 1000, 0, Gravity.RIGHT);
-//                pop_navigationSecond.showAsDropDown(v, v.getWidth() + 30, -(v.getHeight() + 30));
-
                 break;
 
             default:
@@ -131,5 +117,7 @@ public class ACT_Home extends ACT_BaseSimple implements View.OnClickListener, IN
     @Override
     public void requestNavigationList(List<NavigationNewEntity> dataList) {
         this.dataList = dataList;
+
+        MyApplication.dataList = dataList;
     }
 }

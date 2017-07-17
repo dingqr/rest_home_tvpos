@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.ui.dinner.ts;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,9 +14,9 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_MealArea;
 import com.yonyou.hhtpos.adapter.CanteenFragmentAdapter;
-import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
+import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
-import com.yonyou.hhtpos.ui.dinner.wd.FRA_PackingList;
+import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
@@ -27,8 +28,10 @@ import butterknife.Bind;
  * 堂食页面
  * 作者：liushuofei on 2017/7/8 10:42
  */
-public class ACT_Canteen extends BaseActivity{
+public class ACT_Canteen extends BaseActivity implements View.OnClickListener{
 
+    @Bind(R.id.iv_menu)
+    ImageView mMenuImg;
     @Bind(R.id.lv_meal_area)
     ListView mListView;
     @Bind(R.id.psts_tab)
@@ -95,6 +98,8 @@ public class ACT_Canteen extends BaseActivity{
         setVpAdapter();
 
         initSlidingTab();
+
+        mMenuImg.setOnClickListener(this);
     }
 
     private void setVpAdapter() {
@@ -165,5 +170,18 @@ public class ACT_Canteen extends BaseActivity{
     @Override
     public void showBusinessError(ErrorBean error) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_menu:
+                DIA_Navigation dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
+                dia_navigation.getDialog().show();
+                break;
+
+            default:
+                break;
+        }
     }
 }

@@ -11,16 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.TakeOutListBean;
+import com.yonyou.hhtpos.bean.TakeOutListEntity;
 
 /**
  * 作者：liushuofei on 2017/7/6 15:13
  * 邮箱：lsf@yonyou.com
  */
-public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListBean> {
+public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListEntity> {
 
-    private TakeOutListBean currentBean;
+    private TakeOutListEntity currentBean;
 
     public ADA_TakeOutList(Context context) {
         super(context);
@@ -42,7 +43,7 @@ public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListBean> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final TakeOutListBean bean = mDataSource.get(position);
+        final TakeOutListEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
 
         if (bean.isCheck()){
@@ -71,7 +72,7 @@ public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListBean> {
         return convertView;
     }
 
-    private void handleDataSource(int position, final ViewHolder holder, final TakeOutListBean bean) {
+    private void handleDataSource(int position, final ViewHolder holder, final TakeOutListEntity bean) {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +88,24 @@ public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListBean> {
         });
 
         position++;
-        holder.mOrderNumber.setText("No." + position);
+        //TODO: 单号都显示为#00001的格式，从后台获取数据并显示后五位
+        holder.mOrderNumber.setText("#0000" + position);
+
+        if (null == bean)
+            return;
+
+        // 外卖渠道
+        holder.mChannelName.setText(StringUtil.getString(bean.getTakeOutCompanyId()));
+        // 下单时间
+        holder.mOrderTime.setText(StringUtil.getString(bean.getCreateTime()));
+        // 金额
+        holder.mOrderPrice.setText(mContext.getString(R.string.RMB_symbol) + StringUtil.getString(bean.getBillMoney()));
+        // 用户姓名
+        holder.mCustomerName.setText(StringUtil.getString(bean.getName()));
+        // 用户手机号
+        holder.mCustomerPhone.setText(StringUtil.getString(bean.getPhone()));
+        // 订单状态
+        holder.mOrderStatus.setText(StringUtil.getString(bean.getDinnerState()));
     }
 
     static class ViewHolder {

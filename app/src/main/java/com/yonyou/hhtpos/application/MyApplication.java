@@ -3,13 +3,18 @@ package com.yonyou.hhtpos.application;
 import android.content.Context;
 
 import com.yonyou.framework.library.BaseApplication;
+import com.yonyou.hhtpos.bean.NavigationNewEntity;
 import com.yonyou.hhtpos.db.DbManager;
+
+import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/6/22 10:00
  * 邮箱：lsf@yonyou.com
  */
 public class MyApplication extends BaseApplication{
+
+    public static List<NavigationNewEntity> dataList;
 
     public static final String DATABASE_NAME = "hhtdb.db";
 

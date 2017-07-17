@@ -55,7 +55,8 @@
                     android:text="百度外卖100"
                     android:textSize="@dimen/sp_24"
                     android:textColor="@color/color_222222"
-                    android:layout_marginTop="@dimen/px_14"/>
+                    android:layout_marginTop="@dimen/px_14"
+                    android:singleLine="true"/>
 
             </RelativeLayout>
 

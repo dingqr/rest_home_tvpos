@@ -6,10 +6,13 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.TakeOutListEntity;
 import com.yonyou.hhtpos.interactor.ITakeOutListInteractor;
 import com.yonyou.hhtpos.interactor.Impl.TakeOutListInteractorImpl;
 import com.yonyou.hhtpos.presenter.ITakeOutListPresenter;
 import com.yonyou.hhtpos.view.ITakeOutListView;
+
+import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/7/14 18:35
@@ -20,6 +23,7 @@ public class TakeOutListPresenterImpl implements ITakeOutListPresenter {
     private Context mContext;
     private ITakeOutListView mTakeOutListView;
     private ITakeOutListInteractor mTakeOutListInteractor;
+    private boolean isRefresh;
 
     public TakeOutListPresenterImpl(Context mContext, ITakeOutListView mTakeOutListView) {
         this.mContext = mContext;
@@ -28,17 +32,20 @@ public class TakeOutListPresenterImpl implements ITakeOutListPresenter {
     }
 
     @Override
-    public void requestTakeOutList(String companyId, String salesMode, String shopId) {
-        mTakeOutListView.showLoading(mContext.getString(R.string.network_loading));
+    public void requestTakeOutList(String companyId, String salesMode, String shopId, boolean isRefresh, boolean isEmpty) {
+        this.isRefresh = isRefresh;
+        if (isEmpty){
+            mTakeOutListView.showLoading(mContext.getString(R.string.network_loading));
+        }
         mTakeOutListInteractor.requestTakeOutList(companyId, salesMode, shopId);
     }
 
-    private class TakeOutListListener implements BaseLoadedListener<String> {
+    private class TakeOutListListener implements BaseLoadedListener<List<TakeOutListEntity>> {
 
         @Override
-        public void onSuccess(int event_tag, String bean) {
+        public void onSuccess(int event_tag, List<TakeOutListEntity> dataList) {
             mTakeOutListView.hideLoading();
-            mTakeOutListView.requestTakeOutList();
+            mTakeOutListView.requestTakeOutList(dataList, isRefresh);
         }
 
         @Override

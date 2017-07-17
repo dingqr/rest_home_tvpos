@@ -2,11 +2,15 @@ package com.yonyou.hhtpos.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.application.MyApplication;
+import com.yonyou.hhtpos.dialog.DIA_Navigation;
 
 import butterknife.Bind;
 
@@ -14,8 +18,10 @@ import butterknife.Bind;
  * 多重布局基类
  * 作者：liushuofei on 2017/6/23 09:29
  */
-public abstract class ACT_BaseMultiple extends BaseActivity {
+public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnClickListener{
 
+    @Bind(R.id.iv_menu)
+    ImageView mMenuImg;
     @Bind(R.id.fl_left)
     protected FrameLayout flLeft;
     @Bind(R.id.fl_right)
@@ -45,6 +51,8 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
         FragmentTransaction rightTrans = getSupportFragmentManager().beginTransaction();
         rightTrans.add(R.id.fl_right, getRightContent());
         rightTrans.commitAllowingStateLoss();
+
+        mMenuImg.setOnClickListener(this);
     }
 
     protected abstract void initView();
@@ -54,4 +62,17 @@ public abstract class ACT_BaseMultiple extends BaseActivity {
     protected abstract Fragment getLeftContent();
 
     protected abstract Fragment getRightContent();
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_menu:
+                DIA_Navigation dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
+                dia_navigation.getDialog().show();
+                break;
+
+            default:
+                break;
+        }
+    }
 }

@@ -2,12 +2,14 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.TakeOutListEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.ITakeOutListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/7/14 18:35
@@ -27,11 +29,11 @@ public class TakeOutListInteractorImpl implements ITakeOutListInteractor {
         hashMap.put("companyId", companyId);
         hashMap.put("salesMode", salesMode);
         hashMap.put("shopId", shopId);
-        RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_LIST, hashMap, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_LIST, hashMap, new ReqCallBack<List<TakeOutListEntity>>() {
 
             @Override
-            public void onReqSuccess(String bean) {
-                takeOutListListener.onSuccess(0,bean);
+            public void onReqSuccess(List<TakeOutListEntity> dataList) {
+                takeOutListListener.onSuccess(0, dataList);
             }
 
             @Override

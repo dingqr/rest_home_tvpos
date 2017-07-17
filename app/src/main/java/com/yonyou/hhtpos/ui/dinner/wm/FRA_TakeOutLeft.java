@@ -9,6 +9,10 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.TakeOutFragmentAdapter;
+import com.yonyou.hhtpos.bean.WMOpenOrderEntity;
+import com.yonyou.hhtpos.presenter.ITakeOutPresenter;
+import com.yonyou.hhtpos.presenter.Impl.TakeOutPresenterImpl;
+import com.yonyou.hhtpos.view.ITakeOutView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -17,7 +21,7 @@ import butterknife.Bind;
  * 外卖左侧fragment
  * 作者：liushuofei on 2017/7/6 10:46
  */
-public class FRA_TakeOutLeft extends BaseFragment {
+public class FRA_TakeOutLeft extends BaseFragment implements ITakeOutView{
 
     @Bind(R.id.psts_tab)
     PagerSlidingTabStrip mTab;
@@ -36,6 +40,9 @@ public class FRA_TakeOutLeft extends BaseFragment {
     public static final int RB_PLACE_ORDER = 2;
     public static final int RB_CHECKED_OUT = 3;
     public static final int RB_REFUNDED = 4;
+
+    /**中间者 */
+    private ITakeOutPresenter mTakeOutPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -62,6 +69,9 @@ public class FRA_TakeOutLeft extends BaseFragment {
         setVpAdapter();
 
         initSlidingTab();
+
+        mTakeOutPresenter = new TakeOutPresenterImpl(mContext, this);
+        mTakeOutPresenter.openOrder(new WMOpenOrderEntity());
     }
 
     private void setVpAdapter() {
@@ -119,4 +129,8 @@ public class FRA_TakeOutLeft extends BaseFragment {
 
     }
 
+    @Override
+    public void openOrder() {
+
+    }
 }

@@ -1,7 +1,6 @@
 package com.yonyou.hhtpos.ui.login;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,12 +22,11 @@ import com.yonyou.framework.library.common.utils.Validator;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.db.entity.UserEntity;
-import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ILoginPresenter;
 import com.yonyou.hhtpos.presenter.Impl.LoginPresenterImpl;
 import com.yonyou.hhtpos.ui.activation.ACT_VerifyPhone;
 import com.yonyou.hhtpos.ui.home.ACT_Home;
-import com.yonyou.hhtpos.util.Constants;
+import com.yonyou.hhtpos.util.SpUtil;
 import com.yonyou.hhtpos.view.ILoginView;
 
 import butterknife.Bind;
@@ -82,9 +80,8 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     @Override
     protected void initViewsAndEvents() {
         sharePre = new AppSharedPreferences(mContext);
-        userPhone = sharePre.getString(Constants.DataBean);
-        userToken = sharePre.getString(Constants.DataTitle);
-        if (userToken != null) {
+        userToken = sharePre.getString(SpUtil.USER_TOKEN);
+        if (!TextUtils.isEmpty(userToken)) {
             readyGoThenKill(ACT_Home.class);
         } else {
             mPresenter = new LoginPresenterImpl(this.getContext(), this);
@@ -243,20 +240,9 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     public void login(UserEntity dataBean) {
         if (null != dataBean) {
             //保存用户信息
-            sharePre.putString(Constants.DataTitle, StringUtil.getString(dataBean.token));
-            sharePre.putBoolean(Constants.DataBooleanBean, false);//清空之前的注销登录信息
-            Constants.TOKEN = dataBean.token;
+            sharePre.putString(SpUtil.USER_TOKEN, StringUtil.getString(dataBean.token));
         }
 
-        //登录成功后,发送一个广播
-        sendBroadcast(ReceiveConstants.LOGIN_SUCCESS);
-
-    }
-
-    @Override
-    protected void onReceiveBroadcast(int intent, Bundle bundle) {
-        if (intent == ReceiveConstants.LOGIN_SUCCESS) {
-            readyGoThenKill(ACT_Home.class);
-        }
+        readyGoThenKill(ACT_Home.class);
     }
 }

@@ -16,7 +16,7 @@ import com.yonyou.hhtpos.base.ADA_BaseRcyclerView;
 public class AdapterUtil {
 
     // 默认的每页加载条数
-    public static final int  DEFAULT_PAGE_SIZE = 20;
+    public static final int DEFAULT_PAGE_SIZE = 60;
 
     /**
      * 获取加载更多页数
