@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/item_discount_root"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_96"
+        android:layout_marginBottom="@dimen/px_20"
+        android:background="@drawable/bg_discount_available">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/px_96"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/px_24">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/px_10"
+                android:text="年中店庆"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/px_30" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="酒水不参与打折"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/px_20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px_56">
+
+            <TextView
+                android:id="@+id/tv_discount_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:textColor="@color/color_56C16F"
+                android:textSize="@dimen/sp_60" />
+
+            <TextView
+                android:id="@+id/tv_discount_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="折"
+                android:textColor="@color/color_56C16F"
+                android:textSize="@dimen/sp_20" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

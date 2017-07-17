@@ -9,7 +9,7 @@ import java.util.List;
  * 描述：外卖-菜品实体
  */
 public class DishDataEntity implements Serializable {
-    List<DishTypesEntity> dishTypesList;
+    public List<DishTypesEntity> dishTypes;
 
     public DishDataEntity() {
     }
@@ -17,7 +17,7 @@ public class DishDataEntity implements Serializable {
     @Override
     public String toString() {
         return "DishDataEntity{" +
-                "dishTypesList=" + dishTypesList +
+                "dishTypesList=" + dishTypes +
                 '}';
     }
 }

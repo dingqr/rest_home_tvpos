@@ -139,6 +139,7 @@
     <dimen name="px_318">212dp</dimen>
     <dimen name="px_380">253.3dp</dimen>
     <dimen name="px_390">260dp</dimen>
+    <dimen name="px_400">266.6dp</dimen>
     <dimen name="px_450">300dp</dimen>
     <dimen name="px_460">306.6dp</dimen>
     <dimen name="px_560">373.3dp</dimen>
@@ -195,6 +196,8 @@
     <dimen name="sp_40">26.6sp</dimen>
     <dimen name="sp_45">30sp</dimen>
     <dimen name="sp_50">33.3sp</dimen>
+    <dimen name="sp_60">40sp</dimen>
+
 
     <!--WheelView-->
     <!-- 选项文字大小 需要配合 bools.xml 的 pickerview_customTextSize 为 true 才有效果-->

@@ -18,6 +18,7 @@ import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.DishTypeEntity;
 import com.yonyou.hhtpos.bean.RightTitleEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
+import com.yonyou.hhtpos.dialog.DIA_Discount;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
@@ -66,6 +67,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
     private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     private String shopId = "C13352966C000000A60000000016E000";
+    //菜品/菜类实体
+    private DishDataEntity mDishDataBean;
 
     @Override
     protected void onFirstUserVisible() {
@@ -157,6 +160,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
 
             }
         });
+        mRightNavigationView.getBottomTitle().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DIA_Discount(mContext).show();
+            }
+        });
     }
 
     /**
@@ -236,7 +245,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
 
     @Override
     public void getAllDishes(DishDataEntity dishDataEntity) {
-
+        this.mDishDataBean = dishDataEntity;
     }
 
 }

@@ -39,7 +39,7 @@ public class DIA_ReturnForegift {
         mContext = context;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         mContentView = LayoutInflater.from(context).inflate(R.layout.dia_return_foregift, null);
-        ButterKnife.bind(mContentView);
+        ButterKnife.bind(this,mContentView);
         numberGridView = (NumberKeybordView) mContentView.findViewById(R.id.number_keybord_view);
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
         mDialog.setContentView(mContentView);

@@ -77,10 +77,10 @@ public class FRA_TakeOutDetail extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                Log.e("TAG", "firstVisibleItem="+firstVisibleItem);
+                Log.e("TAG", "firstVisibleItem=" + firstVisibleItem);
                 if (firstVisibleItem >= 1) {
                     suspension_title.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     suspension_title.setVisibility(View.GONE);
                 }
             }
@@ -99,8 +99,7 @@ public class FRA_TakeOutDetail extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-//        return R.layout.fra_take_out_detail;
-        return 0;
+        return R.layout.fra_take_out_detail;
     }
 
     @Override

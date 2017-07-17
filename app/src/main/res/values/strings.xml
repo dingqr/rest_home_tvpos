@@ -258,5 +258,11 @@
     <string name="string_time_second">分</string>
     <string name="string_check_out_cash">现金（现金类）</string>
     <string name="string_receive_money">收到钱</string>
+    <string name="string_discount">折扣</string>
+    <string name="hint_input_discount_percent">请输入百分比</string>
+    <string name="string_all_sigle_discount">全单折</string>
+    <string name="string_discount_reason">折扣原因：</string>
+    <string name="string_use_discount">使用折扣</string>
+    <string name="sting_clear_discount_setting">清空折扣设置</string>
 
 </resources>

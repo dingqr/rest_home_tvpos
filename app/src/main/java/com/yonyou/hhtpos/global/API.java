@@ -71,4 +71,8 @@ public class API {
      * 点菜-获取所有菜品/菜类
      */
     public static final String URL_GET_ALL_DISHES = BASE_SERVER_SHOP + "/prodish/getalldishs";
+    /**
+     * 外带订单详情
+     */
+    public static final String URL_WD_ORDER_DETAIL = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOrderDetail";
 }

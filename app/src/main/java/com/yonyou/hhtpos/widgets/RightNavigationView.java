@@ -101,12 +101,12 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
                 rightListView.getRLAdapter().setSelectItem(-1);
                 rightListView.getRLAdapter().notifyDataSetChanged();
                 break;
-            case R.id.ll_bottom_title:
-                bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
-                headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
-                rightListView.getRLAdapter().setSelectItem(-1);
-                rightListView.getRLAdapter().notifyDataSetChanged();
-                break;
+//            case R.id.ll_bottom_title:
+//                bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
+//                headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+//                rightListView.getRLAdapter().setSelectItem(-1);
+//                rightListView.getRLAdapter().notifyDataSetChanged();
+//                break;
         }
     }
 
