@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.PackingListBean;
 
@@ -77,6 +79,27 @@ public class ADA_PackingList extends BaseAbsAdapter<PackingListBean> {
                 }
             }
         });
+
+        if (null == bean)
+            return;
+
+        // 编号
+        position++;
+        //TODO: 单号都显示为#00001的格式，从后台获取数据并显示后五位
+        holder.mNumber.setText("#0000" + position);
+
+        // 价格
+        holder.mPrice.setText(mContext.getString(R.string.RMB_symbol) + bean.getBillMoney());
+
+        // 支付状态
+        // 时间
+        if (bean.getPayStatus().equals("Y")){
+            holder.mStatus.setText(mContext.getString(R.string.packing_status_checked_out));
+            holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getBillTime(), AppDateUtil.HH_MM));
+        }else {
+            holder.mStatus.setText(mContext.getString(R.string.packing_status_out_standing));
+            holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getOpentime(), AppDateUtil.HH_MM));
+        }
     }
 
     static class ViewHolder {

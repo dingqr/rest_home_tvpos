@@ -68,6 +68,21 @@ public class API {
     public static final String URL_TAKE_OUT_LIST = BASE_SERVER_SHOP + "/takeOut/orderList";
 
     /**
+     * 外带开单接口
+     */
+    public static final String URL_WD_OPEN_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOpenOrder";
+
+    /**
+     * 外带列表接口
+     */
+    public static final String URL_PACKING_LIST = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOrderList";
+
+    /**
+     * 已点菜品列表接口
+     */
+    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+
+    /**
      * 点菜-获取所有菜品/菜类
      */
     public static final String URL_GET_ALL_DISHES = BASE_SERVER_SHOP + "/prodish/getalldishs";

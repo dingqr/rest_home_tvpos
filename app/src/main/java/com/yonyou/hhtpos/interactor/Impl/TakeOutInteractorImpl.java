@@ -28,15 +28,15 @@ public class TakeOutInteractorImpl implements ITakeOutInteractor{
     public void openOrder(WMOpenOrderEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("address", StringUtil.getString(bean.getAddress()));
-        hashMap.put("companyId",StringUtil.getString(bean.getCompanyId()));
         hashMap.put("name",StringUtil.getString(bean.getName()));
         hashMap.put("personNum",StringUtil.getString(bean.getPersonNum()));
         hashMap.put("phone",StringUtil.getString(bean.getPhone()));
         hashMap.put("reserveTime",StringUtil.getString(bean.getReserveTime()));
-        hashMap.put("scheduleNameId",StringUtil.getString(bean.getScheduleNameId()));
         hashMap.put("sendNow",StringUtil.getString(bean.getSendNow()));
         hashMap.put("shopId",StringUtil.getString(bean.getShopId()));
         hashMap.put("takeOutCompanyId",StringUtil.getString(bean.getTakeOutCompanyId()));
+        hashMap.put("companyId","");
+        hashMap.put("scheduleNameId","");
 
         RequestManager.getInstance().requestPostByAsyn(API.URL_WM_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
             @Override

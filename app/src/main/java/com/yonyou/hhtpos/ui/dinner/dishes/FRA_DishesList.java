@@ -8,6 +8,12 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesList;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
+import com.yonyou.hhtpos.presenter.IDishListPresenter;
+import com.yonyou.hhtpos.presenter.Impl.DishListPresenterImpl;
+import com.yonyou.hhtpos.view.IDishListView;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -15,12 +21,15 @@ import butterknife.Bind;
  * 已点菜品列表
  * 作者：liushuofei on 2017/7/11 10:48
  */
-public class FRA_DishesList extends BaseFragment {
+public class FRA_DishesList extends BaseFragment implements IDishListView{
 
     @Bind(R.id.lv_dishes)
     ListView mListView;
 
     private ADA_DishesList mAdapter;
+
+    /**中间者 */
+    private IDishListPresenter mDishListPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -51,9 +60,12 @@ public class FRA_DishesList extends BaseFragment {
         mListView.setAdapter(mAdapter);
 
         // 假数据
-        for (int i = 0; i < 10; i++){
-            mAdapter.update("");
-        }
+//        for (int i = 0; i < 10; i++){
+//            mAdapter.update("");
+//        }
+
+        mDishListPresenter = new DishListPresenterImpl(mContext, this);
+        mDishListPresenter.requestDishList("");
     }
 
     @Override
@@ -73,6 +85,11 @@ public class FRA_DishesList extends BaseFragment {
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void requestDishList(List<DishListEntity> dataList) {
 
     }
 }

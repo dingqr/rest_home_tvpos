@@ -51,7 +51,8 @@ public class ACT_OrderDishes extends BaseActivity {
         FragmentTransaction leftTrans = getSupportFragmentManager().beginTransaction();
         leftTrans.add(R.id.fl_left, mDishesLeft);
         leftTrans.commitAllowingStateLoss();
-        // 替换left fragment
+
+        // 替换right fragment
         FragmentTransaction rightTrans = getSupportFragmentManager().beginTransaction();
         rightTrans.add(R.id.fl_right, new FRA_OrderDishes());
         rightTrans.commitAllowingStateLoss();

@@ -17,14 +17,14 @@ import butterknife.Bind;
  * 作者：liushuofei on 2017/7/3 19:38
  * 邮箱：lsf@yonyou.com
  */
-public class DIA_TakeOutInfo extends DIA_Base implements View.OnClickListener{
+public class DIA_WDOpenOrder extends DIA_Base implements View.OnClickListener{
 
     @Bind(R.id.tv_dialog_title)
     TextView mDialogTitle;
     @Bind(R.id.iv_close)
     ImageView mClose;
 
-    public DIA_TakeOutInfo(Context context) {
+    public DIA_WDOpenOrder(Context context) {
         super(context);
     }
 

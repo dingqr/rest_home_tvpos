@@ -3,17 +3,24 @@ package com.yonyou.hhtpos.ui.dinner.wd;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
+import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
+import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutDetail;
+
+import butterknife.Bind;
 
 /**
  * 外带页面
  * 作者：liushuofei on 2017/7/4 16:41
  */
-public class ACT_Packing extends ACT_BaseMultiple implements View.OnClickListener {
+public class ACT_Packing extends ACT_BaseMultiple implements View.OnClickListener{
 
     private FRA_PackingLeft mTakeOutLeft;
 

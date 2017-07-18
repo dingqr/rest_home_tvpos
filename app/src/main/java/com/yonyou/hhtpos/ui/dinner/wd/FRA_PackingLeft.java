@@ -9,6 +9,9 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
+import com.yonyou.hhtpos.presenter.IPackingLeftPresenter;
+import com.yonyou.hhtpos.presenter.Impl.PackingLeftPresenterImpl;
+import com.yonyou.hhtpos.view.IPackingLeftView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -17,7 +20,7 @@ import butterknife.Bind;
  * 外带列表左侧布局（viewpager + fragment）
  * 作者：liushuofei on 2017/7/4 16:47
  */
-public class FRA_PackingLeft extends BaseFragment {
+public class FRA_PackingLeft extends BaseFragment implements IPackingLeftView{
 
     @Bind(R.id.vp_order)
     ViewPager mViewPager;
@@ -34,6 +37,9 @@ public class FRA_PackingLeft extends BaseFragment {
     public static final int RB_ALL = 0;
     public static final int RB_OUT_STANDING = 1;
     public static final int RB_CHECKED_OUT = 2;
+
+    /**中间者 */
+    private IPackingLeftPresenter mPackingLeftPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -60,6 +66,8 @@ public class FRA_PackingLeft extends BaseFragment {
         setVpAdapter();
 
         initSlidingTab();
+
+        mPackingLeftPresenter = new PackingLeftPresenterImpl(mContext, this);
     }
 
     private void setVpAdapter() {
@@ -114,6 +122,11 @@ public class FRA_PackingLeft extends BaseFragment {
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void openOrder() {
 
     }
 }

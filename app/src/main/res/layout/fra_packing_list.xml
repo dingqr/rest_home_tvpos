@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lv_packing"
+    <com.yonyou.framework.library.widgets.ESwipeRefreshLayout
+        android:id="@+id/srl_packing"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null">
-    </ListView>
+        android:layout_height="match_parent">
+
+        <com.yonyou.framework.library.widgets.pla.PLALoadMoreListView
+            android:id="@+id/pla_lv_packing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dp"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:plaColumnNumber="1"
+            app:plaContentBackground="@color/color_f5f5f5" />
+    </com.yonyou.framework.library.widgets.ESwipeRefreshLayout>
 
 </LinearLayout>

@@ -71,7 +71,17 @@ public class FRA_TakeOutLeft extends BaseFragment implements ITakeOutView{
         initSlidingTab();
 
         mTakeOutPresenter = new TakeOutPresenterImpl(mContext, this);
-        mTakeOutPresenter.openOrder(new WMOpenOrderEntity());
+
+        WMOpenOrderEntity bean = new WMOpenOrderEntity();
+        bean.setTakeOutCompanyId("C4BECEC6040000008000000000296000");
+        bean.setName("小点的王");
+        bean.setPhone("13466668888");
+        bean.setAddress("海淀区苏州街维亚大厦");
+        bean.setPersonNum("3");
+        bean.setReserveTime("2017-7-18 15:30:23");
+        bean.setSendNow("Y");
+        bean.setShopId("C482CE78AC000000AA8000000003A000");
+        mTakeOutPresenter.openOrder(bean);
     }
 
     private void setVpAdapter() {

@@ -11,9 +11,6 @@ public class WMOpenOrderEntity implements Serializable {
     /**地址 */
     private String address;
 
-    /**公司id */
-    private String companyId;
-
     /**姓名 */
     private String name;
 
@@ -25,9 +22,6 @@ public class WMOpenOrderEntity implements Serializable {
 
     /**预约时间 */
     private String reserveTime;
-
-    /**市别 */
-    private String scheduleNameId;
 
     /**是否立即送餐 */
     private String sendNow;
@@ -44,14 +38,6 @@ public class WMOpenOrderEntity implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
     }
 
     public String getName() {
@@ -86,14 +72,6 @@ public class WMOpenOrderEntity implements Serializable {
         this.reserveTime = reserveTime;
     }
 
-    public String getScheduleNameId() {
-        return scheduleNameId;
-    }
-
-    public void setScheduleNameId(String scheduleNameId) {
-        this.scheduleNameId = scheduleNameId;
-    }
-
     public String getSendNow() {
         return sendNow;
     }
@@ -116,5 +94,19 @@ public class WMOpenOrderEntity implements Serializable {
 
     public void setTakeOutCompanyId(String takeOutCompanyId) {
         this.takeOutCompanyId = takeOutCompanyId;
+    }
+
+    @Override
+    public String toString() {
+        return "WMOpenOrderEntity{" +
+                "address='" + address + '\'' +
+                ", name='" + name + '\'' +
+                ", personNum='" + personNum + '\'' +
+                ", phone='" + phone + '\'' +
+                ", reserveTime='" + reserveTime + '\'' +
+                ", sendNow='" + sendNow + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", takeOutCompanyId='" + takeOutCompanyId + '\'' +
+                '}';
     }
 }

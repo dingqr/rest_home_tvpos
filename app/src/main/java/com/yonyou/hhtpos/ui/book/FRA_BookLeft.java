@@ -10,7 +10,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PreviewFragmentAdapter;
 import com.yonyou.hhtpos.dialog.DIA_Calendar;
-import com.yonyou.hhtpos.dialog.DIA_TakeOutInfo;
+import com.yonyou.hhtpos.dialog.DIA_WDOpenOrder;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -132,7 +132,7 @@ public class FRA_BookLeft extends BaseFragment {
             case R.id.tv_tomorrow:
 //                DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, "说明当前状态、提示用户解决方案，最好不要超过两行", this);
 //                dia_doubleConfirm.getDialog().show();
-                DIA_TakeOutInfo dia_takeOutInfo = new DIA_TakeOutInfo(mContext);
+                DIA_WDOpenOrder dia_takeOutInfo = new DIA_WDOpenOrder(mContext);
                 dia_takeOutInfo.getDialog().show();
                 break;
             case R.id.tv_date:
