@@ -32,12 +32,12 @@ public class PackingListPresenterImpl implements IPackingListPresenter {
     }
 
     @Override
-    public void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize, boolean isRefresh, boolean isEmpty) {
+    public void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize, String payStatus, boolean isRefresh, boolean isEmpty) {
         this.isRefresh = isRefresh;
         if (isEmpty){
             mPackingListView.showLoading(mContext.getString(R.string.network_loading));
         }
-        mPackingListInteractor.requestPackingList(billNo, salesMode, shopId, pageNum, pageSize);
+        mPackingListInteractor.requestPackingList(billNo, salesMode, shopId, pageNum, pageSize, payStatus);
     }
 
     private class PackingListListener implements BaseLoadedListener<List<PackingListBean>> {

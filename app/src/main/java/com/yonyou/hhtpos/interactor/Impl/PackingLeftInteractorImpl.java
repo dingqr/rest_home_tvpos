@@ -28,15 +28,16 @@ public class PackingLeftInteractorImpl implements IPackingLeftInteractor {
     public void openOrder(WDOpenOrderEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("mobileNo", bean.getMobileNo());
+        hashMap.put("personNum", bean.getPersonNum());
         hashMap.put("salesMode", bean.getSalesMode());
         hashMap.put("shopId", bean.getShopId());
         hashMap.put("tableId", bean.getTableId());
         hashMap.put("waiterId", bean.getWaiterId());
         hashMap.put("waiterName", bean.getWaiterName());
-        RequestManager.getInstance().requestPostByAsyn(API.URL_WD_OPEN_ORDER, hashMap, new ReqCallBack<List<PackingListBean>>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_WD_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
 
             @Override
-            public void onReqSuccess(List<PackingListBean> dataList) {
+            public void onReqSuccess(String dataList) {
                 packingLeftListener.onSuccess(0, dataList);
             }
 

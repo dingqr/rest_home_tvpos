@@ -47,6 +47,7 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
     /**传入数据 */
     public static final String TYPE = "type";
     private int type;
+    private String payStatus;
 
     private List<PackingListBean> dataList;
     private ADA_PackingList mAdapter;
@@ -88,6 +89,9 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
 
     @Override
     protected void initViewsAndEvents() {
+        type = getArguments().getInt(TYPE);
+        getPayStatus();
+
         // 加载中的4种颜色
         srlPacking.setColorSchemeColors(
                 ContextCompat.getColor(mContext, R.color.gplus_color_1),
@@ -98,16 +102,36 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
 
         mAdapter = new ADA_PackingList(mContext);
         plaLvPacking.setAdapter(mAdapter);
+        plaLvPacking.setOnLoadMoreListener(this);
 
         mPackingListPresenter = new PackingListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), false, true);
+            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
         }else {
             // reset refresh state
             if (null != srlPacking) {
                 srlPacking.setRefreshing(false);
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
+    }
+
+    private void getPayStatus(){
+        switch (type){
+            case 0:
+                payStatus = "";
+                break;
+
+            case 1:
+                payStatus = "N";
+                break;
+
+            case 2:
+                payStatus = "Y";
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -161,7 +185,7 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
         plaLvPacking.setCanLoadMore(true);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht",DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), true, false);
+            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht",DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
         }else {
             // reset refresh state
             if (null != srlPacking) {
@@ -177,7 +201,7 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
         mCurrentPage = AdapterUtil.getPage(mAdapter, AdapterUtil.DEFAULT_PAGE_SIZE);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), true, false);
+            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, false);
         }else {
             // reset load more state
             if (null != plaLvPacking) {

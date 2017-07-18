@@ -1,13 +1,17 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
+import android.text.TextUtils;
+
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.PackingListBean;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IPackingListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/7/17 16:39
@@ -22,17 +26,21 @@ public class PackingListInteractorImpl implements IPackingListInteractor{
     }
 
     @Override
-    public void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize) {
+    public void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize, String payStatus) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("billNo", billNo);
         hashMap.put("salesMode", salesMode);
         hashMap.put("shopId", shopId);
         hashMap.put("pageNum", pageNum);
         hashMap.put("pageSize", pageSize);
-        RequestManager.getInstance().requestPostByAsyn(API.URL_PACKING_LIST, hashMap, new ReqCallBack<String>() {
+
+        if (!TextUtils.isEmpty(payStatus)){
+            hashMap.put("payStatus", payStatus);
+        }
+        RequestManager.getInstance().requestPostByAsyn(API.URL_PACKING_LIST, hashMap, new ReqCallBack<List<PackingListBean>>() {
 
             @Override
-            public void onReqSuccess(String dataList) {
+            public void onReqSuccess(List<PackingListBean> dataList) {
                 packingListListener.onSuccess(0, dataList);
             }
 

@@ -9,8 +9,10 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
+import com.yonyou.hhtpos.bean.WDOpenOrderEntity;
 import com.yonyou.hhtpos.presenter.IPackingLeftPresenter;
 import com.yonyou.hhtpos.presenter.Impl.PackingLeftPresenterImpl;
+import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IPackingLeftView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
@@ -68,6 +70,15 @@ public class FRA_PackingLeft extends BaseFragment implements IPackingLeftView{
         initSlidingTab();
 
         mPackingLeftPresenter = new PackingLeftPresenterImpl(mContext, this);
+        WDOpenOrderEntity bean = new WDOpenOrderEntity();
+        bean.setShopId("hht");
+        bean.setMobileNo("13671205992");
+        bean.setSalesMode(SalesModeUtil.SALES_MODE_WD);
+        bean.setTableId("0001");
+        bean.setWaiterId("0001");
+        bean.setWaiterName("王五");
+        bean.setPersonNum("4");
+        mPackingLeftPresenter.openOrder(bean);
     }
 
     private void setVpAdapter() {

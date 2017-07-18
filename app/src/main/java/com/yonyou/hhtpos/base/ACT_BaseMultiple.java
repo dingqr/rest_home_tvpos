@@ -27,6 +27,9 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
     @Bind(R.id.fl_right)
     protected FrameLayout flRight;
 
+    /**左侧导航栏 */
+    private DIA_Navigation dia_navigation;
+
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_base_multiple;
@@ -55,6 +58,27 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
         mMenuImg.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_menu:
+                dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
+                dia_navigation.getDialog().show();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void finish() {
+        if (null != dia_navigation){
+            dia_navigation.getDialog().dismiss();
+        }
+        super.finish();
+    }
+
     protected abstract void initView();
 
     protected abstract float getLeftWeight();
@@ -63,16 +87,4 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
 
     protected abstract Fragment getRightContent();
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_menu:
-                DIA_Navigation dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
-                dia_navigation.getDialog().show();
-                break;
-
-            default:
-                break;
-        }
-    }
 }

@@ -13,6 +13,7 @@ public interface IPackingListInteractor {
      * @param shopId 门店Id
      * @param pageNum 页数
      * @param pageSize 每页显示数量
+     * @param payStatus 付款状态
      */
-    void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize);
+    void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize, String payStatus);
 }

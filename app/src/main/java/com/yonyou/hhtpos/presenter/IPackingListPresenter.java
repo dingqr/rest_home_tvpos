@@ -13,8 +13,9 @@ public interface IPackingListPresenter {
      * @param shopId 门店Id
      * @param pageNum 页数
      * @param pageSize 每页显示数量
+     * @param payStatus 付款状态
      * @param isRefresh 是否为刷新
      * @param isEmpty 是否为空页面
      */
-    void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize, boolean isRefresh, boolean isEmpty);
+    void requestPackingList(String billNo, String salesMode, String shopId, String pageNum, String pageSize, String payStatus, boolean isRefresh, boolean isEmpty);
 }

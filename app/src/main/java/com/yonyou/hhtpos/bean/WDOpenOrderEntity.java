@@ -10,6 +10,8 @@ public class WDOpenOrderEntity implements Serializable {
 
     /**会员手机号 */
     private String mobileNo;
+    /**就餐人数 */
+    private String personNum;
     /**销售模式 */
     private String salesMode;
     /**门店Id */
@@ -20,6 +22,14 @@ public class WDOpenOrderEntity implements Serializable {
     private String waiterId;
     /**服务员名称 */
     private String waiterName;
+
+    public String getPersonNum() {
+        return personNum;
+    }
+
+    public void setPersonNum(String personNum) {
+        this.personNum = personNum;
+    }
 
     public String getMobileNo() {
         return mobileNo;
@@ -73,6 +83,7 @@ public class WDOpenOrderEntity implements Serializable {
     public String toString() {
         return "WDOpenOrderEntity{" +
                 "mobileNo='" + mobileNo + '\'' +
+                ", personNum='" + personNum + '\'' +
                 ", salesMode='" + salesMode + '\'' +
                 ", shopId='" + shopId + '\'' +
                 ", tableId='" + tableId + '\'' +

@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +85,10 @@ public class ADA_PackingList extends BaseAbsAdapter<PackingListBean> {
             return;
 
         // 编号
-        position++;
-        //TODO: 单号都显示为#00001的格式，从后台获取数据并显示后五位
-        holder.mNumber.setText("#0000" + position);
+        String billNo = bean.getBillNo();
+        if (!TextUtils.isEmpty(billNo) && billNo.length() > 5){
+            holder.mNumber.setText(mContext.getString(R.string.well_no) + billNo.substring(billNo.length() - 5, billNo.length()));
+        }
 
         // 价格
         holder.mPrice.setText(mContext.getString(R.string.RMB_symbol) + bean.getBillMoney());

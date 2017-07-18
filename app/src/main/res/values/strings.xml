@@ -197,6 +197,7 @@
     <string name="change">换一换(1/2)</string>
     <string name="order_overdue">预约过期关闭</string>
     <string name="RMB_symbol">¥</string>
+    <string name="well_no">#</string>
     <string name="big_part">[大份]</string>
 
     <!--点菜-->

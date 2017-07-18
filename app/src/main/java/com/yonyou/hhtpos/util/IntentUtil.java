@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -57,6 +58,6 @@ public class IntentUtil {
             context.startActivity(new Intent(context, ACT_ReserveTableQuery.class));
         }
 
-        //((Activity)context).finish();
+        ((Activity)context).finish();
     }
 }
