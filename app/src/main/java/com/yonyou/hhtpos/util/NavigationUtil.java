@@ -20,11 +20,16 @@ public class NavigationUtil {
             {"预定申请", "预定总览", "桌台预定查询"},
             {}
     };
-    private static final String[] mDishTypes = {"招牌必吃", "热饭菜", "凉菜", "热菜", "蒸煮", "甜品", "主食", "热饮", "冷饮","泡菜","辣菜","招牌必吃", "热饭菜", "凉菜", "热菜"};
+    private static final String[] mDishTypes = {"招牌必吃", "热饭菜", "凉菜", "热菜", "蒸煮", "甜品", "主食", "热饮", "冷饮", "泡菜", "辣菜", "招牌必吃", "热饭菜", "凉菜", "热菜"};
     //一级菜单数据
     private static List<String> mGroupData = new ArrayList<>();
     //二级菜单数据
     private static List<List<String>> mChildData = new ArrayList<>();
+    //时
+    private static String[] hours = {"14", "15", "16", "17", "18"};
+
+    //分
+    private static String[] seconds = {"00", "15", "30", "45", "55"};
 
     /**
      * 默认父数据
@@ -67,5 +72,25 @@ public class NavigationUtil {
         return dataList;
     }
 
+    /**
+     * 传入数据
+     */
+    public static ArrayList<String> getDefaultHourData() {
+        ArrayList<String> mHoursList = new ArrayList<>();
+        for (int i = 0; i < hours.length; i++) {
+            mHoursList.add(hours[i]);
+        }
+        return mHoursList;
+    }
+    /**
+     * 传入数据
+     */
+    public static ArrayList<String> getDefaultSecondData() {
+        ArrayList<String> mSecondList = new ArrayList<>();
+        for (int i = 0; i < seconds.length; i++) {
+            mSecondList.add(seconds[i]);
+        }
+        return mSecondList;
+    }
 
 }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.RightTitleEntity;
+import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +27,13 @@ import java.util.List;
  */
 public class ADA_RightTitle extends BaseAdapter {
     private Context mContext;
-    private List<RightTitleEntity> mDishTypes = new ArrayList<>();
+    private List<DishTypesEntity> mDishTypes = new ArrayList<>();
     private int mSelectedPos;
     private boolean isRefreshCount;
     //标记是否是因为刷新造成的滑动，去掉滑动右侧标题栏的刷新影响
     private boolean isRefresh;
 
-    public ADA_RightTitle(Context context, List<RightTitleEntity> datas) {
+    public ADA_RightTitle(Context context, List<DishTypesEntity> datas) {
         this.mContext = context;
         this.mDishTypes = datas;
     }
@@ -67,14 +67,14 @@ public class ADA_RightTitle extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        //设置初始值
-        holder.tv_title.setText(mDishTypes.get(position).name);
+//        //设置初始值
+        holder.tv_title.setText(mDishTypes.get(position).dishTypeName);
         holder.tv_count.setText(StringUtil.getString(mDishTypes.get(position).count));
 
         //更新右上角标的数量
         if (isRefreshCount) {
             holder.rlBadgt.setVisibility(View.VISIBLE);
-            holder.tv_title.setText(mDishTypes.get(position).name);
+            holder.tv_title.setText(mDishTypes.get(position).dishTypeName);
             String s = holder.tv_count.getText().toString();
             if (!TextUtils.isEmpty(s)) {
                 holder.tv_count.setText(Integer.parseInt(s) + 1 + "");
@@ -94,7 +94,7 @@ public class ADA_RightTitle extends BaseAdapter {
                 holder.right_line.setVisibility(View.GONE);
             }
         }
-        //控制角标是否显示
+//        //控制角标是否显示
         if (holder.tv_count.getText().equals("0")) {
             holder.rlBadgt.setVisibility(View.INVISIBLE);
         } else {
@@ -108,6 +108,7 @@ public class ADA_RightTitle extends BaseAdapter {
      *
      * @param position
      */
+
     public void setSelectItem(int position) {
         this.mSelectedPos = position;
     }
@@ -131,8 +132,8 @@ public class ADA_RightTitle extends BaseAdapter {
         int end = listView.getLastVisiblePosition();
         if (listView != null) {
             for (int i = 0; i < listView.getAdapter().getCount(); i++) {
-                RightTitleEntity dishType = (RightTitleEntity) listView.getItemAtPosition(i);
-                if (id.equals(dishType.id)) {
+                DishTypesEntity dishTypesEntity = (DishTypesEntity) listView.getItemAtPosition(i);
+                if (id.equals(dishTypesEntity.relateId)) {
                     //如果刷新的位置在可见范围内
                     if (i >= start && i <= end) {
                         View view = listView.getChildAt(i - start);
@@ -154,8 +155,8 @@ public class ADA_RightTitle extends BaseAdapter {
                         //单条刷新
                         int start = listView.getFirstVisiblePosition();
                         for (int i = start, j = listView.getLastVisiblePosition(); i <= j; i++) {
-                            RightTitleEntity dishType = (RightTitleEntity) listView.getItemAtPosition(i);
-                            if (id.equals(dishType.id)) {
+                            DishTypesEntity dishTypesEntity = (DishTypesEntity) listView.getItemAtPosition(i);
+                            if (id.equals(dishTypesEntity.relateId)) {
                                 View views = listView.getChildAt(i - start);
                                 isRefreshCount = true;
                                 getView(i, views, listView);
@@ -191,7 +192,7 @@ public class ADA_RightTitle extends BaseAdapter {
      *
      * @param mData
      */
-    public void refreshData(List<RightTitleEntity> mData) {
+    public void refreshData(List<DishTypesEntity> mData) {
         this.mDishTypes = mData;
         notifyDataSetChanged();
     }

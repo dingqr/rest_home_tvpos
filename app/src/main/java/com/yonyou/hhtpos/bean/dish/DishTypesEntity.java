@@ -37,4 +37,25 @@ public class DishTypesEntity {
      * 排序号
      */
     public String sortNo;
+    /**
+     * 角标数量
+     */
+    public int count;
+
+    public DishTypesEntity() {
+    }
+
+    @Override
+    public String toString() {
+        return "DishTypesEntity{" +
+                "companyId='" + companyId + '\'' +
+                ", dishTypeCode='" + dishTypeCode + '\'' +
+                ", dishTypeName='" + dishTypeName + '\'' +
+                ", dishes=" + dishes +
+                ", relateId='" + relateId + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", sortNo='" + sortNo + '\'' +
+                ", count=" + count +
+                '}';
+    }
 }

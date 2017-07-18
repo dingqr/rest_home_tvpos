@@ -16,7 +16,7 @@
         android:gravity="end">
 
         <TextView
-            android:id="@+id/tv_special_sign"
+            android:id="@+id/tv_label_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_special_side_16"
@@ -29,7 +29,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
-            android:id="@+id/tv_recommend_sign"
+            android:id="@+id/tv_label_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_10"

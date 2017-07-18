@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ArrayWheelAdapter;
+import com.yonyou.hhtpos.bean.DistributeTimeEntity;
+import com.yonyou.hhtpos.util.NavigationUtil;
 import com.yonyou.hhtpos.widgets.WheelView;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import butterknife.OnClick;
  * 描述：外卖开单选择时间弹窗页面
  */
 public class DIA_ChooseTime {
+
     @Bind(R.id.btn_cancel)
     TextView btnCancel;
     @Bind(R.id.btn_confirm)
@@ -36,42 +39,66 @@ public class DIA_ChooseTime {
     private View mContentView;
     private Dialog mDialog;
     private Context mContext;
-    private ArrayList<String> emptyList = new ArrayList<>();
-    private ArrayList<String> secondList = new ArrayList<>();
-    private ArrayList<String> hoursList = new ArrayList<>();
-
     //时
-    private String[] hours = {"14", "15", "16", "17", "18"};
-
+    private ArrayList<String> mHoursList = new ArrayList<>();
     //分
-    private String[] seconds = {"00", "15", "30", "45", "55"};
+    private ArrayList<String> mSecondList = new ArrayList<>();
 
-    public DIA_ChooseTime(Context context) {
-        mContext = context;
+    private final DistributeTimeEntity mTimeEntity;
+    private OnTimeSelectedListener mTimeSelectedListener;
+
+    public DIA_ChooseTime(Context context, ArrayList<String> hoursList, ArrayList<String> secondList) {
+        this.mContext = context;
+
+        if (hoursList != null && secondList != null) {
+            this.mHoursList = hoursList;
+            this.mSecondList = secondList;
+        } else {
+            //测试数据
+            mHoursList = NavigationUtil.getDefaultHourData();
+            mSecondList = NavigationUtil.getDefaultSecondData();
+        }
+
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         mContentView = LayoutInflater.from(context).inflate(R.layout.dia_wm_choose_time, null);
         ButterKnife.bind(this, mContentView);
         mDialog.setContentView(mContentView);
-        initData();
+
         //设置不无限滚动
         wheelHour.setCyclic(false);
         wheelSecond.setCyclic(false);
 
 
-        wheelHour.setAdapter(new ArrayWheelAdapter(hoursList, 0));
-        wheelSecond.setAdapter(new ArrayWheelAdapter(secondList, 0));
-//        wheel_zhanwei.setAdapter(new ArrayWheelAdapter(emptysList, 0));
+        wheelHour.setAdapter(new ArrayWheelAdapter(mHoursList, 0));
+        wheelSecond.setAdapter(new ArrayWheelAdapter(mSecondList, 0));
 
-//        //设置初始值
-//        wheelMonth.setCurrentItem(0);
-//        selectedReason = refoundReasons.get(wheelMonth.getCurrentItem());
-//        //选中后的回调
-//        wheelMonth.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(int index) {
-//                selectedReason = refoundReasons.get(index);
-//            }
-//        });
+        //设置初始值
+        wheelHour.setCurrentItem(0);
+        wheelSecond.setCurrentItem(0);
+        mTimeEntity = new DistributeTimeEntity();
+        mTimeEntity.hour = mHoursList.get(wheelHour.getCurrentItem());
+        mTimeEntity.second = mSecondList.get(wheelSecond.getCurrentItem());
+
+        initListener();
+
+    }
+
+    /**
+     * 设置监听
+     */
+    private void initListener() {
+        wheelHour.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                mTimeEntity.hour = mHoursList.get(index);
+            }
+        });
+        wheelSecond.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                mTimeEntity.second = mSecondList.get(index);
+            }
+        });
     }
 
     @OnClick({R.id.btn_cancel, R.id.btn_confirm})
@@ -86,21 +113,15 @@ public class DIA_ChooseTime {
                 if (mDialog != null) {
                     mDialog.dismiss();
                 }
+                //回调被选中的时间
+                if (mTimeSelectedListener != null) {
+                    mTimeSelectedListener.onTimeSelected(mTimeEntity);
+                }
                 break;
         }
     }
 
-    /**
-     * 传入数据
-     */
-    private void initData() {
-        for (int i = 0; i < seconds.length; i++) {
-            secondList.add(seconds[i]);
-        }
-        for (int i = 0; i < hours.length; i++) {
-            hoursList.add(hours[i]);
-        }
-    }
+
 
     public Dialog show() {
         mDialog.getWindow().setGravity(Gravity.CENTER);
@@ -114,5 +135,16 @@ public class DIA_ChooseTime {
             mDialog.show();
         }
         return mDialog;
+    }
+
+    /***
+     * 回调时间选择后的结果
+     */
+    public interface OnTimeSelectedListener {
+        void onTimeSelected(DistributeTimeEntity timeEntity);
+    }
+
+    public void setOnTimeSelectedListener(OnTimeSelectedListener mTimeSelectedListener) {
+        this.mTimeSelectedListener = mTimeSelectedListener;
     }
 }

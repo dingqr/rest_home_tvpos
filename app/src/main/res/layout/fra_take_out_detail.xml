@@ -352,6 +352,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/btn_left"
         android:layout_width="@dimen/px_190"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_RightTitle;
-import com.yonyou.hhtpos.bean.RightTitleEntity;
+import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 public class RightListView extends ListView {
     private final Context mContext;
     private ADA_RightTitle mAdapter;
-    private List<RightTitleEntity> mData = new ArrayList<>();
+    private List<DishTypesEntity> mData = new ArrayList<>();
     private OnRightListViewItemClickListener mClickListener;
 
     public RightListView(Context context) {
@@ -54,7 +54,7 @@ public class RightListView extends ListView {
                 mAdapter.setSelectItem(position);
                 mAdapter.notifyDataSetChanged();
                 if (mClickListener != null) {
-                    mClickListener.onItemClick(mData.get(position).count, mData.get(position).name, position);
+                    mClickListener.onItemClick(mData.get(position).count, mData.get(position).dishTypeName, position);
                 }
             }
         });
@@ -63,21 +63,21 @@ public class RightListView extends ListView {
             @Override
             public void onRefreshCount(int refreshPos, int curCount) {
                 //给当前被刷新的实体count重新赋值
-                RightTitleEntity dishTypeEntity = mData.get(refreshPos);
+                DishTypesEntity dishTypeEntity = mData.get(refreshPos);
                 dishTypeEntity.count = curCount;
             }
         });
         mAdapter.setOnDoAnimListener(new ADA_RightTitle.OnDoAnimListener() {
             @Override
             public void doAnim() {
-                if(onDoAnimListener!=null) {
+                if (onDoAnimListener != null) {
                     onDoAnimListener.doAnim();
                 }
             }
         });
     }
 
-    public void setData(List<RightTitleEntity> datas) {
+    public void setData(List<DishTypesEntity> datas) {
         this.mData = datas;
         mAdapter.refreshData(mData);
         setAdapter(mAdapter);
@@ -96,9 +96,10 @@ public class RightListView extends ListView {
     }
 
 
-    public interface OnDoAnimListener{
+    public interface OnDoAnimListener {
         void doAnim();
     }
+
     private OnDoAnimListener onDoAnimListener;
 
     public void setOnDoAnimListener(OnDoAnimListener onDoAnimListener) {

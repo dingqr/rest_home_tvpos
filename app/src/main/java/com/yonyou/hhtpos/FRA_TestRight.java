@@ -5,7 +5,6 @@ import android.view.View;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
-import com.yonyou.hhtpos.util.NavigationUtil;
 import com.yonyou.hhtpos.widgets.RightNavigationView;
 
 import butterknife.Bind;
@@ -41,7 +40,7 @@ public class FRA_TestRight extends BaseFragment {
 
     @Override
     protected void initViewsAndEvents() {
-        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
+//        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
     }
 
     @Override

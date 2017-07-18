@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_RightTitle;
-import com.yonyou.hhtpos.bean.RightTitleEntity;
+import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
 public class RightNavigationView extends LinearLayout implements View.OnClickListener {
     private Context mContext;
     private RightListView rightListView;
-    private List<RightTitleEntity> mData = new ArrayList<>();
+    private List<DishTypesEntity> mData = new ArrayList<>();
     private TextView headTitle;
     private TextView bottomTitle;
     private OnItemClickListener mListener;
@@ -115,7 +115,7 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
      *
      * @param datas
      */
-    public void setData(List<RightTitleEntity> datas) {
+    public void setData(List<DishTypesEntity> datas) {
         this.mData = datas;
         rightListView.setData(mData);
     }
@@ -132,7 +132,7 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
     }
 
 
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(int count, String title, int postion);
     }
 

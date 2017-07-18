@@ -13,10 +13,12 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
 import com.yonyou.hhtpos.bean.DishDetailEntity;
+import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by zj on 2017/7/6.
@@ -94,6 +96,15 @@ public class FRA_TakeOutDetail extends BaseFragment {
             DishDetailEntity orderDishesEntity = new DishDetailEntity();
             orderDishesEntity.dishes_name = "肉肉" + i;
             dataList.add(orderDishesEntity);
+        }
+    }
+
+    @OnClick({R.id.btn_right})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_right:
+                readyGo(ACT_OrderDishes.class);
+                break;
         }
     }
 

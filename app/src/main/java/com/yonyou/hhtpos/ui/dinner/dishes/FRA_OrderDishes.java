@@ -11,24 +11,21 @@ import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
-import com.yonyou.hhtpos.bean.DishTypeEntity;
-import com.yonyou.hhtpos.bean.RightTitleEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
-import com.yonyou.hhtpos.dialog.DIA_Discount;
+import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
+import com.yonyou.hhtpos.bean.dish.DishesEntity;
+import com.yonyou.hhtpos.dialog.DIA_ChooseTime;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
-import com.yonyou.hhtpos.util.NavigationUtil;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
 import com.yonyou.hhtpos.widgets.RightNavigationView;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -55,7 +52,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     private int mColumnNum = 4;
     private ADA_DishTypeList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
-    private ArrayList<DishTypeEntity> datas = new ArrayList<>();
 
     //点菜飞入动画
     private int refreshPos;
@@ -116,9 +112,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
         mRecyclerView.setLoadMoreEnabled(false);
 
         mRightListView = mRightNavigationView.getRightListView();
-
-        setData();
-        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
+        //设置测试数据
+//        setData();
+//        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
 
         initListener();
         //空页面
@@ -132,14 +128,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
             public void OnActionOrderDish(final View iv_start, int position) {
                 //设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
                 int mPosition = position - 1;
-                DishTypeEntity dishTypeEntity = mAdapter.getDataList().get(mPosition);
-                dishTypeEntity.isCheck = true;
+                DishesEntity dishesEntity = mAdapter.getDataList().get(mPosition);
+                dishesEntity.isCheck = true;
                 mAdapter.notifyItemChanged(mPosition);
+
                 //刷新角标数量
-                mRightNavigationView.refreshCount(mAdapter.getDataList().get(mPosition).id, true);
-
-                refreshPos = getTitleIdByPosition(mAdapter.getDataList().get(mPosition).id);
-
+                mRightNavigationView.refreshCount(dishesEntity.dishTypeRelateId, true);
+                //刷新右侧标题对应的位置
+                refreshPos = getRefreshPosById(dishesEntity.dishTypeRelateId);
+                //动画开始的View
                 startView = iv_start;
 
                 int startPos = mRightListView.getFirstVisiblePosition();
@@ -160,10 +157,31 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
 
             }
         });
+        //临时菜
         mRightNavigationView.getBottomTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DIA_Discount(mContext).show();
+//                new DIA_AddTempDishes(mContext).getDialog().show();
+                new DIA_ChooseTime(mContext,null,null).show();
+            }
+        });
+
+        //点击菜品进行数据筛选
+        mRightNavigationView.setOnItemClickListener(new RightNavigationView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int count, String title, final int postion) {
+                if (mDishDataBean != null && mDishDataBean.dishTypes.size() > 0) {
+                    List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
+                    mAdapter.update(dishes, true);
+                    if (dishes != null && dishes.size() > 0) {
+
+                    } else {
+
+                    }
+                    //菜类下的菜品为空时，展示空页面
+
+                }
+
             }
         });
     }
@@ -174,28 +192,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
      * @param mId
      * @return
      */
-    private int getTitleIdByPosition(String mId) {
+    private int getRefreshPosById(String mId) {
         int refreshPos = -1;
-        for (int i = 0; i < NavigationUtil.getRightDefaultData().size(); i++) {
-            RightTitleEntity rightTitleEntity = NavigationUtil.getRightDefaultData().get(i);
-            if (rightTitleEntity.id.equals(mId)) {
+        for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
+            DishTypesEntity dishTypesEntity = mDishDataBean.dishTypes.get(i);
+            if (dishTypesEntity.relateId.equals(mId)) {
                 refreshPos = i;
                 break;
             }
         }
         return refreshPos;
-    }
-
-    private void setData() {
-        for (int i = 0; i < 50; i++) {
-            DishTypeEntity dishTypeEntity = new DishTypeEntity();
-            dishTypeEntity.name = "item=" + i;
-            Random rand = new Random();
-            int uid = rand.nextInt(15);
-            dishTypeEntity.id = StringUtil.getString(uid);
-            datas.add(dishTypeEntity);
-        }
-        mAdapter.update(datas);
     }
 
     @Override
@@ -246,6 +252,14 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     @Override
     public void getAllDishes(DishDataEntity dishDataEntity) {
         this.mDishDataBean = dishDataEntity;
+        if (mDishDataBean != null) {
+            //给右侧菜类设置数据
+            mRightNavigationView.setData(mDishDataBean.dishTypes);
+            //给菜品设置默认数据
+            mAdapter.update(mDishDataBean.dishTypes.get(1).dishes);
+            mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
+            mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
+        }
     }
 
 }

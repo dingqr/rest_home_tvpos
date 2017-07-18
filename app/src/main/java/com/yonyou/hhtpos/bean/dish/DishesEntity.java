@@ -45,6 +45,10 @@ public class DishesEntity implements Serializable {
      * 菜品类型
      */
     public String dishType;
+    /**
+     * 与菜类关联的菜品id
+     */
+    public String dishTypeRelateId;
 
     /**
      * 套餐菜品组
@@ -64,7 +68,7 @@ public class DishesEntity implements Serializable {
     /**
      * 标签列表
      */
-    public List<DishLabelEntity> Labels;
+    public List<DishLabelEntity> labels;
 
     /**
      * 做法列表
@@ -112,6 +116,11 @@ public class DishesEntity implements Serializable {
      */
     public List<DishTastesEntity> tastes;
 
+    /**
+     * 标记是否选中
+     */
+    public boolean isCheck;
+
     public DishesEntity() {
     }
 
@@ -136,7 +145,7 @@ public class DishesEntity implements Serializable {
                 ", groups=" + groups +
                 ", id='" + id + '\'' +
                 ", introduction='" + introduction + '\'' +
-                ", Labels=" + Labels +
+                ", Labels=" + labels +
                 ", practices=" + practices +
                 ", relateId='" + relateId + '\'' +
                 ", remark='" + remark + '\'' +
