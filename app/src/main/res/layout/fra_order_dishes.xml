@@ -33,14 +33,21 @@
                 android:paddingLeft="@dimen/px_20" />
         </FrameLayout>
 
-        <com.github.jdsjlzx.recyclerview.LRecyclerView
-            android:id="@+id/rv_orderdish_list"
+        <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/px_6"
             android:layout_marginRight="@dimen/px_5">
 
-        </com.github.jdsjlzx.recyclerview.LRecyclerView>
+            <com.github.jdsjlzx.recyclerview.LRecyclerView
+                android:id="@+id/rv_orderdish_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </com.github.jdsjlzx.recyclerview.LRecyclerView>
+        </LinearLayout>
+
     </LinearLayout>
 
     <com.yonyou.hhtpos.widgets.RightNavigationView

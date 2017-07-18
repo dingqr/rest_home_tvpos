@@ -3,11 +3,8 @@ package com.yonyou.hhtpos.ui.dinner.wd;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
@@ -15,6 +12,7 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.framework.library.widgets.ESwipeRefreshLayout;
+import com.yonyou.framework.library.widgets.pla.PLAAdapterView;
 import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_PackingList;
@@ -30,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * 外带列表
@@ -45,19 +42,27 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
     @Bind(R.id.pla_lv_packing)
     PLALoadMoreListView plaLvPacking;
 
-    /**传入数据 */
+    /**
+     * 传入数据
+     */
     public static final String TYPE = "type";
     private int type;
     private String payStatus;
 
-    private List<PackingListBean> dataList;
+    private List<PackingListBean> mDataList = new ArrayList<>();
     private ADA_PackingList mAdapter;
 
-    /**中间者 */
+    /**
+     * 中间者
+     */
     private IPackingListPresenter mPackingListPresenter;
-    /**当前页数 */
+    /**
+     * 当前页数
+     */
     private int mCurrentPage = 1;
-    /**默认页数 */
+    /**
+     * 默认页数
+     */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_PackingList newInstance(int type) {
@@ -108,17 +113,39 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
         mPackingListPresenter = new PackingListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
             mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
-        }else {
+        } else {
             // reset refresh state
             if (null != srlPacking) {
                 srlPacking.setRefreshing(false);
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
+        plaLvPacking.setOnItemSelectedListener(new PLAAdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(PLAAdapterView<?> parent, View view, int position, long id) {
+                if (mDataList.size() > 0) {
+                    requestPackingDetail(mDataList.get(position).id);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(PLAAdapterView<?> parent) {
+
+            }
+        });
+
     }
 
-    private void getPayStatus(){
-        switch (type){
+    /**
+     * 触发右侧请求外带详情接口
+     */
+    private void requestPackingDetail(String tableBillId) {
+        ACT_Packing act_packing = (ACT_Packing) getActivity();
+        act_packing.requestPackingDetail(tableBillId);
+    }
+
+    private void getPayStatus() {
+        switch (type) {
             case 0:
                 payStatus = "";
                 break;
@@ -170,8 +197,13 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
             plaLvPacking.setCanLoadMore(false);
         } else {
             if (null != dataList && dataList.size() > 0) {
+                //默认请求第一条详情
+                requestPackingDetail(dataList.get(0).id);
+
                 dataList.get(0).setCheck(true);
+                mDataList = dataList;
                 mAdapter.update(dataList, isRefresh);
+
             } else {
                 // empty data
                 showEmpty(R.drawable.default_no_order, mContext.getString(R.string.take_out_order_no_data));
@@ -186,8 +218,8 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
         plaLvPacking.setCanLoadMore(true);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht",DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
-        }else {
+            mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
+        } else {
             // reset refresh state
             if (null != srlPacking) {
                 srlPacking.setRefreshing(false);
@@ -203,7 +235,7 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
 
         if (NetUtils.isNetworkConnected(mContext)) {
             mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, false);
-        }else {
+        } else {
             // reset load more state
             if (null != plaLvPacking) {
                 plaLvPacking.onLoadMoreComplete();

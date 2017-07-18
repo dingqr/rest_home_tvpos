@@ -22,6 +22,8 @@ public class PackingListBean implements Serializable {
     private long billTime;
     /**是否选中 */
     private boolean isCheck;
+    /**账单id*/
+    public String id;
 
     public String getBillNo() {
         return billNo;
@@ -71,6 +73,14 @@ public class PackingListBean implements Serializable {
         isCheck = check;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "PackingListBean{" +
@@ -80,6 +90,7 @@ public class PackingListBean implements Serializable {
                 ", opentime=" + opentime +
                 ", billTime=" + billTime +
                 ", isCheck=" + isCheck +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

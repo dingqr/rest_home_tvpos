@@ -65,8 +65,8 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
 
     @Override
     protected void initViewsAndEvents() {
-        mPresenter = new OrderDetailPresenterImpl(mContext, this);
-        mPresenter.requestOrderDetail(tableBillId);
+//        mPresenter = new OrderDetailPresenterImpl(getActivity(), this);
+//        mPresenter.requestOrderDetail(tableBillId);
         //有数据页面
         mAdapter = new ADA_OrderDishesDetail(mContext);
         lvOrderDishes.setAdapter(mAdapter);
@@ -105,6 +105,11 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
 
     }
 
+    public void requestPackingDetail(String tableBillId) {
+        mPresenter = new OrderDetailPresenterImpl(mContext, this);
+        mPresenter.requestOrderDetail(tableBillId);
+    }
+
     /**
      * 外带订单详情
      *
@@ -112,6 +117,7 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
      */
     @Override
     public void requestOrderDetail(OrderDetailEntity orderDetailEntity) {
+//        Log.e("TAG", "orderDetailEntity=" + orderDetailEntity);
     }
 }
 

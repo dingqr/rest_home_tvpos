@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
@@ -17,7 +18,7 @@ import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
-import com.yonyou.hhtpos.dialog.DIA_ChooseTime;
+import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
@@ -39,6 +40,8 @@ import butterknife.Bind;
 public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
+    @Bind(R.id.ll_content)
+    LinearLayout llContent;
     @Bind(R.id.rv_orderdish_list)
     LRecyclerView mRecyclerView;
     @Bind(R.id.view_navigation_right)
@@ -161,11 +164,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
         mRightNavigationView.getBottomTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                new DIA_AddTempDishes(mContext).getDialog().show();
-                new DIA_ChooseTime(mContext,null,null).show();
+                new DIA_AddTempDishes(mContext).getDialog().show();
             }
         });
-
         //点击菜品进行数据筛选
         mRightNavigationView.setOnItemClickListener(new RightNavigationView.OnItemClickListener() {
             @Override
@@ -173,13 +174,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
                 if (mDishDataBean != null && mDishDataBean.dishTypes.size() > 0) {
                     List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
                     mAdapter.update(dishes, true);
-                    if (dishes != null && dishes.size() > 0) {
-                        
-                    } else {
-
-                    }
+//                    if (dishes != null && dishes.size() > 0) {
+//                        mAdapter.update(dishes, true);
+//                    } else {
+//                        mRecyclerView.setVisibility(View.GONE);
+//                        showEmpty(R.drawable.ic_wm_dishes_empty, "shdisudh");
+//                    }
                     //菜类下的菜品为空时，展示空页面
+
                 }
+
             }
         });
     }
@@ -239,11 +243,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
             outRect.bottom = 5;
             //header占了一个位置，故从位置1开始显示实际的item-第一行不设置顶部间距(UI)
             if (itemPosition <= mColumnNum) {
-                outRect.top = 3;
+                outRect.top = 0;
             } else {
                 outRect.top = 5;
             }
-
         }
     }
 
