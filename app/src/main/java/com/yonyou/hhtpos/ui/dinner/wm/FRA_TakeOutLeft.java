@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.ui.dinner.wm;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
@@ -10,6 +11,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.TakeOutFragmentAdapter;
 import com.yonyou.hhtpos.bean.WMOpenOrderEntity;
+import com.yonyou.hhtpos.dialog.DIA_InputOrderInfo;
 import com.yonyou.hhtpos.presenter.ITakeOutPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TakeOutPresenterImpl;
 import com.yonyou.hhtpos.view.ITakeOutView;
@@ -143,4 +145,5 @@ public class FRA_TakeOutLeft extends BaseFragment implements ITakeOutView{
     public void openOrder() {
 
     }
+
 }

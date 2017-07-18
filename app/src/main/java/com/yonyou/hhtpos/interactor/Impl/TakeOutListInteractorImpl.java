@@ -23,12 +23,21 @@ public class TakeOutListInteractorImpl implements ITakeOutListInteractor {
         this.takeOutListListener = takeOutListListener;
     }
 
+
     @Override
-    public void requestTakeOutList(String companyId, String salesMode, String shopId) {
+    public void requestTakeOutList(String companyId, String salesMode, String shopId, String pageNum, String pageSize, String dinnerStatus) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("companyId", companyId);
+        //hashMap.put("companyId", companyId);
         hashMap.put("salesMode", salesMode);
         hashMap.put("shopId", shopId);
+        hashMap.put("pageNum", pageNum);
+        hashMap.put("pageSize", pageSize);
+
+        // 全部不传递该字段
+        if (!dinnerStatus.equals("0")){
+            hashMap.put("dinnerStatus", dinnerStatus);
+        }
+
         RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_LIST, hashMap, new ReqCallBack<List<TakeOutListEntity>>() {
 
             @Override

@@ -19,6 +19,7 @@ import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_PackingList;
 import com.yonyou.hhtpos.bean.PackingListBean;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IPackingListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.PackingListPresenterImpl;
 import com.yonyou.hhtpos.util.AdapterUtil;
@@ -208,6 +209,13 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
                 plaLvPacking.onLoadMoreComplete();
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.WD_OPEN_ORDER_SUCCESS){
+            onRefresh();
         }
     }
 }

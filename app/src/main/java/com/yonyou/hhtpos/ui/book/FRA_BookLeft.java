@@ -132,8 +132,6 @@ public class FRA_BookLeft extends BaseFragment {
             case R.id.tv_tomorrow:
 //                DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, "说明当前状态、提示用户解决方案，最好不要超过两行", this);
 //                dia_doubleConfirm.getDialog().show();
-                DIA_WDOpenOrder dia_takeOutInfo = new DIA_WDOpenOrder(mContext);
-                dia_takeOutInfo.getDialog().show();
                 break;
             case R.id.tv_date:
                 DIA_Calendar dia_calendar = new DIA_Calendar(mContext);

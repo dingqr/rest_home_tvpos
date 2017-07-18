@@ -14,14 +14,16 @@
         <include layout="@layout/inc_dialog_title" />
 
         <com.yonyou.hhtpos.widgets.DialogInputView
+            android:id="@+id/div_dinner_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_40"
             app:inputHint="输入就餐人数"
             app:inputMode="0"
-            app:titleText="就餐人数" />
+            app:titleText="@string/dinner_number" />
 
         <com.yonyou.hhtpos.widgets.DialogInputView
+            android:id="@+id/div_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/px_70"
@@ -33,7 +35,7 @@
     </LinearLayout>
 
     <RadioButton
-        android:id="@+id/rb_next_step"
+        android:id="@+id/rb_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

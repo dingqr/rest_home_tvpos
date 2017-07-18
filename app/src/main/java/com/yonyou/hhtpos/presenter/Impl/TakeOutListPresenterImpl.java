@@ -32,13 +32,14 @@ public class TakeOutListPresenterImpl implements ITakeOutListPresenter {
     }
 
     @Override
-    public void requestTakeOutList(String companyId, String salesMode, String shopId, boolean isRefresh, boolean isEmpty) {
+    public void requestTakeOutList(String companyId, String salesMode, String shopId, String pageNum, String pageSize, String dinnerStatus, boolean isRefresh, boolean isEmpty) {
         this.isRefresh = isRefresh;
         if (isEmpty){
             mTakeOutListView.showLoading(mContext.getString(R.string.network_loading));
         }
-        mTakeOutListInteractor.requestTakeOutList(companyId, salesMode, shopId);
+        mTakeOutListInteractor.requestTakeOutList(companyId, salesMode, shopId, pageNum, pageSize, dinnerStatus);
     }
+
 
     private class TakeOutListListener implements BaseLoadedListener<List<TakeOutListEntity>> {
 

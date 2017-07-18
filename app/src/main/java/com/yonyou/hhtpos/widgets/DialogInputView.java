@@ -120,6 +120,10 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         return mInputEdit.getText().toString().trim();
     }
 
+    public String getHint(){
+        return mInputEdit.getHint().toString();
+    }
+
     public void setOnClickListener(OnClickListener onClickListener){
         this.onClickListener = onClickListener;
     }

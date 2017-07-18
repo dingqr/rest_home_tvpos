@@ -174,14 +174,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
                     List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
                     mAdapter.update(dishes, true);
                     if (dishes != null && dishes.size() > 0) {
-
+                        
                     } else {
 
                     }
                     //菜类下的菜品为空时，展示空页面
-
                 }
-
             }
         });
     }

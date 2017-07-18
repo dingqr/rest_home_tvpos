@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
 import android.os.Bundle;
+import android.service.quicksettings.Tile;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -80,6 +81,8 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
 
     @Override
     protected void initViewsAndEvents() {
+        type = getArguments().getInt(TYPE);
+
         // 加载中的4种颜色
         srlTakeOut.setColorSchemeColors(
                 ContextCompat.getColor(mContext, R.color.gplus_color_1),
@@ -90,11 +93,12 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
 
         mAdapter = new ADA_TakeOutList(mContext);
         plaLvTakeOut.setAdapter(mAdapter);
+        plaLvTakeOut.setOnLoadMoreListener(this);
 
         // 请求接口
         mTakeOutListPresenter = new TakeOutListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", false, true);
+            mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), String.valueOf(type), false, true);
         }else {
             // reset refresh state
             if (null != srlTakeOut) {
@@ -154,7 +158,7 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
         plaLvTakeOut.setCanLoadMore(true);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", true, false);
+            mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), String.valueOf(type), true, false);
         }else {
             // reset refresh state
             if (null != srlTakeOut) {
@@ -170,7 +174,7 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
         mCurrentPage = AdapterUtil.getPage(mAdapter, AdapterUtil.DEFAULT_PAGE_SIZE);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", false, false);
+            mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), String.valueOf(type), false, false);
         }else {
             // reset load more state
             if (null != plaLvTakeOut) {
