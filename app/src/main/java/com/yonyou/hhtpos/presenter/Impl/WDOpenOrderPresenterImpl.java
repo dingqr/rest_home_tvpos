@@ -6,30 +6,30 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.WDOpenOrderEntity;
-import com.yonyou.hhtpos.interactor.IPackingLeftInteractor;
-import com.yonyou.hhtpos.interactor.Impl.PackingLeftInteractorImpl;
-import com.yonyou.hhtpos.presenter.IPackingLeftPresenter;
-import com.yonyou.hhtpos.view.IPackingLeftView;
+import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
+import com.yonyou.hhtpos.interactor.IWDOpenOrderInteractor;
+import com.yonyou.hhtpos.interactor.Impl.WDOpenOrderInteractorImpl;
+import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
+import com.yonyou.hhtpos.view.IWDOpenOrderView;
 
 /**
  * 作者：liushuofei on 2017/7/18 10:58
  * 邮箱：lsf@yonyou.com
  */
-public class PackingLeftPresenterImpl implements IPackingLeftPresenter {
+public class WDOpenOrderPresenterImpl implements IWDOpenOrderPresenter {
 
     private Context mContext;
-    private IPackingLeftView mPackingLeftView;
-    private IPackingLeftInteractor mPackingListInteractor;
+    private IWDOpenOrderView mPackingLeftView;
+    private IWDOpenOrderInteractor mPackingListInteractor;
 
-    public PackingLeftPresenterImpl(Context mContext, IPackingLeftView mPackingLeftView) {
+    public WDOpenOrderPresenterImpl(Context mContext, IWDOpenOrderView mPackingLeftView) {
         this.mContext = mContext;
         this.mPackingLeftView = mPackingLeftView;
-        mPackingListInteractor = new PackingLeftInteractorImpl(new OpenOrderListener());
+        mPackingListInteractor = new WDOpenOrderInteractorImpl(new OpenOrderListener());
     }
 
     @Override
-    public void openOrder(WDOpenOrderEntity bean) {
+    public void openOrder(OpenOrderEntity bean) {
         mPackingLeftView.showDialogLoading(mContext.getString(R.string.network_loading));
         mPackingListInteractor.openOrder(bean);
     }

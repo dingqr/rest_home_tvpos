@@ -2,7 +2,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.PackingListBean;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IDishListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -27,10 +27,10 @@ public class DishListInteractorImpl implements IDishListInteractor {
     public void requestDishList(String billId) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("billId", billId);
-        RequestManager.getInstance().requestGetByAsyn(API.URL_DISH_LIST, hashMap, new ReqCallBack<List<PackingListBean>>() {
+        RequestManager.getInstance().requestGetByAsyn(API.URL_DISH_LIST, hashMap, new ReqCallBack<List<DishListEntity>>() {
 
             @Override
-            public void onReqSuccess(List<PackingListBean> dataList) {
+            public void onReqSuccess(List<DishListEntity> dataList) {
                 dishListListener.onSuccess(0, dataList);
             }
 

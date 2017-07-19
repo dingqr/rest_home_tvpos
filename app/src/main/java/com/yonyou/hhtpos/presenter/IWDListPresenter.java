@@ -4,7 +4,7 @@ package com.yonyou.hhtpos.presenter;
  * 作者：liushuofei on 2017/7/17 16:34
  * 邮箱：lsf@yonyou.com
  */
-public interface IPackingListPresenter {
+public interface IWDListPresenter {
 
     /**
      * 请求外带列表

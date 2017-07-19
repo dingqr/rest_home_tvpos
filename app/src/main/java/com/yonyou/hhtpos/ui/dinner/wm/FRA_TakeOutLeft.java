@@ -2,7 +2,6 @@ package com.yonyou.hhtpos.ui.dinner.wm;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
@@ -10,11 +9,10 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.TakeOutFragmentAdapter;
-import com.yonyou.hhtpos.bean.WMOpenOrderEntity;
-import com.yonyou.hhtpos.dialog.DIA_InputOrderInfo;
-import com.yonyou.hhtpos.presenter.ITakeOutPresenter;
-import com.yonyou.hhtpos.presenter.Impl.TakeOutPresenterImpl;
-import com.yonyou.hhtpos.view.ITakeOutView;
+import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
+import com.yonyou.hhtpos.presenter.IWMOpenOrderPresenter;
+import com.yonyou.hhtpos.presenter.Impl.WMOpenOrderPresenterImpl;
+import com.yonyou.hhtpos.view.IWMOpenOrderView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -23,7 +21,7 @@ import butterknife.Bind;
  * 外卖左侧fragment
  * 作者：liushuofei on 2017/7/6 10:46
  */
-public class FRA_TakeOutLeft extends BaseFragment implements ITakeOutView{
+public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView {
 
     @Bind(R.id.psts_tab)
     PagerSlidingTabStrip mTab;
@@ -44,7 +42,7 @@ public class FRA_TakeOutLeft extends BaseFragment implements ITakeOutView{
     public static final int RB_REFUNDED = 4;
 
     /**中间者 */
-    private ITakeOutPresenter mTakeOutPresenter;
+    private IWMOpenOrderPresenter mTakeOutPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -72,9 +70,9 @@ public class FRA_TakeOutLeft extends BaseFragment implements ITakeOutView{
 
         initSlidingTab();
 
-        mTakeOutPresenter = new TakeOutPresenterImpl(mContext, this);
+        mTakeOutPresenter = new WMOpenOrderPresenterImpl(mContext, this);
 
-        WMOpenOrderEntity bean = new WMOpenOrderEntity();
+        OpenOrderEntity bean = new OpenOrderEntity();
         bean.setTakeOutCompanyId("C4BECEC6040000008000000000296000");
         bean.setName("小点的王");
         bean.setPhone("13466668888");

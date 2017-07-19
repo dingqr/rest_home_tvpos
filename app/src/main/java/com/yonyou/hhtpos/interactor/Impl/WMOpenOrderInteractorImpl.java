@@ -3,10 +3,9 @@ package com.yonyou.hhtpos.interactor.Impl;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.WMOpenOrderEntity;
-import com.yonyou.hhtpos.db.entity.UserEntity;
+import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.ITakeOutInteractor;
+import com.yonyou.hhtpos.interactor.IWMOpenOrderInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
@@ -16,16 +15,16 @@ import java.util.HashMap;
  * 作者：liushuofei on 2017/7/15 17:54
  * 邮箱：lsf@yonyou.com
  */
-public class TakeOutInteractorImpl implements ITakeOutInteractor{
+public class WMOpenOrderInteractorImpl implements IWMOpenOrderInteractor {
 
     private BaseLoadedListener mBaseLoadedListener;
 
-    public TakeOutInteractorImpl(BaseLoadedListener mBaseLoadedListener) {
+    public WMOpenOrderInteractorImpl(BaseLoadedListener mBaseLoadedListener) {
         this.mBaseLoadedListener = mBaseLoadedListener;
     }
 
     @Override
-    public void openOrder(WMOpenOrderEntity bean) {
+    public void openOrder(OpenOrderEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("address", StringUtil.getString(bean.getAddress()));
         hashMap.put("name",StringUtil.getString(bean.getName()));

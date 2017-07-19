@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.bean;
+package com.yonyou.hhtpos.bean.wm;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 外卖开单实体类
  * 作者：liushuofei on 2017/7/15 17:44
  */
-public class WMOpenOrderEntity implements Serializable {
+public class OpenOrderEntity implements Serializable {
 
     /**地址 */
     private String address;
@@ -98,7 +98,7 @@ public class WMOpenOrderEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "WMOpenOrderEntity{" +
+        return "OpenOrderEntity{" +
                 "address='" + address + '\'' +
                 ", name='" + name + '\'' +
                 ", personNum='" + personNum + '\'' +

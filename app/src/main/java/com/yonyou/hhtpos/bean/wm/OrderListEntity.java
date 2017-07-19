@@ -1,12 +1,12 @@
-package com.yonyou.hhtpos.bean;
+package com.yonyou.hhtpos.bean.wm;
 
 import java.io.Serializable;
 
 /**
+ * 外卖列表实体类
  * 作者：liushuofei on 2017/7/17 09:58
- * 邮箱：lsf@yonyou.com
  */
-public class TakeOutListEntity implements Serializable {
+public class OrderListEntity implements Serializable {
 
     /**外卖类型 */
     private String takeOutCompanyId;
@@ -87,7 +87,7 @@ public class TakeOutListEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "TakeOutListEntity{" +
+        return "OrderListEntity{" +
                 "takeOutCompanyId='" + takeOutCompanyId + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", billMoney='" + billMoney + '\'' +

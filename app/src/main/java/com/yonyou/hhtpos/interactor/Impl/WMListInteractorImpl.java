@@ -2,9 +2,9 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.TakeOutListEntity;
+import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.ITakeOutListInteractor;
+import com.yonyou.hhtpos.interactor.IWMListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
@@ -15,11 +15,11 @@ import java.util.List;
  * 作者：liushuofei on 2017/7/14 18:35
  * 邮箱：lsf@yonyou.com
  */
-public class TakeOutListInteractorImpl implements ITakeOutListInteractor {
+public class WMListInteractorImpl implements IWMListInteractor {
 
     private BaseLoadedListener takeOutListListener;
 
-    public TakeOutListInteractorImpl(BaseLoadedListener takeOutListListener) {
+    public WMListInteractorImpl(BaseLoadedListener takeOutListListener) {
         this.takeOutListListener = takeOutListListener;
     }
 
@@ -38,10 +38,10 @@ public class TakeOutListInteractorImpl implements ITakeOutListInteractor {
             hashMap.put("dinnerStatus", dinnerStatus);
         }
 
-        RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_LIST, hashMap, new ReqCallBack<List<TakeOutListEntity>>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_LIST, hashMap, new ReqCallBack<List<OrderListEntity>>() {
 
             @Override
-            public void onReqSuccess(List<TakeOutListEntity> dataList) {
+            public void onReqSuccess(List<OrderListEntity> dataList) {
                 takeOutListListener.onSuccess(0, dataList);
             }
 

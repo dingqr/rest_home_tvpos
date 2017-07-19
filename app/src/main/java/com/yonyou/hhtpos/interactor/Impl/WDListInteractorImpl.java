@@ -4,9 +4,9 @@ import android.text.TextUtils;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.PackingListBean;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.IPackingListInteractor;
+import com.yonyou.hhtpos.interactor.IWDListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
@@ -17,11 +17,11 @@ import java.util.List;
  * 作者：liushuofei on 2017/7/17 16:39
  * 邮箱：lsf@yonyou.com
  */
-public class PackingListInteractorImpl implements IPackingListInteractor{
+public class WDListInteractorImpl implements IWDListInteractor {
 
     private BaseLoadedListener packingListListener;
 
-    public PackingListInteractorImpl(BaseLoadedListener packingListListener) {
+    public WDListInteractorImpl(BaseLoadedListener packingListListener) {
         this.packingListListener = packingListListener;
     }
 
@@ -37,10 +37,10 @@ public class PackingListInteractorImpl implements IPackingListInteractor{
         if (!TextUtils.isEmpty(payStatus)){
             hashMap.put("payStatus", payStatus);
         }
-        RequestManager.getInstance().requestPostByAsyn(API.URL_PACKING_LIST, hashMap, new ReqCallBack<List<PackingListBean>>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_PACKING_LIST, hashMap, new ReqCallBack<List<OrderListEntity>>() {
 
             @Override
-            public void onReqSuccess(List<PackingListBean> dataList) {
+            public void onReqSuccess(List<OrderListEntity> dataList) {
                 packingListListener.onSuccess(0, dataList);
             }
 

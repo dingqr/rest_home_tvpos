@@ -4,7 +4,7 @@ package com.yonyou.hhtpos.interactor;
  * 作者：liushuofei on 2017/7/14 18:34
  * 邮箱：lsf@yonyou.com
  */
-public interface ITakeOutListInteractor {
+public interface IWMListInteractor {
 
     /**
      * 请求外卖列表

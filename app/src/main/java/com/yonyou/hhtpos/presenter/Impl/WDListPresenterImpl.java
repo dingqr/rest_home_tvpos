@@ -6,11 +6,11 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.PackingListBean;
-import com.yonyou.hhtpos.interactor.IPackingListInteractor;
-import com.yonyou.hhtpos.interactor.Impl.PackingListInteractorImpl;
-import com.yonyou.hhtpos.presenter.IPackingListPresenter;
-import com.yonyou.hhtpos.view.IPackingListView;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
+import com.yonyou.hhtpos.interactor.IWDListInteractor;
+import com.yonyou.hhtpos.interactor.Impl.WDListInteractorImpl;
+import com.yonyou.hhtpos.presenter.IWDListPresenter;
+import com.yonyou.hhtpos.view.IWDListView;
 
 import java.util.List;
 
@@ -18,17 +18,17 @@ import java.util.List;
  * 作者：liushuofei on 2017/7/17 16:36
  * 邮箱：lsf@yonyou.com
  */
-public class PackingListPresenterImpl implements IPackingListPresenter {
+public class WDListPresenterImpl implements IWDListPresenter {
 
     private Context mContext;
-    private IPackingListView mPackingListView;
-    private IPackingListInteractor mPackingListInteractor;
+    private IWDListView mPackingListView;
+    private IWDListInteractor mPackingListInteractor;
     private boolean isRefresh;
 
-    public PackingListPresenterImpl(Context mContext, IPackingListView mPackingListView) {
+    public WDListPresenterImpl(Context mContext, IWDListView mPackingListView) {
         this.mContext = mContext;
         this.mPackingListView = mPackingListView;
-        mPackingListInteractor = new PackingListInteractorImpl(new PackingListListener());
+        mPackingListInteractor = new WDListInteractorImpl(new PackingListListener());
     }
 
     @Override
@@ -40,10 +40,10 @@ public class PackingListPresenterImpl implements IPackingListPresenter {
         mPackingListInteractor.requestPackingList(billNo, salesMode, shopId, pageNum, pageSize, payStatus);
     }
 
-    private class PackingListListener implements BaseLoadedListener<List<PackingListBean>> {
+    private class PackingListListener implements BaseLoadedListener<List<OrderListEntity>> {
 
         @Override
-        public void onSuccess(int event_tag, List<PackingListBean> dataList) {
+        public void onSuccess(int event_tag, List<OrderListEntity> dataList) {
             mPackingListView.hideLoading();
             mPackingListView.requestPackingList(dataList, isRefresh);
         }

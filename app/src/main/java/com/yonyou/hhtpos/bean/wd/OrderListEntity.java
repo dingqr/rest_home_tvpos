@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.bean;
+package com.yonyou.hhtpos.bean.wd;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 外带列表实体类
  * 作者：liushuofei on 2017/7/5 10:44
  */
-public class PackingListBean implements Serializable {
+public class OrderListEntity implements Serializable {
 
     /**账单编号 */
     private String billNo;
@@ -83,7 +83,7 @@ public class PackingListBean implements Serializable {
 
     @Override
     public String toString() {
-        return "PackingListBean{" +
+        return "OrderListEntity{" +
                 "billNo='" + billNo + '\'' +
                 ", billMoney='" + billMoney + '\'' +
                 ", payStatus='" + payStatus + '\'' +

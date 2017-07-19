@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,15 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.TakeOutListEntity;
+import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 
 /**
  * 作者：liushuofei on 2017/7/6 15:13
  * 邮箱：lsf@yonyou.com
  */
-public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListEntity> {
+public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
 
-    private TakeOutListEntity currentBean;
+    private OrderListEntity currentBean;
 
     public ADA_TakeOutList(Context context) {
         super(context);
@@ -43,7 +44,7 @@ public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListEntity> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final TakeOutListEntity bean = mDataSource.get(position);
+        final OrderListEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
 
         if (bean.isCheck()){
@@ -72,7 +73,7 @@ public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListEntity> {
         return convertView;
     }
 
-    private void handleDataSource(int position, final ViewHolder holder, final TakeOutListEntity bean) {
+    private void handleDataSource(int position, final ViewHolder holder, final OrderListEntity bean) {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +91,12 @@ public class ADA_TakeOutList extends BaseAbsAdapter<TakeOutListEntity> {
         position++;
         //TODO: 单号都显示为#00001的格式，从后台获取数据并显示后五位
         holder.mOrderNumber.setText("#0000" + position);
+
+//        // 编号
+//        String billNo = bean.getBillNo();
+//        if (!TextUtils.isEmpty(billNo) && billNo.length() > 5){
+//            holder.mNumber.setText(mContext.getString(R.string.well_no) + billNo.substring(billNo.length() - 5, billNo.length()));
+//        }
 
         if (null == bean)
             return;

@@ -6,30 +6,30 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.WMOpenOrderEntity;
-import com.yonyou.hhtpos.interactor.ITakeOutInteractor;
-import com.yonyou.hhtpos.interactor.Impl.TakeOutInteractorImpl;
-import com.yonyou.hhtpos.presenter.ITakeOutPresenter;
-import com.yonyou.hhtpos.view.ITakeOutView;
+import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
+import com.yonyou.hhtpos.interactor.IWMOpenOrderInteractor;
+import com.yonyou.hhtpos.interactor.Impl.WMOpenOrderInteractorImpl;
+import com.yonyou.hhtpos.presenter.IWMOpenOrderPresenter;
+import com.yonyou.hhtpos.view.IWMOpenOrderView;
 
 /**
  * 作者：liushuofei on 2017/7/15 17:52
  * 邮箱：lsf@yonyou.com
  */
-public class TakeOutPresenterImpl implements ITakeOutPresenter {
+public class WMOpenOrderPresenterImpl implements IWMOpenOrderPresenter {
 
     private Context mContext;
-    private ITakeOutView mView;
-    private ITakeOutInteractor mInteractor;
+    private IWMOpenOrderView mView;
+    private IWMOpenOrderInteractor mInteractor;
 
-    public TakeOutPresenterImpl(Context mContext, final ITakeOutView mView) {
+    public WMOpenOrderPresenterImpl(Context mContext, final IWMOpenOrderView mView) {
         this.mContext = mContext;
         this.mView = mView;
-        mInteractor = new TakeOutInteractorImpl(new TakeOutListener());
+        mInteractor = new WMOpenOrderInteractorImpl(new TakeOutListener());
     }
 
     @Override
-    public void openOrder(WMOpenOrderEntity bean) {
+    public void openOrder(OpenOrderEntity bean) {
         mView.showDialogLoading(mContext.getResources().getString(R.string.common_loading_message));
         mInteractor.openOrder(bean);
     }

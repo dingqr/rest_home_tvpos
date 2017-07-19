@@ -11,13 +11,13 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
-import com.yonyou.hhtpos.bean.WDOpenOrderEntity;
+import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
 import com.yonyou.hhtpos.dialog.DIA_WDOpenOrder;
 import com.yonyou.hhtpos.global.ReceiveConstants;
-import com.yonyou.hhtpos.presenter.IPackingLeftPresenter;
-import com.yonyou.hhtpos.presenter.Impl.PackingLeftPresenterImpl;
+import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
+import com.yonyou.hhtpos.presenter.Impl.WDOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.util.SalesModeUtil;
-import com.yonyou.hhtpos.view.IPackingLeftView;
+import com.yonyou.hhtpos.view.IWDOpenOrderView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -26,7 +26,7 @@ import butterknife.Bind;
  * 外带列表左侧布局（viewpager + fragment）
  * 作者：liushuofei on 2017/7/4 16:47
  */
-public class FRA_PackingLeft extends BaseFragment implements IPackingLeftView, View.OnClickListener, DIA_WDOpenOrder.OnSelectedListener {
+public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, View.OnClickListener, DIA_WDOpenOrder.OnSelectedListener {
 
     @Bind(R.id.vp_order)
     ViewPager mViewPager;
@@ -47,7 +47,7 @@ public class FRA_PackingLeft extends BaseFragment implements IPackingLeftView, V
     public static final int RB_CHECKED_OUT = 2;
 
     /**中间者 */
-    private IPackingLeftPresenter mPackingLeftPresenter;
+    private IWDOpenOrderPresenter mPackingLeftPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -75,7 +75,7 @@ public class FRA_PackingLeft extends BaseFragment implements IPackingLeftView, V
 
         initSlidingTab();
 
-        mPackingLeftPresenter = new PackingLeftPresenterImpl(mContext, this);
+        mPackingLeftPresenter = new WDOpenOrderPresenterImpl(mContext, this);
         mBillImg.setOnClickListener(this);
     }
 
@@ -155,7 +155,7 @@ public class FRA_PackingLeft extends BaseFragment implements IPackingLeftView, V
 
     @Override
     public void confirm(String dinnerCount, String phone) {
-        WDOpenOrderEntity bean = new WDOpenOrderEntity();
+        OpenOrderEntity bean = new OpenOrderEntity();
         bean.setPersonNum(dinnerCount);
 //        bean.setMobileNo(phone);
         bean.setMobileNo("13671205992");

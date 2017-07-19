@@ -106,8 +106,8 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
     }
 
     public void requestPackingDetail(String tableBillId) {
-        mPresenter = new OrderDetailPresenterImpl(mContext, this);
-        mPresenter.requestOrderDetail(tableBillId);
+//        mPresenter = new OrderDetailPresenterImpl(mContext, this);
+//        mPresenter.requestOrderDetail(tableBillId);
     }
 
     /**

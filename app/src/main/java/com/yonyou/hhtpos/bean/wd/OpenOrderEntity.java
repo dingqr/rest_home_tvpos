@@ -1,12 +1,12 @@
-package com.yonyou.hhtpos.bean;
+package com.yonyou.hhtpos.bean.wd;
 
 import java.io.Serializable;
 
 /**
- * 外带开单接口
+ * 外带开单实体类
  * 作者：liushuofei on 2017/7/18 10:47
  */
-public class WDOpenOrderEntity implements Serializable {
+public class OpenOrderEntity implements Serializable {
 
     /**会员手机号 */
     private String mobileNo;
@@ -81,7 +81,7 @@ public class WDOpenOrderEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "WDOpenOrderEntity{" +
+        return "OpenOrderEntity{" +
                 "mobileNo='" + mobileNo + '\'' +
                 ", personNum='" + personNum + '\'' +
                 ", salesMode='" + salesMode + '\'' +

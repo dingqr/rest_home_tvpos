@@ -15,12 +15,11 @@ import com.yonyou.framework.library.widgets.ESwipeRefreshLayout;
 import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutList;
-import com.yonyou.hhtpos.bean.TakeOutListBean;
-import com.yonyou.hhtpos.bean.TakeOutListEntity;
-import com.yonyou.hhtpos.presenter.ITakeOutListPresenter;
-import com.yonyou.hhtpos.presenter.Impl.TakeOutListPresenterImpl;
+import com.yonyou.hhtpos.bean.wm.OrderListEntity;
+import com.yonyou.hhtpos.presenter.IWMListPresenter;
+import com.yonyou.hhtpos.presenter.Impl.WMListPresenterImpl;
 import com.yonyou.hhtpos.util.AdapterUtil;
-import com.yonyou.hhtpos.view.ITakeOutListView;
+import com.yonyou.hhtpos.view.IWMListView;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ import butterknife.Bind;
  * 外卖列表fragment
  * 作者：liushuofei on 2017/7/6 10:47
  */
-public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, SwipeRefreshLayout.OnRefreshListener, PLALoadMoreListView.OnLoadMoreListener{
+public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeRefreshLayout.OnRefreshListener, PLALoadMoreListView.OnLoadMoreListener{
 
     @Bind(R.id.srl_take_out)
     ESwipeRefreshLayout srlTakeOut;
@@ -41,11 +40,11 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
     public static final String TYPE = "type";
     private int type;
 
-    private List<TakeOutListBean> dataList;
+    private List<OrderListEntity> dataList;
     private ADA_TakeOutList mAdapter;
 
     /**中间者 */
-    private ITakeOutListPresenter mTakeOutListPresenter;
+    private IWMListPresenter mTakeOutListPresenter;
     /**当前页数 */
     private int mCurrentPage = 1;
     /**默认页数 */
@@ -96,7 +95,7 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
         plaLvTakeOut.setOnLoadMoreListener(this);
 
         // 请求接口
-        mTakeOutListPresenter = new TakeOutListPresenterImpl(mContext, this);
+        mTakeOutListPresenter = new WMListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
             mTakeOutListPresenter.requestTakeOutList("hht", "2", "C482CE78AC000000AA8000000003A000", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), String.valueOf(type), false, true);
         }else {
@@ -129,7 +128,7 @@ public class FRA_TakeOutList extends BaseFragment implements ITakeOutListView, S
     }
 
     @Override
-    public void requestTakeOutList(List<TakeOutListEntity> dataList, boolean isRefresh) {
+    public void requestTakeOutList(List<OrderListEntity> dataList, boolean isRefresh) {
         // reset state
         if (isRefresh) {
             srlTakeOut.setRefreshing(false);

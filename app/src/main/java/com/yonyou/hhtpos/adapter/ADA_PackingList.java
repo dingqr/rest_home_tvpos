@@ -12,17 +12,16 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.PackingListBean;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 
 /**
  * 外带列表adapter
  * 作者：liushuofei on 2017/7/5 09:43
  */
-public class ADA_PackingList extends BaseAbsAdapter<PackingListBean> {
+public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
 
-    private PackingListBean currentBean;
+    private OrderListEntity currentBean;
 
     public ADA_PackingList(Context context) {
         super(context);
@@ -44,7 +43,7 @@ public class ADA_PackingList extends BaseAbsAdapter<PackingListBean> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final PackingListBean bean = mDataSource.get(position);
+        final OrderListEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
 
         if (bean.isCheck()){
@@ -66,7 +65,7 @@ public class ADA_PackingList extends BaseAbsAdapter<PackingListBean> {
         return convertView;
     }
 
-    private void handleDataSource(int position, final ViewHolder holder, final PackingListBean bean) {
+    private void handleDataSource(int position, final ViewHolder holder, final OrderListEntity bean) {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -24,7 +24,7 @@
             android:overScrollMode="never"
             android:scrollbars="none"
             app:plaColumnNumber="1"
-            app:plaContentBackground="@color/color_f5f5f5" />
+            app:plaContentBackground="@color/color_FFFFFF" />
     </com.yonyou.framework.library.widgets.ESwipeRefreshLayout>
 
 </LinearLayout>

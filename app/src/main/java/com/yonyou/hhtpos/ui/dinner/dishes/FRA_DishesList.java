@@ -65,7 +65,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView{
 //        }
 
         mDishListPresenter = new DishListPresenterImpl(mContext, this);
-        mDishListPresenter.requestDishList("");
+        mDishListPresenter.requestDishList("C4A99303500000009A000000001B8000");
     }
 
     @Override

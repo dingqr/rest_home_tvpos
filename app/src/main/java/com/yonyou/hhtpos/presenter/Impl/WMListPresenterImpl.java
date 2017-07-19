@@ -6,11 +6,11 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.TakeOutListEntity;
-import com.yonyou.hhtpos.interactor.ITakeOutListInteractor;
-import com.yonyou.hhtpos.interactor.Impl.TakeOutListInteractorImpl;
-import com.yonyou.hhtpos.presenter.ITakeOutListPresenter;
-import com.yonyou.hhtpos.view.ITakeOutListView;
+import com.yonyou.hhtpos.bean.wm.OrderListEntity;
+import com.yonyou.hhtpos.interactor.IWMListInteractor;
+import com.yonyou.hhtpos.interactor.Impl.WMListInteractorImpl;
+import com.yonyou.hhtpos.presenter.IWMListPresenter;
+import com.yonyou.hhtpos.view.IWMListView;
 
 import java.util.List;
 
@@ -18,17 +18,17 @@ import java.util.List;
  * 作者：liushuofei on 2017/7/14 18:35
  * 邮箱：lsf@yonyou.com
  */
-public class TakeOutListPresenterImpl implements ITakeOutListPresenter {
+public class WMListPresenterImpl implements IWMListPresenter {
 
     private Context mContext;
-    private ITakeOutListView mTakeOutListView;
-    private ITakeOutListInteractor mTakeOutListInteractor;
+    private IWMListView mTakeOutListView;
+    private IWMListInteractor mTakeOutListInteractor;
     private boolean isRefresh;
 
-    public TakeOutListPresenterImpl(Context mContext, ITakeOutListView mTakeOutListView) {
+    public WMListPresenterImpl(Context mContext, IWMListView mTakeOutListView) {
         this.mContext = mContext;
         this.mTakeOutListView = mTakeOutListView;
-        mTakeOutListInteractor = new TakeOutListInteractorImpl(new TakeOutListListener());
+        mTakeOutListInteractor = new WMListInteractorImpl(new TakeOutListListener());
     }
 
     @Override
@@ -41,10 +41,10 @@ public class TakeOutListPresenterImpl implements ITakeOutListPresenter {
     }
 
 
-    private class TakeOutListListener implements BaseLoadedListener<List<TakeOutListEntity>> {
+    private class TakeOutListListener implements BaseLoadedListener<List<OrderListEntity>> {
 
         @Override
-        public void onSuccess(int event_tag, List<TakeOutListEntity> dataList) {
+        public void onSuccess(int event_tag, List<OrderListEntity> dataList) {
             mTakeOutListView.hideLoading();
             mTakeOutListView.requestTakeOutList(dataList, isRefresh);
         }

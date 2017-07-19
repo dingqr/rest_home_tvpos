@@ -16,15 +16,14 @@ import com.yonyou.framework.library.widgets.pla.PLAAdapterView;
 import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_PackingList;
-import com.yonyou.hhtpos.bean.PackingListBean;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.global.ReceiveConstants;
-import com.yonyou.hhtpos.presenter.IPackingListPresenter;
-import com.yonyou.hhtpos.presenter.Impl.PackingListPresenterImpl;
+import com.yonyou.hhtpos.presenter.IWDListPresenter;
+import com.yonyou.hhtpos.presenter.Impl.WDListPresenterImpl;
 import com.yonyou.hhtpos.util.AdapterUtil;
 import com.yonyou.hhtpos.util.SalesModeUtil;
-import com.yonyou.hhtpos.view.IPackingListView;
+import com.yonyou.hhtpos.view.IWDListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -33,7 +32,7 @@ import butterknife.Bind;
  * 外带列表
  * 作者：liushuofei on 2017/7/4 16:45
  */
-public class FRA_PackingList extends BaseFragment implements IPackingListView, SwipeRefreshLayout.OnRefreshListener, PLALoadMoreListView.OnLoadMoreListener {
+public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeRefreshLayout.OnRefreshListener, PLALoadMoreListView.OnLoadMoreListener {
 
     @Bind(R.id.ll_root)
     LinearLayout mRoot;
@@ -42,27 +41,19 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
     @Bind(R.id.pla_lv_packing)
     PLALoadMoreListView plaLvPacking;
 
-    /**
-     * 传入数据
-     */
+    /**传入数据 */
     public static final String TYPE = "type";
     private int type;
     private String payStatus;
 
-    private List<PackingListBean> mDataList = new ArrayList<>();
+    private List<OrderListEntity> mDataList;
     private ADA_PackingList mAdapter;
 
-    /**
-     * 中间者
-     */
-    private IPackingListPresenter mPackingListPresenter;
-    /**
-     * 当前页数
-     */
+    /**中间者 */
+    private IWDListPresenter mPackingListPresenter;
+    /**当前页数 */
     private int mCurrentPage = 1;
-    /**
-     * 默认页数
-     */
+    /**默认页数 */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_PackingList newInstance(int type) {
@@ -110,10 +101,10 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
         plaLvPacking.setAdapter(mAdapter);
         plaLvPacking.setOnLoadMoreListener(this);
 
-        mPackingListPresenter = new PackingListPresenterImpl(mContext, this);
+        mPackingListPresenter = new WDListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
             mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
-        } else {
+        }else {
             // reset refresh state
             if (null != srlPacking) {
                 srlPacking.setRefreshing(false);
@@ -184,7 +175,7 @@ public class FRA_PackingList extends BaseFragment implements IPackingListView, S
     }
 
     @Override
-    public void requestPackingList(List<PackingListBean> dataList, boolean isRefresh) {
+    public void requestPackingList(List<OrderListEntity> dataList, boolean isRefresh) {
         // reset state
         if (isRefresh) {
             srlPacking.setRefreshing(false);

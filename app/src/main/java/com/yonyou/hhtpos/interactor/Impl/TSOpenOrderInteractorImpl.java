@@ -2,40 +2,41 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.ICanteenListInteractor;
+import com.yonyou.hhtpos.interactor.ITSOpenOrderInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
 
 /**
- * 作者：liushuofei on 2017/7/14 17:28
+ * 作者：liushuofei on 2017/7/19 10:11
  * 邮箱：lsf@yonyou.com
  */
-public class CanteenListInteractorImpl implements ICanteenListInteractor {
+public class TSOpenOrderInteractorImpl implements ITSOpenOrderInteractor {
 
     private BaseLoadedListener openOrderListener;
 
-    public CanteenListInteractorImpl(BaseLoadedListener openOrderListener) {
+    public TSOpenOrderInteractorImpl(BaseLoadedListener openOrderListener) {
         this.openOrderListener = openOrderListener;
     }
 
     @Override
-    public void openOrder(String billRemark, String companyId, String memberId, String personNum, String shopId, String tableNo, String waiterId) {
+    public void openOrder(OpenOrderEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("billRemark", billRemark);
-        hashMap.put("companyId", companyId);
-        hashMap.put("memberId", memberId);
-        hashMap.put("personNum", personNum);
-        hashMap.put("shopId", shopId);
-        hashMap.put("tableNo", tableNo);
-        hashMap.put("waiterId", waiterId);
+        hashMap.put("billRemark", bean.getBillRemark());
+        hashMap.put("companyId", bean.getCompanyId());
+        hashMap.put("memberId", bean.getMemberId());
+        hashMap.put("personNum", bean.getPersonNum());
+        hashMap.put("shopId", bean.getShopId());
+        hashMap.put("tableNo", bean.getTableNo());
+        hashMap.put("waiterId", bean.getWaiterId());
         RequestManager.getInstance().requestPostByAsyn(API.URL_TS_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
 
             @Override
-            public void onReqSuccess(String bean) {
-                openOrderListener.onSuccess(0,bean);
+            public void onReqSuccess(String result) {
+                openOrderListener.onSuccess(0, result);
             }
 
             @Override
