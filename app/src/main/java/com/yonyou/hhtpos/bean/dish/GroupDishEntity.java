@@ -1,9 +1,5 @@
 package com.yonyou.hhtpos.bean.dish;
 
-import com.yonyou.hhtpos.bean.DishDetailEntity;
-
-import java.util.List;
-
 /**
  * Created by zj on 2017/7/15.
  * 邮箱：zjuan@yonyou.com
@@ -26,7 +22,7 @@ public class GroupDishEntity {
     /**
      * 菜品组菜品明细
      */
-    public List<DishDetailEntity> detail;
+//    public List<DishDetailEntity> detail;
     /***/
     public String dishRelateId;
     /**

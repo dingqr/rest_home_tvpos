@@ -15,39 +15,19 @@ public class OrderDetailEntity implements Serializable {
      * 待收金额
      */
     private String receiveAmount;
-    /**
-     * 账单编号
-     */
-    public String billNo;
-    /**
-     * 开单人姓名
-     */
-    public String creatorName;
-
-    /**
-     * 菜单
-     */
-    public ArrayList<DishDetaiListlEntity> dishListDetail;
 
     /**
      * 会员电话
      */
     public String memberPhone;
 
-    /**
-     * 开单时间
-     */
-    public String openTime;
 
     /**
-     * 支付状态
+     * 开单人姓名
      */
-    public String payStatus;
+    public String creatorName;
 
-    /**
-     * 就餐人数
-     */
-    public String personName;
+
 
     /**
      * 优惠金额
@@ -58,6 +38,32 @@ public class OrderDetailEntity implements Serializable {
      * 桌台账单Id
      */
     public String tableBillId;
+
+    /**
+     * 点菜明细
+     */
+    public ArrayList<DishDetaiListlEntity> dishListDetail;
+
+
+    /**
+     * 就餐人数
+     */
+    public String personNum;
+    /**
+     * 开单时间
+     */
+    public Long openTime;
+
+
+    /**
+     * 账单编号
+     */
+    public String billNo;
+
+    /**
+     * 支付状态
+     */
+    public String payStatus;
 
     public OrderDetailEntity() {
     }
@@ -88,7 +94,7 @@ public class OrderDetailEntity implements Serializable {
                 ", memberPhone='" + memberPhone + '\'' +
                 ", openTime='" + openTime + '\'' +
                 ", payStatus='" + payStatus + '\'' +
-                ", personName='" + personName + '\'' +
+                ", personName='" + personNum + '\'' +
                 ", reduceMoney='" + reduceMoney + '\'' +
                 ", tableBillId='" + tableBillId + '\'' +
                 '}';

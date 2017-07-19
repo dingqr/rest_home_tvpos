@@ -17,13 +17,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_12"
             android:layout_marginRight="@dimen/px_12"
-            android:background="@color/color_F8F8F8">
+            android:background="#f4f4f4">
 
             <EditText
                 android:id="@+id/et_money"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_80"
-                android:layout_marginBottom="@dimen/px_12"
+                android:layout_marginBottom="@dimen/px_10"
                 android:layout_marginLeft="@dimen/px_12"
                 android:layout_marginRight="@dimen/px_32"
                 android:layout_marginTop="@dimen/px_10"
@@ -33,22 +33,30 @@
                 android:paddingLeft="@dimen/px_20" />
         </FrameLayout>
 
-        <LinearLayout
+
+        <FrameLayout
             android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/px_6"
-            android:layout_marginRight="@dimen/px_5">
+            android:layout_marginRight="@dimen/px_6"
+            android:orientation="vertical">
 
             <com.github.jdsjlzx.recyclerview.LRecyclerView
                 android:id="@+id/rv_orderdish_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </com.github.jdsjlzx.recyclerview.LRecyclerView>
-        </LinearLayout>
+                android:layout_height="match_parent"></com.github.jdsjlzx.recyclerview.LRecyclerView>
+            <!--覆盖在列表上的阴影-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_6"
+                android:layout_marginLeft="@dimen/px_6"
+                android:layout_marginRight="@dimen/px_6"
+                android:background="@drawable/bg_shadow"></View>
+        </FrameLayout>
 
     </LinearLayout>
+
 
     <com.yonyou.hhtpos.widgets.RightNavigationView
         android:id="@+id/view_navigation_right"

@@ -8,17 +8,27 @@ import java.io.Serializable;
  * 描述：外带-点菜明细列表实体类
  */
 public class DishDetaiListlEntity implements Serializable {
-    /**下单时间*/
-    public String orderTime;
+    /**
+     * dishId
+     */
+    public String dishId;
+    /**
+     * dishRelateId
+     */
+    public String dishRelateId;
+    /**
+     * 菜品类型
+     */
+    public String dishType;
+
+    /**
+     * 下单时间
+     */
+    public Long orderTime;
     /**
      * 菜品名
      */
     public String dishName;
-
-    /**
-     * 菜品价格
-     */
-    public String dishPrice;
 
     /**
      * 菜品Id
@@ -29,4 +39,14 @@ public class DishDetaiListlEntity implements Serializable {
      * 菜品数量
      */
     public String quantity;
+
+
+    /**
+     * 菜品价格
+     */
+    public String dishPrice;
+
+    /**
+     * 菜品规格
+     */
 }

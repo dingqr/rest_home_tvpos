@@ -35,6 +35,7 @@
                 android:src="@drawable/ic_dish_gift" />
 
             <TextView
+                android:id="@+id/tv_dish_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -44,6 +45,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -52,6 +54,7 @@
             android:textSize="@dimen/px_22" />
 
         <TextView
+            android:id="@+id/tv_quanlity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -68,6 +71,7 @@
         android:paddingTop="@dimen/px_10">
 
         <TextView
+            android:id="@+id/tv_standards"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="中份"
@@ -75,6 +79,7 @@
             android:textSize="@dimen/px_20" />
 
         <TextView
+            android:id="@+id/tv_discount_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

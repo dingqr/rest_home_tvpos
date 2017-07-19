@@ -7,9 +7,9 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wd.OrderDetailEntity;
-import com.yonyou.hhtpos.interactor.IOrderDetailInteractor;
-import com.yonyou.hhtpos.interactor.Impl.OrderDetailInteractorImpl;
-import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
+import com.yonyou.hhtpos.interactor.IWDOrderDetailInteractor;
+import com.yonyou.hhtpos.interactor.Impl.WDOrderDetailInteractorImpl;
+import com.yonyou.hhtpos.presenter.IWDOrderDetailPresenter;
 import com.yonyou.hhtpos.view.IOrderDetailView;
 
 
@@ -18,22 +18,22 @@ import com.yonyou.hhtpos.view.IOrderDetailView;
  * 邮箱：zjuan@yonyou.com
  * 描述：外带订单详情
  */
-public class OrderDetailPresenterImpl implements IOrderDetailPresenter {
+public class WDOrderDetailPresenterImpl implements IWDOrderDetailPresenter {
 
     private Context mContext;
     private IOrderDetailView mOrderDetailView;
-    private IOrderDetailInteractor mOrderDetailInteractor;
+    private IWDOrderDetailInteractor mOrderDetailInteractor;
 
-    public OrderDetailPresenterImpl(Context mContext, IOrderDetailView orderDetailView) {
+    public WDOrderDetailPresenterImpl(Context mContext, IOrderDetailView orderDetailView) {
         this.mContext = mContext;
         this.mOrderDetailView = orderDetailView;
-        mOrderDetailInteractor = new OrderDetailInteractorImpl(new OrderDetailListener());
+        mOrderDetailInteractor = new WDOrderDetailInteractorImpl(new OrderDetailListener());
     }
 
 
     @Override
     public void requestOrderDetail(String tableBillId) {
-        mOrderDetailView.showDialogLoading(mContext.getString(R.string.network_loading));
+        mOrderDetailView.showLoading(mContext.getString(R.string.network_loading));
         mOrderDetailInteractor.requestOrderDetail(tableBillId);
     }
 
@@ -42,26 +42,26 @@ public class OrderDetailPresenterImpl implements IOrderDetailPresenter {
 
         @Override
         public void onSuccess(int event_tag, OrderDetailEntity data) {
-            mOrderDetailView.dismissDialogLoading();
+            mOrderDetailView.hideLoading();
             mOrderDetailView.requestOrderDetail(data);
         }
 
         @Override
         public void onError(String msg) {
-            mOrderDetailView.dismissDialogLoading();
+            mOrderDetailView.hideLoading();
             CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onException(String msg) {
-            mOrderDetailView.dismissDialogLoading();
+            mOrderDetailView.hideLoading();
             mOrderDetailView.showException(msg);
             //CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onBusinessError(ErrorBean error) {
-            mOrderDetailView.dismissDialogLoading();
+            mOrderDetailView.hideLoading();
             mOrderDetailView.showBusinessError(error);
             //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
         }

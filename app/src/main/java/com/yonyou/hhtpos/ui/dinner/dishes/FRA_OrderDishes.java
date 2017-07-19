@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -19,6 +20,7 @@ import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
+import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
@@ -30,6 +32,9 @@ import java.util.List;
 
 import butterknife.Bind;
 
+import static com.yonyou.hhtpos.R.id.ll_content;
+import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
+
 
 /**
  * Created by zj on 2017/7/11.
@@ -40,9 +45,9 @@ import butterknife.Bind;
 public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
-    @Bind(R.id.ll_content)
-    LinearLayout llContent;
-    @Bind(R.id.rv_orderdish_list)
+    @Bind(ll_content)
+    FrameLayout flContent;
+    @Bind(rv_orderdish_list)
     LRecyclerView mRecyclerView;
     @Bind(R.id.view_navigation_right)
     RightNavigationView mRightNavigationView;
@@ -61,13 +66,17 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     private RightListView mRightListView;
     public View startView;
 
-    //请求接口
+    //获取所有菜品/菜类presenter
     private IGetAllDishesPresenter mPresenter;
     //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
     private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     private String shopId = "C13352966C000000A60000000016E000";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
+
+    //添加菜品presenter
+    private IAddDishPresenter mAddDishPresenter;
+    private LinearLayout.LayoutParams mParams;
 
     @Override
     protected void onFirstUserVisible() {
@@ -120,6 +129,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
 //        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
 
         initListener();
+
+        mParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //空页面
 //        showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM,"");
     }
@@ -176,10 +187,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
                     // restore view helper
                     restoreViewHelper();
                     if (dishes != null && dishes.size() > 0) {
+                        mParams.setMargins(6, 0, 6, 0);
+                        flContent.setLayoutParams(mParams);
+                        mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
                         mAdapter.update(dishes, true);
                     } else {
-                        setLoadingTargetView(mRecyclerView);
-                        showEmpty(R.drawable.ic_wm_dishes_empty, "shdisudh");
+                        //设置空页面距离顶部的间距
+                        mParams.setMargins(12, 0, 12, 0);
+                        flContent.setLayoutParams(mParams);
+                        setLoadingTargetView(flContent);
+                        showEmpty(R.drawable.ic_wm_dishes_empty, mContext.getResources().getString(R.string.string_empty_dishes));
                     }
                     //菜类下的菜品为空时，展示空页面
                 }
@@ -246,6 +263,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
             } else {
                 outRect.top = 5;
             }
+//            //header占了列表头部的一个位置,设置bottom为0
+//            if (itemPosition == 0) {
+//                outRect.bottom = 5;
+//            }
         }
     }
 

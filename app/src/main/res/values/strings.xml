@@ -267,5 +267,6 @@
     <string name="string_discount_reason">折扣原因：</string>
     <string name="string_use_discount">使用折扣</string>
     <string name="sting_clear_discount_setting">清空折扣设置</string>
+    <string name="string_empty_dishes">该分类下暂无菜品~联系管理员添加。</string>
 
 </resources>

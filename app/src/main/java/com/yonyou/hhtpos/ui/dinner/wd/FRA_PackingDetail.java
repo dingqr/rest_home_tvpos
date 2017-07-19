@@ -9,16 +9,19 @@ package com.yonyou.hhtpos.ui.dinner.wd;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
-import com.yonyou.hhtpos.bean.DishDetailEntity;
+import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
 import com.yonyou.hhtpos.bean.wd.OrderDetailEntity;
-import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
-import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
+import com.yonyou.hhtpos.presenter.IWDOrderDetailPresenter;
+import com.yonyou.hhtpos.presenter.Impl.WDOrderDetailPresenterImpl;
 import com.yonyou.hhtpos.view.IOrderDetailView;
 
 import java.util.ArrayList;
@@ -35,13 +38,21 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
     RelativeLayout rlRootView;
     @Bind(R.id.lv_order_detail)
     ListView lvOrderDishes;
-    private ADA_OrderDishesDetail mAdapter;
-    private ArrayList<DishDetailEntity> dataList = new ArrayList<>();
+    //详情字段
+    @Bind(R.id.tv_open_order_waiter)
+    TextView tvOpenOrderWaiter;
+    @Bind(R.id.tv_open_order_time)
+    TextView tvOpenOrderTime;
+    @Bind(R.id.tv_open_order_person_num)
+    TextView tvOpenOrderPersonNum;
+    @Bind(R.id.tv_phone_number)
+    TextView tvPhoneNumber;
 
-    //请求接口
-    private IOrderDetailPresenter mPresenter;
-    //测试参数
-    private String tableBillId = "C4A99303500000009A000000001B8000";
+    private ADA_OrderDishesDetail mAdapter;
+    private ArrayList<DishDetaiListlEntity> dataList = new ArrayList<>();
+
+    //请求外带详情接口
+    private IWDOrderDetailPresenter mPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -65,13 +76,12 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
 
     @Override
     protected void initViewsAndEvents() {
-//        mPresenter = new OrderDetailPresenterImpl(getActivity(), this);
-//        mPresenter.requestOrderDetail(tableBillId);
+        mPresenter = new WDOrderDetailPresenterImpl(getActivity(), this);
         //有数据页面
         mAdapter = new ADA_OrderDishesDetail(mContext);
         lvOrderDishes.setAdapter(mAdapter);
-        setData();
-        mAdapter.update(dataList);
+//        setData();
+
 
         // 无数据页面
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
@@ -79,9 +89,9 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
 
     private void setData() {
         for (int i = 0; i < 10; i++) {
-            DishDetailEntity orderDishesEntity = new DishDetailEntity();
-            orderDishesEntity.dishes_name = "肉菜" + i;
-            dataList.add(orderDishesEntity);
+            DishDetaiListlEntity dishDetaiListlEntity = new DishDetaiListlEntity();
+            dishDetaiListlEntity.dishName = "肉菜" + i;
+            dataList.add(dishDetaiListlEntity);
         }
     }
 
@@ -106,8 +116,7 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
     }
 
     public void requestPackingDetail(String tableBillId) {
-//        mPresenter = new OrderDetailPresenterImpl(mContext, this);
-//        mPresenter.requestOrderDetail(tableBillId);
+        mPresenter.requestOrderDetail(tableBillId);
     }
 
     /**
@@ -117,7 +126,20 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
      */
     @Override
     public void requestOrderDetail(OrderDetailEntity orderDetailEntity) {
-//        Log.e("TAG", "orderDetailEntity=" + orderDetailEntity);
+        if (orderDetailEntity != null) {
+            tvOpenOrderTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.openTime, AppDateUtil.YYYY_MM_DD_HH_MM_SS)));
+            tvOpenOrderPersonNum.setText(StringUtil.getString(orderDetailEntity.personNum));
+            //会员手机号
+            if (orderDetailEntity.memberPhone.length() == 11) {
+                String maskNumber = orderDetailEntity.memberPhone.substring(0, 3) + "****" + orderDetailEntity.memberPhone.substring(7, orderDetailEntity.memberPhone.length());
+                tvPhoneNumber.setText(maskNumber);
+            }
+            //点菜明细列表
+            ArrayList<DishDetaiListlEntity> dishListDetail = orderDetailEntity.dishListDetail;
+            if (dishListDetail != null && dishListDetail.size() > 0) {
+                mAdapter.update(dishListDetail, true);
+            }
+        }
     }
 }
 

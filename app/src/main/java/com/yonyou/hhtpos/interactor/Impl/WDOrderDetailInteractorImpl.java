@@ -4,21 +4,22 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wd.OrderDetailEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.IOrderDetailInteractor;
+import com.yonyou.hhtpos.interactor.IWDOrderDetailInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
 
 /**
- * 作者：liushuofei on 2017/7/14 17:28
- * 邮箱：lsf@yonyou.com
+ * Created by zj on 2017/7/17.
+ * 邮箱：zjuan@yonyou.com
+ * 描述：外带订单详情-View层接口
  */
-public class OrderDetailInteractorImpl implements IOrderDetailInteractor {
+public class WDOrderDetailInteractorImpl implements IWDOrderDetailInteractor {
 
     private BaseLoadedListener<OrderDetailEntity> orderDetailListener;
 
-    public OrderDetailInteractorImpl(BaseLoadedListener<OrderDetailEntity> orderDetailListener) {
+    public WDOrderDetailInteractorImpl(BaseLoadedListener<OrderDetailEntity> orderDetailListener) {
         this.orderDetailListener = orderDetailListener;
     }
 

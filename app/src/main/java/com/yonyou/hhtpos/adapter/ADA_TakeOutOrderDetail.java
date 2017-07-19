@@ -5,7 +5,7 @@ import android.content.Context;
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.DishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.DishDetailEntity;
 
 /**
  * Created by zj on 2017/7/6.

@@ -87,12 +87,13 @@
             android:textSize="@dimen/sp_26" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_money"
         android:layout_marginBottom="@dimen/px_20"
         android:layout_marginLeft="@dimen/px_12"
+        android:layout_marginRight="@dimen/px_10"
         android:layout_marginTop="@dimen/px_50"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -111,6 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_20"
+            android:layout_toRightOf="@+id/tv_dish_price"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/color_222222"
@@ -118,13 +120,20 @@
 
         <RadioButton
             android:id="@+id/rb_dish_check"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:background="@color/color_FFFFFF"
             android:button="@null"
             android:drawableRight="@drawable/rb_table_selector"
             android:gravity="end"
             android:textColor="@color/color_333333"
             android:visibility="gone" />
-    </LinearLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_check"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:src="@drawable/ic_table_selected" />-->
+    </RelativeLayout>
 </LinearLayout>

@@ -47,6 +47,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_open_order_waiter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -70,10 +71,10 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_open_order_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="2017-06-01 14:09:00"
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>
@@ -93,10 +94,10 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_open_order_person_num"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="4"
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>
@@ -187,10 +188,10 @@
                         android:textSize="@dimen/sp_24" />
 
                     <TextView
+                        android:id="@+id/tv_phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="135****0000"
                         android:textColor="@color/color_999999"
                         android:textSize="@dimen/sp_24" />
                 </LinearLayout>

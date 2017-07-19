@@ -12,7 +12,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
-import com.yonyou.hhtpos.bean.DishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.DishDetailEntity;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 
 import java.util.ArrayList;

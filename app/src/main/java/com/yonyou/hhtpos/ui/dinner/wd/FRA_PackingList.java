@@ -41,7 +41,9 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Bind(R.id.pla_lv_packing)
     PLALoadMoreListView plaLvPacking;
 
-    /**传入数据 */
+    /**
+     * 传入数据
+     */
     public static final String TYPE = "type";
     private int type;
     private String payStatus;
@@ -49,11 +51,17 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     private List<OrderListEntity> mDataList;
     private ADA_PackingList mAdapter;
 
-    /**中间者 */
+    /**
+     * 中间者
+     */
     private IWDListPresenter mPackingListPresenter;
-    /**当前页数 */
+    /**
+     * 当前页数
+     */
     private int mCurrentPage = 1;
-    /**默认页数 */
+    /**
+     * 默认页数
+     */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_PackingList newInstance(int type) {
@@ -104,24 +112,19 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         mPackingListPresenter = new WDListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
             mPackingListPresenter.requestPackingList("", SalesModeUtil.SALES_MODE_WD, "hht", DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
-        }else {
+        } else {
             // reset refresh state
             if (null != srlPacking) {
                 srlPacking.setRefreshing(false);
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
-        plaLvPacking.setOnItemSelectedListener(new PLAAdapterView.OnItemSelectedListener() {
+        plaLvPacking.setOnItemClickListener(new PLAAdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(PLAAdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(PLAAdapterView<?> parent, View view, int position, long id) {
                 if (mDataList.size() > 0) {
                     requestPackingDetail(mDataList.get(position).id);
                 }
-            }
-
-            @Override
-            public void onNothingSelected(PLAAdapterView<?> parent) {
-
             }
         });
 
@@ -237,7 +240,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
-        if (intent == ReceiveConstants.WD_OPEN_ORDER_SUCCESS){
+        if (intent == ReceiveConstants.WD_OPEN_ORDER_SUCCESS) {
             onRefresh();
         }
     }

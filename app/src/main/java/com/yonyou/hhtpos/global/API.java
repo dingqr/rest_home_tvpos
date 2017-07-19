@@ -90,4 +90,8 @@ public class API {
      * 外带订单详情
      */
     public static final String URL_WD_ORDER_DETAIL = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOrderDetail";
+    /**
+     * 点菜时，新加菜品
+     */
+    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
 }
