@@ -196,6 +196,25 @@ public abstract class BaseLazyFragment extends Fragment {
         }
     }
 
+    /**
+     * set loading target view
+     * @param view
+     */
+    public void setLoadingTargetView(View view){
+        if (null != view){
+            mVaryViewHelperController = new VaryViewHelperController(view);
+        }
+    }
+
+    /**
+     * restore view helper
+     */
+    public void restoreViewHelper(){
+        if (null != mVaryViewHelperController){
+            mVaryViewHelperController.restore();
+        }
+    }
+
     private synchronized void initPrepare() {
         if (isPrepared) {
             onFirstUserVisible();

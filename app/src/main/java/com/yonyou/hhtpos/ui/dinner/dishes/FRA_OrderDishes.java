@@ -173,17 +173,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
             public void onItemClick(int count, String title, final int postion) {
                 if (mDishDataBean != null && mDishDataBean.dishTypes.size() > 0) {
                     List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
-                    mAdapter.update(dishes, true);
-//                    if (dishes != null && dishes.size() > 0) {
-//                        mAdapter.update(dishes, true);
-//                    } else {
-//                        mRecyclerView.setVisibility(View.GONE);
-//                        showEmpty(R.drawable.ic_wm_dishes_empty, "shdisudh");
-//                    }
+                    // restore view helper
+                    restoreViewHelper();
+                    if (dishes != null && dishes.size() > 0) {
+                        mAdapter.update(dishes, true);
+                    } else {
+                        setLoadingTargetView(mRecyclerView);
+                        showEmpty(R.drawable.ic_wm_dishes_empty, "shdisudh");
+                    }
                     //菜类下的菜品为空时，展示空页面
-
                 }
-
             }
         });
     }
