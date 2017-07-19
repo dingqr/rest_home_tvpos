@@ -20,7 +20,8 @@
             android:layout_marginTop="@dimen/px_40"
             app:inputHint="输入就餐人数"
             app:inputMode="0"
-            app:titleText="@string/dinner_number" />
+            app:titleText="@string/dinner_number"
+            app:inputType="1"/>
 
         <com.yonyou.hhtpos.widgets.DialogInputView
             android:id="@+id/div_phone_number"
@@ -30,7 +31,8 @@
             android:layout_marginTop="@dimen/px_28"
             app:inputHint="输入手机号"
             app:inputMode="0"
-            app:titleText="会员" />
+            app:titleText="会员"
+            app:inputType="1"/>
 
     </LinearLayout>
 

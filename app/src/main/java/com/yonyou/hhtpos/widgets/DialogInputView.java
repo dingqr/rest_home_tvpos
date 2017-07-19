@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
     private String inputText;
     /**输入框模式 */
     private Integer inputMode;
+    /**输入框输入类型（数字、电话） */
+    private Integer inputType;
     /**输入框高度 */
     private Integer inputHeight;
     /**边距 */
@@ -72,6 +75,7 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
         inputHint = typedArray.getString(R.styleable.InputView_inputHint);
         inputText = typedArray.getString(R.styleable.InputView_inputText);
         inputMode = typedArray.getInteger(R.styleable.InputView_inputMode, 0);
+        inputType = typedArray.getInteger(R.styleable.InputView_inputType, 0);
         inputHeight = typedArray.getInteger(R.styleable.InputView_inputHeight, 0);
         marginLeft = typedArray.getInteger(R.styleable.InputView_marginLeft, 80);
         marginTop = typedArray.getInteger(R.styleable.InputView_marginTop, 0);
@@ -114,6 +118,8 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
 
         // 根据模式设置EditText
         checkMode();
+        // 根据类型设置输入类型
+        checkType();
     }
 
     public String getInputText(){
@@ -129,12 +135,11 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
     }
 
     /**
-     * 检测当前输入框类型
+     * 检测当前输入框类型（可编辑、不可编辑、点击模式）
      */
     private void checkMode(){
-        if (null == inputMode){
+        if (null == inputMode)
             return;
-        }
 
         switch (inputMode){
             // 编辑模式
@@ -149,6 +154,27 @@ public class DialogInputView extends LinearLayout implements View.OnClickListene
             // 点击模式
             case MODE_CLICK:
                 mInputEdit.setEnabled(false);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 检测当前输入类型（数字、电话）
+     */
+    private void checkType(){
+        if (null == inputType)
+            return;
+
+        switch (inputType){
+            case 1:
+                mInputEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+
+            case 2:
+                mInputEdit.setInputType(InputType.TYPE_CLASS_PHONE);
                 break;
 
             default:
