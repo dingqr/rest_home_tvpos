@@ -10,7 +10,6 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PreviewFragmentAdapter;
 import com.yonyou.hhtpos.dialog.DIA_Calendar;
-import com.yonyou.hhtpos.dialog.DIA_WDOpenOrder;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -122,7 +121,7 @@ public class FRA_BookLeft extends BaseFragment {
 
     }
 
-    @OnClick({R.id.tv_yesterday, R.id.tv_tomorrow, R.id.tv_search, R.id.tv_date})
+    @OnClick({R.id.tv_yesterday, R.id.tv_tomorrow, R.id.tv_filter, R.id.tv_date})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_yesterday:
@@ -137,7 +136,7 @@ public class FRA_BookLeft extends BaseFragment {
                 DIA_Calendar dia_calendar = new DIA_Calendar(mContext);
                 dia_calendar.getDialog().show();
                 break;
-            case R.id.tv_search:
+            case R.id.tv_filter:
                 ((ACT_BookPreview)getActivity()).switchToSearch();
                 break;
 

@@ -260,6 +260,8 @@
     <string name="service_fee">服务费</string>
     <string name="box_service_fee">包厢服务费</string>
     <string name="perform">表演</string>
+    <string name="ts_check_out">堂食结账</string>
+    <string name="cashier">收银：</string>
     <string name="free_order">免单</string>
 
     <string name="string_time_hour">时</string>

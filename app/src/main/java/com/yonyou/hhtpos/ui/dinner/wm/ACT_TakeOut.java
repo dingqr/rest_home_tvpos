@@ -3,17 +3,15 @@ package com.yonyou.hhtpos.ui.dinner.wm;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
-import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.bean.wm.FilterEntity;
 
-import butterknife.Bind;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 /**
  * 外卖

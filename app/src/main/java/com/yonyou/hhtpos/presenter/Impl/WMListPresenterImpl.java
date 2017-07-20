@@ -7,6 +7,7 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
+import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
 import com.yonyou.hhtpos.interactor.IWMListInteractor;
 import com.yonyou.hhtpos.interactor.Impl.WMListInteractorImpl;
 import com.yonyou.hhtpos.presenter.IWMListPresenter;
@@ -32,12 +33,12 @@ public class WMListPresenterImpl implements IWMListPresenter {
     }
 
     @Override
-    public void requestTakeOutList(String companyId, String salesMode, String shopId, String pageNum, String pageSize, String dinnerStatus, boolean isRefresh, boolean isEmpty) {
+    public void requestTakeOutList(OrderListRequestEntity bean, boolean isRefresh, boolean isEmpty) {
         this.isRefresh = isRefresh;
         if (isEmpty){
             mTakeOutListView.showLoading(mContext.getString(R.string.network_loading));
         }
-        mTakeOutListInteractor.requestTakeOutList(companyId, salesMode, shopId, pageNum, pageSize, dinnerStatus);
+        mTakeOutListInteractor.requestTakeOutList(bean);
     }
 
 

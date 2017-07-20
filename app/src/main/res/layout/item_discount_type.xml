@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/color_FFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="折扣"
+        android:textSize="@dimen/sp_26"
+        android:textColor="@color/color_222222"
+        android:drawableTop="@drawable/ic_check_out_discount"
+        android:drawablePadding="@dimen/px_12"
+        android:padding="@dimen/px_20"/>
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
+import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.widgets.MultipleSelectView;
 
 /**
@@ -119,7 +120,11 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
                 }else{
                     CommonUtils.makeEventToast(mContext, "请选择市别", false);
                 }
-                wmfCallback.sendItems(takeOutCompanyId.toString(),takeOutScheduleId.toString());
+
+                FilterEntity bean = new FilterEntity();
+                bean.takeOutCompanyId = takeOutCompanyId.toString();
+                bean.takeOutScheduleId = takeOutScheduleId.toString();
+                wmfCallback.sendItems(bean);
                 mDialog.dismiss();
                 break;
 
@@ -132,7 +137,7 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
      * 获取筛选数据后传递数据用的接口
      */
     public interface WMFCallback {
-        void sendItems(String takeOutCompanyId,String scheduleNameId);
+        void sendItems(FilterEntity bean);
 
 //        void sendScheduleId(String scheduleNameId);
     }

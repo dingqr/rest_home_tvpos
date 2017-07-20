@@ -14,6 +14,7 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
 import com.yonyou.hhtpos.bean.TakeoutMarketEntity;
+import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * 外卖左侧fragment
@@ -47,8 +49,8 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     ViewPager mViewPager;
     @Bind(R.id.iv_take_out)
     ImageView ivTakeOut;
-    @Bind(R.id.tv_search)
-    TextView tvSearch;
+    @Bind(R.id.tv_filter)
+    TextView tvFilter;
 
     /**当前Fragment */
     private FRA_TakeOutList mCurrentFramgent;
@@ -124,7 +126,7 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
                 dia_takeOutOpenOrder.getDialog().show();
             }
         });
-        tvSearch.setOnClickListener(new View.OnClickListener() {
+        tvFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DIA_TakeOutFiltration dia_takeOutFiltration = new DIA_TakeOutFiltration(mContext,takeoutType,takeoutMarket);
@@ -224,7 +226,6 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
         }
         takeoutType = new FilterItemEntity(filterCompanies,"外卖类型");
         openOrderCompany = new FilterItemEntity(openOrderCompanies,"");
-
     }
 
     @Override
@@ -235,8 +236,8 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     @Override
     public void getAllTakeOutMarket(List<TakeoutMarketEntity> list) {
         ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
-        if (list!=null){
-            for (int i=0;i<list.size();i++){
+        if (list != null){
+            for (int i = 0;i < list.size();i++){
                 FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getScheduleName(),list.get(i).getScheduleId(),
                         FiltrationUtil.MARKET_TYPE,false);
                 filterOptionsEntities.add(fde);
@@ -245,11 +246,9 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
         takeoutMarket = new FilterItemEntity(filterOptionsEntities,"市别");
     }
 
+
     @Override
-    public void sendItems(String takeOutCompanyId,String takeOutScheduleId) {
-        this.takeOutCompanyId = takeOutCompanyId;
-        this.takeOutScheduleId = takeOutScheduleId;
+    public void sendItems(FilterEntity bean) {
+        EventBus.getDefault().post(bean);
     }
-
-
 }

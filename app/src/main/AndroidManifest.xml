@@ -109,7 +109,7 @@
 
         <!--结账页面 -->
         <activity
-            android:name=".ui.check.ACT_CheckOut"
+            android:name=".ui.dinner.check.ACT_CheckOut"
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 

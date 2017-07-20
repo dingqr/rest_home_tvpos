@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.interactor;
 
+import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
+
 /**
  * 作者：liushuofei on 2017/7/14 18:34
  * 邮箱：lsf@yonyou.com
@@ -8,12 +10,7 @@ public interface IWMListInteractor {
 
     /**
      * 请求外卖列表
-     * @param companyId 公司id
-     * @param salesMode 就餐类型
-     * @param shopId 门店id
-     * @param pageNum 页数
-     * @param pageSize 每页显示数量
-     * @param dinnerStatus 订单状态
+     * @param bean 请求实体类
      */
-    void requestTakeOutList(String companyId, String salesMode, String shopId, String pageNum, String pageSize, String dinnerStatus);
+    void requestTakeOutList(OrderListRequestEntity bean);
 }

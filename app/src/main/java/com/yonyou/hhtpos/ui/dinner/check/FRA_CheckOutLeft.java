@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.ui.check;
+package com.yonyou.hhtpos.ui.dinner.check;
 
 import android.view.LayoutInflater;
 import android.view.View;

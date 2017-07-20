@@ -1,8 +1,11 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
+import android.text.TextUtils;
+
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
+import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IWMListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -25,17 +28,24 @@ public class WMListInteractorImpl implements IWMListInteractor {
 
 
     @Override
-    public void requestTakeOutList(String companyId, String salesMode, String shopId, String pageNum, String pageSize, String dinnerStatus) {
+    public void requestTakeOutList(OrderListRequestEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
-        //hashMap.put("companyId", companyId);
-        hashMap.put("salesMode", salesMode);
-        hashMap.put("shopId", shopId);
-        hashMap.put("pageNum", pageNum);
-        hashMap.put("pageSize", pageSize);
+        hashMap.put("salesMode", bean.getSalesMode());
+        hashMap.put("shopId", bean.getShopId());
+        hashMap.put("pageNum", bean.getPageNum());
+        hashMap.put("pageSize", bean.getPageSize());
 
         // 全部不传递该字段
-        if (!dinnerStatus.equals("0")){
-            hashMap.put("dinnerStatus", dinnerStatus);
+        if (!bean.getDinnerStatus().equals("0")){
+            hashMap.put("dinnerStatus", bean.getDinnerStatus());
+        }
+        // 为空不传递该字段：市别
+        if (!TextUtils.isEmpty(bean.getScheduleNameId())){
+            hashMap.put("scheduleNameId", bean.getScheduleNameId());
+        }
+        // 为空不传递该字段：外卖公司
+        if (!TextUtils.isEmpty(bean.getTakeOutCompanyId())){
+            hashMap.put("takeOutCompanyId", bean.getTakeOutCompanyId());
         }
 
         RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_LIST, hashMap, new ReqCallBack<List<OrderListEntity>>() {

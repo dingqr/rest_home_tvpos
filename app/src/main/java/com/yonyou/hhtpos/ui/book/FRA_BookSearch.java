@@ -17,7 +17,7 @@ import butterknife.OnClick;
  */
 public class FRA_BookSearch extends BaseFragment {
 
-    @Bind(R.id.tv_search)
+    @Bind(R.id.tv_filter)
     TextView tvSearch;
 
     @Override
@@ -65,7 +65,7 @@ public class FRA_BookSearch extends BaseFragment {
 
     }
 
-    @OnClick(R.id.tv_search)
+    @OnClick(R.id.tv_filter)
     public void onClick() {
         ((ACT_BookPreview)getActivity()).switchToLeft();
     }

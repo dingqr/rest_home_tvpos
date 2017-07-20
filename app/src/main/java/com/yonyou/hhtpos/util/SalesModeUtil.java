@@ -8,4 +8,5 @@ public class SalesModeUtil {
     public static final String SALES_MODE_TS = "1";
     public static final String SALES_MODE_WM = "2";
     public static final String SALES_MODE_WD = "3";
+    public static final String SALES_MODE_YD = "4";
 }

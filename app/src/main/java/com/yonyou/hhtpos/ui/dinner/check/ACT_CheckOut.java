@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.ui.check;
+package com.yonyou.hhtpos.ui.dinner.check;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -40,7 +40,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple{
 
     @Override
     protected Fragment getRightContent() {
-        return new FRA_TakeOutDetail();
+        return new FRA_CheckOutRight();
     }
 
     @Override
@@ -85,12 +85,12 @@ public class ACT_CheckOut extends ACT_BaseMultiple{
 
     @Override
     protected boolean toggleOverridePendingTransition() {
-        return false;
+        return true;
     }
 
     @Override
     protected TransitionMode getOverridePendingTransitionMode() {
-        return null;
+        return TransitionMode.RIGHT;
     }
 
     @Override
