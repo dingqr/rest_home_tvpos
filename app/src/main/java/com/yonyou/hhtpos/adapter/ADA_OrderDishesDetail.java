@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
 
@@ -26,17 +27,16 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<DishDetaiListlE
     protected void convert(ViewHolderListView holder, DishDetaiListlEntity dishDetaiListlEntity, int position) {
         if (dishDetaiListlEntity != null) {
             //设置点菜时间
-//            holder.setText(R.id.tv_header_time, );
+            holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetaiListlEntity.orderTime, AppDateUtil.HH_MM)) + mContext.getResources().getString(R.string.string_order_dish));
             //设置份数
-            holder.setText(R.id.tv_quanlity, dishDetaiListlEntity.quantity);
-
+            holder.setText(R.id.tv_quanlity, dishDetaiListlEntity.quantity + mContext.getResources().getString(R.string.string_unit_quanlity));
             holder.setText(R.id.tv_dish_name, dishDetaiListlEntity.dishName);
-            //设置价格-原价
-//                holder.setText(R.id.tv_price,);
-            //设置优惠后的价格
-//                holder.setText(R.id.tv_discount_price,);
+            //设置原价
+            holder.setText(R.id.tv_dish_price, "￥" + dishDetaiListlEntity.getDishPrice());
+            //设置会员价
+            holder.setText(R.id.tv_member_price, "￥" + dishDetaiListlEntity.getMemberPrice());
             //设置规格
-//            holder.setText(R.id.tv_standards, );
+            holder.setText(R.id.tv_standard_name, dishDetaiListlEntity.standardName);
         }
 
 //        //根据菜品的提交订单时间，分组显示列表

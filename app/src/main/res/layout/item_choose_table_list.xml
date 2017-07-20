@@ -36,17 +36,17 @@
     <!--android:textColor="@color/color_FFFFFF"-->
     <!--android:textSize="@dimen/sp_20" />-->
 
-    <!--&lt;!&ndash;选中状态&ndash;&gt;-->
-    <!--<RadioButton-->
-        <!--android:id="@+id/rb_table_check"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginRight="@dimen/px_14"-->
-        <!--android:layout_marginTop="@dimen/px_10"-->
-        <!--android:button="@null"-->
-        <!--android:drawableRight="@drawable/rb_table_selector"-->
-        <!--android:textColor="@color/color_333333" />-->
+    <!--选中状态-->
+    <RadioButton
+        android:id="@+id/rb_table_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/px_14"
+        android:layout_marginTop="@dimen/px_10"
+        android:button="@null"
+        android:drawableRight="@drawable/rb_table_selector"
+        android:textColor="@color/color_333333" />
 
     <TextView
         android:id="@+id/tv_money"

@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class WaiterEntity implements Serializable {
     /**服务员id*/
-    public String id;
+    public String  waiterId;
     /**服务员名称*/
-    public String name;
+    public String  waiterName;
 
     public WaiterEntity() {
     }
@@ -19,8 +19,8 @@ public class WaiterEntity implements Serializable {
     @Override
     public String toString() {
         return "WaiterEntity{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "waiterId='" + waiterId + '\'' +
+                ", waiterName='" + waiterName + '\'' +
                 '}';
     }
 }

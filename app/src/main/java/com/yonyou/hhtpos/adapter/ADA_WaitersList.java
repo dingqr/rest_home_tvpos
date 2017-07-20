@@ -29,10 +29,10 @@ public class ADA_WaitersList extends CommonAdapterListView<WaiterEntity> {
     }
 
     @Override
-    protected void convert(ViewHolderListView holder, WaiterEntity item, int position) {
+    protected void convert(ViewHolderListView holder, WaiterEntity waiterEntity, int position) {
         TextView tv_waiter_name = holder.getView(R.id.tv_waiter_name);
         View divider_view = holder.getView(R.id.divider_view);
-        holder.setText(R.id.tv_waiter_name, item.name);
+        holder.setText(R.id.tv_waiter_name, waiterEntity.waiterName);
         if (mSelectedPos == position) {
             tv_waiter_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
             tv_waiter_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_fef2f0));

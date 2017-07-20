@@ -18,6 +18,7 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
+import com.yonyou.hhtpos.bean.PayTypeEntity;
 import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
 import com.yonyou.hhtpos.bean.wd.OrderDetailEntity;
 import com.yonyou.hhtpos.presenter.IWDOrderDetailPresenter;
@@ -45,8 +46,28 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
     TextView tvOpenOrderTime;
     @Bind(R.id.tv_open_order_person_num)
     TextView tvOpenOrderPersonNum;
+    @Bind(R.id.tv_pay_status)
+    TextView tvPayStatus;
     @Bind(R.id.tv_phone_number)
     TextView tvPhoneNumber;
+    @Bind(R.id.tv_reduce_money)
+    TextView tvReduceMoney;
+    @Bind(R.id.tv_discount_money)
+    TextView tvDiscountMoney;
+    @Bind(R.id.tv_ignore_money)
+    TextView tvIgnoreMoney;
+    @Bind(R.id.tv_real_receive_amount)
+    TextView tvRealReceiveAmount;
+    @Bind(R.id.tv_pay_type)
+    TextView tvPayType;
+    @Bind(R.id.tv_pay_money)
+    TextView tvPayMoney;
+    @Bind(R.id.tv_cashier)
+    TextView tvCashier;
+    @Bind(R.id.tv_not_pay)
+    TextView tvNotPay;
+    @Bind(R.id.tv_wait_receive_money)
+    TextView tvWaitReceiveMoney;
 
     private ADA_OrderDishesDetail mAdapter;
     private ArrayList<DishDetaiListlEntity> dataList = new ArrayList<>();
@@ -127,13 +148,49 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
     @Override
     public void requestOrderDetail(OrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
+            //开单服务员
+            tvOpenOrderWaiter.setText(orderDetailEntity.waiterName);
+            //开单时间
             tvOpenOrderTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.openTime, AppDateUtil.YYYY_MM_DD_HH_MM_SS)));
+            //开单服务员
             tvOpenOrderPersonNum.setText(StringUtil.getString(orderDetailEntity.personNum));
+            //支付状态
+            if (orderDetailEntity.payStatus.equals("Y")) {
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_pay_successful));
+                tvNotPay.setVisibility(View.GONE);
+                tvWaitReceiveMoney.setVisibility(View.GONE);
+            } else {
+                tvNotPay.setVisibility(View.VISIBLE);
+                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
+                //待收金额
+//                tvWaitReceiveMoney.setText();
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
+            }
+
             //会员手机号
             if (orderDetailEntity.memberPhone.length() == 11) {
                 String maskNumber = orderDetailEntity.memberPhone.substring(0, 3) + "****" + orderDetailEntity.memberPhone.substring(7, orderDetailEntity.memberPhone.length());
                 tvPhoneNumber.setText(maskNumber);
             }
+            //优惠金额
+            tvReduceMoney.setText("￥"+orderDetailEntity.getReduceMoney());
+            //折扣
+            tvDiscountMoney.setText("￥"+orderDetailEntity.getDiscountMoney());
+            //抹零
+            tvIgnoreMoney.setText("￥"+orderDetailEntity.getIgnoreMoney());
+            //实际支付
+            tvRealReceiveAmount.setText("￥"+orderDetailEntity.getRealReceiveAmount());
+
+            //支付方式-可能组合
+            if (orderDetailEntity.payTypeList != null && orderDetailEntity.payTypeList.size() > 0) {
+                for (int i = 0; i < orderDetailEntity.payTypeList.size(); i++) {
+                    PayTypeEntity payTypeEntity = orderDetailEntity.payTypeList.get(i);
+                    tvPayType.setText(orderDetailEntity.getPayTypeRemark(payTypeEntity.payType));
+                    tvPayMoney.setText("￥"+StringUtil.getFormattedMoney(orderDetailEntity.payTypeList.get(0).getPayAmount()));
+                }
+            }
+            //收银员名称
+            tvCashier.setText(orderDetailEntity.waiterName);
             //点菜明细列表
             ArrayList<DishDetaiListlEntity> dishListDetail = orderDetailEntity.dishListDetail;
             if (dishListDetail != null && dishListDetail.size() > 0) {

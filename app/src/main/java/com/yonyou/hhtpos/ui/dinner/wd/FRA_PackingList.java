@@ -12,7 +12,6 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.framework.library.widgets.ESwipeRefreshLayout;
-import com.yonyou.framework.library.widgets.pla.PLAAdapterView;
 import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_PackingList;
@@ -119,15 +118,14 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
-        plaLvPacking.setOnItemClickListener(new PLAAdapterView.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
             @Override
-            public void onItemClick(PLAAdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(int position) {
                 if (mDataList.size() > 0) {
                     requestPackingDetail(mDataList.get(position).id);
                 }
             }
         });
-
     }
 
     /**

@@ -32,7 +32,7 @@ public class ADA_PayType extends CommonAdapterListView<PayTypeEntity> {
     protected void convert(ViewHolderListView holder, PayTypeEntity payTypeEntity, int position) {
         LinearLayout ll_pay_type = holder.getView(R.id.ll_pay_type);
         TextView tv_pay_type = holder.getView(R.id.tv_pay_type);
-        holder.setText(R.id.tv_pay_type, payTypeEntity.pay_type_name);
+        holder.setText(R.id.tv_pay_type, payTypeEntity.payType);
         if (mSelectedPos == position) {
             tv_pay_type.setBackgroundResource(R.drawable.bg_side_light_red_4);
             tv_pay_type.setTextColor(ContextCompat.getColor(mContext, R.color.color_FFFFFF));

@@ -119,7 +119,7 @@ public class DIA_TurnChooseTable {
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 mAdapter.setSelectItem(position);
                 mAdapter.notifyDataSetChanged();
-                CommonUtils.makeEventToast(mContext,mTableList.get(position).table_name,false);
+                CommonUtils.makeEventToast(mContext,mTableList.get(position).tableName,false);
             }
 
             @Override
@@ -153,7 +153,7 @@ public class DIA_TurnChooseTable {
 
         for (int i = 0; i < 30; i++) {
             CanteenTableEntity canteenTableEntity = new CanteenTableEntity();
-            canteenTableEntity.table_name = "item=" + i;
+            canteenTableEntity.tableName = "item=" + i;
             mTableList.add(canteenTableEntity);
         }
         mAdapter.update(mTableList);

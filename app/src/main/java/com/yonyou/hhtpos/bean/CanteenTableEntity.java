@@ -5,18 +5,31 @@ import java.io.Serializable;
 /**
  * Created by zj on 2017/7/8.
  * 邮箱：zjuan@yonyou.com
- * 描述：
+ * 描述：堂食-桌台实体类
  */
 public class CanteenTableEntity implements Serializable {
     /**
-     * 唯一标识-id
+     * relReceiveAmount
      */
-    public String id;
+    public String relReceiveAmount;
+    /**
+     * 桌台账单-id
+     */
+    public String tableBillId;
+    /**
+     * 桌台id
+     */
+    public String tableId;
 
     /**
      * 桌台名称
      */
-    public String table_name;
+    public String tableName;
+
+    /**
+     * 桌台状态
+     */
+    public String tableStatus;
 
     /**
      * 桌台可容纳最大人数
@@ -40,13 +53,4 @@ public class CanteenTableEntity implements Serializable {
         this.isCheck = isCheck;
     }
 
-    @Override
-    public String toString() {
-        return "CanteenTableEntity{" +
-                "id='" + id + '\'' +
-                ", table_name='" + table_name + '\'' +
-                ", max_capacity=" + max_capacity +
-                ", create_time='" + create_time + '\'' +
-                '}';
-    }
 }

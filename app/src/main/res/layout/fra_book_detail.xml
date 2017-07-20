@@ -308,6 +308,7 @@
                 android:gravity="center"/>
 
             <TextView
+                android:id="@+id/tv_guest_arriving"
                 android:layout_width="@dimen/px_190"
                 android:layout_height="@dimen/px_70"
                 android:text="客人到店"

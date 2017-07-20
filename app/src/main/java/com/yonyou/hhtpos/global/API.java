@@ -106,4 +106,12 @@ public class API {
      * 点菜时，新加菜品
      */
     public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
+    /**
+     * 查询服务员
+     */
+    public static final String URL_GET_ALL_WAITERS = BASE_SERVER_SHOP + "/dineIn/getAllWaiter";
+    /**
+     * 堂食-查询桌台列表
+     */
+    public static final String URL_TS_TABLE_LIST = BASE_SERVER_SHOP + "/protabledynamic/getTableDynamicList";
 }

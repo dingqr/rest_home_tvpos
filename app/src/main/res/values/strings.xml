@@ -126,6 +126,9 @@
     <string name="packing_status_all">全部</string>
     <string name="packing_status_out_standing">未结账</string>
     <string name="packing_status_checked_out">结清</string>
+    <string name="string_empty_dishes">该分类下暂无菜品~联系管理员添加。</string>
+    <string name="string_pay_successful">已结</string>
+    <string name="string_wait_pay">未结账</string>
 
     <!--外卖-->
     <string name="name">姓名</string>
@@ -274,6 +277,9 @@
     <string name="string_discount_reason">折扣原因：</string>
     <string name="string_use_discount">使用折扣</string>
     <string name="sting_clear_discount_setting">清空折扣设置</string>
-    <string name="string_empty_dishes">该分类下暂无菜品~联系管理员添加。</string>
+    <string name="string_pay_by_cash">现金</string>
+    <string name="string_unit_quanlity">份</string>
+    <string name="string_order_dish">点餐</string>
+
 
 </resources>

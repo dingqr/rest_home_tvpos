@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.bean.wd;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
+
 import java.io.Serializable;
 
 /**
@@ -8,19 +10,6 @@ import java.io.Serializable;
  * 描述：外带-点菜明细列表实体类
  */
 public class DishDetaiListlEntity implements Serializable {
-    /**
-     * dishId
-     */
-    public String dishId;
-    /**
-     * dishRelateId
-     */
-    public String dishRelateId;
-    /**
-     * 菜品类型
-     */
-    public String dishType;
-
     /**
      * 下单时间
      */
@@ -31,22 +20,59 @@ public class DishDetaiListlEntity implements Serializable {
     public String dishName;
 
     /**
+     * 菜品价格
+     */
+    private String dishPrice;
+    /**
+     * 会员价格
+     */
+    public String memberPrice;
+
+    /**
      * 菜品Id
      */
     public String id;
-
+    /**
+     * 菜品类型
+     */
+    public String dishType;
     /**
      * 菜品数量
      */
     public String quantity;
 
-
-    /**
-     * 菜品价格
-     */
-    public String dishPrice;
-
     /**
      * 菜品规格
      */
+    public String standardName;
+
+    public String getDishPrice() {
+        return StringUtil.getFormattedMoney(dishPrice);
+    }
+
+    public void setDishPrice(String dishPrice) {
+        this.dishPrice = dishPrice;
+    }
+
+    public String getMemberPrice() {
+        return StringUtil.getFormattedMoney(memberPrice);
+    }
+
+    public void setMemberPrice(String memberPrice) {
+        this.memberPrice = memberPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "DishDetaiListlEntity{" +
+                "orderTime='" + orderTime + '\'' +
+                ", dishName='" + dishName + '\'' +
+                ", dishPrice='" + dishPrice + '\'' +
+                ", memberPrice='" + memberPrice + '\'' +
+                ", id='" + id + '\'' +
+                ", dishType='" + dishType + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", standardName='" + standardName + '\'' +
+                '}';
+    }
 }

@@ -22,7 +22,7 @@ public class ADA_TableChooseList extends CommonAdapter<CanteenTableEntity> {
 
     @Override
     protected int itemLayoutId() {
-        return R.layout.item_table_list;
+        return R.layout.item_choose_table_list;
     }
 
     @Override

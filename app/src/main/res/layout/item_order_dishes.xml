@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_14"
         android:layout_marginTop="@dimen/px_22"
-        android:text="14：00点餐"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/sp_22" />
 
@@ -39,17 +38,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="松茸汽鸡锅"
                 android:textColor="@color/color_222222"
                 android:textSize="@dimen/px_22" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tv_dish_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="￥88.00"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/px_22" />
 
@@ -59,7 +56,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingRight="@dimen/px_24"
-            android:text="1份"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/px_22" />
     </RelativeLayout>
@@ -71,19 +67,17 @@
         android:paddingTop="@dimen/px_10">
 
         <TextView
-            android:id="@+id/tv_standards"
+            android:id="@+id/tv_standard_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="中份"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/px_20" />
 
         <TextView
-            android:id="@+id/tv_discount_price"
+            android:id="@+id/tv_member_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="￥68.00"
             android:textColor="@color/color_eb6247"
             android:textSize="@dimen/px_20" />
     </RelativeLayout>

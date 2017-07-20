@@ -14,14 +14,21 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
+import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
+import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.presenter.ITableListPresenter;
+import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.ICanteenListView;
+import com.yonyou.hhtpos.view.ITableListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -31,7 +38,7 @@ import butterknife.Bind;
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食列表
  */
-public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnItemClickListener, ICanteenListView{
+public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnItemClickListener, ICanteenListView, ITableListView {
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
     @Bind(R.id.swiperefresh)
@@ -47,13 +54,23 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
     private ArrayList<CanteenTableEntity> datas = new ArrayList<>();
 
-    /**传入数据 */
+    //请求桌台列表接口
+    private ITableListPresenter mTableListPresenter;
+    //测试请求参数
+    private String diningAreaRelateId = "";
+    private String shopId = "hht";
+    //桌台状态
+    private String mTableState;
+
+
+    /**
+     * 传入数据
+     */
     public static final String TYPE = "type";
     private int type;
 
-    public static final FRA_CanteenList newInstance(int type)
-    {
-        FRA_CanteenList f = new FRA_CanteenList();
+    public static final FRA_CanteenTableList newInstance(int type) {
+        FRA_CanteenTableList f = new FRA_CanteenTableList();
         Bundle bdl = new Bundle(1);
         bdl.putInt(TYPE, type);
         f.setArguments(bdl);
@@ -82,7 +99,7 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     protected void initViewsAndEvents() {
-
+        mTableListPresenter = new TableListPresenterImpl(mContext, this);
         //设置刷新时动画的颜色，可以设置4个
         if (mSwiperefreshLayout != null) {
             mSwiperefreshLayout.setProgressViewOffset(false, 0, DP2PX.dip2px(mContext, 30));
@@ -120,21 +137,51 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
         mAdapter.setOnItemClickListener(this);
 
         mRecyclerView.setHasFixedSize(true);
-        setData();
+
+        Bundle mArgument = getArguments();
+        if (null != mArgument) {
+            switchStatus(mArgument.getInt(TYPE, ACT_Canteen.RB_FREE));
+        }
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mTableListPresenter.requestWaiterList(diningAreaRelateId, shopId, mTableState);
+        } else {
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
-    private void setData() {
-        for (int i = 0; i < 50; i++) {
-            CanteenTableEntity canteenTableEntity = new CanteenTableEntity();
-            canteenTableEntity.table_name = "item=" + i;
-            datas.add(canteenTableEntity);
+    /**
+     * 桌台状态0 空闲 ，1 占用（消费中），2 占用（部分支付），3 占用（锁定），4 占用（结清），5 预订，传（1,2，3,4）为查询占用，不传默认查询全部
+     *
+     * @param state 每个tab对应的值
+     */
+    private void switchStatus(int state) {
+        switch (state) {
+            //空闲
+            case ACT_Canteen.RB_FREE:
+                mTableState = "0";
+                break;
+            //结清
+            case ACT_Canteen.RB_SETTLE:
+                mTableState = "4";
+                break;
+            //预定
+            case ACT_Canteen.RB_BOOK:
+                mTableState = "5";
+                break;
+            //占用
+            case ACT_Canteen.RB_OCCUPY:
+                mTableState = "1,2,3,4";
+                break;
+            //锁定
+            case ACT_Canteen.RB_LOCKED:
+                mTableState = "3";
+                break;
         }
-        mAdapter.update(datas);
     }
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fra_canteen_list;
+        return R.layout.fra_canteen_table_list;
     }
 
     @Override
@@ -199,4 +246,12 @@ public class FRA_CanteenList extends BaseFragment implements SwipeRefreshLayout.
         }
     }
 
+    @Override
+    public void requestTableList(List<CanteenTableEntity> tableList) {
+        if (tableList != null && tableList.size() > 0) {
+            mAdapter.update(tableList);
+        } else {
+            showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM, "");
+        }
+    }
 }

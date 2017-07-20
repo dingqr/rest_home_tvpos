@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.bean;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
+
 import java.io.Serializable;
 
 /**
@@ -9,22 +11,48 @@ import java.io.Serializable;
  */
 public class PayTypeEntity implements Serializable {
     /**
+     * 账单id
+     */
+    public String billId;
+    /**
      * 收款方式唯一标识
      */
     public String id;
     /**
-     * 收款类型
+     * 支付金额
      */
-    public String pay_type_name;
+    private String payAmount;
+
+    /**
+     * 支付时间
+     */
+    public String payTime;
+    /**
+     * 支付方式
+     */
+    public String payType;
 
     public PayTypeEntity() {
+
+    }
+
+    public String getPayAmount() {
+        return StringUtil.getFormattedMoney(payAmount);
+    }
+
+    public void setPayAmount(String payAmount) {
+        this.payAmount = payAmount;
     }
 
     @Override
     public String toString() {
         return "PayTypeEntity{" +
-                "id='" + id + '\'' +
-                ", pay_type_name='" + pay_type_name + '\'' +
+                "billId='" + billId + '\'' +
+                ", id='" + id + '\'' +
+                ", payAmount='" + payAmount + '\'' +
+                ", payTime='" + payTime + '\'' +
+                ", payType='" + payType + '\'' +
                 '}';
     }
+
 }

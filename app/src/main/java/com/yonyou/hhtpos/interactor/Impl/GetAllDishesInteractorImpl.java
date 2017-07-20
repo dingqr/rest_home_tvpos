@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by zj on 2017/7/15.
  * 邮箱：zjuan@yonyou.com
- * 描述：
+ * 描述：查询所有菜品/菜类
  */
 public class GetAllDishesInteractorImpl implements IGetAllDishesInteractor {
     private BaseLoadedListener<DishDataEntity> mDishListener;

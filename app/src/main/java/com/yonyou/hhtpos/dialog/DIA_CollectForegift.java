@@ -101,7 +101,7 @@ public class DIA_CollectForegift {
     private void initData() {
         for (int i = 0; i < payTypes.length; i++) {
             PayTypeEntity payTypeEntity = new PayTypeEntity();
-            payTypeEntity.pay_type_name = payTypes[i];
+            payTypeEntity.payType = payTypes[i];
             payTypeList.add(payTypeEntity);
         }
     }

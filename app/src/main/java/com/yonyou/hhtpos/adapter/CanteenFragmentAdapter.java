@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.ui.dinner.ts.ACT_Canteen;
-import com.yonyou.hhtpos.ui.dinner.ts.FRA_CanteenList;
+import com.yonyou.hhtpos.ui.dinner.ts.FRA_CanteenTableList;
 
 /**
  * 作者：liushuofei on 2017/7/13 15:05
@@ -34,15 +34,15 @@ public class CanteenFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int id) {
         switch (id) {
             case ACT_Canteen.RB_FREE:
-                return FRA_CanteenList.newInstance(0);
+                return FRA_CanteenTableList.newInstance(0);
             case ACT_Canteen.RB_SETTLE:
-                return FRA_CanteenList.newInstance(1);
+                return FRA_CanteenTableList.newInstance(1);
             case ACT_Canteen.RB_BOOK:
-                return FRA_CanteenList.newInstance(2);
+                return FRA_CanteenTableList.newInstance(2);
             case ACT_Canteen.RB_OCCUPY:
-                return FRA_CanteenList.newInstance(3);
+                return FRA_CanteenTableList.newInstance(3);
             case ACT_Canteen.RB_LOCKED:
-                return FRA_CanteenList.newInstance(4);
+                return FRA_CanteenTableList.newInstance(4);
             default:
                 break;
         }

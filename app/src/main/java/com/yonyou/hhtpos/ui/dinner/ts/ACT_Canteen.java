@@ -50,10 +50,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener{
     public static final int RB_LOCKED = 4;
 
     /**当前Fragment */
-    private FRA_CanteenList mCurrentFramgent;
+    private FRA_CanteenTableList mCurrentFramgent;
     /**记录前一个被选中的tab的位置 */
     private int prePosition;
-
     @Override
     protected boolean isApplyKitKatTranslucency() {
         return false;
@@ -81,6 +80,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void initViewsAndEvents() {
+
         mAdapter = new ADA_MealArea(mContext);
         mListView.setAdapter(mAdapter);
 
@@ -127,7 +127,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener{
                 preTabTextView.setTextColor(mContext.getResources().getColor(R.color.color_222222));
                 prePosition = position;
                 //获取当前显示的Fragment
-                mCurrentFramgent = (FRA_CanteenList) mCanteenFragmentAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
+                mCurrentFramgent = (FRA_CanteenTableList) mCanteenFragmentAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
             }
 
             @Override

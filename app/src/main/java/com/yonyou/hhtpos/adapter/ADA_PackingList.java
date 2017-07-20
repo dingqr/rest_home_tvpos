@@ -22,6 +22,7 @@ import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
 
     private OrderListEntity currentBean;
+    private OnItemClickLister mListener;
 
     public ADA_PackingList(Context context) {
         super(context);
@@ -46,7 +47,7 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
         final OrderListEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
 
-        if (bean.isCheck()){
+        if (bean.isCheck()) {
             currentBean = bean;
             holder.mRoot.setBackgroundResource(R.color.color_eaeaea);
             holder.mLeftLine.setVisibility(View.VISIBLE);
@@ -54,7 +55,7 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
             holder.mPrice.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
             holder.mStatus.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
             holder.mTime.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
-        }else {
+        } else {
             holder.mRoot.setBackgroundResource(R.color.color_FFFFFF);
             holder.mLeftLine.setVisibility(View.INVISIBLE);
             holder.mNumber.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
@@ -65,17 +66,20 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
         return convertView;
     }
 
-    private void handleDataSource(int position, final ViewHolder holder, final OrderListEntity bean) {
+    private void handleDataSource(final int position, final ViewHolder holder, final OrderListEntity bean) {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!bean.equals(currentBean)){
+                if (!bean.equals(currentBean)) {
                     bean.setCheck(true);
-                    if (null != currentBean){
+                    if (null != currentBean) {
                         currentBean.setCheck(false);
                     }
                     currentBean = bean;
                     notifyDataSetChanged();
+                }
+                if (mListener != null) {
+                    mListener.onItemClick(position);
                 }
             }
         });
@@ -85,7 +89,7 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
 
         // 编号
         String billNo = bean.getBillNo();
-        if (!TextUtils.isEmpty(billNo) && billNo.length() > 5){
+        if (!TextUtils.isEmpty(billNo) && billNo.length() > 5) {
             holder.mNumber.setText(mContext.getString(R.string.well_no) + billNo.substring(billNo.length() - 5, billNo.length()));
         }
 
@@ -94,10 +98,10 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
 
         // 支付状态
         // 时间
-        if (bean.getPayStatus().equals("Y")){
+        if (bean.getPayStatus().equals("Y")) {
             holder.mStatus.setText(mContext.getString(R.string.packing_status_checked_out));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getBillTime(), AppDateUtil.HH_MM));
-        }else {
+        } else {
             holder.mStatus.setText(mContext.getString(R.string.packing_status_out_standing));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getOpentime(), AppDateUtil.HH_MM));
         }
@@ -120,5 +124,13 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
             mStatus = (TextView) v.findViewById(R.id.tv_status);
             mTime = (TextView) v.findViewById(R.id.tv_time);
         }
+    }
+
+    public interface OnItemClickLister {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickLister mListener) {
+        this.mListener = mListener;
     }
 }

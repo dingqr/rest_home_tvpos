@@ -15,12 +15,13 @@ import com.yonyou.hhtpos.adapter.ADA_WaitersList;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by zj on 2017/7/1.
  * 邮箱：zjuan@yonyou.com
- * 描述：选择服务员弹窗
+ * 描述：选择服务员弹窗-列表无下拉和上拉
  */
 public class DIA_ChooseWaiter {
     private final GridView mWaitersGridview;
@@ -28,8 +29,9 @@ public class DIA_ChooseWaiter {
     private View mContentView;
     private ImageView ivClose;
     private Context mContext;
-    private ArrayList<WaiterEntity> mWaiterList;
-    private final ADA_WaitersList mAdapter;
+    private List<WaiterEntity> mWaiterList = new ArrayList<>();
+    private ADA_WaitersList mAdapter;
+    private OnWaiterSelectedListener mListener;
 
     public DIA_ChooseWaiter(Context context) {
         mContext = context;
@@ -40,25 +42,16 @@ public class DIA_ChooseWaiter {
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
         mWaitersGridview = (GridView) mContentView.findViewById(R.id.waiters_gridview);
 
-        setData();
         mAdapter = new ADA_WaitersList(mContext);
         mWaitersGridview.setAdapter(mAdapter);
-        mAdapter.update(mWaiterList);
-
         initListener();
 
-
-
     }
 
-    private void setData() {
-        mWaiterList = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            WaiterEntity waiterEntity = new WaiterEntity();
-            waiterEntity.name = "二货"+i;
-            mWaiterList.add(waiterEntity);
-        }
+    public void setData(List<WaiterEntity> waiterList) {
+        mWaiterList = waiterList;
     }
+
 
     /**
      * 设置监听
@@ -69,6 +62,9 @@ public class DIA_ChooseWaiter {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mAdapter.setSelectItem(position);
                 mAdapter.notifyDataSetChanged();
+                if (mListener != null) {
+                    mListener.onWaiterSelected(mWaiterList.get(position));
+                }
             }
         });
         ivClose.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +79,8 @@ public class DIA_ChooseWaiter {
     }
 
     public Dialog show() {
+        mAdapter.update(mWaiterList, true);
+
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
@@ -95,6 +93,17 @@ public class DIA_ChooseWaiter {
             mDialog.show();
         }
         return mDialog;
+    }
+
+    /**
+     * 回调选中的服务员
+     */
+    public interface OnWaiterSelectedListener {
+        void onWaiterSelected(WaiterEntity waiterEntity);
+    }
+
+    public void setOnWaiterSelectedListener(OnWaiterSelectedListener listener) {
+        this.mListener = listener;
     }
 
 }

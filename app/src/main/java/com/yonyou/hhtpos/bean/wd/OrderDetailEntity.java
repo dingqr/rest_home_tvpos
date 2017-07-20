@@ -1,6 +1,9 @@
 package com.yonyou.hhtpos.bean.wd;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
+import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.application.MyApplication;
+import com.yonyou.hhtpos.bean.PayTypeEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,22 +15,33 @@ import java.util.ArrayList;
  */
 public class OrderDetailEntity implements Serializable {
     /**
-     * 待收金额
+     * 桌台账单Id
      */
-    private String receiveAmount;
+    public String tableBillId;
+    /**
+     * 开单服务员
+     */
+    public String waiterName;
+
+    /**
+     * 就餐人数
+     */
+    public String personNum;
+
+    /**
+     * 折扣金额
+     */
+    private String discountMoney;
+
+    /**
+     * 实收金额
+     */
+    private String realReceiveAmount;
 
     /**
      * 会员电话
      */
     public String memberPhone;
-
-
-    /**
-     * 开单人姓名
-     */
-    public String creatorName;
-
-
 
     /**
      * 优惠金额
@@ -35,20 +49,9 @@ public class OrderDetailEntity implements Serializable {
     private String reduceMoney;
 
     /**
-     * 桌台账单Id
+     * 抹零金额
      */
-    public String tableBillId;
-
-    /**
-     * 点菜明细
-     */
-    public ArrayList<DishDetaiListlEntity> dishListDetail;
-
-
-    /**
-     * 就餐人数
-     */
-    public String personNum;
+    public String ignoreMoney;
     /**
      * 开单时间
      */
@@ -61,7 +64,16 @@ public class OrderDetailEntity implements Serializable {
     public String billNo;
 
     /**
-     * 支付状态
+     * 点菜明细
+     */
+    public ArrayList<DishDetaiListlEntity> dishListDetail;
+    /**
+     * 支付方式
+     */
+    public ArrayList<PayTypeEntity> payTypeList;
+
+    /**
+     * 支付状态:目前两种（Y=已结账，N=未结账）
      */
     public String payStatus;
 
@@ -76,27 +88,51 @@ public class OrderDetailEntity implements Serializable {
         this.reduceMoney = reduceMoney;
     }
 
-    public String getAmount() {
-        return StringUtil.getFormattedMoney(receiveAmount);
+    public String getIgnoreMoney() {
+        return StringUtil.getFormattedMoney(ignoreMoney);
     }
 
-    public void setAmount(String amount) {
-        this.receiveAmount = amount;
+    public void setIgnoreMoney(String ignoreMoney) {
+        this.ignoreMoney = ignoreMoney;
     }
 
+    public String getDiscountMoney() {
+        return StringUtil.getFormattedMoney(discountMoney);
+    }
+
+    public void setDiscountMoney(String discountMoney) {
+        this.discountMoney = discountMoney;
+    }
+
+    public String getRealReceiveAmount() {
+        return StringUtil.getFormattedMoney(realReceiveAmount);
+    }
+
+    public void setRealReceiveAmount(String realReceiveAmount) {
+        this.realReceiveAmount = realReceiveAmount;
+    }
+    public String getPayTypeRemark(String payType) {
+        if(payType.equals("cash")) {
+            return MyApplication.getInstance().getResources().getString(R.string.string_pay_by_cash);
+        }
+        return "";
+    }
     @Override
     public String toString() {
         return "OrderDetailEntity{" +
-                "amount='" + receiveAmount + '\'' +
-                ", billNo='" + billNo + '\'' +
-                ", creatorName='" + creatorName + '\'' +
-                ", dishListDetail='" + dishListDetail + '\'' +
+                "tableBillId='" + tableBillId + '\'' +
+                ", waiterName='" + waiterName + '\'' +
+                ", personNum='" + personNum + '\'' +
+                ", discountMoney='" + discountMoney + '\'' +
+                ", realReceiveAmount='" + realReceiveAmount + '\'' +
                 ", memberPhone='" + memberPhone + '\'' +
-                ", openTime='" + openTime + '\'' +
-                ", payStatus='" + payStatus + '\'' +
-                ", personName='" + personNum + '\'' +
                 ", reduceMoney='" + reduceMoney + '\'' +
-                ", tableBillId='" + tableBillId + '\'' +
+                ", ignoreMoney='" + ignoreMoney + '\'' +
+                ", openTime=" + openTime +
+                ", billNo='" + billNo + '\'' +
+                ", dishListDetail=" + dishListDetail +
+                ", payTypeList=" + payTypeList +
+                ", payStatus='" + payStatus + '\'' +
                 '}';
     }
 }
