@@ -98,26 +98,28 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
                 mDialog.dismiss();
                 break;
             case R.id.btn_finish:
+                StringBuilder takeOutCompanyId = new StringBuilder();
+                StringBuilder takeOutScheduleId = new StringBuilder();
                 if (msvTakeoutType.getSelectedList().size() > 0 && msvTakeoutType.getSelectedList() != null) {
-                    StringBuilder takeOutCompanyId = new StringBuilder();
                     for (int i = 0; i < msvTakeoutType.getSelectedList().size() - 1; i++) {
                         takeOutCompanyId.append(msvTakeoutType.getSelectedList().get(i).getOptionId() + ",");
                     }
                     takeOutCompanyId.append(msvTakeoutType.getSelectedList().get(msvTakeoutType.getSelectedList().size() - 1).getOptionId());
-                    wmfCallback.sendCompanyId(takeOutCompanyId.toString());
+//                    wmfCallback.sendCompanyId(takeOutCompanyId.toString());
                 }else{
                     CommonUtils.makeEventToast(mContext, "请选择外卖公司", false);
                 }
                 if(msvTakeoutMarket.getSelectedList().size() > 0 && msvTakeoutMarket.getSelectedList() != null){
-                    StringBuilder takeOutScheduleId = new StringBuilder();
+
                     for (int i = 0; i < msvTakeoutMarket.getSelectedList().size() - 1; i++) {
                         takeOutScheduleId.append(msvTakeoutMarket.getSelectedList().get(i).getOptionId() + ",");
                     }
                     takeOutScheduleId.append(msvTakeoutMarket.getSelectedList().get(msvTakeoutMarket.getSelectedList().size() - 1).getOptionId());
-                    wmfCallback.sendScheduleId(takeOutScheduleId.toString());
+
                 }else{
                     CommonUtils.makeEventToast(mContext, "请选择市别", false);
                 }
+                wmfCallback.sendItems(takeOutCompanyId.toString(),takeOutScheduleId.toString());
                 mDialog.dismiss();
                 break;
 
@@ -130,9 +132,9 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
      * 获取筛选数据后传递数据用的接口
      */
     public interface WMFCallback {
-        void sendCompanyId(String takeOutCompanyId);
+        void sendItems(String takeOutCompanyId,String scheduleNameId);
 
-        void sendScheduleId(String scheduleNameId);
+//        void sendScheduleId(String scheduleNameId);
     }
 
     public void setWmfCallback(WMFCallback wmfCallback) {

@@ -246,12 +246,10 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     }
 
     @Override
-    public void sendCompanyId(String takeOutCompanyId) {
+    public void sendItems(String takeOutCompanyId,String takeOutScheduleId) {
         this.takeOutCompanyId = takeOutCompanyId;
+        this.takeOutScheduleId = takeOutScheduleId;
     }
 
-    @Override
-    public void sendScheduleId(String scheduleNameId) {
-        this.takeOutScheduleId = scheduleNameId;
-    }
+
 }
