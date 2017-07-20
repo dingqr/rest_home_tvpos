@@ -53,7 +53,7 @@
                 picker:pickerview_dividerColor="@color/color_eb6247" />
 
             <com.yonyou.hhtpos.widgets.WheelView
-                android:id="@+id/second_wheel_view"
+                android:id="@+id/minute_wheel_view"
                 android:layout_width="@dimen/px_220"
                 android:layout_height="match_parent"
                 picker:pickerview_dividerColor="@color/color_eb6247" />

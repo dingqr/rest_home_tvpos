@@ -130,7 +130,7 @@ public class FRA_Login extends BaseFragment implements ILoginView {
                     userPwd = etUserPwd.getText().toString();
                     mPresenter.login("", "", userPhone, userPwd, "");
                 } else {
-                    CommonUtils.makeEventToast(mContext, "手机号和密码输入格式不正确", false);
+                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.phone_pwd_error), false);
                 }
                 break;
         }

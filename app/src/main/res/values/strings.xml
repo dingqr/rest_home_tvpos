@@ -146,6 +146,10 @@
     <string name="confirm_refund">确认退款</string>
     <string name="refund">退款</string>
     <string name="dinner_number">就餐人数</string>
+    <string name="phone_pwd_error">"手机号和密码输入格式不正确"</string>
+    <string name="receiver_name_empty">"收餐人姓名不能为空"</string>
+    <string name="receiver_address_empty">"收餐人地址不能为空"</string>
+    <string name="phone_error">"手机号输入格式不正确,请检查"</string>
 
     <!--堂食 -->
     <string name="canteen_billing">开单</string>

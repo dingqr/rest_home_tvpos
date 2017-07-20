@@ -12,12 +12,13 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
     /**展示选项数据 */
     private String option;
 
+    /**选项id： 例如外卖公司id、外卖市别id等*/
+    private String optionId;
+
+    /**多项筛选*/
     private MultipleOption multipleOption;
 
-    /**传递数据 */
-    private String data;
-
-    /**类型 */
+    /**类型：例如外卖公司；市别；餐区等 */
     private int type;
 
     /**是否选中 */
@@ -29,14 +30,6 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
 
     public void setOption(String option) {
         this.option = option;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public boolean isCheck() {
@@ -59,12 +52,20 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
     public String toString() {
         return "FilterOptionsEntity{" +
                 "option='" + option + '\'' +
-                ", data='" + data + '\'' +
+                ", optionId='" + optionId + '\'' +
+                ", multipleOption=" + multipleOption +
                 ", type=" + type +
                 ", isCheck=" + isCheck +
                 '}';
     }
 
+    public String getOptionId() {
+        return optionId;
+    }
+
+    public void setOptionId(String optionId) {
+        this.optionId = optionId;
+    }
 
     public MultipleOption getMultipleOption() {
         return multipleOption;
@@ -86,9 +87,21 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
         this.type = type;
         this.isCheck = isCheck;
     }
-
-    public FilterOptionsEntity(MultipleOption multipleOption, int type, boolean isCheck) {
+    public FilterOptionsEntity(MultipleOption multipleOption,int type, boolean isCheck) {
         this.multipleOption = multipleOption;
+        this.type = type;
+        this.isCheck = isCheck;
+    }
+    public FilterOptionsEntity(MultipleOption multipleOption,  String optionId,int type, boolean isCheck) {
+        this.multipleOption = multipleOption;
+        this.optionId = optionId;
+        this.type = type;
+        this.isCheck = isCheck;
+    }
+
+    public FilterOptionsEntity(String option, String optionId, int type, boolean isCheck) {
+        this.option = option;
+        this.optionId = optionId;
         this.type = type;
         this.isCheck = isCheck;
     }

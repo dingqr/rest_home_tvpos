@@ -39,6 +39,7 @@ public abstract class ADA_LoopRecycler <T extends RecyclerView.ViewHolder> exten
     @Override
     final public void onBindViewHolder(T holder, int position) {
         onBindLoopViewHolder(holder, position % getItemRawCount());
+//        onBindViewHolder(holder,position);
     }
 
     public abstract void onBindLoopViewHolder(T holder, int position);

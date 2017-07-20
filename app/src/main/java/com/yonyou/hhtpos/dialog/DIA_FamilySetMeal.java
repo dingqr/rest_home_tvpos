@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.utils.L;
@@ -35,7 +37,7 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getSetMealType;
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_FamilySetMeal implements View.OnClickListener{
+public class DIA_FamilySetMeal implements View.OnClickListener,FilterWheelView.AdaItemCallback {
     /**上下文 */
     protected Context mContext;
     protected Dialog mDialog;
@@ -45,6 +47,7 @@ public class DIA_FamilySetMeal implements View.OnClickListener{
     private LinearLayout llFinishSelect;
     private ImageButton ibClose;
     private FilterWheelView fvSetDetailSelect;
+    private int fvwItems;
     private RecyclerView rvDishGrid;
     private RecyclerView rvDishList;
     private TextView tvDishSelectedPrice;
@@ -64,6 +67,7 @@ public class DIA_FamilySetMeal implements View.OnClickListener{
         this.mContext = mContext;
         initView();
         initData();
+
     }
     private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
@@ -73,6 +77,8 @@ public class DIA_FamilySetMeal implements View.OnClickListener{
         llFinishSelect = (LinearLayout)mContentView.findViewById(R.id.ll_finish_select);
         ibClose =(ImageButton) mContentView.findViewById(R.id.ib_close);
         fvSetDetailSelect =(FilterWheelView) mContentView.findViewById(R.id.fv_set_detail_select);
+        fvSetDetailSelect.setAdaItemCallback(this);
+
         ibClose.setOnClickListener(this);
         llFinishSelect.setOnClickListener(this);
 
@@ -117,8 +123,6 @@ public class DIA_FamilySetMeal implements View.OnClickListener{
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.2f;// 背景灰度
-//        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度
-//        lp.height = ScreenUtil.getScreenHeight((Activity)mContext)/ 10 * 8; // 设置高度
         lp.width = 1686;
         lp.height= 980;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -126,4 +130,12 @@ public class DIA_FamilySetMeal implements View.OnClickListener{
         return mDialog;
     }
 
+    @Override
+    public void sendItems(int items) {
+        this.fvwItems = items;
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)fvSetDetailSelect.getLayoutParams();
+        layoutParams.width = 215 * items;
+        fvSetDetailSelect.setLayoutParams(layoutParams);
+        Log.e("LinearLayout.width",layoutParams.width+"");
+    }
 }

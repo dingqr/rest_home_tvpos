@@ -34,29 +34,29 @@ public class DIA_ChooseTime {
     TextView btnConfirm;
     @Bind(R.id.hour_wheel_view)
     WheelView wheelHour;//時
-    @Bind(R.id.second_wheel_view)
-    WheelView wheelSecond;//分
+    @Bind(R.id.minute_wheel_view)
+    WheelView wheelMinute;//分
     private View mContentView;
     private Dialog mDialog;
     private Context mContext;
     //时
     private ArrayList<String> mHoursList = new ArrayList<>();
     //分
-    private ArrayList<String> mSecondList = new ArrayList<>();
+    private ArrayList<String> mMinuteList = new ArrayList<>();
 
     private final DistributeTimeEntity mTimeEntity;
     private OnTimeSelectedListener mTimeSelectedListener;
 
-    public DIA_ChooseTime(Context context, ArrayList<String> hoursList, ArrayList<String> secondList) {
+    public DIA_ChooseTime(Context context, ArrayList<String> hoursList, ArrayList<String> minuteList) {
         this.mContext = context;
 
-        if (hoursList != null && secondList != null) {
+        if (hoursList != null && minuteList != null) {
             this.mHoursList = hoursList;
-            this.mSecondList = secondList;
+            this.mMinuteList = minuteList;
         } else {
             //测试数据
             mHoursList = NavigationUtil.getDefaultHourData();
-            mSecondList = NavigationUtil.getDefaultSecondData();
+            mMinuteList = NavigationUtil.getDefaultSecondData();
         }
 
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
@@ -66,18 +66,18 @@ public class DIA_ChooseTime {
 
         //设置不无限滚动
         wheelHour.setCyclic(false);
-        wheelSecond.setCyclic(false);
+        wheelMinute.setCyclic(false);
 
 
         wheelHour.setAdapter(new ArrayWheelAdapter(mHoursList, 0));
-        wheelSecond.setAdapter(new ArrayWheelAdapter(mSecondList, 0));
+        wheelMinute.setAdapter(new ArrayWheelAdapter(mMinuteList, 0));
 
         //设置初始值
         wheelHour.setCurrentItem(0);
-        wheelSecond.setCurrentItem(0);
+        wheelMinute.setCurrentItem(0);
         mTimeEntity = new DistributeTimeEntity();
         mTimeEntity.hour = mHoursList.get(wheelHour.getCurrentItem());
-        mTimeEntity.second = mSecondList.get(wheelSecond.getCurrentItem());
+        mTimeEntity.minute = mMinuteList.get(wheelMinute.getCurrentItem());
 
         initListener();
 
@@ -93,10 +93,10 @@ public class DIA_ChooseTime {
                 mTimeEntity.hour = mHoursList.get(index);
             }
         });
-        wheelSecond.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
+        wheelMinute.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int index) {
-                mTimeEntity.second = mSecondList.get(index);
+                mTimeEntity.minute = mMinuteList.get(index);
             }
         });
     }

@@ -13,7 +13,7 @@ public class DistributeTimeEntity {
     /**
      * 分
      */
-    public String second;
+    public String minute;
 
     public DistributeTimeEntity() {
     }
@@ -22,7 +22,7 @@ public class DistributeTimeEntity {
     public String toString() {
         return "DistributeTimeEntity{" +
                 "hour='" + hour + '\'' +
-                ", second='" + second + '\'' +
+                ", minute='" + minute + '\'' +
                 '}';
     }
 }

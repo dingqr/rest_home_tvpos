@@ -35,6 +35,7 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
     public ADA_Filtration(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
+        currentBean = mDatas.get(0);
     }
 
     @Override
@@ -113,7 +114,6 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
         holder.mBtn.setText(dataBean.getOption());
         if (dataBean.isCheck()){
             holder.mBtn.setChecked(true);
-            currentBean = dataBean;
         }else {
             holder.mBtn.setChecked(false);
         }
@@ -124,6 +124,7 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
                 //item点击回调
                 if (mOnItemClickListener != null) {
                     mOnItemClickListener.onItemClick(holder.itemView,position);
+                    dataBean.setCheck(true);
                 }
                 //实现单选功能
                 if(null != dataBean && null != currentBean){

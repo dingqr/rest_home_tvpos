@@ -18,20 +18,20 @@ import java.util.ArrayList;
 
 public class FiltrationUtil {
     /**单选*/
-    private static final int VIEW_DISH_TYPE = 0;
-    private static final int VIEW_DISH_AREA = 1;
-    private static final int VIEW_RESERVE_STATUS = 2;
-    private static final int VIEW_TAKEOUT_TYPE = 3;
-    private static final int REFUND_REASON = 4;
-    private static final int ORDER_RESOURCE = 5;
-    private static final int COOKERY = 6;
-    private static final int DISH_NORMS = 7;
-    private static final int SET_DETAIL = 8;
+    public static final int VIEW_DISH_TYPE = 0;
+    public static final int VIEW_DISH_AREA = 1;
+    public static final int VIEW_RESERVE_STATUS = 2;
+    public static final int VIEW_TAKEOUT_TYPE = 3;
+    public static final int REFUND_REASON = 4;
+    public static final int ORDER_RESOURCE = 5;
+    public static final int COOKERY = 6;
+    public static final int DISH_NORMS = 7;
+    public static final int SET_DETAIL = 8;
 
     /**多选*/
-    private static final int TAKE_OUT_TYPE = 0;
-    private static final int MARKET_TYPE = 1;
-    private static final int DISH_REMARK = 2;
+    public static final int TAKE_OUT_TYPE = 0;
+    public static final int MARKET_TYPE = 1;
+    public static final int DISH_REMARK = 2;
 
 
     private static String title1 = "餐别";

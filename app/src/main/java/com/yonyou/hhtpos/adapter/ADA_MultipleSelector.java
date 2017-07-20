@@ -26,7 +26,6 @@ import java.util.List;
 public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelector.ViewHolder>  {
 
     private SparseBooleanArray mSelectedPositions = new SparseBooleanArray();
-    private boolean mIsSelectable = false;
 
 
     private LayoutInflater mInflater;
@@ -91,20 +90,6 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
      */
     private boolean isItemChecked(int position) {
         return mSelectedPositions.get(position);
-    }
-
-    /**
-     * 根据位置判断条目是否可选
-     */
-    private boolean isSelectable() {
-        return mIsSelectable;
-    }
-
-    /**
-     * 设置给定位置条目的可选与否的状态
-     */
-    private void setSelectable(boolean selectable) {
-        mIsSelectable = selectable;
     }
 
     @Override

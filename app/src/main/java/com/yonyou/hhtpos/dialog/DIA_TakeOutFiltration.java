@@ -9,49 +9,53 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
-import com.yonyou.hhtpos.bean.FilterOptionsEntity;
-import com.yonyou.hhtpos.widgets.MultipleFiltrationView;
 import com.yonyou.hhtpos.widgets.MultipleSelectView;
-
-import java.util.ArrayList;
 
 /**
  * 外卖筛选对话框
  * 作者：ybing on 2017/6/26 10:16
  * 邮箱：ybing@yonyou.com
  */
-public class DIA_TakeOutFiltration implements View.OnClickListener{
+public class DIA_TakeOutFiltration implements View.OnClickListener {
 
-    /**传入参数 */
+    /**
+     * 传入参数
+     */
     protected Context mContext;
 
     private FilterItemEntity takeoutTypes;
-    private FilterItemEntity  marketTypes;
+    private FilterItemEntity marketTypes;
 
     protected Dialog mDialog;
     protected View mContentView;
 
-    /**界面控件 */
+    /**
+     * 界面控件
+     */
     private MultipleSelectView msvTakeoutType;
     private MultipleSelectView msvTakeoutMarket;
     private RadioButton btnReset;
     private RadioButton btnFinish;
     private ImageButton close;
 
-    public DIA_TakeOutFiltration(Context context , FilterItemEntity takeoutTypes,FilterItemEntity marketTypes) {
+    private WMFCallback wmfCallback;
+
+    public DIA_TakeOutFiltration(Context context, FilterItemEntity takeoutTypes, FilterItemEntity marketTypes) {
         this.mContext = context;
         this.takeoutTypes = takeoutTypes;
         this.marketTypes = marketTypes;
         initView();
         initData();
     }
-    private void initView(){
+
+    private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_take_out_filtration, null);
         mDialog.setContentView(mContentView);
-        close = (ImageButton)mContentView.findViewById(R.id.iv_close);
+        close = (ImageButton) mContentView.findViewById(R.id.iv_close);
         close.setOnClickListener(this);
         msvTakeoutType = (MultipleSelectView) mContentView.findViewById(R.id.msv_takeout_type);
         msvTakeoutMarket = (MultipleSelectView) mContentView.findViewById(R.id.msv_takeout_market);
@@ -64,18 +68,18 @@ public class DIA_TakeOutFiltration implements View.OnClickListener{
         btnFinish.setOnClickListener(this);
 
     }
+
+    //获取数据
     private void initData() {
         msvTakeoutType.setData(takeoutTypes);
         msvTakeoutMarket.setData(marketTypes);
     }
 
-    public Dialog getDialog(){
+    public Dialog getDialog() {
         mDialog.getWindow().setGravity(Gravity.RIGHT);
         mDialog.getWindow().setWindowAnimations(R.style.style_right_in_anim);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.5f;// 背景灰度
-//        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度
-//        lp.height = ScreenUtil.getScreenHeight((Activity)mContext)/ 10 * 8; // 设置高度
         lp.width = 590;
         lp.height = 970;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -85,7 +89,7 @@ public class DIA_TakeOutFiltration implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_reset:
                 msvTakeoutType.unSelectAll();
                 msvTakeoutMarket.unSelectAll();
@@ -94,8 +98,26 @@ public class DIA_TakeOutFiltration implements View.OnClickListener{
                 mDialog.dismiss();
                 break;
             case R.id.btn_finish:
-                ArrayList<FilterOptionsEntity> selectedList = msvTakeoutType.getSelectedList();
-                selectedList.addAll(0,msvTakeoutMarket.getSelectedList());
+                if (msvTakeoutType.getSelectedList().size() > 0 && msvTakeoutType.getSelectedList() != null) {
+                    StringBuilder takeOutCompanyId = new StringBuilder();
+                    for (int i = 0; i < msvTakeoutType.getSelectedList().size() - 1; i++) {
+                        takeOutCompanyId.append(msvTakeoutType.getSelectedList().get(i).getOptionId() + ",");
+                    }
+                    takeOutCompanyId.append(msvTakeoutType.getSelectedList().get(msvTakeoutType.getSelectedList().size() - 1).getOptionId());
+                    wmfCallback.sendCompanyId(takeOutCompanyId.toString());
+                }else{
+                    CommonUtils.makeEventToast(mContext, "请选择外卖公司", false);
+                }
+                if(msvTakeoutMarket.getSelectedList().size() > 0 && msvTakeoutMarket.getSelectedList() != null){
+                    StringBuilder takeOutScheduleId = new StringBuilder();
+                    for (int i = 0; i < msvTakeoutMarket.getSelectedList().size() - 1; i++) {
+                        takeOutScheduleId.append(msvTakeoutMarket.getSelectedList().get(i).getOptionId() + ",");
+                    }
+                    takeOutScheduleId.append(msvTakeoutMarket.getSelectedList().get(msvTakeoutMarket.getSelectedList().size() - 1).getOptionId());
+                    wmfCallback.sendScheduleId(takeOutScheduleId.toString());
+                }else{
+                    CommonUtils.makeEventToast(mContext, "请选择市别", false);
+                }
                 mDialog.dismiss();
                 break;
 
@@ -104,5 +126,17 @@ public class DIA_TakeOutFiltration implements View.OnClickListener{
         }
     }
 
+    /**
+     * 获取筛选数据后传递数据用的接口
+     */
+    public interface WMFCallback {
+        void sendCompanyId(String takeOutCompanyId);
+
+        void sendScheduleId(String scheduleNameId);
+    }
+
+    public void setWmfCallback(WMFCallback wmfCallback) {
+        this.wmfCallback = wmfCallback;
+    }
 }
 

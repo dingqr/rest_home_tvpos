@@ -108,6 +108,8 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:hint="@string/hint_enter_receiver_phone"
+                android:inputType="number"
+                android:maxLength="11"
                 android:padding="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"
                 android:textSize="@dimen/sp_24" />
@@ -150,6 +152,7 @@
                 android:background="@drawable/bg_gray_side_gray"
                 android:clickable="true"
                 android:gravity="center_vertical"
+                android:inputType="number"
                 android:hint="@string/hint_enter_dinner_number"
                 android:padding="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"
@@ -201,7 +204,7 @@
                     android:textSize="@dimen/px_22" />
             </RadioGroup>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_select_deliver_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_50"

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import com.yonyou.hhtpos.adapter.ADA_FilterWheel;
 import com.yonyou.hhtpos.adapter.ADA_Filtration;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
+import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
+import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 
 
 /**
@@ -28,28 +31,46 @@ import com.yonyou.hhtpos.bean.FilterOptionsEntity;
  */
 
 public class FilterWheelView extends LinearLayout {
-//        implements ADA_FilterWheel.OnItemClickListener {
-
-    /**筛选框的标题*/
+    /**
+     * 筛选框的标题
+     */
     private TextView filtrationType;
 
-    /**上下文*/
+    /**
+     * 上下文
+     */
     private Context mContext;
 
-    /**筛选列表*/
+    /**
+     * 筛选列表
+     */
     private LoopRecyclerView mLoopRecyclerView;
-
-    /**筛选框的选项数据*/
+    /**
+     * 筛选列表布局管理
+     */
+    LinearLayoutManager linearManager;
+    /**
+     * 筛选框的选项数据
+     */
     private FilterItemEntity filterItemEntity;
 
-    /**数据适配器*/
+    /**
+     * 数据适配器
+     */
     private ADA_FilterWheel mAdapter;
 
-    /**当前实体*/
+    /**
+     * 当前实体
+     */
     private FilterOptionsEntity currentBean;
 
-    /**滚动标尺*/
+    /**
+     * 滚动标尺
+     */
     private ImageView ivStandard;
+
+    /**Adapter items 回调*/
+    private AdaItemCallback adaItemCallback;
 
     public FilterWheelView(Context context) {
         this(context, null);
@@ -71,8 +92,9 @@ public class FilterWheelView extends LinearLayout {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.filter_wheel_view, this);
         filtrationType = (TextView) convertView.findViewById(R.id.tv_filtration_type);
         mLoopRecyclerView = (LoopRecyclerView) convertView.findViewById(R.id.rv_filtration_options);
-        mLoopRecyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
-        ivStandard = (ImageView)convertView.findViewById(R.id.iv_standard);
+        linearManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        mLoopRecyclerView.setLayoutManager(linearManager);
+        ivStandard = (ImageView) convertView.findViewById(R.id.iv_standard);
     }
 
     @Override
@@ -89,31 +111,37 @@ public class FilterWheelView extends LinearLayout {
 
     public void setData(FilterItemEntity filterItemEntity) {
         this.filterItemEntity = filterItemEntity;
+        initData();
+    }
+    private void initData(){
         if (filterItemEntity != null) {
-            if (!TextUtils.isEmpty(filterItemEntity.getTitle())){
+            if (!TextUtils.isEmpty(filterItemEntity.getTitle())) {
                 filtrationType.setText(filterItemEntity.getTitle());
             }
-            if (filterItemEntity.getOptions() != null){
+            if (filterItemEntity.getOptions() != null) {
                 mAdapter = new ADA_FilterWheel(mContext, filterItemEntity.getOptions());
             }
             mLoopRecyclerView.setAdapter(mAdapter);
+            if (adaItemCallback!=null){
+                adaItemCallback.sendItems(mAdapter.getItemRawCount());
+            }
             mLoopRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
-                    int position = getScrollPosition();
-                    mAdapter.setOffset(position);
-                    int x = mLoopRecyclerView.getLeft();
-                    int y = mLoopRecyclerView.getTop();
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        int items = mAdapter.getItemRawCount();
+                        int firstItemPosition =linearManager.findFirstVisibleItemPosition();
+                        mAdapter.highlightItem(firstItemPosition % items);
+                    }
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        mAdapter.reset();
+                    }
                 }
 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView,dx,dy);
-                    int position = getScrollPosition();
-                    mAdapter.setOffset(position);
-                    int i = mAdapter.getItemCount();
-                    int j = mAdapter.getItemRawCount();
+                    super.onScrolled(recyclerView, dx, dy);
                 }
             });
             //找到当前选中的实体
@@ -127,27 +155,12 @@ public class FilterWheelView extends LinearLayout {
             }
         }
     }
-    private int getScrollPosition() {
-        double x = (double) mLoopRecyclerView.computeHorizontalScrollOffset();
-        double y = 200f;
-        int result = (int)(x/y);
-        return result;
+
+    public interface AdaItemCallback{
+        void sendItems(int items);
     }
-//    public FilterOptionsEntity getSelectedData() {
-//        return currentBean;
-//    }
-//
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        currentBean = filterItemEntity.getOptions().get(position);
-//    }
 
-//    /**把所有选项都置为未选中*/
-//    public void reset(){
-//        for (int i=0;i<filterItemEntity.getOptions().size();i++){
-//            filterItemEntity.getOptions().get(i).setCheck(false);
-//        }
-//        mAdapter.update(filterItemEntity.getOptions());
-//    }
-
+    public void setAdaItemCallback(AdaItemCallback adaItemCallback) {
+        this.adaItemCallback = adaItemCallback;
+    }
 }

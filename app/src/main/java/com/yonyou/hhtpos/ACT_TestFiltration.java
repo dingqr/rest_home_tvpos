@@ -3,15 +3,21 @@ package com.yonyou.hhtpos;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.serializer.FilterUtils;
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
+import com.yonyou.hhtpos.bean.MultipleOption;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
+import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
+import com.yonyou.hhtpos.bean.TakeoutMarketEntity;
 import com.yonyou.hhtpos.dialog.DIA_ChooseTime;
 import com.yonyou.hhtpos.dialog.DIA_FamilySetMeal;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishFixedPrice;
@@ -23,8 +29,16 @@ import com.yonyou.hhtpos.dialog.DIA_ReserveFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
+import com.yonyou.hhtpos.presenter.ITakeoutCompanyPresenter;
+import com.yonyou.hhtpos.presenter.ITakeoutMarketPresenter;
+import com.yonyou.hhtpos.presenter.Impl.TakeoutCompanyPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.TakeoutMarketPresenterImpl;
+import com.yonyou.hhtpos.util.FiltrationUtil;
+import com.yonyou.hhtpos.view.ITakeoutCompanyView;
+import com.yonyou.hhtpos.view.ITakeoutMarketView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -32,12 +46,12 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getCapacities;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getFakeData;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getOptions;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getReserveOrderList;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getTakeOutMarket;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getTakeOutType;
 
 //测试筛选布局
-public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener{
+public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView,ITakeoutMarketView {
 
+    @Bind(R.id.ll_content)
+    LinearLayout llContent;
     @Bind(R.id.btn_confirm)
     Button btnConfirm;
     @Bind(R.id.btn_confirm1)
@@ -67,6 +81,12 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 
     private FilterItemEntity takeoutType;
     private FilterItemEntity takeoutMarket;
+
+    private FilterItemEntity openOrderCompany;
+
+
+
+
 //    DIA_SelectTable dia_reserveFiltration;
     DIA_ReserveFiltration dia_reserveFiltration1;
 //    DIA_ReserveList dia_reserveFiltration;
@@ -81,7 +101,11 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_FamilySetMeal dia_familySetMeal;
 //    DIA_ChooseTime dia_familySetMeal;
 
+    private String shopId = "C482CE78AC000000AA8000000003A000";
 
+    /**presenter*/
+    private ITakeoutCompanyPresenter companyPresenter;
+    private ITakeoutMarketPresenter marketPresenter;
 
     @Override
     protected boolean isApplyKitKatTranslucency() {
@@ -105,7 +129,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 
     @Override
     protected View getLoadingTargetView() {
-        return null;
+        return llContent;
     }
 
     @Override
@@ -121,12 +145,24 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm8.setOnClickListener(this);
         btnConfirm9.setOnClickListener(this);
 
+
+
+
+
+        //假数据
         filterItemList = getFakeData();
         filterOptionsEntities = getOptions();
         capacityEntities = getCapacities();
         reserveOrderListEntity = getReserveOrderList();
-        takeoutType = new FilterItemEntity(getTakeOutType(),"外卖类型");
-        takeoutMarket = new FilterItemEntity( getTakeOutMarket(),"市别");
+//        takeoutType = new FilterItemEntity(getTakeOutType(),"外卖类型");
+//        takeoutMarket = new FilterItemEntity( getTakeOutMarket(),"市别");
+
+        //外卖筛选数据获取
+        companyPresenter = new TakeoutCompanyPresenterImpl(this,this);
+        companyPresenter.getAllTakeOutCompany(shopId);
+
+        marketPresenter = new TakeoutMarketPresenterImpl(this,this);
+        marketPresenter.getAllSchedule(shopId);
     }
 
 
@@ -171,7 +207,6 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
             case R.id.btn_confirm:
                 dia_familySetMeal = new DIA_FamilySetMeal(mContext);
                 dia_familySetMeal.getDialog().show();
-
                 break;
             case R.id.btn_confirm1:
                 dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext,filterItemList);
@@ -206,15 +241,46 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_orderDishFixedPrice.getDialog().show();
                 break;
             case R.id.btn_confirm9:
-                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext);
+                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext,openOrderCompany);
                 dia_reserveFiltration.getDialog().show();
                 break;
-//            case R.id.btn_confirm9:
-//                dia_familySetMeal = new DIA_ChooseTime(mContext);
-//                dia_familySetMeal.show();
-//                break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void getAllTakeOutCompany(List<TakeoutCompanyEntity> list) {
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        ArrayList<FilterOptionsEntity> openOrderMarkets = new ArrayList<>();
+        if (list!=null){
+            for (int i=0;i<list.size();i++){
+                //外卖筛选 多项选择
+                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(),list.get(i).getTakeOutCompanyId(),
+                        FiltrationUtil.TAKE_OUT_TYPE,false);
+                filterOptionsEntities.add(fde);
+                //外卖开单 单项选择
+                FilterOptionsEntity market = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(),list.get(i).getTakeOutCompanyId(),
+                        FiltrationUtil.VIEW_TAKEOUT_TYPE,false);
+                filterOptionsEntities.add(fde);
+                openOrderMarkets.add(market);
+            }
+        }
+        takeoutType = new FilterItemEntity(filterOptionsEntities,"外卖类型");
+        openOrderCompany = new FilterItemEntity(openOrderMarkets,"");
+    }
+
+    @Override
+    public void getAllTakeOutMarket(List<TakeoutMarketEntity> list) {
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        if (list!=null){
+            for (int i=0;i<list.size();i++){
+
+                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getScheduleName(),list.get(i).getScheduleId(),
+                        FiltrationUtil.MARKET_TYPE,false);
+                filterOptionsEntities.add(fde);
+            }
+        }
+        takeoutMarket = new FilterItemEntity(filterOptionsEntities,"市别");
     }
 }
