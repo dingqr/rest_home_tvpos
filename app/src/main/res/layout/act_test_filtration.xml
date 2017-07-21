@@ -10,6 +10,16 @@
         android:layout_height="wrap_content"
         android:text="全家福" />
     <Button
+        android:id="@+id/btn_confirm10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/free_order" />
+    <Button
+        android:id="@+id/btn_confirm11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employee_filtration" />
+    <Button
         android:id="@+id/btn_confirm1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,4 +64,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm" />
+
 </LinearLayout>

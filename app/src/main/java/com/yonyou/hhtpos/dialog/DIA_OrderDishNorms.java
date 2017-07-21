@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
+import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
+import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
+import com.yonyou.hhtpos.widgets.ModifyCountView;
 
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishNorms;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
 
 /**
  * 服务员点菜 设定规格 弹框
@@ -35,13 +42,24 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
     private RadioButton rbFinishSelect;
     private ImageButton ibClose;
     private FiltrationView fvDishNorms;
-    private EditText etOtherReason;
+    private EditText etOtherRemark;
+    private ModifyCountView mcvDishCount;
 
     /**选项数据*/
     private FilterItemEntity dishNorms;
 
-    public DIA_OrderDishNorms(Context mContext) {
+    /**
+     * 数据回调接口
+     */
+    private DishDataCallback dishDataCallback;
+    /**
+     * 数据回调数据状态
+     */
+    private boolean flag = true;
+
+    public DIA_OrderDishNorms(Context mContext,FilterItemEntity dishNorms) {
         this.mContext = mContext;
+        this.dishNorms = dishNorms;
         initView();
     }
 
@@ -53,28 +71,13 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
         rbFinishSelect =(RadioButton) mContentView.findViewById(R.id.rb_finish_select);
         ibClose =(ImageButton) mContentView.findViewById(R.id.ib_close);
         fvDishNorms =(FiltrationView) mContentView.findViewById(R.id.fv_dish_norms);
-        etOtherReason =(EditText) mContentView.findViewById(R.id.et_other_reason);
+        etOtherRemark =(EditText) mContentView.findViewById(R.id.et_other_remark);
+        mcvDishCount = (ModifyCountView)mContentView.findViewById(R.id.mcv_dish_count);
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
-        dishNorms = new FilterItemEntity();
-        dishNorms.setTitle("");
-        dishNorms.setOptions(getDishNorms());
         fvDishNorms.setData(dishNorms);
-
-
-
-//
-//        if (fvRefundReason.getSelectedData().getOption() == "其他原因"){
-//            etEnterRefundReason.setFocusable(true);
-//            etEnterRefundReason.setFocusableInTouchMode(true);
-//            etEnterRefundReason.setLongClickable(true);
-//        }else{
-//            etEnterRefundReason.setFocusable(false);
-//            etEnterRefundReason.setFocusableInTouchMode(false);
-//            etEnterRefundReason.setLongClickable(false);
-//        }
     }
 
     @Override
@@ -83,12 +86,48 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
             case R.id.ib_close:
                 mDialog.dismiss();
                 break;
-            case R.id.rb_confirm_refund:
+            case R.id.rb_finish_select:
+                DishCallBackEntity dishCallBackEntity = initDishCallbackEntity();
+                if (flag){
+                    if (dishDataCallback != null) {
+                        dishDataCallback.sendItems(dishCallBackEntity);
+                    }
+                    fvDishNorms.reset();
+                    etOtherRemark.setText("");
+                    mDialog.dismiss();
+                }
                 break;
             default:
                 break;
         }
     }
+
+    private DishCallBackEntity initDishCallbackEntity() {
+        DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
+        String dishNorm = fvDishNorms.getSelectedData().getOption();
+        int dishCount = mcvDishCount.getCount();
+        String dishRemark = etOtherRemark.getText().toString().trim();
+
+        if (!TextUtils.isEmpty(dishNorm)){
+            //规格
+            dishCallBackEntity.setDishStandard(dishNorm);
+            if (dishCount>0){
+                //数量
+                dishCallBackEntity.setDishCount(String.valueOf(dishCount));
+                flag = true;
+                //备注
+                dishCallBackEntity.setDishRemark(StringUtil.getString(dishRemark));
+            }else{
+                flag = false;
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
+            }
+        }else{
+            flag = false;
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_standard), false);
+        }
+        return dishCallBackEntity;
+    }
+
     public Dialog getDialog(){
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
@@ -102,4 +141,7 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
         return mDialog;
     }
 
+    public void setDishDataCallback(DishDataCallback dishDataCallback) {
+        this.dishDataCallback = dishDataCallback;
+    }
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
     private static final int ORDER_RESOURCE = 5;
     private static final int COOKERY = 6;
     private static final int DISH_NORMS = 7;
+    private static final int FREE_REASON = 9;
 
     /**筛选框的标题*/
     private TextView filtrationType;
@@ -56,6 +58,9 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
 
     /**当前实体*/
     private FilterOptionsEntity currentBean;
+
+    /**选中实体的回调类*/
+    private SelectCallback selectCallback;
 
     public FiltrationView(Context context) {
         this(context, null);
@@ -125,7 +130,7 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                         break;
                     case REFUND_REASON:
                         optionChange.setVisibility(View.VISIBLE);
-                        layoutManger = new GridLayoutManager(mContext, 4);
+                        layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case ORDER_RESOURCE:
@@ -142,6 +147,11 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                         filtrationType.setVisibility(View.GONE);
                         rlContent.setVisibility(View.GONE);
                         layoutManger = new GridLayoutManager(mContext, 4);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case FREE_REASON:
+                        optionChange.setVisibility(View.VISIBLE);
+                        layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     default:
@@ -171,6 +181,9 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
     @Override
     public void onItemClick(View view, int position) {
         currentBean = filterItemEntity.getOptions().get(position);
+        if (selectCallback != null) {
+            selectCallback.sendSelectedItem(currentBean);
+        }
     }
 
     /**把所有选项都置为未选中*/
@@ -179,5 +192,13 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
             filterItemEntity.getOptions().get(i).setCheck(false);
         }
         mAdapter.update(filterItemEntity.getOptions());
+    }
+
+    public interface SelectCallback{
+        void sendSelectedItem(FilterOptionsEntity foe);
+    }
+
+    public void setSelectCallback(SelectCallback selectCallback) {
+        this.selectCallback = selectCallback;
     }
 }

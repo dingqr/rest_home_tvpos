@@ -36,13 +36,17 @@ import java.util.Calendar;
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_TakeOutOpenOrder implements View.OnClickListener{
-    /**上下文 */
+public class DIA_TakeOutOpenOrder implements View.OnClickListener {
+    /**
+     * 上下文
+     */
     protected Context mContext;
     protected Dialog mDialog;
     protected View mContentView;
 
-    /**界面控件 */
+    /**
+     * 界面控件
+     */
     private RadioButton rbReserveTime;
     private RadioButton rbRightNow;
     private RadioButton rbConfirmOpenOrder;
@@ -58,7 +62,9 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
     private EditText etEnterReceiverAddress;
     private EditText etDinnerNumber;
 
-    /**外卖开单信息*/
+    /**
+     * 外卖开单信息
+     */
     private String receiverName;
     private String receiverPhone;
     private String receiverAddress;
@@ -67,6 +73,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
     private DistributeTimeEntity deliverTime;
     private FilterOptionsEntity takeoutCompany;
     private WmCallback wmCallback;
+    private boolean flag = true;
 
     public DIA_TakeOutOpenOrder(Context mContext, FilterItemEntity takeoutCompanies) {
         this.mContext = mContext;
@@ -79,18 +86,18 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_take_out_open_order, null);
         mDialog.setContentView(mContentView);
 
-        filtrationView =(FiltrationView) mContentView.findViewById(R.id.fv_order_source);
-        rbReserveTime =(RadioButton) mContentView.findViewById(R.id.rb_reserve_time);
-        rbRightNow =(RadioButton) mContentView.findViewById(R.id.rb_right_now);
-        rbConfirmOpenOrder =(RadioButton) mContentView.findViewById(R.id.rb_confirm_open_order);
-        ibClose =(ImageButton) mContentView.findViewById(R.id.ib_close);
-        etSelectDeliverTime =(TextView) mContentView.findViewById(R.id.et_select_deliver_time);
-        scrollView = (ScrollView)mContentView.findViewById(R.id.sv_content);
+        filtrationView = (FiltrationView) mContentView.findViewById(R.id.fv_order_source);
+        rbReserveTime = (RadioButton) mContentView.findViewById(R.id.rb_reserve_time);
+        rbRightNow = (RadioButton) mContentView.findViewById(R.id.rb_right_now);
+        rbConfirmOpenOrder = (RadioButton) mContentView.findViewById(R.id.rb_confirm_open_order);
+        ibClose = (ImageButton) mContentView.findViewById(R.id.ib_close);
+        etSelectDeliverTime = (TextView) mContentView.findViewById(R.id.et_select_deliver_time);
+        scrollView = (ScrollView) mContentView.findViewById(R.id.sv_content);
 
-        etEnterReceiverName = (EditText)mContentView.findViewById(R.id.et_enter_receiver_name);
-        etEnterReceiverPhone = (EditText)mContentView.findViewById(R.id.et_enter_receiver_phone);
-        etEnterReceiverAddress = (EditText)mContentView.findViewById(R.id.et_enter_receiver_address);
-        etDinnerNumber = (EditText)mContentView.findViewById(R.id.et_dinner_number);
+        etEnterReceiverName = (EditText) mContentView.findViewById(R.id.et_enter_receiver_name);
+        etEnterReceiverPhone = (EditText) mContentView.findViewById(R.id.et_enter_receiver_phone);
+        etEnterReceiverAddress = (EditText) mContentView.findViewById(R.id.et_enter_receiver_address);
+        etDinnerNumber = (EditText) mContentView.findViewById(R.id.et_dinner_number);
 
         ibClose.setOnClickListener(this);
         rbReserveTime.setOnClickListener(this);
@@ -103,16 +110,17 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ib_close:
+                filtrationView.reset();
                 mDialog.dismiss();
                 break;
             case R.id.rb_reserve_time:
-                scrollView.scrollTo(300,1080);
+                scrollView.scrollTo(300, 1080);
                 etSelectDeliverTime.setVisibility(View.VISIBLE);
                 break;
             case R.id.et_select_deliver_time:
-                DIA_ChooseTime dia_chooseTime = new DIA_ChooseTime(mContext,null,null);
+                DIA_ChooseTime dia_chooseTime = new DIA_ChooseTime(mContext, null, null);
                 dia_chooseTime.show();
                 dia_chooseTime.setOnTimeSelectedListener(new DIA_ChooseTime.OnTimeSelectedListener() {
                     @Override
@@ -120,7 +128,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
                         deliverTime = timeEntity;
                         Calendar calendar = Calendar.getInstance();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        String reserveTime = sdf.format(calendar.getTime()).substring(0,11)+deliverTime.hour+":"+deliverTime.minute;
+                        String reserveTime = sdf.format(calendar.getTime()).substring(0, 11) + deliverTime.hour + ":" + deliverTime.minute;
                         etSelectDeliverTime.setText(reserveTime);
                     }
                 });
@@ -130,10 +138,13 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
                 break;
             case R.id.rb_confirm_open_order:
                 OpenOrderEntity wmooe = initEntity();
-                if (wmCallback != null) {
-                    wmCallback.sendWmEntity(wmooe);
+                if (flag) {
+                    if (wmCallback != null) {
+                        wmCallback.sendWmEntity(wmooe);
+                    }
+                    filtrationView.reset();
+                    mDialog.dismiss();
                 }
-                mDialog.dismiss();
                 break;
             default:
                 break;
@@ -144,59 +155,82 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
         OpenOrderEntity wmooe = new OpenOrderEntity();
         //外卖公司id
         takeoutCompany = filtrationView.getSelectedData();
-        if (takeoutCompany!=null){
+        if (takeoutCompany != null) {
             takeOutCompanyId = takeoutCompany.getOptionId();
             wmooe.setTakeOutCompanyId(takeOutCompanyId);
+
+            //收餐人姓名
+            receiverName = etEnterReceiverName.getText().toString().trim();
+            if (!TextUtils.isEmpty(receiverName)) {
+                wmooe.setName(receiverName);
+
+                //收餐人电话
+                if (doValidatePhone()) {
+                    receiverPhone = etEnterReceiverPhone.getText().toString().trim();
+                    wmooe.setPhone(receiverPhone);
+
+                    //收餐人地址
+                    receiverAddress = etEnterReceiverAddress.getText().toString().trim();
+                    if (!TextUtils.isEmpty(receiverAddress)) {
+                        wmooe.setAddress(receiverAddress);
+
+                        //用餐人数
+                        dinnerNumber = etDinnerNumber.getText().toString().trim();
+                        if (!TextUtils.isEmpty(dinnerNumber)) {
+                            wmooe.setPersonNum(dinnerNumber);
+
+                            //是否立即送餐
+                            if (etSelectDeliverTime.getVisibility() == View.GONE) {
+                                //立即送餐
+                                wmooe.setSendNow("Y");
+                                flag = true;
+                            } else {
+                                wmooe.setSendNow("N");
+                                //预约时间：
+                                String reserveTime = etSelectDeliverTime.getText().toString().trim();
+                                if (!TextUtils.isEmpty(reserveTime)) {
+                                    flag = true;
+                                    wmooe.setReserveTime(reserveTime);
+                                } else {
+                                    flag = false;
+                                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.reserve_time_error), false);
+                                }
+                            }
+                        } else {
+                            flag = false;
+                            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
+                        }
+                    } else {
+                        flag = false;
+                        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_address_empty), false);
+                    }
+                } else {
+                    flag = false;
+                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.phone_error), false);
+                }
+            } else {
+                flag = false;
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_name_empty), false);
+            }
+        } else {
+            flag = false;
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.take_out_company_error), false);
         }
-        //收餐人姓名
-        receiverName = etEnterReceiverName.getText().toString().trim();
-        if (TextUtils.isEmpty(receiverName)){
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_name_empty), false);
-        }else{
-            wmooe.setName(receiverName);
-        }
-        //收餐人电话
-        if (doValidatePhone()){
-            receiverPhone = etEnterReceiverPhone.getText().toString().trim();
-            wmooe.setPhone(receiverPhone);
-        } else{
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.phone_error), false);
-        }
-        //收餐人地址
-        receiverAddress = etEnterReceiverAddress.getText().toString().trim();
-        if (TextUtils.isEmpty(receiverAddress)){
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_address_empty), false);
-        }else{
-            wmooe.setAddress(receiverAddress);
-        }
-        if (etSelectDeliverTime.getVisibility() == View.GONE){
-            //立即送餐
-            wmooe.setSendNow("Y");
-        }else{
-            wmooe.setSendNow("N");
-            //预约时间：
-             wmooe.setReserveTime(etSelectDeliverTime.getText().toString().trim());
-        }
-        //用餐人数
-        dinnerNumber = etDinnerNumber.getText().toString().trim();
-        if (TextUtils.isEmpty(dinnerNumber)){
-            wmooe.setPersonNum("2");
-        }else{
-            wmooe.setPersonNum(dinnerNumber);
-        }
+
         return wmooe;
     }
 
-    public Dialog getDialog(){
+    public Dialog getDialog() {
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.2f;// 背景灰度
         lp.width = 580;
-        lp.height= 920;
+        lp.height = 920;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         return mDialog;
     }
+
     /**
      * 验证手机号 是否为空，是否满足手机号的规则
      *
@@ -225,8 +259,11 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener{
         }
         return true;
     }
-    /**获取开单数据后传递数据用的接口*/
-    public interface WmCallback{
+
+    /**
+     * 获取开单数据后传递数据用的接口
+     */
+    public interface WmCallback {
         void sendWmEntity(OpenOrderEntity wmOpenOrderEntity);
     }
 

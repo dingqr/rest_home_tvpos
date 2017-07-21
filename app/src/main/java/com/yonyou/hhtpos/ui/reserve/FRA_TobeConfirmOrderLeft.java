@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 
 import static com.yonyou.hhtpos.util.FiltrationUtil.getLeftReserveOrderList;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getReserveOrderList;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getTableQueryFakeData;
 
 /**
  * 作者：ybing on 2017/7/1

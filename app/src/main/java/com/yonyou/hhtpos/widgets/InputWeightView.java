@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.WeightEntity;
 
@@ -49,5 +50,9 @@ public class InputWeightView extends RelativeLayout {
             tvDishUnit.setText(weightEntity.getUnit());
             evDishWeight.setHint(weightEntity.getHint());
         }
+    }
+    public String getNumber(){
+        String weight = evDishWeight.getText().toString().trim();
+        return StringUtil.getString(weight);
     }
 }

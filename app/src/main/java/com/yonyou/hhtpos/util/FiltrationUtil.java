@@ -27,6 +27,7 @@ public class FiltrationUtil {
     public static final int COOKERY = 6;
     public static final int DISH_NORMS = 7;
     public static final int SET_DETAIL = 8;
+    public static final int FREE_REASON = 9;
 
     /**多选*/
     public static final int TAKE_OUT_TYPE = 0;
@@ -135,14 +136,35 @@ public class FiltrationUtil {
     }
     public static ArrayList<FilterOptionsEntity> getRefundReason(){
         ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
-        FilterOptionsEntity fde1 = new FilterOptionsEntity("菜品质量",REFUND_REASON,false);
-        FilterOptionsEntity fde2 = new FilterOptionsEntity("服务质量",REFUND_REASON,true);
-        FilterOptionsEntity fde3 = new FilterOptionsEntity("配送太慢",REFUND_REASON,false);
-        FilterOptionsEntity fde4 = new FilterOptionsEntity("配送太慢配送太慢",REFUND_REASON,false);
+
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("配送太慢配送太慢",REFUND_REASON,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("菜品质量",REFUND_REASON,false);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("服务质量",REFUND_REASON,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("配送太慢",REFUND_REASON,false);
         FilterOptionsEntity fde5 = new FilterOptionsEntity("菜品质量",REFUND_REASON,false);
-        FilterOptionsEntity fde6 = new FilterOptionsEntity("服务质量",REFUND_REASON,false);
-        FilterOptionsEntity fde7 = new FilterOptionsEntity("接单太慢",REFUND_REASON,false);
-        FilterOptionsEntity fde8 = new FilterOptionsEntity("其它原因",REFUND_REASON,false);
+        FilterOptionsEntity fde6 = new FilterOptionsEntity("接单太慢",REFUND_REASON,false);
+        FilterOptionsEntity fde7 = new FilterOptionsEntity("其它原因",REFUND_REASON,false);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+        filterOptionsEntities.add(fde3);
+        filterOptionsEntities.add(fde4);
+        filterOptionsEntities.add(fde5);
+        filterOptionsEntities.add(fde6);
+        filterOptionsEntities.add(fde7);
+
+        return  filterOptionsEntities;
+    }
+    public static ArrayList<FilterOptionsEntity> getFreeReasons(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("此处显示各种免单原因",FREE_REASON,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("菜品质量",FREE_REASON,false);
+        FilterOptionsEntity fde3 = new FilterOptionsEntity("服务质量",FREE_REASON,false);
+        FilterOptionsEntity fde4 = new FilterOptionsEntity("配送太慢",FREE_REASON,false);
+        FilterOptionsEntity fde5 = new FilterOptionsEntity("菜品质量",FREE_REASON,false);
+        FilterOptionsEntity fde6 = new FilterOptionsEntity("菜品质量",FREE_REASON,false);
+        FilterOptionsEntity fde7 = new FilterOptionsEntity("服务质量",FREE_REASON,false);
+        FilterOptionsEntity fde8 = new FilterOptionsEntity("服务质量",FREE_REASON,false);
+        FilterOptionsEntity fde9 = new FilterOptionsEntity("其它原因",FREE_REASON,false);
         filterOptionsEntities.add(fde1);
         filterOptionsEntities.add(fde2);
         filterOptionsEntities.add(fde3);
@@ -151,6 +173,7 @@ public class FiltrationUtil {
         filterOptionsEntities.add(fde6);
         filterOptionsEntities.add(fde7);
         filterOptionsEntities.add(fde8);
+        filterOptionsEntities.add(fde9);
 
         return  filterOptionsEntities;
     }
@@ -305,7 +328,7 @@ public class FiltrationUtil {
         ReserveOrderListEntity rol2 = new ReserveOrderListEntity("2","等待客人中","晚餐",time,"15900008888","王总","6","需要两个儿童座椅");
         ReserveOrderListEntity rol3 = new ReserveOrderListEntity("3","客人已取消","午餐",time,"15900008888","李总","6","需要两个儿童座椅");
         ReserveOrderListEntity rol4 = new ReserveOrderListEntity("4","预约过期关闭","晚餐",time,"15900008888","赵总","10","需要两个儿童座椅");
-        ReserveOrderListEntity rol5 = new ReserveOrderListEntity("5","客人已到达","午餐",time,"15900008888","魏总","16","需要两个儿童座椅需要两个儿童座椅需要两个");
+        ReserveOrderListEntity rol5 = new ReserveOrderListEntity("5","客人已到达","午餐",time,"15900008888","魏总","16","需要两个儿童座椅需要两个儿童座椅");
         ReserveOrderListEntity rol6 = new ReserveOrderListEntity("6","预约过期关闭","午餐",time,"15900008888","孙总","3","需要两个儿童座椅需要两个儿童座椅需要两个");
         reserveOrderListEntity.add(rol1);
         reserveOrderListEntity.add(rol2);
@@ -324,14 +347,14 @@ public class FiltrationUtil {
         ReserveOrderListEntity rol2 = new ReserveOrderListEntity("2","等待客人中","晚餐",time,"15900008888","王总","6","需要两个儿童座椅",false);
         ReserveOrderListEntity rol3 = new ReserveOrderListEntity("3","客人已取消","午餐",time,"15900008888","李总","6","需要两个儿童座椅",true);
         ReserveOrderListEntity rol4 = new ReserveOrderListEntity("4","预约过期关闭","晚餐",time,"15900008888","赵总","10","需要两个儿童座椅",false);
-        ReserveOrderListEntity rol5 = new ReserveOrderListEntity("5","客人已到达","午餐",time,"15900008888","魏总","16","需要两个儿童座椅需要两个儿童座椅需要两个",false);
-        ReserveOrderListEntity rol6 = new ReserveOrderListEntity("6","预约过期关闭","午餐",time,"15900008888","孙总","3","需要两个儿童座椅需要两个儿童座椅需要两个",false);
+        ReserveOrderListEntity rol5 = new ReserveOrderListEntity("5","客人已到达","午餐",time,"15900008888","魏总","16","需要两个儿童座椅需要两个",false);
+        ReserveOrderListEntity rol6 = new ReserveOrderListEntity("6","预约过期关闭","午餐",time,"15900008888","孙总","3","需要两个儿童座椅需要两个",false);
         ReserveOrderListEntity rol7 = new ReserveOrderListEntity("7","客人已到达","午餐",time,"15900008888","张总","6","需要两个儿童座椅",false);
         ReserveOrderListEntity rol8 = new ReserveOrderListEntity("8","等待客人中","晚餐",time,"15900008888","王总","6","需要两个儿童座椅",false);
         ReserveOrderListEntity rol9 = new ReserveOrderListEntity("9","客人已取消","午餐",time,"15900008888","李总","6","需要两个儿童座椅",false);
         ReserveOrderListEntity rol10 = new ReserveOrderListEntity("10","预约过期关闭","晚餐",time,"15900008888","赵总","10","需要两个儿童座椅",false);
-        ReserveOrderListEntity rol11 = new ReserveOrderListEntity("11","客人已到达","午餐",time,"15900008888","魏总","16","需要两个儿童座椅需要两个儿童座椅需要两个",false);
-        ReserveOrderListEntity rol12 = new ReserveOrderListEntity("12","预约过期关闭","午餐",time,"15900008888","孙总","3","需要两个儿童座椅需要两个儿童座椅需要两个",false);
+        ReserveOrderListEntity rol11 = new ReserveOrderListEntity("11","客人已到达","午餐",time,"15900008888","魏总","16","需要两个儿童座椅需要两个",false);
+        ReserveOrderListEntity rol12 = new ReserveOrderListEntity("12","预约过期关闭","午餐",time,"15900008888","孙总","3","需要两个儿童座椅需要两个",false);
         reserveOrderListEntity.add(rol1);
         reserveOrderListEntity.add(rol2);
         reserveOrderListEntity.add(rol3);
@@ -396,9 +419,9 @@ public class FiltrationUtil {
     }
 
     public static ArrayList<FilterOptionsEntity> getSetMealType(){
-        MultipleOption mo1 = new MultipleOption("素菜",1,4);
-        MultipleOption mo2 = new MultipleOption("荤菜",1,4);
-        MultipleOption mo3 = new MultipleOption("饮品",2,8);
+        MultipleOption mo1 = new MultipleOption("素菜",2,6);
+        MultipleOption mo2 = new MultipleOption("荤菜",1,6);
+        MultipleOption mo3 = new MultipleOption("饮品",2,2);
         MultipleOption mo4 = new MultipleOption("主食",2,4);
 
         ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();

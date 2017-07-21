@@ -127,7 +127,7 @@ public class MultipleSelectView extends LinearLayout implements ADA_MultipleSele
         return  mAdapter.getSelectedItem();
     }
 
-    public void unSelectAll(){
+    public void reset(){
         for(int i=0;i<filterItemEntity.getOptions().size();i++){
             filterItemEntity.getOptions().get(i).setCheck(false);
         }

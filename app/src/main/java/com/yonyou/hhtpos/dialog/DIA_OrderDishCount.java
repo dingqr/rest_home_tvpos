@@ -12,24 +12,24 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.yonyou.framework.library.common.CommonUtils;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
-import com.yonyou.hhtpos.bean.WeightEntity;
+import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
-import com.yonyou.hhtpos.widgets.InputWeightView;
+import com.yonyou.hhtpos.widgets.ModifyCountView;
+import com.yonyou.hhtpos.widgets.MultipleSelectView;
 
-import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
+import java.util.ArrayList;
 
 /**
- * 服务员点菜 设置时价称重 弹框
- * 作者：ybing on 2017/7/11
+ * 服务员点菜时蔬 数量弹框
+ * 作者：ybing on 2017/7/10
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_OrderDishSetPrice implements View.OnClickListener {
+public class DIA_OrderDishCount implements View.OnClickListener {
     /**
      * 上下文
      */
@@ -42,16 +42,18 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
      */
     private RadioButton rbFinishSelect;
     private ImageButton ibClose;
-    private InputWeightView iwvDishWeight;
-    private InputWeightView iwvDishPrice;
     private FiltrationView fvCookery;
+    private MultipleSelectView fvRemark;
     private EditText etOtherRemark;
+    private ModifyCountView mcvDishCount;
 
     /**
      * 选项数据
      */
 
     private FilterItemEntity cookeryOption;
+    private FilterItemEntity remarkOption;
+
     /**
      * 数据回调接口
      */
@@ -61,36 +63,33 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishSetPrice(Context mContext, FilterItemEntity cookeryOption) {
+    public DIA_OrderDishCount(Context mContext, FilterItemEntity cookeryOption, FilterItemEntity remarkOption) {
         this.mContext = mContext;
         this.cookeryOption = cookeryOption;
+        this.remarkOption = remarkOption;
         initView();
     }
 
     private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_order_dish_set_price, null);
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_order_dish_vegetable, null);
         mDialog.setContentView(mContentView);
 
         rbFinishSelect = (RadioButton) mContentView.findViewById(R.id.rb_finish_select);
         ibClose = (ImageButton) mContentView.findViewById(R.id.ib_close);
-        iwvDishWeight = (InputWeightView) mContentView.findViewById(R.id.iwv_dish_weight);
-        iwvDishPrice = (InputWeightView) mContentView.findViewById(R.id.iwv_dish_price);
         fvCookery = (FiltrationView) mContentView.findViewById(R.id.fv_cookery);
+        fvRemark = (MultipleSelectView) mContentView.findViewById(R.id.fv_remark);
+        mcvDishCount = (ModifyCountView) mContentView.findViewById(R.id.mcv_dish_count);
 
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
+
         fvCookery.setData(cookeryOption);
 
-
-        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
-        iwvDishWeight.setData(weightEntity);
-        WeightEntity priceEntity = new WeightEntity("元", "输入时价");
-        iwvDishPrice.setData(priceEntity);
-
+        fvRemark.setData(remarkOption);
     }
 
     @Override
@@ -101,11 +100,12 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallbackEntity();
-                if (flag) {
+                if (flag){
                     if (dishDataCallback != null) {
                         dishDataCallback.sendItems(dishCallBackEntity);
                     }
                     fvCookery.reset();
+                    fvRemark.reset();
                     etOtherRemark.setText("");
                     mDialog.dismiss();
                 }
@@ -117,35 +117,40 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
 
     private DishCallBackEntity initDishCallbackEntity() {
         DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
-        double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
-        String dishPrice = iwvDishPrice.getNumber();
+        int dishCount = mcvDishCount.getCount();
         String dishCookery = fvCookery.getSelectedData().getOption();
-        String dishRemark = etOtherRemark.getText().toString().trim();
-        //重量
-        if (dishWeight > 0.00 && dishWeight < 99.99) {
-            dishCallBackEntity.setDishWeight(dishWeight);
-            //价格
-            if (Double.parseDouble(dishPrice) > 0.00 && Double.parseDouble(dishPrice) < 9999.99) {
-                dishCallBackEntity.setDishPrice(dishPrice);
+        ArrayList<FilterOptionsEntity> dishRemarks = fvRemark.getSelectedList();
+        String otherRemark = etOtherRemark.getText().toString().trim();
+
+        if (dishCount > 0) {
+            //数量
+            dishCallBackEntity.setDishCount(String.valueOf(dishCount));
+            if (!TextUtils.isEmpty(dishCookery)) {
                 //做法
-                if (!TextUtils.isEmpty(dishCookery)) {
-                    dishCallBackEntity.setDishCookery(dishCookery);
-                    flag = true;
-                    //备注
-                    dishCallBackEntity.setDishRemark(StringUtil.getString(dishRemark));
-                } else {
-                    flag = false;
-                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+                dishCallBackEntity.setDishCookery(dishCookery);
+                flag = true;
+                //备注
+                StringBuilder sb = new StringBuilder();
+                if (dishRemarks.size()>0){
+                    for (int i=0;i<dishRemarks.size()-1;i++){
+                        sb.append(dishRemarks.get(i).getOption());
+                        sb.append(",");
+                    }
+                    sb.append(dishRemarks.get(dishRemarks.size()).getOption());
                 }
+                if (!TextUtils.isEmpty(otherRemark)){
+                    sb.append(",");
+                    sb.append(otherRemark);
+                }
+                dishCallBackEntity.setDishRemark(sb.toString());
             } else {
                 flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
             }
         } else {
             flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
         }
-
         return dishCallBackEntity;
     }
 
@@ -153,8 +158,6 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.2f;// 背景灰度
-//        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度
-//        lp.height = ScreenUtil.getScreenHeight((Activity)mContext)/ 10 * 8; // 设置高度
         lp.width = 756;
         lp.height = 784;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -162,6 +165,9 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         return mDialog;
     }
 
+    /**
+     * 获取菜品数据后传递数据用的接口
+     */
     public void setDishDataCallback(DishDataCallback dishDataCallback) {
         this.dishDataCallback = dishDataCallback;
     }

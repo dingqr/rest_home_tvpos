@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_table_content"
-    android:orientation="vertical"
-    android:layout_width="@dimen/px_259"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/px_189"
-    android:layout_marginTop="@dimen/px_10"
     android:layout_marginLeft="@dimen/px_13"
-    android:layout_marginRight="@dimen/px_13">
+    android:layout_marginRight="@dimen/px_13"
+    android:layout_marginTop="@dimen/px_26"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_139"
         android:orientation="vertical">
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/px_32">
+            android:layout_marginTop="@dimen/px_32"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_76"
                 android:text="@string/hint_lunch"
                 android:textColor="@color/color_999999"
-                android:textSize="@dimen/sp_26"/>
+                android:textSize="@dimen/sp_26" />
+
             <TextView
                 android:id="@+id/tv_lunch_order_number"
                 android:layout_width="wrap_content"
@@ -30,20 +34,23 @@
                 android:layout_marginLeft="@dimen/px_34"
                 android:text="3"
                 android:textColor="@color/color_eb6247"
-                android:textSize="@dimen/sp_26"/>
+                android:textSize="@dimen/sp_26" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/px_22">
+            android:layout_marginTop="@dimen/px_10"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_76"
                 android:text="@string/hint_supper"
                 android:textColor="@color/color_999999"
-                android:textSize="@dimen/sp_26"/>
+                android:textSize="@dimen/sp_26" />
+
             <TextView
                 android:id="@+id/tv_supper_order_number"
                 android:layout_width="wrap_content"
@@ -51,24 +58,26 @@
                 android:layout_marginLeft="@dimen/px_34"
                 android:text="3"
                 android:textColor="@color/color_eb6247"
-                android:textSize="@dimen/sp_26"/>
+                android:textSize="@dimen/sp_26" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/bg_gray_solid"
         android:layout_marginBottom="@dimen/px_2"
         android:layout_marginLeft="@dimen/px_2"
         android:layout_marginRight="@dimen/px_2"
-        android:gravity="center">
+        android:background="@drawable/bg_gray_solid"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_room_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/room_number"
             android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_24"/>
+            android:textSize="@dimen/sp_24" />
     </LinearLayout>
 </LinearLayout>

@@ -23,7 +23,7 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
     private ImageButton minus;
     private TextView currentCount;
 
-    int tmp = 1;
+    int count = 1;
 
     public ModifyCountView(Context context) {
         this(context, null);
@@ -37,6 +37,10 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         super(context, attrs, defStyleAttr);
         mContext = context;
         initView();
+    }
+
+    public int getCount() {
+        return count;
     }
 
     private void initView() {
@@ -53,17 +57,17 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         switch (v.getId()){
             case R.id.ib_turn_plus:
                 //数量加1
-                tmp = Integer.parseInt(currentCount.getText().toString());
-                tmp++;
-                currentCount.setText(String.valueOf(tmp));
+                count = Integer.parseInt(currentCount.getText().toString());
+                count++;
+                currentCount.setText(String.valueOf(count));
                 break;
             case R.id.ib_turn_minus:
                 //数量减1
-                tmp = Integer.parseInt(currentCount.getText().toString());
-                if(tmp>0){
-                    tmp--;
+                count = Integer.parseInt(currentCount.getText().toString());
+                if(count>0){
+                    count--;
                 }
-                currentCount.setText(String.valueOf(tmp));
+                currentCount.setText(String.valueOf(count));
                 break;
             default:
                 break;

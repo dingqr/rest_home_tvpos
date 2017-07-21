@@ -93,11 +93,15 @@ public class API {
     /**
      * 外卖-获取所有外卖公司
      */
-    public static final String URL_POST_TAKEOUT_COMPANY = BASE_SERVER_SHOP + "/takeOut/getAllTakeOutCompany";
+    public static final String URL_WM_COMPANY = BASE_SERVER_SHOP + "/takeOut/getAllTakeOutCompany";
     /**
-     * 外卖-获取所有外卖公司
+     * 外卖-获取所有外卖市别
      */
-    public static final String URL_POST_TAKEOUT_SCHEDULE = BASE_SERVER_SHOP + "/takeOut/getAllSchedule";
+    public static final String URL_WM_SCHEDULE = BASE_SERVER_SHOP + "/takeOut/getAllSchedule";
+    /**
+     * 外卖-获取所有退款原因
+     */
+    public static final String URL_WM_REFUND_REASON = BASE_SERVER_SHOP + "";
     /**
      * 外带订单详情
      */

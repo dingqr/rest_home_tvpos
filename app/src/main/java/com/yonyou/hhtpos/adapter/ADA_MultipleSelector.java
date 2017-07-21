@@ -38,6 +38,9 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
     public ADA_MultipleSelector(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
+        for (int i=0;i<mDatas.size();i++){
+            mSelectedPositions.put(i,mDatas.get(i).isCheck());
+        }
     }
 
     @Override
@@ -111,10 +114,12 @@ public class ADA_MultipleSelector extends RecyclerView.Adapter<ADA_MultipleSelec
                     mOnItemClickListener.onItemClick(holder.itemView,position);
                 }
                 if (isItemChecked(position)){
+                    dataBean.setCheck(true);
                     setItemChecked(position,false);
                     holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_gray_4));
                     holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_222222));
                 }else{
+                    dataBean.setCheck(false);
                     setItemChecked(position,true);
                     holder.mBtn.setBackground(mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_eb6247));
                     holder.mBtn.setTextColor(mInflater.getContext().getResources().getColor(R.color.color_eb6247));

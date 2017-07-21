@@ -44,46 +44,76 @@
             android:layout_height="1dp"
             android:background="@color/color_c4c4c4" />
 
-        <com.yonyou.hhtpos.widgets.FiltrationView
-            android:id="@+id/fv_refund_reason"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_20"
-            android:layout_marginRight="@dimen/px_20"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/px_36"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/free_order_money"
+                android:textColor="#222222"
+                android:textSize="@dimen/sp_34" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1160.00"
+                android:textColor="#222222"
+                android:textSize="@dimen/sp_34"
+                android:layout_marginLeft="@dimen/px_24"/>
+
+
+        </LinearLayout>
+
+        <com.yonyou.hhtpos.widgets.FiltrationView
+            android:id="@+id/fv_free_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginRight="@dimen/px_30"
             android:layout_marginTop="@dimen/px_12">
+
         </com.yonyou.hhtpos.widgets.FiltrationView>
 
         <LinearLayout
             android:id="@+id/ll_refund_reason"
-            android:layout_width="@dimen/px_620"
+            android:layout_width="@dimen/px_770"
             android:layout_height="@dimen/px_100"
-            android:layout_marginTop="@dimen/px_60"
-            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginLeft="@dimen/px_10"
             android:layout_marginRight="@dimen/px_30"
-            android:orientation="vertical"
-            android:background="@drawable/bg_gray_side_gray">
+            android:layout_marginTop="@dimen/px_40"
+            android:background="@drawable/bg_gray_side_gray"
+            android:orientation="vertical">
+
             <EditText
-                android:id="@+id/et_enter_refund_reason"
+                android:id="@+id/et_enter_free_reason"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_70"
-                android:hint="@string/please_enter_other_reasons"
-                android:textColorHint="@color/color_cccccc"
-                android:paddingRight="@dimen/px_12"
-                android:paddingTop="@dimen/px_12"
-                android:paddingLeft="@dimen/px_12"
-                android:gravity="top"
-                android:textSize="@dimen/sp_24"
-                android:textColor="@color/color_222222"
+                android:background="@null"
                 android:clickable="true"
-                android:background="@null"/>
+                android:gravity="top"
+                android:hint="@string/please_enter_other_reasons"
+                android:paddingTop="@dimen/px_12"
+                android:paddingLeft="@dimen/px_10"
+                android:textColor="@color/color_222222"
+                android:textColorHint="@color/color_cccccc"
+                android:textSize="@dimen/sp_24" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px_30"
-                android:layout_marginRight ="@dimen/px_10"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/px_10"
                 android:text="0/20"
-                android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_999999"
-                android:layout_gravity="right"/>
+                android:textSize="@dimen/sp_20" />
         </LinearLayout>
     </LinearLayout>
 
@@ -93,12 +123,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/px_70"
-        android:background="@color/color_fe563b"
+        android:background="@drawable/bg_rb_radius_4"
         android:button="@null"
         android:checked="true"
         android:gravity="center"
         android:padding="@dimen/px_20"
-        android:text="@string/confirm_refund"
+        android:text="@string/confirm"
         android:textColor="@color/color_FFFFFF"
         android:textSize="@dimen/sp_28" />
 </RelativeLayout>

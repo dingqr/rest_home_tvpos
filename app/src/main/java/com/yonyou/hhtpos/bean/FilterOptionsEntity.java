@@ -15,7 +15,7 @@ public class FilterOptionsEntity implements Serializable, Cloneable{
     /**选项id： 例如外卖公司id、外卖市别id等*/
     private String optionId;
 
-    /**多项筛选*/
+    /**套餐多项筛选*/
     private MultipleOption multipleOption;
 
     /**类型：例如外卖公司；市别；餐区等 */

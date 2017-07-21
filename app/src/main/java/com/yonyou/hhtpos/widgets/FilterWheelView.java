@@ -125,15 +125,19 @@ public class FilterWheelView extends LinearLayout {
             if (adaItemCallback!=null){
                 adaItemCallback.sendItems(mAdapter.getItemRawCount());
             }
+            //设置滚动监听
             mLoopRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
+                    //滚动停止时，获取recycler显示的第一项的position
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         int items = mAdapter.getItemRawCount();
                         int firstItemPosition =linearManager.findFirstVisibleItemPosition();
+                        //高亮显示最左边的item
                         mAdapter.highlightItem(firstItemPosition % items);
                     }
+                    //滚动过程中，释放选中状态
                     if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                         mAdapter.reset();
                     }

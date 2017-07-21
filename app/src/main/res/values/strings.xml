@@ -82,6 +82,7 @@
     <string name="hint_title_order_number">预定</string>
     <string name="custom_arrive">客人已到达</string>
     <string name="man">人</string>
+    <string name="symbol_jin">#</string>
 
     <!--首页 -->
     <string name="home_company_name">红火台餐饮云服务有限公司</string>
@@ -145,14 +146,18 @@
     <string name="please_select_deliver_time">请选择预约送餐时间</string>
     <string name="take_out_refund">外卖退款处理</string>
     <string name="refund_reason">退款原因</string>
+    <string name="other_reason">其它原因</string>
     <string name="please_enter_other_reasons">请输入其他原因</string>
     <string name="confirm_refund">确认退款</string>
     <string name="refund">退款</string>
     <string name="dinner_number">就餐人数</string>
-    <string name="phone_pwd_error">"手机号和密码输入格式不正确"</string>
-    <string name="receiver_name_empty">"收餐人姓名不能为空"</string>
-    <string name="receiver_address_empty">"收餐人地址不能为空"</string>
-    <string name="phone_error">"手机号输入格式不正确,请检查"</string>
+    <string name="phone_pwd_error">手机号和密码输入格式不正确</string>
+    <string name="receiver_name_empty">收餐人姓名不能为空</string>
+    <string name="receiver_address_empty">收餐人地址不能为空</string>
+    <string name="phone_error">手机号输入格式不正确,请检查</string>
+    <string name="reserve_time_error">预定时间不能为空</string>
+    <string name="take_out_company_error">请选择外卖公司</string>
+    <string name="receiver_num_empty">就餐人数不能为空</string>
 
     <!--堂食 -->
     <string name="canteen_billing">开单</string>
@@ -241,6 +246,13 @@
     <string name="hint_dish_name">菜品名称</string>
     <string name="hint_sale_price">售价</string>
     <string name="string_input_sale_price">输入销售金额</string>
+    <string name="input_dish_count">请输入菜品数量</string>
+    <string name="input_dish_cookery">请选择菜品做法</string>
+    <string name="input_dish_remark">请选择菜品备注</string>
+    <string name="input_dish_weight">请设置菜品重量，范围0.00-99.99</string>
+    <string name="input_dish_price">请设置菜品价格，范围0.00-9999.99</string>
+    <string name="input_dish_taste">请选择菜品口味</string>
+    <string name="input_dish_standard">请选择菜品规格</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>
@@ -266,6 +278,9 @@
     <string name="ts_check_out">堂食结账</string>
     <string name="cashier">收银：</string>
     <string name="free_order">免单</string>
+    <string name="free_order_money">免单金额：</string>
+    <string name="free_order_reason">免单原因</string>
+    <string name="employee_filtration">员工筛选</string>
 
     <string name="string_time_hour">时</string>
     <string name="string_time_second">分</string>

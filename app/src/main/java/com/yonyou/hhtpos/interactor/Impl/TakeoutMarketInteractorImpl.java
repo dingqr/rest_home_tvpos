@@ -28,10 +28,8 @@ public class TakeoutMarketInteractorImpl implements ITakeoutMarketInteractor{
     @Override
     public void getAllTakeOutSchedule( String shopId) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
-
-//        hashMap.put("companyId", StringUtil.getString(companyId));
         hashMap.put("shopId",StringUtil.getString(shopId));
-        RequestManager.getInstance().requestPostByAsyn(API.URL_POST_TAKEOUT_SCHEDULE, hashMap, new ReqCallBack<List<TakeoutMarketEntity>>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_WM_SCHEDULE, hashMap, new ReqCallBack<List<TakeoutMarketEntity>>() {
             @Override
             public void onReqSuccess(List<TakeoutMarketEntity> result) {
                 mBaseLoadedListener.onSuccess(1,result);

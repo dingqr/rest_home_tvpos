@@ -15,57 +15,61 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 
-import static com.yonyou.hhtpos.util.FiltrationUtil.getOrderOptions;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getRefundReason;
-
 /**
- * 外卖退款处理对话框
- * 作者：ybing on 2017/7/7 13:36
+ * 免单处理对话框
+ * 作者：ybing on 2017/7/20 13:36
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_TakeOutRefund implements View.OnClickListener,FiltrationView.SelectCallback{
-    /**上下文 */
+public class DIA_EmployeeFiltration implements View.OnClickListener,FiltrationView.SelectCallback {
+    /**
+     * 上下文
+     */
     protected Context mContext;
     protected Dialog mDialog;
     protected View mContentView;
 
-    /**界面控件 */
+    /**
+     * 界面控件
+     */
     private RadioButton rbConfirmRefund;
     private ImageButton ibClose;
-    private FiltrationView fvRefundReason;
-    private FilterItemEntity filterItemEntity;
-    private EditText etEnterRefundReason;
+    private FiltrationView fvFreeReason;
+    private FilterItemEntity freeOrderReason;
+    private EditText etEnterFreeReason;
 
-    public DIA_TakeOutRefund(Context mContext) {
+    public DIA_EmployeeFiltration(Context mContext, FilterItemEntity freeOrderReason) {
         this.mContext = mContext;
+        this.freeOrderReason = freeOrderReason;
         initView();
     }
 
     private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_take_out_refund, null);
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_employee_filtration, null);
         mDialog.setContentView(mContentView);
 
-        fvRefundReason =(FiltrationView) mContentView.findViewById(R.id.fv_refund_reason);
-        fvRefundReason.setSelectCallback(this);
-
-        rbConfirmRefund =(RadioButton) mContentView.findViewById(R.id.rb_confirm_refund);
-        ibClose =(ImageButton) mContentView.findViewById(R.id.ib_close);
-        etEnterRefundReason =(EditText) mContentView.findViewById(R.id.et_enter_refund_reason);
+        fvFreeReason = (FiltrationView) mContentView.findViewById(R.id.fv_free_reason);
+        rbConfirmRefund = (RadioButton) mContentView.findViewById(R.id.rb_confirm_refund);
+        ibClose = (ImageButton) mContentView.findViewById(R.id.ib_close);
+        etEnterFreeReason = (EditText) mContentView.findViewById(R.id.et_enter_free_reason);
 
         ibClose.setOnClickListener(this);
         rbConfirmRefund.setOnClickListener(this);
 
-        filterItemEntity = new FilterItemEntity();
-        filterItemEntity.setTitle(mContext.getString(R.string.refund_reason));
-        filterItemEntity.setOptions(getRefundReason());
-        fvRefundReason.setData(filterItemEntity);
+
+        fvFreeReason.setData(freeOrderReason);
+        fvFreeReason.setSelectCallback(this);
+
+        etEnterFreeReason.setFocusable(false);
+        etEnterFreeReason.setFocusableInTouchMode(false);
+        etEnterFreeReason.setLongClickable(false);
+
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ib_close:
                 mDialog.dismiss();
                 break;
@@ -75,12 +79,13 @@ public class DIA_TakeOutRefund implements View.OnClickListener,FiltrationView.Se
                 break;
         }
     }
-    public Dialog getDialog(){
+
+    public Dialog getDialog() {
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.2f;// 背景灰度
-        lp.width = 680;
-        lp.height= 600;
+        lp.width = 830;
+        lp.height = 680;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         return mDialog;
@@ -90,13 +95,13 @@ public class DIA_TakeOutRefund implements View.OnClickListener,FiltrationView.Se
     public void sendSelectedItem(FilterOptionsEntity foe) {
         if (foe != null && (mContext.getString(R.string.other_reason).equals(foe.getOption())
                 || mContext.getString(R.string.other_reason)==(foe.getOption()))) {
-            etEnterRefundReason.setFocusable(true);
-            etEnterRefundReason.setFocusableInTouchMode(true);
-            etEnterRefundReason.setLongClickable(true);
+                etEnterFreeReason.setFocusable(true);
+                etEnterFreeReason.setFocusableInTouchMode(true);
+                etEnterFreeReason.setLongClickable(true);
         }else{
-            etEnterRefundReason.setFocusable(false);
-            etEnterRefundReason.setFocusableInTouchMode(false);
-            etEnterRefundReason.setLongClickable(false);
+            etEnterFreeReason.setFocusable(false);
+            etEnterFreeReason.setFocusableInTouchMode(false);
+            etEnterFreeReason.setLongClickable(false);
         }
     }
 }

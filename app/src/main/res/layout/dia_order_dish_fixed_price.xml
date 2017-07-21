@@ -165,7 +165,7 @@
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_26" />
         <EditText
-            android:id="@+id/et_other_reason"
+            android:id="@+id/et_other_remark"
             android:layout_width="@dimen/px_600"
             android:layout_height="@dimen/px_170"
             android:layout_marginLeft="@dimen/px_34"

@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
-import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
@@ -92,8 +91,8 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_reset:
-                msvTakeoutType.unSelectAll();
-                msvTakeoutMarket.unSelectAll();
+                msvTakeoutType.reset();
+                msvTakeoutMarket.reset();
                 break;
             case R.id.iv_close:
                 mDialog.dismiss();
@@ -106,9 +105,6 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
                         takeOutCompanyId.append(msvTakeoutType.getSelectedList().get(i).getOptionId() + ",");
                     }
                     takeOutCompanyId.append(msvTakeoutType.getSelectedList().get(msvTakeoutType.getSelectedList().size() - 1).getOptionId());
-//                    wmfCallback.sendCompanyId(takeOutCompanyId.toString());
-                }else{
-                    CommonUtils.makeEventToast(mContext, "请选择外卖公司", false);
                 }
                 if(msvTakeoutMarket.getSelectedList().size() > 0 && msvTakeoutMarket.getSelectedList() != null){
 
@@ -116,11 +112,7 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
                         takeOutScheduleId.append(msvTakeoutMarket.getSelectedList().get(i).getOptionId() + ",");
                     }
                     takeOutScheduleId.append(msvTakeoutMarket.getSelectedList().get(msvTakeoutMarket.getSelectedList().size() - 1).getOptionId());
-
-                }else{
-                    CommonUtils.makeEventToast(mContext, "请选择市别", false);
                 }
-
                 FilterEntity bean = new FilterEntity();
                 bean.takeOutCompanyId = takeOutCompanyId.toString();
                 bean.takeOutScheduleId = takeOutScheduleId.toString();
@@ -138,8 +130,6 @@ public class DIA_TakeOutFiltration implements View.OnClickListener {
      */
     public interface WMFCallback {
         void sendItems(FilterEntity bean);
-
-//        void sendScheduleId(String scheduleNameId);
     }
 
     public void setWmfCallback(WMFCallback wmfCallback) {

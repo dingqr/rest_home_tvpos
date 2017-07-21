@@ -28,7 +28,7 @@ public class TakeoutCompanyInteractorImpl implements ITakeoutCompanyInteractor{
 
 //        hashMap.put("companyId", StringUtil.getString(companyId));
         hashMap.put("shopId",StringUtil.getString(shopId));
-        RequestManager.getInstance().requestPostByAsyn(API.URL_POST_TAKEOUT_COMPANY, hashMap, new ReqCallBack <List<TakeoutCompanyEntity>>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_WM_COMPANY, hashMap, new ReqCallBack <List<TakeoutCompanyEntity>>() {
             @Override
             public void onReqSuccess(List<TakeoutCompanyEntity> result) {
                 mBaseLoadedListener.onSuccess(1,result);

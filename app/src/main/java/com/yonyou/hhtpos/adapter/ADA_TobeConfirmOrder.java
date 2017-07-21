@@ -72,7 +72,7 @@ public class ADA_TobeConfirmOrder extends RecyclerView.Adapter<ADA_TobeConfirmOr
         final ReserveOrderListEntity dataBean = mDatas.get(position);
         if (dataBean !=null) {
             if (!TextUtils.isEmpty(dataBean.getOrderId())){
-                holder.tvOrderId.setText(dataBean.getOrderId()+"#");
+                holder.tvOrderId.setText(mInflater.getContext().getString(R.string.symbol_jin)+" "+dataBean.getOrderId());
             }
             if (dataBean.getOrderTime()!= -1){
                 holder.tvOrderTime.setText( StringUtil.getString(AppDateUtil.getTimeStamp(dataBean.getOrderTime(), AppDateUtil.YYYY_MM_DD_HH_MM)));

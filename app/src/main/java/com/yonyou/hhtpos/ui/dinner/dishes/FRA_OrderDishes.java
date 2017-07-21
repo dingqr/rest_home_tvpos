@@ -16,11 +16,13 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
+import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
@@ -37,6 +39,8 @@ import butterknife.Bind;
 
 import static com.yonyou.hhtpos.R.id.ll_content;
 import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getCookery;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
 
 
 /**
@@ -147,6 +151,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
 
                 RequestAddDishEntity requestAddDishEntity = new RequestAddDishEntity();
                 requestAddDishEntity.companyId = dishesEntity.companyId;
+
 //                requestAddDishEntity.dishClassid = dishesEntity.
 //                mAddDishPresenter.requestAddDish();
                 //设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
@@ -294,6 +299,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
+       FilterItemEntity cookeryOption = new FilterItemEntity();
+        cookeryOption.setTitle("");
+        cookeryOption.setOptions(getCookery());
+
+       FilterItemEntity remarkOption = new FilterItemEntity();
+        remarkOption.setTitle("");
+        remarkOption.setOptions(getDishRemark());
+        //服务员点菜时蔬 数量弹框
+        DIA_OrderDishCount dia_orderDishCount = new DIA_OrderDishCount(mContext,cookeryOption,remarkOption);
     }
 
     /**
