@@ -18,12 +18,13 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
-import com.yonyou.hhtpos.bean.PayTypeEntity;
+import com.yonyou.hhtpos.adapter.ADA_WDDetailPayType;
 import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
-import com.yonyou.hhtpos.bean.wd.OrderDetailEntity;
-import com.yonyou.hhtpos.presenter.IWDOrderDetailPresenter;
-import com.yonyou.hhtpos.presenter.Impl.WDOrderDetailPresenterImpl;
-import com.yonyou.hhtpos.view.IOrderDetailView;
+import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
+import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
+import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
+import com.yonyou.hhtpos.view.IWDOrderDetailView;
+import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ import butterknife.Bind;
  * 邮箱：zjuan@yonyou.com
  * 描述：外带订单明细
  */
-public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView {
+public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailView {
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
     @Bind(R.id.lv_order_detail)
@@ -58,22 +59,21 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
     TextView tvIgnoreMoney;
     @Bind(R.id.tv_real_receive_amount)
     TextView tvRealReceiveAmount;
-    @Bind(R.id.tv_pay_type)
-    TextView tvPayType;
-    @Bind(R.id.tv_pay_money)
-    TextView tvPayMoney;
     @Bind(R.id.tv_cashier)
     TextView tvCashier;
     @Bind(R.id.tv_not_pay)
     TextView tvNotPay;
     @Bind(R.id.tv_wait_receive_money)
     TextView tvWaitReceiveMoney;
-
+    //支付方式
+    @Bind(R.id.lv_pay_type)
+    BanSlideListView mLvPayType;
+    private ADA_WDDetailPayType mPaytypeAdapter;
     private ADA_OrderDishesDetail mAdapter;
     private ArrayList<DishDetaiListlEntity> dataList = new ArrayList<>();
 
     //请求外带详情接口
-    private IWDOrderDetailPresenter mPresenter;
+    private IOrderDetailPresenter mPresenter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -97,23 +97,17 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
 
     @Override
     protected void initViewsAndEvents() {
-        mPresenter = new WDOrderDetailPresenterImpl(getActivity(), this);
+        mPresenter = new OrderDetailPresenterImpl(getActivity(), this);
+
         //有数据页面
         mAdapter = new ADA_OrderDishesDetail(mContext);
         lvOrderDishes.setAdapter(mAdapter);
-//        setData();
-
+        //设置支付方式
+        mPaytypeAdapter = new ADA_WDDetailPayType(mContext);
+        mLvPayType.setAdapter(mPaytypeAdapter);
 
         // 无数据页面
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
-    }
-
-    private void setData() {
-        for (int i = 0; i < 10; i++) {
-            DishDetaiListlEntity dishDetaiListlEntity = new DishDetaiListlEntity();
-            dishDetaiListlEntity.dishName = "肉菜" + i;
-            dataList.add(dishDetaiListlEntity);
-        }
     }
 
     @Override
@@ -146,7 +140,7 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
      * @param orderDetailEntity
      */
     @Override
-    public void requestOrderDetail(OrderDetailEntity orderDetailEntity) {
+    public void requestOrderDetail(WDOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
             //开单服务员
             tvOpenOrderWaiter.setText(orderDetailEntity.waiterName);
@@ -173,21 +167,17 @@ public class FRA_PackingDetail extends BaseFragment implements IOrderDetailView 
                 tvPhoneNumber.setText(maskNumber);
             }
             //优惠金额
-            tvReduceMoney.setText("￥"+orderDetailEntity.getReduceMoney());
+            tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
             //折扣
-            tvDiscountMoney.setText("￥"+orderDetailEntity.getDiscountMoney());
+            tvDiscountMoney.setText("￥" + orderDetailEntity.getDiscountMoney());
             //抹零
-            tvIgnoreMoney.setText("￥"+orderDetailEntity.getIgnoreMoney());
+            tvIgnoreMoney.setText("￥" + orderDetailEntity.getIgnoreMoney());
             //实际支付
-            tvRealReceiveAmount.setText("￥"+orderDetailEntity.getRealReceiveAmount());
+            tvRealReceiveAmount.setText("￥" + orderDetailEntity.getRealReceiveAmount());
 
             //支付方式-可能组合
             if (orderDetailEntity.payTypeList != null && orderDetailEntity.payTypeList.size() > 0) {
-                for (int i = 0; i < orderDetailEntity.payTypeList.size(); i++) {
-                    PayTypeEntity payTypeEntity = orderDetailEntity.payTypeList.get(i);
-                    tvPayType.setText(orderDetailEntity.getPayTypeRemark(payTypeEntity.payType));
-                    tvPayMoney.setText("￥"+StringUtil.getFormattedMoney(orderDetailEntity.payTypeList.get(0).getPayAmount()));
-                }
+                mPaytypeAdapter.update(orderDetailEntity.payTypeList,true);
             }
             //收银员名称
             tvCashier.setText(orderDetailEntity.waiterName);

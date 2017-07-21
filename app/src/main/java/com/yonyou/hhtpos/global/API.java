@@ -103,6 +103,11 @@ public class API {
      */
     public static final String URL_WD_ORDER_DETAIL = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOrderDetail";
     /**
+     * 外卖订单详情
+     */
+    public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "";
+
+    /**
      * 点菜时，新加菜品
      */
     public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
@@ -114,4 +119,5 @@ public class API {
      * 堂食-查询桌台列表
      */
     public static final String URL_TS_TABLE_LIST = BASE_SERVER_SHOP + "/protabledynamic/getTableDynamicList";
+
 }

@@ -1,8 +1,6 @@
 package com.yonyou.hhtpos.bean.wd;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
-import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.PayTypeEntity;
 
 import java.io.Serializable;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
  * 邮箱：zjuan@yonyou.com
  * 描述：外带订单详细信息实体-
  */
-public class OrderDetailEntity implements Serializable {
+public class WDOrderDetailEntity implements Serializable {
     /**
      * 桌台账单Id
      */
@@ -77,7 +75,7 @@ public class OrderDetailEntity implements Serializable {
      */
     public String payStatus;
 
-    public OrderDetailEntity() {
+    public WDOrderDetailEntity() {
     }
 
     public String getReduceMoney() {
@@ -111,15 +109,9 @@ public class OrderDetailEntity implements Serializable {
     public void setRealReceiveAmount(String realReceiveAmount) {
         this.realReceiveAmount = realReceiveAmount;
     }
-    public String getPayTypeRemark(String payType) {
-        if(payType.equals("cash")) {
-            return MyApplication.getInstance().getResources().getString(R.string.string_pay_by_cash);
-        }
-        return "";
-    }
     @Override
     public String toString() {
-        return "OrderDetailEntity{" +
+        return "WDOrderDetailEntity{" +
                 "tableBillId='" + tableBillId + '\'' +
                 ", waiterName='" + waiterName + '\'' +
                 ", personNum='" + personNum + '\'' +

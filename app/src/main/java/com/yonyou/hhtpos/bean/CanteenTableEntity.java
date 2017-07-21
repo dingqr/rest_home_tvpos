@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.bean;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
+
 import java.io.Serializable;
 
 /**
@@ -9,17 +11,27 @@ import java.io.Serializable;
  */
 public class CanteenTableEntity implements Serializable {
     /**
-     * relReceiveAmount
+     * 账单金额
      */
-    public String relReceiveAmount;
+    private String billMoney;
     /**
-     * 桌台账单-id
+     * 结清：收到的金额
      */
-    public String tableBillId;
+    private String receiveAmount;
     /**
-     * 桌台id
+     * 预订人数
      */
-    public String tableId;
+    public String personNum ;
+
+    /**
+     * 桌台容纳人数
+     */
+    public String seatNum;
+
+    /**
+     * 桌台状态：0 空闲 ，1 占用（消费中），2 占用（部分支付），3 占用（锁定），4 占用（结清），5 预订，传（1,2，3,4）为查询占用，不传默认查询全部
+     */
+    public int tableStatus;
 
     /**
      * 桌台名称
@@ -27,19 +39,13 @@ public class CanteenTableEntity implements Serializable {
     public String tableName;
 
     /**
-     * 桌台状态
-     */
-    public String tableStatus;
-
-    /**
-     * 桌台可容纳最大人数
-     */
-    public int max_capacity;
-
-    /**
      * 创建时间
      */
-    public String create_time;
+    public Long openTime;
+    /**
+     * 账单生成时间
+     */
+    public Long billTime;
     /**
      * 是否选中
      */
@@ -48,6 +54,21 @@ public class CanteenTableEntity implements Serializable {
     public CanteenTableEntity() {
     }
 
+    public String getBillMoney() {
+        return StringUtil.getFormattedMoney(billMoney);
+    }
+
+    public void setBillMoney(String billMoney) {
+        this.billMoney = billMoney;
+    }
+
+    public String getReceiveAmount() {
+        return StringUtil.getFormattedMoney(receiveAmount);
+    }
+
+    public void setReceiveAmount(String receiveAmount) {
+        this.receiveAmount = receiveAmount;
+    }
 
     public void isCheck(String isCheck) {
         this.isCheck = isCheck;
