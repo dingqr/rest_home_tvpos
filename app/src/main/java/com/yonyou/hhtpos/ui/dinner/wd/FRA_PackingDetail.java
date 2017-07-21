@@ -7,6 +7,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
  */
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,6 +69,9 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     //支付方式
     @Bind(R.id.lv_pay_type)
     BanSlideListView mLvPayType;
+    //支付信息
+    @Bind(R.id.layout_pay_info)
+    LinearLayout layoutPayInfo;
     private ADA_WDDetailPayType mPaytypeAdapter;
     private ADA_OrderDishesDetail mAdapter;
     private ArrayList<DishDetaiListlEntity> dataList = new ArrayList<>();
@@ -131,7 +135,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     }
 
     public void requestPackingDetail(String tableBillId) {
-        mPresenter.requestOrderDetail(tableBillId);
+        mPresenter.requestWDOrderDetail(tableBillId);
     }
 
     /**
@@ -140,7 +144,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
      * @param orderDetailEntity
      */
     @Override
-    public void requestOrderDetail(WDOrderDetailEntity orderDetailEntity) {
+    public void requestWDOrderDetail(WDOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
             //开单服务员
             tvOpenOrderWaiter.setText(orderDetailEntity.waiterName);
@@ -153,12 +157,14 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 tvPayStatus.setText(mContext.getResources().getString(R.string.string_pay_successful));
                 tvNotPay.setVisibility(View.GONE);
                 tvWaitReceiveMoney.setVisibility(View.GONE);
+                layoutPayInfo.setVisibility(View.VISIBLE);
             } else {
                 tvNotPay.setVisibility(View.VISIBLE);
                 tvWaitReceiveMoney.setVisibility(View.VISIBLE);
                 //待收金额
 //                tvWaitReceiveMoney.setText();
                 tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
+                layoutPayInfo.setVisibility(View.GONE);
             }
 
             //会员手机号
@@ -177,7 +183,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
             //支付方式-可能组合
             if (orderDetailEntity.payTypeList != null && orderDetailEntity.payTypeList.size() > 0) {
-                mPaytypeAdapter.update(orderDetailEntity.payTypeList,true);
+                mPaytypeAdapter.update(orderDetailEntity.payTypeList, true);
             }
             //收银员名称
             tvCashier.setText(orderDetailEntity.waiterName);

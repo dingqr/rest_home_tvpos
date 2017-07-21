@@ -19,11 +19,14 @@ import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
+import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
+import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
+import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
 import com.yonyou.hhtpos.widgets.RightNavigationView;
@@ -42,7 +45,7 @@ import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
  * 描述：点菜页面-获取所有菜品/菜类
  * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,IAddDishView{
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
     @Bind(ll_content)
@@ -102,6 +105,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
     protected void initViewsAndEvents() {
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
         mPresenter.getAllDishes(compId, shopId);
+
+        mAddDishPresenter = new AddDishPresenterImpl(mContext,this);
         // 去除LRecyclerView的默认的下拉刷新效果
         mRecyclerView.setPullRefreshEnabled(false);
 
@@ -137,29 +142,32 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
 
     private void initListener() {
         mAdapter.setOnActionOrderDishListener(new ADA_DishTypeList.OnActionOrderDishListener() {
-
             @Override
-            public void OnActionOrderDish(final View iv_start, int position) {
+            public void OnActionOrderDish(View iv_start, int pos, DishesEntity dishesEntity) {
+
+                RequestAddDishEntity requestAddDishEntity = new RequestAddDishEntity();
+                requestAddDishEntity.companyId = dishesEntity.companyId;
+//                requestAddDishEntity.dishClassid = dishesEntity.
+//                mAddDishPresenter.requestAddDish();
                 //设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
-                int mPosition = position - 1;
-                DishesEntity dishesEntity = mAdapter.getDataList().get(mPosition);
-                dishesEntity.isCheck = true;
-                mAdapter.notifyItemChanged(mPosition);
-
-                //刷新角标数量
-                mRightNavigationView.refreshCount(dishesEntity.dishTypeRelateId, true);
-                //刷新右侧标题对应的位置
-                refreshPos = getRefreshPosById(dishesEntity.dishTypeRelateId);
-                //动画开始的View
-                startView = iv_start;
-
-                int startPos = mRightListView.getFirstVisiblePosition();
-                int endPos = mRightListView.getLastVisiblePosition();
-                if (refreshPos >= startPos && refreshPos <= endPos) {
-                    AnimationUtil.doFlyAnimation(mContext, layoutRoot, mRightListView, iv_start, refreshPos, startPos);
-                } else {
-                    return;
-                }
+//                int mPosition = position - 1;
+//                DishesEntity dishesEntity = mAdapter.getDataList().get(mPosition);
+//                dishesEntity.isCheck = true;
+//                mAdapter.notifyItemChanged(mPosition);
+//                //刷新角标数量
+//                mRightNavigationView.refreshCount(dishesEntity.dishTypeRelateId, true);
+//                //刷新右侧标题对应的位置
+//                refreshPos = getRefreshPosById(dishesEntity.dishTypeRelateId);
+//                //动画开始的View
+//                startView = iv_start;
+//
+//                int startPos = mRightListView.getFirstVisiblePosition();
+//                int endPos = mRightListView.getLastVisiblePosition();
+//                if (refreshPos >= startPos && refreshPos <= endPos) {
+//                    AnimationUtil.doFlyAnimation(mContext, layoutRoot, mRightListView, iv_start, refreshPos, startPos);
+//                } else {
+//                    return;
+//                }
             }
         });
         //滑动更新完右侧标题角标数量再进行动画
@@ -242,6 +250,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
 
     }
 
+
     /**
      * 设置item之间的间距
      */
@@ -270,6 +279,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
         }
     }
 
+    /**
+     * 获取所有菜品菜类
+     * @param dishDataEntity
+     */
     @Override
     public void getAllDishes(DishDataEntity dishDataEntity) {
         this.mDishDataBean = dishDataEntity;
@@ -281,6 +294,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView {
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
+    }
+
+    /**
+     * 点菜
+     * @param result
+     */
+    @Override
+    public void requestAddDish(String result) {
+
     }
 
 }

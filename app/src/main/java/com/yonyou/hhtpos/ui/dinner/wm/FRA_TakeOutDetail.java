@@ -12,8 +12,12 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
-import com.yonyou.hhtpos.bean.wm.DishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
+import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
+import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
+import com.yonyou.hhtpos.view.IWMOrderDetailView;
 
 import java.util.ArrayList;
 
@@ -25,7 +29,7 @@ import butterknife.OnClick;
  * 邮箱：zjuan@yonyou.com
  * 描述：外卖订单详情页面
  */
-public class FRA_TakeOutDetail extends BaseFragment {
+public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailView{
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
     //列表上层悬浮的标题，默认隐藏
@@ -34,7 +38,11 @@ public class FRA_TakeOutDetail extends BaseFragment {
     @Bind(R.id.lv_wm_order_detail)
     ListView wmListView;
     private ADA_TakeOutOrderDetail mAdapter;
-    private ArrayList<DishDetailEntity> dataList = new ArrayList<>();
+    private ArrayList<WMDishDetailEntity> dataList = new ArrayList<>();
+    //请求外面订单详情接口
+    private IOrderDetailPresenter mPresenter;
+    //测试参数
+    private String tableBillId ="C50242AC980000009200000000257000";
 
     @Override
     protected void onFirstUserVisible() {
@@ -58,6 +66,8 @@ public class FRA_TakeOutDetail extends BaseFragment {
 
     @Override
     protected void initViewsAndEvents() {
+        mPresenter = new OrderDetailPresenterImpl(mContext,FRA_TakeOutDetail.this);
+        mPresenter.requestWMOrderDetail(tableBillId);
         //有数据页面
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
 
@@ -79,7 +89,6 @@ public class FRA_TakeOutDetail extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                Log.e("TAG", "firstVisibleItem=" + firstVisibleItem);
                 if (firstVisibleItem >= 1) {
                     suspension_title.setVisibility(View.VISIBLE);
                 } else {
@@ -93,9 +102,9 @@ public class FRA_TakeOutDetail extends BaseFragment {
 
     private void setData() {
         for (int i = 0; i < 10; i++) {
-            DishDetailEntity orderDishesEntity = new DishDetailEntity();
-            orderDishesEntity.dishes_name = "肉肉" + i;
-            dataList.add(orderDishesEntity);
+            WMDishDetailEntity wmDishDetailEntity = new WMDishDetailEntity();
+            wmDishDetailEntity.dishName = "肉肉" + i;
+            dataList.add(wmDishDetailEntity);
         }
     }
 
@@ -126,5 +135,10 @@ public class FRA_TakeOutDetail extends BaseFragment {
     @Override
     public void showBusinessError(ErrorBean error) {
 
+    }
+
+    @Override
+    public void requestWMOrderDetail(WMOrderDetailEntity orderDetailEntity) {
+        Log.e("TAG", "orderDetailEntity="+orderDetailEntity);
     }
 }

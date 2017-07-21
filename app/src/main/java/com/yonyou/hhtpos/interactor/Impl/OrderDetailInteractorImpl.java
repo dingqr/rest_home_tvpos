@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IOrderDetailInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -17,13 +18,20 @@ import java.util.HashMap;
  */
 public class OrderDetailInteractorImpl implements IOrderDetailInteractor {
 
-    private BaseLoadedListener<WDOrderDetailEntity> orderDetailListener;
+    private BaseLoadedListener<WDOrderDetailEntity> wdOrderDetailListener;
+    private BaseLoadedListener<WMOrderDetailEntity> wmOrderDetailListener;
 
-    public OrderDetailInteractorImpl(BaseLoadedListener<WDOrderDetailEntity> orderDetailListener) {
-        this.orderDetailListener = orderDetailListener;
+    public OrderDetailInteractorImpl(BaseLoadedListener<WDOrderDetailEntity> wdOrderDetailListener) {
+        this.wdOrderDetailListener = wdOrderDetailListener;
     }
+
+    public OrderDetailInteractorImpl(BaseLoadedListener wmOrderDetailListener, boolean isWm) {
+        this.wmOrderDetailListener = wmOrderDetailListener;
+    }
+
     /**
      * 获取外带订单详情
+     *
      * @param tableBillId
      */
     @Override
@@ -34,44 +42,45 @@ public class OrderDetailInteractorImpl implements IOrderDetailInteractor {
 
             @Override
             public void onReqSuccess(WDOrderDetailEntity result) {
-                orderDetailListener.onSuccess(0, result);
+                wdOrderDetailListener.onSuccess(0, result);
             }
 
             @Override
             public void onFailure(String result) {
-                orderDetailListener.onException(result);
+                wdOrderDetailListener.onException(result);
             }
 
             @Override
             public void onReqFailed(ErrorBean errorBean) {
-                orderDetailListener.onBusinessError(errorBean);
+                wdOrderDetailListener.onBusinessError(errorBean);
             }
         });
     }
 
     /**
      * 获取外卖订单详情
+     *
      * @param tableBillId
      */
     @Override
     public void requestWMOrderDetail(String tableBillId) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("tableBillId", tableBillId);
-        RequestManager.getInstance().requestPostByAsyn(API.URL_WM_ORDER_DETAIL, hashMap, new ReqCallBack<WDOrderDetailEntity>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_WM_ORDER_DETAIL, hashMap, new ReqCallBack<WMOrderDetailEntity>() {
 
             @Override
-            public void onReqSuccess(WDOrderDetailEntity result) {
-                orderDetailListener.onSuccess(0, result);
+            public void onReqSuccess(WMOrderDetailEntity result) {
+                wmOrderDetailListener.onSuccess(0, result);
             }
 
             @Override
             public void onFailure(String result) {
-                orderDetailListener.onException(result);
+                wmOrderDetailListener.onException(result);
             }
 
             @Override
             public void onReqFailed(ErrorBean errorBean) {
-                orderDetailListener.onBusinessError(errorBean);
+                wmOrderDetailListener.onBusinessError(errorBean);
             }
         });
     }

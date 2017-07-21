@@ -105,7 +105,7 @@ public class API {
     /**
      * 外卖订单详情
      */
-    public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "";
+    public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "/takeOut/getBillDetail";
 
     /**
      * 点菜时，新加菜品

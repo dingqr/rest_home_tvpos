@@ -9,5 +9,5 @@ import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
  * 描述：外带订单详情-View层接口
  */
 public interface IWDOrderDetailView extends BaseView {
-    void requestOrderDetail(WDOrderDetailEntity orderDetailEntity);
+    void requestWDOrderDetail(WDOrderDetailEntity orderDetailEntity);
 }

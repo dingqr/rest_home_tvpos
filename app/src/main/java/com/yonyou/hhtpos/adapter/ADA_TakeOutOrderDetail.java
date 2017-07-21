@@ -5,14 +5,14 @@ import android.content.Context;
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.wm.DishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 
 /**
  * Created by zj on 2017/7/6.
  * 邮箱：zjuan@yonyou.com
  * 描述：
  */
-public class ADA_TakeOutOrderDetail extends CommonAdapterListView<DishDetailEntity> {
+public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEntity> {
     public ADA_TakeOutOrderDetail(Context context) {
         super(context);
     }
@@ -23,7 +23,7 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<DishDetailEnti
     }
 
     @Override
-    protected void convert(ViewHolderListView viewHolder, DishDetailEntity item, int position) {
+    protected void convert(ViewHolderListView viewHolder, WMDishDetailEntity item, int position) {
 
     }
 }

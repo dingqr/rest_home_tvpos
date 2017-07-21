@@ -7,10 +7,12 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.interactor.IOrderDetailInteractor;
 import com.yonyou.hhtpos.interactor.Impl.OrderDetailInteractorImpl;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.view.IWDOrderDetailView;
+import com.yonyou.hhtpos.view.IWMOrderDetailView;
 
 
 /**
@@ -21,62 +23,110 @@ import com.yonyou.hhtpos.view.IWDOrderDetailView;
 public class OrderDetailPresenterImpl implements IOrderDetailPresenter {
 
     private Context mContext;
-    private IWDOrderDetailView mOrderDetailView;
-    private IOrderDetailInteractor mOrderDetailInteractor;
+    private IWDOrderDetailView wdOrderDetailView;
+    private IWMOrderDetailView wmOrderDetailView;
+    private IOrderDetailInteractor mdOrderDetailInteractor;
+    private IOrderDetailInteractor wmOrderDetailInteractor;
 
     public OrderDetailPresenterImpl(Context mContext, IWDOrderDetailView orderDetailView) {
         this.mContext = mContext;
-        this.mOrderDetailView = orderDetailView;
-        mOrderDetailInteractor = new OrderDetailInteractorImpl(new OrderDetailListener());
-        mOrderDetailInteractor = new OrderDetailInteractorImpl(new OrderDetailListener());
+        this.wdOrderDetailView = orderDetailView;
+        mdOrderDetailInteractor = new OrderDetailInteractorImpl(new WDOrderDetailListener());
     }
+
+    public OrderDetailPresenterImpl(Context mContext, IWMOrderDetailView orderDetailView) {
+        this.mContext = mContext;
+        this.wmOrderDetailView = orderDetailView;
+        wmOrderDetailInteractor = new OrderDetailInteractorImpl(new WMOrderDetailListener(), true);
+    }
+
 
     /**
      * 获取外带订单详情
+     *
      * @param tableBillId
      */
     @Override
     public void requestWDOrderDetail(String tableBillId) {
-        mOrderDetailView.showLoading(mContext.getString(R.string.network_loading));
-        mOrderDetailInteractor.requestWDOrderDetail(tableBillId);
+        wdOrderDetailView.showLoading(mContext.getString(R.string.network_loading));
+        mdOrderDetailInteractor.requestWDOrderDetail(tableBillId);
     }
 
     /**
      * 获取外卖订单详情
+     *
      * @param tableBillId
      */
     @Override
     public void requestWMOrderDetail(String tableBillId) {
-
+        wmOrderDetailView.showLoading(mContext.getString(R.string.network_loading));
+        wmOrderDetailInteractor.requestWMOrderDetail(tableBillId);
     }
 
-    private class OrderDetailListener implements BaseLoadedListener<WDOrderDetailEntity> {
+    /**
+     * 外带
+     */
+    private class WDOrderDetailListener implements BaseLoadedListener<WDOrderDetailEntity> {
 
 
         @Override
         public void onSuccess(int event_tag, WDOrderDetailEntity data) {
-            mOrderDetailView.hideLoading();
-            mOrderDetailView.requestOrderDetail(data);
+            wdOrderDetailView.hideLoading();
+            wdOrderDetailView.requestWDOrderDetail(data);
         }
 
         @Override
         public void onError(String msg) {
-            mOrderDetailView.hideLoading();
+            wdOrderDetailView.hideLoading();
             CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onException(String msg) {
-            mOrderDetailView.hideLoading();
-            mOrderDetailView.showException(msg);
+            wdOrderDetailView.hideLoading();
+            wdOrderDetailView.showException(msg);
             //CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onBusinessError(ErrorBean error) {
-            mOrderDetailView.hideLoading();
-            mOrderDetailView.showBusinessError(error);
+            wdOrderDetailView.hideLoading();
+            wmOrderDetailView.showBusinessError(error);
             //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
         }
     }
+
+    /**
+     * 外卖
+     */
+    private class WMOrderDetailListener implements BaseLoadedListener<WMOrderDetailEntity> {
+
+
+        @Override
+        public void onSuccess(int event_tag, WMOrderDetailEntity data) {
+            wmOrderDetailView.hideLoading();
+            wmOrderDetailView.requestWMOrderDetail(data);
+        }
+
+        @Override
+        public void onError(String msg) {
+            wmOrderDetailView.hideLoading();
+            CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onException(String msg) {
+            wmOrderDetailView.hideLoading();
+            wmOrderDetailView.showException(msg);
+            //CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onBusinessError(ErrorBean error) {
+            wmOrderDetailView.hideLoading();
+            wmOrderDetailView.showBusinessError(error);
+            //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
+        }
+    }
+
 }

@@ -39,7 +39,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, DishesEntity dishesEntity, final int position) {
+    protected void convert(ViewHolder holder, final DishesEntity dishesEntity, final int position) {
 
         final LinearLayout ll_item_root = holder.getView(R.id.ll_item_root);
         final TextView dish_name = holder.getView(R.id.dish_name);
@@ -49,7 +49,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             @Override
             public void onClick(View v) {
                 if (mOnActionOrderDishListener != null) {
-                    mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position);
+                    mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position,dishesEntity);
                 }
             }
         });
@@ -130,7 +130,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
     }
 
     public interface OnActionOrderDishListener {
-        void OnActionOrderDish(View iv_start, int pos);
+        void OnActionOrderDish(View iv_start, int pos,DishesEntity dishesEntity);
     }
 
     public void setOnActionOrderDishListener(OnActionOrderDishListener onActionOrderDishListener) {
