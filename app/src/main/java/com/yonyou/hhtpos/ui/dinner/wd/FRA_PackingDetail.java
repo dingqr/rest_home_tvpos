@@ -34,7 +34,7 @@ import butterknife.Bind;
 /**
  * Created by zj on 2017/7/4.
  * 邮箱：zjuan@yonyou.com
- * 描述：外带订单明细
+ * 描述：外带订单明细-马诗雨
  */
 public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailView {
     @Bind(R.id.rl_root_view)

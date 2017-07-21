@@ -12,6 +12,7 @@
         android:paddingRight="@dimen/px_20">
 
         <TextView
+            android:id="@+id/tv_takeout_company_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -20,6 +21,7 @@
             android:textSize="@dimen/sp_30" />
 
         <TextView
+            android:id="@+id/tv_order_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="未下单"
@@ -38,11 +40,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="创建时间："
+            android:text="@string/string_create_time"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_24" />
 
         <TextView
+            android:id="@+id/tv_create_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -61,11 +64,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="总计："
+            android:text="@string/string_total"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_24" />
 
         <TextView
+            android:id="@+id/tv_bill_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -88,11 +92,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="实收金额："
+                android:text="@string/string_real_receive_moeny"
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_24" />
 
             <TextView
+                android:id="@+id/tv_real_receive_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -102,6 +107,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_receive_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/px_16"
@@ -125,11 +131,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="退款金额："
+                android:text="@string/string_refund_money"
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_24" />
 
             <TextView
+                android:id="@+id/tv_refund_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -139,6 +146,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_refund_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/px_16"
@@ -158,11 +166,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="退款原因："
+            android:text="@string/string_refund_reason"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_24" />
 
         <TextView
+            android:id="@+id/tv_refund_reason"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"

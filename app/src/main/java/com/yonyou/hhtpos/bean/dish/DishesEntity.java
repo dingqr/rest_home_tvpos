@@ -64,7 +64,22 @@ public class DishesEntity implements Serializable {
      * 介绍
      */
     public String introduction;
-
+    /**
+     * 是否打折
+     */
+    public String isDiscount;
+    /**
+     * 赠与否
+     */
+    public String isGift;
+    /**
+     * 是否是称重菜
+     */
+    public String isWeigh;
+    /**
+     * 菜品价格
+     */
+    private String price;
     /**
      * 标签列表
      */
@@ -73,17 +88,17 @@ public class DishesEntity implements Serializable {
     /**
      * 做法列表
      */
+
     public List<DishPriceEntity> practices;
+
+    /***/
+    public String printOutTypeId;
 
     /**
      * 关联id
      */
     public String relateId;
 
-    /**
-     * 备注
-     */
-    public String remark;
 
     /***/
     public List<DishRemarkEntity> remarks;
@@ -115,11 +130,16 @@ public class DishesEntity implements Serializable {
      * 口味列表
      */
     public List<DishTastesEntity> tastes;
+    /**
+     * 重量
+     */
+    public String weight;
 
     /**
      * 标记是否选中
      */
     public boolean isCheck;
+
 
     public DishesEntity() {
     }
@@ -132,6 +152,14 @@ public class DishesEntity implements Serializable {
         this.comboDishPrice = comboDishPrice;
     }
 
+    public String getPrice() {
+        return StringUtil.getFormattedMoney(price);
+    }
+
+    public void setPrice(String dishPrice) {
+        this.price = dishPrice;
+    }
+
     @Override
     public String toString() {
         return "DishesEntity{" +
@@ -142,13 +170,18 @@ public class DishesEntity implements Serializable {
                 ", dishCode='" + dishCode + '\'' +
                 ", dishName='" + dishName + '\'' +
                 ", dishType='" + dishType + '\'' +
+                ", dishTypeRelateId='" + dishTypeRelateId + '\'' +
                 ", groups=" + groups +
                 ", id='" + id + '\'' +
                 ", introduction='" + introduction + '\'' +
-                ", Labels=" + labels +
+                ", isDiscount='" + isDiscount + '\'' +
+                ", isGift='" + isGift + '\'' +
+                ", isWeigh='" + isWeigh + '\'' +
+                ", dishPrice='" + price + '\'' +
+                ", labels=" + labels +
                 ", practices=" + practices +
+                ", printOutTypeId='" + printOutTypeId + '\'' +
                 ", relateId='" + relateId + '\'' +
-                ", remark='" + remark + '\'' +
                 ", remarks=" + remarks +
                 ", saleManne='" + saleManne + '\'' +
                 ", shopDishTypeRelateId='" + shopDishTypeRelateId + '\'' +
@@ -156,6 +189,8 @@ public class DishesEntity implements Serializable {
                 ", sortNo='" + sortNo + '\'' +
                 ", standards=" + standards +
                 ", tastes=" + tastes +
+                ", weight='" + weight + '\'' +
+                ", isCheck=" + isCheck +
                 '}';
     }
 }

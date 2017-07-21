@@ -292,9 +292,16 @@
     <string name="string_discount_reason">折扣原因：</string>
     <string name="string_use_discount">使用折扣</string>
     <string name="sting_clear_discount_setting">清空折扣设置</string>
+
+    <!--外卖详情-->
     <string name="string_pay_by_cash">现金</string>
     <string name="string_unit_quanlity">份</string>
     <string name="string_order_dish">点餐</string>
+    <string name="string_refund_reason">退款原因：</string>
+    <string name="string_refund_money">退款金额：</string>
+    <string name="string_real_receive_moeny">实收金额：</string>
+    <string name="string_total">总计：</string>
+    <string name="string_create_time">创建时间：</string>
 
 
 </resources>

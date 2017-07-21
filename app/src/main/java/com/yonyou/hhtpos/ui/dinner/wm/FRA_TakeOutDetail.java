@@ -1,11 +1,11 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.view.IWMOrderDetailView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -27,7 +28,7 @@ import butterknife.OnClick;
 /**
  * Created by zj on 2017/7/6.
  * 邮箱：zjuan@yonyou.com
- * 描述：外卖订单详情页面
+ * 描述：外卖订单详情页面-袁波
  */
 public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailView{
     @Bind(R.id.rl_root_view)
@@ -38,11 +39,22 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Bind(R.id.lv_wm_order_detail)
     ListView wmListView;
     private ADA_TakeOutOrderDetail mAdapter;
-    private ArrayList<WMDishDetailEntity> dataList = new ArrayList<>();
+    private List<WMDishDetailEntity> dataList = new ArrayList<>();
     //请求外面订单详情接口
     private IOrderDetailPresenter mPresenter;
     //测试参数
     private String tableBillId ="C50242AC980000009200000000257000";
+    private TextView tvTakeoutCompanyName;
+    private TextView tvOrderStatus;
+    private TextView tvCreateTime;
+    private TextView tvBillMoney;
+    private TextView tvRealReceiveMoney;
+    private TextView tvReceiveTime;
+    private TextView tvRefundTime;
+    private TextView tvRefundMoney;
+    private TextView tvRefundReason;
+
+    //设置接口返回数据
 
     @Override
     protected void onFirstUserVisible() {
@@ -72,15 +84,15 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
 
         //添加头布局
-        View header_view = View.inflate(mContext, R.layout.item_take_out_header, null);
+        View headerView = View.inflate(mContext, R.layout.item_take_out_header, null);
+        //绑定左边详情部分头部的详情信息
+        bindHeadView(headerView);
         //列表中需要悬浮的部分
         View suspension_head_title = View.inflate(mContext, R.layout.suspension_header_view, null);
-        wmListView.addHeaderView(header_view);
+        wmListView.addHeaderView(headerView);
         wmListView.addHeaderView(suspension_head_title);
         wmListView.setAdapter(mAdapter);
 
-        setData();
-        mAdapter.update(dataList);
         wmListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -98,6 +110,22 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         });
         // 无数据页面
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
+    }
+
+    /**
+     * 绑定左边详情部分头部的详情信息
+     * @param headerView
+     */
+    private void bindHeadView(View headerView) {
+        tvTakeoutCompanyName = (TextView) headerView.findViewById(R.id.tv_takeout_company_name);
+        tvOrderStatus = (TextView) headerView.findViewById(R.id.tv_order_status);
+        tvCreateTime = (TextView) headerView.findViewById(R.id.tv_create_time);
+        tvBillMoney = (TextView) headerView.findViewById(R.id.tv_bill_money);
+        tvRealReceiveMoney = (TextView) headerView.findViewById(R.id.tv_real_receive_money);
+        tvReceiveTime = (TextView) headerView.findViewById(R.id.tv_receive_time);
+        tvRefundTime = (TextView) headerView.findViewById(R.id.tv_refund_time);
+        tvRefundMoney = (TextView) headerView.findViewById(R.id.tv_refund_money);
+        tvRefundReason = (TextView) headerView.findViewById(R.id.tv_refund_reason);
     }
 
     private void setData() {
@@ -139,6 +167,13 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     @Override
     public void requestWMOrderDetail(WMOrderDetailEntity orderDetailEntity) {
-        Log.e("TAG", "orderDetailEntity="+orderDetailEntity);
+        if(orderDetailEntity!=null) {
+            List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
+            if(dishList!=null&&dishList.size()>0) {
+                this.dataList = dishList;
+                mAdapter.update(dishList);
+            }
+        }
+
     }
 }

@@ -24,13 +24,29 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
 
     /**
      * 新加菜品
+     *
      * @param requestAddDishEntity
      */
     @Override
     public void requestAddDish(RequestAddDishEntity requestAddDishEntity) {
         //dishType  菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
         HashMap<String, String> params = new HashMap<String, String>();
-        RequestManager.getInstance().requestGetByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {
+        params.put("companyId", requestAddDishEntity.companyId);
+        params.put("dishClassid", requestAddDishEntity.dishClassid);
+        params.put("dishName", requestAddDishEntity.dishName);
+        params.put("dishPrice", requestAddDishEntity.getDishPrice());
+        params.put("dishRelateId", requestAddDishEntity.dishRelateId);
+        params.put("dishStatus", requestAddDishEntity.dishStatus);
+        params.put("dishType", requestAddDishEntity.dishType);
+        params.put("listShowPractice", "");
+        params.put("listShowRemark", "");
+        params.put("practices", "");
+        params.put("quantity", requestAddDishEntity.quantity);
+        params.put("remark", requestAddDishEntity.remark);
+        params.put("shopId", requestAddDishEntity.shopId);
+        params.put("standardId", requestAddDishEntity.standardId);
+        params.put("tableBillId", requestAddDishEntity.tableBillId);
+        RequestManager.getInstance().requestPostByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {
                 mAddDishListener.onSuccess(1, result);

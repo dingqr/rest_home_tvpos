@@ -34,7 +34,7 @@ public class WMOrderDetailEntity implements Serializable {
      */
     public List<WMDishDetailEntity> dishList;
     /**
-     * 订单状态
+     * 订单状态：开单1，下单2，结账3，退款4
      */
     public String orderState;
     /**

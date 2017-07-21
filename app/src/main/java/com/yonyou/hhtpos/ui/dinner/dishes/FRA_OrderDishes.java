@@ -13,16 +13,15 @@ import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
-import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
-import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
@@ -33,14 +32,13 @@ import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
 import com.yonyou.hhtpos.widgets.RightNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 
 import static com.yonyou.hhtpos.R.id.ll_content;
 import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getCookery;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
 
 
 /**
@@ -49,7 +47,7 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
  * 描述：点菜页面-获取所有菜品/菜类
  * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,IAddDishView{
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
     @Bind(ll_content)
@@ -78,12 +76,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
     //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
     private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     private String shopId = "C13352966C000000A60000000016E000";
+    private String mbleBillId = "C50242AC980000009200000000257000";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
 
     //添加菜品presenter
     private IAddDishPresenter mAddDishPresenter;
     private LinearLayout.LayoutParams mParams;
+    //菜品在列表的位置
+    private int mPosition;
 
     @Override
     protected void onFirstUserVisible() {
@@ -110,7 +111,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
         mPresenter.getAllDishes(compId, shopId);
 
-        mAddDishPresenter = new AddDishPresenterImpl(mContext,this);
+        mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
         // 去除LRecyclerView的默认的下拉刷新效果
         mRecyclerView.setPullRefreshEnabled(false);
 
@@ -145,34 +146,44 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
     }
 
     private void initListener() {
+        /**
+         *1、无规格、无做法，直接加入购物车；有规格或有做法，弹窗；
+         2、时价的价格未设置，弹窗；设置的价格，直接加入购物车；
+         3、套餐（N选N），弹窗；套餐（固定），直接加入购物车；
+         4、称重菜，弹窗；
+         5、必填：做法、规格
+         */
         mAdapter.setOnActionOrderDishListener(new ADA_DishTypeList.OnActionOrderDishListener() {
             @Override
-            public void OnActionOrderDish(View iv_start, int pos, DishesEntity dishesEntity) {
+            public void OnActionOrderDish(View iv_start, int position, DishesEntity dishesEntity) {
 
                 RequestAddDishEntity requestAddDishEntity = new RequestAddDishEntity();
                 requestAddDishEntity.companyId = dishesEntity.companyId;
+                requestAddDishEntity.dishClassid = dishesEntity.dishTypeRelateId;
+                requestAddDishEntity.dishName = dishesEntity.dishName;
+                requestAddDishEntity.setDishPrice(dishesEntity.getPrice());
+                requestAddDishEntity.dishType = dishesEntity.dishType;
+                requestAddDishEntity.shopId = dishesEntity.shopId;
+                //不确定的字段
+                requestAddDishEntity.dishRelateId = dishesEntity.relateId;
+                requestAddDishEntity.dishStatus = "8";//等叫
+                //缺少的字段
+                requestAddDishEntity.listShowPractice = new ArrayList<>();
+                requestAddDishEntity.listShowRemark = new ArrayList<>();
+//                requestAddDishEntity.practices = "";
+                requestAddDishEntity.quantity = "1";
+                requestAddDishEntity.remarks = new ArrayList<>();
+                requestAddDishEntity.remark = "";
+                requestAddDishEntity.standardId = "";
+                //写死的字段
+                requestAddDishEntity.tableBillId = mbleBillId;
 
-//                requestAddDishEntity.dishClassid = dishesEntity.
-//                mAddDishPresenter.requestAddDish();
-                //设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
-//                int mPosition = position - 1;
-//                DishesEntity dishesEntity = mAdapter.getDataList().get(mPosition);
-//                dishesEntity.isCheck = true;
-//                mAdapter.notifyItemChanged(mPosition);
-//                //刷新角标数量
-//                mRightNavigationView.refreshCount(dishesEntity.dishTypeRelateId, true);
-//                //刷新右侧标题对应的位置
-//                refreshPos = getRefreshPosById(dishesEntity.dishTypeRelateId);
-//                //动画开始的View
-//                startView = iv_start;
-//
-//                int startPos = mRightListView.getFirstVisiblePosition();
-//                int endPos = mRightListView.getLastVisiblePosition();
-//                if (refreshPos >= startPos && refreshPos <= endPos) {
-//                    AnimationUtil.doFlyAnimation(mContext, layoutRoot, mRightListView, iv_start, refreshPos, startPos);
-//                } else {
-//                    return;
-//                }
+                mAddDishPresenter.requestAddDish(requestAddDishEntity);
+
+
+                //动画开始的View
+                startView = iv_start;
+                mPosition = position - 1;
             }
         });
         //滑动更新完右侧标题角标数量再进行动画
@@ -211,10 +222,31 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
                         setLoadingTargetView(flContent);
                         showEmpty(R.drawable.ic_wm_dishes_empty, mContext.getResources().getString(R.string.string_empty_dishes));
                     }
-                    //菜类下的菜品为空时，展示空页面
                 }
             }
         });
+    }
+
+    /**
+     * 设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
+     * @param startView
+     * @param position
+     */
+    private void orderSuccessful(View startView, int position) {
+        DishesEntity dishesEntity = mAdapter.getDataList().get(mPosition);
+        dishesEntity.isCheck = true;
+        mAdapter.notifyItemChanged(mPosition);
+        //刷新角标数量
+        mRightNavigationView.refreshCount(dishesEntity.dishTypeRelateId, true);
+        //刷新右侧标题对应的位置
+        refreshPos = getRefreshPosById(dishesEntity.dishTypeRelateId);
+        int startPos = mRightListView.getFirstVisiblePosition();
+        int endPos = mRightListView.getLastVisiblePosition();
+        if (refreshPos >= startPos && refreshPos <= endPos) {
+            AnimationUtil.doFlyAnimation(mContext, layoutRoot, mRightListView, startView, refreshPos, startPos);
+        } else {
+            return;
+        }
     }
 
     /**
@@ -286,6 +318,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
 
     /**
      * 获取所有菜品菜类
+     *
      * @param dishDataEntity
      */
     @Override
@@ -299,24 +332,17 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView,I
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
-       FilterItemEntity cookeryOption = new FilterItemEntity();
-        cookeryOption.setTitle("");
-        cookeryOption.setOptions(getCookery());
-
-       FilterItemEntity remarkOption = new FilterItemEntity();
-        remarkOption.setTitle("");
-        remarkOption.setOptions(getDishRemark());
-        //服务员点菜时蔬 数量弹框
-        DIA_OrderDishCount dia_orderDishCount = new DIA_OrderDishCount(mContext,cookeryOption,remarkOption);
     }
 
     /**
      * 点菜
+     *
      * @param result
      */
     @Override
     public void requestAddDish(String result) {
-
+        CommonUtils.makeEventToast(mContext, "点菜成功", false);
+        orderSuccessful(startView,mPosition);
     }
 
 }

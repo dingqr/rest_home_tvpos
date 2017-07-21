@@ -80,39 +80,11 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             } else {
                 tv_tastes.setVisibility(View.INVISIBLE);
             }
-
-            //设置菜品标签,最多取前两个标签
-            tvLabelOne.setVisibility(View.GONE);
-            tvLabelTwo.setVisibility(View.GONE);
-            List<DishLabelEntity> labels = dishesEntity.labels;
-            dish_name.setText(dishesEntity.dishName);
-            if (labels.size() > 0) {
-                for (int i = 0; i < labels.size(); i++) {
-                    switch (i) {
-                        case 0:
-                            if (i > labels.size() - 1) {
-                                return;
-                            }
-                            tvLabelOne.setVisibility(View.VISIBLE);
-                            tvLabelOne.setText(labels.get(i).labelName);
-                            continue;
-                        case 1:
-                            if (i > labels.size() - 1) {
-                                return;
-                            }
-                            tvLabelTwo.setVisibility(View.VISIBLE);
-                            tvLabelTwo.setText(labels.get(i).labelName);
-                            return;
-                    }
-                }
-            } else {
-                tvLabelOne.setVisibility(View.GONE);
-                tvLabelTwo.setVisibility(View.GONE);
-            }
-        }
+            //设置价格
+            holder.setText(R.id.tv_dish_price,dishesEntity.getPrice());
 
 
-        //售罄状态item置灰效果
+            //售罄状态item置灰效果
 //        if () {
 //            sellOutSign.setVisibility(View.VISIBLE);
 //            tvLabelOne.setVisibility(View.GONE);
@@ -123,6 +95,47 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
 //            holder.setTextColor(R.id.dish_name, ContextCompat.getColor(mContext, R.color.color_222222));
 //            holder.setTextColor(R.id.tv_dish_price, ContextCompat.getColor(mContext, R.color.color_222222));
 //        }
+            //设置显示的标签
+            setLabels(dishesEntity, dish_name, tvLabelOne, tvLabelTwo);
+        }
+    }
+
+    /**
+     * 设置显示的标签
+     * @param dishesEntity
+     * @param dish_name
+     * @param tvLabelOne
+     * @param tvLabelTwo
+     */
+    private void setLabels(DishesEntity dishesEntity, TextView dish_name, TextView tvLabelOne, TextView tvLabelTwo) {
+        //设置菜品标签,最多取前两个标签
+        tvLabelOne.setVisibility(View.GONE);
+        tvLabelTwo.setVisibility(View.GONE);
+        List<DishLabelEntity> labels = dishesEntity.labels;
+        dish_name.setText(dishesEntity.dishName);
+        if (labels.size() > 0) {
+            for (int i = 0; i < labels.size(); i++) {
+                switch (i) {
+                    case 0:
+                        if (i > labels.size() - 1) {
+                            return;
+                        }
+                        tvLabelOne.setVisibility(View.VISIBLE);
+                        tvLabelOne.setText(labels.get(i).labelName);
+                        continue;
+                    case 1:
+                        if (i > labels.size() - 1) {
+                            return;
+                        }
+                        tvLabelTwo.setVisibility(View.VISIBLE);
+                        tvLabelTwo.setText(labels.get(i).labelName);
+                        return;
+                }
+            }
+        } else {
+            tvLabelOne.setVisibility(View.GONE);
+            tvLabelTwo.setVisibility(View.GONE);
+        }
     }
 
     public void setCheck(boolean check) {
