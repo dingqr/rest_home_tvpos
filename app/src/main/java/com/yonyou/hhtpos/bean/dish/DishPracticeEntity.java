@@ -34,6 +34,10 @@ public class DishPracticeEntity {
     public DishPracticeEntity() {
     }
 
+    public DishPracticeEntity(String practiceName) {
+        this.practiceName = practiceName;
+    }
+
     @Override
     public String toString() {
         return "DishPracticeEntity{" +

@@ -32,4 +32,8 @@ public class DishRemarkEntity {
                 ", remarkName='" + remarkName + '\'' +
                 '}';
     }
+
+    public DishRemarkEntity(String remarkName) {
+        this.remarkName = remarkName;
+    }
 }

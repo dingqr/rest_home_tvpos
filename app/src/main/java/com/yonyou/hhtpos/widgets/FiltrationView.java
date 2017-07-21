@@ -28,15 +28,15 @@ import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 
 public class FiltrationView extends LinearLayout implements ADA_Filtration.OnItemClickListener {
     /**筛选框的类别*/
-    private static final int VIEW_DISH_TYPE = 0;
-    private static final int VIEW_DISH_AREA = 1;
-    private static final int VIEW_RESERVE_STATUS = 2;
-    private static final int VIEW_TAKEOUT_TYPE = 3;
-    private static final int REFUND_REASON = 4;
-    private static final int ORDER_RESOURCE = 5;
-    private static final int COOKERY = 6;
-    private static final int DISH_NORMS = 7;
-    private static final int FREE_REASON = 9;
+    public static final int VIEW_DISH_TYPE = 0;
+    public static final int VIEW_DISH_AREA = 1;
+    public static final int VIEW_RESERVE_STATUS = 2;
+    public static final int VIEW_TAKEOUT_TYPE = 3;
+    public static final int REFUND_REASON = 4;
+    public static final int ORDER_RESOURCE = 5;
+    public static final int COOKERY = 6;
+    public static final int DISH_NORMS = 7;
+    public static final int FREE_REASON = 9;
 
     /**筛选框的标题*/
     private TextView filtrationType;

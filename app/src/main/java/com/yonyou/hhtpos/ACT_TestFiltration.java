@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
 import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
 import com.yonyou.hhtpos.bean.TakeoutMarketEntity;
+import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.dialog.DIA_EmployeeFiltration;
 import com.yonyou.hhtpos.dialog.DIA_FamilySetMeal;
@@ -44,6 +45,7 @@ import butterknife.Bind;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCapacities;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookery;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getDishBean;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishNorms;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getFakeData;
@@ -92,6 +94,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 
     private FilterItemEntity openOrderCompany;
     private FilterItemEntity freeReasons;
+    DataBean dishBean;
 
     FilterItemEntity cookeryOption;
     FilterItemEntity fishCookeryOption;
@@ -169,6 +172,8 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         freeReasons = new FilterItemEntity();
         freeReasons.setTitle(mContext.getString(R.string.free_order_reason));
         freeReasons.setOptions(getFreeReasons());
+
+         dishBean = getDishBean();
 
 //        takeoutType = new FilterItemEntity(getTakeOutType(),"外卖类型");
 //        takeoutMarket = new FilterItemEntity( getTakeOutMarket(),"市别");
@@ -253,23 +258,23 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_takeOutFiltration.getDialog().show();
                 break;
             case R.id.btn_confirm4:
-                dia_orderDishVegetable = new DIA_OrderDishCount(mContext,cookeryOption,remarkOption);
+                dia_orderDishVegetable = new DIA_OrderDishCount(mContext,dishBean);
                 dia_orderDishVegetable.getDialog().show();
                 break;
             case R.id.btn_confirm5:
-                dia_orderDishWeight = new DIA_OrderDishWeight(mContext,cookeryOption,remarkOption);
+                dia_orderDishWeight = new DIA_OrderDishWeight(mContext,dishBean);
                 dia_orderDishWeight.getDialog().show();
                 break;
             case R.id.btn_confirm6:
-                dia_orderDishNorms = new DIA_OrderDishNorms(mContext,dishNorms);
+                dia_orderDishNorms = new DIA_OrderDishNorms(mContext,dishBean);
                 dia_orderDishNorms.getDialog().show();
                 break;
             case R.id.btn_confirm7:
-                dia_orderDishSetPrice = new DIA_OrderDishSetPrice(mContext,fishCookeryOption);
+                dia_orderDishSetPrice = new DIA_OrderDishSetPrice(mContext,dishBean);
                 dia_orderDishSetPrice.getDialog().show();
                 break;
             case R.id.btn_confirm8:
-                dia_orderDishSetWeight = new DIA_OrderDishSetWeight(mContext,fishCookeryOption);
+                dia_orderDishSetWeight = new DIA_OrderDishSetWeight(mContext,dishBean);
                 dia_orderDishSetWeight.getDialog().show();
                 break;
             case R.id.btn_confirm9:

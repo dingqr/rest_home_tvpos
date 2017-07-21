@@ -8,8 +8,13 @@ import com.yonyou.hhtpos.bean.SetMealGridEntity;
 import com.yonyou.hhtpos.bean.SetMealListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
 import com.yonyou.hhtpos.bean.TableReserveEntity;
+import com.yonyou.hhtpos.bean.dish.DataBean;
+import com.yonyou.hhtpos.bean.dish.DishPracticeEntity;
+import com.yonyou.hhtpos.bean.dish.DishRemarkEntity;
+import com.yonyou.hhtpos.bean.dish.DishStandardEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 筛选框假数据工具类
@@ -466,6 +471,41 @@ public class FiltrationUtil {
             setMealGridList.add(smge4);
         }
         return  setMealGridList;
+    }
+
+    public static DataBean getDishBean(){
+        DataBean dataBean = new DataBean();
+         List<DishPracticeEntity> practices = new ArrayList<>();
+         List<DishRemarkEntity> remarks = new ArrayList<>();
+         List<DishStandardEntity> standards = new ArrayList<>();
+        DishPracticeEntity dpe1 = new DishPracticeEntity("清蒸");
+        DishPracticeEntity dpe2 = new DishPracticeEntity("白灼");
+        DishPracticeEntity dpe3 = new DishPracticeEntity("红烧");
+        DishPracticeEntity dpe4 = new DishPracticeEntity("蒜蓉");
+        practices.add(dpe1);
+        practices.add(dpe2);
+        practices.add(dpe3);
+        practices.add(dpe4);
+        DishRemarkEntity dre1 = new DishRemarkEntity("不放葱");
+        DishRemarkEntity dre2 = new DishRemarkEntity("不放蒜");
+        DishRemarkEntity dre3 = new DishRemarkEntity("不放辣椒");
+        DishRemarkEntity dre4 = new DishRemarkEntity("回民");
+        remarks.add(dre1);
+        remarks.add(dre2);
+        remarks.add(dre3);
+        remarks.add(dre4);
+        DishStandardEntity dse1 = new DishStandardEntity("罐");
+        DishStandardEntity dse2 = new DishStandardEntity("例");
+        DishStandardEntity dse3 = new DishStandardEntity("扎");
+        DishStandardEntity dse4 = new DishStandardEntity("位");
+        standards.add(dse1);
+        standards.add(dse2);
+        standards.add(dse3);
+        standards.add(dse4);
+        dataBean.setPractices(practices);
+        dataBean.setRemarks(remarks);
+        dataBean.setStandards(standards);
+        return  dataBean;
     }
 }
 

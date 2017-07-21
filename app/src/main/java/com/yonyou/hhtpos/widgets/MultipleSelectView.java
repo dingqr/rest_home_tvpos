@@ -29,9 +29,9 @@ import java.util.ArrayList;
 public class MultipleSelectView extends LinearLayout implements ADA_MultipleSelector.OnItemClickListener {
 
     /**筛选框的类别*/
-    private static final int TAKE_OUT_TYPE = 0;
-    private static final int MARKET_TYPE = 1;
-    private static final int DISH_REMARK = 2;
+    public static final int TAKE_OUT_TYPE = 0;
+    public static final int MARKET_TYPE = 1;
+    public static final int DISH_REMARK = 2;
 
     /**筛选框的标题*/
     private TextView filtrationType;

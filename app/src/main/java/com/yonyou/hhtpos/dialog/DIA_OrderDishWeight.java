@@ -16,6 +16,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
+import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
@@ -54,9 +55,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
     /**
      * 选项数据
      */
-    private FilterItemEntity cookeryOption;
-    private FilterItemEntity remarkOption;
-
+    private DataBean dataBean;
     /**
      * 数据回调接口
      */
@@ -66,10 +65,9 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishWeight(Context mContext, FilterItemEntity cookeryOption, FilterItemEntity remarkOption) {
+    public DIA_OrderDishWeight(Context mContext, DataBean dataBean) {
         this.mContext = mContext;
-        this.cookeryOption = cookeryOption;
-        this.remarkOption = remarkOption;
+        this.dataBean = dataBean;
         initView();
     }
 
@@ -89,8 +87,37 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
-        fvCookery.setData(cookeryOption);
-        fvRemark.setData(remarkOption);
+        if (dataBean != null) {
+            //获取菜品做法列表
+            if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
+                FilterItemEntity cookeryOption = new FilterItemEntity();
+                ArrayList<FilterOptionsEntity> options = new ArrayList<>();
+                for (int i = 0; i < dataBean.getPractices().size(); i++) {
+                    FilterOptionsEntity foe = new FilterOptionsEntity();
+                    foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setType(FiltrationView.COOKERY);
+                    options.add(foe);
+                }
+                cookeryOption.setOptions(options);
+                cookeryOption.setTitle("");
+                fvCookery.setData(cookeryOption);
+            }
+
+            //获取菜品备注列表
+            if (dataBean.getRemarks() != null && dataBean.getRemarks().size() > 0) {
+                FilterItemEntity remarkOption = new FilterItemEntity();
+                ArrayList<FilterOptionsEntity> options = new ArrayList<>();
+                for (int i = 0; i < dataBean.getRemarks().size(); i++) {
+                    FilterOptionsEntity foe = new FilterOptionsEntity();
+                    foe.setOption(dataBean.getRemarks().get(i).remarkName);
+                    foe.setType(MultipleSelectView.DISH_REMARK);
+                    options.add(foe);
+                }
+                remarkOption.setOptions(options);
+                remarkOption.setTitle("");
+                fvRemark.setData(remarkOption);
+            }
+        }
 
         WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
         iwvDishWeight.setData(weightEntity);

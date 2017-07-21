@@ -15,6 +15,8 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
+import com.yonyou.hhtpos.bean.MultipleOption;
+import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
@@ -50,9 +52,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     /**
      * 选项数据
      */
-
-    private FilterItemEntity cookeryOption;
-    private FilterItemEntity remarkOption;
+    private DataBean dataBean;
 
     /**
      * 数据回调接口
@@ -63,10 +63,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishCount(Context mContext, FilterItemEntity cookeryOption, FilterItemEntity remarkOption) {
+    public DIA_OrderDishCount(Context mContext, DataBean dataBean) {
         this.mContext = mContext;
-        this.cookeryOption = cookeryOption;
-        this.remarkOption = remarkOption;
+        this.dataBean = dataBean;
         initView();
     }
 
@@ -86,10 +85,37 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
+        if (dataBean != null) {
+            //获取菜品做法列表
+            if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
+                FilterItemEntity cookeryOption = new FilterItemEntity();
+                ArrayList<FilterOptionsEntity> options = new ArrayList<>();
+                for (int i = 0; i < dataBean.getPractices().size(); i++) {
+                    FilterOptionsEntity foe = new FilterOptionsEntity();
+                    foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setType(FiltrationView.COOKERY);
+                    options.add(foe);
+                }
+                cookeryOption.setOptions(options);
+                cookeryOption.setTitle("");
+                fvCookery.setData(cookeryOption);
+            }
 
-        fvCookery.setData(cookeryOption);
-
-        fvRemark.setData(remarkOption);
+            //获取菜品备注列表
+            if (dataBean.getRemarks() != null && dataBean.getRemarks().size() > 0) {
+                FilterItemEntity remarkOption = new FilterItemEntity();
+                ArrayList<FilterOptionsEntity> options = new ArrayList<>();
+                for (int i = 0; i < dataBean.getRemarks().size(); i++) {
+                    FilterOptionsEntity foe = new FilterOptionsEntity();
+                    foe.setOption(dataBean.getRemarks().get(i).remarkName);
+                    foe.setType(MultipleSelectView.DISH_REMARK);
+                    options.add(foe);
+                }
+                remarkOption.setOptions(options);
+                remarkOption.setTitle("");
+                fvRemark.setData(remarkOption);
+            }
+        }
     }
 
     @Override
@@ -100,7 +126,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallbackEntity();
-                if (flag){
+                if (flag) {
                     if (dishDataCallback != null) {
                         dishDataCallback.sendItems(dishCallBackEntity);
                     }
@@ -131,14 +157,14 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 flag = true;
                 //备注
                 StringBuilder sb = new StringBuilder();
-                if (dishRemarks.size()>0){
-                    for (int i=0;i<dishRemarks.size()-1;i++){
+                if (dishRemarks.size() > 0) {
+                    for (int i = 0; i < dishRemarks.size() - 1; i++) {
                         sb.append(dishRemarks.get(i).getOption());
                         sb.append(",");
                     }
                     sb.append(dishRemarks.get(dishRemarks.size()).getOption());
                 }
-                if (!TextUtils.isEmpty(otherRemark)){
+                if (!TextUtils.isEmpty(otherRemark)) {
                     sb.append(",");
                     sb.append(otherRemark);
                 }

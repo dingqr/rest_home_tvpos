@@ -35,4 +35,8 @@ public class DishStandardEntity {
                 ", standardName='" + standardName + '\'' +
                 '}';
     }
+
+    public DishStandardEntity(String standardName) {
+        this.standardName = standardName;
+    }
 }

@@ -15,12 +15,16 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
+import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
+import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
 import com.yonyou.hhtpos.widgets.ModifyCountView;
+
+import java.util.ArrayList;
 
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishNorms;
@@ -46,8 +50,7 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
     private ModifyCountView mcvDishCount;
 
     /**选项数据*/
-    private FilterItemEntity dishNorms;
-
+    private DataBean dataBean;
     /**
      * 数据回调接口
      */
@@ -57,9 +60,9 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
      */
     private boolean flag = true;
 
-    public DIA_OrderDishNorms(Context mContext,FilterItemEntity dishNorms) {
+    public DIA_OrderDishNorms(Context mContext, DataBean dataBean) {
         this.mContext = mContext;
-        this.dishNorms = dishNorms;
+        this.dataBean = dataBean;
         initView();
     }
 
@@ -77,7 +80,22 @@ public class DIA_OrderDishNorms implements View.OnClickListener{
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
-        fvDishNorms.setData(dishNorms);
+        if (dataBean != null) {
+            //获取菜品规格列表
+            if (dataBean.getStandards() != null && dataBean.getStandards().size() > 0) {
+                FilterItemEntity dishNorms = new FilterItemEntity();
+                ArrayList<FilterOptionsEntity> options = new ArrayList<>();
+                for (int i = 0; i < dataBean.getPractices().size(); i++) {
+                    FilterOptionsEntity foe = new FilterOptionsEntity();
+                    foe.setOption(dataBean.getStandards().get(i).standardName);
+                    foe.setType(FiltrationView.DISH_NORMS);
+                    options.add(foe);
+                }
+                dishNorms.setOptions(options);
+                dishNorms.setTitle("");
+                fvDishNorms.setData(dishNorms);
+            }
+        }
     }
 
     @Override

@@ -15,11 +15,15 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
+import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
+import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
+
+import java.util.ArrayList;
 
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 
@@ -50,8 +54,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
     /**
      * 选项数据
      */
-
-    private FilterItemEntity cookeryOption;
+    private  DataBean dataBean;
     /**
      * 数据回调接口
      */
@@ -61,9 +64,9 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishSetPrice(Context mContext, FilterItemEntity cookeryOption) {
+    public DIA_OrderDishSetPrice(Context mContext, DataBean dataBean) {
         this.mContext = mContext;
-        this.cookeryOption = cookeryOption;
+        this.dataBean = dataBean;
         initView();
     }
 
@@ -83,8 +86,22 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
-        fvCookery.setData(cookeryOption);
-
+        if (dataBean != null) {
+            //获取菜品做法列表
+            if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
+                FilterItemEntity cookeryOption = new FilterItemEntity();
+                ArrayList<FilterOptionsEntity> options = new ArrayList<>();
+                for (int i = 0; i < dataBean.getPractices().size(); i++) {
+                    FilterOptionsEntity foe = new FilterOptionsEntity();
+                    foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setType(FiltrationView.COOKERY);
+                    options.add(foe);
+                }
+                cookeryOption.setOptions(options);
+                cookeryOption.setTitle("");
+                fvCookery.setData(cookeryOption);
+            }
+        }
 
         WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
         iwvDishWeight.setData(weightEntity);
