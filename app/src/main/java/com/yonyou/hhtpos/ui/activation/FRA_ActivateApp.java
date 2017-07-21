@@ -1,15 +1,19 @@
 package com.yonyou.hhtpos.ui.activation;
 
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.AppSharedPreferences;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.ui.home.ACT_Home;
 import com.yonyou.hhtpos.ui.store.ACT_BindStore;
+import com.yonyou.hhtpos.util.SpUtil;
 import com.yonyou.hhtpos.util.TimeUtil;
 import com.yonyou.hhtpos.view.IActivateAppView;
 
@@ -40,6 +44,9 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView {
      */
     private final int countDownInterval = 1000;
 
+    private AppSharedPreferences sharePre;
+    private String userToken;
+
     @Override
     protected void onFirstUserVisible() {
 
@@ -66,6 +73,12 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView {
         timer.setView(tvGetCode);
         timer.setTxt(mContext.getString(R.string.activate_app_get_code));
         timer.setColor(ContextCompat.getColor(mContext, R.color.color_666666));
+
+        sharePre = new AppSharedPreferences(mContext);
+        userToken = sharePre.getString(SpUtil.USER_TOKEN);
+        if (!TextUtils.isEmpty(userToken)) {
+            readyGoThenKill(ACT_Home.class);
+        }
 
 //        HashMap<String,String> hashMap = new HashMap<>();
 //        RequestManager.getInstance().requestGetByAsyn("https://kyfw.12306.cn/otn/", hashMap, new ReqCallBack<String>() {

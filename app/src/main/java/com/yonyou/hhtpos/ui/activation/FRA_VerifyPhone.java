@@ -163,7 +163,9 @@ public class FRA_VerifyPhone extends BaseFragment implements IVerifyPhoneView{
     }
 
     private boolean verifyMobile(){
-        mobileNo = mMobileNo.getText().toString().trim();
+        if (null != mMobileNo){
+            mobileNo = mMobileNo.getText().toString().trim();
+        }
 
         if (TextUtils.isEmpty(mobileNo)){
             CommonUtils.makeEventToast(mContext, "请填写手机号", false);

@@ -53,6 +53,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener{
     private FRA_CanteenTableList mCurrentFramgent;
     /**记录前一个被选中的tab的位置 */
     private int prePosition;
+
+    private DIA_Navigation dia_navigation;
     @Override
     protected boolean isApplyKitKatTranslucency() {
         return false;
@@ -176,12 +178,20 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_menu:
-                DIA_Navigation dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
+                dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
                 dia_navigation.getDialog().show();
                 break;
 
             default:
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        if (null != dia_navigation){
+            dia_navigation.getDialog().dismiss();
+        }
+        super.finish();
     }
 }
