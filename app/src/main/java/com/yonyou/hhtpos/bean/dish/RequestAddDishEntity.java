@@ -41,7 +41,7 @@ public class RequestAddDishEntity {
     /**
      * 列表展示做法：把所有已选做法名连接到一起的字符串，逗号分隔
      */
-    public  List<DishPriceEntity> listShowPractice;
+    public  List<DishPracticeEntity> listShowPractice;
     /**
      * 列表展示备注：把所有已选和手填的备注名连接到一起的字符串，逗号分隔
      */

@@ -5,7 +5,7 @@ package com.yonyou.hhtpos.bean.dish;
  * 邮箱：zjuan@yonyou.com
  * 描述：外卖-点菜页面-做法实体类
  */
-public class DishPriceEntity {
+public class DishPracticeEntity {
     /**
      * 排序号
      */
@@ -31,12 +31,12 @@ public class DishPriceEntity {
      */
     public String remark;
 
-    public DishPriceEntity() {
+    public DishPracticeEntity() {
     }
 
     @Override
     public String toString() {
-        return "DishPriceEntity{" +
+        return "DishPracticeEntity{" +
                 "sortNo='" + sortNo + '\'' +
                 ", practiceCode='" + practiceCode + '\'' +
                 ", practiceName='" + practiceName + '\'' +

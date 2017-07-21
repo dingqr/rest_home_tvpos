@@ -89,7 +89,7 @@ public class DishesEntity implements Serializable {
      * 做法列表
      */
 
-    public List<DishPriceEntity> practices;
+    public List<DishPracticeEntity> practices;
 
     /***/
     public String printOutTypeId;

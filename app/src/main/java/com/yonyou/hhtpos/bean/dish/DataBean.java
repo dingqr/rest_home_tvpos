@@ -10,15 +10,15 @@ import java.util.List;
  * 描述：
  */
 public class DataBean implements Serializable {
-    private List<DishPriceEntity> practices = new ArrayList<>();
+    private List<DishPracticeEntity> practices = new ArrayList<>();
     private List<DishRemarkEntity> remarks = new ArrayList<>();
     private List<DishStandardEntity> standards = new ArrayList<>();
 
-    public List<DishPriceEntity> getPractices() {
+    public List<DishPracticeEntity> getPractices() {
         return practices;
     }
 
-    public void setPractices(List<DishPriceEntity> practices) {
+    public void setPractices(List<DishPracticeEntity> practices) {
         this.practices = practices;
     }
 
