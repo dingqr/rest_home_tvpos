@@ -145,6 +145,38 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="代金券"
+                        android:textSize="@dimen/sp_22"
+                        android:textColor="@color/color_999999"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="（3张）"
+                        android:textSize="@dimen/sp_22"
+                        android:textColor="@color/color_eb6247"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥60.20"
+                        android:textSize="@dimen/sp_22"
+                        android:textColor="@color/color_666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_22"
+                    android:layout_marginRight="@dimen/px_18"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="自动抹零"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_999999"
@@ -280,6 +312,34 @@
                         android:textColor="@color/color_222222"
                         android:drawableLeft="@drawable/ic_crown_logo"
                         android:drawablePadding="@dimen/px_20"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px_140"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_ff_side_cd_radius_4"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px_84"
+                        android:layout_weight="1"
+                        android:text="135****0000"
+                        android:textSize="@dimen/sp_40"
+                        android:textColor="@color/color_222222"
+                        android:drawableLeft="@drawable/ic_crown_logo"
+                        android:drawablePadding="@dimen/px_42"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不使用会员"
+                        android:textSize="@dimen/sp_30"
+                        android:textColor="@color/color_45acfb"
+                        android:layout_marginRight="@dimen/px_16"/>
 
                 </LinearLayout>
 

@@ -11,6 +11,9 @@ public class OrderListEntity implements Serializable {
     /**外卖类型 */
     private String takeOutCompanyId;
 
+    /**订单id */
+    private String tableBillId;
+
     /**下单时间 */
     private String createTime;
 
@@ -85,15 +88,25 @@ public class OrderListEntity implements Serializable {
         this.dinnerState = dinnerState;
     }
 
+    public String getTableBillId() {
+        return tableBillId;
+    }
+
+    public void setTableBillId(String tableBillId) {
+        this.tableBillId = tableBillId;
+    }
+
     @Override
     public String toString() {
         return "OrderListEntity{" +
                 "takeOutCompanyId='" + takeOutCompanyId + '\'' +
+                ", tableBillId='" + tableBillId + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", billMoney='" + billMoney + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", dinnerState='" + dinnerState + '\'' +
+                ", isCheck=" + isCheck +
                 '}';
     }
 }

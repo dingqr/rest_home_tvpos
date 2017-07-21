@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.popup.POP_DishesEdit;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
@@ -17,7 +18,7 @@ import com.yonyou.hhtpos.widgets.BanSlideListView;
  * 点菜列表adapter
  * 作者：liushuofei on 2017/7/11 15:11
  */
-public class ADA_DishesList extends BaseAbsAdapter<String> {
+public class ADA_DishesList extends BaseAbsAdapter<DishListEntity> {
 
     private ADA_DishesPackage mAdapter;
 
@@ -46,6 +47,9 @@ public class ADA_DishesList extends BaseAbsAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        final DishListEntity bean = mDataSource.get(position);
+        handleDataSource(bean, holder);
+
         if (position == 0){
             holder.mDishesTime.setVisibility(View.VISIBLE);
         }else {
@@ -64,6 +68,10 @@ public class ADA_DishesList extends BaseAbsAdapter<String> {
         });
 
         return convertView;
+    }
+
+    private void handleDataSource(DishListEntity bean, ViewHolder holder){
+
     }
 
     static class ViewHolder {

@@ -16,6 +16,7 @@ import com.yonyou.hhtpos.dialog.DIA_WDOpenOrder;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WDOpenOrderPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWDOpenOrderView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
@@ -32,8 +33,8 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
     ViewPager mViewPager;
     @Bind(R.id.psts_tab)
     PagerSlidingTabStrip mTab;
-    @Bind(R.id.iv_bill)
-    ImageView mBillImg;
+    @Bind(R.id.iv_order_dish)
+    ImageView mDishImg;
 
     /**当前Fragment */
     private FRA_PackingList mCurrentFramgent;
@@ -76,7 +77,7 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
         initSlidingTab();
 
         mPackingLeftPresenter = new WDOpenOrderPresenterImpl(mContext, this);
-        mBillImg.setOnClickListener(this);
+        mDishImg.setOnClickListener(this);
     }
 
     private void setVpAdapter() {
@@ -143,9 +144,12 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_bill:
-                DIA_WDOpenOrder dia_wdOpenOrder = new DIA_WDOpenOrder(mContext, this);
-                dia_wdOpenOrder.getDialog().show();
+            case R.id.iv_order_dish:
+                // 开单操作在下单的时候，后台处理
+//                DIA_WDOpenOrder dia_wdOpenOrder = new DIA_WDOpenOrder(mContext, this);
+//                dia_wdOpenOrder.getDialog().show();
+
+                readyGo(ACT_OrderDishes.class);
                 break;
 
             default:

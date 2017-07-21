@@ -53,9 +53,6 @@ public class FRA_DishesList extends BaseFragment implements IDishListView{
 
     @Override
     protected void initViewsAndEvents() {
-        // 无数据页面
-        // showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
-
         mAdapter = new ADA_DishesList(mContext);
         mListView.setAdapter(mAdapter);
 
@@ -65,7 +62,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView{
 //        }
 
         mDishListPresenter = new DishListPresenterImpl(mContext, this);
-        mDishListPresenter.requestDishList("C4A99303500000009A000000001B8000");
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000");
     }
 
     @Override
@@ -90,6 +87,11 @@ public class FRA_DishesList extends BaseFragment implements IDishListView{
 
     @Override
     public void requestDishList(List<DishListEntity> dataList) {
-
+        if (null == dataList || dataList.size() == 0){
+            // 无数据页面
+            showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
+        }else {
+            mAdapter.update(dataList, true);
+        }
     }
 }
