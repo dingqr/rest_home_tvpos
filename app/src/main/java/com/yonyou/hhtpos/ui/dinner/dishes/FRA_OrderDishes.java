@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.dinner.dishes;
 
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,10 @@ import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishSetWeight;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
@@ -81,7 +86,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
     private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     private String shopId = "C13352966C000000A60000000016E000";
-    private String mbleBillId = "C50242AC980000009200000000257000";
+    private String mTableBillId = "C50242AC980000009200000000257000";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
 
@@ -90,7 +95,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private LinearLayout.LayoutParams mParams;
     //菜品在列表的位置
     private int mPosition;
-    private DIA_OrderDishCount mDiaCountDish;
+    private DIA_OrderDishCount mDiaNormal;
+    private DIA_OrderDishNorms mDiaStandards;
+    private RequestAddDishEntity requestAddDishEntity;
+    private DIA_OrderDishSetPrice mDiaCurrentDishWeight;
+    private DIA_OrderDishSetWeight mDiaWeightNormal;
+    private DIA_OrderDishWeight mDiaWeightRemarks;
 
     @Override
     protected void onFirstUserVisible() {
@@ -145,7 +155,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 //        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
 
         //点菜时的弹窗
-        mDiaCountDish = new DIA_OrderDishCount(mContext);
+        //时价、重量弹窗
+        mDiaCurrentDishWeight = new DIA_OrderDishSetPrice(mContext);//有时价、重量
+        mDiaStandards = new DIA_OrderDishNorms(mContext);//规格的弹窗
+        //称重、有备注列表
+        mDiaWeightRemarks = new DIA_OrderDishWeight(mContext);
+        //称重、无备注列表
+        mDiaWeightNormal = new DIA_OrderDishSetWeight(mContext);
+        mDiaNormal = new DIA_OrderDishCount(mContext);//有做法，备注，数量的弹窗 -normal
+
 
         initListener();
 
@@ -168,17 +186,23 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mAdapter.setOnActionOrderDishListener(new ADA_DishTypeList.OnActionOrderDishListener() {
             @Override
             public void OnActionOrderDish(View iv_start, int position, DishesEntity dishesEntity) {
+                //动画开始的View
+                startView = iv_start;
+                mPosition = position - 1;
 
-                RequestAddDishEntity requestAddDishEntity = new RequestAddDishEntity();
+                requestAddDishEntity = new RequestAddDishEntity();
                 requestAddDishEntity.companyId = dishesEntity.companyId;
                 requestAddDishEntity.dishClassid = dishesEntity.dishTypeRelateId;
                 requestAddDishEntity.dishName = dishesEntity.dishName;
                 requestAddDishEntity.setDishPrice(dishesEntity.getPrice());
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
-                //不确定的字段
+                requestAddDishEntity.unit = (dishesEntity.isWeigh.equals("Y")) ? 1 : 0;
+
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
+                //不确定的字段
                 requestAddDishEntity.dishStatus = "8";//等叫
+
                 //缺少的字段
                 requestAddDishEntity.listShowPractice = new ArrayList<>();
                 requestAddDishEntity.listShowRemark = new ArrayList<>();
@@ -187,26 +211,42 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.remarks = new ArrayList<>();
                 requestAddDishEntity.remark = "";
                 requestAddDishEntity.standardId = "";
+
                 //写死的字段
-                requestAddDishEntity.tableBillId = mbleBillId;
-                //无规格、无做法，直接加入购物车；
-                if(dishesEntity.practices.size()==0&&dishesEntity.standards.size()==0) {
+                requestAddDishEntity.tableBillId = mTableBillId;
 
+
+                //传入弹窗的bean
+                DataBean dataBean = setDialogData(dishesEntity);
+
+                //称重、时价
+                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish.equals("Y")) {
+                    mDiaCurrentDishWeight.setData(dataBean).getDialog().show();
+                    return;
                 }
-                
-                
-                
-//                //调用点菜的接口
-//                mAddDishPresenter.requestAddDish(requestAddDishEntity);
-                DataBean dataBean = new DataBean();
-                dataBean.setPractices(dishesEntity.practices);
-                dataBean.setRemarks(dishesEntity.remarks);
-                dataBean.setStandards(dishesEntity.standards);
-                mDiaCountDish.setData(dataBean).getDialog().show();
+                //称重、有备注列表
+                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
+                    mDiaWeightRemarks.setData(dataBean).getDialog().show();
+                    return;
+                }
+                //称重、无备注列表
+                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() == 0) {
+                    mDiaWeightNormal.setData(dataBean).getDialog().show();
+                    return;
+                }
+                //规格
+                if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
+                    mDiaStandards.setData(dataBean).getDialog().show();
+                    return;
+                }
+                //无规格、无做法，直接加入购物车；
+                if (dishesEntity.practices.size() == 0 && dishesEntity.standards.size() == 0) {
+                    mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                    return;
+                }
+                //不考虑临时菜和套餐的其他普通情况-只有数量、做法、备注
+                mDiaNormal.setData(dataBean).getDialog().show();
 
-                //动画开始的View
-                startView = iv_start;
-                mPosition = position - 1;
             }
         });
         //滑动更新完右侧标题角标数量再进行动画
@@ -248,16 +288,44 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 }
             }
         });
-        mDiaCountDish.setDishDataCallback(new DishDataCallback() {
+        mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "bean="+bean.getDishCount());
+                Log.e("TAG", "bean=" + bean.getDishCount());
+                requestAddDishEntity.listShowPractice = new ArrayList<>();
+                requestAddDishEntity.listShowRemark = new ArrayList<>();
+//                requestAddDishEntity.practices = "";
+                requestAddDishEntity.quantity = "1";
+                requestAddDishEntity.remarks = new ArrayList<>();
+                requestAddDishEntity.remark = "";
+                requestAddDishEntity.standardId = "";
             }
         });
     }
 
+    @NonNull
+    private DataBean setDialogData(DishesEntity dishesEntity) {
+        DataBean dataBean = new DataBean();
+        dataBean.setDishName(dishesEntity.dishName);
+        dataBean.setPrice(dishesEntity.getPrice());
+        if (dishesEntity.labels.size() > 0 && dishesEntity.labels != null) {
+            dataBean.setLabels(dishesEntity.labels);
+        }
+        if (dishesEntity.practices.size() > 0 && dishesEntity.practices != null) {
+            dataBean.setPractices(dishesEntity.practices);
+        }
+        if (dishesEntity.remarks.size() > 0 && dishesEntity.remarks != null) {
+            dataBean.setRemarks(dishesEntity.remarks);
+        }
+        if (dishesEntity.standards.size() > 0 && dishesEntity.standards != null) {
+            dataBean.setStandards(dishesEntity.standards);
+        }
+        return dataBean;
+    }
+
     /**
      * 设置菜品列表的多选效果，实际位置要在原來的基础上减掉头部占的位置
+     *
      * @param startView
      * @param position
      */
@@ -372,7 +440,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     @Override
     public void requestAddDish(String result) {
         CommonUtils.makeEventToast(mContext, "点菜成功", false);
-        orderSuccessful(startView,mPosition);
+        orderSuccessful(startView, mPosition);
     }
 
 }

@@ -41,11 +41,11 @@ public class RequestAddDishEntity {
     /**
      * 列表展示做法：把所有已选做法名连接到一起的字符串，逗号分隔
      */
-    public  List<DishPracticeEntity> listShowPractice;
+    public List<DishPracticeEntity> listShowPractice;
     /**
      * 列表展示备注：把所有已选和手填的备注名连接到一起的字符串，逗号分隔
      */
-    public  List<DishRemarkEntity> listShowRemark;
+    public List<DishRemarkEntity> listShowRemark;
 
     /**
      * 所选做法id列表
@@ -77,6 +77,10 @@ public class RequestAddDishEntity {
      * 账单id
      */
     public String tableBillId;
+    /**
+     * 是否称重
+     */
+    public int unit;
 
     public String getDishPrice() {
         return StringUtil.getFormattedMoney(dishPrice);
@@ -85,4 +89,5 @@ public class RequestAddDishEntity {
     public void setDishPrice(String dishPrice) {
         this.dishPrice = dishPrice;
     }
+
 }

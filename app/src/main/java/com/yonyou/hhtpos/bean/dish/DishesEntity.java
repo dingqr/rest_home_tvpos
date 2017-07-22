@@ -77,9 +77,17 @@ public class DishesEntity implements Serializable {
      */
     public String isWeigh;
     /**
+     * 是否是时价菜
+     */
+    public String isCurrentDish;
+    /**
      * 菜品价格
      */
     private String price;
+    /**
+     * 菜品会员价格
+     */
+    private String vipPrice;
     /**
      * 标签列表
      */
@@ -160,6 +168,14 @@ public class DishesEntity implements Serializable {
         this.price = dishPrice;
     }
 
+    public String getVipPrice() {
+        return StringUtil.getFormattedMoney(vipPrice);
+    }
+
+    public void setVipPrice(String vipPrice) {
+        this.vipPrice = vipPrice;
+    }
+
     @Override
     public String toString() {
         return "DishesEntity{" +
@@ -177,7 +193,9 @@ public class DishesEntity implements Serializable {
                 ", isDiscount='" + isDiscount + '\'' +
                 ", isGift='" + isGift + '\'' +
                 ", isWeigh='" + isWeigh + '\'' +
-                ", dishPrice='" + price + '\'' +
+                ", isCurrentDish='" + isCurrentDish + '\'' +
+                ", price='" + price + '\'' +
+                ", vipPrice='" + vipPrice + '\'' +
                 ", labels=" + labels +
                 ", practices=" + practices +
                 ", printOutTypeId='" + printOutTypeId + '\'' +

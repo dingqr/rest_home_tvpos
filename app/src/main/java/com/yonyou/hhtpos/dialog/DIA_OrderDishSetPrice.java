@@ -25,8 +25,6 @@ import com.yonyou.hhtpos.widgets.InputWeightView;
 
 import java.util.ArrayList;
 
-import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
-
 /**
  * 服务员点菜 设置时价称重 弹框
  * 作者：ybing on 2017/7/11
@@ -64,9 +62,8 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishSetPrice(Context mContext, DataBean dataBean) {
+    public DIA_OrderDishSetPrice(Context mContext) {
         this.mContext = mContext;
-        this.dataBean = dataBean;
         initView();
     }
 
@@ -86,6 +83,19 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
+
+        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
+        iwvDishWeight.setData(weightEntity);
+        WeightEntity priceEntity = new WeightEntity("元", "输入时价");
+        iwvDishPrice.setData(priceEntity);
+
+    }
+
+    /**
+     * 传入数据
+     * @param dataBean
+     */
+    public DIA_OrderDishSetPrice setData(DataBean dataBean) {
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -102,12 +112,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 fvCookery.setData(cookeryOption);
             }
         }
-
-        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
-        iwvDishWeight.setData(weightEntity);
-        WeightEntity priceEntity = new WeightEntity("元", "输入时价");
-        iwvDishPrice.setData(priceEntity);
-
+        return this;
     }
 
     @Override

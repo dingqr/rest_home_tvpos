@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.bean.dish;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,25 @@ import java.util.List;
  * 描述：点菜时，传入不同弹窗的实体
  */
 public class DataBean implements Serializable {
+    /**
+     * 菜品名称
+     */
+    private String dishName;
+    /**
+     * 菜品价格
+     */
+    private String price;
+    /**
+     * 菜品会员价格
+     */
+    private String vipPrice;
+
+    /**
+     * 标签列表
+     */
+    private List<DishLabelEntity> labels;
+
+
     private List<DishPracticeEntity> practices = new ArrayList<>();
     private List<DishRemarkEntity> remarks = new ArrayList<>();
     private List<DishStandardEntity> standards = new ArrayList<>();
@@ -34,7 +55,53 @@ public class DataBean implements Serializable {
         return standards;
     }
 
+    public List<DishLabelEntity> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<DishLabelEntity> labels) {
+        this.labels = labels;
+    }
+
     public void setStandards(List<DishStandardEntity> standards) {
         this.standards = standards;
+    }
+
+
+    public String getPrice() {
+        return StringUtil.getFormattedMoney(price);
+    }
+
+    public void setPrice(String dishPrice) {
+        this.price = dishPrice;
+    }
+
+    public String getVipPrice() {
+        return StringUtil.getFormattedMoney(vipPrice);
+    }
+
+    public void setVipPrice(String vipPrice) {
+        this.vipPrice = vipPrice;
+    }
+
+    public String getDishName() {
+        return dishName;
+    }
+
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
+    }
+
+    @Override
+    public String toString() {
+        return "DataBean{" +
+                "dishName='" + dishName + '\'' +
+                ", price='" + price + '\'' +
+                ", vipPrice='" + vipPrice + '\'' +
+                ", labels=" + labels +
+                ", practices=" + practices +
+                ", remarks=" + remarks +
+                ", standards=" + standards +
+                '}';
     }
 }

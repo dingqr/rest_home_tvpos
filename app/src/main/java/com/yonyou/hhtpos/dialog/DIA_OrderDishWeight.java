@@ -25,9 +25,6 @@ import com.yonyou.hhtpos.widgets.MultipleSelectView;
 
 import java.util.ArrayList;
 
-import static com.yonyou.hhtpos.util.FiltrationUtil.getCookery;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
-
 /**
  * 服务员点菜称重弹框
  * 作者：ybing on 2017/7/11
@@ -65,9 +62,8 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishWeight(Context mContext, DataBean dataBean) {
+    public DIA_OrderDishWeight(Context mContext) {
         this.mContext = mContext;
-        this.dataBean = dataBean;
         initView();
     }
 
@@ -87,6 +83,16 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
+
+        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
+        iwvDishWeight.setData(weightEntity);
+    }
+
+    /**
+     * 传入数据
+     * @param dataBean
+     */
+    public DIA_OrderDishWeight setData(DataBean dataBean) {
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -118,9 +124,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 fvRemark.setData(remarkOption);
             }
         }
-
-        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
-        iwvDishWeight.setData(weightEntity);
+        return this;
     }
 
     @Override

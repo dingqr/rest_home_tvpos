@@ -2,7 +2,6 @@ package com.yonyou.hhtpos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.IntentFilter;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,8 +24,6 @@ import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
 
 import java.util.ArrayList;
-
-import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 
 /**
  * 服务员点菜 固定价格称重 弹框
@@ -65,9 +62,8 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishSetWeight(Context mContext, DataBean dataBean) {
+    public DIA_OrderDishSetWeight(Context mContext) {
         this.mContext = mContext;
-        this.dataBean = dataBean;
         initView();
     }
 
@@ -87,6 +83,16 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
         rbFinishSelect.setOnClickListener(this);
 
 
+        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
+        iwvDishWeight.setData(weightEntity);
+    }
+
+    /**
+     * 传入数据
+     * @param dataBean
+     * @return
+     */
+    public DIA_OrderDishSetWeight setData(DataBean dataBean) {
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -103,10 +109,7 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
                 fvCookery.setData(cookeryOption);
             }
         }
-
-
-        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
-        iwvDishWeight.setData(weightEntity);
+        return this;
     }
 
     @Override
