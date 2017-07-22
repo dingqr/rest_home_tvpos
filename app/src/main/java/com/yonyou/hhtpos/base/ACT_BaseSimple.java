@@ -10,9 +10,7 @@ import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
-import com.yonyou.hhtpos.widgets.LeftExpandableView;
-
-import java.util.List;
+import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
 
 import butterknife.Bind;
 

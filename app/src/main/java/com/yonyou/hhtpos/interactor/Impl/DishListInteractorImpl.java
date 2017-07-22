@@ -27,11 +27,11 @@ public class DishListInteractorImpl implements IDishListInteractor {
     public void requestDishList(String billId) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("billId", billId);
-        RequestManager.getInstance().requestGetByAsyn(API.URL_DISH_LIST, hashMap, new ReqCallBack<List<DishListEntity>>() {
+        RequestManager.getInstance().requestGetByAsyn(API.URL_DISH_LIST, hashMap, new ReqCallBack<DishListEntity>() {
 
             @Override
-            public void onReqSuccess(List<DishListEntity> dataList) {
-                dishListListener.onSuccess(0, dataList);
+            public void onReqSuccess(DishListEntity bean) {
+                dishListListener.onSuccess(0, bean);
             }
 
             @Override

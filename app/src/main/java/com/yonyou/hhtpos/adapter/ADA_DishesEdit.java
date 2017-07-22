@@ -19,8 +19,11 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
 
     private DishEditEntity currentBean;
 
-    public ADA_DishesEdit(Context context) {
+    private OnSelectedListener onSelectedListener;
+
+    public ADA_DishesEdit(Context context, OnSelectedListener onSelectedListener) {
         super(context);
+        this.onSelectedListener = onSelectedListener;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
         return convertView;
     }
 
-    private void handleDataSource(int pos, ViewHolder holder, final DishEditEntity bean){
+    private void handleDataSource(final int pos, ViewHolder holder, final DishEditEntity bean){
 
         holder.mOperationTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +66,7 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
                     currentBean = bean;
                     notifyDataSetChanged();
                 }
+                onSelectedListener.onSelected(pos);
             }
         });
 
@@ -102,5 +106,9 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
         ViewHolder(View v) {
             mOperationTxt = (RadioButton) v.findViewById(R.id.rb_operation);
         }
+    }
+
+    public interface OnSelectedListener{
+        void onSelected(int pos);
     }
 }

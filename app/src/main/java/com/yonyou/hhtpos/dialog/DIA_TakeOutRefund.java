@@ -15,16 +15,9 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
-import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
-import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.util.WMReasonsCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
-
-import java.util.ArrayList;
-
-import static com.yonyou.hhtpos.util.FiltrationUtil.getOrderOptions;
-import static com.yonyou.hhtpos.util.FiltrationUtil.getRefundReason;
 
 /**
  * 外卖退款处理对话框
