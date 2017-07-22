@@ -1,7 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
@@ -285,7 +284,6 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvCustomerName.setText(orderDetailEntity.name);
             tvArriveAddress.setText(orderDetailEntity.address);
             tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
-            Log.e("TAG", "orderDetailEntity.getReduceMoney()=" + orderDetailEntity.getReduceMoney());
             //缺少的字段“
             //就餐人数和时段
 //            tvPersonAndDinnerType.setText();

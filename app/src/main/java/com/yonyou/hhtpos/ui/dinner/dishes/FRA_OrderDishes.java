@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -292,7 +291,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "bean="+bean.getDishCount());
+//                Log.e("TAG", "bean="+bean.getDishCount());
             }
         });
     }
