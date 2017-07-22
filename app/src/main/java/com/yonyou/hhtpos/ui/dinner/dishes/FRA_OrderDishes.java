@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -35,6 +36,7 @@ import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
+import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
@@ -287,10 +289,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 }
             }
         });
-        mDiaCountDish.setDishDataCallback(new DishDataCallback() {
+        mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Log.e("TAG", "bean="+bean.getDishCount());
+                Log.e("TAG", "bean="+bean.getDishCount());
             }
         });
     }
@@ -375,12 +377,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     public void showBusinessError(ErrorBean error) {
 
     }
-
-    @Override
-    public void sendItems(DishCallBackEntity bean) {
-
-    }
-
 
     /**
      * 设置item之间的间距
