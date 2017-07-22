@@ -37,6 +37,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.yonyou.hhtpos.R.id.ll_invoidce;
 import static com.yonyou.hhtpos.R.id.ll_pay_type;
 
 /**
@@ -123,7 +124,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     LinearLayout llRefundype;//积分
     @Bind(R.id.ll_integral)
     LinearLayout llIntegral;//积分
-    @Bind(R.id.ll_invoidce)
+    @Bind(ll_invoidce)
     LinearLayout llInvoidce;//发票
 
 
@@ -321,7 +322,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 llPayType.setVisibility(View.GONE);
                 llIntegral.setVisibility(View.GONE);
                 llRefundype.setVisibility(View.GONE);
-                tvInvoice.setVisibility(View.GONE);
+                llInvoidce.setVisibility(View.GONE);
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_not_order));
                 break;
             case 2:
