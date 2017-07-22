@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,13 +11,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
-import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.ModifyCountView;
@@ -46,6 +48,8 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     private FiltrationView fvCookery;
     private MultipleSelectView fvRemark;
     private EditText etOtherRemark;
+    private TextView tvHintCookery;
+    private TextView tvHintRemark;
     private ModifyCountView mcvDishCount;
 
     /**
@@ -61,6 +65,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
      * 数据回调数据状态
      */
     private boolean flag = true;
+
+    private boolean cookeryEmptyFlag;
+    private boolean remarkEmptyFlag;
 
     public DIA_OrderDishCount(Context mContext) {
         this.mContext = mContext;
@@ -78,6 +85,8 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         fvCookery = (FiltrationView) mContentView.findViewById(R.id.fv_cookery);
         fvRemark = (MultipleSelectView) mContentView.findViewById(R.id.fv_remark);
         mcvDishCount = (ModifyCountView) mContentView.findViewById(R.id.mcv_dish_count);
+        tvHintCookery = (TextView) mContentView.findViewById(R.id.tv_hint_cookery);
+        tvHintRemark = (TextView) mContentView.findViewById(R.id.tv_hint_remark);
 
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
@@ -88,6 +97,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
 
     /**
      * 传入数据
+     *
      * @param dataBean
      */
     public DIA_OrderDishCount setData(DataBean dataBean) {
@@ -105,6 +115,10 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 cookeryOption.setOptions(options);
                 cookeryOption.setTitle("");
                 fvCookery.setData(cookeryOption);
+            } else {
+                fvCookery.setVisibility(View.GONE);
+                tvHintCookery.setVisibility(View.GONE);
+                cookeryEmptyFlag = true;
             }
 
             //获取菜品备注列表
@@ -120,6 +134,10 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 remarkOption.setOptions(options);
                 remarkOption.setTitle("");
                 fvRemark.setData(remarkOption);
+            } else {
+                fvRemark.setVisibility(View.GONE);
+                tvHintRemark.setVisibility(View.GONE);
+                remarkEmptyFlag = true;
             }
         }
         return this;
@@ -132,13 +150,15 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 mDialog.dismiss();
                 break;
             case R.id.rb_finish_select:
-                DishCallBackEntity dishCallBackEntity = initDishCallbackEntity();
+                DishCallbackEntity dishCallBackEntity = initDishCallbackEntity();
                 if (flag) {
                     if (dishDataCallback != null) {
                         dishDataCallback.sendItems(dishCallBackEntity);
                     }
-                    fvCookery.reset();
-                    fvRemark.reset();
+                    if (!cookeryEmptyFlag)
+                        fvCookery.reset();
+                    if (!remarkEmptyFlag)
+                        fvRemark.reset();
                     etOtherRemark.setText("");
                     mDialog.dismiss();
                 }
@@ -148,34 +168,21 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         }
     }
 
-    private DishCallBackEntity initDishCallbackEntity() {
-        DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
+    private DishCallbackEntity initDishCallbackEntity() {
+        DishCallbackEntity dishCallBackEntity = new DishCallbackEntity();
         int dishCount = mcvDishCount.getCount();
-        String dishCookery = fvCookery.getSelectedData().getOption();
-        ArrayList<FilterOptionsEntity> dishRemarks = fvRemark.getSelectedList();
-        String otherRemark = etOtherRemark.getText().toString().trim();
-
         if (dishCount > 0) {
             //数量
             dishCallBackEntity.setDishCount(String.valueOf(dishCount));
-            if (!TextUtils.isEmpty(dishCookery)) {
+            if (!cookeryEmptyFlag && fvCookery.getSelectedData() != null) {
                 //做法
+                String dishCookery = fvCookery.getSelectedData().getOption();
                 dishCallBackEntity.setDishCookery(dishCookery);
                 flag = true;
-                //备注
-                StringBuilder sb = new StringBuilder();
-                if (dishRemarks.size() > 0) {
-                    for (int i = 0; i < dishRemarks.size() - 1; i++) {
-                        sb.append(dishRemarks.get(i).getOption());
-                        sb.append(",");
-                    }
-                    sb.append(dishRemarks.get(dishRemarks.size()).getOption());
-                }
-                if (!TextUtils.isEmpty(otherRemark)) {
-                    sb.append(",");
-                    sb.append(otherRemark);
-                }
-                dishCallBackEntity.setDishRemark(sb.toString());
+                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));
+            } else if (cookeryEmptyFlag) {
+                dishCallBackEntity.setDishCookery("");
+                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));
             } else {
                 flag = false;
                 CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
@@ -185,6 +192,30 @@ public class DIA_OrderDishCount implements View.OnClickListener {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
         }
         return dishCallBackEntity;
+    }
+
+    @NonNull
+    private String checkRemark(boolean remarkEmptyFlag) {
+        String otherRemark = etOtherRemark.getText().toString().trim();
+        //备注
+        if (!remarkEmptyFlag && fvRemark.getSelectedList() != null) {
+            ArrayList<FilterOptionsEntity> dishRemarks = fvRemark.getSelectedList();
+            StringBuilder sb = new StringBuilder();
+            if (dishRemarks.size() > 0) {
+                for (int i = 0; i < dishRemarks.size() - 1; i++) {
+                    sb.append(dishRemarks.get(i).getOption());
+                    sb.append(",");
+                }
+                sb.append(dishRemarks.get(dishRemarks.size() - 1).getOption());
+            }
+            if (!TextUtils.isEmpty(otherRemark)) {
+                sb.append(",");
+                sb.append(otherRemark);
+            }
+            return sb.toString();
+        } else {
+            return "";
+        }
     }
 
     public Dialog getDialog() {

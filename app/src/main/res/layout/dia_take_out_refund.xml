@@ -57,7 +57,7 @@
             android:id="@+id/ll_refund_reason"
             android:layout_width="@dimen/px_620"
             android:layout_height="@dimen/px_100"
-            android:layout_marginTop="@dimen/px_60"
+            android:layout_marginTop="@dimen/px_40"
             android:layout_marginLeft="@dimen/px_30"
             android:layout_marginRight="@dimen/px_30"
             android:orientation="vertical"
@@ -77,13 +77,15 @@
                 android:clickable="true"
                 android:background="@null"/>
             <TextView
+                android:id="@+id/tv_character_num"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/px_30"
                 android:layout_marginRight ="@dimen/px_10"
                 android:text="0/20"
                 android:textSize="@dimen/sp_20"
                 android:textColor="@color/color_999999"
-                android:layout_gravity="right"/>
+                android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/px_10"/>
         </LinearLayout>
     </LinearLayout>
 

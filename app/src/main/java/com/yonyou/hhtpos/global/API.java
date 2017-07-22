@@ -101,7 +101,7 @@ public class API {
     /**
      * 外卖-获取所有退款原因
      */
-    public static final String URL_WM_REFUND_REASON = BASE_SERVER_SHOP + "";
+    public static final String URL_WM_REFUND_REASON = BASE_SERVER_SHOP + "/takeOut/getAllRefundReason";
     /**
      * 外带订单详情
      */

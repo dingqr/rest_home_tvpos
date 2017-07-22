@@ -1,6 +1,6 @@
 package com.yonyou.hhtpos.util;
 
-import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
 
 /**
  * Created by ybing on 2017/7/21.
@@ -10,5 +10,5 @@ import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 
 
 public interface DishDataCallback {
-    void sendItems(DishCallBackEntity bean);
+    void sendItems(DishCallbackEntity bean);
 }
