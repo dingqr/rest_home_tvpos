@@ -158,11 +158,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     private void initListener() {
         /**
-         *1、无规格、无做法，直接加入购物车；有规格或有做法，弹窗；
+         *1、无规格、无做法，直接加入购物车；
+         *2.有规格或有做法，弹窗；
          2、时价的价格未设置，弹窗；设置的价格，直接加入购物车；
          3、套餐（N选N），弹窗；套餐（固定），直接加入购物车；
          4、称重菜，弹窗；
-         5、必填：做法、规格
+         5、必填：做法、规格；备注选填
          */
         mAdapter.setOnActionOrderDishListener(new ADA_DishTypeList.OnActionOrderDishListener() {
             @Override
@@ -188,7 +189,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.standardId = "";
                 //写死的字段
                 requestAddDishEntity.tableBillId = mbleBillId;
+                //无规格、无做法，直接加入购物车；
+                if(dishesEntity.practices.size()==0&&dishesEntity.standards.size()==0) {
 
+                }
+                
+                
+                
 //                //调用点菜的接口
 //                mAddDishPresenter.requestAddDish(requestAddDishEntity);
                 DataBean dataBean = new DataBean();
