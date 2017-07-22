@@ -93,14 +93,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     //添加菜品presenter
     private IAddDishPresenter mAddDishPresenter;
     private LinearLayout.LayoutParams mParams;
+    private RequestAddDishEntity requestAddDishEntity;
     //菜品在列表的位置
     private int mPosition;
-    private DIA_OrderDishCount mDiaNormal;
-    private DIA_OrderDishNorms mDiaStandards;
-    private RequestAddDishEntity requestAddDishEntity;
-    private DIA_OrderDishSetPrice mDiaCurrentDishWeight;
-    private DIA_OrderDishSetWeight mDiaWeightNormal;
-    private DIA_OrderDishWeight mDiaWeightRemarks;
+
+    private DIA_OrderDishSetPrice mDiaCurrentDishWeight;//称重、时价
+    private DIA_OrderDishSetWeight mDiaWeightNormal;//称重，无备注
+    private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
+    private DIA_OrderDishNorms mDiaStandards;//规格
+    private DIA_OrderDishCount mDiaNormal;//normal
 
     @Override
     protected void onFirstUserVisible() {
