@@ -15,7 +15,6 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
-import com.yonyou.hhtpos.bean.MultipleOption;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
@@ -52,7 +51,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     /**
      * 选项数据
      */
-    private DataBean dataBean;
+//    private DataBean dataBean;
 
     /**
      * 数据回调接口
@@ -63,9 +62,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishCount(Context mContext, DataBean dataBean) {
+    public DIA_OrderDishCount(Context mContext) {
         this.mContext = mContext;
-        this.dataBean = dataBean;
+//        this.dataBean = dataBean;
         initView();
     }
 
@@ -84,7 +83,14 @@ public class DIA_OrderDishCount implements View.OnClickListener {
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
+        getDialog();
+    }
 
+    /**
+     * 传入数据
+     * @param dataBean
+     */
+    public DIA_OrderDishCount setData(DataBean dataBean) {
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -116,6 +122,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 fvRemark.setData(remarkOption);
             }
         }
+        return this;
     }
 
     @Override

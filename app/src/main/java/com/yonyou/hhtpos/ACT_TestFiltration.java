@@ -258,7 +258,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_takeOutFiltration.getDialog().show();
                 break;
             case R.id.btn_confirm4:
-                dia_orderDishVegetable = new DIA_OrderDishCount(mContext,dishBean);
+//                dia_orderDishVegetable = new DIA_OrderDishCount(mContext,dishBean);
                 dia_orderDishVegetable.getDialog().show();
                 break;
             case R.id.btn_confirm5:
