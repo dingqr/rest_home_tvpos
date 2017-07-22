@@ -17,13 +17,15 @@ import de.greenrobot.event.ThreadMode;
  * 外卖
  * 作者：liushuofei on 2017/7/6 10:44
  */
-public class ACT_TakeOut extends ACT_BaseMultiple implements View.OnClickListener{
+public class ACT_TakeOut extends ACT_BaseMultiple implements View.OnClickListener {
 
     private FRA_TakeOutLeft mLeftContent;
+    private FRA_TakeOutDetail mRightContent;
 
     @Override
     protected void initView() {
         mLeftContent = new FRA_TakeOutLeft();
+        mRightContent = new FRA_TakeOutDetail();
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ACT_TakeOut extends ACT_BaseMultiple implements View.OnClickListene
 
     @Override
     protected Fragment getRightContent() {
-        return new FRA_TakeOutDetail();
+        return mRightContent;
     }
 
     @Override
@@ -94,6 +96,10 @@ public class ACT_TakeOut extends ACT_BaseMultiple implements View.OnClickListene
     @Override
     public void showBusinessError(ErrorBean error) {
 
+    }
+
+    public void requestTakeOutDetail(String tableBillId) {
+        mRightContent.requestTakeOutDetail(tableBillId);
     }
 
 }

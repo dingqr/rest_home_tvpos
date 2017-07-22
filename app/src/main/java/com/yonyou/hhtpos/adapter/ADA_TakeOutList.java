@@ -2,7 +2,6 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
 
     private OrderListEntity currentBean;
-
+    private ADA_PackingList.OnItemClickLister mListener;
     public ADA_TakeOutList(Context context) {
         super(context);
     }
@@ -74,9 +73,13 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
     }
 
     private void handleDataSource(int position, final ViewHolder holder, final OrderListEntity bean) {
+        final int mPostion = position;
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(mPostion);
+                }
                 if (!bean.equals(currentBean)){
                     bean.setCheck(true);
                     if (null != currentBean){
@@ -85,6 +88,7 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
                     currentBean = bean;
                     notifyDataSetChanged();
                 }
+
             }
         });
 
@@ -140,4 +144,12 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
             mOrderStatus = (TextView) v.findViewById(R.id.tv_order_status);
         }
     }
+    public interface OnItemClickLister {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(ADA_PackingList.OnItemClickLister mListener) {
+        this.mListener = mListener;
+    }
+
 }

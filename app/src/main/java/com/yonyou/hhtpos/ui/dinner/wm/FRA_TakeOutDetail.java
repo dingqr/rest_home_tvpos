@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
@@ -30,7 +31,7 @@ import butterknife.OnClick;
  * 邮箱：zjuan@yonyou.com
  * 描述：外卖订单详情页面-袁波
  */
-public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailView{
+public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailView {
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
     //列表上层悬浮的标题，默认隐藏
@@ -43,7 +44,9 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     //请求外面订单详情接口
     private IOrderDetailPresenter mPresenter;
     //测试参数
-    private String tableBillId ="C50242AC980000009200000000257000";
+    private String tableBillId = "C50242AC980000009200000000257000";
+
+    //设置接口返回数据
     private TextView tvTakeoutCompanyName;
     private TextView tvOrderStatus;
     private TextView tvCreateTime;
@@ -54,7 +57,32 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private TextView tvRefundMoney;
     private TextView tvRefundReason;
 
-    //设置接口返回数据
+    @Bind(R.id.tv_arrive_time)//送达时间
+            TextView tvArriveTime;
+    @Bind(R.id.tv_send_now)
+    TextView tvSendNow;//是否立即送餐
+    @Bind(R.id.tv_phone)
+    TextView tvPhone;
+    @Bind(R.id.tv_customer_name)
+    TextView tvCustomerName;
+    @Bind(R.id.tv_person_and_dinner_type)//人数和就餐时段
+            TextView tvPersonAndDinnerType;
+    @Bind(R.id.tv_arrive_address)
+    TextView tvArriveAddress;
+    @Bind(R.id.tv_remarks)
+    TextView tvRemarks;//备注
+    @Bind(R.id.tv_total_billmoney)
+    TextView tvTotalBillmoney;//总金额
+    @Bind(R.id.tv_reduce_money)
+    TextView tvReduceMoney;//优惠金额
+    @Bind(R.id.tv_pay_type)
+    TextView tvPayType;//支付类型-百度支付
+    @Bind(R.id.tv_refund_type)
+    TextView tvRefundType;//退款类型-百度支付
+    @Bind(R.id.tv_integral)
+    TextView tvIntegral;//积分
+    @Bind(R.id.tv_invoice)
+    TextView tvInvoice;//查看发票二维码
 
     @Override
     protected void onFirstUserVisible() {
@@ -78,7 +106,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     @Override
     protected void initViewsAndEvents() {
-        mPresenter = new OrderDetailPresenterImpl(mContext,FRA_TakeOutDetail.this);
+        mPresenter = new OrderDetailPresenterImpl(mContext, FRA_TakeOutDetail.this);
         mPresenter.requestWMOrderDetail(tableBillId);
         //有数据页面
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
@@ -112,30 +140,6 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
     }
 
-    /**
-     * 绑定左边详情部分头部的详情信息
-     * @param headerView
-     */
-    private void bindHeadView(View headerView) {
-        tvTakeoutCompanyName = (TextView) headerView.findViewById(R.id.tv_takeout_company_name);
-        tvOrderStatus = (TextView) headerView.findViewById(R.id.tv_order_status);
-        tvCreateTime = (TextView) headerView.findViewById(R.id.tv_create_time);
-        tvBillMoney = (TextView) headerView.findViewById(R.id.tv_bill_money);
-        tvRealReceiveMoney = (TextView) headerView.findViewById(R.id.tv_real_receive_money);
-        tvReceiveTime = (TextView) headerView.findViewById(R.id.tv_receive_time);
-        tvRefundTime = (TextView) headerView.findViewById(R.id.tv_refund_time);
-        tvRefundMoney = (TextView) headerView.findViewById(R.id.tv_refund_money);
-        tvRefundReason = (TextView) headerView.findViewById(R.id.tv_refund_reason);
-    }
-
-    private void setData() {
-        for (int i = 0; i < 10; i++) {
-            WMDishDetailEntity wmDishDetailEntity = new WMDishDetailEntity();
-            wmDishDetailEntity.dishName = "肉肉" + i;
-            dataList.add(wmDishDetailEntity);
-        }
-    }
-
     @OnClick({R.id.btn_right})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -165,14 +169,95 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     }
 
+    /**
+     * 绑定左边详情部分头部的详情信息
+     *
+     * @param headerView
+     */
+    private void bindHeadView(View headerView) {
+        tvTakeoutCompanyName = (TextView) headerView.findViewById(R.id.tv_takeout_company_name);
+        tvOrderStatus = (TextView) headerView.findViewById(R.id.tv_order_status);
+        tvCreateTime = (TextView) headerView.findViewById(R.id.tv_create_time);
+        tvBillMoney = (TextView) headerView.findViewById(R.id.tv_bill_money);
+        tvRealReceiveMoney = (TextView) headerView.findViewById(R.id.tv_real_receive_money);
+        tvReceiveTime = (TextView) headerView.findViewById(R.id.tv_receive_time);
+        tvRefundTime = (TextView) headerView.findViewById(R.id.tv_refund_time);
+        tvRefundMoney = (TextView) headerView.findViewById(R.id.tv_refund_money);
+        tvRefundReason = (TextView) headerView.findViewById(R.id.tv_refund_reason);
+    }
+
+    public void requestTakeOutDetail(String tableBillId) {
+        mPresenter.requestWMOrderDetail(tableBillId);
+    }
+    /**
+     * 获取外卖订单详情信息
+     *
+     * @param orderDetailEntity
+     */
     @Override
     public void requestWMOrderDetail(WMOrderDetailEntity orderDetailEntity) {
-        if(orderDetailEntity!=null) {
+        if (orderDetailEntity != null) {
             List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
-            if(dishList!=null&&dishList.size()>0) {
+            if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
                 mAdapter.update(dishList);
             }
+            //左侧信息
+            //设置订单详情信息
+            //订单来源-百度/饿了么
+//            tvTakeoutCompanyName.setText();
+            //创建时间-要求后台返回Long值 -07-06 11:00
+            tvCreateTime.setText(orderDetailEntity.orderTime);
+            //总计
+            tvBillMoney.setText("￥" + orderDetailEntity.getBillMoney());
+//            开单1，下单2，结账3，退款4
+            int orderState = -1;
+            if(!TextUtils.isEmpty(orderDetailEntity.orderState)) {
+                orderState = Integer.parseInt(orderDetailEntity.orderState);
+            }
+            switch (orderState) {
+                case 1 :
+            
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+
+                    break;
+            }
+            //缺的字段
+            //实收金额和收款时间
+//            tvRealReceiveMoney.setText();
+            //2017-06-08 11:30
+//            tvReceiveTime.setText();
+            //退款金额和退款时间
+//            tvRefundMoney.setText();
+            //2017-06-08 11:30
+//            tvRefundTime.setText();
+            //退款原因
+//            tvRefundReason.setText();
+
+            //右侧信息-要求返回Long型
+            tvArriveTime.setText(orderDetailEntity.arriveTime);
+            tvSendNow.setText("("+mContext.getResources().getString(R.string.string_send_now)+")");
+            tvSendNow.setVisibility(orderDetailEntity.sendNow.equals("Y") ? View.VISIBLE : View.GONE);
+            tvPhone.setText(orderDetailEntity.phone);
+            tvArriveAddress.setText(orderDetailEntity.address);
+            tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
+            //缺少的字段“
+            //就餐人数和时段
+//            tvPersonAndDinnerType.setText();
+            //备注
+//            tvRemarks.setText();
+//            tvTotalBillmoney.setText();
+            //支付类型-百度支付
+            //退款类型-百度支付
+            //积分
+
         }
 
     }

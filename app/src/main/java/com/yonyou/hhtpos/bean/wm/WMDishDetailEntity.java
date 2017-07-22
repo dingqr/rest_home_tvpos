@@ -33,11 +33,6 @@ public class WMDishDetailEntity {
      * id
      */
     public String id;
-
-    /**
-     * 实际价格
-     */
-    private String actualPrice;
     /**
      * 菜品价格
      */
@@ -92,14 +87,6 @@ public class WMDishDetailEntity {
 
     public void setDishPrice(String dishPrice) {
         this.dishPrice = dishPrice;
-    }
-
-    public String getActualPrice() {
-        return StringUtil.getFormattedMoney(actualPrice);
-    }
-
-    public void setActualPrice(String actualPrice) {
-        this.actualPrice = actualPrice;
     }
 
     public String getMemberPrice() {

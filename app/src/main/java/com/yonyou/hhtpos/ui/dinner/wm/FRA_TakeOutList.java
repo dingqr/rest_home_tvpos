@@ -13,12 +13,14 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.framework.library.widgets.ESwipeRefreshLayout;
 import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.adapter.ADA_PackingList;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutList;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
 import com.yonyou.hhtpos.presenter.IWMListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WMListPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.wd.ACT_Packing;
 import com.yonyou.hhtpos.util.AdapterUtil;
 import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWMListView;
@@ -27,37 +29,50 @@ import java.util.List;
 
 import butterknife.Bind;
 import de.greenrobot.event.Subscribe;
-import de.greenrobot.event.ThreadMode;
 
 /**
  * 外卖列表fragment
  * 作者：liushuofei on 2017/7/6 10:47
  */
-public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeRefreshLayout.OnRefreshListener, PLALoadMoreListView.OnLoadMoreListener{
+public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeRefreshLayout.OnRefreshListener, PLALoadMoreListView.OnLoadMoreListener {
 
     @Bind(R.id.srl_take_out)
     ESwipeRefreshLayout srlTakeOut;
     @Bind(R.id.pla_lv_take_out)
     PLALoadMoreListView plaLvTakeOut;
 
-    /**传入数据 */
+    /**
+     * 传入数据
+     */
     public static final String TYPE = "type";
     private int type;
 
     private List<OrderListEntity> dataList;
     private ADA_TakeOutList mAdapter;
 
-    /**中间者 */
+    /**
+     * 中间者
+     */
     private IWMListPresenter mTakeOutListPresenter;
-    /**请求参数 */
+    /**
+     * 请求参数
+     */
     private OrderListRequestEntity bean;
-    /**外卖公司id */
+    /**
+     * 外卖公司id
+     */
     public String takeOutCompanyId = "";
-    /**市别id */
+    /**
+     * 市别id
+     */
     public String takeOutScheduleId = "";
-    /**当前页数 */
+    /**
+     * 当前页数
+     */
     private int mCurrentPage = 1;
-    /**默认页数 */
+    /**
+     * 默认页数
+     */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_TakeOutList newInstance(int type) {
@@ -119,13 +134,21 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
         mTakeOutListPresenter = new WMListPresenterImpl(mContext, this);
         if (NetUtils.isNetworkConnected(mContext)) {
             mTakeOutListPresenter.requestTakeOutList(bean, false, true);
-        }else {
+        } else {
             // reset refresh state
             if (null != srlTakeOut) {
                 srlTakeOut.setRefreshing(false);
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
+        mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
+            @Override
+            public void onItemClick(int position) {
+                if (dataList.size() > 0) {
+                    requestTakeOutDetail(dataList.get(position).getTableBillId());
+                }
+            }
+        });
     }
 
     @Override
@@ -147,7 +170,13 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     public void showBusinessError(ErrorBean error) {
 
     }
-
+    /**
+     * 触发右侧请求外卖详情接口
+     */
+    private void requestTakeOutDetail(String tableBillId) {
+        ACT_TakeOut actTakeOutc = (ACT_TakeOut) getActivity();
+        actTakeOutc.requestTakeOutDetail(tableBillId);
+    }
     @Override
     public void requestTakeOutList(List<OrderListEntity> dataList, boolean isRefresh) {
         // reset state
@@ -162,6 +191,10 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             plaLvTakeOut.setCanLoadMore(false);
         } else {
             if (null != dataList && dataList.size() > 0) {
+                //触发详情接口
+                ACT_TakeOut actTakeOut = (ACT_TakeOut) getActivity();
+                actTakeOut.requestTakeOutDetail(dataList.get(0).getTableBillId());
+                this.dataList  = dataList;
                 dataList.get(0).setCheck(true);
                 mAdapter.update(dataList, isRefresh);
             } else {
@@ -184,7 +217,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             bean.setPageNum(String.valueOf(mCurrentPage));
 
             mTakeOutListPresenter.requestTakeOutList(bean, true, false);
-        }else {
+        } else {
             // reset refresh state
             if (null != srlTakeOut) {
                 srlTakeOut.setRefreshing(false);
@@ -205,7 +238,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             bean.setPageNum(String.valueOf(mCurrentPage));
 
             mTakeOutListPresenter.requestTakeOutList(bean, false, false);
-        }else {
+        } else {
             // reset load more state
             if (null != plaLvTakeOut) {
                 plaLvTakeOut.onLoadMoreComplete();

@@ -302,6 +302,7 @@
     <string name="string_real_receive_moeny">实收金额：</string>
     <string name="string_total">总计：</string>
     <string name="string_create_time">创建时间：</string>
+    <string name="string_send_now">立即送餐</string>
 
 
 </resources>

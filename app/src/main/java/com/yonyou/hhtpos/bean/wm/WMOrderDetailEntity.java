@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.bean.wm;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
  * 描述：外带订单详细信息实体-
  */
 public class WMOrderDetailEntity implements Serializable {
+
     /**
      * 地址
      */
@@ -28,7 +31,11 @@ public class WMOrderDetailEntity implements Serializable {
     /**
      * 账单金额
      */
-    public String billMoney;
+    private String billMoney;
+    /**
+     * 优惠金额
+     */
+    private String reduceMoney;
     /**
      * 菜品明细列表
      */
@@ -53,6 +60,22 @@ public class WMOrderDetailEntity implements Serializable {
     public WMOrderDetailEntity() {
     }
 
+    public String getBillMoney() {
+        return StringUtil.getFormattedMoney(billMoney);
+    }
+
+    public void setBillMoney(String billMoney) {
+        this.billMoney = billMoney;
+    }
+
+    public String getReduceMoney() {
+        return StringUtil.getFormattedMoney(reduceMoney);
+    }
+
+    public void setReduceMoney(String reduceMoney) {
+        this.reduceMoney = reduceMoney;
+    }
+
     @Override
     public String toString() {
         return "WMOrderDetailEntity{" +
@@ -61,6 +84,7 @@ public class WMOrderDetailEntity implements Serializable {
                 ", name='" + name + '\'' +
                 ", arriveTime='" + arriveTime + '\'' +
                 ", billMoney='" + billMoney + '\'' +
+                ", reduceMoney='" + reduceMoney + '\'' +
                 ", dishList=" + dishList +
                 ", orderState='" + orderState + '\'' +
                 ", orderTime='" + orderTime + '\'' +

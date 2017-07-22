@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by zj on 2017/7/21.
  * 邮箱：zjuan@yonyou.com
- * 描述：
+ * 描述：点菜时，传入不同弹窗的实体
  */
 public class DataBean implements Serializable {
     private List<DishPracticeEntity> practices = new ArrayList<>();

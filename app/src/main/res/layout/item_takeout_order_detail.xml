@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="黑松露牛肝焖牛肉"
             android:textColor="@color/color_222222"
             android:textSize="@dimen/px_22" />
 
@@ -40,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:paddingRight="@dimen/px_40"
-            android:text="￥88.00"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/px_22" />
 
@@ -50,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingRight="@dimen/px_20"
-            android:text="x1份"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/px_22" />
     </LinearLayout>
@@ -62,6 +59,7 @@
         android:layout_marginBottom="@dimen/px_14"
         android:paddingLeft="@dimen/px_20"
         android:text="注：不要辣椒"
+        android:visibility="gone"
         android:textColor="@color/color_eb6247"
         android:textSize="@dimen/sp_20" />
 

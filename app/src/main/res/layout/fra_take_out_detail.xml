@@ -87,6 +87,7 @@
                 android:layout_marginTop="@dimen/px_16">
 
                 <TextView
+                    android:id="@+id/tv_arrive_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wm_date"
@@ -96,7 +97,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_send_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/px_10"
@@ -113,11 +114,11 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wm_contacts"
                     android:drawablePadding="@dimen/px_20"
-                    android:text="13566668888"
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_22" />
 
@@ -129,14 +130,15 @@
                     android:background="@color/color_E5E5E5"></View>
 
                 <TextView
+                    android:id="@+id/tv_customer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="王先生"
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_person_and_dinner_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_14"
@@ -148,17 +150,18 @@
                 android:textSize="@dimen/sp_22" />
 
             <TextView
+                android:id="@+id/tv_arrive_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_14"
                 android:layout_marginLeft="@dimen/px_20"
                 android:drawableLeft="@drawable/ic_wm_address"
                 android:drawablePadding="@dimen/px_20"
-                android:text="北京市昌平区东小口天通苑一区"
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_22" />
 
             <TextView
+                android:id="@+id/tv_remarks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
@@ -198,7 +201,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/tv_total_billmoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -223,6 +226,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_reduce_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -247,6 +251,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_pay_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -271,6 +276,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_refund_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -296,6 +302,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
+                    android:id="@+id/tv_integral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -338,6 +345,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_invoice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/px_20"
