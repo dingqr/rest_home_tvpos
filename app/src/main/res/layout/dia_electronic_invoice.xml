@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white_radius_4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rb_next_step"
+        android:orientation="vertical">
+
+        <include layout="@layout/inc_dialog_title" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_610"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_white_radius_4">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_qr_left_top"
+                android:layout_marginLeft="@dimen/px_150"
+                android:layout_marginTop="@dimen/px_56"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_qr_right_top"
+                android:layout_marginRight="@dimen/px_150"
+                android:layout_marginTop="@dimen/px_50"
+                android:layout_alignParentRight="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_qr_left_bottom"
+                android:layout_marginLeft="@dimen/px_150"
+                android:layout_marginBottom="@dimen/px_76"
+                android:layout_alignParentBottom="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_qr_right_bottom"
+                android:layout_marginRight="@dimen/px_150"
+                android:layout_marginBottom="@dimen/px_80"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
+
+            <ImageView
+                android:layout_width="@dimen/px_380"
+                android:layout_height="@dimen/px_380"
+                android:background="@color/color_eb6247"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px_100"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/rb_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_red_bottom_radius_4"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:padding="@dimen/px_20"
+        android:text="@string/print"
+        android:textColor="@drawable/rb_next_step_txt"
+        android:textSize="@dimen/sp_28" />
+</RelativeLayout>
+

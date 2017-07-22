@@ -19,8 +19,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
+ * 外带开单弹窗
  * 作者：liushuofei on 2017/7/3 19:38
- * 邮箱：lsf@yonyou.com
  */
 public class DIA_WDOpenOrder extends DIA_Base implements View.OnClickListener {
 

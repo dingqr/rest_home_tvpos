@@ -123,5 +123,17 @@ public class API {
      * 堂食-查询桌台列表
      */
     public static final String URL_TS_TABLE_LIST = BASE_SERVER_SHOP + "/protabledynamic/getTableDynamicList";
-
+    /**
+     * 修改菜品数量接口
+     */
+    public static final String URL_UPDATE_DISH_QUANTITY = BASE_SERVER_SHOP + "/prodish/plusorsubtract";
+    /**
+     * 删除菜品接口
+     */
+//    public static final String URL_DELETE_DISH = BASE_SERVER_SHOP + "/prodish/deletedish";
+    public static final String URL_DELETE_DISH = "http://10.220.23.81:9001/prodish/deletedish";
+    /**
+     * 修改菜品状态接口
+     */
+    public static final String URL_UPDATE_DISH_STATUS = BASE_SERVER_SHOP + "/prodish/changestate";
 }

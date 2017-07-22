@@ -16,7 +16,6 @@
             android:id="@+id/inc_title"
             layout="@layout/inc_check_title" />
 
-
         <ListView
             android:id="@+id/lv_check_out"
             android:layout_width="match_parent"

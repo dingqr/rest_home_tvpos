@@ -36,12 +36,12 @@ public class DishListPresenterImpl implements IDishListPresenter {
         mDishListInteractor.requestDishList(billId);
     }
 
-    private class DishListListener implements BaseLoadedListener<List<DishListEntity>> {
+    private class DishListListener implements BaseLoadedListener<DishListEntity> {
 
         @Override
-        public void onSuccess(int event_tag, List<DishListEntity> dataList) {
+        public void onSuccess(int event_tag, DishListEntity bean) {
             mDishListView.hideLoading();
-            mDishListView.requestDishList(dataList);
+            mDishListView.requestDishList(bean);
         }
 
         @Override

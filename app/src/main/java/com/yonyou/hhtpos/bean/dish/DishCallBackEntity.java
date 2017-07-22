@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 描述：点菜菜品选择规格、数量、重量、价格\做法、口味后的回调实体
  */
 
-public class DishCallbackEntity implements Serializable {
+public class DishCallBackEntity implements Serializable {
     /**数量*/
     private String  dishCount;
     /**规格*/
@@ -26,7 +26,7 @@ public class DishCallbackEntity implements Serializable {
     /**备注*/
     private String  dishRemark;
 
-    public DishCallbackEntity(){}
+    public DishCallBackEntity(){}
 
     public String getDishCount() {
         return dishCount;

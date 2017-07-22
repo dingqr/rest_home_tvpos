@@ -19,7 +19,7 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
-import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
@@ -122,7 +122,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 mDialog.dismiss();
                 break;
             case R.id.rb_finish_select:
-                DishCallbackEntity dishCallBackEntity = initDishCallbackEntity();
+                DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
                 if (flag) {
                     if (dishDataCallback != null) {
                         dishDataCallback.sendItems(dishCallBackEntity);
@@ -138,8 +138,8 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         }
     }
 
-    private DishCallbackEntity initDishCallbackEntity() {
-        DishCallbackEntity dishCallBackEntity = new DishCallbackEntity();
+    private DishCallBackEntity initDishCallBackEntity() {
+        DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
         double dishWeight = 0;
         double dishPrice = 0;
         String dishCookery = "";

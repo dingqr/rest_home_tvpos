@@ -210,6 +210,7 @@
     <string name="order_overdue">预约过期关闭</string>
     <string name="RMB_symbol">¥</string>
     <string name="well_no">#</string>
+    <string name="multiply">x</string>
     <string name="big_part">[大份]</string>
 
     <!--点菜-->
@@ -306,5 +307,23 @@
     <string name="string_create_time">创建时间：</string>
     <string name="string_send_now">立即送餐</string>
 
+    <!--结账页面 -->
+    <string name="wait_for_pay">待支付</string>
+    <string name="already_paid">已支付</string>
+    <string name="total_discount">合计优惠</string>
+    <string name="cash_coupon">代金券</string>
+    <string name="auto_wipe_zero">自动抹零</string>
+    <string name="billing">开票</string>
+    <string name="member_login">会员登录</string>
+    <string name="no_use_member">不使用会员</string>
+    <string name="pre_print_order">预打单</string>
+
+    <!--电子发票 -->
+    <string name="electronic_invoice">电子发票</string>
+    <string name="print">打印</string>
+
+    <!--扫码 -->
+    <string name="scan_customer_code">扫顾客码</string>
+    <string name="customer_scan_code">顾客扫码</string>
 
 </resources>

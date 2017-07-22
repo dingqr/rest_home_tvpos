@@ -13,7 +13,7 @@ public interface IDishListView extends BaseView {
 
     /**
      * 请求已点菜品列表
-     * @param dataList 已点菜品数据
+     * @param bean 已点菜品数据
      */
-    void requestDishList(List<DishListEntity> dataList);
+    void requestDishList(DishListEntity bean);
 }

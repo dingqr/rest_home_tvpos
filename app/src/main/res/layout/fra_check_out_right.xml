@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_8"
-                        android:text="待支付"
+                        android:text="@string/wait_for_pay"
                         android:textSize="@dimen/sp_40"
                         android:textColor="@color/color_999999"/>
 
@@ -89,7 +89,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="合计优惠"
+                        android:text="@string/total_discount"
                         android:textSize="@dimen/sp_24"
                         android:textColor="@color/color_222222"
                         android:layout_weight="1"/>
@@ -120,7 +120,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="折扣"
+                        android:text="@string/string_discount"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_999999"
                         android:layout_weight="1"/>
@@ -145,7 +145,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="代金券"
+                        android:text="@string/cash_coupon"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_999999"
                         android:layout_weight="1"/>
@@ -177,7 +177,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="自动抹零"
+                        android:text="@string/auto_wipe_zero"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_999999"
                         android:layout_weight="1"/>
@@ -203,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已支付"
+                        android:text="@string/already_paid"
                         android:textSize="@dimen/sp_24"
                         android:textColor="@color/color_222222"
                         android:layout_weight="1"/>
@@ -234,7 +234,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="现金"
+                        android:text="@string/string_pay_by_cash"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_999999"
                         android:layout_weight="1"/>
@@ -261,7 +261,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开票"
+                        android:text="@string/billing"
                         android:textSize="@dimen/sp_24"
                         android:textColor="@color/color_222222" />
 
@@ -307,7 +307,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="会员登录"
+                        android:text="@string/member_login"
                         android:textSize="@dimen/sp_40"
                         android:textColor="@color/color_222222"
                         android:drawableLeft="@drawable/ic_crown_logo"
@@ -336,7 +336,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="不使用会员"
+                        android:text="@string/no_use_member"
                         android:textSize="@dimen/sp_30"
                         android:textColor="@color/color_45acfb"
                         android:layout_marginRight="@dimen/px_16"/>
@@ -371,7 +371,7 @@
                     android:layout_height="@dimen/px_70"
                     android:layout_marginTop="@dimen/px_16"
                     android:layout_gravity="right"
-                    android:text="预打单"
+                    android:text="@string/pre_print_order"
                     android:textColor="@color/color_eb6247"
                     android:textSize="@dimen/sp_30"
                     android:background="@drawable/bg_order_accept"

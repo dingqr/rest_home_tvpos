@@ -26,7 +26,6 @@ public class WMListInteractorImpl implements IWMListInteractor {
         this.takeOutListListener = takeOutListListener;
     }
 
-
     @Override
     public void requestTakeOutList(OrderListRequestEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();

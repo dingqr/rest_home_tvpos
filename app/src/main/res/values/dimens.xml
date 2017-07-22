@@ -101,6 +101,7 @@
     <dimen name="px_172">114.6dp</dimen>
     <dimen name="px_176">117.3dp</dimen>
     <dimen name="px_180">120dp</dimen>
+    <dimen name="px_188">125.3dp</dimen>
     <dimen name="px_190">126.6dp</dimen>
     <dimen name="px_196">130.6dp</dimen>
     <dimen name="px_210">140dp</dimen>
@@ -117,6 +118,7 @@
     <dimen name="px_1280">853.3dp</dimen>
     <dimen name="px_340">226.6dp</dimen>
     <dimen name="px_356">237.3dp</dimen>
+    <dimen name="px_360">240dp</dimen>
     <dimen name="px_430">286.6dp</dimen>
     <dimen name="px_436">290.6dp</dimen>
     <dimen name="px_474">316dp</dimen>
@@ -200,6 +202,7 @@
     <dimen name="sp_45">30sp</dimen>
     <dimen name="sp_50">33.3sp</dimen>
     <dimen name="sp_60">40sp</dimen>
+    <dimen name="sp_70">46.6sp</dimen>
 
 
     <!--WheelView-->

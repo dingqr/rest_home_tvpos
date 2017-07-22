@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="畅捷支付（线上支付）"
+        android:textSize="@dimen/sp_26"
+        android:textColor="@color/color_999999"
+        android:layout_marginTop="@dimen/px_34"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_188"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wait_for_pay"
+            android:textSize="@dimen/sp_34"
+            android:textColor="@color/color_222222"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30"
+            android:text="¥628.00"
+            android:textSize="@dimen/sp_70"
+            android:textColor="@color/color_eb6247"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取支付结果"
+        android:textSize="@dimen/sp_24"
+        android:textColor="@color/color_222222"
+        android:drawableLeft="@drawable/ic_pay_result_refresh"
+        android:drawablePadding="@dimen/px_16"
+        android:layout_marginTop="@dimen/px_250"
+        android:paddingLeft="@dimen/px_34"
+        android:paddingTop="@dimen/px_12"
+        android:paddingRight="@dimen/px_34"
+        android:paddingBottom="@dimen/px_12"
+        android:background="@drawable/bg_ff_side_cc_radius_25"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用扫码枪扫描顾客付款码"
+        android:textSize="@dimen/sp_24"
+        android:textColor="@color/color_999999"
+        android:layout_marginTop="@dimen/px_40"/>
+
+</LinearLayout>

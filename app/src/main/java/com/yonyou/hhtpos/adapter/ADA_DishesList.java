@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
-import com.yonyou.hhtpos.popup.POP_DishesEdit;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 /**
  * 点菜列表adapter
  * 作者：liushuofei on 2017/7/11 15:11
  */
-public class ADA_DishesList extends BaseAbsAdapter<DishListEntity> {
+public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
 
+    /**套餐列表适配器 */
     private ADA_DishesPackage mAdapter;
 
     public ADA_DishesList(Context context) {
@@ -47,31 +50,82 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final DishListEntity bean = mDataSource.get(position);
-        handleDataSource(bean, holder);
-
-        if (position == 0){
-            holder.mDishesTime.setVisibility(View.VISIBLE);
-        }else {
-            holder.mDishesTime.setVisibility(View.GONE);
-        }
+        final DishListEntity.Dishes bean = mDataSource.get(position);
+        handleDataSource(bean, holder, position);
 
         // 设置套餐数据
         holder.mListView.setAdapter(mAdapter);
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                POP_DishesEdit popup = new POP_DishesEdit(mContext);
-                popup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
-            }
-        });
-
         return convertView;
     }
 
-    private void handleDataSource(DishListEntity bean, ViewHolder holder){
+    /**
+     * 填充数据
+     */
+    private void handleDataSource(DishListEntity.Dishes bean, ViewHolder holder, int pos){
+        if (null == bean)
+            return;
 
+        // 下单时间
+        if (pos == 0){
+            if (!TextUtils.isEmpty(bean.getOrderTime())){
+                holder.mDishesTime.setVisibility(View.VISIBLE);
+                holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
+            }else {
+                holder.mDishesTime.setVisibility(View.GONE);
+            }
+        }else {
+            DishListEntity.Dishes preBean = mDataSource.get(pos - 1);
+            if (null != preBean && !TextUtils.isEmpty(preBean.getOrderTime()) && !TextUtils.isEmpty(bean.getOrderTime()) && !preBean.getOrderTime().equals(bean.getOrderTime())){
+                holder.mDishesTime.setVisibility(View.VISIBLE);
+                holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
+            }else {
+                holder.mDishesTime.setVisibility(View.GONE);
+            }
+        }
+
+        // 规格+菜品名称
+        holder.mDishesName.setText(StringUtil.getString(bean.getDishName()));
+        // 价格
+        holder.mDishesPrice.setText(mContext.getString(R.string.RMB_symbol) + StringUtil.getString(bean.getDishPrice()));
+
+        // 数量或者斤
+        if (!TextUtils.isEmpty(bean.getUnit())){
+            // 不是称重菜
+            if (bean.getUnit().equals("0")){
+                holder.mDishesCount.setText(mContext.getString(R.string.multiply) + bean.getQuantity());
+            }else if (bean.getUnit().equals("1")){
+                holder.mDishesCount.setText(bean.getQuantity() + mContext.getString(R.string.dish_weight_unit));
+            }
+        }
+
+        // 备注
+        holder.mDishesRemark.setText(getRemark(bean));
+
+        // 等叫或即起
+        if (!TextUtils.isEmpty(bean.getDishStatus()) && bean.getDishStatus().equals("7")){
+            holder.mDishesStatus.setText("等叫");
+        }
+    }
+
+    /**
+     * 做法和备注，中间用空格隔开
+     * @param bean
+     * @return
+     */
+    private String getRemark(DishListEntity.Dishes bean){
+        StringBuffer stringBuffer = new StringBuffer();
+
+        // 做法
+        if (!TextUtils.isEmpty(bean.getListShowPractice())){
+            stringBuffer.append(bean.getListShowPractice());
+        }
+
+        // 备注
+        if (!TextUtils.isEmpty(bean.getListShowRemark())){
+            stringBuffer.append(" ");
+            stringBuffer.append(bean.getListShowRemark());
+        }
+        return stringBuffer.toString();
     }
 
     static class ViewHolder {

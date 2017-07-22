@@ -19,7 +19,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DataBean;
-import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
@@ -244,8 +244,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         });
         mDiaCountDish.setDishDataCallback(new DishDataCallback() {
             @Override
-            public void sendItems(DishCallbackEntity bean) {
-                Log.e("TAG", "bean="+bean.getDishCount());
+            public void sendItems(DishCallBackEntity bean) {
+//                Log.e("TAG", "bean="+bean.getDishCount());
             }
         });
     }
@@ -311,7 +311,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     }
 
     @Override
-    public void sendItems(DishCallbackEntity bean) {
+    public void sendItems(DishCallBackEntity bean) {
 
     }
 
