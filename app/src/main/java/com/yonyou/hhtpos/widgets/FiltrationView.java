@@ -129,8 +129,10 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case REFUND_REASON:
+                        if (filterItemEntity.getOptions().size()>8)
                         optionChange.setVisibility(View.VISIBLE);
-                        layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
+//                        layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
+                        layoutManger = new GridLayoutManager(mContext, 4);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case ORDER_RESOURCE:
@@ -150,6 +152,7 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                     case FREE_REASON:
+                        if (filterItemEntity.getOptions().size()>8)
                         optionChange.setVisibility(View.VISIBLE);
                         layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
                         mRecyclerView.setLayoutManager(layoutManger);

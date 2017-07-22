@@ -108,7 +108,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_dish_cookery"
+        android:id="@+id/ll_dish_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_dish_norms"
@@ -131,28 +131,15 @@
         </com.yonyou.hhtpos.widgets.ModifyCountView>
     </LinearLayout>
 
-    <RadioButton
-        android:id="@+id/rb_finish_select"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_rb_radius_4"
-        android:button="@null"
-        android:checked="true"
-        android:gravity="center"
-        android:padding="@dimen/px_20"
-        android:text="@string/finish"
-        android:textColor="@drawable/rb_next_step_txt"
-        android:textSize="@dimen/sp_28" />
-
     <LinearLayout
         android:id="@+id/ll_dish_remark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_dish_count"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/px_30"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_marginTop="@dimen/px_34">
 
         <TextView
             android:layout_width="wrap_content"
@@ -172,5 +159,20 @@
             android:padding="@dimen/px_10"
             android:background="@drawable/bg_gray_4"/>
     </LinearLayout>
+    <RadioButton
+        android:id="@+id/rb_finish_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_rb_radius_4"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:padding="@dimen/px_20"
+        android:text="@string/finish"
+        android:textColor="@drawable/rb_next_step_txt"
+        android:textSize="@dimen/sp_28" />
+
+
 </RelativeLayout>
 

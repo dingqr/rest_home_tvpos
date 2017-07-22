@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.yonyou.framework.library.common.CommonUtils;
@@ -18,14 +19,12 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
-import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
 import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
 
 import java.util.ArrayList;
-
-import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 
 /**
  * 服务员点菜 设置时价称重 弹框
@@ -50,11 +49,12 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
     private InputWeightView iwvDishPrice;
     private FiltrationView fvCookery;
     private EditText etOtherRemark;
+    private LinearLayout llCookery;
 
     /**
-     * 选项数据
+     * 选项数据 做法列表是否为空 默认false-列表不为空
      */
-    private  DataBean dataBean;
+    private boolean cookeryEmptyFlag;
     /**
      * 数据回调接口
      */
@@ -64,9 +64,8 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
      */
     private boolean flag = true;
 
-    public DIA_OrderDishSetPrice(Context mContext, DataBean dataBean) {
+    public DIA_OrderDishSetPrice(Context mContext) {
         this.mContext = mContext;
-        this.dataBean = dataBean;
         initView();
     }
 
@@ -80,12 +79,20 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         iwvDishWeight = (InputWeightView) mContentView.findViewById(R.id.iwv_dish_weight);
         iwvDishPrice = (InputWeightView) mContentView.findViewById(R.id.iwv_dish_price);
         fvCookery = (FiltrationView) mContentView.findViewById(R.id.fv_cookery);
+        llCookery = (LinearLayout) mContentView.findViewById(R.id.ll_dish_cookery);
 
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
+        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
+        iwvDishWeight.setData(weightEntity);
+        WeightEntity priceEntity = new WeightEntity("元", "输入时价");
+        iwvDishPrice.setData(priceEntity);
+    }
+
+    public DIA_OrderDishSetPrice setData(DataBean dataBean) {
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -100,14 +107,12 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 cookeryOption.setOptions(options);
                 cookeryOption.setTitle("");
                 fvCookery.setData(cookeryOption);
+            } else {
+                cookeryEmptyFlag = true;
+                llCookery.setVisibility(View.GONE);
             }
         }
-
-        WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
-        iwvDishWeight.setData(weightEntity);
-        WeightEntity priceEntity = new WeightEntity("元", "输入时价");
-        iwvDishPrice.setData(priceEntity);
-
+        return this;
     }
 
     @Override
@@ -117,12 +122,13 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 mDialog.dismiss();
                 break;
             case R.id.rb_finish_select:
-                DishCallBackEntity dishCallBackEntity = initDishCallbackEntity();
+                DishCallbackEntity dishCallBackEntity = initDishCallbackEntity();
                 if (flag) {
                     if (dishDataCallback != null) {
                         dishDataCallback.sendItems(dishCallBackEntity);
                     }
-                    fvCookery.reset();
+                    if (!cookeryEmptyFlag)
+                        fvCookery.reset();
                     etOtherRemark.setText("");
                     mDialog.dismiss();
                 }
@@ -132,20 +138,41 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         }
     }
 
-    private DishCallBackEntity initDishCallbackEntity() {
-        DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
-        double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
-        String dishPrice = iwvDishPrice.getNumber();
-        String dishCookery = fvCookery.getSelectedData().getOption();
+    private DishCallbackEntity initDishCallbackEntity() {
+        DishCallbackEntity dishCallBackEntity = new DishCallbackEntity();
+        double dishWeight = 0;
+        double dishPrice = 0;
+        String dishCookery = "";
+        if (!TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
+        }else{
+            flag = false;
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+        }
+
+        if (!TextUtils.isEmpty(iwvDishPrice.getNumber())){
+            dishPrice = Double.parseDouble(iwvDishPrice.getNumber());
+        }else{
+            flag = false;
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_price), false);
+        }
+
+        if (!cookeryEmptyFlag && fvCookery.getSelectedData() != null) {
+            dishCookery = fvCookery.getSelectedData().getOption();
+        }else if ( !cookeryEmptyFlag && fvCookery.getSelectedData() == null){
+            flag = false;
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+        }
+
         String dishRemark = etOtherRemark.getText().toString().trim();
         //重量
         if (dishWeight > 0.00 && dishWeight < 99.99) {
             dishCallBackEntity.setDishWeight(dishWeight);
             //价格
-            if (Double.parseDouble(dishPrice) > 0.00 && Double.parseDouble(dishPrice) < 9999.99) {
-                dishCallBackEntity.setDishPrice(dishPrice);
+            if (dishPrice > 0.00 && dishPrice < 9999.99) {
+                dishCallBackEntity.setDishPrice(dishPrice+"");
                 //做法
-                if (!TextUtils.isEmpty(dishCookery)) {
+                if (!TextUtils.isEmpty(dishCookery) || cookeryEmptyFlag) {
                     dishCallBackEntity.setDishCookery(dishCookery);
                     flag = true;
                     //备注
@@ -156,7 +183,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 }
             } else {
                 flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_price), false);
             }
         } else {
             flag = false;

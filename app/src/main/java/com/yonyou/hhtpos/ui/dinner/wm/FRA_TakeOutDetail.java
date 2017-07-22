@@ -13,12 +13,22 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
+import com.yonyou.hhtpos.bean.FilterItemEntity;
+import com.yonyou.hhtpos.bean.FilterOptionsEntity;
+import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
+import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
+import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
+import com.yonyou.hhtpos.presenter.IWMRefundReasonPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.WMRefundReasonPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
+import com.yonyou.hhtpos.util.WMReasonsCallback;
 import com.yonyou.hhtpos.view.IWMOrderDetailView;
+import com.yonyou.hhtpos.view.IWMRefundReasonView;
+import com.yonyou.hhtpos.widgets.FiltrationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +41,7 @@ import butterknife.OnClick;
  * 邮箱：zjuan@yonyou.com
  * 描述：外卖订单详情页面-袁波
  */
-public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailView {
+public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailView, IWMRefundReasonView, WMReasonsCallback {
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
     //列表上层悬浮的标题，默认隐藏
@@ -43,8 +53,15 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private List<WMDishDetailEntity> dataList = new ArrayList<>();
     //请求外面订单详情接口
     private IOrderDetailPresenter mPresenter;
+    //请求外卖退款原因接口
+    private IWMRefundReasonPresenter refundReasonPresenter;
+
     //测试参数
     private String tableBillId = "C50242AC980000009200000000257000";
+    private String extendsTypeId = "C4C10A43B8000000EDC0000000288000";
+    private String pageNum = "1";
+    private String pageSize = "8";
+
 
     //设置接口返回数据
     private TextView tvTakeoutCompanyName;
@@ -57,6 +74,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private TextView tvRefundMoney;
     private TextView tvRefundReason;
 
+    //退款弹框
+    DIA_TakeOutRefund dia_takeOutRefund;
+
+    //设置接口返回数据
     @Bind(R.id.tv_arrive_time)//送达时间
             TextView tvArriveTime;
     @Bind(R.id.tv_send_now)
@@ -65,8 +86,9 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     TextView tvPhone;
     @Bind(R.id.tv_customer_name)
     TextView tvCustomerName;
-    @Bind(R.id.tv_person_and_dinner_type)//人数和就餐时段
-            TextView tvPersonAndDinnerType;
+    //人数和就餐时段
+    @Bind(R.id.tv_person_and_dinner_type)
+    TextView tvPersonAndDinnerType;
     @Bind(R.id.tv_arrive_address)
     TextView tvArriveAddress;
     @Bind(R.id.tv_remarks)
@@ -108,6 +130,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     protected void initViewsAndEvents() {
         mPresenter = new OrderDetailPresenterImpl(mContext, FRA_TakeOutDetail.this);
         mPresenter.requestWMOrderDetail(tableBillId);
+
         //有数据页面
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
 
@@ -138,13 +161,22 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         });
         // 无数据页面
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
+        refundReasonPresenter = new WMRefundReasonPresenterImpl(mContext,this);
+        refundReasonPresenter.getWMRefundReason(extendsTypeId, pageNum, pageSize);
     }
 
-    @OnClick({R.id.btn_right})
+    @OnClick({R.id.btn_right,R.id.btn_left})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_right:
                 readyGo(ACT_OrderDishes.class);
+                break;
+            case R.id.btn_left:
+                //退款弹框
+                dia_takeOutRefund.getDialog().show();
+                dia_takeOutRefund.setWmReasonsCallback(FRA_TakeOutDetail.this);
+                break;
+            default:
                 break;
         }
     }
@@ -189,6 +221,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     public void requestTakeOutDetail(String tableBillId) {
         mPresenter.requestWMOrderDetail(tableBillId);
     }
+
     /**
      * 获取外卖订单详情信息
      *
@@ -212,18 +245,18 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvBillMoney.setText("￥" + orderDetailEntity.getBillMoney());
 //            开单1，下单2，结账3，退款4
             int orderState = -1;
-            if(!TextUtils.isEmpty(orderDetailEntity.orderState)) {
+            if (!TextUtils.isEmpty(orderDetailEntity.orderState)) {
                 orderState = Integer.parseInt(orderDetailEntity.orderState);
             }
             switch (orderState) {
-                case 1 :
-            
+                case 1:
+
                     break;
                 case 2:
-                    
+
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
 
@@ -243,7 +276,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
             //右侧信息-要求返回Long型
             tvArriveTime.setText(orderDetailEntity.arriveTime);
-            tvSendNow.setText("("+mContext.getResources().getString(R.string.string_send_now)+")");
+            tvSendNow.setText("(" + mContext.getResources().getString(R.string.string_send_now) + ")");
             tvSendNow.setVisibility(orderDetailEntity.sendNow.equals("Y") ? View.VISIBLE : View.GONE);
             tvPhone.setText(orderDetailEntity.phone);
             tvArriveAddress.setText(orderDetailEntity.address);
@@ -260,5 +293,29 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
         }
 
+    }
+
+    @Override
+    public void getWMRefundReason(List<RefundReasonEntity> reasonList) {
+        if (reasonList != null && reasonList.size() > 0) {
+            FilterItemEntity refundReasons = new FilterItemEntity();
+            refundReasons.setTitle(mContext.getString(R.string.refund_reason));
+            ArrayList<FilterOptionsEntity> refundReasonOptions = new ArrayList<>();
+            for (int i = 0; i < reasonList.size(); i++) {
+                FilterOptionsEntity foe = new FilterOptionsEntity();
+                foe.setOption(reasonList.get(i).getReasonName());
+                foe.setType(FiltrationView.REFUND_REASON);
+                refundReasonOptions.add(foe);
+            }
+            refundReasons.setOptions(refundReasonOptions);
+
+            dia_takeOutRefund = new DIA_TakeOutRefund(mContext, refundReasons);
+            dia_takeOutRefund.setWmReasonsCallback(FRA_TakeOutDetail.this);
+        }
+    }
+
+    @Override
+    public void sendItems(WMRefundFreeReasonCallbackEntity bean) {
+        //Todo 获取退款原因后的处理
     }
 }

@@ -1,6 +1,5 @@
 package com.yonyou.hhtpos.bean.dish;
 
-import com.google.zxing.common.StringUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.io.Serializable;
  * 描述：点菜菜品选择规格、数量、重量、价格\做法、口味后的回调实体
  */
 
-public class DishCallBackEntity implements Serializable {
+public class DishCallbackEntity implements Serializable {
     /**数量*/
     private String  dishCount;
     /**规格*/
@@ -27,7 +26,7 @@ public class DishCallBackEntity implements Serializable {
     /**备注*/
     private String  dishRemark;
 
-    public DishCallBackEntity(){}
+    public DishCallbackEntity(){}
 
     public String getDishCount() {
         return dishCount;
@@ -87,7 +86,7 @@ public class DishCallBackEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "DishCallBackEntity{" +
+        return "DishCallbackEntity{" +
                 "dishCount='" + dishCount + '\'' +
                 ", dishStandard='" + dishStandard + '\'' +
                 ", dishWeight='" + dishWeight + '\'' +

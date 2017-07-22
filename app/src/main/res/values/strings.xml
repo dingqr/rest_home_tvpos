@@ -258,6 +258,7 @@
     <string name="total_price">合计</string>
     <string name="dishes_order">下单</string>
     <string name="take_out_order_no_data">今天还没有外卖订单哦~</string>
+    <string name="input_refund_reason">请选择退款原因</string>
     <string name="hint_roll_out_num">输入转出数量</string>
     <string name="string_switch_table">转台</string>
     <string name="string_operation_platform">红火台餐饮云服务运营平台</string>
@@ -280,6 +281,7 @@
     <string name="free_order">免单</string>
     <string name="free_order_money">免单金额：</string>
     <string name="free_order_reason">免单原因</string>
+    <string name="input_free_order_reason">请选择免单原因</string>
     <string name="employee_filtration">员工筛选</string>
 
     <string name="string_time_hour">时</string>

@@ -19,7 +19,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DataBean;
-import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
+import com.yonyou.hhtpos.bean.dish.DishCallbackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
@@ -52,7 +52,7 @@ import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
  * 描述：点菜页面-获取所有菜品/菜类
  * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView {
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView,DishDataCallback {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
     @Bind(ll_content)
@@ -146,6 +146,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
         //点菜时的弹窗
         mDiaCountDish = new DIA_OrderDishCount(mContext);
+        mDiaCountDish.setDishDataCallback(FRA_OrderDishes.this);
 
         initListener();
 
@@ -243,7 +244,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         });
         mDiaCountDish.setDishDataCallback(new DishDataCallback() {
             @Override
-            public void sendItems(DishCallBackEntity bean) {
+            public void sendItems(DishCallbackEntity bean) {
                 Log.e("TAG", "bean="+bean.getDishCount());
             }
         });
@@ -306,6 +307,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void sendItems(DishCallbackEntity bean) {
 
     }
 
