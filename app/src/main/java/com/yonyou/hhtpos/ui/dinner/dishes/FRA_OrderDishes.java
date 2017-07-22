@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.ui.dinner.dishes;
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -17,16 +18,20 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
+import com.yonyou.hhtpos.bean.dish.DataBean;
+import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
+import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
@@ -85,6 +90,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private LinearLayout.LayoutParams mParams;
     //菜品在列表的位置
     private int mPosition;
+    private DIA_OrderDishCount mDiaCountDish;
 
     @Override
     protected void onFirstUserVisible() {
@@ -138,11 +144,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 //        setData();
 //        mRightNavigationView.setData(NavigationUtil.getRightDefaultData());
 
+        //点菜时的弹窗
+        mDiaCountDish = new DIA_OrderDishCount(mContext);
+
         initListener();
 
         mParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //空页面
 //        showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM,"");
+
+
     }
 
     private void initListener() {
@@ -178,8 +189,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //写死的字段
                 requestAddDishEntity.tableBillId = mbleBillId;
 
-                mAddDishPresenter.requestAddDish(requestAddDishEntity);
-
+//                //调用点菜的接口
+//                mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                DataBean dataBean = new DataBean();
+                dataBean.setPractices(dishesEntity.practices);
+                dataBean.setRemarks(dishesEntity.remarks);
+                dataBean.setStandards(dishesEntity.standards);
+                mDiaCountDish.setData(dataBean).getDialog().show();
 
                 //动画开始的View
                 startView = iv_start;
@@ -223,6 +239,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                         showEmpty(R.drawable.ic_wm_dishes_empty, mContext.getResources().getString(R.string.string_empty_dishes));
                     }
                 }
+            }
+        });
+        mDiaCountDish.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "bean="+bean.getDishCount());
             }
         });
     }
@@ -332,6 +354,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
+
     }
 
     /**
