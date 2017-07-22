@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,7 +19,6 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DataBean;
-import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
@@ -36,7 +34,6 @@ import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
-import com.yonyou.hhtpos.util.DishDataCallback;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
@@ -237,7 +234,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 }
                 //规格
                 if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
-                    mDiaStandards.setData(dataBean).getDialog().show();
+                    mDiaStandards.setDataBean(dataBean).getDialog().show();
                     return;
                 }
                 //无规格、无做法，直接加入购物车；
@@ -287,19 +284,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                         showEmpty(R.drawable.ic_wm_dishes_empty, mContext.getResources().getString(R.string.string_empty_dishes));
                     }
                 }
-            }
-        });
-        mDiaNormal.setDishDataCallback(new DishDataCallback() {
-            @Override
-            public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "bean=" + bean.getDishCount());
-                requestAddDishEntity.listShowPractice = new ArrayList<>();
-                requestAddDishEntity.listShowRemark = new ArrayList<>();
-//                requestAddDishEntity.practices = "";
-                requestAddDishEntity.quantity = "1";
-                requestAddDishEntity.remarks = new ArrayList<>();
-                requestAddDishEntity.remark = "";
-                requestAddDishEntity.standardId = "";
             }
         });
     }
