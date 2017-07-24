@@ -50,7 +50,7 @@ public class RequestAddDishEntity {
     /**
      * 所选做法id列表
      */
-    public List practices;
+    public List<String> practices;
 
     /**
      * 数量

@@ -224,7 +224,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //缺少的字段
                 requestAddDishEntity.listShowPractice = new ArrayList<>();
                 requestAddDishEntity.listShowRemark = new ArrayList<>();
-//                requestAddDishEntity.practices = "";
+                requestAddDishEntity.practices = new ArrayList<>();
                 requestAddDishEntity.quantity = "1";
                 requestAddDishEntity.remarks = new ArrayList<>();
                 requestAddDishEntity.remark = "";
@@ -238,7 +238,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 DataBean dataBean = setDialogData(dishesEntity);
 
                 //称重、时价
-                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish.equals("Y")) {
+                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish != null && dishesEntity.isCurrentDish.equals("Y")) {
                     mDiaCurrentDishWeight.setData(dataBean).getDialog().show();
                     return;
                 }
@@ -309,8 +309,14 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
         mDiaCurrentDishWeight.setDishDataCallback(new DishDataCallback() {
             @Override
-            public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "时价、称重=" + bean.toString());
+            public void sendItems(DishCallBackEntity dishCallBackEntity) {
+                Log.e("TAG", "时价、称重=" + dishCallBackEntity.toString());
+                //重量
+                double dishWeight = dishCallBackEntity.getDishWeight();
+                //时价
+                String dishPrice = dishCallBackEntity.getDishPrice();
+                //填写的备注
+                String dishRemark = dishCallBackEntity.getDishRemark();
             }
         });
         mDiaStandards.setDishDataCallback(new DishDataCallback() {
