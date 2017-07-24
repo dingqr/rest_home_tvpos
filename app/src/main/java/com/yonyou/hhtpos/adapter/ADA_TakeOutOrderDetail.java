@@ -38,22 +38,24 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             }
             //新点的菜后台没有记录时间
         }
-        //        //根据菜品的提交订单时间，分组显示列表
-        if (position == getFirstVisiblePosition(dishDetailEntity.orderTime)) {
-            holder.setVisible(R.id.tv_header_time, true);
-        } else {
-            holder.setVisible(R.id.tv_header_time, false);
-        }
+            //根据菜品的提交订单时间，分组显示列表
+//        if (position == getFirstVisiblePosition(String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)))) {
+//            holder.setVisible(R.id.tv_header_time, true);
+//        } else {
+//            holder.setVisible(R.id.tv_header_time, false);
+//        }
     }
+
     /**
      * 根据订单统一提交的时间，找到分组中每组应显示标题的第一个position
      *
      * @param orderTime
      */
-    private int getFirstVisiblePosition(Long orderTime) {
+    private int getFirstVisiblePosition(String orderTime) {
         for (int i = 0; i < mDatas.size(); i++) {
             WMDishDetailEntity wmDishDetailEntity = mDatas.get(i);
-            if (orderTime.equals(wmDishDetailEntity.orderTime)) {
+            String order_time = String.valueOf(AppDateUtil.getTimeStamp(wmDishDetailEntity.orderTime, AppDateUtil.HH_MM));
+            if (order_time.equals(orderTime)) {
                 return i;
             }
         }
