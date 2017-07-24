@@ -118,6 +118,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     public void onRefreshRightCount(DishListEntity bean) {
         this.mDishTypeList = bean.getDishTypelist();
         this.mOrderedDishes = bean.getDishes();
+        if (mDishDataBean != null && mDishDataBean.dishTypes != null && mDishDataBean.dishTypes.size() > 0) {
+            setRightDishTypeData();
+            setDishesCheckStatus(mDishDataBean);
+        }
     }
 
     @Override
