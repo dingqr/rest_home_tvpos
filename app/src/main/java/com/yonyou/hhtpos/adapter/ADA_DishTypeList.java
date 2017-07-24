@@ -16,6 +16,8 @@ import com.yonyou.hhtpos.bean.dish.DishesEntity;
 
 import java.util.List;
 
+import static com.yonyou.hhtpos.R.id.tv_tastes;
+
 
 /**
  * Created by zj on 2017/7/11.
@@ -42,14 +44,15 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
     protected void convert(ViewHolder holder, final DishesEntity dishesEntity, final int position) {
 
         final LinearLayout ll_item_root = holder.getView(R.id.ll_item_root);
-        final TextView dish_name = holder.getView(R.id.dish_name);
-        final TextView tv_tastes = holder.getView(R.id.tv_tastes);
+        final TextView dishName = holder.getView(R.id.dish_name);
+        final TextView tvTastes = holder.getView(tv_tastes);
+        final ImageView ivWeightSign = holder.getView(R.id.iv_weight_sign);
         //回调item点击事件
         ll_item_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnActionOrderDishListener != null) {
-                    mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position,dishesEntity);
+                    mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position, dishesEntity);
                 }
             }
         });
@@ -72,17 +75,18 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             //设置口味显示
             List<DishTastesEntity> tastes = dishesEntity.tastes;
             if (tastes.size() > 0) {
-                tv_tastes.setVisibility(View.VISIBLE);
+                tvTastes.setVisibility(View.VISIBLE);
                 for (int i = 0; i < tastes.size(); i++) {
                     mBuffer.append(tastes.get(i).tasteName + " ");
                 }
-                tv_tastes.setText(mBuffer.toString().trim());
+                tvTastes.setText(mBuffer.toString().trim());
             } else {
-                tv_tastes.setVisibility(View.INVISIBLE);
+                tvTastes.setVisibility(View.INVISIBLE);
             }
             //设置价格
-            holder.setText(R.id.tv_dish_price,dishesEntity.getPrice());
-
+            holder.setText(R.id.tv_dish_price, "￥" + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+            //设置是否是称重
+            ivWeightSign.setVisibility(dishesEntity.isWeigh.equals("Y") ? View.VISIBLE : View.GONE);
 
             //售罄状态item置灰效果
 //        if () {
@@ -96,12 +100,13 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
 //            holder.setTextColor(R.id.tv_dish_price, ContextCompat.getColor(mContext, R.color.color_222222));
 //        }
             //设置显示的标签
-            setLabels(dishesEntity, dish_name, tvLabelOne, tvLabelTwo);
+            setLabels(dishesEntity, dishName, tvLabelOne, tvLabelTwo);
         }
     }
 
     /**
      * 设置显示的标签
+     *
      * @param dishesEntity
      * @param dish_name
      * @param tvLabelOne
@@ -143,7 +148,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
     }
 
     public interface OnActionOrderDishListener {
-        void OnActionOrderDish(View iv_start, int pos,DishesEntity dishesEntity);
+        void OnActionOrderDish(View iv_start, int pos, DishesEntity dishesEntity);
     }
 
     public void setOnActionOrderDishListener(OnActionOrderDishListener onActionOrderDishListener) {
