@@ -33,6 +33,7 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("companyId", requestAddDishEntity.companyId);
         params.put("dishClassid", requestAddDishEntity.dishClassid);
+        params.put("dishId", requestAddDishEntity.dishId);
         params.put("dishName", requestAddDishEntity.dishName);
         params.put("dishPrice", requestAddDishEntity.getDishPrice());
         params.put("dishRelateId", requestAddDishEntity.dishRelateId);

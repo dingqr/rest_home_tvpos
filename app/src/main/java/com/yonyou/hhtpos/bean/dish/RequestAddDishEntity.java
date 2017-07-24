@@ -19,6 +19,10 @@ public class RequestAddDishEntity {
      */
     public String dishClassid;
     /**
+     * id
+     */
+    public String id;
+    /**
      * 菜品名称
      */
     public String dishName;
@@ -30,6 +34,10 @@ public class RequestAddDishEntity {
      * 菜品关联id
      */
     public String dishRelateId;
+    /**
+     * dishId
+     */
+    public String dishId;
     /**
      * 菜品状态：等叫：7，即起：8，催菜：6，确认上菜：5
      */

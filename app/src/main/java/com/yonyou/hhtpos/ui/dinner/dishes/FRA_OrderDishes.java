@@ -216,6 +216,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.companyId = dishesEntity.companyId;
                 requestAddDishEntity.dishClassid = dishesEntity.dishTypeRelateId;
                 requestAddDishEntity.dishName = dishesEntity.dishName;
+                requestAddDishEntity.dishId = dishesEntity.id;
                 requestAddDishEntity.setDishPrice(dishesEntity.getPrice());
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
