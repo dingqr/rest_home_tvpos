@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.util;
+package com.yonyou.hhtpos.interfaces;
 
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
 

@@ -1,4 +1,4 @@
-package com.yonyou.hhtpos.util;
+package com.yonyou.hhtpos.widgets;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

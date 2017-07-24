@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
@@ -20,7 +21,7 @@ import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
-import com.yonyou.hhtpos.util.DishDataCallback;
+import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
 
@@ -49,6 +50,11 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
     private FiltrationView fvCookery;
     private EditText etOtherRemark;
     private LinearLayout llCookery;
+
+    private TextView tvDishName;
+    private TextView tvHostSale;
+    private TextView tvDishPrice;
+    private TextView tvChiefRecommend;
 
     /**
      * 选项数据 做法列表是否为空 默认false-列表不为空
@@ -80,17 +86,36 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
         fvCookery = (FiltrationView) mContentView.findViewById(R.id.fv_cookery);
         llCookery = (LinearLayout) mContentView.findViewById(R.id.ll_dish_cookery);
 
+        tvDishName = (TextView) mContentView.findViewById(R.id.tv_dish_name);
+        tvDishPrice = (TextView) mContentView.findViewById(R.id.tv_dish_price);
+        tvHostSale = (TextView) mContentView.findViewById(R.id.ib_hot_sale);
+        tvChiefRecommend = (TextView) mContentView.findViewById(R.id.ib_chief_recommend);
+
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
-
 
         WeightEntity weightEntity = new WeightEntity("斤", "输入重量");
         iwvDishWeight.setData(weightEntity);
     }
 
     public DIA_OrderDishSetWeight setData(DataBean dataBean) {
+        //设置菜品名称
+        tvDishName.setText(StringUtil.getString(dataBean.getDishName()));
+        //设置菜品价格
+        tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
+        //设置菜品标签
+        if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
+            if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
+                tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
+            } else tvHostSale.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+                tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
+            } else tvChiefRecommend.setVisibility(View.GONE);
+        }
+
+
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
