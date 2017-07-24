@@ -117,7 +117,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRightCount(DishListEntity bean) {
         this.mDishTypeList = bean.getDishTypelist();
-        mOrderedDishes = bean.getDishes();
+        this.mOrderedDishes = bean.getDishes();
     }
 
     @Override
