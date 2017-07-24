@@ -51,6 +51,9 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         minus.setOnClickListener(this);
         currentCount = (TextView)convertView.findViewById(R.id.tv_current_count);
     }
+    public void reset(){
+        currentCount.setText("1");
+    }
 
     @Override
     public void onClick(View v) {

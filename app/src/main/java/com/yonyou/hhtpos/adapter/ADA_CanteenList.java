@@ -1,12 +1,14 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.yonyou.framework.library.adapter.rv.CommonAdapter;
 import com.yonyou.framework.library.adapter.rv.ViewHolder;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
+import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 
 /**
  * Created by zj on 2017/7/8.
@@ -25,7 +27,7 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
 
     //    桌台状态：0 空闲 ，1 占用（消费中），2 占用（部分支付），3 占用（锁定），4 占用（结清），5 预订，传（1,2，3,4）为查询占用，不传默认查询全部
     @Override
-    protected void convert(ViewHolder holder, CanteenTableEntity canteenTableEntity, int position) {
+    protected void convert(ViewHolder holder, final CanteenTableEntity canteenTableEntity, int position) {
         //除了空闲状态，都显示操作时间
         //桌台名称
         holder.setText(R.id.tv_table_name, canteenTableEntity.tableName);
@@ -74,12 +76,20 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
         //占用：显示账单金额、下单时间，占用icon标记
         //预定：显示可容纳人数，当前占用桌位个数
 
-//        // item点击
-//        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        // item点击事件
+        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (canteenTableEntity.tableStatus){
+                    //桌台空闲 弹出开单对话框
+                    case 0:
+                        DIA_OpenOrder dia_openOrder = new DIA_OpenOrder(mContext);
+                        dia_openOrder.getDialog().show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

@@ -129,9 +129,9 @@
                 android:layout_marginTop="@dimen/px_14"
                 android:background="@drawable/bg_gray_side_gray"
                 android:clickable="true"
-                android:gravity="center_vertical"
                 android:hint="@string/hint_enter_receiver_address"
                 android:minLines="2"
+                android:gravity="top"
                 android:padding="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"
                 android:textSize="@dimen/sp_24" />

@@ -15,16 +15,22 @@ public class DishCallBackEntity implements Serializable {
     private String  dishCount;
     /**规格*/
     private String  dishStandard;
+    /**规格id*/
+    private String  dishStandardId;
     /**重量*/
     private double  dishWeight;
     /**价格，时价*/
     private String  dishPrice;
     /**做法*/
     private String  dishCookery;
+    /**做法id*/
+    private String  dishCookeryId;
     /**口味*/
     private String  dishTaste;
     /**备注*/
     private String  dishRemark;
+    /**备注id*/
+    private String  dishRemarkId;
 
     public DishCallBackEntity(){}
 
@@ -84,16 +90,43 @@ public class DishCallBackEntity implements Serializable {
         this.dishRemark = dishRemark;
     }
 
+    public String getDishCookeryId() {
+        return dishCookeryId;
+    }
+
+    public void setDishCookeryId(String dishCookeryId) {
+        this.dishCookeryId = dishCookeryId;
+    }
+
+    public String getDishRemarkId() {
+        return dishRemarkId;
+    }
+
+    public void setDishRemarkId(String dishRemarkId) {
+        this.dishRemarkId = dishRemarkId;
+    }
+
+    public String getDishStandardId() {
+        return dishStandardId;
+    }
+
+    public void setDishStandardId(String dishStandardId) {
+        this.dishStandardId = dishStandardId;
+    }
+
     @Override
     public String toString() {
-        return "DishCallbackEntity{" +
+        return "DishCallBackEntity{" +
                 "dishCount='" + dishCount + '\'' +
                 ", dishStandard='" + dishStandard + '\'' +
-                ", dishWeight='" + dishWeight + '\'' +
+                ", dishStandardId='" + dishStandardId + '\'' +
+                ", dishWeight=" + dishWeight +
                 ", dishPrice='" + dishPrice + '\'' +
                 ", dishCookery='" + dishCookery + '\'' +
+                ", dishCookeryId='" + dishCookeryId + '\'' +
                 ", dishTaste='" + dishTaste + '\'' +
                 ", dishRemark='" + dishRemark + '\'' +
+                ", dishRemarkId='" + dishRemarkId + '\'' +
                 '}';
     }
 }

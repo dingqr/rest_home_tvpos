@@ -106,12 +106,17 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
     public DIA_OrderDishSetPrice setData(DataBean dataBean) {
         //设置菜品名称
         tvDishName.setText(StringUtil.getString(dataBean.getDishName()));
+        //设置菜品价格
+        if (!TextUtils.isEmpty(dataBean.getPrice())) {
+            tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
+        }
         //设置菜品标签
         if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
                 tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
             } else tvHostSale.setVisibility(View.GONE);
-            if (!TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+            if (dataBean.getLabels().size() > 1 &&
+                    dataBean.getLabels().get(1) != null && !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
             } else tvChiefRecommend.setVisibility(View.GONE);
         }
@@ -124,6 +129,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
                     foe.setType(FiltrationView.COOKERY);
                     options.add(foe);
                 }
@@ -153,6 +159,8 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                     if (!cookeryEmptyFlag)
                         fvCookery.reset();
                     etOtherRemark.setText("");
+                    iwvDishPrice.reset();
+                    iwvDishWeight.reset();
                     mDialog.dismiss();
                 }
                 break;

@@ -114,16 +114,18 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
         //设置菜品价格
         tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
         //设置菜品标签
-        if (dataBean.getLabels()!=null && dataBean.getLabels().size()>0){
+        if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
                 tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
             } else tvHostSale.setVisibility(View.GONE);
-            if (!TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+            if (dataBean.getLabels().size() > 1 &&
+                    dataBean.getLabels().get(1) != null && !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
             } else tvChiefRecommend.setVisibility(View.GONE);
         }
         //TODO 设置菜品口味
         tvDishTaste.setText(StringUtil.getString(""));
+
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -132,6 +134,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
                     foe.setType(FiltrationView.COOKERY);
                     options.add(foe);
                 }
@@ -150,6 +153,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getRemarks().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getRemarks().get(i).remarkName);
+                    foe.setOptionId(dataBean.getRemarks().get(i).relateId);
                     foe.setType(MultipleSelectView.DISH_REMARK);
                     options.add(foe);
                 }
@@ -181,6 +185,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                     if (!remarkEmptyFlag)
                         fvRemark.reset();
                     etOtherRemark.setText("");
+                    iwvDishWeight.reset();
                     mDialog.dismiss();
                 }
                 break;
@@ -204,8 +209,10 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
 
             if (fvCookery.getSelectedData() != null && !cookeryEmptyFlag) {
                 String dishCookery = fvCookery.getSelectedData().getOption();
+                String dishCookeryId = fvCookery.getSelectedData().getOptionId();
                 //做法
                 dishCallBackEntity.setDishCookery(dishCookery);
+                dishCallBackEntity.setDishCookeryId(dishCookeryId);
                 flag = true;
                 //备注
                 dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));

@@ -38,7 +38,8 @@ import butterknife.Bind;
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食列表
  */
-public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView{
+public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
+        MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView{
 
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;

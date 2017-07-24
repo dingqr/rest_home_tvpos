@@ -151,73 +151,64 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         }
     }
 
-    private OpenOrderEntity initEntity() {
-        OpenOrderEntity wmooe = new OpenOrderEntity();
-        //外卖公司id
+    private boolean verifyInput() {
         takeoutCompany = filtrationView.getSelectedData();
-        if (takeoutCompany != null) {
-            takeOutCompanyId = takeoutCompany.getOptionId();
-            wmooe.setTakeOutCompanyId(takeOutCompanyId);
-
-            //收餐人姓名
-            receiverName = etEnterReceiverName.getText().toString().trim();
-            if (!TextUtils.isEmpty(receiverName)) {
-                wmooe.setName(receiverName);
-
-                //收餐人电话
-                if (doValidatePhone()) {
-                    receiverPhone = etEnterReceiverPhone.getText().toString().trim();
-                    wmooe.setPhone(receiverPhone);
-
-                    //收餐人地址
-                    receiverAddress = etEnterReceiverAddress.getText().toString().trim();
-                    if (!TextUtils.isEmpty(receiverAddress)) {
-                        wmooe.setAddress(receiverAddress);
-
-                        //用餐人数
-                        dinnerNumber = etDinnerNumber.getText().toString().trim();
-                        if (!TextUtils.isEmpty(dinnerNumber)) {
-                            wmooe.setPersonNum(dinnerNumber);
-
-                            //是否立即送餐
-                            if (etSelectDeliverTime.getVisibility() == View.GONE) {
-                                //立即送餐
-                                wmooe.setSendNow("Y");
-                                flag = true;
-                            } else {
-                                wmooe.setSendNow("N");
-                                //预约时间：
-                                String reserveTime = etSelectDeliverTime.getText().toString().trim();
-                                if (!TextUtils.isEmpty(reserveTime)) {
-                                    flag = true;
-                                    wmooe.setReserveTime(reserveTime);
-                                } else {
-                                    flag = false;
-                                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.reserve_time_error), false);
-                                }
-                            }
-                        } else {
-                            flag = false;
-                            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
-                        }
-                    } else {
-                        flag = false;
-                        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_address_empty), false);
-                    }
-                } else {
-                    flag = false;
-                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.phone_error), false);
-                }
-            } else {
-                flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_name_empty), false);
-            }
-        } else {
-            flag = false;
+        receiverName = etEnterReceiverName.getText().toString().trim();
+        receiverAddress = etEnterReceiverAddress.getText().toString().trim();
+        dinnerNumber = etDinnerNumber.getText().toString().trim();
+        if (takeoutCompany == null){
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.take_out_company_error), false);
+            return false;
+        }
+        if (TextUtils.isEmpty(receiverName)) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_name_empty), false);
+            return false;
+        }
+        if (!doValidatePhone()) {
+            return false;
+        }
+        if (TextUtils.isEmpty(receiverAddress)) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_address_empty), false);
+            return false;
+        }
+        if (TextUtils.isEmpty(dinnerNumber)) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
+            return false;
         }
 
-        return wmooe;
+        return true;
+    }
+
+    private OpenOrderEntity initEntity() {
+        OpenOrderEntity wmooe = new OpenOrderEntity();
+
+        if (verifyInput()) {
+            takeOutCompanyId = takeoutCompany.getOptionId();
+            wmooe.setTakeOutCompanyId(takeOutCompanyId);
+            wmooe.setName(receiverName);
+            wmooe.setPhone(receiverPhone);
+            wmooe.setAddress(receiverAddress);
+            wmooe.setPersonNum(dinnerNumber);
+
+            //是否立即送餐
+            if (etSelectDeliverTime.getVisibility() == View.GONE){
+                wmooe.setSendNow("Y");
+            }else{
+                wmooe.setSendNow("N");
+                String reserveTime = etSelectDeliverTime.getText().toString().trim();
+                if (!TextUtils.isEmpty(reserveTime)) {
+                    flag = true;
+                    wmooe.setReserveTime(reserveTime);
+                } else {
+                    flag = false;
+                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.reserve_time_error), false);
+                }
+            }
+            return wmooe;
+        } else {
+            flag = false;
+            return null;
+        }
     }
 
     public Dialog getDialog() {

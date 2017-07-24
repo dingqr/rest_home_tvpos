@@ -50,8 +50,9 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
     private ModifyCountView mcvDishCount;
     private LinearLayout llDishNorms;
     private TextView tvDishName;
-    private TextView tvHostSale;
+    private TextView tvHotSale;
     private TextView tvDishPrice;
+    private TextView tvChiefRecommend;
 
     /**
      * 选项数据
@@ -82,9 +83,10 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
         mcvDishCount = (ModifyCountView) mContentView.findViewById(R.id.mcv_dish_count);
         llDishNorms = (LinearLayout) mContentView.findViewById(R.id.ll_dish_norms);
-        tvDishName = (TextView)mContentView.findViewById(R.id.tv_dish_name);
-        tvDishPrice = (TextView)mContentView.findViewById(R.id.tv_dish_price);
-        tvHostSale = (TextView)mContentView.findViewById(R.id.ib_hot_sale);
+        tvDishName = (TextView) mContentView.findViewById(R.id.tv_dish_name);
+        tvDishPrice = (TextView) mContentView.findViewById(R.id.tv_dish_price);
+        tvHotSale = (TextView) mContentView.findViewById(R.id.ib_hot_sale);
+        tvChiefRecommend = (TextView) mContentView.findViewById(R.id.ib_chief_recommend);
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
@@ -94,14 +96,18 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
 
     public DIA_OrderDishNorms setDataBean(DataBean dataBean) {
         //设置菜品名称
-        tvDishName.setText( StringUtil.getString(dataBean.getDishName()));
+        tvDishName.setText(StringUtil.getString(dataBean.getDishName()));
         //设置菜品价格
         tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
         //设置菜品标签
-        if (dataBean.getLabels()!=null && dataBean.getLabels().size()>0){
+        if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
-                tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
-            } else tvHostSale.setVisibility(View.GONE);
+                tvHotSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
+            } else tvHotSale.setVisibility(View.GONE);
+            if (dataBean.getLabels().size() > 1
+                    && dataBean.getLabels().get(1) != null && !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+                tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
+            } else tvChiefRecommend.setVisibility(View.GONE);
         }
 
         if (dataBean != null) {
@@ -112,6 +118,7 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getStandards().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getStandards().get(i).standardName);
+                    foe.setOptionId(dataBean.getStandards().get(i).relateId);
                     foe.setType(FiltrationView.DISH_NORMS);
                     options.add(foe);
                 }
@@ -141,6 +148,7 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
                     if (!normsEmptyFlag)
                         fvDishNorms.reset();
                     etOtherRemark.setText("");
+                    mcvDishCount.reset();
                     mDialog.dismiss();
                 }
                 break;
@@ -152,11 +160,12 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
     private DishCallBackEntity initDishCallBackEntity() {
         DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
         String dishNorm = "";
+        String dishNormId = "";
         if (!normsEmptyFlag && fvDishNorms.getSelectedData() != null) {
             dishNorm = fvDishNorms.getSelectedData().getOption();
+            dishNormId = fvDishNorms.getSelectedData().getOptionId();
         }
         int dishCount = mcvDishCount.getCount();
-
         String dishRemark = etOtherRemark.getText().toString().trim();
         if (dishCount > 0) {
             //数量
@@ -165,6 +174,7 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
             //规格
             if (!TextUtils.isEmpty(dishNorm) || normsEmptyFlag) {
                 dishCallBackEntity.setDishStandard(dishNorm);
+                dishCallBackEntity.setDishStandardId(dishNormId);
                 flag = true;
                 //备注
                 dishCallBackEntity.setDishRemark(StringUtil.getString(dishRemark));
@@ -177,10 +187,8 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
             flag = false;
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
         }
-
-
-    return dishCallBackEntity;
-}
+        return dishCallBackEntity;
+    }
 
     public Dialog getDialog() {
         mDialog.getWindow().setGravity(Gravity.CENTER);
