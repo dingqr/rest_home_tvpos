@@ -20,7 +20,6 @@ import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
 import com.yonyou.hhtpos.presenter.IWMListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WMListPresenterImpl;
-import com.yonyou.hhtpos.ui.dinner.wd.ACT_Packing;
 import com.yonyou.hhtpos.util.AdapterUtil;
 import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWMListView;

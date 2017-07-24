@@ -40,6 +40,8 @@ public class DishListEntity implements Serializable {
 //        private List<String> details;
 //        /**分类id */
 //        private String dishClassId;
+        /**唯一标识*/
+        public String dishRelateId;
         /**名称 */
         private String dishName;
         /**价格 */
@@ -142,6 +144,14 @@ public class DishListEntity implements Serializable {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getDishRelateId() {
+            return dishRelateId;
+        }
+
+        public void setDishRelateId(String dishRelateId) {
+            this.dishRelateId = dishRelateId;
         }
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
-import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.interactor.IAddDishInteractor;
@@ -35,7 +34,7 @@ public class AddDishPresenterImpl implements IAddDishPresenter {
      */
     @Override
     public void requestAddDish(RequestAddDishEntity requestAddDishEntity) {
-        mAddDishView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
+//        mAddDishView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
         mAddDishInteractor.requestAddDish(requestAddDishEntity);
     }
 
@@ -43,19 +42,19 @@ public class AddDishPresenterImpl implements IAddDishPresenter {
 
         @Override
         public void onSuccess(int event_tag, String result) {
-            mAddDishView.hideLoading();
+//            mAddDishView.hideLoading();
             mAddDishView.requestAddDish(result);
         }
 
         @Override
         public void onError(String msg) {
-            mAddDishView.hideLoading();
+//            mAddDishView.hideLoading();
             CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onException(String msg) {
-            mAddDishView.hideLoading();
+//            mAddDishView.hideLoading();
             mAddDishView.showException(msg);
             CommonUtils.makeEventToast(mContext, msg, false);
         }

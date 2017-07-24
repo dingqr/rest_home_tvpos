@@ -42,7 +42,7 @@ public class DishesEntity implements Serializable {
     public String dishName;
 
     /**
-     * 菜品类型
+     * 菜品类型：1普通菜品; 2固定套菜; 3N选N套餐
      */
     public String dishType;
     /**
@@ -108,7 +108,9 @@ public class DishesEntity implements Serializable {
     public String relateId;
 
 
-    /***/
+    /**
+     * 备注列表
+     */
     public List<DishRemarkEntity> remarks;
 
     /**

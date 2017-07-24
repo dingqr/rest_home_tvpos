@@ -12,7 +12,7 @@ public class API {
 //    public static final String BASE_SERVER_IP = "http://api-c2b.honghuotai.com"; //正式服务器地址
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //线上ip
-//    public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
+    //    public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
 //    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8088";// shop端口号
@@ -114,7 +114,7 @@ public class API {
     /**
      * 点菜时，新加菜品
      */
-    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
+    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
     /**
      * 查询服务员
      */

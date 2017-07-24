@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
@@ -45,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 import static com.yonyou.hhtpos.R.id.ll_content;
 import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
@@ -88,6 +92,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private String mTableBillId = "C50242AC980000009200000000257000";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
+    //已点菜类、角标数量
+    private List<DishListEntity.DishType> mDishTypeList = new ArrayList<>();
 
     //添加菜品presenter
     private IAddDishPresenter mAddDishPresenter;
@@ -101,6 +107,18 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
+    private List<DishListEntity.Dishes> mOrderedDishes;
+
+    /**
+     * 接收右侧角标数量的数据集合
+     *
+     * @param bean
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onRefreshRightCount(DishListEntity bean) {
+        this.mDishTypeList = bean.getDishTypelist();
+        mOrderedDishes = bean.getDishes();
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -206,7 +224,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //缺少的字段
                 requestAddDishEntity.listShowPractice = new ArrayList<>();
                 requestAddDishEntity.listShowRemark = new ArrayList<>();
-//                requestAddDishEntity.practices = "";
+                requestAddDishEntity.practices = new ArrayList<>();
                 requestAddDishEntity.quantity = "1";
                 requestAddDishEntity.remarks = new ArrayList<>();
                 requestAddDishEntity.remark = "";
@@ -220,7 +238,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 DataBean dataBean = setDialogData(dishesEntity);
 
                 //称重、时价
-                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish.equals("Y")) {
+                if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish != null && dishesEntity.isCurrentDish.equals("Y")) {
                     mDiaCurrentDishWeight.setData(dataBean).getDialog().show();
                     return;
                 }
@@ -288,12 +306,44 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 }
             }
         });
+
+        mDiaCurrentDishWeight.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity dishCallBackEntity) {
+                Log.e("TAG", "时价、称重=" + dishCallBackEntity.toString());
+                //重量
+                double dishWeight = dishCallBackEntity.getDishWeight();
+                //时价
+                String dishPrice = dishCallBackEntity.getDishPrice();
+                //填写的备注
+                String dishRemark = dishCallBackEntity.getDishRemark();
+            }
+        });
+        mDiaStandards.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "规格=" + bean.toString());
+            }
+        });
+        mDiaWeightRemarks.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "称重、有备注列表=" + bean.toString());
+            }
+        });
+        mDiaWeightNormal.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "称重、无备注列表=" + bean.toString());
+            }
+        });
         mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Log.e("TAG", "bean="+bean.getDishCount());
+                Log.e("TAG", "bean=" + bean.toString());
             }
         });
+
     }
 
     @NonNull
@@ -312,6 +362,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         }
         if (dishesEntity.standards.size() > 0 && dishesEntity.standards != null) {
             dataBean.setStandards(dishesEntity.standards);
+        }
+        if (dishesEntity.tastes.size() > 0 && dishesEntity.tastes != null) {
+            dataBean.setTastes(dishesEntity.tastes);
         }
         return dataBean;
     }
@@ -369,7 +422,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override
@@ -414,14 +467,64 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     public void getAllDishes(DishDataEntity dishDataEntity) {
         this.mDishDataBean = dishDataEntity;
         if (mDishDataBean != null) {
+            //设置已点菜的选中状态
+            setDishesCheckStatus(dishDataEntity);
             //给右侧菜类设置数据
-            mRightNavigationView.setData(mDishDataBean.dishTypes);
+            setRightDishTypeData();
             //给菜品设置默认数据
             mAdapter.update(mDishDataBean.dishTypes.get(1).dishes);
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
 
+    }
+
+    /**
+     * 设置已点菜的选中状态
+     *
+     * @param dishDataEntity
+     */
+    private void setDishesCheckStatus(DishDataEntity dishDataEntity) {
+        for (int i = 0; i < mOrderedDishes.size(); i++) {
+            //遍历已点菜的id
+            String dishRelateId = mOrderedDishes.get(i).getDishRelateId();
+            for (int j = 0; j < dishDataEntity.dishTypes.size(); j++) {
+                List<DishesEntity> dishes = dishDataEntity.dishTypes.get(j).dishes;
+                if (dishes != null && dishes.size() > 0) {
+                    for (int k = 0; k < dishes.size(); k++) {
+                        //所有菜品的唯一标识
+                        String relateId = dishes.get(k).relateId;
+                        if (dishRelateId.equals(relateId)) {
+                            dishes.get(k).isCheck = true;
+                            continue;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    /**
+     * 给右侧菜类设置数据
+     */
+    private void setRightDishTypeData() {
+        List<DishTypesEntity> dishTypes = mDishDataBean.dishTypes;
+        //菜类唯一标识：relateId ,匹配菜类，刷新角标数量
+        if (mDishTypeList.size() > 0) {
+            for (int i = 0; i < mDishTypeList.size(); i++) {
+                String dishClassId = mDishTypeList.get(i).getDishClassId();
+                for (int j = 0; j < dishTypes.size(); j++) {
+                    String relateId = dishTypes.get(j).relateId;
+                    if (dishClassId.equals(relateId)) {
+                        dishTypes.get(j).count = Integer.parseInt(mDishTypeList.get(i).getQuantity());
+                        break;
+                    }
+                }
+            }
+        }
+        //给右侧菜类设置数据
+        mRightNavigationView.setData(mDishDataBean.dishTypes);
     }
 
     /**

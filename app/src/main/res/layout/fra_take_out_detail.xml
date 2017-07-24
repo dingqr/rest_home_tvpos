@@ -240,13 +240,14 @@
                     android:textColor="@color/color_eb6247"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>
-
+            <!--支付方式-->
             <LinearLayout
                 android:id="@+id/ll_pay_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/px_14">
 
                 <TextView
@@ -274,7 +275,7 @@
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
                 android:layout_marginTop="@dimen/px_14"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -317,7 +318,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="+18"
                     android:textColor="@color/color_eb6247"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>

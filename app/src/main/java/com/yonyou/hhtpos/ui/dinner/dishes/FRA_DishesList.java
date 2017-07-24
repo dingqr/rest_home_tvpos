@@ -22,6 +22,7 @@ import com.yonyou.hhtpos.view.IDishListView;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * 已点菜品列表
@@ -107,6 +108,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
         }else {
             mAdapter.update(dataList, true);
+            //将右侧菜类的角标数量数据传递到右侧页面
+            EventBus.getDefault().post(bean);
         }
     }
 
