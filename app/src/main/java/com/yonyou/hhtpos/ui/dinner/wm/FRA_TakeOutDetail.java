@@ -298,7 +298,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //支付类型-百度支付
             //退款类型-百度支付
             //积分
-            tvIntegral.setText(orderDetailEntity.nowPoints);
+            tvIntegral.setText("+" + orderDetailEntity.nowPoints);
 
 
             //根据订单状态设置显示信息
