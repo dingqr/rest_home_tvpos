@@ -18,12 +18,19 @@ import com.yonyou.hhtpos.bean.DishEditEntity;
 public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
 
     private DishEditEntity currentBean;
+    private int dishStatus;
 
     private OnSelectedListener onSelectedListener;
 
-    public ADA_DishesEdit(Context context, OnSelectedListener onSelectedListener) {
+    /**催菜：6，等叫：7，叫起：8 */
+    private static final int STATUS_REMINDER = 6;
+    private static final int STATUS_WAIT_CALLED = 7;
+    private static final int STATUS_SERVING = 8;
+
+    public ADA_DishesEdit(Context context, OnSelectedListener onSelectedListener, int dishStatus) {
         super(context);
         this.onSelectedListener = onSelectedListener;
+        this.dishStatus = dishStatus;
     }
 
     @Override
@@ -44,26 +51,44 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
 
         final DishEditEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
+        return convertView;
+    }
 
+    private void handleDataSource(final int pos, ViewHolder holder, final DishEditEntity bean){
+        // 设置选中状态
         if (bean.isCheck()){
             holder.mOperationTxt.setChecked(true);
         }else {
             holder.mOperationTxt.setChecked(false);
         }
-        return convertView;
-    }
 
-    private void handleDataSource(final int pos, ViewHolder holder, final DishEditEntity bean){
+        // 等叫和即起状态
+        if ((dishStatus == STATUS_WAIT_CALLED && pos == 4) || (dishStatus == STATUS_SERVING && pos == 5)){
+            holder.mOperationTxt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_dishes_edit_selected_no));
+            holder.mOperationTxt.setTextColor(mContext.getResources().getColor(R.color.color_999999));
+            holder.mOperationTxt.setEnabled(false);
+        }else {
+            holder.mOperationTxt.setTextColor(mContext.getResources().getColor(R.color.color_222222));
+            holder.mOperationTxt.setEnabled(true);
+        }
 
         holder.mOperationTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!bean.equals(currentBean)){
+                    // pos:0 1 2 3
                     bean.setCheck(true);
                     if (null != currentBean){
                         currentBean.setCheck(false);
                     }
                     currentBean = bean;
+
+                    // pos:4 5（等叫和即起）
+                    if (pos == 4){
+                        dishStatus = 7;
+                    }else if (pos == 5){
+                        dishStatus = 8;
+                    }
                     notifyDataSetChanged();
                 }
                 onSelectedListener.onSelected(pos);

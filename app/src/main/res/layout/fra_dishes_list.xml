@@ -44,6 +44,7 @@
             android:textSize="@dimen/sp_20" />
 
         <TextView
+            android:id="@+id/tv_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_20"
@@ -53,6 +54,7 @@
             android:textSize="@dimen/sp_30" />
 
         <TextView
+            android:id="@+id/tv_place_order"
             android:layout_width="@dimen/px_190"
             android:layout_height="match_parent"
             android:background="@color/color_eb6247"

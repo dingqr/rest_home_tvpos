@@ -131,9 +131,13 @@ public class API {
      * 删除菜品接口
      */
     public static final String URL_DELETE_DISH = BASE_SERVER_SHOP + "/prodish/deletedish";
-//    public static final String URL_DELETE_DISH = "http://10.220.23.81:9001/prodish/deletedish";
     /**
      * 修改菜品状态接口
      */
     public static final String URL_UPDATE_DISH_STATUS = BASE_SERVER_SHOP + "/prodish/changestate";
+    /**
+     * 下单接口
+     */
+//    public static final String URL_UPDATE_DISH_STATUS = BASE_SERVER_SHOP + "/prodish/changestate";
+    public static final String URL_PLACE_ORDER= "http://10.220.23.81:9001/prodish/order";
 }
