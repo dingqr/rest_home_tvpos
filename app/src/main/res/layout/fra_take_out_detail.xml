@@ -109,8 +109,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/px_14"
                 android:layout_marginLeft="@dimen/px_20"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -172,6 +174,7 @@
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_22" />
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,6 +190,7 @@
                 android:background="@color/color_e6e5e5"></View>
 
             <LinearLayout
+                android:id="@+id/ll_total_billmoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
@@ -212,6 +216,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_reduce_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
@@ -226,7 +231,7 @@
                     android:textSize="@dimen/sp_22" />
 
                 <TextView
-                    android:id="@+id/tv_reduce_money"
+                    android:id="@+id/tv_reduce_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -237,6 +242,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_pay_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
@@ -260,13 +266,15 @@
                     android:textColor="@color/color_222222"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>
-
+            <!--退款-->
             <LinearLayout
+                android:id="@+id/ll_refund_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
-                android:layout_marginTop="@dimen/px_14">
+                android:layout_marginTop="@dimen/px_14"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -285,14 +293,16 @@
                     android:textColor="@color/color_222222"
                     android:textSize="@dimen/sp_22" />
             </LinearLayout>
-
+            <!--积分-->
             <LinearLayout
+                android:id="@+id/ll_integral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
                 android:layout_marginLeft="@dimen/px_20"
                 android:layout_marginRight="@dimen/px_20"
-                android:layout_marginTop="@dimen/px_14">
+                android:layout_marginTop="@dimen/px_14"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -313,13 +323,15 @@
             </LinearLayout>
             <!--发票-->
             <LinearLayout
+                android:id="@+id/ll_invoidce"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_2"
                 android:layout_marginRight="@dimen/px_2"
                 android:background="@color/color_FFFFFF"
                 android:gravity="center"
-                android:paddingLeft="@dimen/px_18">
+                android:paddingLeft="@dimen/px_18"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -357,6 +369,7 @@
                     android:textSize="@dimen/sp_24" />
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
     <TextView

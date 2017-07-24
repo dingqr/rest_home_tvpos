@@ -306,6 +306,10 @@
     <string name="string_total">总计：</string>
     <string name="string_create_time">创建时间：</string>
     <string name="string_send_now">立即送餐</string>
+    <string name="string_not_order">未下单</string>
+    <string name="string_ordered">已下单</string>
+    <string name="sting_payed">已结账</string>
+    <string name="string_refunded">退款</string>
 
     <!--结账页面 -->
     <string name="wait_for_pay">待支付</string>

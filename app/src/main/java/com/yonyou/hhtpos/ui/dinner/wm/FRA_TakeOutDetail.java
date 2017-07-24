@@ -36,6 +36,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.yonyou.hhtpos.R.id.ll_invoidce;
+import static com.yonyou.hhtpos.R.id.ll_pay_type;
+
 /**
  * Created by zj on 2017/7/6.
  * 邮箱：zjuan@yonyou.com
@@ -93,9 +96,12 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     TextView tvArriveAddress;
     @Bind(R.id.tv_remarks)
     TextView tvRemarks;//备注
+
+//  支付信息
+
     @Bind(R.id.tv_total_billmoney)
     TextView tvTotalBillmoney;//总金额
-    @Bind(R.id.tv_reduce_money)
+    @Bind(R.id.tv_reduce_amount)
     TextView tvReduceMoney;//优惠金额
     @Bind(R.id.tv_pay_type)
     TextView tvPayType;//支付类型-百度支付
@@ -105,6 +111,21 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     TextView tvIntegral;//积分
     @Bind(R.id.tv_invoice)
     TextView tvInvoice;//查看发票二维码
+
+    //   提示
+    @Bind(R.id.ll_total_billmoney)
+    LinearLayout llTotalBillmoney;//总计
+    @Bind(R.id.ll_reduce_amount)
+    LinearLayout llReduceAmount;//优惠
+    @Bind(ll_pay_type)
+    LinearLayout llPayType;//百度支付
+    @Bind(R.id.ll_refund_type)
+    LinearLayout llRefundype;//积分
+    @Bind(R.id.ll_integral)
+    LinearLayout llIntegral;//积分
+    @Bind(ll_invoidce)
+    LinearLayout llInvoidce;//发票
+
 
     @Override
     protected void onFirstUserVisible() {
@@ -221,7 +242,6 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     public void requestTakeOutDetail(String tableBillId) {
         mPresenter.requestWMOrderDetail(tableBillId);
     }
-
     /**
      * 获取外卖订单详情信息
      *
@@ -243,25 +263,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvCreateTime.setText(orderDetailEntity.orderTime);
             //总计
             tvBillMoney.setText("￥" + orderDetailEntity.getBillMoney());
-//            开单1，下单2，结账3，退款4
-            int orderState = -1;
-            if (!TextUtils.isEmpty(orderDetailEntity.orderState)) {
-                orderState = Integer.parseInt(orderDetailEntity.orderState);
-            }
-            switch (orderState) {
-                case 1:
 
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-
-                    break;
-            }
             //缺的字段
             //实收金额和收款时间
 //            tvRealReceiveMoney.setText();
@@ -279,6 +281,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvSendNow.setText("(" + mContext.getResources().getString(R.string.string_send_now) + ")");
             tvSendNow.setVisibility(orderDetailEntity.sendNow.equals("Y") ? View.VISIBLE : View.GONE);
             tvPhone.setText(orderDetailEntity.phone);
+            tvCustomerName.setText(orderDetailEntity.name);
             tvArriveAddress.setText(orderDetailEntity.address);
             tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
             //缺少的字段“
@@ -291,8 +294,50 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //退款类型-百度支付
             //积分
 
+
+            //根据订单状态设置显示信息
+            handOrderStatus(orderDetailEntity);
         }
 
+    }
+
+    /**
+     * 根据订单状态设置显示信息
+     *
+     * @param orderDetailEntity
+     */
+    private void handOrderStatus(WMOrderDetailEntity orderDetailEntity) {
+        // 开单1，下单2，结账3，退款4
+        int orderState = -1;
+        if (!TextUtils.isEmpty(orderDetailEntity.orderState)) {
+            orderState = Integer.parseInt(orderDetailEntity.orderState);
+        }
+        switch (orderState) {
+            case 1:
+                //显示：总计
+                llTotalBillmoney.setVisibility(View.VISIBLE);
+                llReduceAmount.setVisibility(View.GONE);
+                llPayType.setVisibility(View.GONE);
+                llIntegral.setVisibility(View.GONE);
+                llRefundype.setVisibility(View.GONE);
+                llInvoidce.setVisibility(View.GONE);
+                tvOrderStatus.setText(mContext.getResources().getString(R.string.string_not_order));
+                break;
+            case 2:
+                //显示总计和优惠
+                tvTotalBillmoney.setVisibility(View.VISIBLE);
+                tvReduceMoney.setVisibility(View.VISIBLE);
+                tvOrderStatus.setText(mContext.getResources().getString(R.string.string_ordered));
+                break;
+            case 3:
+                //显示：总计、优惠、支付、积分，发票未开的状态
+                tvOrderStatus.setText(mContext.getResources().getString(R.string.sting_payed));
+                break;
+            case 4:
+                //全显示：发票状态：显示已开
+                tvOrderStatus.setText(mContext.getResources().getString(R.string.string_refunded));
+                break;
+        }
     }
 
     @Override
