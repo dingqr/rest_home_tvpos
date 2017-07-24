@@ -9,6 +9,7 @@ import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 
+
 /**
  * Created by zj on 2017/7/6.
  * 邮箱：zjuan@yonyou.com
@@ -18,6 +19,9 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
     public ADA_TakeOutOrderDetail(Context context) {
         super(context);
     }
+
+    private int start;
+    private Long mCurrentTime;
 
     @Override
     protected int itemLayoutId() {
@@ -38,12 +42,26 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             }
             //新点的菜后台没有记录时间
         }
-            //根据菜品的提交订单时间，分组显示列表
+        //根据菜品的提交订单时间，分组显示列表
 //        if (position == getFirstVisiblePosition(String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)))) {
 //            holder.setVisible(R.id.tv_header_time, true);
 //        } else {
 //            holder.setVisible(R.id.tv_header_time, false);
 //        }
+        mCurrentTime = dishDetailEntity.orderTime;
+        int k = 0;
+        if (k == 0) {
+            for (int i = 0 + start; i < mDatas.size(); i++) {
+                Long orderTime = mDatas.get(i).orderTime;
+                if (mCurrentTime != orderTime) {
+                    holder.setText(R.id.tv_header_time, "(" + (i - position) + ")");
+                    start = i;
+                    k = i - position;
+                    break;
+                }
+            }
+        }
+        k--;
     }
 
     /**
