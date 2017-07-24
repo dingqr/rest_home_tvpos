@@ -107,7 +107,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
-    private List<DishListEntity.Dishes> mOrderedDishes;
+    private List<DishListEntity.Dishes> mOrderedDishes = new ArrayList<>();
 
     /**
      * 接收右侧角标数量的数据集合

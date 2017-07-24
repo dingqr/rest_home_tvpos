@@ -184,6 +184,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
 
         if (verifyInput()) {
             takeOutCompanyId = takeoutCompany.getOptionId();
+            wmooe.setShopId("C13352966C000000A60000000016E000");
             wmooe.setTakeOutCompanyId(takeOutCompanyId);
             wmooe.setName(receiverName);
             wmooe.setPhone(receiverPhone);

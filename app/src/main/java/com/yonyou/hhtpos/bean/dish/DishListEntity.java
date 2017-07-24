@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.bean.dish;
 
+import com.yonyou.framework.library.common.utils.StringUtil;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class DishListEntity implements Serializable {
 //        /**规格id列表 */
 //        private List<String> practices;
         /**数量 */
-        private int quantity;
+        private String quantity;
 //        /**菜品备注 */
 //        //private String remark;
 //        /**备注id列表 */
@@ -83,18 +85,18 @@ public class DishListEntity implements Serializable {
         }
 
         public String getDishPrice() {
-            return dishPrice;
+            return StringUtil.getFormattedMoney(dishPrice);
         }
 
         public void setDishPrice(String dishPrice) {
             this.dishPrice = dishPrice;
         }
 
-        public int getQuantity() {
-            return quantity;
+        public String getQuantity() {
+            return StringUtil.getFormattedMoney(quantity);
         }
 
-        public void setQuantity(int quantity) {
+        public void setQuantity(String quantity) {
             this.quantity = quantity;
         }
 

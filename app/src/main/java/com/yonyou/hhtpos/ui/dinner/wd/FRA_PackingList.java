@@ -23,9 +23,11 @@ import com.yonyou.hhtpos.util.AdapterUtil;
 import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWDListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * 外带列表
@@ -50,17 +52,11 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     private List<OrderListEntity> mDataList;
     private ADA_PackingList mAdapter;
 
-    /**
-     * 中间者
-     */
+    /**中间者 */
     private IWDListPresenter mPackingListPresenter;
-    /**
-     * 当前页数
-     */
+    /**当前页数 */
     private int mCurrentPage = 1;
-    /**
-     * 默认页数
-     */
+    /**默认页数 */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_PackingList newInstance(int type) {
@@ -199,6 +195,8 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
             } else {
                 // empty data
                 showEmpty(R.drawable.default_no_order, mContext.getString(R.string.take_out_order_no_data));
+                // empty eventBus
+                EventBus.getDefault().post(new ArrayList<OrderListEntity>());
             }
         }
     }

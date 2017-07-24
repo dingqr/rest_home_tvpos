@@ -78,7 +78,10 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
             if (null != preBean && !TextUtils.isEmpty(preBean.getOrderTime()) && !TextUtils.isEmpty(bean.getOrderTime()) && !preBean.getOrderTime().equals(bean.getOrderTime())){
                 holder.mDishesTime.setVisibility(View.VISIBLE);
                 holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
-            }else {
+            }else if (null != preBean && TextUtils.isEmpty(preBean.getOrderTime()) && !TextUtils.isEmpty(bean.getOrderTime())){
+                holder.mDishesTime.setVisibility(View.VISIBLE);
+                holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
+            } else {
                 holder.mDishesTime.setVisibility(View.GONE);
             }
         }
@@ -86,12 +89,12 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         // 规格+菜品名称
         holder.mDishesName.setText(StringUtil.getString(bean.getDishName()));
         // 价格
-        holder.mDishesPrice.setText(mContext.getString(R.string.RMB_symbol) + StringUtil.getString(bean.getDishPrice()));
+        holder.mDishesPrice.setText(mContext.getString(R.string.RMB_symbol) + bean.getDishPrice());
 
         // 不是称重菜
         if (bean.getUnit() == 0){
             // 数量
-            holder.mDishesCount.setText(mContext.getString(R.string.multiply) + bean.getQuantity());
+            holder.mDishesCount.setText(mContext.getString(R.string.multiply) + (int)Double.parseDouble(bean.getQuantity()));
         }else if (bean.getUnit() == 1){
             // 斤
             holder.mDishesCount.setText(bean.getQuantity() + mContext.getString(R.string.dish_weight_unit));
