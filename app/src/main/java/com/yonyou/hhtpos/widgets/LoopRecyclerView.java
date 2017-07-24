@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.yonyou.hhtpos.adapter.ADA_LoopRecycler;
-import com.yonyou.hhtpos.util.MySnapHelper;
 
 /**
  * Created by ybing on 2017/7/14.

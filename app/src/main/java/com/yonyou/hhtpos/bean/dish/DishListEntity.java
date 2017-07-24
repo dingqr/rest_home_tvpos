@@ -156,7 +156,7 @@ public class DishListEntity implements Serializable {
     }
 
     public class DishType implements Serializable{
-        /**菜品id */
+        /**菜品分类id */
         private String dishClassId;
         /**数量 */
         private String quantity;

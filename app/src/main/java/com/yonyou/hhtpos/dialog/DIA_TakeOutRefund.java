@@ -16,7 +16,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
-import com.yonyou.hhtpos.util.WMReasonsCallback;
+import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 
 /**

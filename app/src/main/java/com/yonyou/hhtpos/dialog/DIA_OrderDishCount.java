@@ -14,12 +14,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
-import com.yonyou.hhtpos.util.DishDataCallback;
+import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.ModifyCountView;
 import com.yonyou.hhtpos.widgets.MultipleSelectView;
@@ -51,6 +52,10 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     private TextView tvHintCookery;
     private TextView tvHintRemark;
     private ModifyCountView mcvDishCount;
+    private TextView tvDishName;
+    private TextView tvHostSale;
+    private TextView tvDishPrice;
+
 
     /**
      * 选项数据
@@ -77,7 +82,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
 
     private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_order_dish_vegetable, null);
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_order_dish_count, null);
         mDialog.setContentView(mContentView);
 
         rbFinishSelect = (RadioButton) mContentView.findViewById(R.id.rb_finish_select);
@@ -87,6 +92,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         mcvDishCount = (ModifyCountView) mContentView.findViewById(R.id.mcv_dish_count);
         tvHintCookery = (TextView) mContentView.findViewById(R.id.tv_hint_cookery);
         tvHintRemark = (TextView) mContentView.findViewById(R.id.tv_hint_remark);
+        tvDishName = (TextView)mContentView.findViewById(R.id.tv_dish_name);
+        tvDishPrice = (TextView)mContentView.findViewById(R.id.tv_dish_price);
+        tvHostSale = (TextView)mContentView.findViewById(R.id.ib_hot_sale);
 
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
@@ -101,6 +109,17 @@ public class DIA_OrderDishCount implements View.OnClickListener {
      * @param dataBean
      */
     public DIA_OrderDishCount setData(DataBean dataBean) {
+        //设置菜品名称
+        tvDishName.setText( StringUtil.getString(dataBean.getDishName()));
+        //设置菜品价格
+        tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
+        //设置菜品标签
+        if (dataBean.getLabels()!=null && dataBean.getLabels().size()>0){
+            if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
+                tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
+            } else tvHostSale.setVisibility(View.GONE);
+        }
+
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {

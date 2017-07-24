@@ -25,7 +25,7 @@ import com.yonyou.hhtpos.presenter.IWMRefundReasonPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WMRefundReasonPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.util.WMReasonsCallback;
+import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.view.IWMOrderDetailView;
 import com.yonyou.hhtpos.view.IWMRefundReasonView;
 import com.yonyou.hhtpos.widgets.FiltrationView;

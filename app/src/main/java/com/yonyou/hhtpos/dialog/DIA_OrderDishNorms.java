@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
@@ -19,7 +20,7 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
-import com.yonyou.hhtpos.util.DishDataCallback;
+import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.ModifyCountView;
 
@@ -48,6 +49,9 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
     private EditText etOtherRemark;
     private ModifyCountView mcvDishCount;
     private LinearLayout llDishNorms;
+    private TextView tvDishName;
+    private TextView tvHostSale;
+    private TextView tvDishPrice;
 
     /**
      * 选项数据
@@ -78,6 +82,9 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
         mcvDishCount = (ModifyCountView) mContentView.findViewById(R.id.mcv_dish_count);
         llDishNorms = (LinearLayout) mContentView.findViewById(R.id.ll_dish_norms);
+        tvDishName = (TextView)mContentView.findViewById(R.id.tv_dish_name);
+        tvDishPrice = (TextView)mContentView.findViewById(R.id.tv_dish_price);
+        tvHostSale = (TextView)mContentView.findViewById(R.id.ib_hot_sale);
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
@@ -86,6 +93,17 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
     }
 
     public DIA_OrderDishNorms setDataBean(DataBean dataBean) {
+        //设置菜品名称
+        tvDishName.setText( StringUtil.getString(dataBean.getDishName()));
+        //设置菜品价格
+        tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
+        //设置菜品标签
+        if (dataBean.getLabels()!=null && dataBean.getLabels().size()>0){
+            if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
+                tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
+            } else tvHostSale.setVisibility(View.GONE);
+        }
+
         if (dataBean != null) {
             //获取菜品规格列表
             if (dataBean.getStandards() != null && dataBean.getStandards().size() > 0) {

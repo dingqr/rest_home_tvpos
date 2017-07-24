@@ -12,15 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.WeightEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
-import com.yonyou.hhtpos.util.DishDataCallback;
+import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 import com.yonyou.hhtpos.widgets.InputWeightView;
 import com.yonyou.hhtpos.widgets.MultipleSelectView;
@@ -52,6 +54,12 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
     private EditText etOtherRemark;
     private LinearLayout llDishCookery;
     private LinearLayout llDishRemark;
+
+    private TextView tvDishName;
+    private TextView tvHostSale;
+    private TextView tvDishPrice;
+    private TextView tvChiefRecommend;
+    private TextView tvDishTaste;
 
     /**
      * 选项数据
@@ -86,6 +94,12 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
         llDishRemark = (LinearLayout) mContentView.findViewById(R.id.ll_dish_remark);
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
+        tvDishName = (TextView) mContentView.findViewById(R.id.tv_dish_name);
+        tvDishPrice = (TextView) mContentView.findViewById(R.id.tv_dish_price);
+        tvHostSale = (TextView) mContentView.findViewById(R.id.ib_hot_sale);
+        tvChiefRecommend = (TextView) mContentView.findViewById(R.id.ib_chief_recommend);
+        tvDishTaste = (TextView) mContentView.findViewById(R.id.tv_dish_taste);
+
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
 
@@ -95,6 +109,21 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
 
 
     public DIA_OrderDishWeight setData(DataBean dataBean) {
+        //设置菜品名称
+        tvDishName.setText(StringUtil.getString(dataBean.getDishName()));
+        //设置菜品价格
+        tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
+        //设置菜品标签
+        if (dataBean.getLabels()!=null && dataBean.getLabels().size()>0){
+            if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
+                tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
+            } else tvHostSale.setVisibility(View.GONE);
+            if (!TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+                tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
+            } else tvChiefRecommend.setVisibility(View.GONE);
+        }
+        //TODO 设置菜品口味
+        tvDishTaste.setText(StringUtil.getString(""));
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {

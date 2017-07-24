@@ -24,7 +24,7 @@ import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.ITableListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.util.DP2PX;
-import com.yonyou.hhtpos.view.ICanteenListView;
+import com.yonyou.hhtpos.view.ITSOpenOrderView;
 import com.yonyou.hhtpos.view.ITableListView;
 
 import java.util.ArrayList;
@@ -38,7 +38,8 @@ import butterknife.Bind;
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食列表
  */
-public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnItemClickListener, ICanteenListView, ITableListView {
+public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView{
+
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
     @Bind(R.id.swiperefresh)
@@ -61,7 +62,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     private String shopId = "hht";
     //桌台状态
     private String mTableState;
-
 
     /**
      * 传入数据
