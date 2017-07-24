@@ -9,6 +9,7 @@ public interface IDishListPresenter {
     /**
      * 请求已点菜品列表
      * @param billId 桌台账单id
+     * @param showLoading 是否显示加载中
      */
-    void requestDishList(String billId);
+    void requestDishList(String billId, boolean showLoading);
 }

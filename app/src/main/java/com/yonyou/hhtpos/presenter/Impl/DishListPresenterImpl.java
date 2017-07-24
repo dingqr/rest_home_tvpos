@@ -12,8 +12,6 @@ import com.yonyou.hhtpos.interactor.Impl.DishListInteractorImpl;
 import com.yonyou.hhtpos.presenter.IDishListPresenter;
 import com.yonyou.hhtpos.view.IDishListView;
 
-import java.util.List;
-
 /**
  * 作者：liushuofei on 2017/7/17 19:29
  * 邮箱：lsf@yonyou.com
@@ -31,8 +29,11 @@ public class DishListPresenterImpl implements IDishListPresenter {
     }
 
     @Override
-    public void requestDishList(String billId) {
-        mDishListView.showLoading(mContext.getString(R.string.network_loading));
+    public void requestDishList(String billId, boolean showLoading) {
+        if (showLoading){
+            mDishListView.showLoading(mContext.getString(R.string.network_loading));
+        }
+
         mDishListInteractor.requestDishList(billId);
     }
 

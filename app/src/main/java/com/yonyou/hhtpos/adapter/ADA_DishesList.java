@@ -88,23 +88,20 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         // 价格
         holder.mDishesPrice.setText(mContext.getString(R.string.RMB_symbol) + StringUtil.getString(bean.getDishPrice()));
 
-        // 数量或者斤
-        if (!TextUtils.isEmpty(bean.getUnit())){
-            // 不是称重菜
-            if (bean.getUnit().equals("0")){
-                holder.mDishesCount.setText(mContext.getString(R.string.multiply) + bean.getQuantity());
-            }else if (bean.getUnit().equals("1")){
-                holder.mDishesCount.setText(bean.getQuantity() + mContext.getString(R.string.dish_weight_unit));
-            }
+        // 不是称重菜
+        if (bean.getUnit() == 0){
+            // 数量
+            holder.mDishesCount.setText(mContext.getString(R.string.multiply) + bean.getQuantity());
+        }else if (bean.getUnit() == 1){
+            // 斤
+            holder.mDishesCount.setText(bean.getQuantity() + mContext.getString(R.string.dish_weight_unit));
         }
 
         // 备注
         holder.mDishesRemark.setText(getRemark(bean));
 
         // 等叫或即起
-        if (!TextUtils.isEmpty(bean.getDishStatus()) && bean.getDishStatus().equals("7")){
-            holder.mDishesStatus.setText("等叫");
-        }
+        setDishStatus(bean.getDishStatus(), holder);
     }
 
     /**
@@ -126,6 +123,27 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
             stringBuffer.append(bean.getListShowRemark());
         }
         return stringBuffer.toString();
+    }
+
+    /**
+     * 设置菜品状态
+     * @param status 等叫：7，即起：8，催菜：6，确认上菜：5
+     * @param holder
+     */
+    private void setDishStatus(int status, ViewHolder holder){
+        switch (status){
+            case 7:
+                holder.mDishesStatus.setText("等叫");
+                break;
+
+            case 8:
+                // 即起不显示
+                holder.mDishesStatus.setText("");
+                break;
+
+            default:
+                break;
+        }
     }
 
     static class ViewHolder {

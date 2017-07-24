@@ -45,7 +45,7 @@ public class DishListEntity implements Serializable {
         /**价格 */
         private String dishPrice;
         /**状态 */
-        private String dishStatus;
+        private int dishStatus;
 //        /**类型 */
 //        private String dishType;
         /**展示做法 */
@@ -67,7 +67,7 @@ public class DishListEntity implements Serializable {
         private String orderTime;
 
         /**是否为称重菜（0：不是  1：是） */
-        private String unit;
+        private int unit;
 
         /**id */
         private String id;
@@ -96,11 +96,11 @@ public class DishListEntity implements Serializable {
             this.quantity = quantity;
         }
 
-        public String getDishStatus() {
+        public int getDishStatus() {
             return dishStatus;
         }
 
-        public void setDishStatus(String dishStatus) {
+        public void setDishStatus(int dishStatus) {
             this.dishStatus = dishStatus;
         }
 
@@ -128,11 +128,11 @@ public class DishListEntity implements Serializable {
             this.listShowRemark = listShowRemark;
         }
 
-        public String getUnit() {
+        public int getUnit() {
             return unit;
         }
 
-        public void setUnit(String unit) {
+        public void setUnit(int unit) {
             this.unit = unit;
         }
 
@@ -147,16 +147,16 @@ public class DishListEntity implements Serializable {
 
     public class DishType implements Serializable{
         /**菜品id */
-        private String dishId;
+        private String dishClassId;
         /**数量 */
         private String quantity;
 
-        public String getDishId() {
-            return dishId;
+        public String getDishClassId() {
+            return dishClassId;
         }
 
-        public void setDishId(String dishId) {
-            this.dishId = dishId;
+        public void setDishClassId(String dishClassId) {
+            this.dishClassId = dishClassId;
         }
 
         public String getQuantity() {
