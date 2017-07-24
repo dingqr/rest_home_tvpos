@@ -182,11 +182,11 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         });
         // 无数据页面
 //        showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222),mContext.getResources().getString(R.string.empty_msg_other));
-        refundReasonPresenter = new WMRefundReasonPresenterImpl(mContext,this);
+        refundReasonPresenter = new WMRefundReasonPresenterImpl(mContext, this);
         refundReasonPresenter.getWMRefundReason(extendsTypeId, pageNum, pageSize);
     }
 
-    @OnClick({R.id.btn_right,R.id.btn_left})
+    @OnClick({R.id.btn_right, R.id.btn_left})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_right:
@@ -242,6 +242,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     public void requestTakeOutDetail(String tableBillId) {
         mPresenter.requestWMOrderDetail(tableBillId);
     }
+
     /**
      * 获取外卖订单详情信息
      *
@@ -262,13 +263,13 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //创建时间-要求后台返回Long值 -07-06 11:00
             tvCreateTime.setText(orderDetailEntity.orderTime);
             //总计
-            tvBillMoney.setText("￥" + orderDetailEntity.getBillMoney());
+            tvBillMoney.setText("￥" + orderDetailEntity.getBillOriginMoney());
 
             //缺的字段
             //实收金额和收款时间
-//            tvRealReceiveMoney.setText();
+            tvRealReceiveMoney.setText("￥" + orderDetailEntity.getBillMoney());
             //2017-06-08 11:30
-//            tvReceiveTime.setText();
+            tvReceiveTime.setText(orderDetailEntity.billTime);
             //退款金额和退款时间
 //            tvRefundMoney.setText();
             //2017-06-08 11:30
@@ -286,13 +287,14 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
             //缺少的字段“
             //就餐人数和时段
-//            tvPersonAndDinnerType.setText();
+            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "(午餐)");
             //备注
-//            tvRemarks.setText();
-//            tvTotalBillmoney.setText();
+            tvRemarks.setText(orderDetailEntity.remark);
+            tvTotalBillmoney.setText("￥" + orderDetailEntity.getBillMoney());
             //支付类型-百度支付
             //退款类型-百度支付
             //积分
+            tvIntegral.setText(orderDetailEntity.nowPoints);
 
 
             //根据订单状态设置显示信息

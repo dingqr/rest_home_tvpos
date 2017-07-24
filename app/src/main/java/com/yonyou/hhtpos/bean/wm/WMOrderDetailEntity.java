@@ -25,11 +25,19 @@ public class WMOrderDetailEntity implements Serializable {
      */
     public String name;
     /**
+     * 就餐人数
+     */
+    public String personNum;
+    /**
      * 到达时间
      */
     public String arriveTime;
     /**
-     * 账单金额
+     * 总计-原始金额
+     */
+    private String billOriginMoney;
+    /**
+     * 实收金额
      */
     private String billMoney;
     /**
@@ -49,6 +57,14 @@ public class WMOrderDetailEntity implements Serializable {
      */
     public String orderTime;
     /**
+     * 结账时间
+     */
+    public String billTime;
+    /**
+     * 本次积分
+     */
+    public String nowPoints;
+    /**
      * 是否立即送餐
      */
     public String sendNow;
@@ -56,6 +72,14 @@ public class WMOrderDetailEntity implements Serializable {
      * 外卖公司id
      */
     public String takeOutCompanyId;
+    /**
+     * 菜单来源
+     */
+    public String takeOutCompanyName;
+    /**
+     * 备注
+     */
+    public String remark;
 
     public WMOrderDetailEntity() {
     }
@@ -76,20 +100,34 @@ public class WMOrderDetailEntity implements Serializable {
         this.reduceMoney = reduceMoney;
     }
 
+    public String getBillOriginMoney() {
+        return StringUtil.getFormattedMoney(billOriginMoney);
+    }
+
+    public void setBillOriginMoney(String billOriginMoney) {
+        this.billOriginMoney = billOriginMoney;
+    }
+
     @Override
     public String toString() {
         return "WMOrderDetailEntity{" +
                 "address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
+                ", personNum='" + personNum + '\'' +
                 ", arriveTime='" + arriveTime + '\'' +
+                ", billOriginMoney='" + billOriginMoney + '\'' +
                 ", billMoney='" + billMoney + '\'' +
                 ", reduceMoney='" + reduceMoney + '\'' +
                 ", dishList=" + dishList +
                 ", orderState='" + orderState + '\'' +
                 ", orderTime='" + orderTime + '\'' +
+                ", billTime='" + billTime + '\'' +
+                ", nowPoints='" + nowPoints + '\'' +
                 ", sendNow='" + sendNow + '\'' +
                 ", takeOutCompanyId='" + takeOutCompanyId + '\'' +
+                ", takeOutCompanyName='" + takeOutCompanyName + '\'' +
+                ", remark='" + remark + '\'' +
                 '}';
     }
 }
