@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.interactor.IGetAllDishesInteractor;
@@ -35,7 +36,7 @@ public class GetAllDishesPresenterImpl implements IGetAllDishesPresenter {
      */
     @Override
     public void getAllDishes(String compId, String shopId) {
-//        mDishesView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
+        mDishesView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
         mDishesInteractor.getAllDishes(compId, shopId);
     }
 
@@ -43,7 +44,7 @@ public class GetAllDishesPresenterImpl implements IGetAllDishesPresenter {
 
         @Override
         public void onSuccess(int event_tag, DishDataEntity dishDataEntity) {
-//            mDishesView.hideLoading();
+            mDishesView.hideLoading();
             mDishesView.getAllDishes(dishDataEntity);
         }
 

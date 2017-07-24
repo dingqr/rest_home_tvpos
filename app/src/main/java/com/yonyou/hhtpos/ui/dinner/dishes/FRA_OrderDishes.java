@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -288,12 +289,38 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 }
             }
         });
+
+        mDiaCurrentDishWeight.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "时价、称重=" + bean.toString());
+            }
+        });
+        mDiaStandards.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "规格=" + bean.toString());
+            }
+        });
+        mDiaWeightRemarks.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "称重、有备注列表=" + bean.toString());
+            }
+        });
+        mDiaWeightNormal.setDishDataCallback(new DishDataCallback() {
+            @Override
+            public void sendItems(DishCallBackEntity bean) {
+                Log.e("TAG", "称重、无备注列表=" + bean.toString());
+            }
+        });
         mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Log.e("TAG", "bean="+bean.getDishCount());
+                Log.e("TAG", "bean=" + bean.toString());
             }
         });
+
     }
 
     @NonNull
