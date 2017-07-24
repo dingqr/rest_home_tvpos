@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
+import com.yonyou.framework.library.widgets.A;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
@@ -55,7 +56,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     private TextView tvDishName;
     private TextView tvHostSale;
     private TextView tvDishPrice;
-
+    private TextView tvChiefRecommend;
 
     /**
      * 选项数据
@@ -76,7 +77,6 @@ public class DIA_OrderDishCount implements View.OnClickListener {
 
     public DIA_OrderDishCount(Context mContext) {
         this.mContext = mContext;
-//        this.dataBean = dataBean;
         initView();
     }
 
@@ -92,9 +92,10 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         mcvDishCount = (ModifyCountView) mContentView.findViewById(R.id.mcv_dish_count);
         tvHintCookery = (TextView) mContentView.findViewById(R.id.tv_hint_cookery);
         tvHintRemark = (TextView) mContentView.findViewById(R.id.tv_hint_remark);
-        tvDishName = (TextView)mContentView.findViewById(R.id.tv_dish_name);
-        tvDishPrice = (TextView)mContentView.findViewById(R.id.tv_dish_price);
-        tvHostSale = (TextView)mContentView.findViewById(R.id.ib_hot_sale);
+        tvDishName = (TextView) mContentView.findViewById(R.id.tv_dish_name);
+        tvDishPrice = (TextView) mContentView.findViewById(R.id.tv_dish_price);
+        tvHostSale = (TextView) mContentView.findViewById(R.id.ib_hot_sale);
+        tvChiefRecommend = (TextView) mContentView.findViewById(R.id.ib_chief_recommend);
 
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
 
@@ -110,14 +111,18 @@ public class DIA_OrderDishCount implements View.OnClickListener {
      */
     public DIA_OrderDishCount setData(DataBean dataBean) {
         //设置菜品名称
-        tvDishName.setText( StringUtil.getString(dataBean.getDishName()));
+        tvDishName.setText(StringUtil.getString(dataBean.getDishName()));
         //设置菜品价格
         tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
         //设置菜品标签
-        if (dataBean.getLabels()!=null && dataBean.getLabels().size()>0){
+        if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
                 tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
             } else tvHostSale.setVisibility(View.GONE);
+            if (dataBean.getLabels().size()>1 && dataBean.getLabels().get(1) != null &&
+                    !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+                tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
+            } else tvChiefRecommend.setVisibility(View.GONE);
         }
 
         if (dataBean != null) {
@@ -128,6 +133,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
                     foe.setType(FiltrationView.COOKERY);
                     options.add(foe);
                 }
@@ -147,6 +153,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getRemarks().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getRemarks().get(i).remarkName);
+                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
                     foe.setType(MultipleSelectView.DISH_REMARK);
                     options.add(foe);
                 }
@@ -179,6 +186,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                     if (!remarkEmptyFlag)
                         fvRemark.reset();
                     etOtherRemark.setText("");
+                    mcvDishCount.reset();
                     mDialog.dismiss();
                 }
                 break;
@@ -197,11 +205,14 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 //做法
                 String dishCookery = fvCookery.getSelectedData().getOption();
                 dishCallBackEntity.setDishCookery(dishCookery);
+                dishCallBackEntity.setDishCookeryId(fvCookery.getSelectedData().getOptionId());
                 flag = true;
-                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));
+                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag).get(0));
+                dishCallBackEntity.setDishRemarkId(checkRemark(remarkEmptyFlag).get(1));
             } else if (cookeryEmptyFlag) {
                 dishCallBackEntity.setDishCookery("");
-                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));
+                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag).get(0));
+                dishCallBackEntity.setDishRemarkId(checkRemark(remarkEmptyFlag).get(1));
             } else {
                 flag = false;
                 CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
@@ -214,26 +225,33 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     }
 
     @NonNull
-    private String checkRemark(boolean remarkEmptyFlag) {
+    private ArrayList<String> checkRemark(boolean remarkEmptyFlag) {
+        ArrayList<String> remarkID = new ArrayList<>();
         String otherRemark = etOtherRemark.getText().toString().trim();
         //备注
         if (!remarkEmptyFlag && fvRemark.getSelectedList() != null) {
             ArrayList<FilterOptionsEntity> dishRemarks = fvRemark.getSelectedList();
             StringBuilder sb = new StringBuilder();
+            StringBuilder idSb = new StringBuilder();
             if (dishRemarks.size() > 0) {
                 for (int i = 0; i < dishRemarks.size() - 1; i++) {
                     sb.append(dishRemarks.get(i).getOption());
                     sb.append(",");
+                    idSb.append(dishRemarks.get(i).getOptionId());
+                    idSb.append(",");
                 }
                 sb.append(dishRemarks.get(dishRemarks.size() - 1).getOption());
+                idSb.append(dishRemarks.get(dishRemarks.size() - 1).getOptionId());
             }
             if (!TextUtils.isEmpty(otherRemark)) {
                 sb.append(",");
                 sb.append(otherRemark);
             }
-            return sb.toString();
+            remarkID.add(sb.toString());
+            remarkID.add(idSb.toString());
+            return remarkID;
         } else {
-            return "";
+            return null;
         }
     }
 

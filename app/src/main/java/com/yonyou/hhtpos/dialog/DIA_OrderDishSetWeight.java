@@ -110,7 +110,8 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
                 tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
             } else tvHostSale.setVisibility(View.GONE);
-            if (!TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+            if (dataBean.getLabels().size() > 1 &&
+                    dataBean.getLabels().get(1) != null && !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
             } else tvChiefRecommend.setVisibility(View.GONE);
         }
@@ -124,6 +125,7 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getPractices().get(i).practiceName);
+                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
                     foe.setType(FiltrationView.COOKERY);
                     options.add(foe);
                 }
@@ -152,6 +154,7 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
                     }
                     if (!cookeryEmptyFlag)
                         fvCookery.reset();
+                    iwvDishWeight.reset();
                     mDialog.dismiss();
                 }
                 break;
@@ -175,7 +178,7 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
         String dishCookery = "";
         if (!cookeryEmptyFlag && fvCookery.getSelectedData() != null) {
             dishCookery = fvCookery.getSelectedData().getOption();
-        }else if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null){
+        } else if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null) {
             flag = false;
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
         }
