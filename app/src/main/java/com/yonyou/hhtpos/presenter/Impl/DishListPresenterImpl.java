@@ -25,7 +25,7 @@ public class DishListPresenterImpl implements IDishListPresenter {
     public DishListPresenterImpl(Context mContext, IDishListView mDishListView) {
         this.mContext = mContext;
         this.mDishListView = mDishListView;
-        mDishListInteractor = new DishListInteractorImpl(new DishListListener());
+        mDishListInteractor = new DishListInteractorImpl(new DishListListener(), new PlaceOrderListener());
     }
 
     @Override
@@ -35,6 +35,12 @@ public class DishListPresenterImpl implements IDishListPresenter {
         }
 
         mDishListInteractor.requestDishList(billId);
+    }
+
+    @Override
+    public void requestPlaceOrder(String dishIds) {
+        mDishListView.showDialogLoading(mContext.getString(R.string.network_loading));
+        mDishListInteractor.requestPlaceOrder(dishIds);
     }
 
     private class DishListListener implements BaseLoadedListener<DishListEntity> {
@@ -61,6 +67,35 @@ public class DishListPresenterImpl implements IDishListPresenter {
         @Override
         public void onBusinessError(ErrorBean error) {
             mDishListView.hideLoading();
+            mDishListView.showBusinessError(error);
+            //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
+        }
+    }
+
+    private class PlaceOrderListener implements BaseLoadedListener<String> {
+
+        @Override
+        public void onSuccess(int event_tag, String result) {
+            mDishListView.dismissDialogLoading();
+            mDishListView.requestPlaceOrder();
+        }
+
+        @Override
+        public void onError(String msg) {
+            mDishListView.dismissDialogLoading();
+            CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onException(String msg) {
+            mDishListView.dismissDialogLoading();
+            mDishListView.showException(msg);
+            //CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onBusinessError(ErrorBean error) {
+            mDishListView.dismissDialogLoading();
             mDishListView.showBusinessError(error);
             //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
         }

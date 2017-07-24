@@ -28,7 +28,7 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     @Override
     public void updateQuantity(String companyId, String id, String quantity, String shopId) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("companyId", companyId);
+        //hashMap.put("companyId", companyId);
         hashMap.put("id", id);
         hashMap.put("quantity", quantity);
         hashMap.put("shopId", shopId);
@@ -54,7 +54,7 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     @Override
     public void deleteDish(String companyId, String id, String shopId) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("companyId", companyId);
+        //hashMap.put("companyId", companyId);
         hashMap.put("id", id);
         hashMap.put("shopId", shopId);
         RequestManager.getInstance().requestPostByAsyn(API.URL_DELETE_DISH, hashMap, new ReqCallBack<String>() {
@@ -79,9 +79,10 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     @Override
     public void updateDishStatus(String companyId, String dishStatus, String id, String shopId) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("companyId", companyId);
+        //hashMap.put("companyId", companyId);
         hashMap.put("id", id);
         hashMap.put("shopId", shopId);
+        hashMap.put("dishStatus", dishStatus);
         RequestManager.getInstance().requestPostByAsyn(API.URL_UPDATE_DISH_STATUS, hashMap, new ReqCallBack<String>() {
 
             @Override

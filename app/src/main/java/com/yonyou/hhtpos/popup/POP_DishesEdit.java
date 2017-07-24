@@ -24,6 +24,7 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
     /**传入数据 */
     private Context context;
     private OnEditListener onEditListener;
+    private int dishStatus;
 
     /**布局 */
     private View convertView;
@@ -45,11 +46,15 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
         setConvertView();
     }
 
+    public void setDishStatus(int dishStatus) {
+        this.dishStatus = dishStatus;
+    }
+
     public void setConvertView() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.pop_dishes_edit, null);
         mGridView = (BanSlideGridView)convertView.findViewById(R.id.gv_dishes_edit);
-        mAdapter = new ADA_DishesEdit(context, this);
+        mAdapter = new ADA_DishesEdit(context, this, dishStatus);
         mGridView.setAdapter(mAdapter);
 
         // 数据
@@ -58,6 +63,7 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
             dataList.add(new DishEditEntity());
         }
         mAdapter.update(dataList);
+
 
         // 设置SelectPicPopupWindow的View
         this.setContentView(convertView);

@@ -258,6 +258,12 @@
     <string name="string_refund">退款</string>
     <string name="string_late_make_bill">补打账单</string>
     <string name="string_go_settle_amount">去结账</string>
+    <string name="tip_delete_dish">确认删除该菜品吗？</string>
+    <string name="tip_place_order_success">下单成功</string>
+    <string name="tip_update_count_success">修改数量成功</string>
+    <string name="tip_update_dish_success">修改菜品成功</string>
+    <string name="tip_delete_dish_success">删除成功</string>
+    <string name="tip_update_dish_status_success">修改菜品状态成功</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>

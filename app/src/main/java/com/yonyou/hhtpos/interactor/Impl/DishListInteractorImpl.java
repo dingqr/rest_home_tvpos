@@ -18,9 +18,11 @@ import java.util.List;
 public class DishListInteractorImpl implements IDishListInteractor {
 
     private BaseLoadedListener dishListListener;
+    private BaseLoadedListener placeOrderListener;
 
-    public DishListInteractorImpl(BaseLoadedListener dishListListener) {
+    public DishListInteractorImpl(BaseLoadedListener dishListListener, BaseLoadedListener placeOrderListener) {
         this.dishListListener = dishListListener;
+        this.placeOrderListener = placeOrderListener;
     }
 
     @Override
@@ -42,6 +44,29 @@ public class DishListInteractorImpl implements IDishListInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 dishListListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void requestPlaceOrder(String dishIds) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("dishIds", dishIds);
+        RequestManager.getInstance().requestPostByAsyn(API.URL_PLACE_ORDER, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                placeOrderListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                placeOrderListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                placeOrderListener.onBusinessError(errorBean);
             }
         });
     }

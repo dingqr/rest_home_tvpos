@@ -12,4 +12,10 @@ public interface IDishListPresenter {
      * @param showLoading 是否显示加载中
      */
     void requestDishList(String billId, boolean showLoading);
+
+    /**
+     * 请求下单接口
+     * @param dishIds 未下单菜品
+     */
+    void requestPlaceOrder(String dishIds);
 }
