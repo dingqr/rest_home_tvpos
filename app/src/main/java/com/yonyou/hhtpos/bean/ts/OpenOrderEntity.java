@@ -10,10 +10,10 @@ public class OpenOrderEntity implements Serializable {
 
     /**整单备注 */
     private String billRemark;
-    /**公司id */
-    private String companyId;
     /**会员手机号 */
     private String memberId;
+    /**开单时间 */
+    private String openTime;
     /**就餐人数 */
     private String personNum;
     /**	门店id */
@@ -31,13 +31,6 @@ public class OpenOrderEntity implements Serializable {
         this.billRemark = billRemark;
     }
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
 
     public String getMemberId() {
         return memberId;
@@ -79,12 +72,20 @@ public class OpenOrderEntity implements Serializable {
         this.waiterId = waiterId;
     }
 
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
     @Override
     public String toString() {
         return "OpenOrderEntity{" +
                 "billRemark='" + billRemark + '\'' +
-                ", companyId='" + companyId + '\'' +
                 ", memberId='" + memberId + '\'' +
+                ", openTime='" + openTime + '\'' +
                 ", personNum='" + personNum + '\'' +
                 ", shopId='" + shopId + '\'' +
                 ", tableNo='" + tableNo + '\'' +
