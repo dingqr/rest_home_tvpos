@@ -147,7 +147,6 @@
                 android:layout_marginLeft="@dimen/px_20"
                 android:drawableLeft="@drawable/ic_wm_people_num"
                 android:drawablePadding="@dimen/px_20"
-                android:text="3人（午餐）"
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_22" />
 

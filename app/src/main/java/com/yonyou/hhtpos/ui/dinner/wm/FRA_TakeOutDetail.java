@@ -259,7 +259,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //左侧信息
             //设置订单详情信息
             //订单来源-百度/饿了么
-//            tvTakeoutCompanyName.setText();
+            tvTakeoutCompanyName.setText(orderDetailEntity.takeOutCompanyName);
             //创建时间-要求后台返回Long值 -07-06 11:00
             tvCreateTime.setText(orderDetailEntity.orderTime);
             //总计
@@ -287,9 +287,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
             //缺少的字段“
             //就餐人数和时段
-            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "(午餐)");
+            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "人" + "(午餐)");
             //备注
             tvRemarks.setText(orderDetailEntity.remark);
+            tvRemarks.setVisibility(!TextUtils.isEmpty(orderDetailEntity.remark) ? View.VISIBLE : View.GONE);
             tvTotalBillmoney.setText("￥" + orderDetailEntity.getBillMoney());
             //支付类型-百度支付
             //退款类型-百度支付
