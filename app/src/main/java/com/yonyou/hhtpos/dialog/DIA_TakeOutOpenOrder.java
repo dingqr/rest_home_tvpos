@@ -70,10 +70,10 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
     private String receiverAddress;
     private String dinnerNumber;
     private String takeOutCompanyId;
+    private String reserveTime;
     private DistributeTimeEntity deliverTime;
     private FilterOptionsEntity takeoutCompany;
     private WmCallback wmCallback;
-    private boolean flag = true;
 
     public DIA_TakeOutOpenOrder(Context mContext, FilterItemEntity takeoutCompanies) {
         this.mContext = mContext;
@@ -138,10 +138,8 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
                 break;
             case R.id.rb_confirm_open_order:
                 OpenOrderEntity wmooe = initEntity();
-                if (flag) {
-                    if (wmCallback != null) {
-                        wmCallback.sendWmEntity(wmooe);
-                    }
+                if (wmCallback != null && wmooe != null) {
+                    wmCallback.sendWmEntity(wmooe);
                     filtrationView.reset();
                     mDialog.dismiss();
                 }
@@ -156,7 +154,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         receiverName = etEnterReceiverName.getText().toString().trim();
         receiverAddress = etEnterReceiverAddress.getText().toString().trim();
         dinnerNumber = etDinnerNumber.getText().toString().trim();
-        if (takeoutCompany == null){
+        if (takeoutCompany == null) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.take_out_company_error), false);
             return false;
         }
@@ -175,13 +173,20 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
         }
+        if (etSelectDeliverTime.getVisibility() == View.VISIBLE) {
+            reserveTime = etSelectDeliverTime.getText().toString().trim();
+            if (TextUtils.isEmpty(reserveTime)) {
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.reserve_time_error), false);
+                return false;
+            }
+        }
 
         return true;
     }
 
     private OpenOrderEntity initEntity() {
         OpenOrderEntity wmooe = new OpenOrderEntity();
-
+        receiverPhone = etEnterReceiverPhone.getText().toString().trim();
         if (verifyInput()) {
             takeOutCompanyId = takeoutCompany.getOptionId();
             wmooe.setTakeOutCompanyId(takeOutCompanyId);
@@ -191,22 +196,13 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
             wmooe.setPersonNum(dinnerNumber);
 
             //是否立即送餐
-            if (etSelectDeliverTime.getVisibility() == View.GONE){
+            if (etSelectDeliverTime.getVisibility() == View.GONE) {
                 wmooe.setSendNow("Y");
-            }else{
-                wmooe.setSendNow("N");
-                String reserveTime = etSelectDeliverTime.getText().toString().trim();
-                if (!TextUtils.isEmpty(reserveTime)) {
-                    flag = true;
-                    wmooe.setReserveTime(reserveTime);
-                } else {
-                    flag = false;
-                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.reserve_time_error), false);
-                }
+            } else {
+                wmooe.setReserveTime(reserveTime);
             }
             return wmooe;
         } else {
-            flag = false;
             return null;
         }
     }

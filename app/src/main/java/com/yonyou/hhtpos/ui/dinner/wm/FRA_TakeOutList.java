@@ -24,9 +24,11 @@ import com.yonyou.hhtpos.util.AdapterUtil;
 import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWMListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 
 /**
@@ -199,6 +201,8 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             } else {
                 // empty data
                 showEmpty(R.drawable.default_no_order, mContext.getString(R.string.take_out_order_no_data));
+                // empty event
+                EventBus.getDefault().post(new ArrayList<OrderListEntity>());
             }
         }
     }

@@ -9,12 +9,14 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesList;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.popup.POP_DishesEdit;
+import com.yonyou.hhtpos.popup.POP_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.presenter.IDishEditPresenter;
 import com.yonyou.hhtpos.presenter.IDishListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.DishEditPresenterImpl;
@@ -32,7 +34,7 @@ import de.greenrobot.event.EventBus;
  * 已点菜品列表
  * 作者：liushuofei on 2017/7/11 10:48
  */
-public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, DIA_DoubleConfirm.OnSelectedListener {
+public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, DIA_DoubleConfirm.OnSelectedListener, POP_DishesPlaceOrderEdit.OnPlaceEditListener {
 
     @Bind(R.id.lv_dishes)
     ListView mListView;
@@ -51,12 +53,15 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private IDishEditPresenter mDishEditPresenter;
 
     /**右侧操作栏弹窗 */
-    private POP_DishesEdit popup;
+    private POP_DishesEdit editPopup;
+    private POP_DishesPlaceOrderEdit placeOrderEditPopup;
 
     private String shopId = "C13352966C000000A60000000016E000";
 
     /**未下单菜品的id列表 */
     private String dishIds = "";
+    /**总价格 */
+    private double totalPrice;
 
     @Override
     protected void onFirstUserVisible() {
@@ -121,19 +126,23 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 无数据页面
             showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
         } else {
-            dishIds = getDishIds(dataList);
-            mAdapter.update(dataList, true);
+            // 设置未下单菜品id列表
+            setDishIds(dataList);
+            // 设置总价格
+            setDishTotalPrice(dataList);
             //将右侧菜类的角标数量数据传递到右侧页面
             EventBus.getDefault().post(bean);
+
+            mAdapter.update(dataList, true);
         }
     }
 
     /**
-     * 获取未下单菜品id列表
+     * 设置未下单菜品id列表
      * @param dataList 菜品列表
      * @return
      */
-    private String getDishIds(List<DishListEntity.Dishes> dataList){
+    private void setDishIds(List<DishListEntity.Dishes> dataList){
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < dataList.size(); i++){
             DishListEntity.Dishes bean = dataList.get(i);
@@ -145,7 +154,22 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             }
         }
 
-        return stringBuffer.toString();
+        dishIds = stringBuffer.toString();
+    }
+
+    /**
+     * 设置总价格
+     * @param dataList
+     */
+    private void setDishTotalPrice(List<DishListEntity.Dishes> dataList){
+        totalPrice = 0.00;
+        for (int i = 0; i < dataList.size(); i++){
+            DishListEntity.Dishes bean = dataList.get(i);
+            if (TextUtils.isEmpty(bean.getOrderTime())){
+                totalPrice+= Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
+            }
+        }
+        tvTotalPrice.setText(mContext.getString(R.string.RMB_symbol) + StringUtil.getFormattedMoney(totalPrice + ""));
     }
 
     @Override
@@ -158,11 +182,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         currentBean = (DishListEntity.Dishes) parent.getAdapter().getItem(position);
         dishId = currentBean.getId();
-        quantity = currentBean.getQuantity();
+        quantity = (int)Double.parseDouble(currentBean.getQuantity());
 
-        popup = new POP_DishesEdit(mContext, this);
-        popup.setDishStatus(currentBean.getDishStatus());
-        popup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
+        // 未下单操作弹窗
+        if (TextUtils.isEmpty(currentBean.getOrderTime())){
+            editPopup = new POP_DishesEdit(mContext, this, currentBean.getDishStatus());
+            editPopup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
+        } else {
+            placeOrderEditPopup = new POP_DishesPlaceOrderEdit(mContext, this, currentBean.getDishStatus());
+            placeOrderEditPopup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
+        }
     }
 
     /**
@@ -228,8 +257,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void deleteDishSuccess() {
-        if (null != popup) {
-            popup.dismiss();
+        if (null != editPopup) {
+            editPopup.dismiss();
         }
 
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_delete_dish_success), false);

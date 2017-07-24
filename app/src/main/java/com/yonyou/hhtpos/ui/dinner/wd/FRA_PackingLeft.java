@@ -50,6 +50,8 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
     /**中间者 */
     private IWDOpenOrderPresenter mPackingLeftPresenter;
 
+    private String shopId = "C13352966C000000A60000000016E000";
+
     @Override
     protected void onFirstUserVisible() {
 

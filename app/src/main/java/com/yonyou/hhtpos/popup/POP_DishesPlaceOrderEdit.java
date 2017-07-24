@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.PopupWindow;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.ADA_DishesEdit;
+import com.yonyou.hhtpos.adapter.ADA_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.bean.DishEditEntity;
 import com.yonyou.hhtpos.widgets.BanSlideGridView;
 
@@ -16,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 菜品编辑popup（未下单）
- * 作者：liushuofei on 2017/7/12 14:38
+ * 右侧菜品操作弹窗（已下单）
+ * 作者：liushuofei on 2017/7/24 17:21
  */
-public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSelectedListener {
+public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesPlaceOrderEdit.OnSelectedListener {
 
     /**传入数据 */
     private Context context;
-    private OnEditListener onEditListener;
+    private OnPlaceEditListener onEditListener;
     private int dishStatus;
 
     /**布局 */
@@ -31,14 +30,14 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
     private BanSlideGridView mGridView;
 
     private List<DishEditEntity> dataList;
-    private ADA_DishesEdit mAdapter;
+    private ADA_DishesPlaceOrderEdit mAdapter;
 
     /**催菜：6，等叫：7，叫起：8 */
     private static final String STATUS_REMINDER = "6";
     private static final String STATUS_WAIT_CALLED = "7";
     private static final String STATUS_SERVING = "8";
 
-    public POP_DishesEdit(Context context, OnEditListener onEditListener, int dishStatus) {
+    public POP_DishesPlaceOrderEdit(Context context, OnPlaceEditListener onEditListener, int dishStatus) {
         super(context);
         this.context = context;
         this.onEditListener = onEditListener;
@@ -47,15 +46,11 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
         setConvertView();
     }
 
-    public void setDishStatus(int dishStatus) {
-        this.dishStatus = dishStatus;
-    }
-
     public void setConvertView() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.pop_dishes_edit, null);
         mGridView = (BanSlideGridView)convertView.findViewById(R.id.gv_dishes_edit);
-        mAdapter = new ADA_DishesEdit(context, this, dishStatus);
+        mAdapter = new ADA_DishesPlaceOrderEdit(context, this, dishStatus);
         mGridView.setAdapter(mAdapter);
 
         // 数据
@@ -64,7 +59,6 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
             dataList.add(new DishEditEntity());
         }
         mAdapter.update(dataList);
-
 
         // 设置SelectPicPopupWindow的View
         this.setContentView(convertView);
@@ -84,41 +78,36 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
     public void onSelected(int pos) {
         switch (pos){
             case 0:
-                onEditListener.updateCount(false);
-                break;
-
-            case 1:
-                onEditListener.updateCount(true);
-                break;
-
-            case 2:
-                onEditListener.updateDish();
-                break;
-
-            case 3:
-                onEditListener.deleteDish();
-                break;
-
-            case 4:
-                onEditListener.updateDishStatus(STATUS_WAIT_CALLED);
-                break;
-
-            case 5:
                 onEditListener.updateDishStatus(STATUS_SERVING);
                 break;
+
+//            case 1:
+//                onEditListener.updateCount(true);
+//                break;
+//
+//            case 2:
+//                onEditListener.updateDish();
+//                break;
+//
+//            case 3:
+//                onEditListener.deleteDish();
+//                break;
+
+            case 4:
+                onEditListener.updateDishStatus(STATUS_REMINDER);
+                break;
+//
+//            case 5:
+//                onEditListener.updateDishStatus(STATUS_SERVING);
+//                break;
 
             default:
                 break;
         }
     }
 
-    public interface OnEditListener{
-        void updateCount(boolean isAdd);
-
-        void updateDish();
-
+    public interface OnPlaceEditListener{
         void updateDishStatus(String status);
-
-        void deleteDish();
     }
 }
+
