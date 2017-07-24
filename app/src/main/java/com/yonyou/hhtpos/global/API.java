@@ -88,7 +88,7 @@ public class API {
     /**
      * 点菜-获取所有菜品/菜类
      */
-    public static final String URL_GET_ALL_DISHES = BASE_SERVER_SHOP + "/prodish/getalldishs";
+    public static final String URL_GET_ALL_DISHES = "http://10.220.23.81:9001" + "/prodish/getalldishs";
 
     /**
      * 外卖-获取所有外卖公司
@@ -115,7 +115,7 @@ public class API {
      * 点菜时，新加菜品
      * "http://10.220.23.81:9001"
      */
-    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
+    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
     /**
      * 查询服务员
      */

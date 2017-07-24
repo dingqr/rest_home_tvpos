@@ -30,11 +30,11 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
         if (dishDetailEntity != null) {
             holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)));
             holder.setText(R.id.tv_dish_name, dishDetailEntity.dishName);
-            holder.setText(R.id.tv_dish_price, "￥"+dishDetailEntity.getDishPrice());
-            holder.setText(R.id.tv_quanlity, "x" + dishDetailEntity.quantity+mContext.getResources().getString(R.string.string_unit_quanlity));
-            if(!TextUtils.isEmpty(dishDetailEntity.remark)) {
+            holder.setText(R.id.tv_dish_price, "￥" + dishDetailEntity.getDishPrice());
+            holder.setText(R.id.tv_quanlity, "x" + dishDetailEntity.quantity);
+            if (!TextUtils.isEmpty(dishDetailEntity.remark)) {
                 //备注
-                holder.setText(R.id.tv_remarks,""+dishDetailEntity.remark);
+                holder.setText(R.id.tv_remarks, "" + dishDetailEntity.remark);
             }
             //新点的菜后台没有记录时间
         }
