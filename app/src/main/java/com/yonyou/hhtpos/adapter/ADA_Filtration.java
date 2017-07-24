@@ -36,7 +36,9 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
     public ADA_Filtration(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
-        currentBean = mDatas.get(0);
+        if (mDatas !=null && mDatas.size()>0){
+            currentBean = mDatas.get(0);
+        }
     }
 
     @Override

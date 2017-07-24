@@ -91,7 +91,7 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
             if (dataBean.getStandards() != null && dataBean.getStandards().size() > 0) {
                 FilterItemEntity dishNorms = new FilterItemEntity();
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
-                for (int i = 0; i < dataBean.getPractices().size(); i++) {
+                for (int i = 0; i < dataBean.getStandards().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getStandards().get(i).standardName);
                     foe.setType(FiltrationView.DISH_NORMS);
