@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
@@ -16,6 +17,7 @@ import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
@@ -35,6 +37,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 import static com.yonyou.hhtpos.R.id.ll_pay_type;
 
@@ -130,6 +134,19 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     TextView btnLeft;
     @Bind(R.id.btn_right)
     TextView btnRight;
+    private int mOrderState = -1;
+
+    /**
+     * 左侧外卖订单列表是否为空
+     *
+     * @param dataList
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onLeftOrderList(List<OrderListEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222), mContext.getResources().getString(R.string.empty_msg_other));
+        }
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -194,12 +211,22 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_right:
-                readyGo(ACT_OrderDishes.class);
+                if (mOrderState == 1) {
+                    readyGo(ACT_OrderDishes.class);
+                } else if (mOrderState == 2) {
+                    //去结账
+                } else if (mOrderState == 3 || mOrderState == 4) {
+                    //补打账单
+                }
                 break;
             case R.id.btn_left:
                 //退款弹框
                 dia_takeOutRefund.getDialog().show();
                 dia_takeOutRefund.setWmReasonsCallback(FRA_TakeOutDetail.this);
+                if (mOrderState == 3) {
+                    //退款
+
+                }
                 break;
             default:
                 break;
@@ -314,11 +341,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
      */
     private void handOrderStatus(WMOrderDetailEntity orderDetailEntity) {
         // 开单1，下单2，结账3，退款4
-        int orderState = -1;
         if (!TextUtils.isEmpty(orderDetailEntity.orderState)) {
-            orderState = Integer.parseInt(orderDetailEntity.orderState);
+            mOrderState = Integer.parseInt(orderDetailEntity.orderState);
         }
-        switch (orderState) {
+        switch (mOrderState) {
             case 1:
                 //显示：总计
                 llTotalBillmoney.setVisibility(View.VISIBLE);
