@@ -107,15 +107,17 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
+    private List<DishListEntity.Dishes> mOrderedDishes;
 
     /**
      * 接收右侧角标数量的数据集合
      *
-     * @param dishTypeList
+     * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onRefreshRightCount(List<DishListEntity.DishType> dishTypeList) {
-        this.mDishTypeList = dishTypeList;
+    public void onRefreshRightCount(DishListEntity bean) {
+        this.mDishTypeList = bean.getDishTypelist();
+        mOrderedDishes = bean.getDishes();
     }
 
     @Override
@@ -459,14 +461,64 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     public void getAllDishes(DishDataEntity dishDataEntity) {
         this.mDishDataBean = dishDataEntity;
         if (mDishDataBean != null) {
+            //设置已点菜的选中状态
+            setDishesCheckStatus(dishDataEntity);
             //给右侧菜类设置数据
-            mRightNavigationView.setData(mDishDataBean.dishTypes);
+            setRightDishTypeData();
             //给菜品设置默认数据
             mAdapter.update(mDishDataBean.dishTypes.get(1).dishes);
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
 
+    }
+
+    /**
+     * 设置已点菜的选中状态
+     *
+     * @param dishDataEntity
+     */
+    private void setDishesCheckStatus(DishDataEntity dishDataEntity) {
+        for (int i = 0; i < mOrderedDishes.size(); i++) {
+            //遍历已点菜的id
+            String dishRelateId = mOrderedDishes.get(i).getDishRelateId();
+            for (int j = 0; j < dishDataEntity.dishTypes.size(); j++) {
+                List<DishesEntity> dishes = dishDataEntity.dishTypes.get(j).dishes;
+                if (dishes != null && dishes.size() > 0) {
+                    for (int k = 0; k < dishes.size(); k++) {
+                        //所有菜品的唯一标识
+                        String relateId = dishes.get(k).relateId;
+                        if (dishRelateId.equals(relateId)) {
+                            dishes.get(k).isCheck = true;
+                            continue;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    /**
+     * 给右侧菜类设置数据
+     */
+    private void setRightDishTypeData() {
+        List<DishTypesEntity> dishTypes = mDishDataBean.dishTypes;
+        //菜类唯一标识：relateId ,匹配菜类，刷新角标数量
+        if (mDishTypeList.size() > 0) {
+            for (int i = 0; i < mDishTypeList.size(); i++) {
+                String dishClassId = mDishTypeList.get(i).getDishClassId();
+                for (int j = 0; j < dishTypes.size(); j++) {
+                    String relateId = dishTypes.get(j).relateId;
+                    if (dishClassId.equals(relateId)) {
+                        dishTypes.get(j).count = Integer.parseInt(mDishTypeList.get(i).getQuantity());
+                        break;
+                    }
+                }
+            }
+        }
+        //给右侧菜类设置数据
+        mRightNavigationView.setData(mDishDataBean.dishTypes);
     }
 
     /**

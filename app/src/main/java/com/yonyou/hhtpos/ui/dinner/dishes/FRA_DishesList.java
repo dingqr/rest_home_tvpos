@@ -109,7 +109,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         }else {
             mAdapter.update(dataList, true);
             //将右侧菜类的角标数量数据传递到右侧页面
-            EventBus.getDefault().post(bean.getDishTypelist());
+            EventBus.getDefault().post(bean);
         }
     }
 
