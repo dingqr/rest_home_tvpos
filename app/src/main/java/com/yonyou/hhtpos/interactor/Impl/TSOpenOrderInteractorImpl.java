@@ -26,7 +26,6 @@ public class TSOpenOrderInteractorImpl implements ITSOpenOrderInteractor {
     public void openOrder(OpenOrderEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("billRemark", bean.getBillRemark());
-        hashMap.put("companyId", bean.getCompanyId());
         hashMap.put("memberId", bean.getMemberId());
         hashMap.put("personNum", bean.getPersonNum());
         hashMap.put("shopId", bean.getShopId());
