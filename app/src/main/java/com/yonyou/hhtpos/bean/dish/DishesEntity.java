@@ -108,7 +108,9 @@ public class DishesEntity implements Serializable {
     public String relateId;
 
 
-    /***/
+    /**
+     * 备注列表
+     */
     public List<DishRemarkEntity> remarks;
 
     /**

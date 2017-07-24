@@ -22,6 +22,7 @@ import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
@@ -46,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 import static com.yonyou.hhtpos.R.id.ll_content;
 import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
@@ -89,6 +92,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private String mTableBillId = "C50242AC980000009200000000257000";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
+    //已点菜类、角标数量
+    private List<DishListEntity.DishType> mDishTypeList = new ArrayList<>();
 
     //添加菜品presenter
     private IAddDishPresenter mAddDishPresenter;
@@ -102,6 +107,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
+
+    /**
+     * 接收右侧角标数量的数据集合
+     *
+     * @param dishTypeList
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onRefreshRightCount(List<DishListEntity.DishType> dishTypeList) {
+        this.mDishTypeList = dishTypeList;
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -340,6 +355,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         if (dishesEntity.standards.size() > 0 && dishesEntity.standards != null) {
             dataBean.setStandards(dishesEntity.standards);
         }
+        if (dishesEntity.tastes.size() > 0 && dishesEntity.tastes != null) {
+            dataBean.setTastes(dishesEntity.tastes);
+        }
         return dataBean;
     }
 
@@ -396,7 +414,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override

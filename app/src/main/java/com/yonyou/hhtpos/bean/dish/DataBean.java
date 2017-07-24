@@ -29,6 +29,10 @@ public class DataBean implements Serializable {
      * 标签列表
      */
     private List<DishLabelEntity> labels;
+    /**
+     * 口味列表
+     */
+    private List<DishTastesEntity> tastes;
 
 
     private List<DishPracticeEntity> practices = new ArrayList<>();
@@ -67,6 +71,13 @@ public class DataBean implements Serializable {
         this.standards = standards;
     }
 
+    public List<DishTastesEntity> getTastes() {
+        return tastes;
+    }
+
+    public void setTastes(List<DishTastesEntity> tastes) {
+        this.tastes = tastes;
+    }
 
     public String getPrice() {
         return StringUtil.getFormattedMoney(price);
@@ -99,6 +110,7 @@ public class DataBean implements Serializable {
                 ", price='" + price + '\'' +
                 ", vipPrice='" + vipPrice + '\'' +
                 ", labels=" + labels +
+                ", tastes=" + tastes +
                 ", practices=" + practices +
                 ", remarks=" + remarks +
                 ", standards=" + standards +
