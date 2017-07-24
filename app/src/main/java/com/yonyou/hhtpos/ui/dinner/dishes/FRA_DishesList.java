@@ -70,7 +70,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         mListView.setOnItemClickListener(this);
 
         mDishListPresenter = new DishListPresenterImpl(mContext, this);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000");
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", true);
 
         mDishEditPresenter = new DishEditPresenterImpl(mContext, this);
     }
@@ -162,20 +162,24 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void updateQuantitySuccess() {
         CommonUtils.makeEventToast(mContext, "修改数量成功", false);
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
     }
 
     @Override
     public void updateDishSuccess() {
         CommonUtils.makeEventToast(mContext, "修改菜品成功", false);
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
     }
 
     @Override
     public void deleteDishSuccess() {
         CommonUtils.makeEventToast(mContext, "删除成功", false);
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
     }
 
     @Override
     public void updateDishStatusSuccess() {
         CommonUtils.makeEventToast(mContext, "修改菜品状态成功", false);
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
     }
 }
