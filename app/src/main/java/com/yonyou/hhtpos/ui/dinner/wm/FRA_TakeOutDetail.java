@@ -258,7 +258,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
-                mAdapter.update(dataList,true);
+                mAdapter.update(dataList, true);
             }
             //左侧信息
             //设置订单详情信息
@@ -283,15 +283,14 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
             //右侧信息-要求返回Long型
             tvArriveTime.setText(orderDetailEntity.arriveTime);
-            tvSendNow.setText("(" + mContext.getResources().getString(R.string.string_send_now) + ")");
-            tvSendNow.setVisibility(orderDetailEntity.sendNow.equals("Y") ? View.VISIBLE : View.GONE);
+            tvSendNow.setText(orderDetailEntity.sendNow.equals("Y") ? "(" + mContext.getResources().getString(R.string.string_send_now) + ")" : "(" + mContext.getResources().getString(R.string.string_expect_send) + ")");
             tvPhone.setText(orderDetailEntity.phone);
             tvCustomerName.setText(orderDetailEntity.name);
             tvArriveAddress.setText(orderDetailEntity.address);
             tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
             //缺少的字段“
             //就餐人数和时段
-            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "人" + "(午餐)");
+            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "人" + "(" + orderDetailEntity.scheduleName + ")");
             //备注
             tvRemarks.setText(orderDetailEntity.remark);
             tvRemarks.setVisibility(!TextUtils.isEmpty(orderDetailEntity.remark) ? View.VISIBLE : View.GONE);
