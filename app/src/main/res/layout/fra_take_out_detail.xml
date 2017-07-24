@@ -385,7 +385,6 @@
         android:paddingLeft="@dimen/px_36"
         android:paddingRight="@dimen/px_36"
         android:paddingTop="@dimen/px_12"
-        android:text="退款"
         android:textColor="@color/color_222222"
         android:textSize="@dimen/sp_30" />
 
@@ -403,7 +402,6 @@
         android:paddingLeft="@dimen/px_36"
         android:paddingRight="@dimen/px_36"
         android:paddingTop="@dimen/px_12"
-        android:text="去点菜"
         android:textColor="@color/color_eb6247"
         android:textSize="@dimen/sp_30" />
 </RelativeLayout>

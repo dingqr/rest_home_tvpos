@@ -20,12 +20,12 @@ import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
+import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.IWMRefundReasonPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WMRefundReasonPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.view.IWMOrderDetailView;
 import com.yonyou.hhtpos.view.IWMRefundReasonView;
 import com.yonyou.hhtpos.widgets.FiltrationView;
@@ -36,7 +36,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-import static com.yonyou.hhtpos.R.id.ll_invoidce;
 import static com.yonyou.hhtpos.R.id.ll_pay_type;
 
 /**
@@ -123,9 +122,14 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     LinearLayout llRefundype;//积分
     @Bind(R.id.ll_integral)
     LinearLayout llIntegral;//积分
-    @Bind(ll_invoidce)
+    @Bind(R.id.ll_invoidce)
     LinearLayout llInvoidce;//发票
 
+    //点菜和退款按钮
+    @Bind(R.id.btn_left)
+    TextView btnLeft;
+    @Bind(R.id.btn_right)
+    TextView btnRight;
 
     @Override
     protected void onFirstUserVisible() {
@@ -254,7 +258,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
-                mAdapter.update(dishList);
+                mAdapter.update(dataList,true);
             }
             //左侧信息
             //设置订单详情信息
@@ -325,20 +329,36 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 llRefundype.setVisibility(View.GONE);
                 llInvoidce.setVisibility(View.GONE);
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_not_order));
+
+                btnLeft.setVisibility(View.GONE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRight.setText(R.string.string_order_dishes);
                 break;
             case 2:
                 //显示总计和优惠
                 tvTotalBillmoney.setVisibility(View.VISIBLE);
                 tvReduceMoney.setVisibility(View.VISIBLE);
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_ordered));
+
+                btnLeft.setVisibility(View.GONE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRight.setText(mContext.getResources().getString(R.string.string_go_settle_amount));
                 break;
             case 3:
                 //显示：总计、优惠、支付、积分，发票未开的状态
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.sting_payed));
+
+                btnLeft.setVisibility(View.VISIBLE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnLeft.setText(mContext.getResources().getString(R.string.string_refund));
+                btnRight.setText(mContext.getResources().getString(R.string.string_late_make_bill));
                 break;
             case 4:
                 //全显示：发票状态：显示已开
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_refunded));
+                btnLeft.setVisibility(View.GONE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRight.setText(mContext.getResources().getString(R.string.string_late_make_bill));
                 break;
         }
     }

@@ -254,6 +254,10 @@
     <string name="input_dish_price">请设置菜品价格，范围0.00-9999.99</string>
     <string name="input_dish_taste">请选择菜品口味</string>
     <string name="input_dish_standard">请选择菜品规格</string>
+    <string name="string_order_dishes">去点菜</string>
+    <string name="string_refund">退款</string>
+    <string name="string_late_make_bill">补打账单</string>
+    <string name="string_go_settle_amount">去结账</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>
