@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,7 +117,6 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
             } else tvChiefRecommend.setVisibility(View.GONE);
         }
 
-
         if (dataBean != null) {
             //获取菜品做法列表
             if (dataBean.getPractices() != null && dataBean.getPractices().size() > 0) {
@@ -148,14 +148,14 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
-                if (flag) {
-                    if (dishDataCallback != null) {
-                        dishDataCallback.sendItems(dishCallBackEntity);
-                    }
+                if (dishDataCallback != null) {
+                    dishDataCallback.sendItems(dishCallBackEntity);
+                    Log.e("DIA_OrderDishSetWeight", dishCallBackEntity.toString());
                     if (!cookeryEmptyFlag)
                         fvCookery.reset();
                     iwvDishWeight.reset();
                     mDialog.dismiss();
+
                 }
                 break;
             default:
@@ -163,44 +163,48 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
         }
     }
 
+    private boolean verifyInput() {
+        //称重的数量为0
+        if (TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            return false;
+        }
+        //称重的数量超出范围
+        if (!TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
+            if (dishWeight < 0.00 || dishWeight > 99.99) {
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+                return false;
+            }
+        }
+        //有做法列表但是没有选择
+        if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+            return false;
+        }
+        return true;
+    }
+
+
     private DishCallBackEntity initDishCallBackEntity() {
         DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
-        double dishWeight = 0;
-        String remark = etOtherRemark.getText().toString().trim();
+        if (verifyInput()) {
+            double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
+            String remark = etOtherRemark.getText().toString().trim();
+            //做法列表不为空
+            if (!cookeryEmptyFlag) {
+                String dishCookery = fvCookery.getSelectedData().getOption();
+                String dishCookeryId = fvCookery.getSelectedData().getOptionId();
 
-        if (!TextUtils.isEmpty(iwvDishWeight.getNumber())) {
-            dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
-        } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
-        }
-
-        String dishCookery = "";
-        if (!cookeryEmptyFlag && fvCookery.getSelectedData() != null) {
-            dishCookery = fvCookery.getSelectedData().getOption();
-        } else if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null) {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
-        }
-
-        if (dishWeight > 0.00 && dishWeight < 99.99) {
-            //重量
-            dishCallBackEntity.setDishWeight(dishWeight);
-            if (!TextUtils.isEmpty(dishCookery) || cookeryEmptyFlag) {
-                //做法
-                dishCallBackEntity.setDishCookery(dishCookery);
-                flag = true;
-                //备注
-                dishCallBackEntity.setDishRemark(StringUtil.getString(remark));
-            } else {
-                flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+                dishCallBackEntity.setListShowPractice(dishCookery);
+                dishCallBackEntity.setPractices(dishCookeryId);
             }
+            dishCallBackEntity.setDishWeight(dishWeight);
+            dishCallBackEntity.setRemark(StringUtil.getString(remark));
+            return dishCallBackEntity;
         } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            return null;
         }
-        return dishCallBackEntity;
     }
 
     public Dialog getDialog() {

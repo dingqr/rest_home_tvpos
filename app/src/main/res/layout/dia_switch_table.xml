@@ -13,6 +13,7 @@
         android:background="@color/color_c4c4c4"></View>
 
     <TextView
+        android:id="@+id/tv_dish_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_20"
@@ -49,6 +50,7 @@
             android:layout_weight="1"></com.yonyou.hhtpos.widgets.NumberKeybordView>
 
         <RadioButton
+            android:id="@+id/rb_confirm"
             android:layout_width="@dimen/px_260"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/px_10"

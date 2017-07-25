@@ -22,15 +22,17 @@ public class DishCallBackEntity implements Serializable {
     /**价格，时价*/
     private String  dishPrice;
     /**做法*/
-    private String  dishCookery;
+    private String  listShowPractice;
     /**做法id*/
-    private String  dishCookeryId;
+    private String  practices;
     /**口味*/
     private String  dishTaste;
     /**备注*/
-    private String  dishRemark;
+    private String  listShowRemark;
     /**备注id*/
-    private String  dishRemarkId;
+    private String  remarks;
+    /**手写备注*/
+    private String remark;
 
     public DishCallBackEntity(){}
 
@@ -66,14 +68,6 @@ public class DishCallBackEntity implements Serializable {
         this.dishPrice = dishPrice;
     }
 
-    public String getDishCookery() {
-        return dishCookery;
-    }
-
-    public void setDishCookery(String dishCookery) {
-        this.dishCookery = dishCookery;
-    }
-
     public String getDishTaste() {
         return dishTaste;
     }
@@ -82,29 +76,6 @@ public class DishCallBackEntity implements Serializable {
         this.dishTaste = dishTaste;
     }
 
-    public String getDishRemark() {
-        return dishRemark;
-    }
-
-    public void setDishRemark(String dishRemark) {
-        this.dishRemark = dishRemark;
-    }
-
-    public String getDishCookeryId() {
-        return dishCookeryId;
-    }
-
-    public void setDishCookeryId(String dishCookeryId) {
-        this.dishCookeryId = dishCookeryId;
-    }
-
-    public String getDishRemarkId() {
-        return dishRemarkId;
-    }
-
-    public void setDishRemarkId(String dishRemarkId) {
-        this.dishRemarkId = dishRemarkId;
-    }
 
     public String getDishStandardId() {
         return dishStandardId;
@@ -112,6 +83,46 @@ public class DishCallBackEntity implements Serializable {
 
     public void setDishStandardId(String dishStandardId) {
         this.dishStandardId = dishStandardId;
+    }
+
+    public String getListShowPractice() {
+        return listShowPractice;
+    }
+
+    public void setListShowPractice(String listShowPractice) {
+        this.listShowPractice = listShowPractice;
+    }
+
+    public String getPractices() {
+        return practices;
+    }
+
+    public void setPractices(String practices) {
+        this.practices = practices;
+    }
+
+    public String getListShowRemark() {
+        return listShowRemark;
+    }
+
+    public void setListShowRemark(String listShowRemark) {
+        this.listShowRemark = listShowRemark;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
@@ -122,11 +133,12 @@ public class DishCallBackEntity implements Serializable {
                 ", dishStandardId='" + dishStandardId + '\'' +
                 ", dishWeight=" + dishWeight +
                 ", dishPrice='" + dishPrice + '\'' +
-                ", dishCookery='" + dishCookery + '\'' +
-                ", dishCookeryId='" + dishCookeryId + '\'' +
+                ", listShowPractice='" + listShowPractice + '\'' +
+                ", practices='" + practices + '\'' +
                 ", dishTaste='" + dishTaste + '\'' +
-                ", dishRemark='" + dishRemark + '\'' +
-                ", dishRemarkId='" + dishRemarkId + '\'' +
+                ", listShowRemark='" + listShowRemark + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", remark='" + remark + '\'' +
                 '}';
     }
 }

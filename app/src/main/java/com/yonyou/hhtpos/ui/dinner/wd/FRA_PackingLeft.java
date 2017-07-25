@@ -14,10 +14,10 @@ import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
 import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
 import com.yonyou.hhtpos.dialog.DIA_WDOpenOrder;
 import com.yonyou.hhtpos.global.ReceiveConstants;
+import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WDOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWDOpenOrderView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
@@ -169,7 +169,7 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
         bean.setTableId("0001");
         bean.setWaiterId("0001");
         bean.setWaiterName("王五");
-        bean.setSalesMode(SalesModeUtil.SALES_MODE_WD);
+        bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);
         mPackingLeftPresenter.openOrder(bean);
     }
 }

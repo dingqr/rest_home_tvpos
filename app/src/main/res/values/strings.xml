@@ -184,6 +184,8 @@
 
     <string name="dishes_no_data">还没有点菜哦~</string>
     <string name="order_no_data">今天还没有订单哦~</string>
+    <string name="user_name_empty">会员手机号不能为空</string>
+    <string name="waiter_name_empty">服务员不能为空</string>
 
     <!--日历 -->
     <string name="sunday">日</string>
@@ -264,6 +266,8 @@
     <string name="tip_update_dish_success">修改菜品成功</string>
     <string name="tip_delete_dish_success">删除成功</string>
     <string name="tip_update_dish_status_success">修改菜品状态成功</string>
+    <string name="return_dish">退菜</string>
+    <string name="serve_dish">赠菜</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>

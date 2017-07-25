@@ -18,11 +18,13 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     private BaseLoadedListener updateQuantityListener;
     private BaseLoadedListener deleteDishListener;
     private BaseLoadedListener updateDishStatusListener;
+    private BaseLoadedListener handleDishListener;
 
-    public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener) {
+    public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener, BaseLoadedListener handleDishListener) {
         this.updateQuantityListener = updateQuantityListener;
         this.deleteDishListener = deleteDishListener;
         this.updateDishStatusListener = updateDishStatusListener;
+        this.handleDishListener = handleDishListener;
     }
     
     @Override
@@ -98,6 +100,32 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 updateDishStatusListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("dishAbnormalStatus", dishAbnormalStatus);
+        hashMap.put("id", id);
+        hashMap.put("shopId", shopId);
+        hashMap.put("count", count);
+        RequestManager.getInstance().requestPostByAsyn(API.URL_SPECIAL_HANDLE_DISH, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                handleDishListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                handleDishListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                handleDishListener.onBusinessError(errorBean);
             }
         });
     }

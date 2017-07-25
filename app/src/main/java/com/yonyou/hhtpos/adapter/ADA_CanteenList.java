@@ -8,14 +8,15 @@ import com.yonyou.framework.library.adapter.rv.ViewHolder;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
-import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
+import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
+import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 
 /**
  * Created by zj on 2017/7/8.
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食桌台列表适配器
  */
-public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
+public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implements DIA_ReserveOpenOrder.TSCallback{
     public ADA_CanteenList(Context context) {
         super(context);
     }
@@ -81,15 +82,23 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
             @Override
             public void onClick(View v) {
                 switch (canteenTableEntity.tableStatus){
-                    //桌台空闲 弹出开单对话框
-                    case 0:
-                        DIA_OpenOrder dia_openOrder = new DIA_OpenOrder(mContext);
-                        dia_openOrder.getDialog().show();
+                    //桌台预定 弹出预订单开单对话框
+                    case 5:
+                        DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
+                        dia_reserveOpenOrder.setData(canteenTableEntity);
+                        dia_reserveOpenOrder.setTsCallback(ADA_CanteenList.this);
+                        dia_reserveOpenOrder.getDialog().show();
                         break;
                     default:
                         break;
                 }
             }
         });
+    }
+
+    /**获取开单数据的回调数据*/
+    @Override
+    public void sendTsEntity(OpenOrderEntity wmOpenOrderEntity) {
+
     }
 }

@@ -65,10 +65,6 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
      * 数据回调接口
      */
     private DishDataCallback dishDataCallback;
-    /**
-     * 数据回调数据状态
-     */
-    private boolean flag = true;
 
     public DIA_OrderDishSetPrice(Context mContext) {
         this.mContext = mContext;
@@ -152,10 +148,9 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
-                if (flag) {
-                    if (dishDataCallback != null) {
-                        dishDataCallback.sendItems(dishCallBackEntity);
-                    }
+
+                if (dishDataCallback != null) {
+                    dishDataCallback.sendItems(dishCallBackEntity);
                     if (!cookeryEmptyFlag)
                         fvCookery.reset();
                     etOtherRemark.setText("");
@@ -169,59 +164,59 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         }
     }
 
+    private boolean verifyInput() {
+        //称重的数量为0
+        if (TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            return false;
+        }
+        //称重的数量超出范围
+        if (!TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
+            if (dishWeight < 0.00 || dishWeight > 99.99) {
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+                return false;
+            }
+        }
+        //价格的数量为0
+        if (TextUtils.isEmpty(iwvDishPrice.getNumber())) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_price), false);
+            return false;
+        }
+        //价格的数量超出范围
+        if (!TextUtils.isEmpty(iwvDishPrice.getNumber())) {
+            double dishPrice = Double.parseDouble(iwvDishPrice.getNumber());
+            if (dishPrice < 0.00 || dishPrice > 9999.99) {
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_price), false);
+                return false;
+            }
+        }
+        //有做法列表但是没有选择
+        if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+            return false;
+        }
+        return true;
+    }
+
     private DishCallBackEntity initDishCallBackEntity() {
         DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
-        double dishWeight = 0;
-        double dishPrice = 0;
-        String dishCookery = "";
-        if (!TextUtils.isEmpty(iwvDishWeight.getNumber())) {
-            dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
-        } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
-        }
-
-        if (!TextUtils.isEmpty(iwvDishPrice.getNumber())) {
-            dishPrice = Double.parseDouble(iwvDishPrice.getNumber());
-        } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_price), false);
-        }
-
-        if (!cookeryEmptyFlag && fvCookery.getSelectedData() != null) {
-            dishCookery = fvCookery.getSelectedData().getOption();
-        } else if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null) {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
-        }
-
-        String dishRemark = etOtherRemark.getText().toString().trim();
-        //重量
-        if (dishWeight > 0.00 && dishWeight < 99.99) {
+        if (verifyInput()) {
+            //重量
+            double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
             dishCallBackEntity.setDishWeight(dishWeight);
             //价格
-            if (dishPrice > 0.00 && dishPrice < 9999.99) {
-                dishCallBackEntity.setDishPrice(dishPrice + "");
-                //做法
-                if (!TextUtils.isEmpty(dishCookery) || cookeryEmptyFlag) {
-                    dishCallBackEntity.setDishCookery(dishCookery);
-                    flag = true;
-                    //备注
-                    dishCallBackEntity.setDishRemark(StringUtil.getString(dishRemark));
-                } else {
-                    flag = false;
-                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
-                }
-            } else {
-                flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_price), false);
+            dishCallBackEntity.setDishPrice(iwvDishPrice.getNumber());
+            //做法
+            if (!cookeryEmptyFlag) {
+                dishCallBackEntity.setListShowPractice(fvCookery.getSelectedData().getOption());
+                dishCallBackEntity.setPractices(fvCookery.getSelectedData().getOptionId());
             }
-        } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
-        }
-
-        return dishCallBackEntity;
+            //手输备注
+            String dishRemark = etOtherRemark.getText().toString().trim();
+            dishCallBackEntity.setRemark(StringUtil.getString(dishRemark));
+            return dishCallBackEntity;
+        } else return null;
     }
 
     public Dialog getDialog() {

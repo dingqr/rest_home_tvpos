@@ -30,4 +30,13 @@ public interface IDishEditPresenter {
      * @param shopId
      */
     void deleteDish(String companyId, String id, String shopId);
+
+    /**
+     * 退菜和赠菜的接口
+     * @param dishAbnormalStatus 异常状态
+     * @param id 点菜菜单id
+     * @param shopId
+     * @param count 数量
+     */
+    void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count);
 }
