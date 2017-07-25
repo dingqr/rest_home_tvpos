@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -16,6 +15,7 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
@@ -32,12 +32,12 @@ import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetWeight;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
+import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
-import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
@@ -117,7 +117,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRightCount(DishListEntity bean) {
         this.mDishTypeList = bean.getDishTypelist();
-        mOrderedDishes = bean.getDishes();
+        this.mOrderedDishes = bean.getDishes();
+        if (mDishDataBean != null && mDishDataBean.dishTypes != null && mDishDataBean.dishTypes.size() > 0) {
+            setRightDishTypeData();
+            setDishesCheckStatus(mDishDataBean);
+        }
     }
 
     @Override
@@ -212,6 +216,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.companyId = dishesEntity.companyId;
                 requestAddDishEntity.dishClassid = dishesEntity.dishTypeRelateId;
                 requestAddDishEntity.dishName = dishesEntity.dishName;
+                requestAddDishEntity.dishId = dishesEntity.id;
                 requestAddDishEntity.setDishPrice(dishesEntity.getPrice());
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
@@ -310,7 +315,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaCurrentDishWeight.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity dishCallBackEntity) {
-                Log.e("TAG", "时价、称重=" + dishCallBackEntity.toString());
+                Elog.e("TAG", "时价、称重=" + dishCallBackEntity.toString());
                 //重量
                 double dishWeight = dishCallBackEntity.getDishWeight();
                 //时价
@@ -322,25 +327,25 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaStandards.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "规格=" + bean.toString());
+                Elog.e("TAG", "规格=" + bean.toString());
             }
         });
         mDiaWeightRemarks.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "称重、有备注列表=" + bean.toString());
+                Elog.e("TAG", "称重、有备注列表=" + bean.toString());
             }
         });
         mDiaWeightNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "称重、无备注列表=" + bean.toString());
+                Elog.e("TAG", "称重、无备注列表=" + bean.toString());
             }
         });
         mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-                Log.e("TAG", "bean=" + bean.toString());
+                Elog.e("TAG", "bean=" + bean.toString());
             }
         });
 

@@ -6,6 +6,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
  * 描述：
  */
 
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,6 +31,8 @@ import com.yonyou.hhtpos.widgets.BanSlideListView;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 /**
  * Created by zj on 2017/7/4.
@@ -79,6 +82,19 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     //请求外带详情接口
     private IOrderDetailPresenter mPresenter;
 
+    /**
+     * 左侧外带订单列表是否为空
+     *
+     * @param dataList
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onWDLeftOrderList(ArrayList<com.yonyou.hhtpos.bean.wd.OrderListEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222), mContext.getResources().getString(R.string.empty_msg_other));
+        }
+    }
+
+
     @Override
     protected void onFirstUserVisible() {
 
@@ -126,7 +142,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
@@ -20,12 +21,12 @@ import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
+import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.IWMRefundReasonPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WMRefundReasonPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.view.IWMOrderDetailView;
 import com.yonyou.hhtpos.view.IWMRefundReasonView;
 import com.yonyou.hhtpos.widgets.FiltrationView;
@@ -35,8 +36,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
-import static com.yonyou.hhtpos.R.id.ll_invoidce;
 import static com.yonyou.hhtpos.R.id.ll_pay_type;
 
 /**
@@ -123,9 +125,27 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     LinearLayout llRefundype;//积分
     @Bind(R.id.ll_integral)
     LinearLayout llIntegral;//积分
-    @Bind(ll_invoidce)
+    @Bind(R.id.ll_invoidce)
     LinearLayout llInvoidce;//发票
 
+    //点菜和退款按钮
+    @Bind(R.id.btn_left)
+    TextView btnLeft;
+    @Bind(R.id.btn_right)
+    TextView btnRight;
+    private int mOrderState = -1;
+
+    /**
+     * 左侧外卖订单列表是否为空
+     *
+     * @param dataList
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onWMLeftOrderList(ArrayList<com.yonyou.hhtpos.bean.wm.OrderListEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222), mContext.getResources().getString(R.string.empty_msg_other));
+        }
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -190,12 +210,22 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_right:
-                readyGo(ACT_OrderDishes.class);
+                if (mOrderState == 1) {
+                    readyGo(ACT_OrderDishes.class);
+                } else if (mOrderState == 2) {
+                    //去结账
+                } else if (mOrderState == 3 || mOrderState == 4) {
+                    //补打账单
+                }
                 break;
             case R.id.btn_left:
                 //退款弹框
                 dia_takeOutRefund.getDialog().show();
                 dia_takeOutRefund.setWmReasonsCallback(FRA_TakeOutDetail.this);
+                if (mOrderState == 3) {
+                    //退款
+
+                }
                 break;
             default:
                 break;
@@ -214,7 +244,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override
@@ -254,12 +284,12 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
-                mAdapter.update(dishList);
+                mAdapter.update(dataList, true);
             }
             //左侧信息
             //设置订单详情信息
             //订单来源-百度/饿了么
-//            tvTakeoutCompanyName.setText();
+            tvTakeoutCompanyName.setText(orderDetailEntity.takeOutCompanyName);
             //创建时间-要求后台返回Long值 -07-06 11:00
             tvCreateTime.setText(orderDetailEntity.orderTime);
             //总计
@@ -279,22 +309,22 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
             //右侧信息-要求返回Long型
             tvArriveTime.setText(orderDetailEntity.arriveTime);
-            tvSendNow.setText("(" + mContext.getResources().getString(R.string.string_send_now) + ")");
-            tvSendNow.setVisibility(orderDetailEntity.sendNow.equals("Y") ? View.VISIBLE : View.GONE);
+            tvSendNow.setText(orderDetailEntity.sendNow.equals("Y") ? "(" + mContext.getResources().getString(R.string.string_send_now) + ")" : "(" + mContext.getResources().getString(R.string.string_expect_send) + ")");
             tvPhone.setText(orderDetailEntity.phone);
             tvCustomerName.setText(orderDetailEntity.name);
             tvArriveAddress.setText(orderDetailEntity.address);
             tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
             //缺少的字段“
             //就餐人数和时段
-            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "(午餐)");
+            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "人" + "(" + orderDetailEntity.scheduleName + ")");
             //备注
             tvRemarks.setText(orderDetailEntity.remark);
+            tvRemarks.setVisibility(!TextUtils.isEmpty(orderDetailEntity.remark) ? View.VISIBLE : View.GONE);
             tvTotalBillmoney.setText("￥" + orderDetailEntity.getBillMoney());
             //支付类型-百度支付
             //退款类型-百度支付
             //积分
-            tvIntegral.setText(orderDetailEntity.nowPoints);
+            tvIntegral.setText("+" + orderDetailEntity.nowPoints);
 
 
             //根据订单状态设置显示信息
@@ -310,11 +340,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
      */
     private void handOrderStatus(WMOrderDetailEntity orderDetailEntity) {
         // 开单1，下单2，结账3，退款4
-        int orderState = -1;
         if (!TextUtils.isEmpty(orderDetailEntity.orderState)) {
-            orderState = Integer.parseInt(orderDetailEntity.orderState);
+            mOrderState = Integer.parseInt(orderDetailEntity.orderState);
         }
-        switch (orderState) {
+        switch (mOrderState) {
             case 1:
                 //显示：总计
                 llTotalBillmoney.setVisibility(View.VISIBLE);
@@ -324,20 +353,36 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 llRefundype.setVisibility(View.GONE);
                 llInvoidce.setVisibility(View.GONE);
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_not_order));
+
+                btnLeft.setVisibility(View.GONE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRight.setText(R.string.string_order_dishes);
                 break;
             case 2:
                 //显示总计和优惠
                 tvTotalBillmoney.setVisibility(View.VISIBLE);
                 tvReduceMoney.setVisibility(View.VISIBLE);
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_ordered));
+
+                btnLeft.setVisibility(View.GONE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRight.setText(mContext.getResources().getString(R.string.string_go_settle_amount));
                 break;
             case 3:
                 //显示：总计、优惠、支付、积分，发票未开的状态
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.sting_payed));
+
+                btnLeft.setVisibility(View.VISIBLE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnLeft.setText(mContext.getResources().getString(R.string.string_refund));
+                btnRight.setText(mContext.getResources().getString(R.string.string_late_make_bill));
                 break;
             case 4:
                 //全显示：发票状态：显示已开
                 tvOrderStatus.setText(mContext.getResources().getString(R.string.string_refunded));
+                btnLeft.setVisibility(View.GONE);
+                btnRight.setVisibility(View.VISIBLE);
+                btnRight.setText(mContext.getResources().getString(R.string.string_late_make_bill));
                 break;
         }
     }

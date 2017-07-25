@@ -254,6 +254,10 @@
     <string name="input_dish_price">请设置菜品价格，范围0.00-9999.99</string>
     <string name="input_dish_taste">请选择菜品口味</string>
     <string name="input_dish_standard">请选择菜品规格</string>
+    <string name="string_order_dishes">去点菜</string>
+    <string name="string_refund">退款</string>
+    <string name="string_late_make_bill">补打账单</string>
+    <string name="string_go_settle_amount">去结账</string>
     <string name="tip_delete_dish">确认删除该菜品吗？</string>
     <string name="tip_place_order_success">下单成功</string>
     <string name="tip_update_count_success">修改数量成功</string>
@@ -312,6 +316,7 @@
     <string name="string_total">总计：</string>
     <string name="string_create_time">创建时间：</string>
     <string name="string_send_now">立即送餐</string>
+    <string name="string_expect_send">期望送达</string>
     <string name="string_not_order">未下单</string>
     <string name="string_ordered">已下单</string>
     <string name="sting_payed">已结账</string>

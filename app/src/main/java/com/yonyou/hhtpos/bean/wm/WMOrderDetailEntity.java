@@ -61,6 +61,10 @@ public class WMOrderDetailEntity implements Serializable {
      */
     public String billTime;
     /**
+     * 市别
+     */
+    public String scheduleName;
+    /**
      * 本次积分
      */
     public String nowPoints;
@@ -123,6 +127,7 @@ public class WMOrderDetailEntity implements Serializable {
                 ", orderState='" + orderState + '\'' +
                 ", orderTime='" + orderTime + '\'' +
                 ", billTime='" + billTime + '\'' +
+                ", scheduleName='" + scheduleName + '\'' +
                 ", nowPoints='" + nowPoints + '\'' +
                 ", sendNow='" + sendNow + '\'' +
                 ", takeOutCompanyId='" + takeOutCompanyId + '\'' +

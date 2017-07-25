@@ -83,8 +83,8 @@ public class API {
     /**
      * 已点菜品列表接口
      */
-//    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
-    public static final String URL_DISH_LIST = "http://10.220.23.81:9001/prodish/getbilldishinfo";
+    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+//    public static final String URL_DISH_LIST = "http://10.220.23.81:9001/prodish/getbilldishinfo";
 
     /**
      * 点菜-获取所有菜品/菜类
@@ -114,8 +114,9 @@ public class API {
 
     /**
      * 点菜时，新加菜品
+     * "http://10.220.23.81:9001"
      */
-    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
+    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
     /**
      * 查询服务员
      */
@@ -140,5 +141,5 @@ public class API {
      * 下单接口
      */
 //    public static final String URL_UPDATE_DISH_STATUS = BASE_SERVER_SHOP + "/prodish/changestate";
-    public static final String URL_PLACE_ORDER= "http://10.220.23.81:9001/prodish/order";
+    public static final String URL_PLACE_ORDER = "http://10.220.23.81:9001/prodish/order";
 }
