@@ -43,11 +43,11 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             //新点的菜后台没有记录时间
         }
         //根据菜品的提交订单时间，分组显示列表
-//        if (position == getFirstVisiblePosition(String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)))) {
-//            holder.setVisible(R.id.tv_header_time, true);
-//        } else {
-//            holder.setVisible(R.id.tv_header_time, false);
-//        }
+        if (position == getFirstVisiblePosition(String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)))) {
+            holder.setVisible(R.id.tv_header_time, true);
+        } else {
+            holder.setVisible(R.id.tv_header_time, false);
+        }
         //根据是否是同一个时间，算出同一时间下的订单数量
         countGroupOrderNum(holder, dishDetailEntity, position);
     }

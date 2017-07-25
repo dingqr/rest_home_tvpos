@@ -2,8 +2,6 @@ package com.yonyou.hhtpos.bean.dish;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
 
-import java.util.List;
-
 /**
  * Created by zj on 2017/7/19.
  * 邮箱：zjuan@yonyou.com
@@ -72,7 +70,7 @@ public class RequestAddDishEntity {
     /**
      * 所选备注id列表
      */
-    public List remarks;
+    public String  remarks;
     /**
      * shopId
      */
