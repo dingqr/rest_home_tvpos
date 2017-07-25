@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.yonyou.framework.library.adapter.rv.CommonAdapter;
@@ -16,7 +17,7 @@ import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食桌台列表适配器
  */
-public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implements DIA_ReserveOpenOrder.TSCallback{
+public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implements DIA_ReserveOpenOrder.TSCallback {
     public ADA_CanteenList(Context context) {
         super(context);
     }
@@ -34,12 +35,13 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implement
         holder.setText(R.id.tv_table_name, canteenTableEntity.tableName);
         //操作时间
         holder.setText(R.id.tv_make_time, String.valueOf(AppDateUtil.getTimeStamp(canteenTableEntity.openTime, AppDateUtil.HH_MM)));
-
-        holder.setText(R.id.tv_person_num, canteenTableEntity.personNum + "/");
-        holder.setText(R.id.tv_seat_num, canteenTableEntity.seatNum);
+        if (!TextUtils.isEmpty(canteenTableEntity.personNum)) {
+            holder.setText(R.id.tv_person_num, canteenTableEntity.personNum);
+        }
+        holder.setText(R.id.tv_seat_num, "/" + canteenTableEntity.seatNum);
 
         //账单金额
-        holder.setText(R.id.tv_money,canteenTableEntity.getBillMoney());
+        holder.setText(R.id.tv_money, canteenTableEntity.getBillMoney());
         //空闲状态：显示容纳人数，名称，空闲背景图片
 
         //预定：显示预定人数（暂时无此字段），可容纳人数、账单金额,预定人数（大）
@@ -68,7 +70,7 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implement
                 holder.setVisible(R.id.tv_locked, true);
                 holder.setImageResource(R.id.tv_locked, R.drawable.ic_table_settled);
                 holder.setText(R.id.tv_make_time, String.valueOf(AppDateUtil.getTimeStamp(canteenTableEntity.billTime, AppDateUtil.HH_MM)));
-                holder.setText(R.id.tv_money,canteenTableEntity.getReceiveAmount());
+                holder.setText(R.id.tv_money, canteenTableEntity.getReceiveAmount());
                 break;
             case 5:
                 holder.setBackgroundRes(R.id.rl_table_root, R.drawable.bg_table_ordering);
@@ -81,7 +83,7 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implement
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (canteenTableEntity.tableStatus){
+                switch (canteenTableEntity.tableStatus) {
                     //桌台预定 弹出预订单开单对话框
                     case 5:
                         DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
@@ -96,7 +98,9 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implement
         });
     }
 
-    /**获取开单数据的回调数据*/
+    /**
+     * 获取开单数据的回调数据
+     */
     @Override
     public void sendTsEntity(OpenOrderEntity wmOpenOrderEntity) {
 
