@@ -244,7 +244,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override

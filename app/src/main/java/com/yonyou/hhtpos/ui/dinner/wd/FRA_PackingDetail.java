@@ -88,7 +88,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
      * @param dataList
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onWDLeftOrderList(ArrayList<com.yonyou.hhtpos.bean.wm.OrderListEntity> dataList) {
+    public void onWDLeftOrderList(ArrayList<com.yonyou.hhtpos.bean.wd.OrderListEntity> dataList) {
         if (dataList == null || dataList.size() == 0) {
             showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222), mContext.getResources().getString(R.string.empty_msg_other));
         }
@@ -142,7 +142,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override
