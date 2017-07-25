@@ -323,11 +323,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //重量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
                 //时价
-                String dishPrice = bean.getDishPrice();
+                requestAddDishEntity.setDishPrice(bean.getDishPrice());
                 //做法
 
                 //备注：手填
-                String dishRemark = bean.getDishRemark();
+//                requestAddDishEntity.remark =
             }
         });
         mDiaStandards.setDishDataCallback(new DishDataCallback() {
@@ -335,13 +335,14 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "规格=" + bean.toString());
                 //规格：必填
-//                requestAddDishEntity.standardId =
+                requestAddDishEntity.standardId = bean.getDishStandardId();
                 //数量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishCount());
-                //备注
+                //备注：手填
                 if(!TextUtils.isEmpty(bean.getDishRemark())) {
-//                    requestAddDishEntity.remark = bean
+                    requestAddDishEntity.remark = bean.getDishRemark();
                 }
+                mAddDishPresenter.requestAddDish(requestAddDishEntity);
             }
         });
         mDiaWeightRemarks.setDishDataCallback(new DishDataCallback() {
@@ -351,11 +352,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //重量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
                 //做法
-                requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
+
                 //备注：列表
+//                requestAddDishEntity.listShowRemark =
+//                requestAddDishEntity.remarks =
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getDishRemark())) {
-                    requestAddDishEntity.listShowRemark = bean.getDishRemark();
+//                    requestAddDishEntity.remark = bean.;
                 }
             }
         });
