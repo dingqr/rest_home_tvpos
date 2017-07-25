@@ -17,7 +17,6 @@ import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
-import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
@@ -142,7 +141,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
      * @param dataList
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onLeftOrderList(List<OrderListEntity> dataList) {
+    public void onWMLeftOrderList(ArrayList<com.yonyou.hhtpos.bean.wm.OrderListEntity> dataList) {
         if (dataList == null || dataList.size() == 0) {
             showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222), mContext.getResources().getString(R.string.empty_msg_other));
         }

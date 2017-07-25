@@ -22,7 +22,6 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
 import com.yonyou.hhtpos.adapter.ADA_WDDetailPayType;
 import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
-import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
@@ -30,7 +29,6 @@ import com.yonyou.hhtpos.view.IWDOrderDetailView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import de.greenrobot.event.Subscribe;
@@ -90,7 +88,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
      * @param dataList
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onLeftOrderList(List<OrderListEntity> dataList) {
+    public void onWDLeftOrderList(ArrayList<com.yonyou.hhtpos.bean.wm.OrderListEntity> dataList) {
         if (dataList == null || dataList.size() == 0) {
             showEmpty(R.drawable.default_no_order_detail, mContext.getResources().getString(R.string.empty_msg), ContextCompat.getColor(mContext, R.color.color_e9e9e9), ContextCompat.getColor(mContext, R.color.color_222222), mContext.getResources().getString(R.string.empty_msg_other));
         }

@@ -15,6 +15,10 @@ import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
  * 描述：菜品明细列表-展示的实体类
  */
 public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEntity> {
+
+    private Long mCurrentTime;
+    private int k = 0;
+
     public ADA_TakeOutOrderDetail(Context context) {
         super(context);
     }
@@ -38,12 +42,26 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             }
             //新点的菜后台没有记录时间
         }
-            //根据菜品的提交订单时间，分组显示列表
+        //根据菜品的提交订单时间，分组显示列表
 //        if (position == getFirstVisiblePosition(String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)))) {
 //            holder.setVisible(R.id.tv_header_time, true);
 //        } else {
 //            holder.setVisible(R.id.tv_header_time, false);
 //        }
+        mCurrentTime = dishDetailEntity.orderTime;
+        int j = 0;
+        if (k == 0) {
+            for (int i = 0 + j; i < mDatas.size(); i++) {
+                Long orderTime = mDatas.get(i).orderTime;
+                if (mCurrentTime != orderTime) {
+                    holder.setText(R.id.tv_header_time, "(" + (i - position) + ")");
+                    j = i - position;
+                    k = i;
+                    return;
+                }
+            }
+        }
+        k--;
     }
 
     /**
