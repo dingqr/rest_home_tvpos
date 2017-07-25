@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
@@ -32,6 +33,7 @@ import com.yonyou.hhtpos.view.IWMRefundReasonView;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -285,6 +287,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
                 mAdapter.update(dataList, true);
+                setCount(dataList);
             }
             //左侧信息
             //设置订单详情信息
@@ -331,6 +334,30 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             handOrderStatus(orderDetailEntity);
         }
 
+    }
+
+    private String mCurrentTime;
+    private HashMap<String, String> map = new HashMap<String, String>();
+    private int limit;
+    private void setCount(List<WMDishDetailEntity> dataList) {
+
+        for (int i = limit; i < dataList.size(); i++) {
+            mCurrentTime = StringUtil.getString(dataList.get(i).orderTime);
+            for (int j = 0 + limit; j < dataList.size(); j++) {
+                WMDishDetailEntity wmDishDetailEntity = dataList.get(j);
+                String orderTime = StringUtil.getString(wmDishDetailEntity.orderTime);
+                if (!orderTime.equals(mCurrentTime)) {
+                    map.put(mCurrentTime, StringUtil.getString(i));
+                    limit = j;
+                    break;
+                }
+
+            }
+        }
+        for (int i = 0; i < dataList.size(); i++) {
+            String count = map.get(dataList.get(i).orderTime);
+            dataList.get(i).totalCount = count;
+        }
     }
 
     /**

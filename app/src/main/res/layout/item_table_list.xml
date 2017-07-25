@@ -94,7 +94,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px_40"
             android:gravity="center"
-            android:text="10"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_20" />
         <!--最大容纳人数-->
@@ -103,7 +102,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px_40"
             android:gravity="center"
-            android:text="/12人"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_20" />
     </LinearLayout>
