@@ -9,6 +9,7 @@ import android.widget.PopupWindow;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.bean.DishEditEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.widgets.BanSlideGridView;
 
 import java.util.ArrayList;
@@ -31,11 +32,6 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
 
     private List<DishEditEntity> dataList;
     private ADA_DishesPlaceOrderEdit mAdapter;
-
-    /**催菜：6，等叫：7，叫起：8 */
-    private static final String STATUS_REMINDER = "6";
-    private static final String STATUS_WAIT_CALLED = "7";
-    private static final String STATUS_SERVING = "8";
 
     public POP_DishesPlaceOrderEdit(Context context, OnPlaceEditListener onEditListener, int dishStatus) {
         super(context);
@@ -78,25 +74,25 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
     public void onSelected(int pos) {
         switch (pos){
             case 0:
-                onEditListener.updateDishStatus(STATUS_SERVING);
+                onEditListener.updateDishStatus(DishConstants.STATUS_SERVING);
                 break;
 
 //            case 1:
 //                onEditListener.updateCount(true);
 //                break;
 //
-//            case 2:
-//                onEditListener.updateDish();
-//                break;
-//
-//            case 3:
-//                onEditListener.deleteDish();
-//                break;
+            case 2:
+                onEditListener.specialHandleDish(DishConstants.RETURN_DISH);
+                break;
+
+            case 3:
+                onEditListener.specialHandleDish(DishConstants.SERVE_DISH);
+                break;
 
             case 4:
-                onEditListener.updateDishStatus(STATUS_REMINDER);
+                onEditListener.updateDishStatus(DishConstants.STATUS_REMINDER);
                 break;
-//
+
 //            case 5:
 //                onEditListener.updateDishStatus(STATUS_SERVING);
 //                break;
@@ -108,6 +104,8 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
 
     public interface OnPlaceEditListener{
         void updateDishStatus(String status);
+
+        void specialHandleDish(String specialHandle);
     }
 }
 

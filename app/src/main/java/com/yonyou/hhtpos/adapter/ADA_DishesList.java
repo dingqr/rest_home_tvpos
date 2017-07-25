@@ -15,6 +15,7 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
+import com.yonyou.hhtpos.widgets.DashView;
 
 /**
  * 点菜列表adapter
@@ -105,6 +106,13 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
 
         // 等叫或即起
         setDishStatus(bean.getDishStatus(), holder);
+
+        // 隐藏最后一根线
+        if (pos == mDataSource.size() - 1){
+            holder.mLineView.setVisibility(View.GONE);
+        }else {
+            holder.mLineView.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -159,6 +167,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         TextView mDishesStatus;
         ImageView mVipLogo;
         BanSlideListView mListView;
+        DashView mLineView;
 
         ViewHolder(View v) {
             mDishesTime = (TextView) v.findViewById(R.id.tv_dishes_time);
@@ -169,6 +178,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
             mDishesStatus = (TextView) v.findViewById(R.id.tv_dishes_status);
             mVipLogo = (ImageView) v.findViewById(R.id.iv_vip_logo);
             mListView = (BanSlideListView) v.findViewById(R.id.lv_package);
+            mLineView = (DashView) v.findViewById(R.id.dv_line);
         }
     }
 }

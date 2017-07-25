@@ -18,10 +18,10 @@ import com.yonyou.hhtpos.adapter.ADA_TakeOutList;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
+import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWMListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WMListPresenterImpl;
 import com.yonyou.hhtpos.util.AdapterUtil;
-import com.yonyou.hhtpos.util.SalesModeUtil;
 import com.yonyou.hhtpos.view.IWMListView;
 
 import java.util.ArrayList;
@@ -122,7 +122,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
 
         // 固定参数
         bean = new OrderListRequestEntity();
-        bean.setSalesMode(SalesModeUtil.SALES_MODE_WM);
+        bean.setSalesMode(SalesModeConstants.SALES_MODE_WM);
         bean.setShopId("C482CE78AC000000AA8000000003A000");
         bean.setDinnerStatus(String.valueOf(type));
         bean.setPageSize(String.valueOf(DEFAULT_PAGE));

@@ -12,55 +12,71 @@
 
         <include layout="@layout/inc_dishes_title" />
 
-        <ListView
-            android:id="@+id/lv_dishes"
+        <com.yonyou.framework.library.widgets.ESwipeRefreshLayout
+            android:id="@+id/srl_dishes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:divider="@null"
-            android:scrollbars="none">
-        </ListView>
+            android:background="@color/color_FFFFFF">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/px_1"
-            android:background="@color/color_d6d6d6" />
+            <ListView
+                android:id="@+id/lv_dishes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:divider="@null"
+                android:scrollbars="none"
+                android:footerDividersEnabled="false">
+            </ListView>
+        </com.yonyou.framework.library.widgets.ESwipeRefreshLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_80"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_20"
-            android:text="@string/total_price"
-            android:textColor="@color/color_999999"
-            android:textSize="@dimen/sp_20" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_1"
+            android:background="@color/color_d6d6d6" />
 
-        <TextView
-            android:id="@+id/tv_total_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_20"
-            android:layout_weight="1"
-            android:text="¥0.00"
-            android:textColor="@color/color_eb6247"
-            android:textSize="@dimen/sp_30" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_80"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_place_order"
-            android:layout_width="@dimen/px_190"
-            android:layout_height="match_parent"
-            android:background="@color/color_eb6247"
-            android:gravity="center"
-            android:text="@string/dishes_order"
-            android:textColor="@color/color_FFFFFF"
-            android:textSize="@dimen/sp_26" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_20"
+                android:text="@string/total_price"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_20"
+                android:layout_weight="1"
+                android:text="¥0.00"
+                android:textColor="@color/color_eb6247"
+                android:textSize="@dimen/sp_30" />
+
+            <TextView
+                android:id="@+id/tv_place_order"
+                android:layout_width="@dimen/px_190"
+                android:layout_height="match_parent"
+                android:background="@color/color_eb6247"
+                android:gravity="center"
+                android:text="@string/dishes_order"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="@dimen/sp_26" />
+        </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>

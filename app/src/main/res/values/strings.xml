@@ -264,6 +264,8 @@
     <string name="tip_update_dish_success">修改菜品成功</string>
     <string name="tip_delete_dish_success">删除成功</string>
     <string name="tip_update_dish_status_success">修改菜品状态成功</string>
+    <string name="return_dish">退菜</string>
+    <string name="serve_dish">赠菜</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>

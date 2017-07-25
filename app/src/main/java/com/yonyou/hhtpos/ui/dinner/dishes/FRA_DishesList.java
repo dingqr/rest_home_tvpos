@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.dishes;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesList;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
+import com.yonyou.hhtpos.dialog.DIA_SwitchTable;
 import com.yonyou.hhtpos.popup.POP_DishesEdit;
 import com.yonyou.hhtpos.popup.POP_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.presenter.IDishEditPresenter;
@@ -34,7 +36,7 @@ import de.greenrobot.event.EventBus;
  * 已点菜品列表
  * 作者：liushuofei on 2017/7/11 10:48
  */
-public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, DIA_DoubleConfirm.OnSelectedListener, POP_DishesPlaceOrderEdit.OnPlaceEditListener {
+public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, DIA_DoubleConfirm.OnSelectedListener, POP_DishesPlaceOrderEdit.OnPlaceEditListener, SwipeRefreshLayout.OnRefreshListener, DIA_SwitchTable.OnConfirmListener {
 
     @Bind(R.id.lv_dishes)
     ListView mListView;
@@ -42,6 +44,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     TextView tvTotalPrice;
     @Bind(R.id.tv_place_order)
     TextView tvPlaceOrder;
+    @Bind(R.id.srl_dishes)
+    SwipeRefreshLayout mDishesSwipeRefresh;
 
     private ADA_DishesList mAdapter;
     private DishListEntity.Dishes currentBean;
@@ -80,7 +84,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     protected View getLoadingTargetView() {
-        return mListView;
+        return mDishesSwipeRefresh;
     }
 
     @Override
@@ -93,6 +97,9 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         mDishListPresenter.requestDishList("C50242AC980000009200000000257000", true);
 
         mDishEditPresenter = new DishEditPresenterImpl(mContext, this);
+
+        // 刷新操作
+        mDishesSwipeRefresh.setOnRefreshListener(this);
     }
 
     @Override
@@ -117,6 +124,9 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void requestDishList(DishListEntity bean) {
+        //reset state
+        mDishesSwipeRefresh.setRefreshing(false);
+
         if (null == bean)
             return;
 
@@ -235,6 +245,20 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     }
 
     /**
+     * 退菜和赠菜回调
+     * @param mode
+     */
+    @Override
+    public void specialHandleDish(String mode) {
+        if (null != placeOrderEditPopup){
+            placeOrderEditPopup.dismiss();
+        }
+
+        DIA_SwitchTable dia_switchTable = new DIA_SwitchTable(mContext, currentBean, mode, this);
+        dia_switchTable.show();
+    }
+
+    /**
      * 删除菜品回调
      */
     @Override
@@ -272,6 +296,12 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     }
 
     @Override
+    public void handleDishSuccess() {
+        CommonUtils.makeEventToast(mContext, "退菜或赠菜成功", false);
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+    }
+
+    @Override
     public void confirm() {
         mDishEditPresenter.deleteDish("", dishId, shopId);
     }
@@ -289,5 +319,15 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+    }
+
+    @Override
+    public void onConfirm(String mode, String count) {
+        mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
     }
 }

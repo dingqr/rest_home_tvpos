@@ -30,9 +30,7 @@ public class DishListPresenterImpl implements IDishListPresenter {
 
     @Override
     public void requestDishList(String billId, boolean showLoading) {
-        if (showLoading){
-            mDishListView.showLoading(mContext.getString(R.string.network_loading));
-        }
+        mDishListView.showLoading(mContext.getString(R.string.network_loading));
 
         mDishListInteractor.requestDishList(billId);
     }
