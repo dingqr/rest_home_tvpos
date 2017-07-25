@@ -48,6 +48,18 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
 //        } else {
 //            holder.setVisible(R.id.tv_header_time, false);
 //        }
+        //根据是否是同一个时间，算出同一时间下的订单数量
+        countGroupOrderNum(holder, dishDetailEntity, position);
+    }
+
+    /**
+     * 计算每个分组订单的数量
+     *
+     * @param holder
+     * @param dishDetailEntity
+     * @param position
+     */
+    private void countGroupOrderNum(ViewHolderListView holder, WMDishDetailEntity dishDetailEntity, int position) {
         mCurrentTime = dishDetailEntity.orderTime;
         int k = 0;
         if (k == 0) {
