@@ -184,6 +184,8 @@
 
     <string name="dishes_no_data">还没有点菜哦~</string>
     <string name="order_no_data">今天还没有订单哦~</string>
+    <string name="user_name_empty">会员手机号不能为空</string>
+    <string name="waiter_name_empty">服务员不能为空</string>
 
     <!--日历 -->
     <string name="sunday">日</string>

@@ -339,8 +339,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //数量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishCount());
                 //备注：手填
-                if(!TextUtils.isEmpty(bean.getDishRemark())) {
-                    requestAddDishEntity.remark = bean.getDishRemark();
+                if(!TextUtils.isEmpty(bean.getRemark())) {
+                    requestAddDishEntity.remark = bean.getRemark();
                 }
                 mAddDishPresenter.requestAddDish(requestAddDishEntity);
             }
@@ -357,7 +357,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 //                requestAddDishEntity.listShowRemark =
 //                requestAddDishEntity.remarks =
                 //备注：手填
-                if (!TextUtils.isEmpty(bean.getDishRemark())) {
+                if (!TextUtils.isEmpty(bean.getRemark())) {
 //                    requestAddDishEntity.remark = bean.;
                 }
             }

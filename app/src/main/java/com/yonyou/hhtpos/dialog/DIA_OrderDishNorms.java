@@ -141,10 +141,8 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
-                if (flag) {
-                    if (dishDataCallback != null) {
-                        dishDataCallback.sendItems(dishCallBackEntity);
-                    }
+                if (dishDataCallback != null) {
+                    dishDataCallback.sendItems(dishCallBackEntity);
                     if (!normsEmptyFlag)
                         fvDishNorms.reset();
                     etOtherRemark.setText("");
@@ -157,37 +155,37 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
         }
     }
 
+    private boolean verifyInput() {
+        //菜品的数量为0
+        if (mcvDishCount.getCount() <= 0) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            return false;
+        }
+        //有规格列表但是没有选择
+        if (!normsEmptyFlag && fvDishNorms.getSelectedData() == null) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_standard), false);
+            return false;
+        }
+        return true;
+    }
+
     private DishCallBackEntity initDishCallBackEntity() {
         DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
-        String dishNorm = "";
-        String dishNormId = "";
-        if (!normsEmptyFlag && fvDishNorms.getSelectedData() != null) {
-            dishNorm = fvDishNorms.getSelectedData().getOption();
-            dishNormId = fvDishNorms.getSelectedData().getOptionId();
-        }
-        int dishCount = mcvDishCount.getCount();
-        String dishRemark = etOtherRemark.getText().toString().trim();
-        if (dishCount > 0) {
-            //数量
-            dishCallBackEntity.setDishCount(String.valueOf(dishCount));
-
+        if (verifyInput()) {
             //规格
-            if (!TextUtils.isEmpty(dishNorm) || normsEmptyFlag) {
-                dishCallBackEntity.setDishStandard(dishNorm);
-                dishCallBackEntity.setDishStandardId(dishNormId);
-                flag = true;
-                //备注
-                dishCallBackEntity.setDishRemark(StringUtil.getString(dishRemark));
-            } else {
-                flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_standard), false);
+            if (!normsEmptyFlag) {
+                dishCallBackEntity.setDishStandard(fvDishNorms.getSelectedData().getOption());
+                dishCallBackEntity.setDishStandardId(fvDishNorms.getSelectedData().getOptionId());
             }
-
+            //数量
+            dishCallBackEntity.setDishCount(String.valueOf(mcvDishCount.getCount()));
+            //备注
+            String dishRemark = etOtherRemark.getText().toString().trim();
+            dishCallBackEntity.setRemark(StringUtil.getString(dishRemark));
+            return dishCallBackEntity;
         } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
+            return null;
         }
-        return dishCallBackEntity;
     }
 
     public Dialog getDialog() {

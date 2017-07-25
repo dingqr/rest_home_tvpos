@@ -176,10 +176,8 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
-                if (flag) {
-                    if (dishDataCallback != null) {
-                        dishDataCallback.sendItems(dishCallBackEntity);
-                    }
+                if (dishDataCallback != null) {
+                    dishDataCallback.sendItems(dishCallBackEntity);
                     if (!cookeryEmptyFlag)
                         fvCookery.reset();
                     if (!remarkEmptyFlag)
@@ -194,65 +192,78 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
         }
     }
 
+    private boolean verifyInput() {
+        //称重的数量为0
+        if (TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            return false;
+        }
+        //称重的数量超出范围
+        if (!TextUtils.isEmpty(iwvDishWeight.getNumber())) {
+            double dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
+            if (dishWeight < 0.00 || dishWeight > 99.99) {
+                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+                return false;
+            }
+        }
+        //有做法列表但是没有选择
+        if (!cookeryEmptyFlag && fvCookery.getSelectedData() == null) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+            return false;
+        }
+        return true;
+    }
+
     private DishCallBackEntity initDishCallBackEntity() {
         DishCallBackEntity dishCallBackEntity = new DishCallBackEntity();
-        double dishWeight = 0;
-        if (TextUtils.isEmpty(iwvDishWeight.getNumber())) {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
-        } else {
-            dishWeight = Double.parseDouble(iwvDishWeight.getNumber());
-        }
-        if (dishWeight > 0.00 && dishWeight < 99.99) {
+        if (verifyInput()) {
             //重量
-            dishCallBackEntity.setDishWeight(dishWeight);
-
-            if (fvCookery.getSelectedData() != null && !cookeryEmptyFlag) {
-                String dishCookery = fvCookery.getSelectedData().getOption();
-                String dishCookeryId = fvCookery.getSelectedData().getOptionId();
-                //做法
-                dishCallBackEntity.setDishCookery(dishCookery);
-                dishCallBackEntity.setDishCookeryId(dishCookeryId);
-                flag = true;
-                //备注
-                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));
-            } else if (cookeryEmptyFlag) {
-                dishCallBackEntity.setDishCookery("");
-                dishCallBackEntity.setDishRemark(checkRemark(remarkEmptyFlag));
-            } else {
-                flag = false;
-                CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_cookery), false);
+            dishCallBackEntity.setDishWeight(Double.parseDouble(iwvDishWeight.getNumber()));
+            //做法
+            if (!cookeryEmptyFlag) {
+                dishCallBackEntity.setListShowPractice(fvCookery.getSelectedData().getOption());
+                dishCallBackEntity.setPractices(fvCookery.getSelectedData().getOptionId());
             }
+            //备注
+            dishCallBackEntity.setRemark(checkRemark(remarkEmptyFlag).get(0));
+            dishCallBackEntity.setListShowRemark(checkRemark(remarkEmptyFlag).get(1));
+            dishCallBackEntity.setRemarks(checkRemark(remarkEmptyFlag).get(2));
+            return dishCallBackEntity;
         } else {
-            flag = false;
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            return null;
         }
-        return dishCallBackEntity;
     }
 
     @NonNull
-    private String checkRemark(boolean remarkEmptyFlag) {
+    private ArrayList<String> checkRemark(boolean remarkEmptyFlag) {
+        ArrayList<String> remarkSet = new ArrayList<>();
         String otherRemark = etOtherRemark.getText().toString().trim();
+        remarkSet.add(StringUtil.getString(otherRemark));
         //备注
         if (!remarkEmptyFlag && fvRemark.getSelectedList() != null) {
             ArrayList<FilterOptionsEntity> dishRemarks = fvRemark.getSelectedList();
             StringBuilder sb = new StringBuilder();
+            StringBuilder idSb = new StringBuilder();
             if (dishRemarks.size() > 0) {
                 for (int i = 0; i < dishRemarks.size() - 1; i++) {
                     sb.append(dishRemarks.get(i).getOption());
                     sb.append(",");
+                    idSb.append(dishRemarks.get(i).getOptionId());
+                    idSb.append(",");
                 }
                 sb.append(dishRemarks.get(dishRemarks.size() - 1).getOption());
+                idSb.append(dishRemarks.get(dishRemarks.size() - 1).getOptionId());
             }
             if (!TextUtils.isEmpty(otherRemark)) {
                 sb.append(",");
                 sb.append(otherRemark);
             }
-            return sb.toString();
-        } else {
-            return "";
+            remarkSet.add(sb.toString());
+            remarkSet.add(idSb.toString());
         }
+        return remarkSet;
     }
+
 
     public Dialog getDialog() {
         mDialog.getWindow().setGravity(Gravity.CENTER);

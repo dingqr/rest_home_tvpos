@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/px_620"
-    android:layout_height="@dimen/px_775"
+    android:layout_height="@dimen/px_728"
     android:background="@color/sr_window_background">
     <LinearLayout
         android:id="@+id/ll_content_open_order"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_775"
+        android:layout_height="@dimen/px_658"
         android:orientation="vertical"
         android:gravity="center_horizontal">
         <FrameLayout
@@ -111,37 +111,35 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/dinner_remarks"
+            android:text="@string/reserve_order"
             android:textSize="@dimen/sp_24"
             android:textColor="@color/color_222222"
             android:layout_marginTop="@dimen/px_30"/>
 
         <EditText
-            android:id="@+id/et_dinner_remark"
+            android:id="@+id/et_reserve_order_id"
             android:layout_width="@dimen/px_450"
-            android:layout_height="@dimen/px_110"
+            android:layout_height="@dimen/px_50"
             android:layout_marginTop="@dimen/px_14"
-            android:hint="@string/dinner_remarks_hint"
-            android:textColorHint="@color/color_cccccc"
+            android:hint="@string/reserve_order_id"
+            android:textColorHint="@color/color_222222"
             android:paddingLeft="@dimen/px_10"
-            android:paddingTop="@dimen/px_10"
-            android:gravity="top"
-            android:background="@drawable/bg_gray_4"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_solid_gray_4"
             android:textSize="@dimen/sp_24"
-            android:maxLength="20"
             android:clickable="true"/>
     </LinearLayout>
     </LinearLayout>
     <RadioButton
-        android:id="@+id/tv_confirm_open_order"
+        android:id="@+id/rb_confirm_open_order"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_70"
         android:background="@drawable/bg_red_4_selector"
-        android:button="@null"
         android:gravity="center"
         android:text="@string/confirm_open_order"
         android:textSize="@dimen/px_28"
         android:textColor="@color/color_FFFFFF"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:button="@null"/>
 </RelativeLayout>
 

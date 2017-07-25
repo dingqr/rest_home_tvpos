@@ -129,7 +129,7 @@
     <dimen name="px_650">433.3dp</dimen>
     <dimen name="px_654">436dp</dimen>
     <dimen name="px_680">453.3dp</dimen>
-
+    <dimen name="px_775">516.6dp</dimen>
 
     <dimen name="px_189">126dp</dimen>
     <dimen name="px_198">132dp</dimen>
