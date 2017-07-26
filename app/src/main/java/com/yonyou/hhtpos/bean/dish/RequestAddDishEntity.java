@@ -87,6 +87,10 @@ public class RequestAddDishEntity {
      * 是否称重
      */
     public int unit;
+    /**
+     * 是否称重
+     */
+    public int inBill;
 
     public String getDishPrice() {
         return StringUtil.getFormattedMoney(dishPrice);
