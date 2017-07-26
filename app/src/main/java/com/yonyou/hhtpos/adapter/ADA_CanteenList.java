@@ -2,22 +2,19 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.yonyou.framework.library.adapter.rv.CommonAdapter;
 import com.yonyou.framework.library.adapter.rv.ViewHolder;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
-import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
-import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 
 /**
  * Created by zj on 2017/7/8.
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食桌台列表适配器
  */
-public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity>{
+public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
     public ADA_CanteenList(Context context) {
         super(context);
     }
@@ -52,6 +49,8 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity>{
                 holder.setVisible(R.id.tv_make_time, false);
                 holder.setVisible(R.id.tv_person_num, false);
                 holder.setVisible(R.id.tv_seat_num, false);
+                //桌台人数
+                holder.setText(R.id.tv_money, canteenTableEntity.seatNum + mContext.getResources().getString(R.string.man));
                 //背景
                 holder.setBackgroundRes(R.id.rl_table_root, R.drawable.bg_table_free);
                 break;
