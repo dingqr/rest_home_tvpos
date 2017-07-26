@@ -33,6 +33,7 @@ import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetWeight;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
@@ -48,9 +49,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
+import static com.yonyou.hhtpos.R.id.fill;
 import static com.yonyou.hhtpos.R.id.ll_content;
 import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
 
@@ -120,14 +123,65 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     public void onRefreshRightCount(DishListEntity bean) {
         this.mDishTypeList = bean.getDishTypelist();
         this.mOrderedDishes = bean.getDishes();
+
+
         if (mDishDataBean != null && mDishDataBean.dishTypes != null && mDishDataBean.dishTypes.size() > 0) {
             setRightDishTypeData();
+            // reset
+            resetCheckStatus();
+            // set status
             setDishesCheckStatus(mDishDataBean);
         }
-        if (bean.getDishes().size() == 0 && mDishDataBean != null && mDishDataBean.dishTypes != null) {
-            //给右侧菜类设置数据
-            mRightNavigationView.setData(mDishDataBean.dishTypes);
+
+        if (null == bean.getDishes()) {
+            // reset check
+            resetCheckStatus();
+            // reset count
+            resetCount();
+//            //给右侧菜类设置数据
+//            mRightNavigationView.setData(mDishDataBean.dishTypes);
+//
+//            for (int m = 0; m < mDishDataBean.dishTypes.size(); m++) {
+//                List<DishesEntity> dishes = mDishDataBean.dishTypes.get(j).dishes;
+//                if (dishes != null && dishes.size() > 0) {
+//                    for (int n = 0; n < dishes.size(); n++) {
+//                        //所有菜品的唯一标识
+//                        dishes.get(n).isCheck = false;
+//                    }
+//                }
+//            }
         }
+    }
+
+    /**
+     * 重置选中状态
+     */
+    private void resetCheckStatus() {
+        List<DishTypesEntity> dishTypes = mDishDataBean.dishTypes;
+        if (null == dishTypes)
+            return;
+
+        for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
+            List<DishesEntity> dishes = mDishDataBean.dishTypes.get(i).dishes;
+            if (dishes != null && dishes.size() > 0) {
+                for (int j = 0; j < dishes.size(); j++) {
+                    //所有菜品的唯一标识
+                    dishes.get(j).isCheck = false;
+                }
+            }
+        }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 重置右侧数量
+     */
+    private void resetCount(){
+        for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
+            mDishDataBean.dishTypes.get(i).count = 0;
+        }
+        mRightNavigationView.setData(mDishDataBean.dishTypes);
     }
 
     /**
@@ -563,6 +617,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      * @param dishDataEntity
      */
     private void setDishesCheckStatus(DishDataEntity dishDataEntity) {
+        if (null == mOrderedDishes)
+            return;
+
         for (int i = 0; i < mOrderedDishes.size(); i++) {
             //遍历已点菜的id
             String dishRelateId = mOrderedDishes.get(i).getDishRelateId();
@@ -588,8 +645,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      */
     private void setRightDishTypeData() {
         List<DishTypesEntity> dishTypes = mDishDataBean.dishTypes;
+        if (null == dishTypes)
+            return;
+
         //菜类唯一标识：relateId ,匹配菜类，刷新角标数量
-        if (mDishTypeList.size() > 0) {
+        if (null != mDishTypeList && mDishTypeList.size() > 0) {
             for (int i = 0; i < mDishTypeList.size(); i++) {
                 String dishClassId = mDishTypeList.get(i).getDishClassId();
                 for (int j = 0; j < dishTypes.size(); j++) {
@@ -635,6 +695,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     public void requestAddDish(String result) {
         CommonUtils.makeEventToast(mContext, "点菜成功", false);
         orderSuccessful(startView, mPosition);
+
+        // 刷新左侧列表
+        sendBroadcast(ReceiveConstants.REFRESH_LEFT_DISHES);
     }
 
 }

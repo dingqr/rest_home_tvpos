@@ -9,4 +9,6 @@ public class ReceiveConstants {
     public static final int LOGIN_SUCCESS = 10001;
     // 用户登录成功后
     public static final int WD_OPEN_ORDER_SUCCESS = 10002;
+    // 刷新已点菜品列表
+    public static final int REFRESH_LEFT_DISHES = 10003;
 }
