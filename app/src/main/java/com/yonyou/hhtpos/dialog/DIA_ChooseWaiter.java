@@ -11,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_WaitersList;
 import com.yonyou.hhtpos.bean.WaiterEntity;
@@ -54,6 +55,11 @@ public class DIA_ChooseWaiter {
 
     public void setData(List<WaiterEntity> waiterList) {
         mWaiterList = waiterList;
+        if (waiterList.size() >= 0 && waiterList != null) {
+            waiterEntity = waiterList.get(0);
+        }else {
+            CommonUtils.makeEventToast(mContext,"请选择服务员",false);
+        }
     }
 
 
