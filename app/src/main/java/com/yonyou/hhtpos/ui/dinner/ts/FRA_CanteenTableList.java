@@ -16,7 +16,6 @@ import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
-import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
@@ -24,7 +23,6 @@ import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
-import com.yonyou.hhtpos.dialog.DIA_ChooseWaiter;
 import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 import com.yonyou.hhtpos.global.API;
@@ -52,7 +50,7 @@ import butterknife.Bind;
  * 描述：堂食列表
  */
 public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
-        MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback,IChooseWaiterView {
+        MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback, IChooseWaiterView {
 
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
@@ -99,7 +97,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected void onFirstUserVisible() {
-
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mTableListPresenter.requestWaiterList(diningAreaRelateId, shopId, mTableState);
+        } else {
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
@@ -166,13 +168,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (null != mArgument) {
             switchStatus(mArgument.getInt(TYPE, ACT_Canteen.RB_FREE));
         }
-        if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestWaiterList(diningAreaRelateId, shopId, mTableState);
-        } else {
-            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
-        }
-
-
     }
 
     /**
@@ -240,14 +235,14 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 //桌台空闲，弹出开单对话框
                 case 0:
                     DIA_OpenOrder dia_openOrder = new DIA_OpenOrder(mContext);
-                    dia_openOrder.setData(canteenTableEntity,mWaiterList);
+                    dia_openOrder.setData(canteenTableEntity, mWaiterList);
                     dia_openOrder.setTsCallback(FRA_CanteenTableList.this);
                     dia_openOrder.getDialog().show();
                     break;
                 //桌台预定 弹出预订单开单对话框
                 case 5:
                     DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
-                    dia_reserveOpenOrder.setData(canteenTableEntity,mWaiterList);
+                    dia_reserveOpenOrder.setData(canteenTableEntity, mWaiterList);
                     dia_reserveOpenOrder.setTsCallback(FRA_CanteenTableList.this);
                     dia_reserveOpenOrder.getDialog().show();
                     break;
@@ -324,6 +319,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             this.datas = (ArrayList<CanteenTableEntity>) tableList;
             mAdapter.update(tableList);
         } else {
+            Log.e("TAG", "tableList=" + tableList.size());
             showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM, "");
         }
     }
