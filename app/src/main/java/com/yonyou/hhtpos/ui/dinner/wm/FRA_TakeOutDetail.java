@@ -173,7 +173,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Override
     protected void initViewsAndEvents() {
         mPresenter = new OrderDetailPresenterImpl(mContext, FRA_TakeOutDetail.this);
-        mPresenter.requestWMOrderDetail(tableBillId);
+//        mPresenter.requestWMOrderDetail(tableBillId);
 
         //有数据页面
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
@@ -324,7 +324,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //备注
             tvRemarks.setText(orderDetailEntity.remark);
             tvRemarks.setVisibility(!TextUtils.isEmpty(orderDetailEntity.remark) ? View.VISIBLE : View.GONE);
-            tvTotalBillmoney.setText("￥" + orderDetailEntity.getBillMoney());
+            tvTotalBillmoney.setText("￥" + orderDetailEntity.getBillOriginMoney());
             //支付类型-百度支付
             //退款类型-百度支付
             //积分
