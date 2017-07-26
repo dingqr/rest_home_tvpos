@@ -18,13 +18,10 @@ import static com.yonyou.framework.library.common.utils.StringUtil.getString;
  * 描述：菜品明细列表-展示的实体类
  */
 public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEntity> {
+
     public ADA_TakeOutOrderDetail(Context context) {
         super(context);
     }
-
-    private int start;
-
-    private String mCurrentTime;
 
     @Override
     protected int itemLayoutId() {
@@ -39,6 +36,8 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             String tvHearder = "";
             if (dishDetailEntity.orderTime != null) {
                 headerTime = String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)) + mContext.getResources().getString(R.string.string_ordered_dishes);
+            } else {
+                headerTime = "未下单菜品" + "(" + mContext.getResources().getString(R.string.string_ordered_dish_num) + ")";
             }
             if (dishDetailEntity.totalCount != null) {
                 tvHearder = "(" + dishDetailEntity.totalCount + mContext.getResources().getString(R.string.string_ordered_dish_num) + ")";
@@ -82,7 +81,4 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
         }
         return -1;
     }
-
-    //计算每个分组订单的数量
-
 }

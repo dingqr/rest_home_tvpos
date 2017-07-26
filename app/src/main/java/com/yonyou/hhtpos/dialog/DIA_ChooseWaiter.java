@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_WaitersList;
@@ -28,15 +29,18 @@ public class DIA_ChooseWaiter {
     private Dialog mDialog;
     private View mContentView;
     private ImageView ivClose;
+    private RadioButton rbConfirm;
     private Context mContext;
     private List<WaiterEntity> mWaiterList = new ArrayList<>();
     private ADA_WaitersList mAdapter;
     private OnWaiterSelectedListener mListener;
+    private WaiterEntity waiterEntity;
 
     public DIA_ChooseWaiter(Context context) {
         mContext = context;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         mContentView = LayoutInflater.from(context).inflate(R.layout.dialog_choose_waiter, null);
+        rbConfirm = (RadioButton) mContentView.findViewById(R.id.rb_confirm);
         mDialog.setContentView(mContentView);
 
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
@@ -62,16 +66,23 @@ public class DIA_ChooseWaiter {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mAdapter.setSelectItem(position);
                 mAdapter.notifyDataSetChanged();
-                if (mListener != null) {
-                    mListener.onWaiterSelected(mWaiterList.get(position));
-                    mDialog.dismiss();
-                }
+                waiterEntity = mWaiterList.get(position);
+
             }
         });
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mDialog != null) {
+                    mDialog.dismiss();
+                }
+            }
+        });
+        rbConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null && waiterEntity != null) {
+                    mListener.onWaiterSelected(waiterEntity);
                     mDialog.dismiss();
                 }
             }
