@@ -34,10 +34,13 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
     protected void convert(ViewHolderListView holder, WMDishDetailEntity dishDetailEntity, int position) {
         //设置接口返回数据
         if (dishDetailEntity != null) {
-            holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)));
+            holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)) + "点菜" + "(" + dishDetailEntity.totalCount + "项)");
             holder.setText(R.id.tv_dish_name, dishDetailEntity.dishName);
-            holder.setText(R.id.tv_dish_price, "￥" + dishDetailEntity.getDishPrice());
-            holder.setText(R.id.tv_quanlity, "x" + dishDetailEntity.quantity);
+//            holder.setText(R.id.tv_dish_price, "￥" + dishDetailEntity.getDishPrice());
+            if (!TextUtils.isEmpty(dishDetailEntity.quantity)) {
+                int quantity = (int) Double.parseDouble(dishDetailEntity.quantity);
+                holder.setText(R.id.tv_quanlity, "x" + quantity);
+            }
             if (!TextUtils.isEmpty(dishDetailEntity.remark)) {
                 //备注
                 holder.setText(R.id.tv_remarks, "" + dishDetailEntity.remark);

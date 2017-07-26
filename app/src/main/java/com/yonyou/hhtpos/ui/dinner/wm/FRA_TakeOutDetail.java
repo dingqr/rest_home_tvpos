@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
@@ -287,7 +288,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
                 mAdapter.update(dataList, true);
-//                setCount(dataList);
+                setCount(dataList);
             }
             //左侧信息
             //设置订单详情信息
@@ -302,7 +303,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //实收金额和收款时间
             tvRealReceiveMoney.setText("￥" + orderDetailEntity.getBillMoney());
             //2017-06-08 11:30
-            tvReceiveTime.setText(orderDetailEntity.billTime);
+            tvReceiveTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.billTime, AppDateUtil.YYYY_MM_DD_HH_MM)));
             //退款金额和退款时间
 //            tvRefundMoney.setText();
             //2017-06-08 11:30
@@ -339,24 +340,30 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
     private int limit;
-    private void setCount(List<WMDishDetailEntity> dataList) {
+    private int j;
 
-        for (int i = limit; i < dataList.size(); i++) {
-            mCurrentTime = StringUtil.getString(dataList.get(i).orderTime);
-            for (int j = 0 + limit; j < dataList.size(); j++) {
+    private void setCount(List<WMDishDetailEntity> dataList) {
+        for (; limit < dataList.size(); limit++) {
+            mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
+            for (; j < dataList.size(); j++) {
                 WMDishDetailEntity wmDishDetailEntity = dataList.get(j);
                 String orderTime = StringUtil.getString(wmDishDetailEntity.orderTime);
                 if (!orderTime.equals(mCurrentTime)) {
-                    map.put(mCurrentTime, StringUtil.getString(i));
+                    map.put(mCurrentTime, StringUtil.getString(j - limit));
+                    limit = j - 1;
+                    break;
+                }
+                if (j == dataList.size() - 1) {
+                    map.put(mCurrentTime, StringUtil.getString(j - limit + 1));
                     limit = j;
                     break;
                 }
 
             }
         }
-        for (int i = 0; i < dataList.size(); i++) {
-            String count = map.get(dataList.get(i).orderTime);
-            dataList.get(i).totalCount = count;
+        for (int k = 0; k < dataList.size(); k++) {
+            String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
+            dataList.get(k).totalCount = count;
         }
     }
 

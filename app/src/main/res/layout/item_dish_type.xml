@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/px_12"
             android:ellipsize="end"
-            android:maxLength="20"
+            android:maxLength="10"
             android:maxLines="2"
             android:text="云南杨林酸菜鱼"
             android:textColor="@color/color_222222"
