@@ -287,8 +287,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
+                setCount(dataList);
                 mAdapter.update(dataList, true);
-//                setCount(dataList);
             }
             //左侧信息
             //设置订单详情信息
