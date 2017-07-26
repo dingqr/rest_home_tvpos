@@ -33,6 +33,7 @@ import com.yonyou.hhtpos.presenter.ITableListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.ChooseWaiterPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TSOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
 import com.yonyou.hhtpos.view.ITSOpenOrderView;
@@ -80,7 +81,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     //查询所有服务员接口
     private IChooseWaiterPresenter mChooseWaiterPresenter;
     private List<WaiterEntity> mWaiterList = new ArrayList<>();
-    private String shopIdFake = "C13352966C000000A60000000016E000";//测试参数
+    //测试参数
+    private String shopIdFake = "C13352966C000000A60000000016E000";
     /**
      * 传入数据
      */
@@ -258,8 +260,13 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    public void openOrder(String result) {
-        Log.e("openOrder result", result);
+    public void openOrder(String tableBillId) {
+        //todo 获取tableBillId 传到点菜页面
+        if (tableBillId != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+            readyGo(ACT_OrderDishes.class, bundle);
+        }
     }
 
     @Override
@@ -268,12 +275,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             switch (tsOpenOrderEntity.getTableStatus()) {
                 //桌台空闲
                 case 0:
-                    tsOpenOrderEntity.setShopId(shopId);
+                    tsOpenOrderEntity.setShopId(shopIdFake);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
                 //桌台预定
                 case 5:
-                    tsOpenOrderEntity.setShopId(shopId);
+                    tsOpenOrderEntity.setShopId(shopIdFake);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
             }

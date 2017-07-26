@@ -32,6 +32,8 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
     private static final int COOKERY = 6;
     private static final int DISH_NORMS = 7;
     private static final int FREE_REASON = 9;
+    private static final int WORK_STATE = 10;
+    private static final int EMPLOYEE_POSITION = 11;
 
     public ADA_Filtration(Context mContext, List<FilterOptionsEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
@@ -107,6 +109,18 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
                 return viewHolder;
             }
             case FREE_REASON: {
+                View view = mInflater.inflate(R.layout.item_filtration_free_reason, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case WORK_STATE: {
+                View view = mInflater.inflate(R.layout.item_filtration_free_reason, viewGroup, false);
+                ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
+                return viewHolder;
+            }
+            case EMPLOYEE_POSITION: {
                 View view = mInflater.inflate(R.layout.item_filtration_free_reason, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);

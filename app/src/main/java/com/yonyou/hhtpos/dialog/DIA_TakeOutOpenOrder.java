@@ -112,8 +112,9 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ib_close:
-                filtrationView.reset();
-                mDialog.dismiss();
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 break;
             case R.id.rb_reserve_time:
                 scrollView.scrollTo(300, 1080);

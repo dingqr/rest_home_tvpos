@@ -62,10 +62,6 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
      * 数据回调接口
      */
     private DishDataCallback dishDataCallback;
-    /**
-     * 数据回调数据状态
-     */
-    private boolean flag = true;
 
     public DIA_OrderDishNorms(Context mContext) {
         this.mContext = mContext;
@@ -90,8 +86,6 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
 
         ibClose.setOnClickListener(this);
         rbFinishSelect.setOnClickListener(this);
-
-
     }
 
     public DIA_OrderDishNorms setDataBean(DataBean dataBean) {
@@ -102,12 +96,17 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
         //设置菜品标签
         if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
+                tvHotSale.setVisibility(View.VISIBLE);
                 tvHotSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
-            } else tvHotSale.setVisibility(View.GONE);
+            }
             if (dataBean.getLabels().size() > 1
                     && dataBean.getLabels().get(1) != null && !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+                tvChiefRecommend.setVisibility(View.VISIBLE);
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
-            } else tvChiefRecommend.setVisibility(View.GONE);
+            }
+        }else{
+            tvHotSale.setVisibility(View.GONE);
+            tvChiefRecommend.setVisibility(View.GONE);
         }
 
         if (dataBean != null) {
@@ -137,7 +136,9 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ib_close:
-                mDialog.dismiss();
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
@@ -158,14 +159,14 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
     }
 
     private boolean verifyInput() {
-        //菜品的数量为0
-        if (mcvDishCount.getCount() <= 0) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
-            return false;
-        }
         //有规格列表但是没有选择
         if (!normsEmptyFlag && fvDishNorms.getSelectedData() == null) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_standard), false);
+            return false;
+        }
+        //菜品的数量为0
+        if (mcvDishCount.getCount() <= 0) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
             return false;
         }
         return true;

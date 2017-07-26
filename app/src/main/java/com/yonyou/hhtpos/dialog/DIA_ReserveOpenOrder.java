@@ -86,14 +86,14 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         initView();
     }
 
-    public DIA_ReserveOpenOrder setData(CanteenTableEntity canteenTableEntity,List<WaiterEntity> waiterList) {
+    public DIA_ReserveOpenOrder setData(CanteenTableEntity canteenTableEntity, List<WaiterEntity> waiterList) {
         if (canteenTableEntity != null) {
             if (!TextUtils.isEmpty(canteenTableEntity.tableName)) {
                 tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing) + "(" + canteenTableEntity.tableName + ")");
             } else {
                 tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing));
             }
-           //TODO 设置预订单号码
+            //TODO 设置预订单号码
         }
         this.waiterList = waiterList;
         this.canteenTableEntity = canteenTableEntity;
@@ -116,7 +116,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         userPhone = etUserPhone.getText().toString().trim();
         waiter = etWaiter.getText().toString().trim();
         dinnerNumber = etUserNumber.getText().toString().trim();
-        billRemark= etBillRemark.getText().toString().trim();
+        billRemark = etBillRemark.getText().toString().trim();
         if (TextUtils.isEmpty(dinnerNumber)) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
@@ -138,7 +138,9 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_close:
-                mDialog.dismiss();
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 break;
 
             case R.id.rb_confirm_open_order:
