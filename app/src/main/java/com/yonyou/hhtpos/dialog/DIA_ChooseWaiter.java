@@ -64,6 +64,7 @@ public class DIA_ChooseWaiter {
                 mAdapter.notifyDataSetChanged();
                 if (mListener != null) {
                     mListener.onWaiterSelected(mWaiterList.get(position));
+                    mDialog.dismiss();
                 }
             }
         });

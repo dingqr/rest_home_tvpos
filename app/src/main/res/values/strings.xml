@@ -344,6 +344,10 @@
     <!--扫码 -->
     <string name="scan_customer_code">扫顾客码</string>
     <string name="customer_scan_code">顾客扫码</string>
+
+    <!--员工-->
+    <string name="work_state">在职状态</string>
+    <string name="employee_position">岗位</string>
     <string name="string_ordered_dishes">下单菜品</string>
     <string name="string_ordered_dish_num">项</string>
 

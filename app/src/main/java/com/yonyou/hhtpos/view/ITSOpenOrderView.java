@@ -7,5 +7,5 @@ import com.yonyou.framework.library.view.BaseView;
  * 邮箱：lsf@yonyou.com
  */
 public interface ITSOpenOrderView extends BaseView {
-    void openOrder();
+    void openOrder(String result);
 }

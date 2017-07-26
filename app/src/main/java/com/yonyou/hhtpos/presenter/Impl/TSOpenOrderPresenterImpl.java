@@ -39,7 +39,7 @@ public class TSOpenOrderPresenterImpl implements ITSOpenOrderPresenter {
         @Override
         public void onSuccess(int event_tag, String dataList) {
             mTSOpenOrderView.dismissDialogLoading();
-            mTSOpenOrderView.openOrder();
+            mTSOpenOrderView.openOrder(dataList);
         }
 
         @Override

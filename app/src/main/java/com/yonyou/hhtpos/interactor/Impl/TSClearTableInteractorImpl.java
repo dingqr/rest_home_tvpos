@@ -3,38 +3,34 @@ package com.yonyou.hhtpos.interactor.Impl;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
-import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.IWMRefundReasonInteractor;
+import com.yonyou.hhtpos.interactor.ITSClearTableInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
- * Created by ybing on 2017/7/22.
- * 获取外卖退款原因接口
+ * Created by ybing on 2017/7/25.
+ * 堂食清台接口
  */
 
-public class WMRefunReasonInteractorImpl implements IWMRefundReasonInteractor{
+public class TSClearTableInteractorImpl implements ITSClearTableInteractor {
+
     private BaseLoadedListener mBaseLoadedListener;
 
-    public WMRefunReasonInteractorImpl(BaseLoadedListener mBaseLoadedListener) {
+    public TSClearTableInteractorImpl(BaseLoadedListener mBaseLoadedListener) {
         this.mBaseLoadedListener = mBaseLoadedListener;
     }
 
     @Override
-    public void getWMRefundReason(String extendsTypeId, String pageNum, String pageSize) {
+    public void clearTable( String tableId) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
 
-        hashMap.put("extendsTypeId",StringUtil.getString(extendsTypeId));
-        hashMap.put("pageNum",StringUtil.getString(pageNum));
-        hashMap.put("pageSize",StringUtil.getString(pageSize));
-        RequestManager.getInstance().requestPostByAsyn(API.URL_WM_REFUND_REASON, hashMap, new ReqCallBack <List<RefundReasonEntity>>() {
+        hashMap.put("tableId",StringUtil.getString(tableId));
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_SPLIT_ORDER, hashMap, new ReqCallBack<String>() {
             @Override
-            public void onReqSuccess(List<RefundReasonEntity> result) {
+            public void onReqSuccess(String result) {
                 mBaseLoadedListener.onSuccess(1,result);
             }
 
@@ -47,7 +43,6 @@ public class WMRefunReasonInteractorImpl implements IWMRefundReasonInteractor{
             public void onReqFailed(ErrorBean errorBean) {
                 mBaseLoadedListener.onBusinessError(errorBean);
             }
-
         });
     }
 }
