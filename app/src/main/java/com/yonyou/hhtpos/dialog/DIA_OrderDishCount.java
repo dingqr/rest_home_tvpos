@@ -169,14 +169,16 @@ public class DIA_OrderDishCount implements View.OnClickListener {
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
                 if (dishDataCallback != null) {
-                    dishDataCallback.sendItems(dishCallBackEntity);
-                    if (!cookeryEmptyFlag)
-                        fvCookery.reset();
-                    if (!remarkEmptyFlag)
-                        fvRemark.reset();
-                    etOtherRemark.setText("");
-                    mcvDishCount.reset();
-                    mDialog.dismiss();
+                    if (verifyInput()) {
+                        dishDataCallback.sendItems(dishCallBackEntity);
+                        if (!cookeryEmptyFlag)
+                            fvCookery.reset();
+                        if (!remarkEmptyFlag)
+                            fvRemark.reset();
+                        etOtherRemark.setText("");
+                        mcvDishCount.reset();
+                        mDialog.dismiss();
+                    }
                 }
                 break;
             default:
@@ -187,7 +189,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     private boolean verifyInput() {
         //菜品的数量为0
         if (mcvDishCount.getCount() <= 0) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_weight), false);
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.input_dish_count), false);
             return false;
         }
         //有做法列表但是没有选择

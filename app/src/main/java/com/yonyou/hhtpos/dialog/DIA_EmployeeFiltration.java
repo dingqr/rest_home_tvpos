@@ -16,8 +16,8 @@ import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 
 /**
- * 免单处理对话框
- * 作者：ybing on 2017/7/20 13:36
+ * 员工筛选对话框
+ * 作者：ybing on 2017/7/26 13:36
  * 邮箱：ybing@yonyou.com
  */
 
@@ -32,15 +32,18 @@ public class DIA_EmployeeFiltration implements View.OnClickListener,FiltrationVi
     /**
      * 界面控件
      */
-    private RadioButton rbConfirmRefund;
+    private RadioButton rbFinish;
     private ImageButton ibClose;
-    private FiltrationView fvFreeReason;
-    private FilterItemEntity freeOrderReason;
-    private EditText etEnterFreeReason;
+    private FiltrationView fvWorkState;
+    private FiltrationView fvEmployeePosition;
 
-    public DIA_EmployeeFiltration(Context mContext, FilterItemEntity freeOrderReason) {
+    private FilterItemEntity workState;
+    private FilterItemEntity employeePosition;
+
+    public DIA_EmployeeFiltration(Context mContext, FilterItemEntity workState,FilterItemEntity employeePosition) {
         this.mContext = mContext;
-        this.freeOrderReason = freeOrderReason;
+        this.workState = workState;
+        this.employeePosition = employeePosition;
         initView();
     }
 
@@ -49,22 +52,19 @@ public class DIA_EmployeeFiltration implements View.OnClickListener,FiltrationVi
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_employee_filtration, null);
         mDialog.setContentView(mContentView);
 
-        fvFreeReason = (FiltrationView) mContentView.findViewById(R.id.fv_free_reason);
-        rbConfirmRefund = (RadioButton) mContentView.findViewById(R.id.rb_confirm_refund);
+        fvWorkState = (FiltrationView) mContentView.findViewById(R.id.fv_work_state);
+        fvEmployeePosition = (FiltrationView) mContentView.findViewById(R.id.fv_employee_position);
+        rbFinish = (RadioButton) mContentView.findViewById(R.id.rb_finish);
         ibClose = (ImageButton) mContentView.findViewById(R.id.ib_close);
-        etEnterFreeReason = (EditText) mContentView.findViewById(R.id.et_enter_free_reason);
 
         ibClose.setOnClickListener(this);
-        rbConfirmRefund.setOnClickListener(this);
+        rbFinish.setOnClickListener(this);
 
+        fvWorkState.setData(workState);
+        fvWorkState.setSelectCallback(this);
 
-        fvFreeReason.setData(freeOrderReason);
-        fvFreeReason.setSelectCallback(this);
-
-        etEnterFreeReason.setFocusable(false);
-        etEnterFreeReason.setFocusableInTouchMode(false);
-        etEnterFreeReason.setLongClickable(false);
-
+        fvEmployeePosition.setData(employeePosition);
+        fvEmployeePosition.setSelectCallback(this);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class DIA_EmployeeFiltration implements View.OnClickListener,FiltrationVi
             case R.id.ib_close:
                 mDialog.dismiss();
                 break;
-            case R.id.rb_confirm_refund:
+            case R.id.rb_finish:
                 break;
             default:
                 break;
@@ -84,8 +84,8 @@ public class DIA_EmployeeFiltration implements View.OnClickListener,FiltrationVi
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.2f;// 背景灰度
-        lp.width = 830;
-        lp.height = 680;
+        lp.width = 680;
+        lp.height = 616;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         return mDialog;
@@ -93,15 +93,6 @@ public class DIA_EmployeeFiltration implements View.OnClickListener,FiltrationVi
 
     @Override
     public void sendSelectedItem(FilterOptionsEntity foe) {
-        if (foe != null && (mContext.getString(R.string.other_reason).equals(foe.getOption())
-                || mContext.getString(R.string.other_reason)==(foe.getOption()))) {
-                etEnterFreeReason.setFocusable(true);
-                etEnterFreeReason.setFocusableInTouchMode(true);
-                etEnterFreeReason.setLongClickable(true);
-        }else{
-            etEnterFreeReason.setFocusable(false);
-            etEnterFreeReason.setFocusableInTouchMode(false);
-            etEnterFreeReason.setLongClickable(false);
-        }
+
     }
 }

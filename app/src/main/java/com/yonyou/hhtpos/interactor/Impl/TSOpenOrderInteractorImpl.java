@@ -31,6 +31,7 @@ public class TSOpenOrderInteractorImpl implements ITSOpenOrderInteractor {
         hashMap.put("shopId", bean.getShopId());
         hashMap.put("tableNo", bean.getTableNo());
         hashMap.put("waiterId", bean.getWaiterId());
+        hashMap.put("openTime", bean.getOpenTime());
         RequestManager.getInstance().requestPostByAsyn(API.URL_TS_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
 
             @Override

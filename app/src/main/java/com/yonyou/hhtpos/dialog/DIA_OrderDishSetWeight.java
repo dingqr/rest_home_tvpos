@@ -149,13 +149,14 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
                 if (dishDataCallback != null) {
-                    dishDataCallback.sendItems(dishCallBackEntity);
-                    Log.e("DIA_OrderDishSetWeight", dishCallBackEntity.toString());
-                    if (!cookeryEmptyFlag)
-                        fvCookery.reset();
-                    iwvDishWeight.reset();
-                    mDialog.dismiss();
-
+                    if (verifyInput()) {
+                        dishDataCallback.sendItems(dishCallBackEntity);
+                        Log.e("DIA_OrderDishSetWeight", dishCallBackEntity.toString());
+                        if (!cookeryEmptyFlag)
+                            fvCookery.reset();
+                        iwvDishWeight.reset();
+                        mDialog.dismiss();
+                    }
                 }
                 break;
             default:

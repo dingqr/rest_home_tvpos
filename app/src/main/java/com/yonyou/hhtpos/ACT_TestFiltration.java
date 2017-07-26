@@ -48,11 +48,13 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishBean;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishNorms;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishRemark;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getEmployeePosition;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getFakeData;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getFreeReasons;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getOptions;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getRefundReason;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getReserveOrderList;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getWorkState;
 
 //测试筛选布局
 public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView,ITakeoutMarketView,DIA_TakeOutFiltration.WMFCallback{
@@ -94,14 +96,17 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     private FilterItemEntity takeoutMarket;
 
     private FilterItemEntity openOrderCompany;
-    private FilterItemEntity freeReasons;
+
     DataBean dishBean;
 
     FilterItemEntity cookeryOption;
     FilterItemEntity fishCookeryOption;
     FilterItemEntity remarkOption;
     FilterItemEntity dishNorms;
+    FilterItemEntity freeReasons;
     FilterItemEntity refundReasons;
+    FilterItemEntity workState;
+    FilterItemEntity employeePosition;
 
 
     //    DIA_SelectTable dia_reserveFiltration;
@@ -202,12 +207,18 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         dishNorms.setTitle("");
         dishNorms.setOptions(getDishNorms());
 
-
         refundReasons = new FilterItemEntity();
         refundReasons.setTitle(mContext.getString(R.string.refund_reason));
         refundReasons.setOptions(getRefundReason());
-    }
 
+        workState = new FilterItemEntity();
+        workState.setTitle(mContext.getString(R.string.work_state));
+        workState.setOptions(getWorkState());
+
+        employeePosition = new FilterItemEntity();
+        employeePosition.setTitle(mContext.getString(R.string.employee_position));
+        employeePosition.setOptions(getEmployeePosition());
+    }
 
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
@@ -297,7 +308,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_freeOrder.getDialog().show();
                 break;
             case R.id.btn_confirm11:
-                dia_employeeFiltration = new DIA_EmployeeFiltration(mContext,freeReasons);
+                dia_employeeFiltration = new DIA_EmployeeFiltration(mContext,workState,employeePosition);
                 dia_freeOrder.getDialog().show();
                 break;
             default:

@@ -45,7 +45,7 @@
             android:background="@color/color_c4c4c4" />
 
         <com.yonyou.hhtpos.widgets.FiltrationView
-            android:id="@+id/fv_free_reason"
+            android:id="@+id/fv_work_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_30"
@@ -53,11 +53,18 @@
             android:layout_marginTop="@dimen/px_12">
         </com.yonyou.hhtpos.widgets.FiltrationView>
 
-
+        <com.yonyou.hhtpos.widgets.FiltrationView
+            android:id="@+id/fv_employee_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_30"
+            android:layout_marginRight="@dimen/px_30"
+            android:layout_marginTop="@dimen/px_12">
+        </com.yonyou.hhtpos.widgets.FiltrationView>
     </LinearLayout>
 
     <RadioButton
-        android:id="@+id/rb_confirm_refund"
+        android:id="@+id/rb_finish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -67,7 +74,7 @@
         android:checked="true"
         android:gravity="center"
         android:padding="@dimen/px_20"
-        android:text="@string/confirm"
+        android:text="@string/finish"
         android:textColor="@color/color_FFFFFF"
         android:textSize="@dimen/sp_28" />
 </RelativeLayout>

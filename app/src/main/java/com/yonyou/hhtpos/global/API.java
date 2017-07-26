@@ -59,6 +59,14 @@ public class API {
      * 堂食桌台开单接口
      */
     public static final String URL_TS_OPEN_ORDER = BASE_SERVER_SHOP + "/dineIn/openOrder";
+    /**
+     * 堂食桌台拼台接口
+     */
+    public static final String URL_TS_SPLIT_ORDER = BASE_SERVER_SHOP + "/protabledynamic/splitTable";
+    /**
+     * 堂食桌台清台接口
+     */
+    public static final String URL_TS_CLEAR_ORDER = BASE_SERVER_SHOP + "/protabledynamic/clearTable";
 
     /**
      * 外卖开单接口

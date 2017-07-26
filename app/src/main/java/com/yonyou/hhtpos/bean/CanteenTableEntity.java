@@ -37,6 +37,10 @@ public class CanteenTableEntity implements Serializable {
      * 桌台名称
      */
     public String tableName;
+    /**
+     * 桌台id
+     */
+    public String tableID;
 
     /**
      * 创建时间
@@ -74,4 +78,11 @@ public class CanteenTableEntity implements Serializable {
         this.isCheck = isCheck;
     }
 
+    public String getTableID() {
+        return tableID;
+    }
+
+    public void setTableID(String tableID) {
+        this.tableID = tableID;
+    }
 }

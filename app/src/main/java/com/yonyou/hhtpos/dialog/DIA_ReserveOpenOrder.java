@@ -8,17 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.ReturnObject;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.common.utils.ValidateRule;
 import com.yonyou.framework.library.common.utils.Validator;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
+import com.yonyou.hhtpos.interfaces.OpenOrderCallback;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 预定单开单对话框
@@ -28,26 +37,37 @@ import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
 
 public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnWaiterSelectedListener {
     /**
+     * 页面控件
+     */
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
+    @Bind(R.id.et_user_number)
+    EditText etUserNumber;
+    @Bind(R.id.et_user_phone)
+    EditText etUserPhone;
+    @Bind(R.id.et_reserve_order_id)
+    EditText etReserveOrderId;
+    @Bind(R.id.et_waiter)
+    EditText etWaiter;
+    @Bind(R.id.rb_confirm_open_order)
+    RadioButton rbConfirmOpenOrder;
+    @Bind(R.id.iv_close)
+    ImageView ivClose;
+    @Bind(R.id.et_dinner_remark)
+    EditText etBillRemark;
+
+    /**
      * 上下文
      */
     protected Context mContext;
     protected Dialog mDialog;
     protected View mContentView;
 
-    /**
-     * 页面控件
-     */
-    private TextView tvTitle;
-    private EditText etUserNumber;
-    private EditText etUserPhone;
-    private EditText etReserveOrderId;
-    private EditText etWaiter;
-    private RadioButton rbConfirmOpenOrder;
 
     /**
      * 开单数据接口
      */
-    private TSCallback tsCallback;
+    private OpenOrderCallback tsCallback;
 
     /**
      * 开单数据
@@ -57,13 +77,16 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
     private WaiterEntity waiterEntity;
     private String reserveOrderId;
     private String waiter;
+    private List<WaiterEntity> waiterList;
+    private String billRemark;
+    private CanteenTableEntity canteenTableEntity;
 
     public DIA_ReserveOpenOrder(Context mContext) {
         this.mContext = mContext;
         initView();
     }
 
-    public DIA_ReserveOpenOrder setData(CanteenTableEntity canteenTableEntity) {
+    public DIA_ReserveOpenOrder setData(CanteenTableEntity canteenTableEntity,List<WaiterEntity> waiterList) {
         if (canteenTableEntity != null) {
             if (!TextUtils.isEmpty(canteenTableEntity.tableName)) {
                 tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing) + "(" + canteenTableEntity.tableName + ")");
@@ -72,48 +95,52 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             }
            //TODO 设置预订单号码
         }
+        this.waiterList = waiterList;
+        this.canteenTableEntity = canteenTableEntity;
         return this;
     }
 
     private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_reserve_open_order, null);
+        ButterKnife.bind(this, mContentView);
         mDialog.setContentView(mContentView);
 
-        tvTitle = (TextView) mContentView.findViewById(R.id.tv_title);
-        etUserNumber = (EditText) mContentView.findViewById(R.id.et_user_number);
-        etUserPhone = (EditText) mContentView.findViewById(R.id.et_user_phone);
-        etReserveOrderId = (EditText) mContentView.findViewById(R.id.et_reserve_order_id);
-        etWaiter = (EditText) mContentView.findViewById(R.id.et_waiter);
-        rbConfirmOpenOrder = (RadioButton) mContentView.findViewById(R.id.rb_confirm_open_order);
-
+        ivClose.setOnClickListener(this);
         rbConfirmOpenOrder.setOnClickListener(this);
         etWaiter.setOnClickListener(this);
+
     }
 
     private boolean verifyInput() {
         userPhone = etUserPhone.getText().toString().trim();
         waiter = etWaiter.getText().toString().trim();
         dinnerNumber = etUserNumber.getText().toString().trim();
-
-        if (TextUtils.isEmpty(waiter)) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_name_empty), false);
+        billRemark= etBillRemark.getText().toString().trim();
+        if (TextUtils.isEmpty(dinnerNumber)) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
         }
         if (!doValidatePhone()) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_name_empty), false);
             return false;
         }
-        if (TextUtils.isEmpty(dinnerNumber)) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
+        if (TextUtils.isEmpty(waiter)) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_name_empty), false);
             return false;
         }
+
+
         return true;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_close:
+                mDialog.dismiss();
+                break;
+
             case R.id.rb_confirm_open_order:
                 OpenOrderEntity tsooe = initEntity();
                 if (tsCallback != null && tsooe != null) {
@@ -121,8 +148,10 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
                     mDialog.dismiss();
                 }
                 break;
+
             case R.id.et_waiter:
                 DIA_ChooseWaiter dia_chooseWaiter = new DIA_ChooseWaiter(mContext);
+                dia_chooseWaiter.setData(waiterList);
                 dia_chooseWaiter.setOnWaiterSelectedListener(this);
                 dia_chooseWaiter.show();
                 break;
@@ -136,11 +165,13 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         OpenOrderEntity tsooe = new OpenOrderEntity();
         userPhone = etUserPhone.getText().toString().trim();
         if (verifyInput()) {
-
+            tsooe.setTableStatus(0);
             tsooe.setPersonNum(dinnerNumber);
             tsooe.setMemberId(userPhone);
             tsooe.setWaiterId(waiterEntity.waiterId);
-
+            tsooe.setBillRemark(StringUtil.getString(billRemark));
+            tsooe.setOpenTime(AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_HH_MM_SS));
+            tsooe.setTableNo(canteenTableEntity.getTableID());
             return tsooe;
         } else {
             return null;
@@ -152,7 +183,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.2f;// 背景灰度
         lp.width = 620;
-        lp.height = 728;
+        lp.height = 920;
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         return mDialog;
@@ -165,7 +196,6 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             etWaiter.setText(waiterEntity.waiterName);
         }
     }
-
 
     /**
      * 验证手机号 是否为空，是否满足手机号的规则
@@ -196,15 +226,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         return true;
     }
 
-    /**
-     * 获取开单数据后传递数据用的接口
-     */
-    public interface TSCallback {
-        void sendTsEntity(OpenOrderEntity tsOpenOrderEntity);
-    }
-
-    public void setTsCallback(TSCallback tsCallback) {
+    public void setTsCallback(OpenOrderCallback tsCallback) {
         this.tsCallback = tsCallback;
     }
-
 }

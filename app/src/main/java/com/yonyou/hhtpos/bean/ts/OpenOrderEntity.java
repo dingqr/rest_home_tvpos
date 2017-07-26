@@ -22,6 +22,16 @@ public class OpenOrderEntity implements Serializable {
     private String tableNo;
     /**服务员id */
     private String waiterId;
+    /**桌台状态*/
+    private int tableStatus;
+
+    public int getTableStatus() {
+        return tableStatus;
+    }
+
+    public void setTableStatus(int tableStatus) {
+        this.tableStatus = tableStatus;
+    }
 
     public String getBillRemark() {
         return billRemark;
@@ -90,6 +100,7 @@ public class OpenOrderEntity implements Serializable {
                 ", shopId='" + shopId + '\'' +
                 ", tableNo='" + tableNo + '\'' +
                 ", waiterId='" + waiterId + '\'' +
+                ", tableStatus='" + tableStatus + '\'' +
                 '}';
     }
 }

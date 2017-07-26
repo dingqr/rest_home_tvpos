@@ -57,6 +57,7 @@
             android:layout_height="@dimen/px_50"
             android:layout_marginTop="@dimen/px_14"
             android:hint="@string/hint_input_guests_num"
+            android:inputType="number"
             android:textColorHint="@color/color_cccccc"
             android:paddingLeft="@dimen/px_10"
             android:gravity="center_vertical"
@@ -78,6 +79,8 @@
             android:layout_height="@dimen/px_50"
             android:layout_marginTop="@dimen/px_14"
             android:hint="@string/dinner_member_hint"
+            android:inputType="phone"
+            android:maxLength="11"
             android:textColorHint="@color/color_cccccc"
             android:paddingLeft="@dimen/px_10"
             android:gravity="center_vertical"
@@ -106,7 +109,7 @@
             android:drawableRight="@drawable/ic_select"
             android:paddingRight="@dimen/px_10"
             android:textSize="@dimen/sp_24"
-            android:clickable="true"/>
+            android:focusable="false"/>
 
         <TextView
             android:layout_width="match_parent"

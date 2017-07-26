@@ -17,7 +17,7 @@ import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
  * 邮箱：zjuan@yonyou.com
  * 描述：堂食桌台列表适配器
  */
-public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implements DIA_ReserveOpenOrder.TSCallback {
+public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity>{
     public ADA_CanteenList(Context context) {
         super(context);
     }
@@ -80,29 +80,11 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> implement
         //预定：显示可容纳人数，当前占用桌位个数
 
         // item点击事件
-        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (canteenTableEntity.tableStatus) {
-                    //桌台预定 弹出预订单开单对话框
-                    case 5:
-                        DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
-                        dia_reserveOpenOrder.setData(canteenTableEntity);
-                        dia_reserveOpenOrder.setTsCallback(ADA_CanteenList.this);
-                        dia_reserveOpenOrder.getDialog().show();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-    }
-
-    /**
-     * 获取开单数据的回调数据
-     */
-    @Override
-    public void sendTsEntity(OpenOrderEntity wmOpenOrderEntity) {
-
+//        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 }

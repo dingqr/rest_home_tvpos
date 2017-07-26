@@ -344,5 +344,9 @@
     <!--扫码 -->
     <string name="scan_customer_code">扫顾客码</string>
     <string name="customer_scan_code">顾客扫码</string>
+    
+    <!--员工-->
+    <string name="work_state">在职状态</string>
+    <string name="employee_position">岗位</string>
 
 </resources>

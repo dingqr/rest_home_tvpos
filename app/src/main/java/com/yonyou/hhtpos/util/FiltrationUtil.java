@@ -507,6 +507,26 @@ public class FiltrationUtil {
         dataBean.setStandards(standards);
         return  dataBean;
     }
+
+    public static ArrayList<FilterOptionsEntity> getWorkState(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("清蒸",COOKERY,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("红烧",COOKERY,true);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+
+        return  filterOptionsEntities;
+    }
+
+    public static ArrayList<FilterOptionsEntity> getEmployeePosition(){
+        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
+        FilterOptionsEntity fde1 = new FilterOptionsEntity("清蒸",COOKERY,false);
+        FilterOptionsEntity fde2 = new FilterOptionsEntity("红烧",COOKERY,true);
+        filterOptionsEntities.add(fde1);
+        filterOptionsEntities.add(fde2);
+
+        return  filterOptionsEntities;
+    }
 }
 
 //        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度

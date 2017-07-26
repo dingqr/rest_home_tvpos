@@ -150,13 +150,15 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();
 
                 if (dishDataCallback != null) {
-                    dishDataCallback.sendItems(dishCallBackEntity);
-                    if (!cookeryEmptyFlag)
-                        fvCookery.reset();
-                    etOtherRemark.setText("");
-                    iwvDishPrice.reset();
-                    iwvDishWeight.reset();
-                    mDialog.dismiss();
+                    if (verifyInput()) {
+                        dishDataCallback.sendItems(dishCallBackEntity);
+                        if (!cookeryEmptyFlag)
+                            fvCookery.reset();
+                        etOtherRemark.setText("");
+                        iwvDishPrice.reset();
+                        iwvDishWeight.reset();
+                        mDialog.dismiss();
+                    }
                 }
                 break;
             default:
