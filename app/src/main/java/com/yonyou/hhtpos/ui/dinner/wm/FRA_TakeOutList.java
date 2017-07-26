@@ -42,38 +42,24 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     @Bind(R.id.pla_lv_take_out)
     PLALoadMoreListView plaLvTakeOut;
 
-    /**
-     * 传入数据
-     */
+    /**传入数据 */
     public static final String TYPE = "type";
     private int type;
 
     private List<OrderListEntity> dataList;
     private ADA_TakeOutList mAdapter;
 
-    /**
-     * 中间者
-     */
+    /**中间者 */
     private IWMListPresenter mTakeOutListPresenter;
-    /**
-     * 请求参数
-     */
+    /**请求参数 */
     private OrderListRequestEntity bean;
-    /**
-     * 外卖公司id
-     */
+    /**外卖公司id */
     public String takeOutCompanyId = "";
-    /**
-     * 市别id
-     */
+    /**市别id */
     public String takeOutScheduleId = "";
-    /**
-     * 当前页数
-     */
+    /**当前页数 */
     private int mCurrentPage = 1;
-    /**
-     * 默认页数
-     */
+    /**默认页数 */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_TakeOutList newInstance(int type) {
@@ -123,9 +109,9 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
         // 固定参数
         bean = new OrderListRequestEntity();
         bean.setSalesMode(SalesModeConstants.SALES_MODE_WM);
-        bean.setShopId("C482CE78AC000000AA8000000003A000");
+        bean.setShopId("C13352966C000000A60000000016E000");
         bean.setDinnerStatus(String.valueOf(type));
-        bean.setPageSize(String.valueOf(DEFAULT_PAGE));
+        bean.setPageSize(String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE));
         // 非固定参数
         bean.setScheduleNameId("");
         bean.setTakeOutCompanyId("");
@@ -180,6 +166,9 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     }
     @Override
     public void requestTakeOutList(List<OrderListEntity> dataList, boolean isRefresh) {
+        if (null == plaLvTakeOut)
+            return;
+
         // reset state
         if (isRefresh) {
             srlTakeOut.setRefreshing(false);

@@ -32,4 +32,9 @@ public interface IDishEditView extends BaseView {
      * 退菜和赠菜成功回调
      */
     void handleDishSuccess();
+
+    /**
+     * 称重确认接口成功回调
+     */
+    void confirmWeightSuccess();
 }

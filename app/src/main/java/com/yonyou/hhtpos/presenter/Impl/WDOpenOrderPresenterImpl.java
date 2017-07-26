@@ -37,9 +37,9 @@ public class WDOpenOrderPresenterImpl implements IWDOpenOrderPresenter {
     private class OpenOrderListener implements BaseLoadedListener<String> {
 
         @Override
-        public void onSuccess(int event_tag, String dataList) {
+        public void onSuccess(int event_tag, String result) {
             mPackingLeftView.dismissDialogLoading();
-            mPackingLeftView.openOrder();
+            mPackingLeftView.openOrder(result);
         }
 
         @Override

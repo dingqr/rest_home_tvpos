@@ -19,12 +19,14 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     private BaseLoadedListener deleteDishListener;
     private BaseLoadedListener updateDishStatusListener;
     private BaseLoadedListener handleDishListener;
+    private BaseLoadedListener confirmWeightListener;
 
-    public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener, BaseLoadedListener handleDishListener) {
+    public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener, BaseLoadedListener handleDishListener, BaseLoadedListener confirmWeightListener) {
         this.updateQuantityListener = updateQuantityListener;
         this.deleteDishListener = deleteDishListener;
         this.updateDishStatusListener = updateDishStatusListener;
         this.handleDishListener = handleDishListener;
+        this.confirmWeightListener = confirmWeightListener;
     }
     
     @Override
@@ -108,9 +110,10 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     public void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("dishAbnormalStatus", dishAbnormalStatus);
-        hashMap.put("id", id);
         hashMap.put("shopId", shopId);
         hashMap.put("count", count);
+        hashMap.put("id", id);
+        hashMap.put("waiterId", "BB9930642C000000FD00000000316122");
         RequestManager.getInstance().requestPostByAsyn(API.URL_SPECIAL_HANDLE_DISH, hashMap, new ReqCallBack<String>() {
 
             @Override
@@ -126,6 +129,31 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 handleDishListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void confirmWeightDish(String id, String quantity, String shopId) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        hashMap.put("shopId", shopId);
+        hashMap.put("quantity", quantity);
+        RequestManager.getInstance().requestPostByAsyn(API.URL_CONFIRM_WEIGHT, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                confirmWeightListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                confirmWeightListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                confirmWeightListener.onBusinessError(errorBean);
             }
         });
     }
