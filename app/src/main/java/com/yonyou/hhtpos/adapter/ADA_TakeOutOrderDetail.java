@@ -67,30 +67,6 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
         }
     }
 
-    private void countNumber(ViewHolderListView holder, WMDishDetailEntity dishDetailEntity, int position) {
-        int k = 0;
-        //根据是否是同一个时间，算出同一时间下的订单数量
-        mCurrentTime = getString(dishDetailEntity.orderTime);
-        if (k == 0) {
-            for (int i = 0 + start; i < mDatas.size(); i++) {
-                String orderTime = getString(mDatas.get(i).orderTime);
-                if (!mCurrentTime.equals(orderTime)) {
-                    if (i <= 0) {
-                        holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(mDatas.get(0).orderTime, AppDateUtil.HH_MM)) + "下单菜品" + "(" + (i - position) + "项)");
-                    } else {
-                        holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(mDatas.get(i - 1).orderTime, AppDateUtil.HH_MM)) + "下单菜品" + "(" + (i - position) + "项)");
-                    }
-                    start = i;
-                    k = i - position;
-                    break;
-                } else {
-                    k = 0;
-                }
-            }
-        }
-        k--;
-    }
-
     /**
      * 根据订单统一提交的时间，找到分组中每组应显示标题的第一个position
      *
