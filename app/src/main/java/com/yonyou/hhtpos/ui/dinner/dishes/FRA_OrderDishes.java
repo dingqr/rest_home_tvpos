@@ -126,7 +126,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         }
         if (bean.getDishes().size() == 0 && mDishDataBean != null && mDishDataBean.dishTypes != null) {
             //给右侧菜类设置数据
-            mRightNavigationView.setData(mDishDataBean.dishTypes);
+            mPresenter.getAllDishes(compId, shopId);
         }
     }
 
@@ -563,6 +563,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      * @param dishDataEntity
      */
     private void setDishesCheckStatus(DishDataEntity dishDataEntity) {
+
+
         for (int i = 0; i < mOrderedDishes.size(); i++) {
             //遍历已点菜的id
             String dishRelateId = mOrderedDishes.get(i).getDishRelateId();
@@ -581,6 +583,24 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
             }
         }
+    }
+
+    private void reSetStatus() {
+        for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
+            List<DishesEntity> dishes = mDishDataBean.dishTypes.get(i).dishes;
+            if (dishes != null && dishes.size() > 0) {
+                for (int j = 0; j < dishes.size(); j++) {
+                    //所有菜品的唯一标识
+                    dishes.get(j).isCheck = false;
+                }
+            }
+        }
+
+        for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
+            mDishDataBean.dishTypes.get(i).count = 0;
+        }
+        mAdapter.notifyDataSetChanged();
+        mRightNavigationView.setData(mDishDataBean.dishTypes);
     }
 
     /**
