@@ -90,7 +90,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
     private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     private String shopId = "C13352966C000000A60000000016E000";
-    private String mTableBillId = "C50242AC980000009200000000257000";
+    //    private String mTableBillId = "C50242AC980000009200000000257000";
+    private String mTableBillId = "";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
     //已点菜类、角标数量
@@ -122,6 +123,18 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         if (mDishDataBean != null && mDishDataBean.dishTypes != null && mDishDataBean.dishTypes.size() > 0) {
             setRightDishTypeData();
             setDishesCheckStatus(mDishDataBean);
+        }
+    }
+
+    /**
+     * 接收右侧角标数量的数据集合
+     *
+     * @param tableBillId
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onReceiveTableBillId(String tableBillId) {
+        if (!TextUtils.isEmpty(tableBillId)) {
+            this.mTableBillId = tableBillId;
         }
     }
 

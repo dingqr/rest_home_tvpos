@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
@@ -347,6 +346,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private int limit;
     private int j;
     private boolean isContinie = true;
+
     private void setCount(List<WMDishDetailEntity> dataList) {
         for (; limit < dataList.size(); limit++) {
             if (dataList.get(limit).orderTime == null) {
@@ -372,9 +372,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             }
         }
         for (int k = 0; k < dataList.size(); k++) {
-            String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
-            dataList.get(k).totalCount = count;
-            Elog.e("TAG","totalCount");
+            if (dataList.get(k).orderTime != null) {
+                String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
+                dataList.get(k).totalCount = count;
+            }
         }
     }
 
