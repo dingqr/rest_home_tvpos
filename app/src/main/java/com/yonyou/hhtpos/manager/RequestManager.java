@@ -443,7 +443,9 @@ public class RequestManager {
 //    }
 
     private <T> void requestOnFailure(final String errorMsg, final ReqCallBack<T> callBack) {
-        this.requestOnFailure(errorMsg,RESPONCE_CODE_500,callBack);
+        if(!TextUtils.isEmpty(errorMsg)) {
+            this.requestOnFailure(errorMsg,RESPONCE_CODE_500,callBack);
+        }
     }
     /**
      * 统一处理调用失败信息（接口返回的失败信息）

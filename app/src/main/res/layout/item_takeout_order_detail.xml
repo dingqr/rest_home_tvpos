@@ -12,7 +12,6 @@
         android:layout_marginBottom="@dimen/px_20"
         android:layout_marginTop="@dimen/px_20"
         android:paddingLeft="@dimen/px_20"
-        android:text="20:90下單"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/sp_22" />
 

@@ -6,9 +6,10 @@ import android.text.TextUtils;
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
+
+import static com.yonyou.framework.library.common.utils.StringUtil.getString;
 
 
 /**
@@ -34,7 +35,16 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
     protected void convert(ViewHolderListView holder, WMDishDetailEntity dishDetailEntity, int position) {
         //设置接口返回数据
         if (dishDetailEntity != null) {
-            holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)) + "下单菜品" + "(" + dishDetailEntity.totalCount + "项)");
+            String headerTime = "";
+            String tvHearder = "";
+            if (dishDetailEntity.orderTime != null) {
+                headerTime = String.valueOf(AppDateUtil.getTimeStamp(dishDetailEntity.orderTime, AppDateUtil.HH_MM)) + mContext.getResources().getString(R.string.string_ordered_dishes);
+            }
+            if (dishDetailEntity.totalCount != null) {
+                tvHearder = "(" + dishDetailEntity.totalCount + mContext.getResources().getString(R.string.string_ordered_dish_num) + ")";
+            }
+            holder.setText(R.id.tv_header_time, headerTime + tvHearder);
+
             holder.setText(R.id.tv_dish_name, dishDetailEntity.dishName);
             holder.setText(R.id.tv_dish_price, "￥" + dishDetailEntity.getDishPrice());
             if (!TextUtils.isEmpty(dishDetailEntity.quantity)) {
@@ -47,22 +57,23 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             }
             //新点的菜后台没有记录时间
         }
-
-        //根据菜品的提交订单时间，分组显示列表
-        if (position == getFirstVisiblePosition(StringUtil.getString(dishDetailEntity.orderTime))) {
-            holder.setVisible(R.id.tv_header_time, true);
-        } else {
-            holder.setVisible(R.id.tv_header_time, false);
+        if (dishDetailEntity.orderTime != null) {
+            //根据菜品的提交订单时间，分组显示列表
+            if (position == getFirstVisiblePosition(getString(dishDetailEntity.orderTime))) {
+                holder.setVisible(R.id.tv_header_time, true);
+            } else {
+                holder.setVisible(R.id.tv_header_time, false);
+            }
         }
     }
 
     private void countNumber(ViewHolderListView holder, WMDishDetailEntity dishDetailEntity, int position) {
         int k = 0;
         //根据是否是同一个时间，算出同一时间下的订单数量
-        mCurrentTime = StringUtil.getString(dishDetailEntity.orderTime);
+        mCurrentTime = getString(dishDetailEntity.orderTime);
         if (k == 0) {
             for (int i = 0 + start; i < mDatas.size(); i++) {
-                String orderTime = StringUtil.getString(mDatas.get(i).orderTime);
+                String orderTime = getString(mDatas.get(i).orderTime);
                 if (!mCurrentTime.equals(orderTime)) {
                     if (i <= 0) {
                         holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(mDatas.get(0).orderTime, AppDateUtil.HH_MM)) + "下单菜品" + "(" + (i - position) + "项)");
@@ -88,7 +99,7 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
     private int getFirstVisiblePosition(String orderTime) {
         for (int i = 0; i < mDatas.size(); i++) {
             WMDishDetailEntity wmDishDetailEntity = mDatas.get(i);
-            String order_time = StringUtil.getString(wmDishDetailEntity.orderTime);
+            String order_time = getString(wmDishDetailEntity.orderTime);
             if (order_time.equals(orderTime)) {
                 return i;
             }

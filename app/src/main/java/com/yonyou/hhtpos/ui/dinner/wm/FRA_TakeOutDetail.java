@@ -344,9 +344,15 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     private void setCount(List<WMDishDetailEntity> dataList) {
         for (; limit < dataList.size(); limit++) {
+            if (dataList.get(limit).orderTime == null) {
+                return;
+            }
             mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
             for (; j < dataList.size(); j++) {
                 WMDishDetailEntity wmDishDetailEntity = dataList.get(j);
+                if (wmDishDetailEntity.orderTime == null) {
+                    return;
+                }
                 String orderTime = StringUtil.getString(wmDishDetailEntity.orderTime);
                 if (!orderTime.equals(mCurrentTime)) {
                     map.put(mCurrentTime, StringUtil.getString(j - limit));
@@ -358,7 +364,6 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                     limit = j;
                     break;
                 }
-
             }
         }
         for (int k = 0; k < dataList.size(); k++) {
