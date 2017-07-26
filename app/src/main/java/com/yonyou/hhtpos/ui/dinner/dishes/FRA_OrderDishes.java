@@ -348,7 +348,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             public void sendItems(DishCallBackEntity bean) {
 //                Elog.e("TAG", "规格=" + bean.toString());
                 //规格：必填
-                requestAddDishEntity.standardId = bean.getDishStandardId();
+                if (!TextUtils.isEmpty(requestAddDishEntity.standardId)) {
+                    requestAddDishEntity.standardId = bean.getDishStandardId();
+                }
                 //数量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishCount());
                 //备注：手填
@@ -423,6 +425,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     /**
      * 给弹出的弹窗传入数据
+     *
      * @param dishesEntity
      * @return
      */
@@ -585,6 +588,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         //给右侧菜类设置数据
         mRightNavigationView.setData(mDishDataBean.dishTypes);
     }
+
     /**
      * 获取所有菜品菜类
      *

@@ -91,7 +91,7 @@ public class OrderDetailPresenterImpl implements IOrderDetailPresenter {
         @Override
         public void onBusinessError(ErrorBean error) {
             wdOrderDetailView.hideLoading();
-            wmOrderDetailView.showBusinessError(error);
+//            wmOrderDetailView.showBusinessError(error);
             //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
         }
     }

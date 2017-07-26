@@ -59,7 +59,7 @@ public class WMOrderDetailEntity implements Serializable {
     /**
      * 结账时间
      */
-    public String billTime;
+    public Long billTime;
     /**
      * 市别
      */

@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <RadioButton
-        android:id="@+id/rb_next_step"
+        android:id="@+id/rb_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
