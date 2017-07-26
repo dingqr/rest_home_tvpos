@@ -124,6 +124,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             setRightDishTypeData();
             setDishesCheckStatus(mDishDataBean);
         }
+        if (bean.getDishes().size() == 0) {
+            //给右侧菜类设置数据
+            mRightNavigationView.setData(mDishDataBean.dishTypes);
+        }
     }
 
     /**
