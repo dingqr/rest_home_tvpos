@@ -142,6 +142,18 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         }
     }
 
+    /**
+     * 接收右侧角标数量的数据集合
+     *
+     * @param tableBillId
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onReceiveTableBillId(String tableBillId) {
+        if (!TextUtils.isEmpty(tableBillId)) {
+            this.mTableBillId = tableBillId;
+        }
+    }
+
     @Override
     protected void onFirstUserVisible() {
 
