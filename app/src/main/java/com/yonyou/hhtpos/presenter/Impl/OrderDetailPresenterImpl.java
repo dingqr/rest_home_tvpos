@@ -101,7 +101,6 @@ public class OrderDetailPresenterImpl implements IOrderDetailPresenter {
      */
     private class WMOrderDetailListener implements BaseLoadedListener<WMOrderDetailEntity> {
 
-
         @Override
         public void onSuccess(int event_tag, WMOrderDetailEntity data) {
             wmOrderDetailView.hideLoading();

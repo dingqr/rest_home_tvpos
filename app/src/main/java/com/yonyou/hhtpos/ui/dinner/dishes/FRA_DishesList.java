@@ -17,6 +17,7 @@ import com.yonyou.hhtpos.adapter.ADA_DishesList;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.dialog.DIA_SwitchTable;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.popup.POP_DishesEdit;
 import com.yonyou.hhtpos.popup.POP_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.presenter.IDishEditPresenter;
@@ -179,7 +180,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 totalPrice+= Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
             }
         }
-        tvTotalPrice.setText(mContext.getString(R.string.RMB_symbol) + StringUtil.getFormattedMoney(totalPrice + ""));
+        tvTotalPrice.setText(StringUtil.getFormattedMoney(totalPrice + ""));
     }
 
     @Override
@@ -302,6 +303,12 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     }
 
     @Override
+    public void confirmWeightSuccess() {
+        CommonUtils.makeEventToast(mContext, "称重菜品成功", false);
+        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+    }
+
+    @Override
     public void confirm() {
         mDishEditPresenter.deleteDish("", dishId, shopId);
     }
@@ -328,6 +335,11 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void onConfirm(String mode, String count) {
-        mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
+        // 退菜和赠菜
+        if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)){
+            mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
+        }else {
+            mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, shopId);
+        }
     }
 }

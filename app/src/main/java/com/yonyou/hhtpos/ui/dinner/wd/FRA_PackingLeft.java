@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.wd;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,18 +8,11 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
-import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
-import com.yonyou.hhtpos.dialog.DIA_WDOpenOrder;
-import com.yonyou.hhtpos.global.ReceiveConstants;
-import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
-import com.yonyou.hhtpos.presenter.Impl.WDOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.view.IWDOpenOrderView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import butterknife.Bind;
@@ -27,7 +21,7 @@ import butterknife.Bind;
  * 外带列表左侧布局（viewpager + fragment）
  * 作者：liushuofei on 2017/7/4 16:47
  */
-public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, View.OnClickListener, DIA_WDOpenOrder.OnSelectedListener {
+public class FRA_PackingLeft extends BaseFragment implements View.OnClickListener{
 
     @Bind(R.id.vp_order)
     ViewPager mViewPager;
@@ -78,7 +72,7 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
 
         initSlidingTab();
 
-        mPackingLeftPresenter = new WDOpenOrderPresenterImpl(mContext, this);
+        //mPackingLeftPresenter = new WDOpenOrderPresenterImpl(mContext, this);
         mDishImg.setOnClickListener(this);
     }
 
@@ -137,11 +131,11 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
 
     }
 
-    @Override
-    public void openOrder() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.open_order_success), false);
-        sendBroadcast(ReceiveConstants.WD_OPEN_ORDER_SUCCESS);
-    }
+//    @Override
+//    public void openOrder() {
+//        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.open_order_success), false);
+//        sendBroadcast(ReceiveConstants.WD_OPEN_ORDER_SUCCESS);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -151,7 +145,9 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
 //                DIA_WDOpenOrder dia_wdOpenOrder = new DIA_WDOpenOrder(mContext, this);
 //                dia_wdOpenOrder.getDialog().show();
 
-                readyGo(ACT_OrderDishes.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ACT_OrderDishes.FROM_WD, true);
+                readyGo(ACT_OrderDishes.class, bundle);
                 break;
 
             default:
@@ -159,17 +155,17 @@ public class FRA_PackingLeft extends BaseFragment implements IWDOpenOrderView, V
         }
     }
 
-    @Override
-    public void confirm(String dinnerCount, String phone) {
-        OpenOrderEntity bean = new OpenOrderEntity();
-        bean.setPersonNum(dinnerCount);
-//        bean.setMobileNo(phone);
-        bean.setMobileNo("13671205992");
-        bean.setShopId("hht");
-        bean.setTableId("0001");
-        bean.setWaiterId("0001");
-        bean.setWaiterName("王五");
-        bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);
-        mPackingLeftPresenter.openOrder(bean);
-    }
+//    @Override
+//    public void confirm(String dinnerCount, String phone) {
+//        OpenOrderEntity bean = new OpenOrderEntity();
+//        bean.setPersonNum(dinnerCount);
+////        bean.setMobileNo(phone);
+//        bean.setMobileNo("13671205992");
+//        bean.setShopId("hht");
+//        bean.setTableId("0001");
+//        bean.setWaiterId("0001");
+//        bean.setWaiterName("王五");
+//        bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);
+//        mPackingLeftPresenter.openOrder(bean);
+//    }
 }

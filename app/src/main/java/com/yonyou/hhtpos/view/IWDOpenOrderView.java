@@ -8,5 +8,9 @@ import com.yonyou.framework.library.view.BaseView;
  */
 public interface IWDOpenOrderView extends BaseView{
 
-    void openOrder();
+    /**
+     * 外带开单成功回调
+     * @param tableBillId 账单id
+     */
+    void openOrder(String tableBillId);
 }

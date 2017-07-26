@@ -11,6 +11,8 @@ public class DishConstants {
     public static final String STATUS_SERVING = "8";
 
     /**赠菜：3， 退菜：4 */
+    public static final String DISH_WEIGHT = "1";// 称重确认
+    public static final String DISH_TURN = "2";// 转台
     public static final String SERVE_DISH = "3";
     public static final String RETURN_DISH = "4";
 }

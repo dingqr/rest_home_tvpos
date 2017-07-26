@@ -77,10 +77,10 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
                 onEditListener.updateDishStatus(DishConstants.STATUS_SERVING);
                 break;
 
-//            case 1:
-//                onEditListener.updateCount(true);
-//                break;
-//
+            case 1:
+                onEditListener.specialHandleDish(DishConstants.DISH_WEIGHT);
+                break;
+
             case 2:
                 onEditListener.specialHandleDish(DishConstants.RETURN_DISH);
                 break;

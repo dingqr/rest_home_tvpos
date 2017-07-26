@@ -64,6 +64,13 @@ public class DIA_SwitchTable implements View.OnClickListener{
         mConfirm.setOnClickListener(this);
         mDialog.setContentView(mContentView);
 
+        // 最大值
+        numberGridView.setMaxIntValue((int)Double.parseDouble(currentBean.getQuantity()));
+        // 整数
+        numberGridView.setInputMode(NumberKeybordView.INTEGER);
+        // EditText
+        numberGridView.setEtMoney(mCount);
+
 //        tvDialogTitle.setText(mContext.getResources().getString(R.string.string_switch_table));
 
         // 标题
@@ -88,9 +95,12 @@ public class DIA_SwitchTable implements View.OnClickListener{
             return mContext.getString(R.string.return_dish);
         }else if (mode.equals(DishConstants.SERVE_DISH)){
             return mContext.getString(R.string.serve_dish);
-        }else {
+        }else if (mode.equals(DishConstants.DISH_WEIGHT)){
+            return mContext.getString(R.string.weight_confirm);
+        }else if (mode.equals(DishConstants.DISH_TURN)){
             return mContext.getString(R.string.string_switch_table);
         }
+        return "";
     }
 
     /**
@@ -102,9 +112,12 @@ public class DIA_SwitchTable implements View.OnClickListener{
             return "最多退" + (int)Double.parseDouble(currentBean.getQuantity());
         }else if (mode.equals(DishConstants.SERVE_DISH)){
             return "最多赠" + (int)Double.parseDouble(currentBean.getQuantity());
-        }else {
+        }else if (mode.equals(DishConstants.DISH_WEIGHT)){
+            return "0.00斤";
+        } else if (mode.equals(DishConstants.DISH_TURN)){
             return "最多转" + (int)Double.parseDouble(currentBean.getQuantity());
         }
+        return "";
     }
 
     private void initListener() {
@@ -177,10 +190,10 @@ public class DIA_SwitchTable implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rb_confirm:
-//                // 关闭弹窗
-//                if (null != mDialog){
-//                    mDialog.dismiss();
-//                }
+                // 关闭弹窗
+                if (null != mDialog){
+                    mDialog.dismiss();
+                }
 
                 onConfirmListener.onConfirm(mode, mCount.getText().toString());
                 break;

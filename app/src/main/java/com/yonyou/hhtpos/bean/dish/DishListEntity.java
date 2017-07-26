@@ -76,6 +76,17 @@ public class DishListEntity implements Serializable {
         /**id */
         private String id;
 
+        /**退增的list */
+        private List<Abnormal> abnormalList;
+
+        public List<Abnormal> getAbnormalList() {
+            return abnormalList;
+        }
+
+        public void setAbnormalList(List<Abnormal> abnormalList) {
+            this.abnormalList = abnormalList;
+        }
+
         public String getDishName() {
             return dishName;
         }
@@ -154,6 +165,49 @@ public class DishListEntity implements Serializable {
 
         public void setDishRelateId(String dishRelateId) {
             this.dishRelateId = dishRelateId;
+        }
+
+        public class Abnormal implements Serializable{
+            /**退增状态 */
+            private String dishAbnormalStatus;
+            /**服务员姓名 */
+            private String waiterName;
+            /**退增时间 */
+            private long createTime;
+            /**数量 */
+            private String quantity;
+
+            public long getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(long createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getDishAbnormalStatus() {
+                return dishAbnormalStatus;
+            }
+
+            public void setDishAbnormalStatus(String dishAbnormalStatus) {
+                this.dishAbnormalStatus = dishAbnormalStatus;
+            }
+
+            public String getWaiterName() {
+                return waiterName;
+            }
+
+            public void setWaiterName(String waiterName) {
+                this.waiterName = waiterName;
+            }
+
+            public String getQuantity() {
+                return quantity;
+            }
+
+            public void setQuantity(String quantity) {
+                this.quantity = quantity;
+            }
         }
     }
 

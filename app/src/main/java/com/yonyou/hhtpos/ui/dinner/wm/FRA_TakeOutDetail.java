@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.wm;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -65,7 +66,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private IWMRefundReasonPresenter refundReasonPresenter;
 
     //测试参数
-    private String tableBillId = "C50242AC980000009200000000257000";
+    private String tableBillId = "";
     private String extendsTypeId = "C4C10A43B8000000EDC0000000288000";
     private String pageNum = "1";
     private String pageSize = "8";
@@ -173,7 +174,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Override
     protected void initViewsAndEvents() {
         mPresenter = new OrderDetailPresenterImpl(mContext, FRA_TakeOutDetail.this);
-//        mPresenter.requestWMOrderDetail(tableBillId);
+        //mPresenter.requestWMOrderDetail(tableBillId);
 
         //有数据页面
         mAdapter = new ADA_TakeOutOrderDetail(mContext);
@@ -214,7 +215,9 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         switch (view.getId()) {
             case R.id.btn_right:
                 if (mOrderState == 1) {
-                    readyGo(ACT_OrderDishes.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+                    readyGo(ACT_OrderDishes.class, bundle);
                 } else if (mOrderState == 2) {
                     //去结账
                 } else if (mOrderState == 3 || mOrderState == 4) {
@@ -273,6 +276,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     }
 
     public void requestTakeOutDetail(String tableBillId) {
+        this.tableBillId = tableBillId;
         mPresenter.requestWMOrderDetail(tableBillId);
     }
 

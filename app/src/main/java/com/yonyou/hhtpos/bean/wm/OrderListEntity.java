@@ -8,6 +8,9 @@ import java.io.Serializable;
  */
 public class OrderListEntity implements Serializable {
 
+    /**订单编号 */
+    private String billNo;
+
     /**外卖类型 */
     private String takeOutCompanyId;
 
@@ -31,6 +34,14 @@ public class OrderListEntity implements Serializable {
 
     /**选中状态 */
     private boolean isCheck;
+
+    public String getBillNo() {
+        return billNo;
+    }
+
+    public void setBillNo(String billNo) {
+        this.billNo = billNo;
+    }
 
     public boolean isCheck() {
         return isCheck;

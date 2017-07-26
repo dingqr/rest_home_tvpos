@@ -268,6 +268,7 @@
     <string name="tip_update_dish_status_success">修改菜品状态成功</string>
     <string name="return_dish">退菜</string>
     <string name="serve_dish">赠菜</string>
+    <string name="weight_confirm">称重确认</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>
@@ -280,6 +281,8 @@
 
     <string name="open_order_success">开单成功</string>
 
+    <!-- 外带-->
+    <string name="packing_order_no_data">今天还没有外订单哦~</string>
 
     <!--结账 -->
     <string name="consumption_total">消费总计</string>

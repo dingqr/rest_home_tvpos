@@ -194,7 +194,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
 
             } else {
                 // empty data
-                showEmpty(R.drawable.default_no_order, mContext.getString(R.string.take_out_order_no_data));
+                showEmpty(R.drawable.default_no_order, mContext.getString(R.string.packing_order_no_data));
                 // empty eventBus
                 EventBus.getDefault().post(new ArrayList<OrderListEntity>());
             }

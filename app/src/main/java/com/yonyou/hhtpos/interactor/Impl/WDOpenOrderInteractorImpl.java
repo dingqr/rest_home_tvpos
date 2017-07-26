@@ -25,8 +25,8 @@ public class WDOpenOrderInteractorImpl implements IWDOpenOrderInteractor {
     @Override
     public void openOrder(OpenOrderEntity bean) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("mobileNo", bean.getMobileNo());
-        hashMap.put("personNum", bean.getPersonNum());
+//        hashMap.put("mobileNo", bean.getMobileNo());
+//        hashMap.put("personNum", bean.getPersonNum());
         hashMap.put("salesMode", bean.getSalesMode());
         hashMap.put("shopId", bean.getShopId());
         hashMap.put("tableId", bean.getTableId());

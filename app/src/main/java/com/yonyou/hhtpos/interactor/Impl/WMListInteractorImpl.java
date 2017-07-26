@@ -36,7 +36,7 @@ public class WMListInteractorImpl implements IWMListInteractor {
 
         // 全部不传递该字段
         if (!bean.getDinnerStatus().equals("0")){
-            hashMap.put("dinnerStatus", bean.getDinnerStatus());
+            hashMap.put("dinnerState", bean.getDinnerStatus());
         }
         // 为空不传递该字段：市别
         if (!TextUtils.isEmpty(bean.getScheduleNameId())){

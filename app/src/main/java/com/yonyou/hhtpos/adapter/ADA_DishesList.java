@@ -24,14 +24,14 @@ import com.yonyou.hhtpos.widgets.DashView;
 public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
 
     /**套餐列表适配器 */
-    private ADA_DishesPackage mAdapter;
+    private ADA_DishesPackage mPackageAdapter;
 
     public ADA_DishesList(Context context) {
         super(context);
 
-        mAdapter = new ADA_DishesPackage(context);
+        mPackageAdapter = new ADA_DishesPackage(context);
         for (int i = 0; i < 10; i++){
-            mAdapter.update("");
+            mPackageAdapter.update("");
         }
     }
 
@@ -55,7 +55,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         handleDataSource(bean, holder, position);
 
         // 设置套餐数据
-        holder.mListView.setAdapter(mAdapter);
+        holder.mListView.setAdapter(mPackageAdapter);
         return convertView;
     }
 
@@ -107,6 +107,18 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         // 等叫或即起
         setDishStatus(bean.getDishStatus(), holder);
 
+        // 退增布局
+        if (null != bean.getAbnormalList() && bean.getAbnormalList().size() > 0){
+            holder.mHandleLv.setVisibility(View.VISIBLE);
+            ADA_SpecialHandleDish mHandleAdapter = new ADA_SpecialHandleDish(mContext);
+            holder.mHandleLv.setAdapter(mHandleAdapter);
+            holder.mHandleLv.setPressed(false);
+            holder.mHandleLv.setEnabled(false);
+            mHandleAdapter.update(bean.getAbnormalList(), true);
+        }else {
+            holder.mHandleLv.setVisibility(View.GONE);
+        }
+
         // 隐藏最后一根线
         if (pos == mDataSource.size() - 1){
             holder.mLineView.setVisibility(View.GONE);
@@ -153,6 +165,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
                 break;
 
             default:
+                holder.mDishesStatus.setText("");
                 break;
         }
     }
@@ -167,6 +180,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         TextView mDishesStatus;
         ImageView mVipLogo;
         BanSlideListView mListView;
+        BanSlideListView mHandleLv;
         DashView mLineView;
 
         ViewHolder(View v) {
@@ -179,6 +193,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
             mVipLogo = (ImageView) v.findViewById(R.id.iv_vip_logo);
             mListView = (BanSlideListView) v.findViewById(R.id.lv_package);
             mLineView = (DashView) v.findViewById(R.id.dv_line);
+            mHandleLv = (BanSlideListView) v.findViewById(R.id.lv_special_handle);
         }
     }
 }

@@ -58,12 +58,20 @@
                 android:textSize="@dimen/sp_20" />
 
             <TextView
-                android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px_20"
+                android:layout_marginTop="@dimen/px_2"
+                android:text="¥"
+                android:textColor="@color/color_eb6247"
+                android:textSize="@dimen/sp_20" />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="¥0.00"
+                android:text="0.00"
                 android:textColor="@color/color_eb6247"
                 android:textSize="@dimen/sp_30" />
 

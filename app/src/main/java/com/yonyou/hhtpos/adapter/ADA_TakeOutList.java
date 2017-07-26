@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,18 +94,15 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
         });
 
         position++;
-        //TODO: 单号都显示为#00001的格式，从后台获取数据并显示后五位
-        holder.mOrderNumber.setText("#0000" + position);
-
-//        // 编号
-//        String billNo = bean.getBillNo();
-//        if (!TextUtils.isEmpty(billNo) && billNo.length() > 5){
-//            holder.mNumber.setText(mContext.getString(R.string.well_no) + billNo.substring(billNo.length() - 5, billNo.length()));
-//        }
 
         if (null == bean)
             return;
 
+        // 编号
+        String billNo = bean.getBillNo();
+        if (!TextUtils.isEmpty(billNo) && billNo.length() > 5){
+            holder.mOrderNumber.setText(mContext.getString(R.string.well_no) + billNo.substring(billNo.length() - 5, billNo.length()));
+        }
         // 外卖渠道
         holder.mChannelName.setText(StringUtil.getString(bean.getTakeOutCompanyId()));
         // 下单时间
@@ -116,7 +114,20 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
         // 用户手机号
         holder.mCustomerPhone.setText(StringUtil.getString(bean.getPhone()));
         // 订单状态
-        holder.mOrderStatus.setText(StringUtil.getString(bean.getDinnerState()));
+        holder.mOrderStatus.setText(getDinerState(bean.getDinnerState()));
+    }
+
+    private String getDinerState(String dinerState){
+        if (dinerState.equals("1")){
+            return mContext.getString(R.string.string_not_order);
+        }else if (dinerState.equals("2")){
+            return mContext.getString(R.string.string_ordered);
+        }else if (dinerState.equals("3")){
+            return mContext.getString(R.string.sting_payed);
+        }else if (dinerState.equals("4")){
+            return mContext.getString(R.string.take_out_refunded);
+        }
+        return "";
     }
 
     static class ViewHolder {

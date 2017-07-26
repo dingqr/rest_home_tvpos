@@ -39,4 +39,12 @@ public interface IDishEditInteractor {
      * @param count 数量
      */
     void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count);
+
+    /**
+     * 称重确认接口
+     * @param id 点菜菜品id
+     * @param quantity 重量
+     * @param shopId
+     */
+    void confirmWeightDish(String id, String quantity, String shopId);
 }

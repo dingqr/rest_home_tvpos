@@ -241,7 +241,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //写死的字段
                 requestAddDishEntity.tableBillId = mTableBillId;
 
-
                 //传入弹窗的bean
                 DataBean dataBean = setDialogData(dishesEntity);
 

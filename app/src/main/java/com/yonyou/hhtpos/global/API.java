@@ -84,14 +84,20 @@ public class API {
     public static final String URL_WD_OPEN_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOpenOrder";
 
     /**
+     * 外带关闭订单接口
+     */
+    public static final String URL_WD_CLOSE_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayCancelOrder";
+
+    /**
      * 外带列表接口
      */
     public static final String URL_PACKING_LIST = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOrderList";
 
     /**
-     * 已点菜品列表接口
+     * 左侧已点菜品列表接口
      */
-    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+//    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+    public static final String URL_DISH_LIST = "http://10.220.23.81:9001/prodish/getbilldishinfo";
     /**
      * 点菜-获取所有菜品/菜类
      */
@@ -150,5 +156,10 @@ public class API {
     /**
      * 退菜和赠菜接口
      */
-    public static final String URL_SPECIAL_HANDLE_DISH = BASE_SERVER_SHOP + "/prodish/setabnormal";
+//    public static final String URL_SPECIAL_HANDLE_DISH = BASE_SERVER_SHOP + "/prodish/setabnormal";
+    public static final String URL_SPECIAL_HANDLE_DISH = "http://10.220.23.81:9001/prodish/setabnormal";
+    /**
+     * 称重确认接口
+     */
+    public static final String URL_CONFIRM_WEIGHT = BASE_SERVER_SHOP + "/prodish/weightconfirm";
 }
