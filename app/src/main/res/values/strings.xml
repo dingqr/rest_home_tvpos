@@ -268,6 +268,8 @@
     <string name="tip_update_dish_status_success">修改菜品状态成功</string>
     <string name="return_dish">退菜</string>
     <string name="serve_dish">赠菜</string>
+    <string name="string_ordered_dishes">下单菜品</string>
+    <string name="string_ordered_dish_num">项</string>
     <string name="weight_confirm">称重确认</string>
 
     <!--外卖 -->
@@ -351,7 +353,7 @@
     <!--员工-->
     <string name="work_state">在职状态</string>
     <string name="employee_position">岗位</string>
-    <string name="string_ordered_dishes">下单菜品</string>
-    <string name="string_ordered_dish_num">项</string>
+    <string name="work_state_empty">请选择在职状态</string>
+    <string name="employee_position_empty">请选择岗位</string>
 
 </resources>

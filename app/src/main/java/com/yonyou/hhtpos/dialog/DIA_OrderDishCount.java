@@ -54,9 +54,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     private TextView tvHintRemark;
     private ModifyCountView mcvDishCount;
     private TextView tvDishName;
-    private TextView tvHostSale;
-    private TextView tvDishPrice;
+    private TextView tvHotSale;
     private TextView tvChiefRecommend;
+    private TextView tvDishPrice;
 
     /**
      * 数据回调接口
@@ -85,7 +85,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         tvHintRemark = (TextView) mContentView.findViewById(R.id.tv_hint_remark);
         tvDishName = (TextView) mContentView.findViewById(R.id.tv_dish_name);
         tvDishPrice = (TextView) mContentView.findViewById(R.id.tv_dish_price);
-        tvHostSale = (TextView) mContentView.findViewById(R.id.ib_hot_sale);
+        tvHotSale = (TextView) mContentView.findViewById(R.id.ib_hot_sale);
         tvChiefRecommend = (TextView) mContentView.findViewById(R.id.ib_chief_recommend);
 
         etOtherRemark = (EditText) mContentView.findViewById(R.id.et_other_remark);
@@ -108,12 +108,17 @@ public class DIA_OrderDishCount implements View.OnClickListener {
         //设置菜品标签
         if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
             if (!TextUtils.isEmpty(dataBean.getLabels().get(0).labelName)) {
-                tvHostSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
-            } else tvHostSale.setVisibility(View.GONE);
+                tvHotSale.setVisibility(View.VISIBLE);
+                tvHotSale.setText(StringUtil.getString(dataBean.getLabels().get(0).labelName));
+            }
             if (dataBean.getLabels().size() > 1 && dataBean.getLabels().get(1) != null &&
                     !TextUtils.isEmpty(dataBean.getLabels().get(1).labelName)) {
+                tvChiefRecommend.setVisibility(View.VISIBLE);
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
-            } else tvChiefRecommend.setVisibility(View.GONE);
+            }
+        }else{
+            tvHotSale.setVisibility(View.GONE);
+            tvChiefRecommend.setVisibility(View.GONE);
         }
 
         if (dataBean != null) {
@@ -164,7 +169,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ib_close:
-                mDialog.dismiss();
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 break;
             case R.id.rb_finish_select:
                 DishCallBackEntity dishCallBackEntity = initDishCallBackEntity();

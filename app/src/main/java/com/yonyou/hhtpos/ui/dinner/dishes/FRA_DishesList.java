@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.dishes;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.dialog.DIA_SwitchTable;
 import com.yonyou.hhtpos.global.DishConstants;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.popup.POP_DishesEdit;
 import com.yonyou.hhtpos.popup.POP_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.presenter.IDishEditPresenter;
@@ -32,6 +34,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 /**
  * 已点菜品列表
@@ -67,6 +71,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private String dishIds = "";
     /**总价格 */
     private double totalPrice;
+    /**账单id */
+    private String tableBillId;
 
     @Override
     protected void onFirstUserVisible() {
@@ -95,8 +101,6 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         mListView.setOnItemClickListener(this);
 
         mDishListPresenter = new DishListPresenterImpl(mContext, this);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", true);
-
         mDishEditPresenter = new DishEditPresenterImpl(mContext, this);
 
         // 刷新操作
@@ -115,7 +119,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override
@@ -136,6 +140,10 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         if (null == dataList || dataList.size() == 0) {
             // 无数据页面
             showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
+            // 发送一个空对象
+             EventBus.getDefault().post(new DishListEntity());
+            // 重置价格
+            tvTotalPrice.setText("0.00");
         } else {
             // 设置未下单菜品id列表
             setDishIds(dataList);
@@ -186,7 +194,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void requestPlaceOrder() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_place_order_success), false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
@@ -271,13 +279,13 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void updateQuantitySuccess() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_count_success), false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void updateDishSuccess() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_dish_success), false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
@@ -287,25 +295,25 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         }
 
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_delete_dish_success), false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void updateDishStatusSuccess() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_dish_status_success), false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void handleDishSuccess() {
         CommonUtils.makeEventToast(mContext, "退菜或赠菜成功", false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void confirmWeightSuccess() {
         CommonUtils.makeEventToast(mContext, "称重菜品成功", false);
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
@@ -330,7 +338,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void onRefresh() {
-        mDishListPresenter.requestDishList("C50242AC980000009200000000257000", false);
+        mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
@@ -340,6 +348,23 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
         }else {
             mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, shopId);
+        }
+    }
+
+    /**
+     * 账单id
+     * @param tableBillId
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onReceiveTableBillId(String tableBillId) {
+        this.tableBillId = tableBillId;
+        mDishListPresenter.requestDishList(tableBillId, true);
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.REFRESH_LEFT_DISHES){
+            mDishListPresenter.requestDishList(tableBillId, false);
         }
     }
 }

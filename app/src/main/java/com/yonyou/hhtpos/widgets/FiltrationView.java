@@ -37,6 +37,8 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
     public static final int COOKERY = 6;
     public static final int DISH_NORMS = 7;
     public static final int FREE_REASON = 9;
+    public static final int WORK_STATE = 10;
+    public static final int EMPLOYEE_POSITION = 11;
 
     /**筛选框的标题*/
     private TextView filtrationType;
@@ -154,6 +156,14 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
                     case FREE_REASON:
                         if (filterItemEntity.getOptions().size()>8)
                         optionChange.setVisibility(View.VISIBLE);
+                        layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case WORK_STATE:
+                        layoutManger = new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false);
+                        mRecyclerView.setLayoutManager(layoutManger);
+                        break;
+                    case EMPLOYEE_POSITION:
                         layoutManger = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;

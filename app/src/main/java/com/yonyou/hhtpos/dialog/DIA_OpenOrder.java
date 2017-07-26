@@ -67,7 +67,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
     private String waiter;
     private List<WaiterEntity> waiterList;
     private CanteenTableEntity canteenTableEntity;
-
+    private DIA_ChooseWaiter dia_chooseWaiter;
 
     public DIA_OpenOrder(Context mContext) {
         this.mContext = mContext;
@@ -103,6 +103,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         tvConfirmOpenOrder.setOnClickListener(this);
         etWaiter.setOnClickListener(this);
         ivClose.setOnClickListener(this);
+        dia_chooseWaiter = new DIA_ChooseWaiter(mContext);
     }
 
     private boolean verifyInput() {
@@ -131,7 +132,9 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_close:
-                mDialog.dismiss();
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 break;
             case R.id.tv_confirm_open_order:
                 OpenOrderEntity tsooe = initEntity();
@@ -141,7 +144,6 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
                 }
                 break;
             case R.id.et_waiter:
-                DIA_ChooseWaiter dia_chooseWaiter = new DIA_ChooseWaiter(mContext);
                 dia_chooseWaiter.setData(waiterList);
                 dia_chooseWaiter.setOnWaiterSelectedListener(this);
                 dia_chooseWaiter.show();

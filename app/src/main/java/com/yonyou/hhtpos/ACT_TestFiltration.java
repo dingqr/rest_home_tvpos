@@ -9,6 +9,7 @@ import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
+import com.yonyou.hhtpos.bean.EmployeeEntity;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
@@ -29,6 +30,7 @@ import com.yonyou.hhtpos.dialog.DIA_ReserveFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
+import com.yonyou.hhtpos.interfaces.EmployeeCallback;
 import com.yonyou.hhtpos.presenter.ITakeoutCompanyPresenter;
 import com.yonyou.hhtpos.presenter.ITakeoutMarketPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TakeoutCompanyPresenterImpl;
@@ -57,7 +59,8 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getReserveOrderList;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getWorkState;
 
 //测试筛选布局
-public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView,ITakeoutMarketView,DIA_TakeOutFiltration.WMFCallback{
+public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView,ITakeoutMarketView,
+        DIA_TakeOutFiltration.WMFCallback,EmployeeCallback {
 
     @Bind(R.id.ll_content)
     LinearLayout llContent;
@@ -309,7 +312,8 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 break;
             case R.id.btn_confirm11:
                 dia_employeeFiltration = new DIA_EmployeeFiltration(mContext,workState,employeePosition);
-                dia_freeOrder.getDialog().show();
+                dia_employeeFiltration.setEmployeeCallback(this);
+                dia_employeeFiltration.getDialog().show();
                 break;
             default:
                 break;
@@ -356,5 +360,11 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     @Override
     public void sendItems(FilterEntity bean) {
 
+    }
+
+    @Override
+    public void sendItems(EmployeeEntity bean) {
+        String workState = bean.getWorkState();
+        String employeePosition = bean.getEmployeePosition();
     }
 }

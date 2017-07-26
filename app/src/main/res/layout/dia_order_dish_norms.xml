@@ -48,7 +48,8 @@
             android:layout_marginBottom="@dimen/px_6"
             android:text="@string/hot_sale"
             android:textColor="@color/color_4ecd60"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/ib_chief_recommend"
@@ -65,7 +66,8 @@
             android:paddingTop="@dimen/px_3"
             android:text="@string/chief_recommend"
             android:textColor="@color/color_45acfb"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
