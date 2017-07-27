@@ -14,6 +14,9 @@ public class OrderListEntity implements Serializable {
     /**外卖类型 */
     private String takeOutCompanyId;
 
+    /**外卖类型名称 */
+    private String takeOutCompanyName;
+
     /**订单id */
     private String tableBillId;
 
@@ -34,6 +37,14 @@ public class OrderListEntity implements Serializable {
 
     /**选中状态 */
     private boolean isCheck;
+
+    public String getTakeOutCompanyName() {
+        return takeOutCompanyName;
+    }
+
+    public void setTakeOutCompanyName(String takeOutCompanyName) {
+        this.takeOutCompanyName = takeOutCompanyName;
+    }
 
     public String getBillNo() {
         return billNo;
