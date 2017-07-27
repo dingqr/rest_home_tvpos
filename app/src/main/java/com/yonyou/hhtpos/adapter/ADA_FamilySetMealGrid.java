@@ -21,12 +21,12 @@ import java.util.List;
  * 全家福套餐表格选项数据适配器
  */
 
-public class ADA_SetMealGrid extends RecyclerView.Adapter<ADA_SetMealGrid.ViewHolder>  {
+public class ADA_FamilySetMealGrid extends RecyclerView.Adapter<ADA_FamilySetMealGrid.ViewHolder>  {
     private LayoutInflater mInflater;
     private List<SetMealGridEntity> mDatas;
     private OnItemClickListener mOnItemClickListener;
 
-    public ADA_SetMealGrid(Context mContext, List<SetMealGridEntity> mDatas) {
+    public ADA_FamilySetMealGrid(Context mContext, List<SetMealGridEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
     }

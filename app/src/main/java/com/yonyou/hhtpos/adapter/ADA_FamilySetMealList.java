@@ -17,14 +17,14 @@ import java.util.List;
 
 /**
  * Created by ybing on 2017/7/13.
- * 套餐列表数据适配器
+ * 全家福套餐列表数据适配器
  */
 
-public class ADA_SetMealList extends RecyclerView.Adapter<ADA_SetMealList.ViewHolder> implements View.OnClickListener {
+public class ADA_FamilySetMealList extends RecyclerView.Adapter<ADA_FamilySetMealList.ViewHolder> implements View.OnClickListener {
     private LayoutInflater mInflater;
     private List<SetMealListEntity> mDatas;
 
-    public ADA_SetMealList(Context mContext, List<SetMealListEntity> mDatas) {
+    public ADA_FamilySetMealList(Context mContext, List<SetMealListEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
     }
@@ -38,7 +38,7 @@ public class ADA_SetMealList extends RecyclerView.Adapter<ADA_SetMealList.ViewHo
     public int getItemViewType(int position) {
         final SetMealListEntity dataBean = mDatas.get(position);
         if (dataBean != null) {
-            if (dataBean.getDishCookery()!= null)
+            if (dataBean.getDishAddPrice() > 0)
                 return 1;
             else return 0;
         }
@@ -49,16 +49,17 @@ public class ADA_SetMealList extends RecyclerView.Adapter<ADA_SetMealList.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view;
         if (viewType == 0) {
-            view = mInflater.inflate(R.layout.item_set_meal_list_no_add_cookery, viewGroup, false);
+            view = mInflater.inflate(R.layout.item_set_meal_list_no_add_price, viewGroup, false);
         } else {
-            view = mInflater.inflate(R.layout.item_set_meal_list_add_cookery, viewGroup, false);
+            view = mInflater.inflate(R.layout.item_set_meal_list_add_price, viewGroup, false);
         }
         ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.llSetMealListContent = (LinearLayout) view.findViewById(R.id.ll_set_meal_list_content);
         viewHolder.tvDishName = (TextView) view.findViewById(R.id.tv_dish_name);
         viewHolder.tvDishCount = (TextView) view.findViewById(R.id.tv_dish_count);
-        viewHolder.tvCookery = (TextView) view.findViewById(R.id.tv_dish_add_cookery);
+        viewHolder.tvAddPrice = (TextView) view.findViewById(R.id.tv_dish_add_price);
         viewHolder.ibDishModify = (ImageButton) view.findViewById(R.id.ib_dish_modify);
+        viewHolder.ibDishDelete = (ImageButton) view.findViewById(R.id.ib_dish_delete);
         return viewHolder;
     }
 
@@ -70,11 +71,12 @@ public class ADA_SetMealList extends RecyclerView.Adapter<ADA_SetMealList.ViewHo
             if (dataBean.getDishCount() > 0) {
                 holder.tvDishCount.setText("x" + dataBean.getDishCount());
             }
-            if (dataBean.getDishCookery()!=null) {
-                holder.tvCookery.setVisibility(View.VISIBLE);
-                holder.tvCookery.setText(mInflater.getContext().getString(R.string.hint_dish_cookery)+dataBean.getDishCookery());
-            }else{
-                holder.tvCookery.setVisibility(View.GONE);
+            if (dataBean.getDishAddPrice() > 0) {
+                holder.tvAddPrice.setVisibility(View.VISIBLE);
+                holder.tvAddPrice.setText(mInflater.getContext().getString(R.string.RMB_symbol)
+                        + dataBean.getDishAddPrice() + "");
+            } else {
+                holder.tvAddPrice.setVisibility(View.GONE);
             }
         }
     }
@@ -84,7 +86,7 @@ public class ADA_SetMealList extends RecyclerView.Adapter<ADA_SetMealList.ViewHo
         switch (v.getId()) {
             case R.id.ib_dish_modify:
                 break;
-            default:
+            case R.id.ib_dish_delete:
                 break;
         }
     }
@@ -110,7 +112,8 @@ public class ADA_SetMealList extends RecyclerView.Adapter<ADA_SetMealList.ViewHo
         public LinearLayout llSetMealListContent;
         public TextView tvDishCount;
         public TextView tvDishName;
-        public TextView tvCookery;
+        public TextView tvAddPrice;
         public ImageButton ibDishModify;
+        public ImageButton ibDishDelete;
     }
 }

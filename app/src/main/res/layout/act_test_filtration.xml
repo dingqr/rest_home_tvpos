@@ -20,6 +20,11 @@
         android:layout_height="wrap_content"
         android:text="@string/employee_filtration" />
     <Button
+        android:id="@+id/btn_confirm12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全家福2" />
+    <Button
         android:id="@+id/btn_confirm1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

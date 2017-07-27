@@ -13,6 +13,8 @@ import com.yonyou.hhtpos.bean.EmployeeEntity;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.ReserveOrderListEntity;
+import com.yonyou.hhtpos.bean.SetMealGridEntity;
+import com.yonyou.hhtpos.bean.SetMealListEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
 import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
 import com.yonyou.hhtpos.bean.TakeoutMarketEntity;
@@ -27,6 +29,7 @@ import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
 import com.yonyou.hhtpos.dialog.DIA_ReserveFiltration;
+import com.yonyou.hhtpos.dialog.DIA_SetMeal;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
@@ -56,11 +59,14 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getFreeReasons;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getOptions;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getRefundReason;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getReserveOrderList;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getSetMealGrid;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getSetMealList;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getSetMealType;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getWorkState;
 
 //测试筛选布局
-public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView,ITakeoutMarketView,
-        DIA_TakeOutFiltration.WMFCallback,EmployeeCallback {
+public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView, ITakeoutMarketView,
+        DIA_TakeOutFiltration.WMFCallback, EmployeeCallback {
 
     @Bind(R.id.ll_content)
     LinearLayout llContent;
@@ -88,6 +94,8 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     Button btnConfirm10;
     @Bind(R.id.btn_confirm11)
     Button btnConfirm11;
+    @Bind(R.id.btn_confirm12)
+    Button btnConfirm12;
 
     private ArrayList<FilterItemEntity> filterItemList;
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
@@ -110,11 +118,13 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     FilterItemEntity refundReasons;
     FilterItemEntity workState;
     FilterItemEntity employeePosition;
-
+    FilterItemEntity mealSetDetailOption;
+    ArrayList<SetMealGridEntity> setMealGridEntities = new ArrayList<>();
+    ArrayList<SetMealListEntity> setMealListEntities = new ArrayList<>();
 
     //    DIA_SelectTable dia_reserveFiltration;
     DIA_ReserveFiltration dia_reserveFiltration1;
-//    DIA_ReserveList dia_reserveFiltration;
+    //    DIA_ReserveList dia_reserveFiltration;
     DIA_TakeOutOpenOrder dia_reserveFiltration;
     DIA_TakeOutRefund dia_reserveFiltration2;
     DIA_TakeOutFiltration dia_takeOutFiltration;
@@ -124,12 +134,15 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_OrderDishSetWeight dia_orderDishSetWeight;
     DIA_OrderDishNorms dia_orderDishNorms;
     DIA_FamilySetMeal dia_familySetMeal;
+    DIA_SetMeal dia_SetMeal;
     DIA_FreeOrder dia_freeOrder;
     DIA_EmployeeFiltration dia_employeeFiltration;
 
     private String shopId = "C13352966C000000A60000000016E000";
 
-    /**presenter*/
+    /**
+     * presenter
+     */
     private ITakeoutCompanyPresenter companyPresenter;
     private ITakeoutMarketPresenter marketPresenter;
 
@@ -172,6 +185,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm9.setOnClickListener(this);
         btnConfirm10.setOnClickListener(this);
         btnConfirm11.setOnClickListener(this);
+        btnConfirm12.setOnClickListener(this);
 
         //假数据
         filterItemList = getFakeData();
@@ -183,16 +197,16 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         freeReasons.setTitle(mContext.getString(R.string.free_order_reason));
         freeReasons.setOptions(getFreeReasons());
 
-         dishBean = getDishBean();
+        dishBean = getDishBean();
 
 //        takeoutType = new FilterItemEntity(getTakeOutType(),"外卖类型");
 //        takeoutMarket = new FilterItemEntity( getTakeOutMarket(),"市别");
 
         //外卖筛选数据获取
-        companyPresenter = new TakeoutCompanyPresenterImpl(this,this);
+        companyPresenter = new TakeoutCompanyPresenterImpl(this, this);
         companyPresenter.getAllTakeOutCompany(shopId);
 
-        marketPresenter = new TakeoutMarketPresenterImpl(this,this);
+        marketPresenter = new TakeoutMarketPresenterImpl(this, this);
 
         cookeryOption = new FilterItemEntity();
         cookeryOption.setTitle("");
@@ -221,6 +235,13 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         employeePosition = new FilterItemEntity();
         employeePosition.setTitle(mContext.getString(R.string.employee_position));
         employeePosition.setOptions(getEmployeePosition());
+
+        mealSetDetailOption = new FilterItemEntity();
+        mealSetDetailOption.setTitle(mContext.getString(R.string.set_detail_option));
+        mealSetDetailOption.setOptions(getSetMealType());
+
+        setMealGridEntities = getSetMealGrid();
+        setMealListEntities = getSetMealList();
     }
 
     @Override
@@ -260,17 +281,21 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_confirm:
-                dia_familySetMeal = new DIA_FamilySetMeal(mContext);
+                dia_familySetMeal = new DIA_FamilySetMeal(mContext, mealSetDetailOption, setMealGridEntities, setMealListEntities);
                 dia_familySetMeal.getDialog().show();
                 break;
+            case R.id.btn_confirm12:
+                dia_SetMeal = new DIA_SetMeal(mContext, setMealListEntities);
+                dia_SetMeal.getDialog().show();
+                break;
             case R.id.btn_confirm1:
-                dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext,filterItemList);
+                dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext, filterItemList);
                 dia_reserveFiltration1.getDialog().show();
                 break;
             case R.id.btn_confirm2:
-                dia_reserveFiltration2 = new DIA_TakeOutRefund(mContext,refundReasons);
+                dia_reserveFiltration2 = new DIA_TakeOutRefund(mContext, refundReasons);
                 dia_reserveFiltration2.getDialog().show();
                 break;
             case R.id.btn_confirm3:
@@ -303,15 +328,15 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_orderDishSetWeight.getDialog().show();
                 break;
             case R.id.btn_confirm9:
-                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext,openOrderCompany);
+                dia_reserveFiltration = new DIA_TakeOutOpenOrder(mContext, openOrderCompany);
                 dia_reserveFiltration.getDialog().show();
                 break;
             case R.id.btn_confirm10:
-                dia_freeOrder = new DIA_FreeOrder(mContext,freeReasons);
+                dia_freeOrder = new DIA_FreeOrder(mContext, freeReasons);
                 dia_freeOrder.getDialog().show();
                 break;
             case R.id.btn_confirm11:
-                dia_employeeFiltration = new DIA_EmployeeFiltration(mContext,workState,employeePosition);
+                dia_employeeFiltration = new DIA_EmployeeFiltration(mContext, workState, employeePosition);
                 dia_employeeFiltration.setEmployeeCallback(this);
                 dia_employeeFiltration.getDialog().show();
                 break;
@@ -324,20 +349,20 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     public void getAllTakeOutCompany(List<TakeoutCompanyEntity> list) {
         ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
         ArrayList<FilterOptionsEntity> openOrderMarkets = new ArrayList<>();
-        if (list!=null && list.size()>0){
-            for (int i=0;i<list.size();i++){
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
                 //外卖筛选 多项选择
-                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(),list.get(i).getTakeOutCompanyId(),
-                        FiltrationUtil.TAKE_OUT_TYPE,false);
+                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(), list.get(i).getTakeOutCompanyId(),
+                        FiltrationUtil.TAKE_OUT_TYPE, false);
                 filterOptionsEntities.add(fde);
                 //外卖开单 单项选择
-                FilterOptionsEntity market = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(),list.get(i).getTakeOutCompanyId(),
-                        FiltrationUtil.VIEW_TAKEOUT_TYPE,false);
+                FilterOptionsEntity market = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(), list.get(i).getTakeOutCompanyId(),
+                        FiltrationUtil.VIEW_TAKEOUT_TYPE, false);
                 openOrderMarkets.add(market);
             }
         }
-        takeoutType = new FilterItemEntity(filterOptionsEntities,"外卖类型");
-        openOrderCompany = new FilterItemEntity(openOrderMarkets,"");
+        takeoutType = new FilterItemEntity(filterOptionsEntities, "外卖类型");
+        openOrderCompany = new FilterItemEntity(openOrderMarkets, "");
 
         marketPresenter.getAllSchedule(shopId);
     }
@@ -345,16 +370,16 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     @Override
     public void getAllTakeOutMarket(List<TakeoutMarketEntity> list) {
         ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
-        if (list!=null && list.size()>0){
-            for (int i=0;i<list.size();i++){
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
 
-                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getScheduleName(),list.get(i).getScheduleId(),
-                        FiltrationUtil.MARKET_TYPE,false);
+                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getScheduleName(), list.get(i).getScheduleId(),
+                        FiltrationUtil.MARKET_TYPE, false);
                 filterOptionsEntities.add(fde);
             }
         }
-        takeoutMarket = new FilterItemEntity(filterOptionsEntities,"市别");
-        dia_takeOutFiltration = new DIA_TakeOutFiltration(mContext,takeoutType,takeoutMarket);
+        takeoutMarket = new FilterItemEntity(filterOptionsEntities, "市别");
+        dia_takeOutFiltration = new DIA_TakeOutFiltration(mContext, takeoutType, takeoutMarket);
     }
 
     @Override
