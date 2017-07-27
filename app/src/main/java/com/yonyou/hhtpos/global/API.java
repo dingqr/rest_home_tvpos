@@ -160,4 +160,8 @@ public class API {
      * 称重确认接口
      */
     public static final String URL_CONFIRM_WEIGHT = BASE_SERVER_SHOP + "/prodish/weightconfirm";
+    /**
+     * 菜品转台接口
+     */
+    public static final String URL_SWITCH_TABLE = BASE_SERVER_SHOP + "/prodish/dishTurnTable";
 }

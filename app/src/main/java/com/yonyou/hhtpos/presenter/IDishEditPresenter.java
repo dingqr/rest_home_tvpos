@@ -47,4 +47,13 @@ public interface IDishEditPresenter {
      * @param shopId
      */
     void confirmWeightDish(String id, String quantity, String shopId);
+
+    /**
+     * 转台接口
+     * @param id 菜品明细表id
+     * @param count 转台的数量
+     * @param shopId 商户Id
+     * @param tableBillId 桌台账单Id
+     */
+    void switchTable(String id, String 	count, String shopId, String tableBillId);
 }

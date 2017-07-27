@@ -20,13 +20,16 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     private BaseLoadedListener updateDishStatusListener;
     private BaseLoadedListener handleDishListener;
     private BaseLoadedListener confirmWeightListener;
+    private BaseLoadedListener switchTableListener;
 
-    public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener, BaseLoadedListener handleDishListener, BaseLoadedListener confirmWeightListener) {
+    public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener,
+                                  BaseLoadedListener handleDishListener, BaseLoadedListener confirmWeightListener, BaseLoadedListener switchTableListener) {
         this.updateQuantityListener = updateQuantityListener;
         this.deleteDishListener = deleteDishListener;
         this.updateDishStatusListener = updateDishStatusListener;
         this.handleDishListener = handleDishListener;
         this.confirmWeightListener = confirmWeightListener;
+        this.switchTableListener = switchTableListener;
     }
     
     @Override
@@ -154,6 +157,32 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 confirmWeightListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void switchTable(String id, String count, String shopId, String tableBillId) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        hashMap.put("count", count);
+        hashMap.put("shopId", shopId);
+        hashMap.put("tableBillId", tableBillId);
+        RequestManager.getInstance().requestPostByAsyn(API.URL_SWITCH_TABLE, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                switchTableListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                switchTableListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                switchTableListener.onBusinessError(errorBean);
             }
         });
     }
