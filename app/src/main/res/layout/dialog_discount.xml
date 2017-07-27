@@ -64,7 +64,7 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:id="@+id/lv_discount"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_400"
@@ -73,7 +73,7 @@
         android:layout_marginBottom="@dimen/px_20"
         android:layout_marginTop="@dimen/px_50"
         android:divider="@null"
-        android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+        android:scrollbars="none"></ListView>
 
 
     <LinearLayout
