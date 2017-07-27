@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.dinner.dishes;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
@@ -48,11 +49,6 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     protected void getBundleExtras(Bundle extras) {
         fromWd = extras.getBoolean(FROM_WD, false);
         tableBillId = extras.getString(TABLE_BILL_ID, "");
-
-        //发送到右侧列表
-        if (!TextUtils.isEmpty(tableBillId)){
-            EventBus.getDefault().post(tableBillId);
-        }
     }
 
     @Override
@@ -95,6 +91,16 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
             bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);
             mWDOpenOrderPresenter.openOrder(bean);
         }
+
+        //新起一个子线程发送tableBillId
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!TextUtils.isEmpty(tableBillId)){
+                    EventBus.getDefault().post(tableBillId);
+                }
+            }
+        }, 0);
     }
 
     @Override

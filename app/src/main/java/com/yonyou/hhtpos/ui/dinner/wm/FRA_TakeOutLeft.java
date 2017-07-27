@@ -18,6 +18,7 @@ import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITakeoutCompanyPresenter;
 import com.yonyou.hhtpos.presenter.ITakeoutMarketPresenter;
 import com.yonyou.hhtpos.presenter.IWMOpenOrderPresenter;
@@ -205,7 +206,7 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
 
     @Override
     public void openOrder() {
-
+        sendBroadcast(ReceiveConstants.WM_OPEN_ORDER_SUCCESS);
     }
 
     @Override

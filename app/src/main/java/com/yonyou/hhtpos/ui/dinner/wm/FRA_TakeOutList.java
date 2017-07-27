@@ -18,6 +18,7 @@ import com.yonyou.hhtpos.adapter.ADA_TakeOutList;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWMListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WMListPresenterImpl;
@@ -128,6 +129,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
+
         mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
             @Override
             public void onItemClick(int position) {
@@ -200,7 +202,9 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     public void onRefresh() {
         // reset page and list view state
         mCurrentPage = 1;
-        plaLvTakeOut.setCanLoadMore(true);
+        if (null != plaLvTakeOut){
+            plaLvTakeOut.setCanLoadMore(true);
+        }
 
         if (NetUtils.isNetworkConnected(mContext)) {
             // 非固定参数
@@ -244,5 +248,12 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
         takeOutCompanyId = bean.takeOutCompanyId;
         takeOutScheduleId = bean.takeOutScheduleId;
         onRefresh();
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.WM_OPEN_ORDER_SUCCESS){
+            onRefresh();
+        }
     }
 }
