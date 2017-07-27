@@ -445,7 +445,7 @@ public class FiltrationUtil {
     }
 
     public static ArrayList<SetMealListEntity> getSetMealList(){
-        SetMealListEntity smle1 = new SetMealListEntity("松茸汽锅鸡",1,0);
+        SetMealListEntity smle1 = new SetMealListEntity("松茸汽锅鸡","蒜蓉",1,0);
         SetMealListEntity smle2 = new SetMealListEntity("干锅娃娃菜",1,0);
         SetMealListEntity smle3 = new SetMealListEntity("鲜榨果汁",1,10);
         SetMealListEntity smle4 = new SetMealListEntity("米饭",1,0);
