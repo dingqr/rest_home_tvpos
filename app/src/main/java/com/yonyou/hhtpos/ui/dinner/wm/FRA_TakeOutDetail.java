@@ -158,7 +158,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     @Override
     protected void onUserVisible() {
-
+        mPresenter.requestWMOrderDetail(tableBillId);
     }
 
     @Override
@@ -343,11 +343,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
-    private int limit;
-    private int j;
-    private boolean isContinie = true;
 
     private void setCount(List<WMDishDetailEntity> dataList) {
+        int limit = 0;
+        int j = 0;
         for (; limit < dataList.size(); limit++) {
             if (dataList.get(limit).orderTime == null) {
                 return;
@@ -372,10 +371,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             }
         }
         for (int k = 0; k < dataList.size(); k++) {
-            if (dataList.get(k).orderTime != null) {
-                String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
-                dataList.get(k).totalCount = count;
-            }
+            String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
+            dataList.get(k).totalCount = count;
         }
     }
 
