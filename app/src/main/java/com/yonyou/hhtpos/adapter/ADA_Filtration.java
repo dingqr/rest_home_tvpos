@@ -151,7 +151,7 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
                 }
                 //实现单选功能
                 if(null != dataBean && null != currentBean){
-                    if (!dataBean.getOption().equals(currentBean.getOption())){
+                    if (!dataBean.equals(currentBean)){
                         dataBean.setCheck(true);
                         currentBean.setCheck(false);
                         currentBean = dataBean;
