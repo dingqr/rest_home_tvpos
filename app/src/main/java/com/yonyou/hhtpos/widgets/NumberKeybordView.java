@@ -50,7 +50,7 @@ public class NumberKeybordView extends LinearLayout {
     //限定小数点前的最大整数位
     private static final int MAX_INTERGER_COUNT = 4;
     //限定小数点后的位数
-    private static final int POINTER_LENGTH_AFTER = 5;
+    private static final int POINTER_LENGTH_AFTER = 2;
     //当前可以输入的整数最大值去除一个0
     private int MEDIAN_VALUE = 1000;
     //限定最大输入金额整数字符串

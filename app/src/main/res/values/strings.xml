@@ -355,5 +355,7 @@
     <string name="employee_position">岗位</string>
     <string name="work_state_empty">请选择在职状态</string>
     <string name="employee_position_empty">请选择岗位</string>
+    <string name="string_coupon">优惠券</string>
+    <string name="string_unordered_dishes">未下单菜品</string>
 
 </resources>
