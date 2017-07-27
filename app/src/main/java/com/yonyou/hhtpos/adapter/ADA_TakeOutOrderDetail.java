@@ -2,6 +2,8 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
@@ -30,7 +32,7 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
 
     @Override
     protected void convert(ViewHolderListView holder, WMDishDetailEntity dishDetailEntity, int position) {
-
+        TextView tvRemarks = holder.getView(R.id.tv_remarks);
         //设置接口返回数据
         if (dishDetailEntity != null) {
             String headerTime = "";
@@ -51,9 +53,14 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
                 int quantity = (int) Double.parseDouble(dishDetailEntity.quantity);
                 holder.setText(R.id.tv_quanlity, "x" + quantity);
             }
-            if (!TextUtils.isEmpty(dishDetailEntity.listShowRemark)) {
-                //备注
-                holder.setText(R.id.tv_remarks, "" + dishDetailEntity.listShowRemark);
+            //备注
+            tvRemarks.setVisibility(View.VISIBLE);
+            if (!TextUtils.isEmpty(dishDetailEntity.remark)) {
+                tvRemarks.setText(mContext.getResources().getString(R.string.string_dish_remarks) + dishDetailEntity.remark);
+            } else if (!TextUtils.isEmpty(dishDetailEntity.listShowRemark)) {
+                tvRemarks.setText(mContext.getResources().getString(R.string.string_dish_remarks) + dishDetailEntity.listShowRemark);
+            } else {
+                tvRemarks.setVisibility(View.INVISIBLE);
             }
             //新点的菜后台没有记录时间
         }
