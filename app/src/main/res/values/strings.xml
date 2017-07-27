@@ -360,5 +360,8 @@
     <string name="employee_position_empty">请选择岗位</string>
     <string name="string_coupon">优惠券</string>
     <string name="string_unordered_dishes">未下单菜品</string>
+    <string name="string_dish_remarks">注：</string>
+    <string name="sting_clear_coupon_setting">清空优惠设置</string>
+    <string name="string_use_coupon">使用优惠券</string>
 
 </resources>

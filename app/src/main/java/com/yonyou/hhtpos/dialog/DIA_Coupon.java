@@ -6,13 +6,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.adapter.ADA_Discount;
-import com.yonyou.hhtpos.bean.DiscountEntity;
+import com.yonyou.hhtpos.adapter.ADA_Coupon;
+import com.yonyou.hhtpos.adapter.CouponEntity;
 
 import java.util.ArrayList;
 
@@ -29,34 +29,34 @@ public class DIA_Coupon {
     TextView tvDialogTitle;
     @Bind(R.id.iv_close)
     ImageView ivClose;
-    @Bind(R.id.lv_discount)
-    ListView mListView;
+    @Bind(R.id.gv_coupon)
+    GridView mCouponGridView;
     protected Dialog mDialog;
     protected View mContentView;
     protected Context mContext;
-    private ADA_Discount mAdapter;
+    private ADA_Coupon mAdapter;
 
-    private ArrayList<DiscountEntity> mData = new ArrayList<>();
+    private ArrayList<CouponEntity> mData = new ArrayList<>();
 
     public DIA_Coupon(Context context) {
         mContext = context;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
-        mContentView = LayoutInflater.from(context).inflate(R.layout.dialog_discount, null);
+        mContentView = LayoutInflater.from(context).inflate(R.layout.dialog_coupon, null);
         mDialog.setContentView(mContentView);
         ButterKnife.bind(this, mContentView);
         tvDialogTitle.setText(mContext.getResources().getString(R.string.string_coupon));
         initListener();
-        View discount_head_view = View.inflate(mContext, R.layout.discount_head_view, null);
-        mListView.addHeaderView(discount_head_view);
-        mAdapter = new ADA_Discount(mContext);
-        mListView.setAdapter(mAdapter);
+        mCouponGridView.setHorizontalSpacing(70);
+        mCouponGridView.setVerticalSpacing(36);
+        mAdapter = new ADA_Coupon(mContext);
+        mCouponGridView.setAdapter(mAdapter);
         setData();
     }
 
     private void setData() {
         for (int i = 0; i < 10; i++) {
-            DiscountEntity discountEntity = new DiscountEntity();
-            mData.add(discountEntity);
+            CouponEntity couponEntity = new CouponEntity();
+            mData.add(couponEntity);
         }
         mAdapter.update(mData);
     }
@@ -76,8 +76,8 @@ public class DIA_Coupon {
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.8f; //背景灰度 -0.0全透明
-        lp.width = 710; // 设置宽度
-        lp.height = 820;//设置高度
+        lp.width = 1220; // 设置宽度
+        lp.height = 940;//设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         if (!mDialog.isShowing()) {

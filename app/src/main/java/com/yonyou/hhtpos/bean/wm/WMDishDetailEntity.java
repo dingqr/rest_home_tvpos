@@ -67,6 +67,10 @@ public class WMDishDetailEntity {
      */
     public String listShowRemark;
     /**
+     * 备注
+     */
+    public String remark;
+    /**
      * 数量
      */
     public String quantity;

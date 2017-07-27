@@ -7,20 +7,50 @@
 
     <include layout="@layout/inc_dialog_title"></include>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/px_42"
+        android:layout_marginTop="@dimen/px_42"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="会员：1527364398（王小米）"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_30" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_50"
+            android:background="@drawable/bg_ff_side_cc_radius_25"
+            android:drawableLeft="@drawable/ic_logout_member"
+            android:drawablePadding="@dimen/px_20"
+            android:paddingBottom="@dimen/px_12"
+            android:paddingLeft="@dimen/px_40"
+            android:paddingRight="@dimen/px_40"
+            android:paddingTop="@dimen/px_12"
+            android:text="退出会员"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_24" />
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rl_stationary_head"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_120"
-        android:layout_marginLeft="@dimen/px_80"
-        android:layout_marginRight="@dimen/px_80"
-        android:layout_marginTop="@dimen/px_32"
+        android:layout_marginLeft="@dimen/px_40"
+        android:layout_marginRight="@dimen/px_40"
         android:background="@color/color_f0f0f0"
         android:gravity="center_vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_74"
+            android:layout_marginLeft="@dimen/px_244"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -43,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/px_74"
+            android:layout_marginRight="@dimen/px_244"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -64,16 +94,16 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_discount"
+    <GridView
+        android:id="@+id/gv_coupon"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_400"
-        android:layout_marginLeft="@dimen/px_80"
-        android:layout_marginRight="@dimen/px_80"
-        android:layout_marginBottom="@dimen/px_20"
-        android:layout_marginTop="@dimen/px_50"
+        android:layout_height="@dimen/px_460"
+        android:layout_marginLeft="@dimen/px_40"
+        android:layout_marginRight="@dimen/px_40"
+        android:layout_marginTop="@dimen/px_28"
         android:divider="@null"
-        android:scrollbars="none"></ListView>
+        android:numColumns="2"
+        android:scrollbars="none"></GridView>
 
 
     <LinearLayout
@@ -92,7 +122,7 @@
             android:checked="true"
             android:gravity="center"
             android:padding="@dimen/px_20"
-            android:text="@string/sting_clear_discount_setting"
+            android:text="@string/sting_clear_coupon_setting"
             android:textColor="@drawable/rb_next_step_txt"
             android:textSize="@dimen/sp_28" />
 
@@ -107,7 +137,7 @@
             android:checked="true"
             android:gravity="center"
             android:padding="@dimen/px_20"
-            android:text="@string/string_use_discount"
+            android:text="@string/string_use_coupon"
             android:textColor="@drawable/rb_next_step_txt"
             android:textSize="@dimen/sp_28" />
 

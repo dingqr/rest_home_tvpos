@@ -61,7 +61,7 @@
         android:paddingLeft="@dimen/px_20"
         android:text="注：不要辣椒"
         android:textColor="@color/color_eb6247"
-        android:textSize="@dimen/sp_20" />
+        android:textSize="@dimen/sp_20"/>
 
     <View
         android:layout_width="match_parent"
