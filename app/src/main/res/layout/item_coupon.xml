@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/px_560"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/px_133"
     android:background="@drawable/bg_coupon_cash">
-    <!--@dimen/px_560-->
+    <!--@dimen/px_560
+    match_parent-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/px_40"
+        android:layout_marginRight="@dimen/px_44"
         android:layout_marginTop="@dimen/px_24"
         android:text="汽锅鸡兑换"
         android:textColor="@color/color_8DA9FA"
@@ -72,7 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/px_24"
-        android:layout_marginRight="@dimen/px_40"
+        android:layout_marginRight="@dimen/px_44"
         android:text="满400元可用"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/px_18" />
