@@ -73,6 +73,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private double totalPrice;
     /**账单id */
     private String tableBillId;
+    /**是否为右侧传递过来的 */
+    private boolean isRightRefresh;
 
     @Override
     protected void onFirstUserVisible() {
@@ -150,7 +152,9 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 设置总价格
             setDishTotalPrice(dataList);
             //将右侧菜类的角标数量数据传递到右侧页面
-            EventBus.getDefault().post(bean);
+            if (!isRightRefresh){
+                EventBus.getDefault().post(bean);
+            }
 
             mAdapter.update(dataList, true);
         }
@@ -194,6 +198,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void requestPlaceOrder() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_place_order_success), false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
@@ -279,12 +284,14 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void updateQuantitySuccess() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_count_success), false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void updateDishSuccess() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_dish_success), false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
@@ -295,24 +302,28 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         }
 
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_delete_dish_success), false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void updateDishStatusSuccess() {
         CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_dish_status_success), false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void handleDishSuccess() {
         CommonUtils.makeEventToast(mContext, "退菜或赠菜成功", false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void confirmWeightSuccess() {
         CommonUtils.makeEventToast(mContext, "称重菜品成功", false);
+        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
@@ -364,6 +375,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_LEFT_DISHES){
+            isRightRefresh = true;
             mDishListPresenter.requestDishList(tableBillId, false);
         }
     }
