@@ -301,11 +301,11 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //创建时间-要求后台返回Long值 -07-06 11:00
             tvCreateTime.setText(orderDetailEntity.orderTime);
             //总计
-            tvBillMoney.setText("￥" + orderDetailEntity.getBillOriginMoney());
+            tvBillMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getBillOriginMoney());
 
             //缺的字段
             //实收金额和收款时间
-            tvRealReceiveMoney.setText("￥" + orderDetailEntity.getBillMoney());
+            tvRealReceiveMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getBillMoney());
             //2017-06-08 11:30
             tvReceiveTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.billTime, AppDateUtil.YYYY_MM_DD_HH_MM)));
             //退款金额和退款时间
@@ -321,14 +321,14 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             tvPhone.setText(orderDetailEntity.phone);
             tvCustomerName.setText(orderDetailEntity.name);
             tvArriveAddress.setText(orderDetailEntity.address);
-            tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
+            tvReduceMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getReduceMoney());
             //缺少的字段“
             //就餐人数和时段
-            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + "人" + "(" + orderDetailEntity.scheduleName + ")");
+            tvPersonAndDinnerType.setText(orderDetailEntity.personNum + mContext.getResources().getString(R.string.man) + "(" + orderDetailEntity.scheduleName + ")");
             //备注
             tvRemarks.setText(orderDetailEntity.remark);
             tvRemarks.setVisibility(!TextUtils.isEmpty(orderDetailEntity.remark) ? View.VISIBLE : View.GONE);
-            tvTotalBillmoney.setText("￥" + orderDetailEntity.getBillOriginMoney());
+            tvTotalBillmoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getBillOriginMoney());
             //支付类型-百度支付
             //退款类型-百度支付
             //积分

@@ -32,6 +32,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
 
     public ADA_DishTypeList(Context context) {
         super(context);
+        this.mContext = context;
         mBuffer = new StringBuffer();
     }
 
@@ -84,7 +85,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
                 tvTastes.setVisibility(View.INVISIBLE);
             }
             //设置价格
-            holder.setText(R.id.tv_dish_price, "￥" + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+            holder.setText(R.id.tv_dish_price,mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
             //设置是否是称重
             ivWeightSign.setVisibility(dishesEntity.isWeigh.equals("Y") ? View.VISIBLE : View.GONE);
 

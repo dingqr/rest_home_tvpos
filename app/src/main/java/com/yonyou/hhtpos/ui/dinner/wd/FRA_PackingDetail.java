@@ -189,13 +189,13 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 tvPhoneNumber.setText(maskNumber);
             }
             //优惠金额
-            tvReduceMoney.setText("￥" + orderDetailEntity.getReduceMoney());
+            tvReduceMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getReduceMoney());
             //折扣
-            tvDiscountMoney.setText("￥" + orderDetailEntity.getDiscountMoney());
+            tvDiscountMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getDiscountMoney());
             //抹零
-            tvIgnoreMoney.setText("￥" + orderDetailEntity.getIgnoreMoney());
+            tvIgnoreMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getIgnoreMoney());
             //实际支付
-            tvRealReceiveAmount.setText("￥" + orderDetailEntity.getRealReceiveAmount());
+            tvRealReceiveAmount.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getRealReceiveAmount());
 
             //支付方式-可能组合
             if (orderDetailEntity.payTypeList != null && orderDetailEntity.payTypeList.size() > 0) {

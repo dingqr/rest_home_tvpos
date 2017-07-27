@@ -48,7 +48,7 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
             holder.setText(R.id.tv_header_time, headerTime + tvHearder);
 
             holder.setText(R.id.tv_dish_name, dishDetailEntity.dishName);
-            holder.setText(R.id.tv_dish_price, "￥" + dishDetailEntity.getDishPrice());
+            holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishDetailEntity.getDishPrice());
             if (!TextUtils.isEmpty(dishDetailEntity.quantity)) {
                 int quantity = (int) Double.parseDouble(dishDetailEntity.quantity);
                 holder.setText(R.id.tv_quanlity, "x" + quantity);
