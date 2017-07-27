@@ -104,7 +104,8 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
             holder.mOrderNumber.setText(mContext.getString(R.string.well_no) + billNo.substring(billNo.length() - 5, billNo.length()));
         }
         // 外卖渠道
-        holder.mChannelName.setText(StringUtil.getString(bean.getTakeOutCompanyId()));
+//        holder.mChannelName.setText(StringUtil.getString(bean.getTakeOutCompanyId()));
+        holder.mChannelName.setText(StringUtil.getString(bean.getTakeOutCompanyName()));
         // 下单时间
         holder.mOrderTime.setText(StringUtil.getString(bean.getCreateTime()));
         // 金额
