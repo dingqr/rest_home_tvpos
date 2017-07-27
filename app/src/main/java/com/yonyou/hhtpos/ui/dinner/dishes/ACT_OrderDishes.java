@@ -156,11 +156,12 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
      */
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         //System.out.println("按下了back键   onBackPressed()");
 
         if (fromWd){
             mWDCloseOrderPresenter.closeOrder(tableBillId);
+        }else {
+            super.onBackPressed();
         }
     }
 
