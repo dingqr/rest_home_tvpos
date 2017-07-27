@@ -56,4 +56,12 @@ public interface IDishEditInteractor {
      * @param tableBillId 桌台账单Id
      */
     void switchTable(String id, String 	count, String shopId, String tableBillId);
+
+    /**
+     * 取消赠菜接口
+     * @param id 菜品明细id
+     * @param shopId 门店id
+     * @param waiterId 服务员id
+     */
+    void cancelGiftDish(String id, String shopId, String waiterId);
 }

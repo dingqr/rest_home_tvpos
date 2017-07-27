@@ -42,4 +42,9 @@ public interface IDishEditView extends BaseView {
      * 菜品转台接口成功回调
      */
     void switchTableSuccess();
+
+    /**
+     * 取消赠菜接口成功回调
+     */
+    void cancelGiftDishesSuccess();
 }

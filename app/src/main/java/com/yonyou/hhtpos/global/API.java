@@ -164,4 +164,8 @@ public class API {
      * 菜品转台接口
      */
     public static final String URL_SWITCH_TABLE = BASE_SERVER_SHOP + "/prodish/dishTurnTable";
+    /**
+     * 取消赠菜接口
+     */
+    public static final String URL_CANCEL_GIFT_DISHES = BASE_SERVER_SHOP + "/prodish/cancelgiftDish";
 }
