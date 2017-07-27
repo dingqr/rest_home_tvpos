@@ -363,5 +363,8 @@
     <string name="string_dish_remarks">注：</string>
     <string name="sting_clear_coupon_setting">清空优惠设置</string>
     <string name="string_use_coupon">使用优惠券</string>
+    <string name="string_logout_member">退出会员</string>
+    <string name="string_original_price">原价</string>
+    <string name="string_discount_price">折扣价</string>
 
 </resources>

@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="原价"
+                android:text="@string/string_original_price"
                 android:textColor="@color/color_666666"
                 android:textSize="@dimen/sp_24" />
         </LinearLayout>
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="折扣价"
+                android:text="@string/string_discount"
                 android:textColor="@color/color_666666"
                 android:textSize="@dimen/sp_24" />
         </LinearLayout>

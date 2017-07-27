@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,6 +63,13 @@ public class DIA_Coupon {
     }
 
     private void initListener() {
+        mCouponGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mAdapter.setSelectItem(position);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

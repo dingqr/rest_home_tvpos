@@ -32,9 +32,9 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<DishDetaiListlE
             holder.setText(R.id.tv_quanlity, dishDetaiListlEntity.quantity + mContext.getResources().getString(R.string.string_unit_quanlity));
             holder.setText(R.id.tv_dish_name, dishDetaiListlEntity.dishName);
             //设置原价
-            holder.setText(R.id.tv_dish_price, "￥" + dishDetaiListlEntity.getDishPrice());
+            holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishDetaiListlEntity.getDishPrice());
             //设置会员价
-            holder.setText(R.id.tv_member_price, "￥" + dishDetaiListlEntity.getMemberPrice());
+            holder.setText(R.id.tv_member_price, mContext.getResources().getString(R.string.RMB_symbol) + dishDetaiListlEntity.getMemberPrice());
             //设置规格
             holder.setText(R.id.tv_standard_name, dishDetaiListlEntity.standardName);
         }

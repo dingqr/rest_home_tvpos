@@ -27,7 +27,7 @@ import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
-import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
+import com.yonyou.hhtpos.dialog.DIA_Coupon;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
@@ -344,8 +344,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.getBottomTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DIA_AddTempDishes(mContext).getDialog().show();
-//                new DIA_Coupon(mContext).show();
+//                new DIA_AddTempDishes(mContext).getDialog().show();
+                new DIA_Coupon(mContext).show();
             }
         });
         //点击菜品进行数据筛选

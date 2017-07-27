@@ -17,7 +17,7 @@ import com.yonyou.hhtpos.bean.WaiterEntity;
  */
 public class ADA_WaitersList extends CommonAdapterListView<WaiterEntity> {
 
-    private double mSelectedPos;
+    private int mSelectedPos;
 
     public ADA_WaitersList(Context context) {
         super(context);
