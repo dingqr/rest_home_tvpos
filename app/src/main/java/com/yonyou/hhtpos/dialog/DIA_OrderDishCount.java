@@ -149,7 +149,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 for (int i = 0; i < dataBean.getRemarks().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getRemarks().get(i).remarkName);
-                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
+                    foe.setOptionId(dataBean.getRemarks().get(i).relateId);
                     foe.setType(MultipleSelectView.DISH_REMARK);
                     options.add(foe);
                 }
