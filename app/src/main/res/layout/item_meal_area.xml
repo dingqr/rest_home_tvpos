@@ -5,6 +5,14 @@
     android:layout_height="wrap_content"
     android:background="@color/color_FFFFFF">
 
+    <View
+        android:id="@+id/v_right_line"
+        android:layout_width="@dimen/px_4"
+        android:layout_height="@dimen/px_70"
+        android:background="@color/color_eb6247"
+        android:visibility="invisible"
+        android:layout_gravity="right|center_vertical"/>
+
     <TextView
         android:id="@+id/tv_area_name"
         android:layout_width="match_parent"
@@ -17,11 +25,4 @@
         android:paddingBottom="@dimen/px_42"
         android:singleLine="true"/>
 
-    <View
-        android:id="@+id/v_right_line"
-        android:layout_width="@dimen/px_4"
-        android:layout_height="@dimen/px_70"
-        android:background="@color/color_eb6247"
-        android:visibility="invisible"
-        android:layout_gravity="right|center_vertical"/>
 </FrameLayout>

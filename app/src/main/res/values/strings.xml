@@ -181,6 +181,7 @@
     <string name="table_merge">并台</string>
     <string name="table_put_together">拼台</string>
     <string name="table_clear">清台</string>
+    <string name="abandon">放弃</string>
 
     <string name="dishes_no_data">还没有点菜哦~</string>
     <string name="order_no_data">今天还没有订单哦~</string>

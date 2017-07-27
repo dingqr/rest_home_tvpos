@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
     /**页面控件*/
     private ImageButton add;
     private ImageButton minus;
-    private TextView currentCount;
+    private EditText currentCount;
 
     int count = 1;
 
@@ -49,10 +50,12 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         minus = (ImageButton)convertView.findViewById(R.id.ib_turn_minus);
         add.setOnClickListener(this);
         minus.setOnClickListener(this);
-        currentCount = (TextView)convertView.findViewById(R.id.tv_current_count);
+        currentCount = (EditText)convertView.findViewById(R.id.tv_current_count);
     }
     public void reset(){
         currentCount.setText("1");
+        currentCount.setFocusable(false);
+        currentCount.setFocusableInTouchMode(true);
     }
 
     @Override

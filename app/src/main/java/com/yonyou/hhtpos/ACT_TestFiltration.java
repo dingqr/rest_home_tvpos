@@ -122,7 +122,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     ArrayList<SetMealGridEntity> setMealGridEntities = new ArrayList<>();
     ArrayList<SetMealListEntity> setMealListEntities = new ArrayList<>();
 
-    //    DIA_SelectTable dia_reserveFiltration;
+    //    DIA_ChooseTable dia_reserveFiltration;
     DIA_ReserveFiltration dia_reserveFiltration1;
     //    DIA_ReserveList dia_reserveFiltration;
     DIA_TakeOutOpenOrder dia_reserveFiltration;

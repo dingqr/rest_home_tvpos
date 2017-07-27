@@ -151,6 +151,10 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
             case R.id.ib_close:
                 if (mDialog != null) {
                     mDialog.dismiss();
+                    if (!cookeryEmptyFlag)
+                        fvCookery.reset();
+                    iwvDishWeight.reset();
+                    mDialog.dismiss();
                 }
                 break;
             case R.id.rb_finish_select:

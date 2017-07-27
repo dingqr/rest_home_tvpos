@@ -168,4 +168,12 @@ public class API {
      * 取消赠菜接口
      */
     public static final String URL_CANCEL_GIFT_DISHES = BASE_SERVER_SHOP + "/prodish/cancelgiftDish";
+    /**
+     * 堂食取消拼台接口
+     */
+    public static final String URL_TS_CANCEL_SPLIT_TABLE = BASE_SERVER_SHOP + "/protabledynamic/cancelSplitTable";
+    /**
+     * 堂食筛选不同桌台操作可用桌台
+     */
+    public static final String URL_TS_CLICKABLE_TABLE = BASE_SERVER_SHOP + "/protabledynamic/screenTableTable";
 }
