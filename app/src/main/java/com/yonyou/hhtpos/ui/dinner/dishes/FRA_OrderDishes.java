@@ -27,7 +27,7 @@ import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
-import com.yonyou.hhtpos.dialog.DIA_CollectForegift;
+import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
@@ -136,20 +136,20 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             resetCheckStatus();
             // reset count
             resetCount();
-//            //给右侧菜类设置数据
-//            mRightNavigationView.setData(mDishDataBean.dishTypes);
-//
-//            for (int m = 0; m < mDishDataBean.dishTypes.size(); m++) {
-//                List<DishesEntity> dishes = mDishDataBean.dishTypes.get(j).dishes;
-//                if (dishes != null && dishes.size() > 0) {
-//                    for (int n = 0; n < dishes.size(); n++) {
-//                        //所有菜品的唯一标识
-//                        dishes.get(n).isCheck = false;
-//                    }
-//                }
-//            }
         }
     }
+    /**
+     * 接收外带和外卖页面传过来的tableBillId
+     *
+     * @param tableBillId
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onReceiveTableBillId(String tableBillId) {
+        if (!TextUtils.isEmpty(tableBillId)) {
+            this.mTableBillId = tableBillId;
+        }
+    }
+
 
     /**
      * 重置选中状态
@@ -180,18 +180,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             mDishDataBean.dishTypes.get(i).count = 0;
         }
         mRightNavigationView.setData(mDishDataBean.dishTypes);
-    }
-
-    /**
-     * 接收tableBillId的数据集合
-     *
-     * @param tableBillId
-     */
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onReceiveTableBillId(String tableBillId) {
-        if (!TextUtils.isEmpty(tableBillId)) {
-            this.mTableBillId = tableBillId;
-        }
     }
 
     @Override
@@ -356,8 +344,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.getBottomTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                new DIA_AddTempDishes(mContext).getDialog().show();
-                new DIA_CollectForegift(getActivity()).show();
+                new DIA_AddTempDishes(mContext).getDialog().show();
             }
         });
         //点击菜品进行数据筛选

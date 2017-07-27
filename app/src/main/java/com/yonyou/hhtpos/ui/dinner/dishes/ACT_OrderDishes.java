@@ -51,7 +51,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
 
         //发送到右侧列表
         if (!TextUtils.isEmpty(tableBillId)){
-            EventBus.getDefault().post(tableBillId);
+            EventBus.getDefault().postSticky(tableBillId);
         }
     }
 
