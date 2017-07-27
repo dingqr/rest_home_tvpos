@@ -23,7 +23,8 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     public DishEditPresenterImpl(Context mContext, IDishEditView mDishEditView) {
         this.mContext = mContext;
         this.mDishEditView = mDishEditView;
-        mDishEditInteractor = new DishEditInteractorImpl(new UpdateQuantityListener(), new DeleteDishListener(), new UpdateDishStatusListener(), new SpecialHandleDishListener(), new ConfirmWeightListener());
+        mDishEditInteractor = new DishEditInteractorImpl(new UpdateQuantityListener(), new DeleteDishListener(), new UpdateDishStatusListener(),
+                new SpecialHandleDishListener(), new ConfirmWeightListener(), new SwitchTableListener());
     }
 
     @Override
@@ -44,6 +45,11 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     @Override
     public void confirmWeightDish(String id, String quantity, String shopId) {
         mDishEditInteractor.confirmWeightDish(id, quantity, shopId);
+    }
+
+    @Override
+    public void switchTable(String id, String count, String shopId, String tableBillId) {
+        mDishEditInteractor.switchTable(id, count, shopId, tableBillId);
     }
 
     @Override
@@ -173,6 +179,35 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
         public void onSuccess(int event_tag, String result) {
             mDishEditView.hideLoading();
             mDishEditView.confirmWeightSuccess();
+        }
+
+        @Override
+        public void onError(String msg) {
+            mDishEditView.hideLoading();
+            CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onException(String msg) {
+            mDishEditView.hideLoading();
+            mDishEditView.showException(msg);
+            //CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onBusinessError(ErrorBean error) {
+            mDishEditView.hideLoading();
+            mDishEditView.showBusinessError(error);
+            //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
+        }
+    }
+
+    private class SwitchTableListener implements BaseLoadedListener<String> {
+
+        @Override
+        public void onSuccess(int event_tag, String result) {
+            mDishEditView.hideLoading();
+            mDishEditView.switchTableSuccess();
         }
 
         @Override

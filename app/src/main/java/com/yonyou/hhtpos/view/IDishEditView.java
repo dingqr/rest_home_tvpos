@@ -37,4 +37,9 @@ public interface IDishEditView extends BaseView {
      * 称重确认接口成功回调
      */
     void confirmWeightSuccess();
+
+    /**
+     * 菜品转台接口成功回调
+     */
+    void switchTableSuccess();
 }

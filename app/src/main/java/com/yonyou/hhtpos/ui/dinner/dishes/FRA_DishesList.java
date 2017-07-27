@@ -213,7 +213,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             editPopup = new POP_DishesEdit(mContext, this, currentBean.getDishStatus());
             editPopup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
         } else {
-            placeOrderEditPopup = new POP_DishesPlaceOrderEdit(mContext, this, currentBean.getDishStatus());
+            placeOrderEditPopup = new POP_DishesPlaceOrderEdit(mContext, this, currentBean);
             placeOrderEditPopup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
         }
     }
@@ -315,14 +315,21 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void handleDishSuccess() {
-        CommonUtils.makeEventToast(mContext, "退菜或赠菜成功", false);
+        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_return_serve_dish_success), false);
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void confirmWeightSuccess() {
-        CommonUtils.makeEventToast(mContext, "称重菜品成功", false);
+        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_confirm_weight_success), false);
+        isRightRefresh = false;
+        mDishListPresenter.requestDishList(tableBillId, false);
+    }
+
+    @Override
+    public void switchTableSuccess() {
+        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_switch_table_success), false);
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
@@ -357,8 +364,15 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         // 退菜和赠菜
         if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)){
             mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
-        }else {
+        }
+        // 称重确认
+        else if (mode.equals(DishConstants.DISH_WEIGHT)){
             mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, shopId);
+        }
+        // 转台
+        else if (mode.equals(DishConstants.DISH_TURN)){
+            // TODO:tableBillId
+            mDishEditPresenter.switchTable(currentBean.getId(), count, shopId, "C5BA09D3380000008800000000257000");
         }
     }
 

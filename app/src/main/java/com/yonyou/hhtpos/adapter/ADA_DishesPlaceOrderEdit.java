@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.DishEditEntity;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 
 /**
  * 作者：liushuofei on 2017/7/24 17:26
@@ -18,7 +20,7 @@ import com.yonyou.hhtpos.bean.DishEditEntity;
 public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
 
     private DishEditEntity currentBean;
-    private int dishStatus;
+    private DishListEntity.Dishes bean;
 
     private ADA_DishesPlaceOrderEdit.OnSelectedListener onSelectedListener;
 
@@ -27,10 +29,10 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
     private static final int STATUS_WAIT_CALLED = 7;
     private static final int STATUS_SERVING = 8;
 
-    public ADA_DishesPlaceOrderEdit(Context context, ADA_DishesPlaceOrderEdit.OnSelectedListener onSelectedListener, int dishStatus) {
+    public ADA_DishesPlaceOrderEdit(Context context, ADA_DishesPlaceOrderEdit.OnSelectedListener onSelectedListener, DishListEntity.Dishes bean) {
         super(context);
         this.onSelectedListener = onSelectedListener;
-        this.dishStatus = dishStatus;
+        this.bean = bean;
     }
 
     @Override
@@ -54,24 +56,42 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
         return convertView;
     }
 
-    private void handleDataSource(final int pos, ADA_DishesEdit.ViewHolder holder, final DishEditEntity bean){
+    private void handleDataSource(final int pos, ADA_DishesEdit.ViewHolder holder, final DishEditEntity dishEditEntity){
         // 设置选中状态
-        if (bean.isCheck()){
+        if (dishEditEntity.isCheck()){
             holder.mOperationTxt.setChecked(true);
         }else {
             holder.mOperationTxt.setChecked(false);
         }
 
+        // 叫起状态
+        if (pos == 0 && String.valueOf(bean.getDishStatus()).equals(DishConstants.STATUS_SERVING)){
+            holder.mOperationTxt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_dishes_edit_selected_no));
+            holder.mOperationTxt.setTextColor(mContext.getResources().getColor(R.color.color_999999));
+            holder.mOperationTxt.setEnabled(false);
+        }
+
+        // 0:不是称重菜  1：是称重菜
+        if (pos == 1 && bean.getUnit() == 0){
+            holder.mOperationTxt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_dishes_edit_selected_no));
+            holder.mOperationTxt.setTextColor(mContext.getResources().getColor(R.color.color_999999));
+            holder.mOperationTxt.setEnabled(false);
+        }
+
         holder.mOperationTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!bean.equals(currentBean)){
-                    bean.setCheck(true);
+                if (!dishEditEntity.equals(currentBean)){
+                    dishEditEntity.setCheck(true);
                     if (null != currentBean){
                         currentBean.setCheck(false);
                     }
-                    currentBean = bean;
+                    currentBean = dishEditEntity;
 
+                    // 修改菜品状态
+                    if (pos == 0){
+                        bean.setDishStatus(8);
+                    }
                     notifyDataSetChanged();
                 }
                 onSelectedListener.onSelected(pos);
@@ -106,6 +126,7 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
             default:
                 break;
         }
+
     }
 
     static class ViewHolder {

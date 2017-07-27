@@ -9,6 +9,7 @@ import android.widget.PopupWindow;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesPlaceOrderEdit;
 import com.yonyou.hhtpos.bean.DishEditEntity;
+import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.widgets.BanSlideGridView;
 
@@ -24,7 +25,7 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
     /**传入数据 */
     private Context context;
     private OnPlaceEditListener onEditListener;
-    private int dishStatus;
+    private DishListEntity.Dishes bean;
 
     /**布局 */
     private View convertView;
@@ -33,11 +34,11 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
     private List<DishEditEntity> dataList;
     private ADA_DishesPlaceOrderEdit mAdapter;
 
-    public POP_DishesPlaceOrderEdit(Context context, OnPlaceEditListener onEditListener, int dishStatus) {
+    public POP_DishesPlaceOrderEdit(Context context, OnPlaceEditListener onEditListener, DishListEntity.Dishes bean) {
         super(context);
         this.context = context;
         this.onEditListener = onEditListener;
-        this.dishStatus = dishStatus;
+        this.bean = bean;
 
         setConvertView();
     }
@@ -46,7 +47,7 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.pop_dishes_edit, null);
         mGridView = (BanSlideGridView)convertView.findViewById(R.id.gv_dishes_edit);
-        mAdapter = new ADA_DishesPlaceOrderEdit(context, this, dishStatus);
+        mAdapter = new ADA_DishesPlaceOrderEdit(context, this, bean);
         mGridView.setAdapter(mAdapter);
 
         // 数据
@@ -93,9 +94,9 @@ public class POP_DishesPlaceOrderEdit extends PopupWindow implements ADA_DishesP
                 onEditListener.updateDishStatus(DishConstants.STATUS_REMINDER);
                 break;
 
-//            case 5:
-//                onEditListener.updateDishStatus(STATUS_SERVING);
-//                break;
+            case 5:
+                onEditListener.specialHandleDish(DishConstants.DISH_TURN);
+                break;
 
             default:
                 break;

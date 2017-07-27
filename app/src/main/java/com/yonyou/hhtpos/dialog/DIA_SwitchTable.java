@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.widgets.NumberKeybordView;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -64,10 +65,17 @@ public class DIA_SwitchTable implements View.OnClickListener{
         mConfirm.setOnClickListener(this);
         mDialog.setContentView(mContentView);
 
-        // 最大值
-        numberGridView.setMaxIntValue((int)Double.parseDouble(currentBean.getQuantity()));
-        // 整数
-        numberGridView.setInputMode(NumberKeybordView.INTEGER);
+        // 非称重菜
+        if (currentBean.getUnit() == 0){
+            // 最大值
+            numberGridView.setMaxIntValue(getOperationalQuantity());
+            // 整数
+            numberGridView.setInputMode(NumberKeybordView.INTEGER);
+        }else {
+            // 带小数点
+            numberGridView.setInputMode(NumberKeybordView.DECIMAL);
+        }
+
         // EditText
         numberGridView.setEtMoney(mCount);
 
@@ -109,15 +117,37 @@ public class DIA_SwitchTable implements View.OnClickListener{
      */
     private String getHint(){
         if (mode.equals(DishConstants.RETURN_DISH)){
-            return "最多退" + (int)Double.parseDouble(currentBean.getQuantity());
+            return "最多退" + getOperationalQuantity();
         }else if (mode.equals(DishConstants.SERVE_DISH)){
-            return "最多赠" + (int)Double.parseDouble(currentBean.getQuantity());
+            return "最多赠" + getOperationalQuantity();
         }else if (mode.equals(DishConstants.DISH_WEIGHT)){
             return "0.00斤";
         } else if (mode.equals(DishConstants.DISH_TURN)){
-            return "最多转" + (int)Double.parseDouble(currentBean.getQuantity());
+            return "最多转" + getOperationalQuantity();
         }
         return "";
+    }
+
+    /**
+     * 获取可操作数量（数量 - 已赠 - 已退）
+     * @return
+     */
+    private int getOperationalQuantity(){
+        int quantity = (int)Double.parseDouble(currentBean.getQuantity());
+
+        // 非称重菜
+        if (currentBean.getUnit() == 0){
+            // 有退赠记录
+            if (null != currentBean.getAbnormalList() && currentBean.getAbnormalList().size() > 0){
+                List<DishListEntity.Dishes.Abnormal> abnormalList = currentBean.getAbnormalList();
+                for (int i = 0; i < abnormalList.size(); i++){
+                    int handleQuantity = (int)Double.parseDouble(abnormalList.get(i).getQuantity());
+                    quantity-= handleQuantity;
+                }
+            }
+        }
+
+        return quantity;
     }
 
     private void initListener() {
