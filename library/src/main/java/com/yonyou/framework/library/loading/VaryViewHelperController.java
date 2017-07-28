@@ -1,5 +1,6 @@
 package com.yonyou.framework.library.loading;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -252,7 +253,7 @@ public class VaryViewHelperController {
         TextView tv_hyper_link = (TextView) layout.findViewById(R.id.tv_hyper_link);
 
         String defaultClickText = context.getResources().getString(R.string.string_operation_paltform);
-        String mLink;
+        final String mLink;
         if (!TextUtils.isEmpty(clickText)) {
             mLink = "<a href=" + "\"" + linkUrl + "\"" + ">" + clickText + "</a>";
         } else {
@@ -271,9 +272,14 @@ public class VaryViewHelperController {
         iv_jump_html.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse(linkUrl);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                context.startActivity(intent);
+                try {
+                    Uri uri = Uri.parse(linkUrl);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    context.startActivity(intent);
+                } catch (ActivityNotFoundException a) {
+                    a.getMessage();
+                    CommonUtils.makeEventToast(context, context.getResources().getString(R.string.string_install_brower), false);
+                }
             }
         });
 
