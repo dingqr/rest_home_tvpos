@@ -169,8 +169,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             tsooe.setTableStatus(0);
             tsooe.setPersonNum(dinnerNumber);
             tsooe.setMemberId(StringUtil.getString(userPhone));
-
-            if (waiterEntity == null && TextUtils.isEmpty(waiterEntity.waiterId)) {
+            if (waiterEntity == null) {
                 tsooe.setWaiterId("");
             } else {
                 tsooe.setWaiterId(StringUtil.getString(waiterEntity.waiterId));
