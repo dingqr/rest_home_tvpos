@@ -208,7 +208,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     protected void initViewsAndEvents() {
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
         ACT_OrderDishes activity = (ACT_OrderDishes) getActivity();
-        int saleManner = 0;
+        int saleManner = activity.getFromWhere();
         mPresenter.getAllDishes(compId, shopId, saleManner);
 
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
