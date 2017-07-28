@@ -36,7 +36,6 @@ import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
-import com.yonyou.hhtpos.view.ITSFiltrateTableView;
 import com.yonyou.hhtpos.view.ITSOpenOrderView;
 import com.yonyou.hhtpos.view.ITableListView;
 
@@ -348,11 +347,17 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     /**
      * 更新桌台列表
+     *
      * @param tableList
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onUpdateTableList(List<CanteenTableEntity> tableList) {
-        mAdapter.update(tableList,true);
-        Elog.e("tableList.size==",tableList.size());
+        if (tableList != null && tableList.size() > 0) {
+            this.datas = (ArrayList<CanteenTableEntity>) tableList;
+            mAdapter.update(tableList, true);
+            Elog.e("tableList.size==", tableList.size());
+        }else{
+            Elog.e("tableList.size==", "00000000");
+        }
     }
 }
