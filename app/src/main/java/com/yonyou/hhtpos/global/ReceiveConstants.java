@@ -13,4 +13,6 @@ public class ReceiveConstants {
     public static final int REFRESH_LEFT_DISHES = 10003;
     // 外卖开单成功
     public static final int WM_OPEN_ORDER_SUCCESS = 10004;
+    // 刷新桌台列表
+    public static final int REFRESH_TABLE_LIST = 10005;
 }

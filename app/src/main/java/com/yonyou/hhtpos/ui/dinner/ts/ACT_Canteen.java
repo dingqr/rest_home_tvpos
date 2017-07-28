@@ -22,6 +22,7 @@ import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
 import com.yonyou.hhtpos.view.ITSFiltrateTableView;
@@ -298,6 +299,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     mAdapter.enableItemChooser();
 
                     setTopTab(true);
+
+                    // 重置桌台列表
+                    sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
                 break;
 

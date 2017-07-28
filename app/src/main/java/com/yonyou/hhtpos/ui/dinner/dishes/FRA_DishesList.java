@@ -14,9 +14,17 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesList;
+import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
+import com.yonyou.hhtpos.bean.dish.DishesEntity;
+import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishSetWeight;
+import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
 import com.yonyou.hhtpos.dialog.DIA_SwitchTable;
 import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.global.ReceiveConstants;
@@ -75,6 +83,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private String tableBillId;
     /**是否为右侧传递过来的 */
     private boolean isRightRefresh;
+    /**修改菜品实体类 */
+    private RequestAddDishEntity requestAddDishEntity;
+    /**菜品数据 */
+    private DishDataEntity dishDataEntity;
+
+    private DIA_OrderDishSetPrice mDiaCurrentDishWeight;//称重、时价
+    private DIA_OrderDishSetWeight mDiaWeightNormal;//称重，无备注
+    private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
+    private DIA_OrderDishNorms mDiaStandards;//规格
+    private DIA_OrderDishCount mDiaNormal;//normal
 
     @Override
     protected void onFirstUserVisible() {
@@ -107,6 +125,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
         // 刷新操作
         mDishesSwipeRefresh.setOnRefreshListener(this);
+
+        //点菜时的弹窗
+        //时价、重量弹窗
+        mDiaCurrentDishWeight = new DIA_OrderDishSetPrice(mContext);//有时价、重量
+        mDiaStandards = new DIA_OrderDishNorms(mContext);//规格的弹窗
+        //称重、有备注列表
+        mDiaWeightRemarks = new DIA_OrderDishWeight(mContext);
+        //称重、无备注列表
+        mDiaWeightNormal = new DIA_OrderDishSetWeight(mContext);
+        mDiaNormal = new DIA_OrderDishCount(mContext);//有做法，备注，数量的弹窗 -normal
     }
 
     @Override
@@ -250,7 +278,86 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     @Override
     public void updateDish() {
+        DishesEntity dishesEntity = getDishesEntity();
 
+        requestAddDishEntity = new RequestAddDishEntity();
+        //requestAddDishEntity.companyId = currentBean.companyId;
+        requestAddDishEntity.dishClassid = currentBean.getDishClassId();
+        requestAddDishEntity.dishName = currentBean.getDishName();
+        requestAddDishEntity.dishId = currentBean.getId();
+        requestAddDishEntity.setDishPrice(currentBean.getDishPrice());
+        requestAddDishEntity.dishType = currentBean.getDishType();
+        requestAddDishEntity.shopId = shopId;
+        requestAddDishEntity.unit = currentBean.getUnit();
+
+        requestAddDishEntity.dishRelateId = currentBean.getDishRelateId();
+        //不确定的字段
+        requestAddDishEntity.dishStatus = String.valueOf(currentBean.getDishStatus());
+
+        //缺少的字段
+        //把所有已选做法名连接到一起的字符串，逗号分隔
+        requestAddDishEntity.listShowPractice = "";
+        //把所有已选和手填的备注名连接到一起的字符串，逗号分隔
+        requestAddDishEntity.listShowRemark = "";
+        requestAddDishEntity.practices = "";
+        requestAddDishEntity.quantity = "1";
+        requestAddDishEntity.remarks = "";
+        requestAddDishEntity.remark = "";
+        requestAddDishEntity.standardId = "";
+
+        //写死的字段
+        requestAddDishEntity.tableBillId = tableBillId;
+
+        //传入弹窗的bean
+        //DataBean dataBean = getCurrentDataBean();
+
+        //称重、时价
+//        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish != null && dishesEntity.isCurrentDish.equals("Y")) {
+//            mDiaCurrentDishWeight.setData(dataBean).getDialog().show();
+//            return;
+//        }
+//        //称重、有备注列表
+//        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
+//            mDiaWeightRemarks.setData(dataBean).getDialog().show();
+//            return;
+//        }
+//        //称重、无备注列表
+//        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() == 0) {
+//            mDiaWeightNormal.setData(dataBean).getDialog().show();
+//            return;
+//        }
+//        //规格
+//        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
+//            mDiaStandards.setDataBean(dataBean).getDialog().show();
+//            return;
+//        }
+//        //无规格、无做法，直接加入购物车；
+//        if (dishesEntity.practices.size() == 0 && dishesEntity.standards.size() == 0) {
+//            mAddDishPresenter.requestAddDish(requestAddDishEntity);
+//            return;
+//        }
+//        //不考虑临时菜和套餐的其他普通情况-只有数量、做法、备注
+//        mDiaNormal.setData(dataBean).getDialog().show();
+    }
+
+//    private DataBean getCurrentDataBean(){
+//        DataBean bean = new DataBean();
+//        // 菜品名称
+//        bean.setDishName(currentBean.getDishName());
+//        // 价格
+//        bean.setPrice(currentBean.getDishPrice());
+//        // 标签列表
+//        bean.setLabels(currentBean.getListShowPractice());
+//        // 口味列表
+//        bean.setTastes(currentBean.getAbnormalList());
+//
+//        return bean;
+//    }
+
+    private DishesEntity getDishesEntity(){
+
+
+        return new DishesEntity();
     }
 
     /**
@@ -453,6 +560,15 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onReceiveTableBillId(String tableBillId) {
         this.tableBillId = tableBillId;
         mDishListPresenter.requestDishList(tableBillId, true);
+    }
+
+    /**
+     * 所有的菜类数据
+     * @param dishDataEntity 菜类数据
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onReceiveDishList(DishDataEntity dishDataEntity) {
+        this.dishDataEntity = dishDataEntity;
     }
 
     @Override

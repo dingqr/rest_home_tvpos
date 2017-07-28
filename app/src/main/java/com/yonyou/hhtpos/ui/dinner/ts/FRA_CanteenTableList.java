@@ -26,6 +26,7 @@ import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
 import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.interfaces.OpenOrderCallback;
 import com.yonyou.hhtpos.presenter.IChooseWaiterPresenter;
 import com.yonyou.hhtpos.presenter.ITSOpenOrderPresenter;
@@ -341,6 +342,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             }
             mAdapter.update(tableList, true);
         } else {
+            // 空页面
             showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
         }
     }
@@ -354,10 +356,25 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void onUpdateTableList(List<CanteenTableEntity> tableList) {
         if (tableList != null && tableList.size() > 0) {
             this.datas = (ArrayList<CanteenTableEntity>) tableList;
-            mAdapter.update(tableList, true);
+
+            if (getUserVisibleHint()){
+                // restore view helper
+                restoreViewHelper();
+                // reset adapter
+                mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
+                mAdapter.update(tableList, true);
+            }
+
             Elog.e("tableList.size==", tableList.size());
         }else{
             Elog.e("tableList.size==", "00000000");
+        }
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.REFRESH_TABLE_LIST && getUserVisibleHint()){
+            onRefresh();
         }
     }
 }
