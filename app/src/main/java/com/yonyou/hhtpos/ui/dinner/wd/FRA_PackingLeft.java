@@ -11,6 +11,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.PackingFragmentAdapter;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
@@ -146,7 +147,8 @@ public class FRA_PackingLeft extends BaseFragment implements View.OnClickListene
 //                dia_wdOpenOrder.getDialog().show();
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(ACT_OrderDishes.FROM_WD, true);
+                bundle.putBoolean(ACT_OrderDishes.FROM_WD, true);
+                bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WD);
                 readyGo(ACT_OrderDishes.class, bundle);
                 break;
 

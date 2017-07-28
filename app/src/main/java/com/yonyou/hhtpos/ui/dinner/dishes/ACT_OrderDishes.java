@@ -31,9 +31,12 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     /**传递参数 */
     public static final String FROM_WD = "from.wd";
     public static final String TABLE_BILL_ID = "table.bill.id";
+    public static final String FROM_WHERE = "from.where";
     private boolean fromWd;
-    private boolean hasPlaceOrder;
     private String tableBillId;
+    private int fromWhere;//1：堂食  2：外卖  3：外带
+
+    private boolean hasPlaceOrder;
 
     private FRA_DishesList mDishesLeft;
 
@@ -50,6 +53,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     protected void getBundleExtras(Bundle extras) {
         fromWd = extras.getBoolean(FROM_WD, false);
         tableBillId = extras.getString(TABLE_BILL_ID, "");
+        fromWhere = extras.getInt(FROM_WHERE, 0);
     }
 
     public void setHasPlaceOrder(boolean hasPlaceOrder) {
@@ -174,4 +178,9 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     public void closeOrder() {
         finish();
     }
+
+    public int getFromWhere() {
+        return fromWhere;
+    }
+
 }

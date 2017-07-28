@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.dinner.dishes;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,8 +15,10 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesList;
+import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
+import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
@@ -278,7 +281,14 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     @Override
     public void updateDish() {
+        // 隐藏操作栏
+        if (null != editPopup) {
+            editPopup.dismiss();
+        }
+
         DishesEntity dishesEntity = getDishesEntity();
+        if (null == dishesEntity)
+            return;
 
         requestAddDishEntity = new RequestAddDishEntity();
         //requestAddDishEntity.companyId = currentBean.companyId;
@@ -309,55 +319,93 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         requestAddDishEntity.tableBillId = tableBillId;
 
         //传入弹窗的bean
-        //DataBean dataBean = getCurrentDataBean();
+        DataBean dataBean = setDialogData(dishesEntity);
 
         //称重、时价
-//        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish != null && dishesEntity.isCurrentDish.equals("Y")) {
-//            mDiaCurrentDishWeight.setData(dataBean).getDialog().show();
-//            return;
-//        }
-//        //称重、有备注列表
-//        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
-//            mDiaWeightRemarks.setData(dataBean).getDialog().show();
-//            return;
-//        }
-//        //称重、无备注列表
-//        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() == 0) {
-//            mDiaWeightNormal.setData(dataBean).getDialog().show();
-//            return;
-//        }
-//        //规格
-//        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
-//            mDiaStandards.setDataBean(dataBean).getDialog().show();
-//            return;
-//        }
-//        //无规格、无做法，直接加入购物车；
-//        if (dishesEntity.practices.size() == 0 && dishesEntity.standards.size() == 0) {
-//            mAddDishPresenter.requestAddDish(requestAddDishEntity);
-//            return;
-//        }
-//        //不考虑临时菜和套餐的其他普通情况-只有数量、做法、备注
-//        mDiaNormal.setData(dataBean).getDialog().show();
+        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish != null && dishesEntity.isCurrentDish.equals("Y")) {
+            mDiaCurrentDishWeight.setData(dataBean).getDialog().show();
+            return;
+        }
+        //称重、有备注列表
+        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
+            mDiaWeightRemarks.setData(dataBean).getDialog().show();
+            return;
+        }
+        //称重、无备注列表
+        if (dishesEntity.isWeigh.equals("Y") && dishesEntity.remarks != null && dishesEntity.remarks.size() == 0) {
+            mDiaWeightNormal.setData(dataBean).getDialog().show();
+            return;
+        }
+        //规格
+        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
+            mDiaStandards.setDataBean(dataBean).getDialog().show();
+            return;
+        }
+        mDiaNormal.setData(dataBean).getDialog().show();
     }
 
-//    private DataBean getCurrentDataBean(){
-//        DataBean bean = new DataBean();
-//        // 菜品名称
-//        bean.setDishName(currentBean.getDishName());
-//        // 价格
-//        bean.setPrice(currentBean.getDishPrice());
-//        // 标签列表
-//        bean.setLabels(currentBean.getListShowPractice());
-//        // 口味列表
-//        bean.setTastes(currentBean.getAbnormalList());
-//
-//        return bean;
-//    }
+    /**
+     * 给弹出的弹窗传入数据
+     *
+     * @param dishesEntity
+     * @return
+     */
+    @NonNull
+    private DataBean setDialogData(DishesEntity dishesEntity) {
+        DataBean dataBean = new DataBean();
+        dataBean.setDishName(dishesEntity.dishName);
+        dataBean.setPrice(dishesEntity.getPrice());
+        if (dishesEntity.labels.size() > 0 && dishesEntity.labels != null) {
+            dataBean.setLabels(dishesEntity.labels);
+        }
+        if (dishesEntity.practices.size() > 0 && dishesEntity.practices != null) {
+            dataBean.setPractices(dishesEntity.practices);
+        }
+        if (dishesEntity.remarks.size() > 0 && dishesEntity.remarks != null) {
+            dataBean.setRemarks(dishesEntity.remarks);
+        }
+        if (dishesEntity.standards.size() > 0 && dishesEntity.standards != null) {
+            dataBean.setStandards(dishesEntity.standards);
+        }
+        if (dishesEntity.tastes.size() > 0 && dishesEntity.tastes != null) {
+            dataBean.setTastes(dishesEntity.tastes);
+        }
+        return dataBean;
+    }
 
+    /**
+     * 匹配到当前菜品
+     * @return
+     */
     private DishesEntity getDishesEntity(){
+        String currentClassId = currentBean.getDishClassId();
+        String currentDishId = currentBean.getDishRelateId();
 
+        // 分类列表
+        List<DishTypesEntity> dishTypes = dishDataEntity.dishTypes;
+        if (null != dishTypes && dishTypes.size() > 0){
+            for (int i = 0; i < dishTypes.size(); i++){
+                DishTypesEntity dishTypesEntity = dishTypes.get(i);
+                if (currentClassId.equals(dishTypesEntity.relateId)){
 
-        return new DishesEntity();
+                    // 菜品列表
+                    List<DishesEntity> dishes = dishTypesEntity.dishes;
+
+                    if (null != dishes && dishes.size() > 0){
+                        for (int j = 0; j < dishes.size(); j++){
+                            DishesEntity dishesEntity = dishes.get(j);
+
+                            if (currentDishId.equals(dishesEntity.relateId)){
+                                return dishesEntity;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

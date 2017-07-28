@@ -22,6 +22,10 @@ public class DishStandardEntity {
      * 规格名称
      */
     public String standardName;
+    /**
+     * 选中状态
+     */
+    public boolean isCheck;
 
     public DishStandardEntity() {
     }

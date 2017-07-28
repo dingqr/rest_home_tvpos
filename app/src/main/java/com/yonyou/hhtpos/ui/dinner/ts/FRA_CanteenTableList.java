@@ -27,6 +27,7 @@ import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.interfaces.OpenOrderCallback;
 import com.yonyou.hhtpos.presenter.IChooseWaiterPresenter;
@@ -259,7 +260,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 //桌台占用，订单服务中
                 case 1:
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
+                    bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
+                    bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
                     readyGo(ACT_OrderDishes.class, bundle);
                     break;
                 //桌台预定 弹出预订单开单对话框
@@ -288,7 +290,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void openOrder(TSTableBillIdEntity bean) {
         if (bean != null) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, bean.getTableBillId());
+            bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, bean.getTableBillId());
+            bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
             readyGo(ACT_OrderDishes.class, bundle);
         }
     }
@@ -346,6 +349,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void requestTableList(List<CanteenTableEntity> tableList) {
+        // restore view helper
+        restoreViewHelper();
+        // reset adapter
+        mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
+
         if (tableList != null && tableList.size() > 0) {
             this.datas = (ArrayList<CanteenTableEntity>) tableList;
             if (mSwiperefreshLayout.isRefreshing()) {
@@ -373,6 +381,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 restoreViewHelper();
                 // reset adapter
                 mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
+                // update data
                 mAdapter.update(tableList, true);
             }
 

@@ -49,7 +49,6 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     private int type;
     private String payStatus;
 
-    private List<OrderListEntity> mDataList;
     private ADA_PackingList mAdapter;
 
     /**中间者 */
@@ -117,8 +116,9 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
             @Override
             public void onItemClick(int position) {
-                if (mDataList.size() > 0) {
-                    requestPackingDetail(mDataList.get(position).id);
+                List<OrderListEntity> dataList = mAdapter.getDataSource();
+                if (null != dataList && dataList.size() > 0){
+                    requestPackingDetail(dataList.get(position).id);
                 }
             }
         });
@@ -189,7 +189,6 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
                 requestPackingDetail(dataList.get(0).id);
 
                 dataList.get(0).setCheck(true);
-                mDataList = dataList;
                 mAdapter.update(dataList, isRefresh);
 
             } else {

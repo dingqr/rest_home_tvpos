@@ -15,6 +15,8 @@ import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 
+import java.util.List;
+
 /**
  * 外带列表adapter
  * 作者：liushuofei on 2017/7/5 09:43
@@ -70,6 +72,10 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(position);
+                }
+
                 if (!bean.equals(currentBean)) {
                     bean.setCheck(true);
                     if (null != currentBean) {
@@ -77,9 +83,6 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
                     }
                     currentBean = bean;
                     notifyDataSetChanged();
-                }
-                if (mListener != null) {
-                    mListener.onItemClick(position);
                 }
             }
         });
@@ -132,5 +135,9 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
 
     public void setOnItemClickListener(OnItemClickLister mListener) {
         this.mListener = mListener;
+    }
+
+    public List<OrderListEntity> getDataSource(){
+        return mDataSource;
     }
 }

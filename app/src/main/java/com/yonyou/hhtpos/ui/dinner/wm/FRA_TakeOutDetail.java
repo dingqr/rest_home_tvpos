@@ -24,6 +24,7 @@ import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.interfaces.WMReasonsCallback;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.IWMRefundReasonPresenter;
@@ -218,7 +219,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             case R.id.btn_right:
                 if (mOrderState == 1) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+                    bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+                    bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WM);
                     readyGo(ACT_OrderDishes.class, bundle);
                 } else if (mOrderState == 2) {
                     //去结账
