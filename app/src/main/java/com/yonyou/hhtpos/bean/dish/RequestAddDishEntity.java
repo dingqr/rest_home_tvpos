@@ -88,6 +88,10 @@ public class RequestAddDishEntity {
      */
     public int unit;
     /**
+     * 服务员id
+     */
+    public String waiterId ;
+    /**
      * 是否称重
      */
     public int inBill;

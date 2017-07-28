@@ -186,7 +186,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         //列表中需要悬浮的部分
         View suspension_head_title = View.inflate(mContext, R.layout.suspension_header_view, null);
         wmListView.addHeaderView(headerView);
-        wmListView.addHeaderView(suspension_head_title);
+//        wmListView.addHeaderView(suspension_head_title);
         wmListView.setAdapter(mAdapter);
 
         wmListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -293,6 +293,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 this.dataList = dishList;
                 setCount(dataList);
                 mAdapter.update(dataList, true);
+            }else {
+                mAdapter.clear();
             }
             //左侧信息
             //设置订单详情信息

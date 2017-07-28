@@ -72,6 +72,11 @@ public class ADA_TakeOutOrderDetail extends CommonAdapterListView<WMDishDetailEn
                 holder.setVisible(R.id.tv_header_time, false);
             }
         }
+        if (position == 0) {
+            holder.setVisible(R.id.layout_header, true);
+        } else {
+            holder.setVisible(R.id.layout_header, false);
+        }
     }
 
     /**
