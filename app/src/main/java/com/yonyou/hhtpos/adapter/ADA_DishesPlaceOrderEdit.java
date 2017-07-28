@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.DishEditEntity;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.global.DishConstants;
+
+import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/7/24 17:26
@@ -112,7 +115,11 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
                 break;
 
             case 3:
-                holder.mOperationTxt.setText("赠送");
+                if (hasGift()){
+                    holder.mOperationTxt.setText("取消赠送");
+                }else {
+                    holder.mOperationTxt.setText("赠送");
+                }
                 break;
 
             case 4:
@@ -127,6 +134,26 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
                 break;
         }
 
+    }
+
+    /**
+     * 有赠送记录
+     * @return
+     */
+    private boolean hasGift(){
+        if (null != bean){
+            List<DishListEntity.Dishes.Abnormal> abnormalList = bean.getAbnormalList();
+            if (null != abnormalList && abnormalList.size() > 0){
+                for (int i = 0; i < abnormalList.size(); i++){
+                    DishListEntity.Dishes.Abnormal bean = abnormalList.get(i);
+                    if (!TextUtils.isEmpty(bean.getDishAbnormalStatus()) && bean.getDishAbnormalStatus().equals(DishConstants.SERVE_DISH)){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     static class ViewHolder {
