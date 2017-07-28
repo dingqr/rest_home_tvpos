@@ -369,5 +369,7 @@
     <string name="string_logout_member">退出会员</string>
     <string name="string_original_price">原价</string>
     <string name="string_discount_price">折扣价</string>
+    <string name="string_ordered_dish">已点菜品</string>
+    <string name="string_note_order_dish">点菜</string>
 
 </resources>

@@ -86,9 +86,6 @@ public class FRA_CheckOutLeft extends BaseFragment {
 
         mAdapter = new ADA_CheckOutList(mContext);
         lvCheckOut.setAdapter(mAdapter);
-        for (int i = 0; i < 10; i++) {
-            mAdapter.update("");
-        }
 
         lvCheckOut.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -152,17 +149,20 @@ public class FRA_CheckOutLeft extends BaseFragment {
             if (dataBean.getServiceChargeDetail() != null && !TextUtils.isEmpty(dataBean.getServiceChargeDetail().getName())) {
                 tvServiceName.setVisibility(View.VISIBLE);
                 tvServiceName.setText(dataBean.getServiceChargeDetail().getName());
-            }else {
+            } else {
                 tvServiceName.setVisibility(View.INVISIBLE);
             }
             //服务费金额
             if (dataBean.getServiceChargeDetail() != null && !TextUtils.isEmpty(dataBean.getServiceChargeDetail().getMoney())) {
                 tvServiceSCharge.setVisibility(View.VISIBLE);
                 tvServiceSCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getServiceChargeDetail().getMoney());
-            }else {
+            } else {
                 tvServiceSCharge.setVisibility(View.INVISIBLE);
             }
 
+        }
+        if (dataBean.orderDishes != null && dataBean.orderDishes.size() > 0) {
+            mAdapter.update(dataBean.orderDishes);
         }
     }
 
