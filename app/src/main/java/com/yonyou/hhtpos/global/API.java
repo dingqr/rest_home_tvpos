@@ -176,4 +176,8 @@ public class API {
      * 堂食筛选不同桌台操作可用桌台
      */
     public static final String URL_TS_CLICKABLE_TABLE = BASE_SERVER_SHOP + "/protabledynamic/screenTableTable";
+    /**
+     * 获取结账信息
+     */
+    public static final String URL_QUERY_BILL_INFO = BASE_SERVER_SHOP + "/protablebill/settleaccount/querybillinfo";
 }

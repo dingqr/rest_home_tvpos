@@ -12,5 +12,5 @@ public interface ITableListPresenter {
      * @param shopId 门店id
      * @param tableStatus 桌台状态
      */
-    void requestWaiterList(String diningAreaRelateId,String shopId,String tableStatus);
+    void requestTableList(String diningAreaRelateId,String shopId,String tableStatus);
 }

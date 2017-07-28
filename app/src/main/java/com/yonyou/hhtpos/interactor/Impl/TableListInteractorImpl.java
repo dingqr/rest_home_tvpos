@@ -32,7 +32,7 @@ public class TableListInteractorImpl implements ITableListInteractor {
      *                           与diningAreaRelateId不传默认查询全部
      */
     @Override
-    public void requestWaiterList(String diningAreaRelateId, String shopId, String tableStatus) {
+    public void requestTableList(String diningAreaRelateId, String shopId, String tableStatus) {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("diningAreaRelateId",diningAreaRelateId);
         params.put("shopId", shopId);
