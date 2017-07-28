@@ -138,6 +138,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Bind(R.id.btn_right)
     TextView btnRight;
     private int mOrderState = -1;
+    private String mCurrentTime;
+    private HashMap<String, String> map = new HashMap<String, String>();
 
     /**
      * 左侧外卖订单列表是否为空
@@ -343,9 +345,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     }
 
-    private String mCurrentTime;
-    private HashMap<String, String> map = new HashMap<String, String>();
-
+    /**
+     * 按照下单时间对点菜的明细订单列表进行分组处理
+     * @param dataList
+     */
     private void setCount(List<WMDishDetailEntity> dataList) {
         int limit = 0;
         int j = 0;

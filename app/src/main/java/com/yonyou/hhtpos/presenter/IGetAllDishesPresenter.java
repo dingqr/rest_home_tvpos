@@ -6,5 +6,5 @@ package com.yonyou.hhtpos.presenter;
  * 描述：获取所有菜类/菜品
  */
 public interface IGetAllDishesPresenter  {
-    void getAllDishes(String compId,String shopId);
+    void getAllDishes(String compId,String shopId,int saleManner);
 }

@@ -33,11 +33,12 @@ public class GetAllDishesPresenterImpl implements IGetAllDishesPresenter {
      *
      * @param compId
      * @param shopId
+     * @param saleManner 销售模式：1：堂食 2：外带 3：外卖
      */
     @Override
-    public void getAllDishes(String compId, String shopId) {
+    public void getAllDishes(String compId, String shopId, int saleManner) {
         mDishesView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
-        mDishesInteractor.getAllDishes(compId, shopId);
+        mDishesInteractor.getAllDishes(compId, shopId, saleManner);
     }
 
     private class DishTypeListListener implements BaseLoadedListener<DishDataEntity> {
