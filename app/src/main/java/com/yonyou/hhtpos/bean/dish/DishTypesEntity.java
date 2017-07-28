@@ -42,6 +42,11 @@ public class DishTypesEntity {
      */
     public int count;
 
+    /**
+     * 分类id
+     */
+    public String dishClassId;
+
     public DishTypesEntity() {
     }
 

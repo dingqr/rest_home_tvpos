@@ -24,7 +24,6 @@ public class DataBean implements Serializable {
      * 菜品会员价格
      */
     private String vipPrice;
-
     /**
      * 标签列表
      */
@@ -33,10 +32,17 @@ public class DataBean implements Serializable {
      * 口味列表
      */
     private List<DishTastesEntity> tastes;
-
-
+    /**
+     * 做法（单选）
+     */
     private List<DishPracticeEntity> practices = new ArrayList<>();
+    /**
+     * 备注（多选）
+     */
     private List<DishRemarkEntity> remarks = new ArrayList<>();
+    /**
+     * 规格（单选）
+     */
     private List<DishStandardEntity> standards = new ArrayList<>();
 
     public List<DishPracticeEntity> getPractices() {

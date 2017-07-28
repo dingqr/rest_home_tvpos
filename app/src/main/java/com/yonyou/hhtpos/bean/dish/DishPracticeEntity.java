@@ -31,6 +31,11 @@ public class DishPracticeEntity {
      */
     public String remark;
 
+    /**
+     * 选中状态
+     */
+    public boolean isCheck;
+
     public DishPracticeEntity() {
     }
 

@@ -21,6 +21,11 @@ public class DishRemarkEntity {
      */
     public String remarkName;
 
+    /**
+     * 选中状态
+     */
+    public boolean isCheck;
+
     public DishRemarkEntity() {
     }
 
