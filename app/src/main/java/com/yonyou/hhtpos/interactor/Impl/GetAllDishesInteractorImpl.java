@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
 import com.yonyou.hhtpos.global.API;
@@ -29,10 +30,11 @@ public class GetAllDishesInteractorImpl implements IGetAllDishesInteractor {
      * @param shopId
      */
     @Override
-    public void getAllDishes(String compId, String shopId) {
+    public void getAllDishes(String compId, String shopId,int saleManner) {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("compId", compId);
         params.put("shopId", shopId);
+        params.put("saleManner", StringUtil.getString(saleManner));
         RequestManager.getInstance().requestGetByAsyn(API.URL_GET_ALL_DISHES, params, new ReqCallBack<DishDataEntity>() {
             @Override
             public void onReqSuccess(DishDataEntity dishDataEntity) {

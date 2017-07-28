@@ -139,6 +139,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             resetCount();
         }
     }
+
     /**
      * 接收外带和外卖页面传过来的tableBillId
      *
@@ -176,7 +177,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     /**
      * 重置右侧数量
      */
-    private void resetCount(){
+    private void resetCount() {
         for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
             mDishDataBean.dishTypes.get(i).count = 0;
         }
@@ -206,7 +207,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     @Override
     protected void initViewsAndEvents() {
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
-        mPresenter.getAllDishes(compId, shopId);
+        ACT_OrderDishes activity = (ACT_OrderDishes) getActivity();
+        int saleManner = activity.getFromWhere();
+        mPresenter.getAllDishes(compId, shopId, saleManner);
 
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
         // 去除LRecyclerView的默认的下拉刷新效果
@@ -251,7 +254,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //空页面
 //        showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM,"");
-
 
     }
 

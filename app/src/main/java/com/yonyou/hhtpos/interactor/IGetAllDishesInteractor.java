@@ -6,5 +6,5 @@ package com.yonyou.hhtpos.interactor;
  * 描述：
  */
 public interface IGetAllDishesInteractor {
-    void getAllDishes(String compId, String shopId);
+    void getAllDishes(String compId, String shopId,int saleManner);
 }
