@@ -21,7 +21,7 @@ import butterknife.Bind;
  * 结账页面
  * 作者：liushuofei on 2017/7/15 10:14
  */
-public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView {
+public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView{
 
     @Bind(R.id.inc_title)
     RelativeLayout mTitleLay;
@@ -69,7 +69,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
 
     @Override
     protected View getLoadingTargetView() {
-        return null;
+        return getLayoutRoot();
     }
 
     @Override
@@ -111,4 +111,9 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
     public void queryBillInfo(CheckOrderListEntity checkOrderListEntity) {
 
     }
+
+//    @Override
+//    public void queryBillInfo(CheckOrderListEntity checkOrderListEntity) {
+//        Log.e("TAG", "checkOrderListEntity=="+checkOrderListEntity.toString());
+//    }
 }
