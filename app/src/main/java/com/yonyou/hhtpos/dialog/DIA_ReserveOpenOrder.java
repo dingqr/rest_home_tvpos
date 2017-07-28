@@ -126,10 +126,6 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_name_empty), false);
             return false;
         }
-//        if (TextUtils.isEmpty(waiter)) {
-//            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_name_empty), false);
-//            return false;
-//        }
         return true;
     }
 
@@ -166,7 +162,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         OpenOrderEntity tsooe = new OpenOrderEntity();
         userPhone = etUserPhone.getText().toString().trim();
         if (verifyInput()) {
-            tsooe.setTableStatus(0);
+            tsooe.setTableStatus(5);
             tsooe.setPersonNum(dinnerNumber);
             tsooe.setMemberId(StringUtil.getString(userPhone));
             if (waiterEntity == null) {
