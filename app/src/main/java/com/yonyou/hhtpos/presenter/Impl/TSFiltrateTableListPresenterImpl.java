@@ -8,13 +8,9 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.interactor.ITSFiltrateTableListInteractor;
-import com.yonyou.hhtpos.interactor.ITableListInteractor;
 import com.yonyou.hhtpos.interactor.Impl.TSFiltrateTableListInteractorImpl;
-import com.yonyou.hhtpos.interactor.Impl.TableListInteractorImpl;
 import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
-import com.yonyou.hhtpos.presenter.ITableListPresenter;
 import com.yonyou.hhtpos.view.ITSFiltrateTableView;
-import com.yonyou.hhtpos.view.ITableListView;
 
 import java.util.List;
 
@@ -45,7 +41,7 @@ public class TSFiltrateTableListPresenterImpl implements ITSFiltrateTableListPre
         @Override
         public void onSuccess(int event_tag, List<CanteenTableEntity> canteenTableEntityList) {
             mTableListView.hideLoading();
-            mTableListView.filtrateTable(canteenTableEntityList);
+            mTableListView.getFiltrateTable(canteenTableEntityList);
         }
 
         @Override

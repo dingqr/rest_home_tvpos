@@ -15,6 +15,7 @@ import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
@@ -43,6 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 
 /**
@@ -52,7 +55,7 @@ import butterknife.Bind;
  */
 public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback,
-        IChooseWaiterView, ITSFiltrateTableView {
+        IChooseWaiterView {
 
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
@@ -219,7 +222,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override
@@ -305,11 +308,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         }
     }
 
-    @Override
-    public void filtrateTable(List<CanteenTableEntity> tableList) {
-
-    }
-
     /**
      * 设置item之间的间距
      */
@@ -346,5 +344,15 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         } else {
             showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
         }
+    }
+
+    /**
+     * 更新桌台列表
+     * @param tableList
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onUpdateTableList(List<CanteenTableEntity> tableList) {
+        mAdapter.update(tableList,true);
+        Elog.e("tableList.size==",tableList.size());
     }
 }
