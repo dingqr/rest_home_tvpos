@@ -38,7 +38,7 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
         holder.setText(R.id.tv_seat_num, "/" + canteenTableEntity.seatNum);
 
         //账单金额
-        holder.setText(R.id.tv_money, canteenTableEntity.getBillMoney());
+        holder.setText(R.id.tv_money, mContext.getResources().getString(R.string.RMB_symbol) + canteenTableEntity.getBillMoney());
         //空闲状态：显示容纳人数，名称，空闲背景图片
 
         //预定：显示预定人数（暂时无此字段），可容纳人数、账单金额,预定人数（大）
@@ -50,7 +50,9 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
                 holder.setVisible(R.id.tv_person_num, false);
                 holder.setVisible(R.id.tv_seat_num, false);
                 //桌台人数
-                holder.setText(R.id.tv_money, canteenTableEntity.seatNum + mContext.getResources().getString(R.string.man));
+                if (!TextUtils.isEmpty(canteenTableEntity.seatNum)) {
+                    holder.setText(R.id.tv_money, canteenTableEntity.seatNum + mContext.getResources().getString(R.string.man));
+                }
                 //背景
                 holder.setBackgroundRes(R.id.rl_table_root, R.drawable.bg_table_free);
                 break;

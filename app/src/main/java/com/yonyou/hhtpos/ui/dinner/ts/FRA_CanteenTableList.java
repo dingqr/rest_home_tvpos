@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -108,7 +107,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected void onUserVisible() {
-
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mTableListPresenter.requestWaiterList(diningAreaRelateId, shopId, mTableState);
+        } else {
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
@@ -324,10 +327,9 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void requestTableList(List<CanteenTableEntity> tableList) {
         if (tableList != null && tableList.size() > 0) {
             this.datas = (ArrayList<CanteenTableEntity>) tableList;
-            mAdapter.update(tableList);
+            mAdapter.update(tableList,true);
         } else {
-            Log.e("TAG", "tableList=" + tableList.size());
-            showEmptyHyperLink(mContext, API.URL_OPERATION_PALTFORM, "");
+            showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
         }
     }
 }
