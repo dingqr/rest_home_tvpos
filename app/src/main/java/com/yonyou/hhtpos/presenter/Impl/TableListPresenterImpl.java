@@ -31,9 +31,9 @@ public class TableListPresenterImpl implements ITableListPresenter {
     }
 
     @Override
-    public void requestWaiterList(String diningAreaRelateId, String shopId, String tableStatus) {
+    public void requestTableList(String diningAreaRelateId, String shopId, String tableStatus) {
         mTableListView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
-        mTableListInteractor.requestWaiterList(diningAreaRelateId,shopId,tableStatus);
+        mTableListInteractor.requestTableList(diningAreaRelateId,shopId,tableStatus);
     }
 
     private class TableListListener implements BaseLoadedListener<List<CanteenTableEntity>> {

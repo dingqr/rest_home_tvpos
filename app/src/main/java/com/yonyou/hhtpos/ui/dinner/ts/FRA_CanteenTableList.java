@@ -101,7 +101,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onFirstUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestWaiterList(diningAreaRelateId, shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -110,7 +110,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestWaiterList(diningAreaRelateId, shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
