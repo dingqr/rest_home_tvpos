@@ -26,6 +26,10 @@ public class DIA_AutoDismiss {
     private TextView lineOneContent;
     private TextView lineTwoContent;
 
+    public DIA_AutoDismiss(Context context, String str) {
+        this(context, 0, str, "");
+    }
+
     public DIA_AutoDismiss(Context context, int resId, String lineOne, String lineTwo) {
         mContext = context;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
@@ -82,6 +86,7 @@ public class DIA_AutoDismiss {
 
     /**
      * 设置弹窗的内容
+     *
      * @param context
      * @param resId
      * @param lineOne

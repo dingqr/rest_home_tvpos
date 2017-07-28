@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesList;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
+import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.dialog.DIA_SwitchTable;
 import com.yonyou.hhtpos.global.DishConstants;
@@ -41,7 +41,7 @@ import de.greenrobot.event.ThreadMode;
  * 已点菜品列表
  * 作者：liushuofei on 2017/7/11 10:48
  */
-public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, DIA_DoubleConfirm.OnSelectedListener, POP_DishesPlaceOrderEdit.OnPlaceEditListener, SwipeRefreshLayout.OnRefreshListener, DIA_SwitchTable.OnConfirmListener {
+public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, POP_DishesPlaceOrderEdit.OnPlaceEditListener, SwipeRefreshLayout.OnRefreshListener, DIA_SwitchTable.OnConfirmListener {
 
     @Bind(R.id.lv_dishes)
     ListView mListView;
@@ -197,7 +197,13 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void requestPlaceOrder() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_place_order_success), false);
+        // 有下单操作
+        ((ACT_OrderDishes)getActivity()).setHasPlaceOrder(true);
+
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_place_order_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
@@ -233,8 +239,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
         // 如果减到0，就删除菜品
         if (quantity == 0) {
-            DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_delete_dish), this);
-            dia_doubleConfirm.getDialog().show();
+            deleteDish();
         } else {
             mDishEditPresenter.updateQuantity("", dishId, String.valueOf(quantity), shopId);
         }
@@ -268,8 +273,19 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             placeOrderEditPopup.dismiss();
         }
 
-        DIA_SwitchTable dia_switchTable = new DIA_SwitchTable(mContext, currentBean, mode, this);
-        dia_switchTable.show();
+        // 取消赠送
+        if (mode.equals(DishConstants.SERVE_DISH) && hasGift()){
+            DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_cancel_gift_dish), new DIA_DoubleConfirm.OnSelectedListener() {
+                @Override
+                public void confirm() {
+                    mDishEditPresenter.cancelGiftDish(currentBean.getId(), shopId, "");
+                }
+            });
+            dia_doubleConfirm.getDialog().show();
+        }else {
+            DIA_SwitchTable dia_switchTable = new DIA_SwitchTable(mContext, currentBean, mode, this);
+            dia_switchTable.show();
+        }
     }
 
     /**
@@ -277,20 +293,31 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     @Override
     public void deleteDish() {
-        DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_delete_dish), this);
+        DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_delete_dish), new DIA_DoubleConfirm.OnSelectedListener() {
+            @Override
+            public void confirm() {
+                mDishEditPresenter.deleteDish("", dishId, shopId);
+            }
+        });
         dia_doubleConfirm.getDialog().show();
     }
 
     @Override
     public void updateQuantitySuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_count_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_update_count_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void updateDishSuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_dish_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_update_dish_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
@@ -301,49 +328,62 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             editPopup.dismiss();
         }
 
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_delete_dish_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_delete_dish_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void updateDishStatusSuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_update_dish_status_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_update_dish_status_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void handleDishSuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_return_serve_dish_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_return_serve_dish_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void confirmWeightSuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_confirm_weight_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_confirm_weight_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void switchTableSuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_switch_table_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_switch_table_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
     @Override
     public void cancelGiftDishesSuccess() {
-        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_cancel_gift_dishes_success), false);
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_cancel_gift_dishes_success));
+        dia_autoDismiss.show();
+
         isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
-    }
-
-    @Override
-    public void confirm() {
-        mDishEditPresenter.deleteDish("", dishId, shopId);
     }
 
     @OnClick({R.id.tv_total_price, R.id.tv_place_order})
@@ -353,7 +393,9 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
                 break;
             case R.id.tv_place_order:
-                mDishListPresenter.requestPlaceOrder(dishIds);
+                if (!TextUtils.isEmpty(dishIds)){
+                    mDishListPresenter.requestPlaceOrder(dishIds);
+                }
                 break;
 
             default:
@@ -368,13 +410,9 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     public void onConfirm(String mode, String count) {
-        // 退菜和赠菜
+        // 退菜或赠菜
         if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)){
-            // 退菜和赠菜
             mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
-
-            // 取消赠菜
-//            mDishEditPresenter.cancelGiftDish(currentBean.getId(), shopId, "");
         }
         // 称重确认
         else if (mode.equals(DishConstants.DISH_WEIGHT)){
@@ -385,6 +423,26 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // TODO:tableBillId
             mDishEditPresenter.switchTable(currentBean.getId(), count, shopId, "C5BA09D3380000008800000000257000");
         }
+    }
+
+    /**
+     * 有赠送记录
+     * @return
+     */
+    private boolean hasGift(){
+        if (null != currentBean){
+            List<DishListEntity.Dishes.Abnormal> abnormalList = currentBean.getAbnormalList();
+            if (null != abnormalList && abnormalList.size() > 0){
+                for (int i = 0; i < abnormalList.size(); i++){
+                    DishListEntity.Dishes.Abnormal bean = abnormalList.get(i);
+                    if (!TextUtils.isEmpty(bean.getDishAbnormalStatus()) && bean.getDishAbnormalStatus().equals(DishConstants.SERVE_DISH)){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

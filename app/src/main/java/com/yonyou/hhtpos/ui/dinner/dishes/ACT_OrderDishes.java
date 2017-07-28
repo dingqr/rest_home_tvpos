@@ -32,6 +32,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     public static final String FROM_WD = "from.wd";
     public static final String TABLE_BILL_ID = "table.bill.id";
     private boolean fromWd;
+    private boolean hasPlaceOrder;
     private String tableBillId;
 
     private FRA_DishesList mDishesLeft;
@@ -49,6 +50,10 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     protected void getBundleExtras(Bundle extras) {
         fromWd = extras.getBoolean(FROM_WD, false);
         tableBillId = extras.getString(TABLE_BILL_ID, "");
+    }
+
+    public void setHasPlaceOrder(boolean hasPlaceOrder) {
+        this.hasPlaceOrder = hasPlaceOrder;
     }
 
     @Override
@@ -158,7 +163,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     public void onBackPressed() {
         //System.out.println("按下了back键   onBackPressed()");
 
-        if (fromWd){
+        if (fromWd && !hasPlaceOrder){
             mWDCloseOrderPresenter.closeOrder(tableBillId);
         }else {
             super.onBackPressed();
