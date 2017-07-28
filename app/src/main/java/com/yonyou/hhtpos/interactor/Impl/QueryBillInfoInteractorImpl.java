@@ -2,7 +2,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.check.CheckOrderListEntity;
+import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IQueryBillInfoInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -16,9 +16,9 @@ import java.util.HashMap;
  * 描述：获取结账信息页数据
  */
 public class QueryBillInfoInteractorImpl implements IQueryBillInfoInteractor {
-    private BaseLoadedListener<CheckOrderListEntity> mBillInfoListener;
+    private BaseLoadedListener<SettleAccountDataEntity> mBillInfoListener;
 
-    public QueryBillInfoInteractorImpl(BaseLoadedListener<CheckOrderListEntity> listListener) {
+    public QueryBillInfoInteractorImpl(BaseLoadedListener<SettleAccountDataEntity> listListener) {
         this.mBillInfoListener = listListener;
     }
 
@@ -35,10 +35,10 @@ public class QueryBillInfoInteractorImpl implements IQueryBillInfoInteractor {
         params.put("compId", compId);
         params.put("shopId", shopId);
         params.put("tableBillId", tableBillId);
-        RequestManager.getInstance().requestPostByAsyn(API.URL_QUERY_BILL_INFO, params, new ReqCallBack<CheckOrderListEntity>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_QUERY_BILL_INFO, params, new ReqCallBack<SettleAccountDataEntity>() {
             @Override
-            public void onReqSuccess(CheckOrderListEntity checkOrderListEntity) {
-                mBillInfoListener.onSuccess(1, checkOrderListEntity);
+            public void onReqSuccess(SettleAccountDataEntity settleAccountDataEntity) {
+                mBillInfoListener.onSuccess(1, settleAccountDataEntity);
             }
 
             @Override

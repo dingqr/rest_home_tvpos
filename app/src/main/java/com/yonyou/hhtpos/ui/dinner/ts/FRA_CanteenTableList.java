@@ -36,7 +36,6 @@ import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
-import com.yonyou.hhtpos.view.ITSFiltrateTableView;
 import com.yonyou.hhtpos.view.ITSOpenOrderView;
 import com.yonyou.hhtpos.view.ITableListView;
 

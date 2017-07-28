@@ -26,7 +26,7 @@ public class DishTypesEntity {
      */
     public List<DishesEntity> dishes;
     /**
-     * 关联id
+     * 菜类id
      */
     public String relateId;
     /**

@@ -60,6 +60,7 @@
                     android:background="@drawable/bg_ef_radius_4">
 
                     <TextView
+                        android:id="@+id/tv_dish_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_8"
@@ -68,10 +69,10 @@
                         android:textColor="@color/color_999999"/>
 
                     <TextView
+                        android:id="@+id/tv_unpaid_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_32"
-                        android:text="¥900"
                         android:textColor="@color/color_222222"
                         android:textSize="@dimen/sp_50"/>
 
@@ -95,9 +96,9 @@
                         android:layout_weight="1"/>
 
                     <TextView
+                        android:id="@+id/tv_discount_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¥232.25"
                         android:textSize="@dimen/sp_24"
                         android:textColor="@color/color_222222"/>
 
@@ -126,9 +127,9 @@
                         android:layout_weight="1"/>
 
                     <TextView
+                        android:id="@+id/tv_discounmt_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¥232.05"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_666666"/>
 
@@ -183,9 +184,9 @@
                         android:layout_weight="1"/>
 
                     <TextView
+                        android:id="@+id/tv_ignore_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¥0.20"
                         android:textSize="@dimen/sp_22"
                         android:textColor="@color/color_666666"/>
 
@@ -209,9 +210,9 @@
                         android:layout_weight="1"/>
 
                     <TextView
+                        android:id="@+id/tv_paid_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¥28.00"
                         android:textSize="@dimen/sp_24"
                         android:textColor="@color/color_222222"/>
 
@@ -222,7 +223,7 @@
                     android:layout_height="@dimen/px_1"
                     android:layout_marginLeft="@dimen/px_22"
                     android:background="@color/color_e6e5e5"/>
-
+                <!--支付方式-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
