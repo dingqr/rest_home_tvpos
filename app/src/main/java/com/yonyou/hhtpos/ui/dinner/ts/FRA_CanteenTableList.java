@@ -229,6 +229,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     public void showBusinessError(ErrorBean error) {
 
+
     }
 
     @Override
@@ -254,6 +255,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     dia_openOrder.setData(canteenTableEntity, mWaiterList);
                     dia_openOrder.setTsCallback(FRA_CanteenTableList.this);
                     dia_openOrder.getDialog().show();
+                    break;
+                //桌台占用，订单服务中
+                case 1:
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
+                    readyGo(ACT_OrderDishes.class, bundle);
                     break;
                 //桌台预定 弹出预订单开单对话框
                 case 5:

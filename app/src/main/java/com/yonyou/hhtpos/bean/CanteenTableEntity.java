@@ -56,6 +56,8 @@ public class CanteenTableEntity implements Serializable {
     public String isCheck;
     /**预定单号*/
     public String billNo;
+    /**账单id*/
+    public String tableBillId;
     /**桌台操作 0=清台，1=转台，2=并台，3=拼台，4=菜品转台*/
     public int tableOption;
 
