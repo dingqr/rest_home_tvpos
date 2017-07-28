@@ -56,7 +56,9 @@
                 android:layout_marginTop="@dimen/px_30"
                 android:text="@string/hint_user_number"
                 android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24" />
+                android:textSize="@dimen/sp_24"
+                android:drawableLeft="@drawable/ic_red_point"
+                android:drawablePadding="@dimen/px_6"/>
 
             <EditText
                 android:id="@+id/et_user_number"

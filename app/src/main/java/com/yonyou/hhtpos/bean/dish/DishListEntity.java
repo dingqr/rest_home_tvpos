@@ -40,8 +40,8 @@ public class DishListEntity implements Serializable {
     public class Dishes implements Serializable{
 //        /**套餐详情列表 */
 //        private List<String> details;
-//        /**分类id */
-//        private String dishClassId;
+        /**分类id */
+        private String dishClassId;
         /**唯一标识*/
         public String dishRelateId;
         /**名称 */
@@ -50,8 +50,8 @@ public class DishListEntity implements Serializable {
         private String dishPrice;
         /**状态 */
         private int dishStatus;
-//        /**类型 */
-//        private String dishType;
+        /**类型 */
+        private String dishType;
         /**展示做法 */
         private String listShowPractice;
         /**展示备注 */
@@ -78,6 +78,22 @@ public class DishListEntity implements Serializable {
 
         /**退增的list */
         private List<Abnormal> abnormalList;
+
+        public String getDishType() {
+            return dishType;
+        }
+
+        public void setDishType(String dishType) {
+            this.dishType = dishType;
+        }
+
+        public String getDishClassId() {
+            return dishClassId;
+        }
+
+        public void setDishClassId(String dishClassId) {
+            this.dishClassId = dishClassId;
+        }
 
         public List<Abnormal> getAbnormalList() {
             return abnormalList;

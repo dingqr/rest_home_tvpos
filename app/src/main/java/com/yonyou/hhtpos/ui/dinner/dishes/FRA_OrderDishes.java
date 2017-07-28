@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
@@ -660,6 +661,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      */
     @Override
     public void getAllDishes(DishDataEntity dishDataEntity) {
+        // 发送到左侧页面
+        EventBus.getDefault().post(dishDataEntity);
+
         this.mDishDataBean = dishDataEntity;
         if (mDishDataBean != null) {
             //设置已点菜的选中状态
@@ -671,7 +675,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
             mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
         }
-
     }
 
     /**

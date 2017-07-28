@@ -115,16 +115,10 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
         }
-        if (!doValidatePhone()) {
+        if (!TextUtils.isEmpty(userPhone) && !doValidatePhone()) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_name_empty), false);
             return false;
         }
-        if (TextUtils.isEmpty(waiter)) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_name_empty), false);
-            return false;
-        }
-
-
         return true;
     }
 
@@ -213,8 +207,12 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         if (verifyInput()) {
             tsooe.setTableStatus(0);
             tsooe.setPersonNum(dinnerNumber);
-            tsooe.setMemberId(userPhone);
-            tsooe.setWaiterId(waiterEntity.waiterId);
+            tsooe.setMemberId(StringUtil.getString(userPhone));
+            if (waiterEntity == null) {
+                tsooe.setWaiterId("");
+            } else {
+                tsooe.setWaiterId(StringUtil.getString(waiterEntity.waiterId));
+            }
             tsooe.setBillRemark(StringUtil.getString(billRemark));
             tsooe.setOpenTime(AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_HH_MM_SS));
             tsooe.setTableNo(canteenTableEntity.getTableID());

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,9 +22,11 @@ import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
 import com.yonyou.hhtpos.view.ITSFiltrateTableView;
+import com.yonyou.hhtpos.widgets.NoScrollViewPager;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ import de.greenrobot.event.EventBus;
  * 堂食页面
  * 作者：liushuofei on 2017/7/8 10:42
  */
-public class ACT_Canteen extends BaseActivity implements View.OnClickListener,ITSFiltrateTableView{
+public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView {
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -45,7 +48,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
     @Bind(R.id.psts_tab)
     PagerSlidingTabStrip mTab;
     @Bind(R.id.vp_canteen_list)
-    ViewPager mViewPager;
+    NoScrollViewPager mViewPager;
     @Bind(R.id.tv_table_turn)
     TextView tvTurnTable;
     @Bind(R.id.tv_table_merge)
@@ -75,12 +78,15 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
      * 记录前一个被选中的tab的位置
      */
     private int prePosition;
-    private  TextView tabTextView;
+    private TextView tabTextView;
 
     private DIA_Navigation dia_navigation;
 
-    /**根据桌台操作筛选可用的桌台*/
+    /**
+     * 根据桌台操作筛选可用的桌台
+     */
     private ITSFiltrateTableListPresenter filtrateTableListPresenter;
+
     @Override
     protected boolean isApplyKitKatTranslucency() {
         return false;
@@ -109,7 +115,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
     @Override
     protected void initViewsAndEvents() {
 
-        filtrateTableListPresenter = new TSFiltrateTableListPresenterImpl(this,this);
+        filtrateTableListPresenter = new TSFiltrateTableListPresenterImpl(this, this);
         mAdapter = new ADA_MealArea(mContext);
         mListView.setAdapter(mAdapter);
 
@@ -240,6 +246,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
         Drawable clearTableRed = getResources().getDrawable(R.drawable.ic_table_clear);
         clearTableRed.setBounds(0, 0, clearTableRed.getMinimumWidth(), clearTableRed.getMinimumHeight());
 
+        mTab.setIndicatorColor(Color.parseColor("#eb6247"));
+        mTab.setIndicatorColorWhite(Color.parseColor("#ffffff"));
+        mTab.setTabTextColor(Color.parseColor("#222222"));
+        mTab.setTabTextColorGray(Color.parseColor("#cccccc"));
+
         switch (v.getId()) {
             case R.id.iv_menu:
                 dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
@@ -267,10 +278,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
 
                     mAdapter.disableAllItemChooser();
                     //调用转台接口
-                    filtrateTableListPresenter.requestFiltrateTableList("",shopId,"1");
-//                    tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_cccccc));
-//                    mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_FFFFFF));
-//                    mViewPager.setEnabled(false);
+                    filtrateTableListPresenter.requestFiltrateTableList("", shopId, "1");
+                    setTopTab(false);
+
                 } else {
                     tvTurnTable.setText(mContext.getString(R.string.table_turn));
 
@@ -287,9 +297,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvClearTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
-//                    tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
-//                    mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_eb6247));
-//                    mViewPager.setEnabled(true);
+
+                    setTopTab(true);
+
+                    // 重置桌台列表
+                    sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
                 break;
 
@@ -311,6 +323,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvClearTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
+                    //调用并台接口
+                    filtrateTableListPresenter.requestFiltrateTableList("", shopId, "2");
+                    setTopTab(false);
+
                 } else {
                     tvMergeTable.setText(mContext.getString(R.string.table_merge));
 
@@ -327,6 +343,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvClearTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTopTab(true);
                 }
                 break;
 
@@ -348,7 +365,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvClearTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
-                    filtrateTableListPresenter.requestFiltrateTableList("",shopId,"3");
+                    //调用拼台接口
+                    filtrateTableListPresenter.requestFiltrateTableList("", shopId, "3");
+                    //把桌台列表表头置灰并且viewPager设置为不可滑动
+                    setTopTab(false);
                 } else {
                     tvSplitTable.setText(mContext.getString(R.string.table_put_together));
 
@@ -365,6 +385,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvClearTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTopTab(true);
                 }
                 break;
 
@@ -386,6 +407,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvSplitTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
+                    setTopTab(false);
+
                 } else {
                     tvClearTable.setText(mContext.getString(R.string.table_clear));
 
@@ -402,11 +425,28 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
                     tvSplitTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTopTab(true);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private void setTopTab(boolean isClickAble) {
+        if (isClickAble) {
+            mViewPager.setEnabled(isClickAble);
+            mViewPager.setNoScroll(!isClickAble);
+            mTab.setClickAble(isClickAble);
+            tabTextView = (TextView) mTab.getTabsContainer().getChildAt(prePosition); //设置默认选中第一个时为红色
+            tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
+        } else {
+            //把桌台列表表头置灰并且viewPager设置为不可滑动
+            mViewPager.setEnabled(isClickAble);
+            mViewPager.setNoScroll(!isClickAble);
+            mTab.setClickAble(isClickAble);
+        }
+
     }
 
     @Override
@@ -419,7 +459,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener,IT
 
     @Override
     public void getFiltrateTable(List<CanteenTableEntity> tableList) {
-        Elog.e("tableList.size==",tableList.size()+"EventBusSend");
+        Elog.e("tableList.size==", tableList.size() + "EventBusSend");
         EventBus.getDefault().post(tableList);
     }
 }

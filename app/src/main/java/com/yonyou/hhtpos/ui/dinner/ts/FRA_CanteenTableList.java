@@ -23,9 +23,11 @@ import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.interfaces.OpenOrderCallback;
 import com.yonyou.hhtpos.presenter.IChooseWaiterPresenter;
 import com.yonyou.hhtpos.presenter.ITSOpenOrderPresenter;
@@ -227,6 +229,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     public void showBusinessError(ErrorBean error) {
 
+
     }
 
     @Override
@@ -253,6 +256,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     dia_openOrder.setTsCallback(FRA_CanteenTableList.this);
                     dia_openOrder.getDialog().show();
                     break;
+                //桌台占用，订单服务中
+                case 1:
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
+                    readyGo(ACT_OrderDishes.class, bundle);
+                    break;
                 //桌台预定 弹出预订单开单对话框
                 case 5:
                     DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
@@ -260,6 +269,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     dia_reserveOpenOrder.setTsCallback(FRA_CanteenTableList.this);
                     dia_reserveOpenOrder.getDialog().show();
                     break;
+                default:
+                    break;
+            }
+            switch (canteenTableEntity.tableOption){
                 default:
                     break;
             }
@@ -272,11 +285,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    public void openOrder(String tableBillId) {
-        //todo 获取tableBillId 传到点菜页面
-        if (tableBillId != null) {
+    public void openOrder(TSTableBillIdEntity bean) {
+        if (bean != null) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+            bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, bean.getTableBillId());
             readyGo(ACT_OrderDishes.class, bundle);
         }
     }
@@ -341,17 +353,39 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             }
             mAdapter.update(tableList, true);
         } else {
+            // 空页面
             showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
         }
     }
 
     /**
      * 更新桌台列表
+     *
      * @param tableList
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onUpdateTableList(List<CanteenTableEntity> tableList) {
-        mAdapter.update(tableList,true);
-        Elog.e("tableList.size==",tableList.size());
+        if (tableList != null && tableList.size() > 0) {
+            this.datas = (ArrayList<CanteenTableEntity>) tableList;
+
+            if (getUserVisibleHint()){
+                // restore view helper
+                restoreViewHelper();
+                // reset adapter
+                mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
+                mAdapter.update(tableList, true);
+            }
+
+            Elog.e("tableList.size==", tableList.size());
+        }else{
+            Elog.e("tableList.size==", "00000000");
+        }
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.REFRESH_TABLE_LIST && getUserVisibleHint()){
+            onRefresh();
+        }
     }
 }

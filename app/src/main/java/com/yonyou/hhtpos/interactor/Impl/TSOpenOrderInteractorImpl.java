@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.ITSOpenOrderInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -32,10 +33,10 @@ public class TSOpenOrderInteractorImpl implements ITSOpenOrderInteractor {
         hashMap.put("tableId", bean.getTableNo());
         hashMap.put("waiterId", bean.getWaiterId());
         hashMap.put("openTime", bean.getOpenTime());
-        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_OPEN_ORDER, hashMap, new ReqCallBack<TSTableBillIdEntity>() {
 
             @Override
-            public void onReqSuccess(String result) {
+            public void onReqSuccess(TSTableBillIdEntity result) {
                 openOrderListener.onSuccess(0, result);
             }
 

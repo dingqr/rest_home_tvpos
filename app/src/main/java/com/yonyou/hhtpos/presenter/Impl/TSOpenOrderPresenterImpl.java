@@ -7,6 +7,7 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.interactor.ITSOpenOrderInteractor;
 import com.yonyou.hhtpos.interactor.Impl.TSOpenOrderInteractorImpl;
 import com.yonyou.hhtpos.presenter.ITSOpenOrderPresenter;
@@ -34,10 +35,10 @@ public class TSOpenOrderPresenterImpl implements ITSOpenOrderPresenter {
         mTSOpenOrderInteractor.openOrder(bean);
     }
 
-    private class OpenOrderListener implements BaseLoadedListener<String> {
+    private class OpenOrderListener implements BaseLoadedListener<TSTableBillIdEntity> {
 
         @Override
-        public void onSuccess(int event_tag, String dataList) {
+        public void onSuccess(int event_tag, TSTableBillIdEntity dataList) {
             mTSOpenOrderView.dismissDialogLoading();
             mTSOpenOrderView.openOrder(dataList);
         }
