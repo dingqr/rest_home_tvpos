@@ -52,7 +52,7 @@ import butterknife.Bind;
  */
 public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback,
-        IChooseWaiterView,ITSFiltrateTableView {
+        IChooseWaiterView, ITSFiltrateTableView {
 
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
@@ -232,6 +232,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (mSwiperefreshLayout.isRefreshing()) {
             mSwiperefreshLayout.setRefreshing(false);
         }
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
+        } else {
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
@@ -334,7 +339,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void requestTableList(List<CanteenTableEntity> tableList) {
         if (tableList != null && tableList.size() > 0) {
             this.datas = (ArrayList<CanteenTableEntity>) tableList;
-            mAdapter.update(tableList,true);
+            if (mSwiperefreshLayout.isRefreshing()) {
+                mSwiperefreshLayout.setRefreshing(false);
+            }
+            mAdapter.update(tableList, true);
         } else {
             showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
         }

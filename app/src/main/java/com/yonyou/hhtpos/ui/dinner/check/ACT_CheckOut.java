@@ -10,7 +10,10 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutDetail;
+import com.yonyou.hhtpos.bean.check.CheckOrderListEntity;
+import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
+import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
+import com.yonyou.hhtpos.view.IQueryBillInfoView;
 
 import butterknife.Bind;
 
@@ -18,14 +21,20 @@ import butterknife.Bind;
  * 结账页面
  * 作者：liushuofei on 2017/7/15 10:14
  */
-public class ACT_CheckOut extends ACT_BaseMultiple{
+public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView {
 
     @Bind(R.id.inc_title)
     RelativeLayout mTitleLay;
+    private IQueryBillInfoPresenter mPresenter;
+    private String tableBillId = "C5B858B044000000F400000000257000";
+    private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
+    private String shopId = "C13352966C000000A60000000016E000";
 
     @Override
     protected void initView() {
         mTitleLay.setVisibility(View.GONE);
+        mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
+        mPresenter.queryBillInfo(compId, shopId, tableBillId);
     }
 
     @Override
@@ -95,6 +104,11 @@ public class ACT_CheckOut extends ACT_BaseMultiple{
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void queryBillInfo(CheckOrderListEntity checkOrderListEntity) {
 
     }
 }
