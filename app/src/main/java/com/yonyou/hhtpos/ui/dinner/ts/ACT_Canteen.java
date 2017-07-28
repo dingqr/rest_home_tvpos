@@ -11,26 +11,32 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_MealArea;
 import com.yonyou.hhtpos.adapter.CanteenFragmentAdapter;
 import com.yonyou.hhtpos.application.MyApplication;
+import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
+import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
+import com.yonyou.hhtpos.view.ITSFiltrateTableView;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * 堂食页面
  * 作者：liushuofei on 2017/7/8 10:42
  */
-public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
+public class ACT_Canteen extends BaseActivity implements View.OnClickListener,ITSFiltrateTableView{
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -53,6 +59,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
     private ADA_MealArea mAdapter;
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
 
+    private String shopId = "hht";
+
     public static final int RB_FREE = 0;
     public static final int RB_SETTLE = 1;
     public static final int RB_BOOK = 2;
@@ -71,6 +79,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
 
     private DIA_Navigation dia_navigation;
 
+    /**根据桌台操作筛选可用的桌台*/
+    private ITSFiltrateTableListPresenter filtrateTableListPresenter;
     @Override
     protected boolean isApplyKitKatTranslucency() {
         return false;
@@ -93,12 +103,13 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected View getLoadingTargetView() {
-        return null;
+        return mViewPager;
     }
 
     @Override
     protected void initViewsAndEvents() {
 
+        filtrateTableListPresenter = new TSFiltrateTableListPresenterImpl(this,this);
         mAdapter = new ADA_MealArea(mContext);
         mListView.setAdapter(mAdapter);
 
@@ -122,7 +133,6 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
         tvMergeTable.setOnClickListener(this);
         tvSplitTable.setOnClickListener(this);
         tvClearTable.setOnClickListener(this);
-
     }
 
     private boolean checkAbandonFlag() {
@@ -256,7 +266,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
                     tvClearTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
-
+                    //调用转台接口
+                    filtrateTableListPresenter.requestFiltrateTableList("",shopId,"1");
 //                    tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_cccccc));
 //                    mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_FFFFFF));
 //                    mViewPager.setEnabled(false);
@@ -337,6 +348,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
                     tvClearTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
+                    filtrateTableListPresenter.requestFiltrateTableList("",shopId,"3");
                 } else {
                     tvSplitTable.setText(mContext.getString(R.string.table_put_together));
 
@@ -403,5 +415,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener {
             dia_navigation.getDialog().dismiss();
         }
         super.finish();
+    }
+
+    @Override
+    public void getFiltrateTable(List<CanteenTableEntity> tableList) {
+        Elog.e("tableList.size==",tableList.size()+"EventBusSend");
+        EventBus.getDefault().post(tableList);
     }
 }

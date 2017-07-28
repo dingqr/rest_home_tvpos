@@ -13,5 +13,5 @@ import java.util.List;
  */
 
 public interface ITSFiltrateTableView extends BaseView {
-    void filtrateTable(List<CanteenTableEntity> tableList);
+    void getFiltrateTable(List<CanteenTableEntity> tableList);
 }
