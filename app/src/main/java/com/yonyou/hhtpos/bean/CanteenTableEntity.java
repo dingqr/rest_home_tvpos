@@ -54,6 +54,26 @@ public class CanteenTableEntity implements Serializable {
      * 是否选中
      */
     public String isCheck;
+    /**预定单号*/
+    public String billNo;
+    /**桌台操作 0=清台，1=转台，2=并台，3=拼台，4=菜品转台*/
+    public int tableOption;
+
+    public int getTableOption() {
+        return tableOption;
+    }
+
+    public void setTableOption(int tableOption) {
+        this.tableOption = tableOption;
+    }
+
+    public String getBillNo() {
+        return billNo;
+    }
+
+    public void setBillNo(String billNo) {
+        this.billNo = billNo;
+    }
 
     public CanteenTableEntity() {
     }

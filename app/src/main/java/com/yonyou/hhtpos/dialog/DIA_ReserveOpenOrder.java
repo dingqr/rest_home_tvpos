@@ -75,7 +75,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
     private String dinnerNumber;
     private String userPhone;
     private WaiterEntity waiterEntity;
-    private String reserveOrderId;
+    private String billNo;
     private String waiter;
     private List<WaiterEntity> waiterList;
     private String billRemark;
@@ -90,10 +90,11 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         if (canteenTableEntity != null) {
             if (!TextUtils.isEmpty(canteenTableEntity.tableName)) {
                 tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing) + "(" + canteenTableEntity.tableName + ")");
+
             } else {
                 tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing));
             }
-            //TODO 设置预订单号码
+            etReserveOrderId.setText(StringUtil.getString(canteenTableEntity.billNo));
         }
         this.waiterList = waiterList;
         this.canteenTableEntity = canteenTableEntity;
@@ -121,16 +122,14 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
         }
-        if (!doValidatePhone()) {
+        if (!TextUtils.isEmpty(userPhone) && !doValidatePhone()) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_name_empty), false);
             return false;
         }
-        if (TextUtils.isEmpty(waiter)) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_name_empty), false);
-            return false;
-        }
-
-
+//        if (TextUtils.isEmpty(waiter)) {
+//            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_name_empty), false);
+//            return false;
+//        }
         return true;
     }
 
@@ -169,8 +168,13 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
         if (verifyInput()) {
             tsooe.setTableStatus(0);
             tsooe.setPersonNum(dinnerNumber);
-            tsooe.setMemberId(userPhone);
-            tsooe.setWaiterId(waiterEntity.waiterId);
+            tsooe.setMemberId(StringUtil.getString(userPhone));
+
+            if (waiterEntity == null && TextUtils.isEmpty(waiterEntity.waiterId)) {
+                tsooe.setWaiterId("");
+            } else {
+                tsooe.setWaiterId(StringUtil.getString(waiterEntity.waiterId));
+            }
             tsooe.setBillRemark(StringUtil.getString(billRemark));
             tsooe.setOpenTime(AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_HH_MM_SS));
             tsooe.setTableNo(canteenTableEntity.getTableID());

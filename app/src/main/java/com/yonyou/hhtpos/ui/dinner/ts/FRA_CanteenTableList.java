@@ -23,6 +23,7 @@ import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
 import com.yonyou.hhtpos.global.API;
@@ -264,6 +265,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 default:
                     break;
             }
+            switch (canteenTableEntity.tableOption){
+                default:
+                    break;
+            }
         }
     }
 
@@ -273,11 +278,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    public void openOrder(String tableBillId) {
-        //todo 获取tableBillId 传到点菜页面
-        if (tableBillId != null) {
+    public void openOrder(TSTableBillIdEntity bean) {
+        if (bean != null) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+            bundle.putSerializable(ACT_OrderDishes.TABLE_BILL_ID, bean.getTableBillId());
             readyGo(ACT_OrderDishes.class, bundle);
         }
     }
