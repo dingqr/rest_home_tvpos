@@ -11,10 +11,18 @@ import java.util.List;
  * 描述：结账详细信息实体类
  */
 public class SettleAccountDataEntity implements Serializable {
+
+    public SettleAccountDataEntity() {
+    }
+
     /**
      * 折让金额
      */
     private String allowanceMoney;
+    /**
+     * 合计优惠
+     */
+    private String discountTotal;
     /**
      * 订单来源
      */
@@ -38,7 +46,7 @@ public class SettleAccountDataEntity implements Serializable {
     /**
      * 开台时间
      */
-    public Long openTime;
+    public String openTime;
     /**
      * 下单菜品列表
      */
@@ -47,6 +55,10 @@ public class SettleAccountDataEntity implements Serializable {
      * 已支付金额
      */
     private String paidMoney;
+    /**
+     * 服务员名称
+     */
+    public String waiterName;
     /**
      * 消费人数
      */
@@ -58,7 +70,7 @@ public class SettleAccountDataEntity implements Serializable {
     /**
      * 服务费详情
      */
-    public ServiceChargeDetail serviceChargeDetail;
+    private ServiceChargeDetail serviceChargeDetail;
     /**
      * 消费总计
      */
@@ -68,18 +80,34 @@ public class SettleAccountDataEntity implements Serializable {
      */
     private String unpaidMoney;
 
-    private class DishChargeDetail {
+    public  class DishChargeDetail implements Serializable {
         public DishChargeDetail() {
         }
 
         /**
          * 菜品总价
          */
-        public String dishCount;
+        private String dishCount;
         /**
          * 菜品赠送金额
          */
-        public String dishPresent;
+        private String dishPresent;
+
+        public String getDishCount() {
+            return dishCount;
+        }
+
+        public void setDishCount(String dishCount) {
+            this.dishCount = dishCount;
+        }
+
+        public String getDishPresent() {
+            return dishPresent;
+        }
+
+        public void setDishPresent(String dishPresent) {
+            this.dishPresent = dishPresent;
+        }
 
         @Override
         public String toString() {
@@ -90,19 +118,37 @@ public class SettleAccountDataEntity implements Serializable {
         }
     }
 
-    private class ServiceChargeDetail {
+    public  class ServiceChargeDetail implements Serializable {
         /**
          * 桌台服务费
          */
-        public String tableCharge;
+        private String money;
+        private String name;
 
         public ServiceChargeDetail() {
+        }
+
+        public String getMoney() {
+            return StringUtil.getFormattedMoney(money);
+        }
+
+        public void setMoney(String money) {
+            this.money = money;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         @Override
         public String toString() {
             return "ServiceChargeDetail{" +
-                    "tableCharge='" + tableCharge + '\'' +
+                    "money='" + money + '\'' +
+                    ", name='" + name + '\'' +
                     '}';
         }
     }
@@ -179,6 +225,14 @@ public class SettleAccountDataEntity implements Serializable {
         this.totalCharge = totalCharge;
     }
 
+    public String getDiscountTotal() {
+        return StringUtil.getFormattedMoney(discountTotal);
+    }
+
+    public void setDiscountTotal(String discountTotal) {
+        this.discountTotal = discountTotal;
+    }
+
     @Override
     public String toString() {
         return "SettleAccountDataEntity{" +
@@ -191,6 +245,7 @@ public class SettleAccountDataEntity implements Serializable {
                 ", openTime='" + openTime + '\'' +
                 ", orderDishes=" + orderDishes +
                 ", paidMoney='" + paidMoney + '\'' +
+                ", waiterName='" + waiterName + '\'' +
                 ", personNum='" + personNum + '\'' +
                 ", serviceCharge='" + serviceCharge + '\'' +
                 ", serviceChargeDetail=" + serviceChargeDetail +

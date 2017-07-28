@@ -16,6 +16,7 @@ import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
@@ -421,7 +422,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaWeightRemarks.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Elog.e("TAG", "称重、有备注列表=" + bean.toString());
+                Elog.e("TAG", "称重、有备注列表=" + bean.toString());
                 //重量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
                 //做法

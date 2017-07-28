@@ -26,7 +26,8 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
     protected FrameLayout flLeft;
     @Bind(R.id.fl_right)
     protected FrameLayout flRight;
-
+    @Bind(R.id.layout_bill_info_root)
+    LinearLayout layoutRoot;
     /**左侧导航栏 */
     private DIA_Navigation dia_navigation;
 
@@ -86,5 +87,10 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
     protected abstract Fragment getLeftContent();
 
     protected abstract Fragment getRightContent();
+
+    public LinearLayout getLayoutRoot() {
+        return layoutRoot;
+    }
+
 
 }

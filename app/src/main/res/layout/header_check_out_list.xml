@@ -34,9 +34,9 @@
                 android:textColor="@color/color_222222"/>
 
             <TextView
+                android:id="@+id/tv_total_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1160.25"
                 android:textSize="@dimen/sp_30"
                 android:textColor="@color/color_222222"/>
 
@@ -64,11 +64,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_person_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="12"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -88,11 +88,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_open_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="2017-5-20 12:00"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -112,11 +112,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_waiter_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="小米"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -136,11 +136,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_bill_resource"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="店内开单"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -160,11 +160,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_dish_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24"
-                android:text="¥760.25"/>
+                android:textSize="@dimen/sp_24"/>
 
         </LinearLayout>
 
@@ -190,11 +190,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_dish_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="¥760.25"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -214,11 +214,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_dish_present"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="¥760.25"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -238,11 +238,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_total_service_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24"
-                android:text="¥400"/>
+                android:textSize="@dimen/sp_24" />
 
         </LinearLayout>
 
@@ -260,6 +260,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_service_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_20"
@@ -268,11 +269,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tv_service_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="¥200.00"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
@@ -282,6 +283,7 @@
             android:layout_marginTop="@dimen/px_18"
             android:layout_marginRight="@dimen/px_20"
             android:layout_marginBottom="@dimen/px_24"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView

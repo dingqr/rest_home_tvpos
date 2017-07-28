@@ -10,12 +10,13 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.bean.check.CheckOrderListEntity;
+import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * 结账页面
@@ -69,7 +70,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
 
     @Override
     protected View getLoadingTargetView() {
-        return null;
+        return getLayoutRoot();
     }
 
     @Override
@@ -108,7 +109,10 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
     }
 
     @Override
-    public void queryBillInfo(CheckOrderListEntity checkOrderListEntity) {
-
+    public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
+        if (settleAccountDataEntity != null) {
+            EventBus.getDefault().post(settleAccountDataEntity);
+        }
     }
+
 }

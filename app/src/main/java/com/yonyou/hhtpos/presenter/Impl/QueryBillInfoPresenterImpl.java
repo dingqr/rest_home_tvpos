@@ -6,7 +6,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.check.CheckOrderListEntity;
+import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.interactor.IQueryBillInfoInteractor;
 import com.yonyou.hhtpos.interactor.Impl.QueryBillInfoInteractorImpl;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
@@ -40,12 +40,12 @@ public class QueryBillInfoPresenterImpl implements IQueryBillInfoPresenter {
         mBillInfoInteractor.queryBillInfo(compId, shopId,tableBillId);
     }
 
-    private class BillInfoListener implements BaseLoadedListener<CheckOrderListEntity> {
+    private class BillInfoListener implements BaseLoadedListener<SettleAccountDataEntity> {
 
         @Override
-        public void onSuccess(int event_tag, CheckOrderListEntity checkOrderListEntity) {
+        public void onSuccess(int event_tag, SettleAccountDataEntity settleAccountDataEntity) {
             mBillInfoView.hideLoading();
-            mBillInfoView.queryBillInfo(checkOrderListEntity);
+            mBillInfoView.queryBillInfo(settleAccountDataEntity);
         }
 
         @Override

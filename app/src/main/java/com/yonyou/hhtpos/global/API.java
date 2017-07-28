@@ -180,5 +180,4 @@ public class API {
      * 获取结账信息
      */
     public static final String URL_QUERY_BILL_INFO = BASE_SERVER_SHOP + "/protablebill/settleaccount/querybillinfo";
-
 }

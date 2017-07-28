@@ -1,7 +1,9 @@
 package com.yonyou.hhtpos.ui.dinner.check;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
@@ -9,8 +11,11 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
+import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 
 import butterknife.Bind;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 /**
  * 结账页面右侧fragment
@@ -22,9 +27,28 @@ public class FRA_CheckOutRight extends BaseFragment {
     GridView mDiscountTypeGv;
     @Bind(R.id.gv_pay_type)
     GridView mPayTypeGv;
+    @Bind(R.id.tv_dish_status)
+    TextView tvDishStatus;//菜品状态
+    @Bind(R.id.tv_discount_total)
+    TextView tvDiscountTotal;//合计优惠
+    @Bind(R.id.tv_discounmt_money)
+    TextView tvDiscounmtMoney;//折扣金额
+    @Bind(R.id.tv_ignore_money)
+    TextView tvIgnoreMoney;//抹零金额
+    @Bind(R.id.tv_paid_money)
+    TextView tvPaidMoney;//已支付
+    @Bind(R.id.tv_unpaid_money)
+    TextView tvUnpaidMoney;//未支付
 
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
+    private SettleAccountDataEntity dataBean;
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
+        this.dataBean = settleAccountDataEntity;
+        setData();
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -53,11 +77,11 @@ public class FRA_CheckOutRight extends BaseFragment {
         mDiscountTypeGv.setAdapter(mDiscountAdapter);
         mPayTypeGv.setAdapter(mPayTypeAdapter);
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             mDiscountAdapter.update("");
         }
 
-        for (int i = 0; i < 9; i++){
+        for (int i = 0; i < 9; i++) {
             mPayTypeAdapter.update("");
         }
     }
@@ -74,11 +98,41 @@ public class FRA_CheckOutRight extends BaseFragment {
 
     @Override
     protected boolean isBindEventBusHere() {
-        return false;
+        return true;
     }
 
     @Override
     public void showBusinessError(ErrorBean error) {
+
+    }
+
+    /**
+     * 刷新界面数据
+     */
+    private void setData() {
+        //待支付
+        if (!TextUtils.isEmpty(dataBean.getUnpaidMoney())) {
+            tvUnpaidMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getUnpaidMoney());
+        }
+        //优惠合计
+        if (!TextUtils.isEmpty(dataBean.getDiscountTotal())) {
+            tvDiscountTotal.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getDiscountTotal());
+        }
+        //折扣
+        if (!TextUtils.isEmpty(dataBean.getDiscountMoney())) {
+            tvDiscounmtMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getDiscountMoney());
+        }
+        //自动抹零
+        if (!TextUtils.isEmpty(dataBean.getIgnoreMoney())) {
+            tvIgnoreMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getIgnoreMoney());
+        }
+        //代金券
+        //支付方式
+        //发票
+        //已支付
+        if (!TextUtils.isEmpty(dataBean.getPaidMoney())) {
+            tvPaidMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getPaidMoney());
+        }
 
     }
 }
