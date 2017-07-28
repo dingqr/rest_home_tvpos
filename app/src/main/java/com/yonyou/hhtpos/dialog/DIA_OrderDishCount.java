@@ -171,6 +171,12 @@ public class DIA_OrderDishCount implements View.OnClickListener {
             case R.id.ib_close:
                 if (mDialog != null) {
                     mDialog.dismiss();
+                    if (!cookeryEmptyFlag)
+                        fvCookery.reset();
+                    if (!remarkEmptyFlag)
+                        fvRemark.reset();
+                    etOtherRemark.setText("");
+                    mcvDishCount.reset();
                 }
                 break;
             case R.id.rb_finish_select:

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <include layout="@layout/common_title"/>
+    <include layout="@layout/common_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/color_FFFFFF"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="@color/color_FFFFFF">
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px_84"
-            android:src="@drawable/ic_filter"
             android:paddingLeft="@dimen/px_30"
-            android:paddingRight="@dimen/px_44"/>
+            android:paddingRight="@dimen/px_44"
+            android:src="@drawable/ic_filter" />
 
         <com.yonyou.hhtpos.widgets.PagerSlidingTabStrip
             android:id="@+id/psts_tab"
@@ -36,30 +36,31 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_4"
-        android:background="@drawable/bg_gradient_top_dc"/>
+        android:background="@drawable/bg_gradient_top_dc" />
 
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:layout_weight="1"
-        android:background="@color/color_dcdcdc">
+        android:background="@color/color_dcdcdc"
+        android:orientation="horizontal">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_canteen_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"></android.support.v4.view.ViewPager>
+            android:layout_weight="1">
+        </android.support.v4.view.ViewPager>
 
         <ListView
             android:id="@+id/lv_meal_area"
             android:layout_width="@dimen/px_140"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/px_7"
+            android:background="@color/color_FFFFFF"
             android:divider="@color/color_dcdcdc"
-            android:dividerHeight="@dimen/px_1"
-            android:background="@color/color_FFFFFF">
+            android:dividerHeight="@dimen/px_1">
         </ListView>
 
     </LinearLayout>
@@ -67,7 +68,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_4"
-        android:background="@drawable/bg_gradient_bottom_dc"/>
+        android:background="@drawable/bg_gradient_bottom_dc" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,135 +80,139 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/free"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_22"
                 android:drawableLeft="@drawable/ic_sign_free"
                 android:drawablePadding="@dimen/px_12"
-                android:layout_marginLeft="@dimen/px_30"
-                android:layout_marginTop="@dimen/px_22"/>
+                android:text="@string/free"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/settle"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_22"
                 android:drawableLeft="@drawable/ic_sign_settle"
                 android:drawablePadding="@dimen/px_12"
-                android:layout_marginLeft="@dimen/px_30"
-                android:layout_marginTop="@dimen/px_22"/>
+                android:text="@string/settle"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/book"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_22"
                 android:drawableLeft="@drawable/ic_sign_book"
                 android:drawablePadding="@dimen/px_12"
-                android:layout_marginLeft="@dimen/px_30"
-                android:layout_marginTop="@dimen/px_22"/>
+                android:text="@string/book"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/occupy"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_22"
                 android:drawableLeft="@drawable/ic_sign_occupy"
                 android:drawablePadding="@dimen/px_12"
-                android:layout_marginLeft="@dimen/px_30"
-                android:layout_marginTop="@dimen/px_22"/>
+                android:text="@string/occupy"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/locked"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_marginTop="@dimen/px_22"
                 android:drawableLeft="@drawable/ic_sign_locked"
                 android:drawablePadding="@dimen/px_12"
-                android:layout_marginLeft="@dimen/px_30"
-                android:layout_marginTop="@dimen/px_22"/>
+                android:text="@string/locked"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_marginRight="@dimen/px_116"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_table_turn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/table_turn"
-                android:textSize="@dimen/sp_26"
-                android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_turn"
                 android:drawablePadding="@dimen/px_20"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/px_40"
                 android:paddingRight="@dimen/px_40"
-                android:gravity="center_vertical"/>
+                android:text="@string/table_turn"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_26" />
 
             <View
                 android:layout_width="@dimen/px_1"
                 android:layout_height="@dimen/px_40"
-                android:background="@color/color_e3e3e5"/>
+                android:background="@color/color_e3e3e5" />
 
             <TextView
+                android:id="@+id/tv_table_merge"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/table_merge"
-                android:textSize="@dimen/sp_26"
-                android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_merge"
                 android:drawablePadding="@dimen/px_20"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/px_40"
                 android:paddingRight="@dimen/px_40"
-                android:gravity="center_vertical"/>
+                android:text="@string/table_merge"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_26" />
 
             <View
                 android:layout_width="@dimen/px_1"
                 android:layout_height="@dimen/px_40"
-                android:background="@color/color_e3e3e5"/>
+                android:background="@color/color_e3e3e5" />
 
             <TextView
+                android:id="@+id/tv_table_split"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/table_put_together"
-                android:textSize="@dimen/sp_26"
-                android:textColor="@color/color_222222"
-                android:drawableLeft="@drawable/ic_table_put_together"
+                android:drawableLeft="@drawable/ic_table_split"
                 android:drawablePadding="@dimen/px_20"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/px_40"
                 android:paddingRight="@dimen/px_40"
-                android:gravity="center_vertical"/>
+                android:text="@string/table_put_together"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_26" />
 
             <View
                 android:layout_width="@dimen/px_1"
                 android:layout_height="@dimen/px_40"
-                android:background="@color/color_e3e3e5"/>
+                android:background="@color/color_e3e3e5" />
 
             <TextView
+                android:id="@+id/tv_table_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/table_clear"
-                android:textSize="@dimen/sp_26"
-                android:textColor="@color/color_222222"
                 android:drawableLeft="@drawable/ic_table_clear"
                 android:drawablePadding="@dimen/px_20"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/px_40"
                 android:paddingRight="@dimen/px_40"
-                android:gravity="center_vertical"/>
+                android:text="@string/table_clear"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_26" />
         </LinearLayout>
 
     </LinearLayout>

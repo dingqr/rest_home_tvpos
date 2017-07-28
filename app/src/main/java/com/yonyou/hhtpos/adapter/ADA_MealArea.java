@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.bean.MealAreaEntity;
 public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
 
     private MealAreaEntity currentBean;
+    private boolean isAllItemEnable = true;
 
     public ADA_MealArea(Context context) {
         super(context);
@@ -44,14 +45,29 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
         final MealAreaEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
 
-        if (bean.isCheck()){
-            currentBean = bean;
-            holder.mLine.setVisibility(View.VISIBLE);
-            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
-        }else {
+        if (!isAllItemEnable) {
             holder.mLine.setVisibility(View.INVISIBLE);
-            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_cccccc));
+        } else {
+            if (bean.isCheck()) {
+                currentBean = bean;
+                holder.mLine.setVisibility(View.VISIBLE);
+                holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
+            } else {
+                holder.mLine.setVisibility(View.INVISIBLE);
+                holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+            }
         }
+
+
+//        if (bean.isCheck()){
+//            currentBean = bean;
+//            holder.mLine.setVisibility(View.VISIBLE);
+//            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
+//        }else {
+//            holder.mLine.setVisibility(View.INVISIBLE);
+//            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+//        }
         return convertView;
     }
 
@@ -59,9 +75,9 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!bean.equals(currentBean)){
+                if (!bean.equals(currentBean)) {
                     bean.setCheck(true);
-                    if (null != currentBean){
+                    if (null != currentBean) {
                         currentBean.setCheck(false);
                     }
                     currentBean = bean;
@@ -70,7 +86,7 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
             }
         });
 
-        switch (position){
+        switch (position) {
             case 0:
                 holder.mMealName.setText("全部餐区");
                 break;
@@ -90,6 +106,17 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
             default:
                 break;
         }
+    }
+
+    //设置为全不能选
+    public void disableAllItemChooser() {
+        isAllItemEnable = false;
+        notifyDataSetChanged();
+    }
+    //设置为全能选
+    public void enableItemChooser() {
+        isAllItemEnable = true;
+        notifyDataSetChanged();
     }
 
     static class ViewHolder {

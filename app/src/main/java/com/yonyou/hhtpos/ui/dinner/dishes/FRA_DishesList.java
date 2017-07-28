@@ -335,6 +335,13 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     }
 
     @Override
+    public void cancelGiftDishesSuccess() {
+        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.tip_cancel_gift_dishes_success), false);
+        isRightRefresh = false;
+        mDishListPresenter.requestDishList(tableBillId, false);
+    }
+
+    @Override
     public void confirm() {
         mDishEditPresenter.deleteDish("", dishId, shopId);
     }
@@ -363,7 +370,11 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onConfirm(String mode, String count) {
         // 退菜和赠菜
         if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)){
+            // 退菜和赠菜
             mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
+
+            // 取消赠菜
+//            mDishEditPresenter.cancelGiftDish(currentBean.getId(), shopId, "");
         }
         // 称重确认
         else if (mode.equals(DishConstants.DISH_WEIGHT)){

@@ -35,6 +35,7 @@ import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
+import com.yonyou.hhtpos.view.ITSFiltrateTableView;
 import com.yonyou.hhtpos.view.ITSOpenOrderView;
 import com.yonyou.hhtpos.view.ITableListView;
 
@@ -50,7 +51,8 @@ import butterknife.Bind;
  * 描述：堂食列表
  */
 public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
-        MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback, IChooseWaiterView {
+        MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback,
+        IChooseWaiterView,ITSFiltrateTableView {
 
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
@@ -296,6 +298,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (waiterList != null && waiterList.size() > 0) {
             this.mWaiterList = waiterList;
         }
+    }
+
+    @Override
+    public void filtrateTable(List<CanteenTableEntity> tableList) {
+
     }
 
     /**

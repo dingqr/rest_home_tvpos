@@ -21,15 +21,18 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     private BaseLoadedListener handleDishListener;
     private BaseLoadedListener confirmWeightListener;
     private BaseLoadedListener switchTableListener;
+    private BaseLoadedListener cancelGiftDishesListener;
 
     public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener,
-                                  BaseLoadedListener handleDishListener, BaseLoadedListener confirmWeightListener, BaseLoadedListener switchTableListener) {
+                                  BaseLoadedListener handleDishListener, BaseLoadedListener confirmWeightListener, BaseLoadedListener switchTableListener,
+                                  BaseLoadedListener cancelGiftDishesListener) {
         this.updateQuantityListener = updateQuantityListener;
         this.deleteDishListener = deleteDishListener;
         this.updateDishStatusListener = updateDishStatusListener;
         this.handleDishListener = handleDishListener;
         this.confirmWeightListener = confirmWeightListener;
         this.switchTableListener = switchTableListener;
+        this.cancelGiftDishesListener = cancelGiftDishesListener;
     }
     
     @Override
@@ -116,6 +119,8 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
         hashMap.put("shopId", shopId);
         hashMap.put("count", count);
         hashMap.put("id", id);
+
+        // TODO: waiterId
         hashMap.put("waiterId", "BB9930642C000000FD00000000316122");
         RequestManager.getInstance().requestPostByAsyn(API.URL_SPECIAL_HANDLE_DISH, hashMap, new ReqCallBack<String>() {
 
@@ -183,6 +188,33 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 switchTableListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void cancelGiftDish(String id, String shopId, String waiterId) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        hashMap.put("shopId", shopId);
+
+        // TODO: waiterId
+        hashMap.put("waiterId", "BB9930642C000000FD00000000316122");
+        RequestManager.getInstance().requestPostByAsyn(API.URL_CANCEL_GIFT_DISHES, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                cancelGiftDishesListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                cancelGiftDishesListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                cancelGiftDishesListener.onBusinessError(errorBean);
             }
         });
     }

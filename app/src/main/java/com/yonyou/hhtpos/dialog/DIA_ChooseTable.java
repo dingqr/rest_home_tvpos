@@ -1,6 +1,5 @@
 package com.yonyou.hhtpos.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.yonyou.framework.library.common.utils.ScreenUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_SelectTableArea;
 import com.yonyou.hhtpos.adapter.ADA_SelectTableCapacity;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_SelectTable implements View.OnClickListener, ADA_SelectTableCapacity.OnCapacityClickListener,ADA_SelectTableArea.OnItemClickListener{
+public class DIA_ChooseTable implements View.OnClickListener, ADA_SelectTableCapacity.OnCapacityClickListener,ADA_SelectTableArea.OnItemClickListener{
     protected Context mContext;
     protected Dialog mDialog;
     protected View mContentView;
@@ -44,7 +42,7 @@ public class DIA_SelectTable implements View.OnClickListener, ADA_SelectTableCap
     private FilterOptionsEntity currentArea;
     private TableCapacityEntity currentCapacity;
 
-    public DIA_SelectTable(Context mContext, ArrayList<FilterOptionsEntity> areaDatas, ArrayList<TableCapacityEntity> capacityDatas) {
+    public DIA_ChooseTable(Context mContext, ArrayList<FilterOptionsEntity> areaDatas, ArrayList<TableCapacityEntity> capacityDatas) {
         this.mContext = mContext;
         this.areaDatas = areaDatas;
         this.capacityDatas = capacityDatas;

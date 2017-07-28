@@ -24,7 +24,7 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
         this.mContext = mContext;
         this.mDishEditView = mDishEditView;
         mDishEditInteractor = new DishEditInteractorImpl(new UpdateQuantityListener(), new DeleteDishListener(), new UpdateDishStatusListener(),
-                new SpecialHandleDishListener(), new ConfirmWeightListener(), new SwitchTableListener());
+                new SpecialHandleDishListener(), new ConfirmWeightListener(), new SwitchTableListener(), new CancelGiftDishesListener());
     }
 
     @Override
@@ -50,6 +50,11 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     @Override
     public void switchTable(String id, String count, String shopId, String tableBillId) {
         mDishEditInteractor.switchTable(id, count, shopId, tableBillId);
+    }
+
+    @Override
+    public void cancelGiftDish(String id, String shopId, String waiterId) {
+        mDishEditInteractor.cancelGiftDish(id, shopId, waiterId);
     }
 
     @Override
@@ -208,6 +213,35 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
         public void onSuccess(int event_tag, String result) {
             mDishEditView.hideLoading();
             mDishEditView.switchTableSuccess();
+        }
+
+        @Override
+        public void onError(String msg) {
+            mDishEditView.hideLoading();
+            CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onException(String msg) {
+            mDishEditView.hideLoading();
+            mDishEditView.showException(msg);
+            //CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onBusinessError(ErrorBean error) {
+            mDishEditView.hideLoading();
+            mDishEditView.showBusinessError(error);
+            //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
+        }
+    }
+
+    private class CancelGiftDishesListener implements BaseLoadedListener<String> {
+
+        @Override
+        public void onSuccess(int event_tag, String result) {
+            mDishEditView.hideLoading();
+            mDishEditView.cancelGiftDishesSuccess();
         }
 
         @Override

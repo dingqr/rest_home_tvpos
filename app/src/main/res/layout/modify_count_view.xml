@@ -13,13 +13,15 @@
         android:background="@drawable/ic_minus"
         android:scaleType="center" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_current_count"
         android:layout_width="@dimen/px_100"
         android:layout_height="@dimen/px_50"
         android:gravity="center"
         android:background="@drawable/bg_gray_d8"
         android:text="1"
+        android:inputType="number"
+        android:focusableInTouchMode="true"
         android:textColor="@color/color_eb6247"
         android:textSize="@dimen/sp_24" />
 
