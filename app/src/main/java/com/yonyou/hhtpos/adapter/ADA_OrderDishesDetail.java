@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
@@ -34,7 +35,12 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<DishDetaiListlE
             //设置原价
             holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishDetaiListlEntity.getDishPrice());
             //设置会员价
-            holder.setText(R.id.tv_member_price, mContext.getResources().getString(R.string.RMB_symbol) + dishDetaiListlEntity.getMemberPrice());
+            if(!TextUtils.isEmpty(dishDetaiListlEntity.getMemberPrice())) {
+                holder.setVisible(R.id.tv_member_price,true);
+                holder.setText(R.id.tv_member_price, mContext.getResources().getString(R.string.RMB_symbol) + dishDetaiListlEntity.getMemberPrice());
+            }else {
+                holder.setVisible(R.id.tv_member_price,false);
+            }
             //设置规格
             holder.setText(R.id.tv_standard_name, dishDetaiListlEntity.standardName);
         }
