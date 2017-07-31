@@ -32,15 +32,20 @@ public class QueryBillInfoInteractorImpl implements IQueryBillInfoInteractor {
      */
     @Override
     public void queryBillInfo(String compId, String shopId, String tableBillId, boolean isPay, RequestPayEntity requestPayEntity) {
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("compId", compId);
-        params.put("shopId", shopId);
-        params.put("tableBillId", tableBillId);
+        HashMap<String, String> params = new HashMap<>();
+        HashMap<String, HashMap<String,String>> paramsMap = new HashMap<String, HashMap<String,String>>();
+
+        params.put("companyId",compId);
+        params.put("shopId",shopId);
+        params.put("tableBillId",tableBillId);
+
         if (isPay) {
-            params.put("payMoney", requestPayEntity.payMoney);
-            params.put("payType", requestPayEntity.payType);
+            HashMap<String, String> map = new HashMap<>();
+            map.put("payMoney", requestPayEntity.payMoney);
+            map.put("payType", requestPayEntity.payType);
+            paramsMap.put("payInfo",map);
         }
-        RequestManager.getInstance().requestPostByAsyn(API.URL_QUERY_BILL_INFO, params, new ReqCallBack<SettleAccountDataEntity>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_QUERY_BILL_INFO, params,paramsMap, new ReqCallBack<SettleAccountDataEntity>() {
             @Override
             public void onReqSuccess(SettleAccountDataEntity settleAccountDataEntity) {
                 mBillInfoListener.onSuccess(1, settleAccountDataEntity);

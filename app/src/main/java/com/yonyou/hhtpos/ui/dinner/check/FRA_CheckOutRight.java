@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
@@ -33,6 +34,8 @@ import de.greenrobot.event.ThreadMode;
  */
 public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView {
 
+    @Bind(R.id.layout_root)
+    LinearLayout layoutRoot;
     @Bind(R.id.gv_discount_type)
     GridView mDiscountTypeGv;
     @Bind(R.id.gv_pay_type)
@@ -81,7 +84,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     @Override
     protected View getLoadingTargetView() {
-        return mPayTypeGv;
+        return layoutRoot;
     }
 
     @Override
@@ -169,12 +172,14 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         if (!TextUtils.isEmpty(dataBean.getPaidMoney())) {
             tvPaidMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getPaidMoney());
         }
-        mDiaCheckOutByCash.setMaxInputMoneyHint(dataBean.getUnpaidMoney());
+        if (!TextUtils.isEmpty(dataBean.getUnpaidMoney())) {
+            mDiaCheckOutByCash.setMaxInputMoneyHint(dataBean.getUnpaidMoney());
+        }
 
     }
 
     @Override
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
-        new DIA_AutoDismiss(mContext, "收款成功").show();
+        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
     }
 }

@@ -33,6 +33,7 @@ import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetWeight;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.interfaces.DishDataCallback;
 import com.yonyou.hhtpos.presenter.IAddDishPresenter;
@@ -89,9 +90,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     //获取所有菜品/菜类presenter
     private IGetAllDishesPresenter mPresenter;
-    //    测试公司ID：DIE49JkEU29JHD819HRh19hGDAY1 测试门店ID：C13352966C000000A60000000016E000
-    private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
-    private String shopId = "C13352966C000000A60000000016E000";
+    private String compId = API.compId;
+    private String shopId = API.shopId;
     //    private String mTableBillId = "C50242AC980000009200000000257000";
     private String mTableBillId = "";
     //菜品/菜类实体
@@ -112,6 +112,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
     private List<DishListEntity.Dishes> mOrderedDishes = new ArrayList<>();
+    private int saleManner;
 
     /**
      * 接收右侧角标数量的数据集合
@@ -207,8 +208,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     @Override
     protected void initViewsAndEvents() {
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
-        ACT_OrderDishes activity = (ACT_OrderDishes) getActivity();
-        int saleManner = activity.getFromWhere();
+        saleManner = ((ACT_OrderDishes) getActivity()).getFromWhere();
         mPresenter.getAllDishes(compId, shopId, saleManner);
 
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
@@ -293,10 +293,14 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //把所有已选和手填的备注名连接到一起的字符串，逗号分隔
                 requestAddDishEntity.listShowRemark = "";
                 requestAddDishEntity.practices = "";
+
                 requestAddDishEntity.quantity = "1";
                 requestAddDishEntity.remarks = "";
                 requestAddDishEntity.remark = "";
                 requestAddDishEntity.standardId = "";
+                requestAddDishEntity.saleManner = StringUtil.getString(saleManner);
+                //账单状态
+                requestAddDishEntity.orderState = "";
 
                 //写死的字段
                 requestAddDishEntity.tableBillId = mTableBillId;

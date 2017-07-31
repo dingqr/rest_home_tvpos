@@ -9,6 +9,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.dialog.DIA_ChooseWaiter;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IChooseWaiterPresenter;
 import com.yonyou.hhtpos.presenter.Impl.ChooseWaiterPresenterImpl;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
@@ -28,7 +29,7 @@ public class FRA_BookDetail extends BaseFragment implements IChooseWaiterView {
     @Bind(R.id.ll_content)
     LinearLayout mContentLayout;
     //请求接口：查询所有服务员
-    private String shopId = "C13352966C000000A60000000016E000";//测试参数
+    private String shopId = API.shopId;//测试参数
     private List<WaiterEntity> mWaiterList = new ArrayList<>();
     private IChooseWaiterPresenter mChooseWaiterPresenter;
     private DIA_ChooseWaiter diaChooseWaiter;
