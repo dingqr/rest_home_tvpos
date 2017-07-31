@@ -11,14 +11,14 @@ public class API {
      */
 //    public static final String BASE_SERVER_IP = "http://api-c2b.honghuotai.com"; //正式服务器地址
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
-    public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //线上ip
+//    public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //线上ip
+    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试ip
     //    public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
 //    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8088";// shop端口号
 //    public static final String BASE_SERVER_IP = "http://10.220.17.51:8062"; //线上ip
 //    public static final String BASE_SERVER_IP = "http://10.220.23.251:9000"; //吴贤川ip
-//    public static final String BASE_SERVER_IP = "http://test-api-c2b.honghuotai.com"; //测试服务器地址
 
     /**
      * 运营平台地址
@@ -152,8 +152,8 @@ public class API {
     /**
      * 下单接口
      */
-//    public static final String URL_PLACE_ORDER = BASE_SERVER_SHOP + "/prodish/order";
-    public static final String URL_PLACE_ORDER = "http://10.220.23.81:9001" + "/prodish/order";
+    public static final String URL_PLACE_ORDER = BASE_SERVER_SHOP + "/prodish/order";
+//    public static final String URL_PLACE_ORDER = "http://10.220.23.81:9001" + "/prodish/order";
     /**
      * 退菜和赠菜接口
      */

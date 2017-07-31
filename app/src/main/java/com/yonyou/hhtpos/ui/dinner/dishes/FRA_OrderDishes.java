@@ -39,7 +39,6 @@ import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
-import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.util.AnimationUtil;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
@@ -350,7 +349,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             public void onClick(View v) {
 //                new DIA_AddTempDishes(mContext).getDialog().show();
 //                new DIA_Coupon(mContext).show();
-                readyGo(ACT_CheckOut.class);
             }
         });
         //点击菜品进行数据筛选

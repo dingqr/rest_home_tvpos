@@ -61,8 +61,12 @@ public class NumberKeybordView extends LinearLayout {
 
 
     private int inputMode;
+    //小数
     public static int DECIMAL = 0;
+    //整数
     public static int INTEGER = 1;
+    //自定义输入的最大值，并只允许两位小数
+    public static int CUSTOM_DECIMAL = 2;
     private int MAX_INT_VALUE = 7;
 
     public NumberKeybordView(Context context) {
@@ -217,7 +221,44 @@ public class NumberKeybordView extends LinearLayout {
             case 1:
                 limitInt(number);
                 break;
+            case 2:
+                limitMaxAndDecimal(number);
+                break;
         }
+    }
+
+    /**
+     * 可设置输入的任意最大值，并只允许输入两位小数
+     *
+     * @param number
+     */
+    private void limitMaxAndDecimal(String number) {
+        //拼接后的字符串结果
+        String bufferResult = mBuffer.toString();
+        int mBufferLength = mBuffer.toString().length();
+        //限制首位输入0,直接清除
+        if (number.equals("0") && mBufferLength == 0) {
+            singleResult = "";
+            return;
+        }
+        if (TextUtils.isEmpty(bufferResult)) {
+            if (number.equals(".")) {
+                singleResult = "0.";
+            } else {
+                //大于0的整数
+                singleResult = number;
+            }
+        } else {
+            singleResult = number;
+        }
+        //只能输入一个小数点
+        if (bufferResult.contains(".") && number.equals(".")) {
+            singleResult = "";
+            return;
+        }
+        mBuffer.append(singleResult);
+        etMoney.setText(mBuffer.toString());
+        etMoney.setSelection(mBuffer.length());
     }
 
 
@@ -256,7 +297,7 @@ public class NumberKeybordView extends LinearLayout {
     }
 
     /**
-     * 带小数
+     * 可限定小数位和整数位
      *
      * @param number
      */

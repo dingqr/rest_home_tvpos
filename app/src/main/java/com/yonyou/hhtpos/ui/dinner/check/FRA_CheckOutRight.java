@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.ui.dinner.check;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -11,7 +12,13 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
+import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
+import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
+import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
+import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
+import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
+import com.yonyou.hhtpos.view.IQueryBillInfoView;
 
 import java.util.ArrayList;
 
@@ -23,7 +30,7 @@ import de.greenrobot.event.ThreadMode;
  * 结账页面右侧fragment
  * 作者：liushuofei on 2017/7/19 14:49
  */
-public class FRA_CheckOutRight extends BaseFragment {
+public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView {
 
     @Bind(R.id.gv_discount_type)
     GridView mDiscountTypeGv;
@@ -45,7 +52,12 @@ public class FRA_CheckOutRight extends BaseFragment {
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
     private SettleAccountDataEntity dataBean;
-    private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付","畅捷POS", "微信支付", "支付宝", "更多"};
+    private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付", "畅捷POS", "微信支付", "支付宝", "更多"};
+    private DIA_CheckOutByCash mDiaCheckOutByCash;
+    private IQueryBillInfoPresenter mPresenter;
+    private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
+    private String shopId = "C13352966C000000A60000000016E000";
+    private String tableBillId;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
@@ -70,11 +82,14 @@ public class FRA_CheckOutRight extends BaseFragment {
 
     @Override
     protected View getLoadingTargetView() {
-        return null;
+        return mPayTypeGv;
     }
 
     @Override
     protected void initViewsAndEvents() {
+        mDiaCheckOutByCash = new DIA_CheckOutByCash(getActivity());
+        mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
+        tableBillId = ((ACT_CheckOut) getActivity()).getTableBillId();
         mDiscountAdapter = new ADA_DiscountType(mContext);
         mPayTypeAdapter = new ADA_CheckOutPayType(mContext);
         mDiscountTypeGv.setAdapter(mDiscountAdapter);
@@ -88,6 +103,24 @@ public class FRA_CheckOutRight extends BaseFragment {
             payTypeList.add(payTypeNames[i]);
         }
         mPayTypeAdapter.update(payTypeList);
+        mPayTypeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    mDiaCheckOutByCash.show();
+                }
+            }
+        });
+        //收到现金
+        mDiaCheckOutByCash.setOnReceiveMoneyListener(new DIA_CheckOutByCash.OnReceiveMoneyListener() {
+            @Override
+            public void onReceiveMoney(String money) {
+                RequestPayEntity requestPayEntity = new RequestPayEntity();
+                requestPayEntity.payMoney = money;
+                requestPayEntity.payType = "现金";
+                mPresenter.queryBillInfo(compId, shopId, tableBillId, true, requestPayEntity);
+            }
+        });
     }
 
     @Override
@@ -137,6 +170,12 @@ public class FRA_CheckOutRight extends BaseFragment {
         if (!TextUtils.isEmpty(dataBean.getPaidMoney())) {
             tvPaidMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getPaidMoney());
         }
+        mDiaCheckOutByCash.setMaxInputMoneyHint(dataBean.getUnpaidMoney());
 
+    }
+
+    @Override
+    public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
+        new DIA_AutoDismiss(mContext, "收款成功").show();
     }
 }

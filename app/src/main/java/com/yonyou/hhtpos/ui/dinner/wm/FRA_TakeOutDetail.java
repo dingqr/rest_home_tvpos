@@ -30,6 +30,7 @@ import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.IWMRefundReasonPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WMRefundReasonPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.view.IWMOrderDetailView;
 import com.yonyou.hhtpos.view.IWMRefundReasonView;
@@ -225,6 +226,9 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                     bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WM);
                     readyGo(ACT_OrderDishes.class, bundle);
                 } else if (mOrderState == 2) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ACT_CheckOut.TABLE_BILL_ID, tableBillId);
+                    readyGo(ACT_CheckOut.class, bundle);
                     //去结账
                 } else if (mOrderState == 3 || mOrderState == 4) {
                     //补打账单

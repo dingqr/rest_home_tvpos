@@ -26,6 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/px_270"
             android:background="@drawable/bg_side_dark_gray_4"
+            android:focusableInTouchMode="false"
             android:hint="@string/hint_roll_out_num"
             android:paddingLeft="@dimen/px_20"
             android:textColorHint="@color/color_cccccc" />
@@ -64,13 +65,14 @@
             android:layout_weight="1"></com.yonyou.hhtpos.widgets.NumberKeybordView>
 
         <RadioButton
+            android:id="@+id/rb_confirm_receive_money"
             android:layout_width="@dimen/px_260"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/px_86"
             android:layout_marginLeft="@dimen/px_10"
             android:background="@drawable/bg_gray_side_gray_4"
             android:button="@null"
             android:gravity="center"
-            android:layout_marginBottom="@dimen/px_86"
             android:text="@string/string_receive_money"
             android:textColor="@color/color_eb6247"
             android:textSize="@dimen/sp_40" />
