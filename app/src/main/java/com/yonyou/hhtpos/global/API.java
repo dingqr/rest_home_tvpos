@@ -54,6 +54,9 @@ public class API {
      */
     public static final String URL_RESET_PWD = BASE_SERVER_LOGIN + "/changePassword";
 
+    /**激活--获取所有门店*/
+    public static final String URL_GET_ALL_SHOPS = BASE_SERVER_SHOP + "/proshop/getAllShop";
+
     /**
      * 左侧导航栏
      */

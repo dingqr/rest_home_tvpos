@@ -41,6 +41,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+
         <!--登录页面 -->
         <activity
             android:name=".ui.login.ACT_Login"

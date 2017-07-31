@@ -281,7 +281,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         readyGo(ACT_OrderDishes.class, bundle);
                     }
                     break;
-                //桌台预定 弹出预订单开单对话框
+               //桌台占用，筛选已结清的账单
                 case 4:
                     if(tableOption.equals("4")){
                     //桌台占用，订单清台中
@@ -295,6 +295,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     diaClearTable.getDialog().show();
                 }
                     break;
+                //桌台预定 弹出预订单开单对话框
                 case 5:
                     DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
                     dia_reserveOpenOrder.setData(canteenTableEntity, mWaiterList);
@@ -419,6 +420,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
             Elog.e("tableList.size==", tableList.size());
         } else {
+            showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
             Elog.e("tableList.size==", "00000000");
         }
     }

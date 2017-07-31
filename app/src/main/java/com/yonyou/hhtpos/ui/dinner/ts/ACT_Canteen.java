@@ -305,6 +305,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     // 重置桌台列表
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
+//                    mCurrentFramgent.onRefresh();
                 }
                 break;
 
@@ -346,6 +347,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.enableItemChooser();
                     setTopTab(true);
+                    sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
+//                    mCurrentFramgent.onRefresh();
                 }
                 break;
 
@@ -388,6 +391,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.enableItemChooser();
                     setTopTab(true);
+                    sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
                 break;
 
@@ -428,6 +432,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.enableItemChooser();
                     setTopTab(true);
+                    sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
                 break;
             default:
@@ -480,6 +485,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     @Override
     public void getFiltrateTable(List<CanteenTableEntity> tableList) {
         Elog.e("tableList.size==", tableList.size() + "EventBusSend");
+
         EventBus.getDefault().post(tableList);
         EventBus.getDefault().post(tableOption);
     }
