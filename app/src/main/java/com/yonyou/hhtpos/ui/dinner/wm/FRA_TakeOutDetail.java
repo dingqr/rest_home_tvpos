@@ -138,6 +138,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     TextView btnLeft;
     @Bind(R.id.btn_right)
     TextView btnRight;
+    //开单1，下单2，结账3，退款4
     private int mOrderState = -1;
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
@@ -218,6 +219,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         switch (view.getId()) {
             case R.id.btn_right:
                 if (mOrderState == 1) {
+                    //去点菜
                     Bundle bundle = new Bundle();
                     bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
                     bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WM);
@@ -297,7 +299,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 this.dataList = dishList;
                 setCount(dataList);
                 mAdapter.update(dataList, true);
-            }else {
+            } else {
                 mAdapter.clear();
             }
             //左侧信息
@@ -349,6 +351,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 
     /**
      * 按照下单时间对点菜的明细订单列表进行分组处理
+     *
      * @param dataList
      */
     private void setCount(List<WMDishDetailEntity> dataList) {

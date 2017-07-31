@@ -6,6 +6,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.interactor.IQueryBillInfoInteractor;
 import com.yonyou.hhtpos.interactor.Impl.QueryBillInfoInteractorImpl;
@@ -30,14 +31,17 @@ public class QueryBillInfoPresenterImpl implements IQueryBillInfoPresenter {
 
     /**
      * 获取结账信息页数据
+     *
      * @param compId
      * @param shopId
      * @param tableBillId
+     * @param isPay
+     * @param requestPayEntity
      */
     @Override
-    public void queryBillInfo(String compId, String shopId, String tableBillId) {
+    public void queryBillInfo(String compId, String shopId, String tableBillId, boolean isPay, RequestPayEntity requestPayEntity) {
         mBillInfoView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
-        mBillInfoInteractor.queryBillInfo(compId, shopId,tableBillId);
+        mBillInfoInteractor.queryBillInfo(compId, shopId, tableBillId, isPay, requestPayEntity);
     }
 
     private class BillInfoListener implements BaseLoadedListener<SettleAccountDataEntity> {
