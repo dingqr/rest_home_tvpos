@@ -61,8 +61,12 @@ public class NumberKeybordView extends LinearLayout {
 
 
     private int inputMode;
+    //小数
     public static int DECIMAL = 0;
+    //整数
     public static int INTEGER = 1;
+    //自定义输入的最大值，并只允许两位小数
+    public static int CUSTOM_DECIMAL = 2;
     private int MAX_INT_VALUE = 7;
 
     public NumberKeybordView(Context context) {
@@ -217,7 +221,68 @@ public class NumberKeybordView extends LinearLayout {
             case 1:
                 limitInt(number);
                 break;
+            case 2:
+                limitMaxAndDecimal(number);
+                break;
         }
+    }
+
+    /**
+     * 可设置输入的任意最大值，并只允许输入两位小数
+     *
+     * @param number
+     */
+    private void limitMaxAndDecimal(String number) {
+        //拼接后的字符串结果
+        String bufferResult = mBuffer.toString();
+        int mBufferLength = mBuffer.toString().length();
+        //限制首位输入0,直接清除
+        if (number.equals("0") && mBufferLength == 0) {
+            singleResult = "";
+            return;
+        }
+        if (TextUtils.isEmpty(bufferResult)) {
+            if (number.equals(".")) {
+                singleResult = "0.";
+            } else {
+                //大于0的整数
+                singleResult = number;
+            }
+        } else {
+            singleResult = number;
+        }
+        //只能输入一个小数点
+        if (bufferResult.contains(".")) {
+            if (number.equals(".")) {
+                singleResult = "";
+            } else {
+                //输入小数点后面的数--限制只能输入两位小数
+                decimalCount++;
+                if (decimalCount <= POINTER_LENGTH_AFTER) {
+                    //特殊情况-输入最大值时的处理：小数点后均为0的情况
+                    if (etMoney.getText().toString().equals(MAX_VALUE + ".") || etMoney.getText().toString().equals(MAX_VALUE + ".0")) {
+                        if (number.equals("0")) {
+                            singleResult = number;
+                        } else {
+                            singleResult = "";
+                            decimalCount--;
+                        }
+                        //"_._" 正常情况保留后任意数字的两位小数
+                    } else {
+                        singleResult = number;
+                    }
+                } else {
+                    singleResult = "";
+                    //输入无效-将deciamlCount重置
+                    decimalCount--;
+                }
+                Elog.e("TAG", "decimalCount=" + decimalCount);
+            }
+        }
+
+        mBuffer.append(singleResult);
+        etMoney.setText(mBuffer.toString());
+        etMoney.setSelection(mBuffer.length());
     }
 
 
@@ -256,7 +321,7 @@ public class NumberKeybordView extends LinearLayout {
     }
 
     /**
-     * 带小数
+     * 可限定小数位和整数位
      *
      * @param number
      */

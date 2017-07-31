@@ -9,7 +9,6 @@ import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 作者：liushuofei on 2017/7/17 19:30
@@ -49,8 +48,10 @@ public class DishListInteractorImpl implements IDishListInteractor {
     }
 
     @Override
-    public void requestPlaceOrder(String dishIds) {
+    public void requestPlaceOrder(String dishIds, String tableBillId, String saleManner) {
         HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("tableBillId", tableBillId);
+        hashMap.put("saleManner", saleManner);
         hashMap.put("dishIds", dishIds);
         RequestManager.getInstance().requestPostByAsyn(API.URL_PLACE_ORDER, hashMap, new ReqCallBack<String>() {
 

@@ -16,6 +16,8 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 
+import java.util.List;
+
 /**
  * 作者：liushuofei on 2017/7/6 15:13
  * 邮箱：lsf@yonyou.com
@@ -162,6 +164,10 @@ public class ADA_TakeOutList extends BaseAbsAdapter<OrderListEntity> {
 
     public void setOnItemClickListener(ADA_PackingList.OnItemClickLister mListener) {
         this.mListener = mListener;
+    }
+
+    public List<OrderListEntity> getDataSource(){
+        return mDataSource;
     }
 
 }

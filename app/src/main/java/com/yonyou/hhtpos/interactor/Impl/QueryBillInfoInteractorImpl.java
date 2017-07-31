@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IQueryBillInfoInteractor;
@@ -30,11 +31,15 @@ public class QueryBillInfoInteractorImpl implements IQueryBillInfoInteractor {
      * @param tableBillId
      */
     @Override
-    public void queryBillInfo(String compId, String shopId, String tableBillId) {
+    public void queryBillInfo(String compId, String shopId, String tableBillId, boolean isPay, RequestPayEntity requestPayEntity) {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("compId", compId);
         params.put("shopId", shopId);
         params.put("tableBillId", tableBillId);
+        if (isPay) {
+            params.put("payMoney", requestPayEntity.payMoney);
+            params.put("payType", requestPayEntity.payType);
+        }
         RequestManager.getInstance().requestPostByAsyn(API.URL_QUERY_BILL_INFO, params, new ReqCallBack<SettleAccountDataEntity>() {
             @Override
             public void onReqSuccess(SettleAccountDataEntity settleAccountDataEntity) {

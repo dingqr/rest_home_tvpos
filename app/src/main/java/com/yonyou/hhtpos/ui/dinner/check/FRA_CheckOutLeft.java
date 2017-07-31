@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutList;
@@ -118,8 +119,8 @@ public class FRA_CheckOutLeft extends BaseFragment {
                 tvPersonNum.setText(dataBean.personNum);
             }
             //就餐人数
-            if (!TextUtils.isEmpty(dataBean.openTime)) {
-                tvOpenTime.setText(dataBean.openTime);
+            if (dataBean.openTime != null) {
+                tvOpenTime.setText(AppDateUtil.getTimeStamp(dataBean.openTime, AppDateUtil.MM_DD_HH_MM));
             }
             //服务员
             if (!TextUtils.isEmpty(dataBean.waiterName)) {
@@ -131,7 +132,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
             }
             //菜品消费
             if (!TextUtils.isEmpty(dataBean.getDishCharge())) {
-                tvDishCharge.setText(dataBean.getDishCharge());
+                tvDishCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getDishCharge());
             }
             //菜品总价
             if (!TextUtils.isEmpty(dataBean.getDishChargeDetail().getDishCount())) {
@@ -139,23 +140,23 @@ public class FRA_CheckOutLeft extends BaseFragment {
             }
             //赠送
             if (dataBean.getDishChargeDetail() != null && !TextUtils.isEmpty(dataBean.getDishChargeDetail().getDishPresent())) {
-                tvDishTotalPrice.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getDishChargeDetail().getDishPresent());
+                tvDishPresent.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getDishChargeDetail().getDishPresent());
             }
             //服务费总计
             if (!TextUtils.isEmpty(dataBean.serviceCharge)) {
                 tvTotalServiceCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.serviceCharge);
             }
-            //服务费名称
-            if (dataBean.getServiceChargeDetail() != null && !TextUtils.isEmpty(dataBean.getServiceChargeDetail().getName())) {
+//            //服务费名称
+            if (dataBean.getServiceChargeDetail() != null && dataBean.getServiceChargeDetail().size() > 0) {
                 tvServiceName.setVisibility(View.VISIBLE);
-                tvServiceName.setText(dataBean.getServiceChargeDetail().getName());
+                tvServiceName.setText(dataBean.getServiceChargeDetail().get(0).getName());
             } else {
                 tvServiceName.setVisibility(View.INVISIBLE);
             }
             //服务费金额
-            if (dataBean.getServiceChargeDetail() != null && !TextUtils.isEmpty(dataBean.getServiceChargeDetail().getMoney())) {
+            if (dataBean.getServiceChargeDetail() != null && dataBean.getServiceChargeDetail().size() > 0) {
                 tvServiceSCharge.setVisibility(View.VISIBLE);
-                tvServiceSCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getServiceChargeDetail().getMoney());
+                tvServiceSCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getServiceChargeDetail().get(0).getMoney());
             } else {
                 tvServiceSCharge.setVisibility(View.INVISIBLE);
             }

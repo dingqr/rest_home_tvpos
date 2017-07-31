@@ -17,5 +17,5 @@ public interface IDishListPresenter {
      * 请求下单接口
      * @param dishIds 未下单菜品
      */
-    void requestPlaceOrder(String dishIds);
+    void requestPlaceOrder(String dishIds,String tableBillId, String saleManner);
 }

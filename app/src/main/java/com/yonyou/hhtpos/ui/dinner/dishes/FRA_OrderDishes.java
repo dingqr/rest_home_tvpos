@@ -39,7 +39,6 @@ import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
-import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.util.AnimationUtil;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
@@ -116,6 +115,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     /**
      * 接收右侧角标数量的数据集合
+     *
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -349,7 +349,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             public void onClick(View v) {
 //                new DIA_AddTempDishes(mContext).getDialog().show();
 //                new DIA_Coupon(mContext).show();
-                readyGo(ACT_CheckOut.class);
             }
         });
         //点击菜品进行数据筛选
@@ -359,19 +358,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 if (mDishDataBean != null && mDishDataBean.dishTypes.size() > 0) {
                     List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
                     // restore view helper
-                    restoreViewHelper();
-                    if (dishes != null && dishes.size() > 0) {
-                        mParams.setMargins(6, 0, 6, 0);
-                        flContent.setLayoutParams(mParams);
-                        mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
-                        mAdapter.update(dishes, true);
-                    } else {
-                        //设置空页面距离顶部的间距
-                        mParams.setMargins(12, 0, 12, 0);
-                        flContent.setLayoutParams(mParams);
-                        setLoadingTargetView(flContent);
-                        showEmpty(R.drawable.ic_wm_dishes_empty, mContext.getResources().getString(R.string.string_empty_dishes));
-                    }
+                    showDataOrEmptyPage(dishes);
                 }
             }
         });
@@ -387,14 +374,15 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaCurrentDishWeight.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Elog.e("TAG", "时价、称重=" + bean.toString());
+                Elog.e("TAG", "时价、称重=" + bean.toString());
                 //重量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
                 //时价
                 requestAddDishEntity.setDishPrice(bean.getDishPrice());
                 //做法
-                if (!TextUtils.isEmpty(bean.getPractices())) {
+                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
                     requestAddDishEntity.practices = bean.getPractices();
+                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
                 }
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getRemark())) {
@@ -406,7 +394,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaStandards.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Elog.e("TAG", "规格=" + bean.toString());
+                Elog.e("TAG", "规格=" + bean.toString());
                 //规格：必填
                 if (!TextUtils.isEmpty(requestAddDishEntity.standardId)) {
                     requestAddDishEntity.standardId = bean.getDishStandardId();
@@ -427,8 +415,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 //重量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
                 //做法
-                if (!TextUtils.isEmpty(bean.getPractices())) {
+                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
                     requestAddDishEntity.practices = bean.getPractices();
+                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
                 }
                 //备注：列表
                 if (!TextUtils.isEmpty(bean.getListShowRemark()) && !TextUtils.isEmpty(bean.getRemarks())) {
@@ -445,12 +434,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaWeightNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
-//                Elog.e("TAG", "称重、无备注列表=" + bean.toString());
+                Elog.e("TAG", "称重、无备注列表=" + bean.toString());
                 //重量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
                 //做法
-                if (!TextUtils.isEmpty(bean.getPractices())) {
+                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
                     requestAddDishEntity.practices = bean.getPractices();
+                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
                 }
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getRemark())) {
@@ -462,11 +452,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
+                Elog.e("TAG", "数量、做法、备注列表、备注：手填=" + bean.toString());
                 //数量
                 requestAddDishEntity.quantity = StringUtil.getString(bean.getDishCount());
                 //做法
-                if (!TextUtils.isEmpty(bean.getPractices())) {
+                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
                     requestAddDishEntity.practices = bean.getPractices();
+                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
                 }
                 //备注：列表
                 if (!TextUtils.isEmpty(bean.getListShowRemark()) && !TextUtils.isEmpty(bean.getRemarks())) {
@@ -656,6 +648,27 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     }
 
     /**
+     * 有数据设置菜品展示，无数据设置展示空页面
+     *
+     * @param dishes
+     */
+    private void showDataOrEmptyPage(List<DishesEntity> dishes) {
+        restoreViewHelper();
+        if (dishes != null && dishes.size() > 0) {
+            mParams.setMargins(6, 0, 6, 0);
+            flContent.setLayoutParams(mParams);
+            mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
+            mAdapter.update(dishes, true);
+        } else {
+            //设置空页面距离顶部的间距
+            mParams.setMargins(12, 0, 12, 0);
+            flContent.setLayoutParams(mParams);
+            setLoadingTargetView(flContent);
+            showEmpty(R.drawable.ic_wm_dishes_empty, mContext.getResources().getString(R.string.string_empty_dishes));
+        }
+    }
+
+    /**
      * 获取所有菜品菜类
      *
      * @param dishDataEntity
@@ -671,12 +684,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             setDishesCheckStatus(dishDataEntity);
             //给右侧菜类设置数据
             setRightDishTypeData();
-            //给菜品设置默认数据
-            mAdapter.update(mDishDataBean.dishTypes.get(1).dishes);
-            mRightNavigationView.getRightListView().getRLAdapter().setSelectItem(1);
-            mRightNavigationView.getRightListView().getRLAdapter().notifyDataSetChanged();
+            if (mDishDataBean.dishTypes != null && mDishDataBean.dishTypes.size() > 0) {
+                List<DishesEntity> dishes = mDishDataBean.dishTypes.get(0).dishes;
+                showDataOrEmptyPage(dishes);
+            }
         }
     }
+
 
     /**
      * 点菜

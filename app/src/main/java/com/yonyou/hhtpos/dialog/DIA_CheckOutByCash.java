@@ -2,13 +2,14 @@ package com.yonyou.hhtpos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.text.InputType;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
@@ -19,21 +20,28 @@ import java.lang.reflect.Method;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
- * Created by zj on 2017/7/15.
+ * Created by zj on 2017/7/27.
  * 邮箱：zjuan@yonyou.com
- * 描述：服务员点菜-菜品转台弹窗
+ * 描述：服务员结账-现金结账弹窗
  */
 public class DIA_CheckOutByCash {
     @Bind(R.id.tv_dialog_title)
     TextView tvDialogTitle;
+    @Bind(R.id.et_money)
+    EditText etMoney;
+    @Bind(R.id.rb_confirm_receive_money)
+    RadioButton rbConfirmRreceiveMoney;
     private Dialog mDialog;
     private View mContentView;
     private ImageView ivClose;
     private Context mContext;
     private NumberKeybordView numberGridView;
+    private OnReceiveMoneyListener mListener;
+    private String mMaxMoney;
 
     public DIA_CheckOutByCash(Context context) {
         mContext = context;
@@ -48,9 +56,22 @@ public class DIA_CheckOutByCash {
         initListener();
 
 
+//        InputManager.getInstances(mContext).hideSoftInput(etMoney);
         //不使用系统软件盘输入
-//        disableShowInput(etMoney);
+        disableShowInput(etMoney);
 
+    }
+
+    /**
+     * 设置最大可输入的金额
+     *
+     * @param maxMoney
+     */
+    public void setMaxInputMoneyHint(String maxMoney) {
+        this.mMaxMoney = maxMoney;
+        etMoney.setHint(mContext.getResources().getString(R.string.string_unpaid_money) + mContext.getResources().getString(R.string.RMB_symbol) + maxMoney);
+        numberGridView.setEtMoney(etMoney);
+        numberGridView.setInputMode(NumberKeybordView.CUSTOM_DECIMAL);
     }
 
     private void initListener() {
@@ -82,6 +103,24 @@ public class DIA_CheckOutByCash {
         });
     }
 
+    @OnClick({R.id.rb_confirm_receive_money})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rb_confirm_receive_money:
+                if (TextUtils.isEmpty(etMoney.getText().toString())) {
+                    CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_format_money), false);
+                    return;
+                }
+                if (mListener != null) {
+                    mListener.onReceiveMoney(etMoney.getText().toString());
+                    if (mDialog.isShowing()) {
+                        mDialog.dismiss();
+                    }
+                }
+                break;
+        }
+    }
+
     public Dialog show() {
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
@@ -103,17 +142,28 @@ public class DIA_CheckOutByCash {
      * @param editText
      */
     public void disableShowInput(EditText editText) {
-        if (android.os.Build.VERSION.SDK_INT <= 10) {
-            editText.setInputType(InputType.TYPE_NULL);
-        } else {
+//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(etMoney.getWindowToken(), 0);
+        try {
             Class<EditText> cls = EditText.class;
-            Method method;
-            try {
-                method = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
-                method.setAccessible(true);
-                method.invoke(editText, false);
-            } catch (Exception e) {
-            }
+            Method setShowSoftInputOnFocus;
+            setShowSoftInputOnFocus = cls.getMethod("setShowSoftInputOnFocus",
+                    boolean.class);
+            setShowSoftInputOnFocus.setAccessible(true);
+            setShowSoftInputOnFocus.invoke(etMoney, false);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    /**
+     * 收到钱的点击事件回调
+     */
+    public interface OnReceiveMoneyListener {
+        void onReceiveMoney(String money);
+    }
+
+    public void setOnReceiveMoneyListener(OnReceiveMoneyListener listener) {
+        this.mListener = listener;
     }
 }
