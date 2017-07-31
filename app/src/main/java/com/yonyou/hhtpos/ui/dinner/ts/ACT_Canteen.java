@@ -63,6 +63,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
 
     private String shopId = "hht";
+    private String shopIdFake = "C13352966C000000A60000000016E000";
 
     public static final int RB_FREE = 0;
     public static final int RB_SETTLE = 1;
@@ -436,13 +437,18 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private void filterTableByOption(int option){
         switch (option){
             case 1:
+                break;
             case 2:
+                break;
             case 3:
                 setTableOption(String.valueOf(option));
-                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
+                filtrateTableListPresenter.requestFiltrateTableList("", shopIdFake, tableOption);
+                break;
             case 4:
                 setTableOption(String.valueOf(option));
-                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
+                filtrateTableListPresenter.requestFiltrateTableList("", shopIdFake, tableOption);
+                break;
+            default:
                 break;
         }
     }
