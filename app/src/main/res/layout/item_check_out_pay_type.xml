@@ -7,6 +7,7 @@
     android:background="@color/color_f0f0f0">
 
     <TextView
+        android:id="@+id/tv_pay_type_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/px_32"

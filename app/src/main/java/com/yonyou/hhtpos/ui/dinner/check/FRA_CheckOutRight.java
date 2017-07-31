@@ -13,6 +13,8 @@ import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
@@ -43,6 +45,7 @@ public class FRA_CheckOutRight extends BaseFragment {
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
     private SettleAccountDataEntity dataBean;
+    private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付","畅捷POS", "微信支付", "支付宝", "更多"};
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
@@ -80,10 +83,11 @@ public class FRA_CheckOutRight extends BaseFragment {
         for (int i = 0; i < 3; i++) {
             mDiscountAdapter.update("");
         }
-
-        for (int i = 0; i < 9; i++) {
-            mPayTypeAdapter.update("");
+        ArrayList<String> payTypeList = new ArrayList<>();
+        for (int i = 0; i < payTypeNames.length; i++) {
+            payTypeList.add(payTypeNames[i]);
         }
+        mPayTypeAdapter.update(payTypeList);
     }
 
     @Override
