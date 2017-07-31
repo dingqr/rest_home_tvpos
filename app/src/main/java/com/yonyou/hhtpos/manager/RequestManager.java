@@ -52,50 +52,84 @@ public class RequestManager {
 
     private static final String TAG = RequestManager.class.getSimpleName();
 
-    /**mdiatype 这个需要和服务端保持一致（请求数据类型）*/
+    /**
+     * mdiatype 这个需要和服务端保持一致（请求数据类型）
+     */
 //    private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
-    /**mdiatype 这个需要和服务端保持一致（请求数据类型）*/
+    /**
+     * mdiatype 这个需要和服务端保持一致（请求数据类型）
+     */
     private static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
-    /**mdiatype 这个需要和服务端保持一致（请求数据类型）*/
+    /**
+     * mdiatype 这个需要和服务端保持一致（请求数据类型）
+     */
     private static final MediaType MEDIA_OBJECT_STREAM = MediaType.parse("application/octet-stream");
 
-    /**请求接口根地址*/
+    /**
+     * 请求接口根地址
+     */
     private static final String BASE_URL = "http://xxx.com/openapi";
-    /**请求接口实例对象*/
+    /**
+     * 请求接口实例对象
+     */
     private static volatile RequestManager mInstance;
-    /**get请求*/
+    /**
+     * get请求
+     */
     public static final int TYPE_GET = 0;
-    /**post请求参数为json*/
+    /**
+     * post请求参数为json
+     */
     public static final int TYPE_POST_JSON = 1;
-    /**post请求参数为表单*/
+    /**
+     * post请求参数为表单
+     */
     public static final int TYPE_POST_FORM = 2;
-    /**编码格式*/
+    /**
+     * 编码格式
+     */
     private static final String ENCODE = "utf-8";
 
-    /**okHttpClient 实例*/
+    /**
+     * okHttpClient 实例
+     */
     private OkHttpClient mOkHttpClient;
-    /**全局处理子线程和M主线程通信*/
+    /**
+     * 全局处理子线程和M主线程通信
+     */
     private Handler okHttpHandler;
 
-    /**普通连接的超时时间*/
+    /**
+     * 普通连接的超时时间
+     */
     private final int CONNECT_TIMEOIUT = 10;
-    /**文件上传的超时时间*/
+    /**
+     * 文件上传的超时时间
+     */
     private final int CONNECT_TIMEOIUT_FILE = 50;
 
-    /**服务器返回code值*/
+    /**
+     * 服务器返回code值
+     */
     private final int RESPONCE_CODE_200 = 200;
-    /**服务器返回code值*/
+    /**
+     * 服务器返回code值
+     */
     private final int RESPONCE_CODE_400 = 400;
-    /**服务器返回code值*/
+    /**
+     * 服务器返回code值
+     */
     private final int RESPONCE_CODE_500 = 500;
+
     /**
      * 初始化RequestManager
+     *
      * @param context
      */
     public RequestManager(Context context) {
         //初始化Handler
-        if(null == context){
+        if (null == context) {
             context = MyApplication.getInstance();
         }
 
@@ -107,6 +141,7 @@ public class RequestManager {
 
                 .cookieJar(new CookieJar() {//OkHttpClient创建时，传入这个CookieJar的实现，就能完成对Cookie的自动管理
                     private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
+
                     @Override
                     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
                         cookieStore.put(url, cookies);
@@ -126,6 +161,7 @@ public class RequestManager {
 
     /**
      * 获取单例引用
+     *
      * @param context
      * @return
      */
@@ -245,7 +281,49 @@ public class RequestManager {
     }
 
     /**
+     * okHttp post异步请求,包含Object类型的参数
+     *
+     * @param actionUrl 接口地址
+     * @param parmas    请求参数
+     * @param paramsMap 请求参数，value是Object类型的
+     * @param callBack  请求返回数据回调
+     * @param <T>       数据泛型
+     * @return
+     */
+    public <T> Call requestPostByAsyn(String actionUrl, HashMap<String, String> parmas, HashMap<String, HashMap<String, String>> paramsMap, final ReqCallBack<T> callBack) {
+        try {
+            // JSONObject格式
+            JSONObject json = new JSONObject();
+            for (String key : parmas.keySet()) {
+                json.put(key, parmas.get(key));
+            }
+            if (paramsMap != null) {
+                for (String key : paramsMap.keySet()) {
+                    json.put(key, paramsMap.get(key));
+                }
+            }
+
+            String params = json.toString();
+            RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
+            String requestUrl = actionUrl;
+
+            Elog.e(TAG, "Method:post");
+            Elog.e(TAG, "URL:" + requestUrl);
+            Elog.e(TAG, "Params:" + params);
+            final Request request = addHeaders().url(requestUrl).post(body).build();
+            Call call = mOkHttpClient.newCall(request);
+            call = onRequest(callBack, call);
+            return call;
+        } catch (Exception e) {
+            requestOnFailure(MyApplication.getInstance().getString(R.string.common_error_parse), callBack);
+            Elog.e(TAG, e.toString());
+        }
+        return null;
+    }
+
+    /**
      * 上传文件
+     *
      * @param actionUrl 接口地址
      * @param filePath  本地文件地址
      */
@@ -263,11 +341,13 @@ public class RequestManager {
         call = onRequest(callBack, call);
         return call;
     }
+
     /**
-     *上传文件
+     * 上传文件
+     *
      * @param actionUrl 接口地址
      * @param paramsMap 参数
-     * @param callBack 回调
+     * @param callBack  回调
      * @param <T>
      */
     public <T> Call upLoadFile(String actionUrl, HashMap<String, Object> paramsMap, final ReqCallBack<T> callBack) {
@@ -308,11 +388,11 @@ public class RequestManager {
      * 请求数据
      *
      * @param callBack 请求返回数据回调
-     * @param call  请求体
+     * @param call     请求体
      * @param <T>
      * @return
      */
-    private <T> Call onRequest(final ReqCallBack<T> callBack,Call call) {
+    private <T> Call onRequest(final ReqCallBack<T> callBack, Call call) {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -324,8 +404,8 @@ public class RequestManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    Elog.e(TAG,response.code());
-                    if (response.isSuccessful()||response.code()==RESPONCE_CODE_400||response.code()==RESPONCE_CODE_500) {
+                    Elog.e(TAG, response.code());
+                    if (response.isSuccessful() || response.code() == RESPONCE_CODE_400 || response.code() == RESPONCE_CODE_500) {
                         String string = response.body().string();
                         Elog.e(TAG, "response ----->" + string);
 //                        ResultBean result = new Gson().fromJson(string, ResultBean.class);
@@ -335,8 +415,8 @@ public class RequestManager {
                             switch (result.code) {
                                 case RESPONCE_CODE_200:
                                     if (callBack.type != null) {
-                                       String data =  result.data;
-                                        if(null==data||data.equals("")){
+                                        String data = result.data;
+                                        if (null == data || data.equals("")) {
                                             successCallBack(null, callBack);
                                         } else {
                                             if (callBack.type == String.class || callBack.type == Integer.class || callBack.type == Double.class || callBack.type == Float.class) {
@@ -345,12 +425,12 @@ public class RequestManager {
                                                 successCallBack((T) JSON.parseObject(data, callBack.type), callBack);
                                             }
                                         }
-                                    }else{
+                                    } else {
                                         requestOnFailure(MyApplication.getInstance().getString(R.string.common_error_parse), callBack);
                                     }
                                     break;
                                 default:
-                                    requestOnFailure(result.msg,result.code, callBack);
+                                    requestOnFailure(result.msg, result.code, callBack);
                                     break;
                             }
                         } else {
@@ -359,7 +439,7 @@ public class RequestManager {
                     } else {
                         failedCallBack(MyApplication.getInstance().getString(R.string.common_request_fail), callBack);
                     }
-                }catch (Throwable e){
+                } catch (Throwable e) {
                     e.printStackTrace();
                     requestOnFailure(MyApplication.getInstance().getString(R.string.common_error_parse), callBack);
                 }
@@ -441,17 +521,17 @@ public class RequestManager {
 //        }
 //
 //    }
-
     private <T> void requestOnFailure(final String errorMsg, final ReqCallBack<T> callBack) {
-        if(!TextUtils.isEmpty(errorMsg)) {
-            this.requestOnFailure(errorMsg,RESPONCE_CODE_500,callBack);
+        if (!TextUtils.isEmpty(errorMsg)) {
+            this.requestOnFailure(errorMsg, RESPONCE_CODE_500, callBack);
         }
     }
+
     /**
      * 统一处理调用失败信息（接口返回的失败信息）
      *
      * @param errorMsg
-     * @param code 错误码
+     * @param code     错误码
      * @param callBack
      * @param <T>
      */
@@ -463,7 +543,7 @@ public class RequestManager {
                     if (callBack != null) {
                         ErrorBean errorBean = new ErrorBean();
                         errorBean.setMsg(errorMsg);
-                        errorBean.setCode(code+"");
+                        errorBean.setCode(code + "");
                         callBack.onReqFailed(errorBean);
                     }
                 }
@@ -472,13 +552,12 @@ public class RequestManager {
             if (callBack != null) {
                 ErrorBean errorBean = new ErrorBean();
                 errorBean.setMsg(errorMsg);
-                errorBean.setCode(code+"");
+                errorBean.setCode(code + "");
                 callBack.onReqFailed(errorBean);
             }
         }
 
     }
-
 
 
     /**
@@ -509,6 +588,7 @@ public class RequestManager {
         }
         return null;
     }
+
     /**
      * okHttp get同步请求
      *
@@ -544,12 +624,19 @@ public class RequestManager {
 
     }
 
-    /**请求头信息*/
+    /**
+     * 请求头信息
+     */
     private final String HEADER_CONNECTION = "keep-alive";
-    /**请求头信息*/
+    /**
+     * 请求头信息
+     */
     private final String HEADER_PLATFORM = "2";
-    /**请求头信息*/
-    private final String HEADER_APPVERSION= "3.2.0";
+    /**
+     * 请求头信息
+     */
+    private final String HEADER_APPVERSION = "3.2.0";
+
     /**
      * 统一为请求添加头信息
      *
@@ -593,7 +680,7 @@ public class RequestManager {
             //Create a KeyStore containing our trusted CAs
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null, null);
-            keyStore.setCertificateEntry(name,certificate);
+            keyStore.setCertificateEntry(name, certificate);
 
             //Create a TrustManager that trusts the CAs in our keyStore
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
