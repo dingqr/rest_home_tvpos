@@ -68,27 +68,43 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private String dishId;
     private int quantity;
 
-    /**中间者 */
+    /**
+     * 中间者
+     */
     private IDishListPresenter mDishListPresenter;
     private IDishEditPresenter mDishEditPresenter;
 
-    /**右侧操作栏弹窗 */
+    /**
+     * 右侧操作栏弹窗
+     */
     private POP_DishesEdit editPopup;
     private POP_DishesPlaceOrderEdit placeOrderEditPopup;
 
     private String shopId = "C13352966C000000A60000000016E000";
 
-    /**未下单菜品的id列表 */
+    /**
+     * 未下单菜品的id列表
+     */
     private String dishIds = "";
-    /**总价格 */
+    /**
+     * 总价格
+     */
     private double totalPrice;
-    /**账单id */
+    /**
+     * 账单id
+     */
     private String tableBillId;
-    /**是否为右侧传递过来的 */
+    /**
+     * 是否为右侧传递过来的
+     */
     private boolean isRightRefresh;
-    /**修改菜品实体类 */
+    /**
+     * 修改菜品实体类
+     */
     private RequestAddDishEntity requestAddDishEntity;
-    /**菜品数据 */
+    /**
+     * 菜品数据
+     */
     private DishDataEntity dishDataEntity;
 
     private DIA_OrderDishSetPrice mDiaCurrentDishWeight;//称重、时价
@@ -96,6 +112,18 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
+    private int saleManner;
+
+    /**
+     * 账单id
+     *
+     * @param tableBillId
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onReceiveTableBillId(String tableBillId) {
+        this.tableBillId = tableBillId;
+        mDishListPresenter.requestDishList(tableBillId, true);
+    }
 
     @Override
     protected void onFirstUserVisible() {
@@ -138,6 +166,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         //称重、无备注列表
         mDiaWeightNormal = new DIA_OrderDishSetWeight(mContext);
         mDiaNormal = new DIA_OrderDishCount(mContext);//有做法，备注，数量的弹窗 -normal
+        ACT_OrderDishes activity = (ACT_OrderDishes) getActivity();
+        saleManner = activity.getFromWhere();
     }
 
     @Override
@@ -174,7 +204,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 无数据页面
             showEmpty(R.drawable.default_no_dishes, mContext.getString(R.string.dishes_no_data));
             // 发送一个空对象
-             EventBus.getDefault().post(new DishListEntity());
+            EventBus.getDefault().post(new DishListEntity());
             // 重置价格
             tvTotalPrice.setText("0.00");
         } else {
@@ -183,7 +213,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 设置总价格
             setDishTotalPrice(dataList);
             //将右侧菜类的角标数量数据传递到右侧页面
-            if (!isRightRefresh){
+            if (!isRightRefresh) {
                 EventBus.getDefault().post(bean);
             }
 
@@ -193,15 +223,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     /**
      * 设置未下单菜品id列表
+     *
      * @param dataList 菜品列表
      * @return
      */
-    private void setDishIds(List<DishListEntity.Dishes> dataList){
+    private void setDishIds(List<DishListEntity.Dishes> dataList) {
         StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < dataList.size(); i++){
+        for (int i = 0; i < dataList.size(); i++) {
             DishListEntity.Dishes bean = dataList.get(i);
-            if (TextUtils.isEmpty(bean.getOrderTime())){
-                if (i > 0){
+            if (TextUtils.isEmpty(bean.getOrderTime())) {
+                if (i > 0) {
                     stringBuffer.append(",");
                 }
                 stringBuffer.append(bean.getId());
@@ -213,14 +244,15 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     /**
      * 设置总价格
+     *
      * @param dataList
      */
-    private void setDishTotalPrice(List<DishListEntity.Dishes> dataList){
+    private void setDishTotalPrice(List<DishListEntity.Dishes> dataList) {
         totalPrice = 0.00;
-        for (int i = 0; i < dataList.size(); i++){
+        for (int i = 0; i < dataList.size(); i++) {
             DishListEntity.Dishes bean = dataList.get(i);
-            if (TextUtils.isEmpty(bean.getOrderTime())){
-                totalPrice+= Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
+            if (TextUtils.isEmpty(bean.getOrderTime())) {
+                totalPrice += Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
             }
         }
         tvTotalPrice.setText(StringUtil.getFormattedMoney(totalPrice + ""));
@@ -229,7 +261,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void requestPlaceOrder() {
         // 有下单操作
-        ((ACT_OrderDishes)getActivity()).setHasPlaceOrder(true);
+        ((ACT_OrderDishes) getActivity()).setHasPlaceOrder(true);
 
         // Toast提示
         DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_place_order_success));
@@ -243,10 +275,10 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         currentBean = (DishListEntity.Dishes) parent.getAdapter().getItem(position);
         dishId = currentBean.getId();
-        quantity = (int)Double.parseDouble(currentBean.getQuantity());
+        quantity = (int) Double.parseDouble(currentBean.getQuantity());
 
         // 未下单操作弹窗
-        if (TextUtils.isEmpty(currentBean.getOrderTime())){
+        if (TextUtils.isEmpty(currentBean.getOrderTime())) {
             editPopup = new POP_DishesEdit(mContext, this, currentBean.getDishStatus());
             editPopup.showAsDropDown(v, v.getWidth() + 8, -(v.getHeight() + 4));
         } else {
@@ -375,27 +407,28 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     /**
      * 匹配到当前菜品
+     *
      * @return
      */
-    private DishesEntity getDishesEntity(){
+    private DishesEntity getDishesEntity() {
         String currentClassId = currentBean.getDishClassId();
         String currentDishId = currentBean.getDishRelateId();
 
         // 分类列表
         List<DishTypesEntity> dishTypes = dishDataEntity.dishTypes;
-        if (null != dishTypes && dishTypes.size() > 0){
-            for (int i = 0; i < dishTypes.size(); i++){
+        if (null != dishTypes && dishTypes.size() > 0) {
+            for (int i = 0; i < dishTypes.size(); i++) {
                 DishTypesEntity dishTypesEntity = dishTypes.get(i);
-                if (currentClassId.equals(dishTypesEntity.relateId)){
+                if (currentClassId.equals(dishTypesEntity.relateId)) {
 
                     // 菜品列表
                     List<DishesEntity> dishes = dishTypesEntity.dishes;
 
-                    if (null != dishes && dishes.size() > 0){
-                        for (int j = 0; j < dishes.size(); j++){
+                    if (null != dishes && dishes.size() > 0) {
+                        for (int j = 0; j < dishes.size(); j++) {
                             DishesEntity dishesEntity = dishes.get(j);
 
-                            if (currentDishId.equals(dishesEntity.relateId)){
+                            if (currentDishId.equals(dishesEntity.relateId)) {
                                 return dishesEntity;
                             }
                         }
@@ -420,16 +453,17 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     /**
      * 退菜和赠菜回调
+     *
      * @param mode
      */
     @Override
     public void specialHandleDish(String mode) {
-        if (null != placeOrderEditPopup){
+        if (null != placeOrderEditPopup) {
             placeOrderEditPopup.dismiss();
         }
 
         // 取消赠送
-        if (mode.equals(DishConstants.SERVE_DISH) && hasGift()){
+        if (mode.equals(DishConstants.SERVE_DISH) && hasGift()) {
             DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_cancel_gift_dish), new DIA_DoubleConfirm.OnSelectedListener() {
                 @Override
                 public void confirm() {
@@ -437,7 +471,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 }
             });
             dia_doubleConfirm.getDialog().show();
-        }else {
+        } else {
             DIA_SwitchTable dia_switchTable = new DIA_SwitchTable(mContext, currentBean, mode, this);
             dia_switchTable.show();
         }
@@ -548,8 +582,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
                 break;
             case R.id.tv_place_order:
-                if (!TextUtils.isEmpty(dishIds)){
-                    mDishListPresenter.requestPlaceOrder(dishIds);
+                if (!TextUtils.isEmpty(dishIds)) {
+                    mDishListPresenter.requestPlaceOrder(dishIds, tableBillId, StringUtil.getString(saleManner));
                 }
                 break;
 
@@ -566,15 +600,15 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     @Override
     public void onConfirm(String mode, String count) {
         // 退菜或赠菜
-        if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)){
+        if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)) {
             mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
         }
         // 称重确认
-        else if (mode.equals(DishConstants.DISH_WEIGHT)){
+        else if (mode.equals(DishConstants.DISH_WEIGHT)) {
             mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, shopId);
         }
         // 转台
-        else if (mode.equals(DishConstants.DISH_TURN)){
+        else if (mode.equals(DishConstants.DISH_TURN)) {
             // TODO:tableBillId
             mDishEditPresenter.switchTable(currentBean.getId(), count, shopId, "C5BA09D3380000008800000000257000");
         }
@@ -582,15 +616,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     /**
      * 有赠送记录
+     *
      * @return
      */
-    private boolean hasGift(){
-        if (null != currentBean){
+    private boolean hasGift() {
+        if (null != currentBean) {
             List<DishListEntity.Dishes.Abnormal> abnormalList = currentBean.getAbnormalList();
-            if (null != abnormalList && abnormalList.size() > 0){
-                for (int i = 0; i < abnormalList.size(); i++){
+            if (null != abnormalList && abnormalList.size() > 0) {
+                for (int i = 0; i < abnormalList.size(); i++) {
                     DishListEntity.Dishes.Abnormal bean = abnormalList.get(i);
-                    if (!TextUtils.isEmpty(bean.getDishAbnormalStatus()) && bean.getDishAbnormalStatus().equals(DishConstants.SERVE_DISH)){
+                    if (!TextUtils.isEmpty(bean.getDishAbnormalStatus()) && bean.getDishAbnormalStatus().equals(DishConstants.SERVE_DISH)) {
                         return true;
                     }
                 }
@@ -601,17 +636,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     }
 
     /**
-     * 账单id
-     * @param tableBillId
-     */
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onReceiveTableBillId(String tableBillId) {
-        this.tableBillId = tableBillId;
-        mDishListPresenter.requestDishList(tableBillId, true);
-    }
-
-    /**
      * 所有的菜类数据
+     *
      * @param dishDataEntity 菜类数据
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -621,7 +647,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
-        if (intent == ReceiveConstants.REFRESH_LEFT_DISHES){
+        if (intent == ReceiveConstants.REFRESH_LEFT_DISHES) {
             isRightRefresh = true;
             mDishListPresenter.requestDishList(tableBillId, false);
         }

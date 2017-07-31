@@ -43,24 +43,38 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     @Bind(R.id.pla_lv_take_out)
     PLALoadMoreListView plaLvTakeOut;
 
-    /**传入数据 */
+    /**
+     * 传入数据
+     */
     public static final String TYPE = "type";
     private int type;
 
     private List<OrderListEntity> dataList;
     private ADA_TakeOutList mAdapter;
 
-    /**中间者 */
+    /**
+     * 中间者
+     */
     private IWMListPresenter mTakeOutListPresenter;
-    /**请求参数 */
+    /**
+     * 请求参数
+     */
     private OrderListRequestEntity bean;
-    /**外卖公司id */
+    /**
+     * 外卖公司id
+     */
     public String takeOutCompanyId = "";
-    /**市别id */
+    /**
+     * 市别id
+     */
     public String takeOutScheduleId = "";
-    /**当前页数 */
+    /**
+     * 当前页数
+     */
     private int mCurrentPage = 1;
-    /**默认页数 */
+    /**
+     * 默认页数
+     */
     private static final String DEFAULT_PAGE = "1";
 
     public static final FRA_TakeOutList newInstance(int type) {
@@ -133,7 +147,8 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
         mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
             @Override
             public void onItemClick(int position) {
-                if (dataList.size() > 0) {
+                List<OrderListEntity> dataList = mAdapter.getDataSource();
+                if (null != dataList && dataList.size() > 0) {
                     requestTakeOutDetail(dataList.get(position).getTableBillId());
                 }
             }
@@ -159,6 +174,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     public void showBusinessError(ErrorBean error) {
 
     }
+
     /**
      * 触发右侧请求外卖详情接口
      */
@@ -166,6 +182,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
         ACT_TakeOut actTakeOutc = (ACT_TakeOut) getActivity();
         actTakeOutc.requestTakeOutDetail(tableBillId);
     }
+
     @Override
     public void requestTakeOutList(List<OrderListEntity> dataList, boolean isRefresh) {
         if (null == plaLvTakeOut)
@@ -186,7 +203,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
                 //触发详情接口
                 ACT_TakeOut actTakeOut = (ACT_TakeOut) getActivity();
                 actTakeOut.requestTakeOutDetail(dataList.get(0).getTableBillId());
-                this.dataList  = dataList;
+                this.dataList = dataList;
                 dataList.get(0).setCheck(true);
                 mAdapter.update(dataList, isRefresh);
             } else {
@@ -202,7 +219,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     public void onRefresh() {
         // reset page and list view state
         mCurrentPage = 1;
-        if (null != plaLvTakeOut){
+        if (null != plaLvTakeOut) {
             plaLvTakeOut.setCanLoadMore(true);
         }
 
@@ -252,7 +269,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
-        if (intent == ReceiveConstants.WM_OPEN_ORDER_SUCCESS){
+        if (intent == ReceiveConstants.WM_OPEN_ORDER_SUCCESS) {
             onRefresh();
         }
     }

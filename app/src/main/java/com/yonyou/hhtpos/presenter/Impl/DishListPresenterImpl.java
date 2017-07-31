@@ -38,9 +38,9 @@ public class DishListPresenterImpl implements IDishListPresenter {
     }
 
     @Override
-    public void requestPlaceOrder(String dishIds) {
+    public void requestPlaceOrder(String dishIds,String tableBillId, String saleManner) {
         mDishListView.showDialogLoading(mContext.getString(R.string.network_loading));
-        mDishListInteractor.requestPlaceOrder(dishIds);
+        mDishListInteractor.requestPlaceOrder(dishIds,tableBillId,saleManner);
     }
 
     private class DishListListener implements BaseLoadedListener<DishListEntity> {

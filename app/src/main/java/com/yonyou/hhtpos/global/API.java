@@ -127,8 +127,8 @@ public class API {
      * 点菜时，新加菜品
      * "http://10.220.23.81:9001"
      */
-//    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
-    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
+    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
+//    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
     /**
      * 查询服务员
      */
@@ -152,7 +152,8 @@ public class API {
     /**
      * 下单接口
      */
-    public static final String URL_PLACE_ORDER = BASE_SERVER_SHOP + "/prodish/order";
+//    public static final String URL_PLACE_ORDER = BASE_SERVER_SHOP + "/prodish/order";
+    public static final String URL_PLACE_ORDER = "http://10.220.23.81:9001" + "/prodish/order";
     /**
      * 退菜和赠菜接口
      */
