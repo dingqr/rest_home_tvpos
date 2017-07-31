@@ -16,6 +16,7 @@ import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
@@ -55,8 +56,6 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付", "畅捷POS", "微信支付", "支付宝", "更多"};
     private DIA_CheckOutByCash mDiaCheckOutByCash;
     private IQueryBillInfoPresenter mPresenter;
-    private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
-    private String shopId = "C13352966C000000A60000000016E000";
     private String tableBillId;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -118,7 +117,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 RequestPayEntity requestPayEntity = new RequestPayEntity();
                 requestPayEntity.payMoney = money;
                 requestPayEntity.payType = "现金";
-                mPresenter.queryBillInfo(compId, shopId, tableBillId, true, requestPayEntity);
+                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
             }
         });
     }
