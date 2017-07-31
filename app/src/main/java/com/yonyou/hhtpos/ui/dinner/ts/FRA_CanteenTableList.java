@@ -94,7 +94,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     private IChooseWaiterPresenter mChooseWaiterPresenter;
     private List<WaiterEntity> mWaiterList = new ArrayList<>();
     //测试参数
-    private String shopIdFake = "C13352966C000000A60000000016E000";
+//    private String shopIdFake = "C13352966C000000A60000000016E000";
     /**
      * 传入数据
      */
@@ -333,7 +333,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     break;
                 //桌台预定
                 case 5:
-                    tsOpenOrderEntity.setShopId(shopIdFake);
+                    tsOpenOrderEntity.setShopId(API.shopId);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
             }
@@ -351,6 +351,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     public void clearTable(String result) {
         onRefresh();
+
     }
 
     /**
