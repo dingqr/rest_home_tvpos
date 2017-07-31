@@ -12,6 +12,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
@@ -30,8 +31,6 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
     RelativeLayout mTitleLay;
     private IQueryBillInfoPresenter mPresenter;
     private String tableBillId;
-    private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
-    private String shopId = "C13352966C000000A60000000016E000";
     //传递参数
     public static final String TABLE_BILL_ID = "table.bill.id";
     @Override
@@ -39,7 +38,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
         mTitleLay.setVisibility(View.GONE);
         mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
         RequestPayEntity requestPayEntity = new RequestPayEntity();
-        mPresenter.queryBillInfo(compId, shopId, tableBillId,false,requestPayEntity);
+        mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId,false,requestPayEntity);
     }
 
     @Override

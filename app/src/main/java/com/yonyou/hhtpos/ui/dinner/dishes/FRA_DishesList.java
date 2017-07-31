@@ -29,6 +29,7 @@ import com.yonyou.hhtpos.dialog.DIA_OrderDishSetPrice;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishSetWeight;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
 import com.yonyou.hhtpos.dialog.DIA_SwitchTable;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.popup.POP_DishesEdit;
@@ -80,7 +81,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private POP_DishesEdit editPopup;
     private POP_DishesPlaceOrderEdit placeOrderEditPopup;
 
-    private String shopId = "C13352966C000000A60000000016E000";
+    private String shopId = API.shopId;
 
     /**
      * 未下单菜品的id列表
@@ -304,7 +305,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         if (quantity == 0) {
             deleteDish();
         } else {
-            mDishEditPresenter.updateQuantity("", dishId, String.valueOf(quantity), shopId);
+            mDishEditPresenter.updateQuantity("", dishId, String.valueOf(quantity), API.shopId);
         }
     }
 
@@ -329,7 +330,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         requestAddDishEntity.dishId = currentBean.getId();
         requestAddDishEntity.setDishPrice(currentBean.getDishPrice());
         requestAddDishEntity.dishType = currentBean.getDishType();
-        requestAddDishEntity.shopId = shopId;
+        requestAddDishEntity.shopId = API.shopId;
         requestAddDishEntity.unit = currentBean.getUnit();
 
         requestAddDishEntity.dishRelateId = currentBean.getDishRelateId();
@@ -448,7 +449,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     @Override
     public void updateDishStatus(String status) {
-        mDishEditPresenter.updateDishStatus("", status, dishId, shopId);
+        mDishEditPresenter.updateDishStatus("", status, dishId, API.shopId);
     }
 
     /**
@@ -467,7 +468,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_cancel_gift_dish), new DIA_DoubleConfirm.OnSelectedListener() {
                 @Override
                 public void confirm() {
-                    mDishEditPresenter.cancelGiftDish(currentBean.getId(), shopId, "");
+                    mDishEditPresenter.cancelGiftDish(currentBean.getId(), API.shopId, "");
                 }
             });
             dia_doubleConfirm.getDialog().show();
@@ -485,7 +486,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_delete_dish), new DIA_DoubleConfirm.OnSelectedListener() {
             @Override
             public void confirm() {
-                mDishEditPresenter.deleteDish("", dishId, shopId);
+                mDishEditPresenter.deleteDish("", dishId, API.shopId);
             }
         });
         dia_doubleConfirm.getDialog().show();
@@ -601,16 +602,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onConfirm(String mode, String count) {
         // 退菜或赠菜
         if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)) {
-            mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), shopId, count);
+            mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), API.shopId, count);
         }
         // 称重确认
         else if (mode.equals(DishConstants.DISH_WEIGHT)) {
-            mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, shopId);
+            mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, API.shopId);
         }
         // 转台
         else if (mode.equals(DishConstants.DISH_TURN)) {
             // TODO:tableBillId
-            mDishEditPresenter.switchTable(currentBean.getId(), count, shopId, "C5BA09D3380000008800000000257000");
+            mDishEditPresenter.switchTable(currentBean.getId(), count, API.shopId, "C5BA09D3380000008800000000257000");
         }
     }
 
