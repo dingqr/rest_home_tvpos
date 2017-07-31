@@ -140,6 +140,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getPractices().get(i).practiceName);
                     foe.setOptionId(dataBean.getPractices().get(i).relateId);
+                    foe.setCheck(dataBean.getPractices().get(i).isCheck);
                     foe.setType(FiltrationView.COOKERY);
                     options.add(foe);
                 }
@@ -159,6 +160,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getRemarks().get(i).remarkName);
                     foe.setOptionId(dataBean.getRemarks().get(i).relateId);
+                    foe.setCheck(dataBean.getRemarks().get(i).isCheck);
                     foe.setType(MultipleSelectView.DISH_REMARK);
                     options.add(foe);
                 }

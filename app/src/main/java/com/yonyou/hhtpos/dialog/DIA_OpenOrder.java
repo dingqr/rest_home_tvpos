@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.ReturnObject;
@@ -24,6 +25,9 @@ import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
 import com.yonyou.hhtpos.interfaces.OpenOrderCallback;
+import com.yonyou.hhtpos.presenter.ITSCancelSplitPresenter;
+import com.yonyou.hhtpos.presenter.Impl.TSCancelSplitPresenterImpl;
+import com.yonyou.hhtpos.view.ITSCancelSplitOrderView;
 
 import java.util.List;
 
@@ -33,7 +37,7 @@ import java.util.List;
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnWaiterSelectedListener {
+public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnWaiterSelectedListener, ITSCancelSplitOrderView {
     /**
      * 上下文
      */
@@ -69,12 +73,51 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
     private CanteenTableEntity canteenTableEntity;
     private DIA_ChooseWaiter dia_chooseWaiter;
 
+    private ITSCancelSplitPresenter cancelSplitPresenter;
+
     public DIA_OpenOrder(Context mContext) {
         this.mContext = mContext;
         initView();
     }
 
-    public DIA_OpenOrder setData(CanteenTableEntity canteenTableEntity,List<WaiterEntity> waiterList) {
+    public DIA_OpenOrder setData(CanteenTableEntity canteenTableEntity, List<WaiterEntity> waiterList) {
+        if (canteenTableEntity != null) {
+            if (TextUtils.isEmpty(canteenTableEntity.tableName)) {
+                tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing));
+            }
+            if (!TextUtils.isEmpty(canteenTableEntity.tableName) && 3 != canteenTableEntity.getTableOption()) {
+                tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing) + "(" + canteenTableEntity.tableName + ")");
+            }
+            if (!TextUtils.isEmpty(canteenTableEntity.tableName) && 3 == canteenTableEntity.getTableOption()) {
+                String tableName = getSplitName(canteenTableEntity.tableName);
+                tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing) + "(" + tableName + ")");
+
+            }
+        }
+        this.waiterList = waiterList;
+        this.canteenTableEntity = canteenTableEntity;
+        return this;
+    }
+
+    private String getSplitName(String tableName) {
+        String lastCharacter = tableName.substring(tableName.length() - 1, tableName.length());
+        String tmp;
+        char lastE = 'Z';
+        int lastEnglish = (int) lastE;
+        char[] c = lastCharacter.toCharArray();
+        int now = (int) c[0];
+        if (now >= lastEnglish) {
+            tmp = "A";
+            return tableName + tmp;
+        } else {
+            char uppercase = (char) (now + 1);
+            tmp = String.valueOf(uppercase);
+            return tableName.substring(0, tableName.length() - 1) + tmp;
+        }
+
+    }
+
+    public DIA_OpenOrder setData(CanteenTableEntity canteenTableEntity, List<WaiterEntity> waiterList, String tableOption) {
         if (canteenTableEntity != null) {
             if (!TextUtils.isEmpty(canteenTableEntity.tableName)) {
                 tvTitle.setText(mContentView.getResources().getString(R.string.canteen_billing) + "(" + canteenTableEntity.tableName + ")");
@@ -87,6 +130,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         return this;
     }
 
+
     private void initView() {
         mDialog = new Dialog(mContext, R.style.style_custom_dialog);
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_open_order, null);
@@ -98,7 +142,9 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         etBillRemark = (EditText) mContentView.findViewById(R.id.et_dinner_remark);
         etWaiter = (EditText) mContentView.findViewById(R.id.et_waiter);
         tvConfirmOpenOrder = (RadioButton) mContentView.findViewById(R.id.tv_confirm_open_order);
-        ivClose = (ImageView)mContentView.findViewById(R.id.iv_close);
+        ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
+
+        cancelSplitPresenter = new TSCancelSplitPresenterImpl(mContext, this);
 
         tvConfirmOpenOrder.setOnClickListener(this);
         etWaiter.setOnClickListener(this);
@@ -110,7 +156,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         userPhone = etUserPhone.getText().toString().trim();
         waiter = etWaiter.getText().toString().trim();
         dinnerNumber = etUserNumber.getText().toString().trim();
-        billRemark= etBillRemark.getText().toString().trim();
+        billRemark = etBillRemark.getText().toString().trim();
         if (TextUtils.isEmpty(dinnerNumber)) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
@@ -127,6 +173,10 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         switch (v.getId()) {
             case R.id.iv_close:
                 if (mDialog != null) {
+                    if (canteenTableEntity.getTableOption() == 3) {
+                        //调用取消拼台接口
+                        cancelSplitPresenter.cancelSplit(canteenTableEntity.tableID);
+                    }
                     mDialog.dismiss();
                 }
                 break;
@@ -164,7 +214,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         if (waiterEntity != null) {
             this.waiterEntity = waiterEntity;
             etWaiter.setText(waiterEntity.waiterName);
-        }else{
+        } else {
             this.waiterEntity.waiterId = "1";
             this.waiterEntity.waiterName = "fakeData";
             etWaiter.setText(this.waiterEntity.waiterName);
@@ -224,5 +274,50 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
 
     public void setTsCallback(OpenOrderCallback tsCallback) {
         this.tsCallback = tsCallback;
+    }
+
+    @Override
+    public void showLoading(String msg) {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void showException(String msg) {
+
+    }
+
+    @Override
+    public void showNetError() {
+
+    }
+
+    @Override
+    public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    public void showDialogLoading(String msg) {
+
+    }
+
+    @Override
+    public void dismissDialogLoading() {
+
+    }
+
+    @Override
+    public void cancelSplitTable() {
+        mDialog.dismiss();
     }
 }

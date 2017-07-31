@@ -30,11 +30,11 @@ public class DishPracticeEntity {
      * 做法备注
      */
     public String remark;
-
     /**
      * 选中状态
      */
     public boolean isCheck;
+
 
     public DishPracticeEntity() {
     }
@@ -51,6 +51,7 @@ public class DishPracticeEntity {
                 ", practiceName='" + practiceName + '\'' +
                 ", relateId='" + relateId + '\'' +
                 ", remark='" + remark + '\'' +
+                ", isCheck=" + isCheck +
                 '}';
     }
 }

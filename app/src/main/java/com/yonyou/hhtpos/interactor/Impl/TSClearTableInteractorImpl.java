@@ -24,11 +24,12 @@ public class TSClearTableInteractorImpl implements ITSClearTableInteractor {
     }
 
     @Override
-    public void clearTable( String tableId) {
+    public void clearTable(String shopId,String tableId) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
 
+        hashMap.put("shopId",StringUtil.getString(shopId));
         hashMap.put("tableId",StringUtil.getString(tableId));
-        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_SPLIT_ORDER, hashMap, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_CLEAR_ORDER, hashMap, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {
                 mBaseLoadedListener.onSuccess(1,result);

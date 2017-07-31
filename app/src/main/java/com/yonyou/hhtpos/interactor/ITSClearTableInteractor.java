@@ -6,5 +6,5 @@ package com.yonyou.hhtpos.interactor;
  */
 
 public interface ITSClearTableInteractor {
-    void clearTable(String tableId);
+    void clearTable(String shopId,String tableId);
 }
