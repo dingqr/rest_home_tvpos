@@ -70,6 +70,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     public static final int RB_OCCUPY = 3;
     public static final int RB_LOCKED = 4;
 
+    private String tableOption;
+
     /**
      * 当前Fragment
      */
@@ -278,7 +280,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.disableAllItemChooser();
                     //调用转台接口
-                    filtrateTableListPresenter.requestFiltrateTableList("", shopId, "1");
+                    filterTableByOption(1);
                     setTopTab(false);
 
                 } else {
@@ -324,9 +326,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.disableAllItemChooser();
                     //调用并台接口
-                    filtrateTableListPresenter.requestFiltrateTableList("", shopId, "2");
+                    filterTableByOption(2);
                     setTopTab(false);
-
                 } else {
                     tvMergeTable.setText(mContext.getString(R.string.table_merge));
 
@@ -366,7 +367,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.disableAllItemChooser();
                     //调用拼台接口
-                    filtrateTableListPresenter.requestFiltrateTableList("", shopId, "3");
+                    filterTableByOption(3);
                     //把桌台列表表头置灰并且viewPager设置为不可滑动
                     setTopTab(false);
                 } else {
@@ -407,8 +408,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvSplitTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
+                    filterTableByOption(4);
                     setTopTab(false);
-
                 } else {
                     tvClearTable.setText(mContext.getString(R.string.table_clear));
 
@@ -429,6 +430,19 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                 }
                 break;
             default:
+                break;
+        }
+    }
+    private void filterTableByOption(int option){
+        switch (option){
+            case 1:
+            case 2:
+            case 3:
+                setTableOption(String.valueOf(option));
+                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
+            case 4:
+                setTableOption(String.valueOf(option));
+                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
                 break;
         }
     }
@@ -461,5 +475,14 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     public void getFiltrateTable(List<CanteenTableEntity> tableList) {
         Elog.e("tableList.size==", tableList.size() + "EventBusSend");
         EventBus.getDefault().post(tableList);
+        EventBus.getDefault().post(tableOption);
+    }
+
+    public String getTableOption() {
+        return tableOption;
+    }
+
+    public void setTableOption(String tableOption) {
+        this.tableOption = tableOption;
     }
 }

@@ -131,6 +131,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
                     foe.setOption(dataBean.getPractices().get(i).practiceName);
                     foe.setOptionId(dataBean.getPractices().get(i).relateId);
+                    foe.setCheck(dataBean.getPractices().get(i).isCheck);
                     foe.setType(FiltrationView.COOKERY);
                     options.add(foe);
                 }

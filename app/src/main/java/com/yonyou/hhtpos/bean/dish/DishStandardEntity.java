@@ -37,6 +37,7 @@ public class DishStandardEntity {
                 ", showName='" + showName + '\'' +
                 ", standardCode='" + standardCode + '\'' +
                 ", standardName='" + standardName + '\'' +
+                ", isCheck=" + isCheck +
                 '}';
     }
 

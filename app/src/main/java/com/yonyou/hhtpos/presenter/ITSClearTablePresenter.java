@@ -6,5 +6,5 @@ package com.yonyou.hhtpos.presenter;
  */
 
 public interface ITSClearTablePresenter {
-    void clearTable(String tableId);
+    void clearTable(String shopId,String tableId);
 }
