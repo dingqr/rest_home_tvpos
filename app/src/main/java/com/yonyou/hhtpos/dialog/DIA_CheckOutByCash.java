@@ -70,8 +70,9 @@ public class DIA_CheckOutByCash {
     public void setMaxInputMoneyHint(String maxMoney) {
         this.mMaxMoney = maxMoney;
         etMoney.setHint(mContext.getResources().getString(R.string.string_unpaid_money) + mContext.getResources().getString(R.string.RMB_symbol) + maxMoney);
+        etMoney.setText(maxMoney);
         numberGridView.setEtMoney(etMoney);
-        numberGridView.setInputMode(NumberKeybordView.CUSTOM_DECIMAL);
+        numberGridView.setInputMode(NumberKeybordView.DECIMAL);
     }
 
     private void initListener() {
@@ -84,23 +85,6 @@ public class DIA_CheckOutByCash {
                 }
             }
         });
-        //数字键盘点击
-        numberGridView.setOnKeybordListener(new NumberKeybordView.onKeybordClickListener() {
-            @Override
-            public void onNumberReturn(String number) {
-                CommonUtils.makeEventToast(mContext, number, false);
-            }
-
-            @Override
-            public void clearNumber() {
-                CommonUtils.makeEventToast(mContext, "清除文本", false);
-            }
-
-            @Override
-            public void onLongClickClearAllNumber(boolean b) {
-
-            }
-        });
     }
 
     @OnClick({R.id.rb_confirm_receive_money})
@@ -108,6 +92,11 @@ public class DIA_CheckOutByCash {
         switch (v.getId()) {
             case R.id.rb_confirm_receive_money:
                 if (TextUtils.isEmpty(etMoney.getText().toString())) {
+                    CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_format_money), false);
+                    return;
+                }
+                double et_money = Double.parseDouble(etMoney.getText().toString());
+                if (!TextUtils.isEmpty(mMaxMoney) && et_money > Double.parseDouble(mMaxMoney)) {
                     CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_format_money), false);
                     return;
                 }

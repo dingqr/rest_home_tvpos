@@ -88,6 +88,10 @@ public class SettleAccountDataEntity implements Serializable {
      * 未支付金额
      */
     private String unpaidMoney;
+    /**
+     * 是否结算完成
+     */
+    public boolean settleComplete;
 
     public class PaidHistory implements Serializable {
         public PaidHistory() {
@@ -331,6 +335,8 @@ public class SettleAccountDataEntity implements Serializable {
                 ", serviceChargeDetail=" + serviceChargeDetail +
                 ", totalCharge='" + totalCharge + '\'' +
                 ", unpaidMoney='" + unpaidMoney + '\'' +
+                ", settleComplete=" + settleComplete +
+                ", waiterName='" + waiterName + '\'' +
                 '}';
     }
 }

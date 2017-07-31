@@ -70,7 +70,7 @@ public class RequestAddDishEntity {
     /**
      * 所选备注id列表
      */
-    public String  remarks;
+    public String remarks;
     /**
      * shopId
      */
@@ -90,11 +90,19 @@ public class RequestAddDishEntity {
     /**
      * 服务员id
      */
-    public String waiterId ;
+    public String waiterId;
     /**
      * 是否称重
      */
     public int inBill;
+    /**
+     * 销售模式：1：堂食 2：外带 3：外卖
+     */
+    public String saleManner;
+    /**
+     * 账单：开单1，下单2，结账3，退款4
+     */
+    public String orderState;
 
     public String getDishPrice() {
         return StringUtil.getFormattedMoney(dishPrice);

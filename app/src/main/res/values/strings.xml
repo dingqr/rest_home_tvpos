@@ -372,7 +372,8 @@
     <string name="string_discount_price">折扣价</string>
     <string name="string_ordered_dish">已点菜品</string>
     <string name="string_note_order_dish">点菜</string>
-    <string name="string_format_money">收款金额格式不正确</string>
+    <string name="string_format_money">收款金额错误,请输入收款金额！</string>
     <string name="string_unpaid_money">待支付</string>
+    <string name="string_receive_money_successful">收款成功</string>
 
 </resources>
