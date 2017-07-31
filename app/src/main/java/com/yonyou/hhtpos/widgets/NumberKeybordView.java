@@ -252,10 +252,34 @@ public class NumberKeybordView extends LinearLayout {
             singleResult = number;
         }
         //只能输入一个小数点
-        if (bufferResult.contains(".") && number.equals(".")) {
-            singleResult = "";
-            return;
+        if (bufferResult.contains(".")) {
+            if (number.equals(".")) {
+                singleResult = "";
+            } else {
+                //输入小数点后面的数--限制只能输入两位小数
+                decimalCount++;
+                if (decimalCount <= POINTER_LENGTH_AFTER) {
+                    //特殊情况-输入最大值时的处理：小数点后均为0的情况
+                    if (etMoney.getText().toString().equals(MAX_VALUE + ".") || etMoney.getText().toString().equals(MAX_VALUE + ".0")) {
+                        if (number.equals("0")) {
+                            singleResult = number;
+                        } else {
+                            singleResult = "";
+                            decimalCount--;
+                        }
+                        //"_._" 正常情况保留后任意数字的两位小数
+                    } else {
+                        singleResult = number;
+                    }
+                } else {
+                    singleResult = "";
+                    //输入无效-将deciamlCount重置
+                    decimalCount--;
+                }
+                Elog.e("TAG", "decimalCount=" + decimalCount);
+            }
         }
+
         mBuffer.append(singleResult);
         etMoney.setText(mBuffer.toString());
         etMoney.setSelection(mBuffer.length());

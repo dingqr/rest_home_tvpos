@@ -41,6 +41,7 @@ public class DIA_CheckOutByCash {
     private Context mContext;
     private NumberKeybordView numberGridView;
     private OnReceiveMoneyListener mListener;
+    private String mMaxMoney;
 
     public DIA_CheckOutByCash(Context context) {
         mContext = context;
@@ -67,6 +68,7 @@ public class DIA_CheckOutByCash {
      * @param maxMoney
      */
     public void setMaxInputMoneyHint(String maxMoney) {
+        this.mMaxMoney = maxMoney;
         etMoney.setHint(mContext.getResources().getString(R.string.string_unpaid_money) + mContext.getResources().getString(R.string.RMB_symbol) + maxMoney);
         numberGridView.setEtMoney(etMoney);
         numberGridView.setInputMode(NumberKeybordView.CUSTOM_DECIMAL);
