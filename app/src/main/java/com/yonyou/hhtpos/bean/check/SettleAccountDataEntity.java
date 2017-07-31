@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.bean.check;
 
 import com.yonyou.framework.library.common.utils.StringUtil;
+import com.yonyou.hhtpos.adapter.CouponEntity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +20,14 @@ public class SettleAccountDataEntity implements Serializable {
      * 折让金额
      */
     private String allowanceMoney;
+    /**
+     * 优惠券使用列表
+     */
+    public List<CouponEntity> couponUseds;
+    /**
+     * 支付记录
+     */
+    public List<PaidHistory> paidHistory;
     /**
      * 合计优惠
      */
@@ -46,7 +55,7 @@ public class SettleAccountDataEntity implements Serializable {
     /**
      * 开台时间
      */
-    public String openTime;
+    public Long openTime;
     /**
      * 下单菜品列表
      */
@@ -70,7 +79,7 @@ public class SettleAccountDataEntity implements Serializable {
     /**
      * 服务费详情
      */
-    private ServiceChargeDetail serviceChargeDetail;
+    public List<ServiceChargeDetail> serviceChargeDetail;
     /**
      * 消费总计
      */
@@ -80,7 +89,49 @@ public class SettleAccountDataEntity implements Serializable {
      */
     private String unpaidMoney;
 
-    public  class DishChargeDetail implements Serializable {
+    public class PaidHistory implements Serializable {
+        public PaidHistory() {
+        }
+
+        /**
+         * 支付金额
+         */
+        private String payAmount;
+        /**
+         * 支付时间
+         */
+        private String payTime;
+        /**
+         * 支付方式
+         */
+        private String payType;
+
+        public String getPayAmount() {
+            return StringUtil.getFormattedMoney(payAmount);
+        }
+
+        public void setPayAmount(String payAmount) {
+            this.payAmount = payAmount;
+        }
+
+        public String getPayTime() {
+            return payTime;
+        }
+
+        public void setPayTime(String payTime) {
+            this.payTime = payTime;
+        }
+
+        public String getPayType() {
+            return payType;
+        }
+
+        public void setPayType(String payType) {
+            this.payType = payType;
+        }
+    }
+
+    public class DishChargeDetail implements Serializable {
         public DishChargeDetail() {
         }
 
@@ -118,7 +169,7 @@ public class SettleAccountDataEntity implements Serializable {
         }
     }
 
-    public  class ServiceChargeDetail implements Serializable {
+    public class ServiceChargeDetail implements Serializable {
         /**
          * 桌台服务费
          */
@@ -153,21 +204,6 @@ public class SettleAccountDataEntity implements Serializable {
         }
     }
 
-    public DishChargeDetail getDishChargeDetail() {
-        return dishChargeDetail;
-    }
-
-    public void setDishChargeDetail(DishChargeDetail dishChargeDetail) {
-        this.dishChargeDetail = dishChargeDetail;
-    }
-
-    public ServiceChargeDetail getServiceChargeDetail() {
-        return serviceChargeDetail;
-    }
-
-    public void setServiceChargeDetail(ServiceChargeDetail serviceChargeDetail) {
-        this.serviceChargeDetail = serviceChargeDetail;
-    }
 
     public String getAllowanceMoney() {
         return StringUtil.getFormattedMoney(allowanceMoney);
@@ -233,16 +269,60 @@ public class SettleAccountDataEntity implements Serializable {
         this.discountTotal = discountTotal;
     }
 
+    public List<ServiceChargeDetail> getServiceChargeDetail() {
+        return serviceChargeDetail;
+    }
+
+    public void setServiceChargeDetail(List<ServiceChargeDetail> serviceChargeDetail) {
+        this.serviceChargeDetail = serviceChargeDetail;
+    }
+
+
+    public List<CheckOrderListEntity> getOrderDishes() {
+        return orderDishes;
+    }
+
+    public void setOrderDishes(List<CheckOrderListEntity> orderDishes) {
+        this.orderDishes = orderDishes;
+    }
+
+    public List<PaidHistory> getPaidHistory() {
+        return paidHistory;
+    }
+
+    public void setPaidHistory(List<PaidHistory> paidHistory) {
+        this.paidHistory = paidHistory;
+    }
+
+    public List<CouponEntity> getCouponUseds() {
+        return couponUseds;
+    }
+
+    public void setCouponUseds(List<CouponEntity> couponUseds) {
+        this.couponUseds = couponUseds;
+    }
+
+    public DishChargeDetail getDishChargeDetail() {
+        return dishChargeDetail;
+    }
+
+    public void setDishChargeDetail(DishChargeDetail dishChargeDetail) {
+        this.dishChargeDetail = dishChargeDetail;
+    }
+
     @Override
     public String toString() {
         return "SettleAccountDataEntity{" +
                 "allowanceMoney='" + allowanceMoney + '\'' +
+                ", couponUseds=" + couponUseds +
+                ", paidHistory=" + paidHistory +
+                ", discountTotal='" + discountTotal + '\'' +
                 ", billResource='" + billResource + '\'' +
                 ", discountMoney='" + discountMoney + '\'' +
                 ", dishCharge='" + dishCharge + '\'' +
                 ", dishChargeDetail=" + dishChargeDetail +
                 ", ignoreMoney='" + ignoreMoney + '\'' +
-                ", openTime='" + openTime + '\'' +
+                ", openTime=" + openTime +
                 ", orderDishes=" + orderDishes +
                 ", paidMoney='" + paidMoney + '\'' +
                 ", waiterName='" + waiterName + '\'' +

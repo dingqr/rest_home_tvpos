@@ -41,14 +41,14 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         params.put("dishType", requestAddDishEntity.dishType);
         params.put("listShowPractice", requestAddDishEntity.listShowRemark);
         params.put("listShowRemark", requestAddDishEntity.listShowRemark);
-        params.put("practices", requestAddDishEntity.practices);
+        params.put("spractices", requestAddDishEntity.practices);
+        params.put("sremarks", requestAddDishEntity.remarks);
         params.put("quantity", requestAddDishEntity.quantity);
         params.put("remark", requestAddDishEntity.remark);
-        params.put("remarks", requestAddDishEntity.remarks);
         params.put("shopId", requestAddDishEntity.shopId);
         params.put("standardId", requestAddDishEntity.standardId);
         params.put("tableBillId", requestAddDishEntity.tableBillId);
-        params.put("unit", requestAddDishEntity.unit+"");
+        params.put("unit", requestAddDishEntity.unit + "");
         RequestManager.getInstance().requestPostByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {

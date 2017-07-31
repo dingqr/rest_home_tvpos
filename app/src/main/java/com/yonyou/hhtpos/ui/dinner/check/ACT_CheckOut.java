@@ -27,7 +27,8 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
     @Bind(R.id.inc_title)
     RelativeLayout mTitleLay;
     private IQueryBillInfoPresenter mPresenter;
-    private String tableBillId = "C5B858B044000000F400000000257000";
+//    private String tableBillId = "C5B858B044000000F400000000257000";
+    private String tableBillId = "C606D14EB0000000F800000000257000";
     private String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     private String shopId = "C13352966C000000A60000000016E000";
 
