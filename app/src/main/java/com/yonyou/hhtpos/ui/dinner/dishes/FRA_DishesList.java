@@ -341,10 +341,10 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         for (int i = 0; i < dataList.size(); i++){
             DishListEntity.Dishes bean = dataList.get(i);
             if (null != bean && TextUtils.isEmpty(bean.getOrderTime())){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
