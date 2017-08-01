@@ -116,7 +116,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 tvChiefRecommend.setVisibility(View.VISIBLE);
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
             }
-        }else{
+        } else {
             tvHotSale.setVisibility(View.GONE);
             tvChiefRecommend.setVisibility(View.GONE);
         }
@@ -163,10 +163,12 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 tvHintRemark.setVisibility(View.GONE);
                 remarkEmptyFlag = true;
             }
-        }
-        //设置菜品数量
-        if(!TextUtils.isEmpty(String.valueOf(dataBean.getQuantity()))){
-            mcvDishCount.setCount(dataBean.getQuantity());
+            //设置菜品数量
+            if (!TextUtils.isEmpty(String.valueOf(dataBean.getQuantity()))) {
+                mcvDishCount.setCount(dataBean.getQuantity());
+            }
+            //设置手填备注
+            etOtherRemark.setText(StringUtil.getString(dataBean.getRemark()));
         }
         return this;
     }

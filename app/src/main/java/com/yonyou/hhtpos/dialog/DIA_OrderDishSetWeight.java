@@ -142,10 +142,13 @@ public class DIA_OrderDishSetWeight implements View.OnClickListener {
                 cookeryEmptyFlag = true;
                 llCookery.setVisibility(View.GONE);
             }
+            if(dataBean.getWeight()>0){
+                iwvDishWeight.setWeight(dataBean.getWeight());
+            }
+            //设置手填备注
+            etOtherRemark.setText(StringUtil.getString(dataBean.getRemark()));
         }
-        if(dataBean.getWeight()>0){
-            iwvDishWeight.setWeight(dataBean.getWeight());
-        }
+
         return this;
     }
 
