@@ -119,7 +119,6 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     /**
      * 接收右侧角标数量的数据集合
-     *
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MainThread)

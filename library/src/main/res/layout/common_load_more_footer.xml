@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/common_load_more_padding"
     android:paddingBottom="@dimen/common_load_more_padding"
-    android:background="#f5f5f5">
+    android:background="#ffffff">
 
     <com.yonyou.framework.library.progress.CircularProgressBar
         android:id="@+id/common_load_more_footer_progress"
