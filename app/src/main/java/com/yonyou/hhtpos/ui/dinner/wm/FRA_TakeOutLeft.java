@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITakeoutCompanyPresenter;
 import com.yonyou.hhtpos.presenter.ITakeoutMarketPresenter;
@@ -61,7 +62,7 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     private int prePosition;
 
     private TakeOutFragmentAdapter mFragmentAdapter;
-    private String shopId = "C13352966C000000A60000000016E000";
+    private String shopId = API.shopId;
 
     /**外卖开单弹框外卖公司列表数据*/
     private FilterItemEntity openOrderCompany;
@@ -133,8 +134,10 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
         tvFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dia_takeOutFiltration.setWmfCallback(FRA_TakeOutLeft.this);
-                dia_takeOutFiltration.getDialog().show();
+                if (null != dia_takeOutFiltration){
+                    dia_takeOutFiltration.setWmfCallback(FRA_TakeOutLeft.this);
+                    dia_takeOutFiltration.getDialog().show();
+                }
             }
         });
 

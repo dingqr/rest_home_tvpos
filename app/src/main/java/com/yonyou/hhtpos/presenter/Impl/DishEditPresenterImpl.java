@@ -5,6 +5,7 @@ import android.content.Context;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.dish.RequestEditDishEntity;
 import com.yonyou.hhtpos.interactor.IDishEditInteractor;
 import com.yonyou.hhtpos.interactor.Impl.DishEditInteractorImpl;
 import com.yonyou.hhtpos.presenter.IDishEditPresenter;
@@ -24,7 +25,8 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
         this.mContext = mContext;
         this.mDishEditView = mDishEditView;
         mDishEditInteractor = new DishEditInteractorImpl(new UpdateQuantityListener(), new DeleteDishListener(), new UpdateDishStatusListener(),
-                new SpecialHandleDishListener(), new ConfirmWeightListener(), new SwitchTableListener(), new CancelGiftDishesListener());
+                new SpecialHandleDishListener(), new ConfirmWeightListener(), new SwitchTableListener(), new CancelGiftDishesListener(),
+                new UpdateDishListener());
     }
 
     @Override
@@ -55,6 +57,11 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     @Override
     public void cancelGiftDish(String id, String shopId, String waiterId) {
         mDishEditInteractor.cancelGiftDish(id, shopId, waiterId);
+    }
+
+    @Override
+    public void updateDish(RequestEditDishEntity bean) {
+        mDishEditInteractor.updateDish(bean);
     }
 
     @Override
@@ -242,6 +249,35 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
         public void onSuccess(int event_tag, String result) {
             mDishEditView.hideLoading();
             mDishEditView.cancelGiftDishesSuccess();
+        }
+
+        @Override
+        public void onError(String msg) {
+            mDishEditView.hideLoading();
+            CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onException(String msg) {
+            mDishEditView.hideLoading();
+            mDishEditView.showException(msg);
+            //CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onBusinessError(ErrorBean error) {
+            mDishEditView.hideLoading();
+            mDishEditView.showBusinessError(error);
+            //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
+        }
+    }
+
+    private class UpdateDishListener implements BaseLoadedListener<String> {
+
+        @Override
+        public void onSuccess(int event_tag, String result) {
+            mDishEditView.hideLoading();
+            mDishEditView.updateDishSuccess();
         }
 
         @Override

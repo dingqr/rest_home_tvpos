@@ -143,7 +143,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
 
         // 备注
         if (!TextUtils.isEmpty(bean.getListShowRemark())){
-            stringBuffer.append(" ");
+            stringBuffer.append("  ");
             stringBuffer.append(mContext.getString(R.string.hint_dish_remark));
             stringBuffer.append(bean.getListShowRemark());
         }

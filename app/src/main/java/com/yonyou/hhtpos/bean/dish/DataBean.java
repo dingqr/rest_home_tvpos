@@ -45,6 +45,32 @@ public class DataBean implements Serializable {
      */
     private List<DishStandardEntity> standards = new ArrayList<>();
 
+    /**
+     * 数量
+     */
+    private int quantity;
+
+    /**
+     * 斤
+     */
+    private double weight;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
     public List<DishPracticeEntity> getPractices() {
         return practices;
     }
@@ -107,19 +133,5 @@ public class DataBean implements Serializable {
 
     public void setDishName(String dishName) {
         this.dishName = dishName;
-    }
-
-    @Override
-    public String toString() {
-        return "DataBean{" +
-                "dishName='" + dishName + '\'' +
-                ", price='" + price + '\'' +
-                ", vipPrice='" + vipPrice + '\'' +
-                ", labels=" + labels +
-                ", tastes=" + tastes +
-                ", practices=" + practices +
-                ", remarks=" + remarks +
-                ", standards=" + standards +
-                '}';
     }
 }
