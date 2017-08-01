@@ -307,6 +307,20 @@ public abstract class BaseLazyFragment extends Fragment {
     }
 
     /**
+     * startActivity then finish
+     *
+     * @param clazz
+     */
+    protected void readyGoThenKill(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), clazz);
+        if (null != bundle) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    /**
      * startActivity with bundle
      *
      * @param clazz
