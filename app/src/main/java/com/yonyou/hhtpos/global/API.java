@@ -12,7 +12,7 @@ public class API {
 //    public static final String BASE_SERVER_IP = "http://api-c2b.honghuotai.com"; //正式服务器地址
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //线上ip
-//    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试ip
+    //    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试ip
 //        public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
@@ -187,4 +187,8 @@ public class API {
      */
     public static final String URL_QUERY_BILL_INFO = BASE_SERVER_SHOP + "/protablebill/settleaccount/querybillinfo";
 //    public static final String URL_QUERY_BILL_INFO = "http://10.220.18.56:9000" + "/protablebill/settleaccount/querybillinfo";//李杨本地
+    /**
+     * 二次结账接口
+     */
+    public static final String URL_SETTLE_ACCOUNT = BASE_SERVER_SHOP + "/protablebill/settleaccount/settle";
 }

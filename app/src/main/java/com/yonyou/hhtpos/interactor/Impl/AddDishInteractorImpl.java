@@ -39,7 +39,7 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         params.put("dishRelateId", requestAddDishEntity.dishRelateId);
         params.put("dishStatus", requestAddDishEntity.dishStatus);
         params.put("dishType", requestAddDishEntity.dishType);
-        params.put("listShowPractice", requestAddDishEntity.listShowRemark);
+        params.put("listShowPractice", requestAddDishEntity.listShowPractice);
         params.put("listShowRemark", requestAddDishEntity.listShowRemark);
         params.put("spractices", requestAddDishEntity.practices);
         params.put("sremarks", requestAddDishEntity.remarks);
@@ -50,7 +50,7 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         params.put("tableBillId", requestAddDishEntity.tableBillId);
         params.put("unit", requestAddDishEntity.unit + "");
         params.put("saleManner", requestAddDishEntity.saleManner);
-//        params.put("orderState", requestAddDishEntity.orderState);
+        params.put("orderState", requestAddDishEntity.orderState);
         RequestManager.getInstance().requestPostByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {

@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.dinner.check;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,10 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutList;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
+import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
@@ -29,6 +32,8 @@ public class FRA_CheckOutLeft extends BaseFragment {
     TextView tvHeader;
     @Bind(R.id.lv_check_out)
     ListView lvCheckOut;
+    @Bind(R.id.tv_go_to_order)
+    TextView tvGoToOrder;
     private ADA_CheckOutList mAdapter;
     private SettleAccountDataEntity dataBean;
     private TextView tvTotalCharge;//消费总计
@@ -164,6 +169,16 @@ public class FRA_CheckOutLeft extends BaseFragment {
         }
         if (dataBean.orderDishes != null && dataBean.orderDishes.size() > 0) {
             mAdapter.update(dataBean.orderDishes);
+        }
+    }
+    @OnClick({R.id.tv_go_to_order})
+    public void onClick(View view){
+        switch (view.getId()) {
+            case  R.id.tv_go_to_order:
+                Bundle bundle = new Bundle();
+//                bundle.putString("orderStatus",);
+                readyGo(ACT_OrderDishes.class,bundle);
+                break;
         }
     }
 
