@@ -318,7 +318,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 设置未下单菜品id列表
             setDishIds(dataList);
             // 设置总价格
-            if (isRightRefresh){
+            if (hasNotOrderDishes(dataList)){
                 setNotOrderTotalPrice(dataList);
             }else {
                 setOrderedTotalPrice(dataList);
@@ -330,6 +330,21 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
             mAdapter.update(dataList, true);
         }
+    }
+
+    /**
+     * 有未下单菜品
+     * @param dataList
+     * @return
+     */
+    private boolean hasNotOrderDishes(List<DishListEntity.Dishes> dataList){
+        for (int i = 0; i < dataList.size(); i++){
+            DishListEntity.Dishes bean = dataList.get(i);
+            if (null != bean && TextUtils.isEmpty(bean.getOrderTime())){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -404,7 +419,6 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_place_order_success));
         dia_autoDismiss.show();
 
-        isRightRefresh = false;
         mDishListPresenter.requestDishList(tableBillId, false);
 
     }
