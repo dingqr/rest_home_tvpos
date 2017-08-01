@@ -39,7 +39,13 @@
         <activity
             android:name=".ui.store.ACT_BindStore"
             android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+            android:theme="@style/style_translucent_activity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
 
         <!--登录页面 -->

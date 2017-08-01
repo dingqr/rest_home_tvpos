@@ -1,10 +1,14 @@
 package com.yonyou.hhtpos.application;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.yonyou.framework.library.BaseApplication;
+import com.yonyou.framework.library.common.utils.AppSharedPreferences;
 import com.yonyou.hhtpos.bean.NavigationNewEntity;
 import com.yonyou.hhtpos.db.DbManager;
+import com.yonyou.hhtpos.util.Constants;
+import com.yonyou.hhtpos.util.SpUtil;
 
 import java.util.List;
 
@@ -35,6 +39,11 @@ public class MyApplication extends BaseApplication{
         super.onCreate();
         mInstance = this;
         mContext = getApplicationContext();
+        AppSharedPreferences sharePre = new AppSharedPreferences(this);
+        String shopId = sharePre.getString(SpUtil.SHOP_ID);
+        if (!TextUtils.isEmpty(shopId)){
+            Constants.SHOPID = shopId;
+        }
 
         //初始化全局捕获异常类
         //CrashHandler.getInstance().init(this);

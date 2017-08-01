@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.TakeOutFragmentAdapter;
@@ -207,6 +209,8 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     @Override
     public void openOrder() {
         sendBroadcast(ReceiveConstants.WM_OPEN_ORDER_SUCCESS);
+        CommonUtils.makeEventToast(mContext,"wm_open_order_success",false);
+        Elog.e("WM_OPEN_ORDER_SUCCESS","WM_OPEN_ORDER_SUCCESS");
     }
 
     @Override
