@@ -6,6 +6,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
  * 描述：
  */
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,24 +16,32 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
 import com.yonyou.hhtpos.adapter.ADA_WDDetailPayType;
-import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
+import com.yonyou.hhtpos.bean.wd.WDDishDetaiListlEntity;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.view.IWDOrderDetailView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
+
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
 
 /**
  * Created by zj on 2017/7/4.
@@ -75,12 +84,20 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     //支付信息
     @Bind(R.id.layout_pay_info)
     LinearLayout layoutPayInfo;
+    @Bind(R.id.tv_button)
+    TextView tvButton;
     private ADA_WDDetailPayType mPaytypeAdapter;
     private ADA_OrderDishesDetail mAdapter;
-    private ArrayList<DishDetaiListlEntity> dataList = new ArrayList<>();
+    private ArrayList<WDDishDetaiListlEntity> dataList = new ArrayList<>();
 
     //请求外带详情接口
     private IOrderDetailPresenter mPresenter;
+    private WDOrderDetailEntity mDataBean;
+    private int payStatus;
+    private String tableBillId = "";
+    //处理外带订单明细列表分组
+    private String mCurrentTime;
+    private HashMap<String, String> map = new HashMap<String, String>();
 
     /**
      * 左侧外带订单列表是否为空
@@ -102,7 +119,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
     @Override
     protected void onUserVisible() {
-
+        mPresenter.requestWDOrderDetail(tableBillId);
     }
 
     @Override
@@ -151,9 +168,112 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     }
 
     public void requestPackingDetail(String tableBillId) {
+        this.tableBillId = tableBillId;
         mPresenter.requestWDOrderDetail(tableBillId);
     }
 
+    @OnClick({R.id.tv_button})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_button:
+                handleClickPayStatus();
+                break;
+        }
+    }
+
+    /**
+     * 根据账单支付状态处理跳转逻辑
+     */
+    private void handleClickPayStatus() {
+        //                1-部分支付，2-支付完成，3-已退款，4-未支付
+        switch (payStatus) {
+            case 1:
+            case 4:
+                Bundle bundle = new Bundle();
+                bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
+                bundle.putString(TABLE_BILL_ID, tableBillId);
+                readyGo(ACT_CheckOut.class,bundle);
+                break;
+            case 2:
+                CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_dozen_bill), false);
+                break;
+
+        }
+    }
+    /**
+     * 按照下单时间对点菜的明细订单列表进行分组处理
+     *
+     * @param dataList
+     */
+    private void setCount(ArrayList<WDDishDetaiListlEntity> dataList) {
+        int limit = 0;
+        int j = 0;
+        for (; limit < dataList.size(); limit++) {
+            if (dataList.get(limit).orderTime == null) {
+                return;
+            }
+            mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
+            for (; j < dataList.size(); j++) {
+                WDDishDetaiListlEntity dishDetaiListlEntity = dataList.get(j);
+                if (dishDetaiListlEntity.orderTime == null) {
+                    return;
+                }
+                String orderTime = StringUtil.getString(dishDetaiListlEntity.orderTime);
+                if (!orderTime.equals(mCurrentTime)) {
+                    //key：time value:在该时间下单的菜品数量
+                    map.put(mCurrentTime, StringUtil.getString(j - limit));
+                    limit = j - 1;
+                    break;
+                }
+                if (j == dataList.size() - 1) {
+                    map.put(mCurrentTime, StringUtil.getString(j - limit + 1));
+                    limit = j;
+                    break;
+                }
+            }
+        }
+        for (int k = 0; k < dataList.size(); k++) {
+            String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
+            dataList.get(k).totalCount = count;
+        }
+    }
+
+
+    /**
+     * // 1-部分支付，2-支付完成，3-已退款，4-未支付
+     */
+    private void handlePayStatus() {
+        switch (payStatus) {
+            //部分支付
+            case 1:
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_paying));
+                tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
+                tvNotPay.setVisibility(View.VISIBLE);
+                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
+                layoutPayInfo.setVisibility(View.VISIBLE);
+                break;
+            //支付完成
+            case 2:
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_pay_successful));
+                tvButton.setText(mContext.getResources().getString(R.string.string_dozen_bill));
+                tvNotPay.setVisibility(View.GONE);
+                tvWaitReceiveMoney.setVisibility(View.GONE);
+                layoutPayInfo.setVisibility(View.VISIBLE);
+                break;
+            //已退款-外带无退款状态
+            case 3:
+
+                break;
+            //未支付
+            case 4:
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
+                tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
+                tvNotPay.setVisibility(View.VISIBLE);
+                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
+                layoutPayInfo.setVisibility(View.GONE);
+                break;
+        }
+    }
     /**
      * 外带订单详情
      *
@@ -162,6 +282,10 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     @Override
     public void requestWDOrderDetail(WDOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
+            if (orderDetailEntity.payStatus != null) {
+                payStatus = Integer.parseInt(orderDetailEntity.payStatus);
+            }
+
             //开单服务员
             tvOpenOrderWaiter.setText(orderDetailEntity.waiterName);
             //开单时间
@@ -169,19 +293,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             //开单服务员
             tvOpenOrderPersonNum.setText(StringUtil.getString(orderDetailEntity.personNum));
             //支付状态
-            if (orderDetailEntity.payStatus.equals("Y")) {
-                tvPayStatus.setText(mContext.getResources().getString(R.string.string_pay_successful));
-                tvNotPay.setVisibility(View.GONE);
-                tvWaitReceiveMoney.setVisibility(View.GONE);
-                layoutPayInfo.setVisibility(View.VISIBLE);
-            } else {
-                tvNotPay.setVisibility(View.VISIBLE);
-                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
-                //待收金额
-//                tvWaitReceiveMoney.setText();
-                tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
-                layoutPayInfo.setVisibility(View.GONE);
-            }
+            handlePayStatus();
 
             //会员手机号
             if (orderDetailEntity.memberPhone.length() == 11) {
@@ -204,11 +316,13 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             //收银员名称
             tvCashier.setText(orderDetailEntity.waiterName);
             //点菜明细列表
-            ArrayList<DishDetaiListlEntity> dishListDetail = orderDetailEntity.dishListDetail;
+            ArrayList<WDDishDetaiListlEntity> dishListDetail = orderDetailEntity.dishListDetail;
             if (dishListDetail != null && dishListDetail.size() > 0) {
+//                setCount(orderDetailEntity.dishListDetail);
                 mAdapter.update(dishListDetail, true);
             }
         }
     }
+
 }
 

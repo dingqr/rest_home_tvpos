@@ -34,7 +34,7 @@ public class SettleAccountInteractorImpl implements ISettleAccountInteractor {
         params.put("tableBillId", tableBillId);
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("payMoney", requestPayEntity.payMoney);
+        map.put("payAmount", requestPayEntity.payAmount);
         map.put("payType", requestPayEntity.payType);
         paramsMap.put("payInfo", map);
         RequestManager.getInstance().requestPostByAsyn(API.URL_SETTLE_ACCOUNT, params, paramsMap, new ReqCallBack<SettleAccountDataEntity>() {

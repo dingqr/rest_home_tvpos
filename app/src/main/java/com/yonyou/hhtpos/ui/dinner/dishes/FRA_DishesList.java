@@ -50,6 +50,9 @@ import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
+
 /**
  * 已点菜品列表
  * 作者：liushuofei on 2017/7/11 10:48
@@ -273,7 +276,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         // 价格
         tvTotalPrice.setText(StringUtil.getFormattedMoney(totalPrice + ""));
         // 去结账
-        tvPlaceOrder.setText(mContext.getString(R.string.check_out));
+        tvPlaceOrder.setText(mContext.getResources().getString(R.string.check_out));
     }
 
     @Override
@@ -613,7 +616,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 }else {
                     // 去结账
                     Bundle bundle = new Bundle();
-                    bundle.putString(ACT_CheckOut.TABLE_BILL_ID, tableBillId);
+                    bundle.putString(TABLE_BILL_ID, tableBillId);
+                    bundle.putInt(FROM_WHERE, saleManner);
                     readyGoThenKill(ACT_CheckOut.class, bundle);
                 }
                 break;

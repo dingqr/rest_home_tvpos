@@ -20,6 +20,9 @@ import com.yonyou.hhtpos.view.IQueryBillInfoView;
 import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
+
 /**
  * 结账页面
  * 作者：liushuofei on 2017/7/15 10:14
@@ -31,8 +34,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
     RelativeLayout mTitleLay;
     private IQueryBillInfoPresenter mPresenter;
     private String tableBillId;
-    //传递参数
-    public static final String TABLE_BILL_ID = "table.bill.id";
+    private int fromWhere;//1：堂食  2：外卖  3：外带
     @Override
     protected void initView() {
         mTitleLay.setVisibility(View.GONE);
@@ -64,6 +66,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
     @Override
     protected void getBundleExtras(Bundle extras) {
         tableBillId = extras.getString(TABLE_BILL_ID, "");
+        fromWhere = extras.getInt(FROM_WHERE, 0);
     }
 
     @Override
@@ -120,5 +123,9 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
 
     public String getTableBillId() {
         return tableBillId;
+    }
+
+    public int getFromWhere() {
+        return fromWhere;
     }
 }

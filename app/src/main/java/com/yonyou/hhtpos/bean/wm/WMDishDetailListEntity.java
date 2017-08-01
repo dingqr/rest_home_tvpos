@@ -5,10 +5,12 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 /**
  * Created by zj on 2017/7/21.
  * 邮箱：zjuan@yonyou.com
- * 描述：外卖订单详情实体类
+ * 描述：外卖订单明细列表实体类
  */
-public class WMDishDetailEntity {
-    /**数量总价*/
+public class WMDishDetailListEntity {
+    /**
+     * 用于记录在同一时间下单的菜品的总数量标记
+     */
     public String totalCount;
     /**
      * 菜品id
@@ -83,7 +85,7 @@ public class WMDishDetailEntity {
      */
     public String tableBillId;
 
-    public WMDishDetailEntity() {
+    public WMDishDetailListEntity() {
     }
 
     public String getDishPrice() {

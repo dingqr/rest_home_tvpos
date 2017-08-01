@@ -9,18 +9,24 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
+import com.yonyou.hhtpos.adapter.ADA_PayHistory;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
+import com.yonyou.hhtpos.presenter.ISettleAccountPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.SettleAccountPresenterImpl;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
+import com.yonyou.hhtpos.view.ISettleAccountView;
+import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
 
@@ -33,7 +39,7 @@ import de.greenrobot.event.ThreadMode;
  * 结账页面右侧fragment
  * 作者：liushuofei on 2017/7/19 14:49
  */
-public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView {
+public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView, ISettleAccountView {
 
     @Bind(R.id.layout_root)
     LinearLayout layoutRoot;
@@ -53,8 +59,15 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     TextView tvPaidMoney;//已支付
     @Bind(R.id.tv_unpaid_money)
     TextView tvUnpaidMoney;//未支付
-    @Bind(R.id.tv_pay_money)
-    TextView tvPayMoney;//支付金额
+
+    @Bind(R.id.lv_pay_type)
+    BanSlideListView lvPaHistory;//支付方式
+    @Bind(R.id.layout_couponuseds)
+    LinearLayout layoutCouponuseds;//代金券
+    @Bind(R.id.tv_coupon_count)
+    TextView tvCouponCount;//使用的代金券数量
+    @Bind(R.id.tv_coupon_amount)
+    TextView tvCouponAmount;//使用的代金券总金额
 
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
@@ -62,11 +75,18 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付", "畅捷POS", "微信支付", "支付宝", "更多"};
     private DIA_CheckOutByCash mDiaCheckOutByCash;
     private IQueryBillInfoPresenter mPresenter;
+    private ISettleAccountPresenter mSettleAccountPresenter;
     private String tableBillId;
+    // 1-部分支付，2-支付完成，3-已退款，4-未支付
+    private int payStatus;
+    private ADA_PayHistory mPayhistoryAdapter;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
         this.dataBean = settleAccountDataEntity;
+        if (dataBean.payStatus != null) {
+            payStatus = Integer.parseInt(dataBean.payStatus);
+        }
         setData();
     }
 
@@ -92,9 +112,15 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     @Override
     protected void initViewsAndEvents() {
+        tableBillId = ((ACT_CheckOut) getActivity()).getTableBillId();
+
         mDiaCheckOutByCash = new DIA_CheckOutByCash(getActivity());
         mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
-        tableBillId = ((ACT_CheckOut) getActivity()).getTableBillId();
+        mSettleAccountPresenter = new SettleAccountPresenterImpl(mContext, this);
+        //支付记录
+        mPayhistoryAdapter = new ADA_PayHistory(mContext);
+        lvPaHistory.setAdapter(mPayhistoryAdapter);
+
         mDiscountAdapter = new ADA_DiscountType(mContext);
         mPayTypeAdapter = new ADA_CheckOutPayType(mContext);
         mDiscountTypeGv.setAdapter(mDiscountAdapter);
@@ -121,11 +147,37 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
             @Override
             public void onReceiveMoney(String money) {
                 RequestPayEntity requestPayEntity = new RequestPayEntity();
-                requestPayEntity.payMoney = money;
+                requestPayEntity.payAmount = money;
                 requestPayEntity.payType = "现金";
-                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
+                handlePayStatus(requestPayEntity);
+
             }
         });
+    }
+
+    /**
+     * 根据账单状态做不同的处理
+     *
+     * @param requestPayEntity
+     */
+    private void handlePayStatus(RequestPayEntity requestPayEntity) {
+        switch (payStatus) {
+            //部分支付
+            case 1:
+                mSettleAccountPresenter.settleAccount(API.compId, "", API.shopId, tableBillId, requestPayEntity);
+                break;
+            //支付完成
+            case 2:
+                break;
+            //已退款
+            case 3:
+                break;
+            //未支付
+            case 4:
+                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
+                break;
+        }
+
     }
 
     @Override
@@ -169,13 +221,28 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
             tvIgnoreMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getIgnoreMoney());
         }
         //代金券
+        if (dataBean.couponUseds != null && dataBean.couponUseds.size() > 0) {
+            layoutCouponuseds.setVisibility(View.VISIBLE);
+            Double totalMoney = 0.0;
+            for (int i = 0; i < dataBean.couponUseds.size(); i++) {
+                totalMoney += Double.parseDouble(dataBean.couponUseds.get(i).getCouponMoney());
+            }
+            tvCouponAmount.setText("(" + dataBean.couponUseds.size() + mContext.getResources().getString(R.string.string_unit_coupon) + ")");
+            tvCouponAmount.setText(StringUtil.getString(totalMoney));
+        } else {
+            layoutCouponuseds.setVisibility(View.GONE);
+        }
         //支付方式
-//        tvPaidMoney.setText();
+        if (dataBean.paidHistory != null && dataBean.paidHistory.size() > 0) {
+            mPayhistoryAdapter.update(dataBean.paidHistory, true);
+        }
         //发票
+
         //已支付
         if (!TextUtils.isEmpty(dataBean.getPaidMoney())) {
             tvPaidMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getPaidMoney());
         }
+        //给弹窗设置待支付金额
         if (!TextUtils.isEmpty(dataBean.getUnpaidMoney())) {
             mDiaCheckOutByCash.setMaxInputMoneyHint(dataBean.getUnpaidMoney());
         }
@@ -184,6 +251,14 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     @Override
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
+        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
+        if (settleAccountDataEntity != null) {
+            EventBus.getDefault().post(settleAccountDataEntity);
+        }
+    }
+
+    @Override
+    public void settleAccount(SettleAccountDataEntity settleAccountDataEntity) {
         new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
         if (settleAccountDataEntity != null) {
             EventBus.getDefault().post(settleAccountDataEntity);

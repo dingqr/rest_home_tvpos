@@ -21,7 +21,7 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
 import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
-import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMDishDetailListEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
 import com.yonyou.hhtpos.global.DishConstants;
@@ -61,7 +61,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Bind(R.id.lv_wm_order_detail)
     ListView wmListView;
     private ADA_TakeOutOrderDetail mAdapter;
-    private List<WMDishDetailEntity> dataList = new ArrayList<>();
+    private List<WMDishDetailListEntity> dataList = new ArrayList<>();
     //请求外面订单详情接口
     private IOrderDetailPresenter mPresenter;
     //请求外卖退款原因接口
@@ -143,6 +143,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private int mOrderState = -1;
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
+    private LinearLayout layoutReceiveAmount;
 
     /**
      * 左侧外卖订单列表是否为空
@@ -227,7 +228,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                     readyGo(ACT_OrderDishes.class, bundle);
                 } else if (mOrderState == 2) {
                     Bundle bundle = new Bundle();
-                    bundle.putString(ACT_CheckOut.TABLE_BILL_ID, tableBillId);
+                    bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+                    bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WM);
                     readyGo(ACT_CheckOut.class, bundle);
                     //去结账
                 } else if (mOrderState == 3 || mOrderState == 4) {
@@ -278,6 +280,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         tvOrderStatus = (TextView) headerView.findViewById(R.id.tv_order_status);
         tvCreateTime = (TextView) headerView.findViewById(R.id.tv_create_time);
         tvBillMoney = (TextView) headerView.findViewById(R.id.tv_bill_money);
+        layoutReceiveAmount = (LinearLayout) headerView.findViewById(R.id.layout_receive_amount);
         tvRealReceiveMoney = (TextView) headerView.findViewById(R.id.tv_real_receive_money);
         tvReceiveTime = (TextView) headerView.findViewById(R.id.tv_receive_time);
         tvRefundTime = (TextView) headerView.findViewById(R.id.tv_refund_time);
@@ -298,7 +301,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Override
     public void requestWMOrderDetail(WMOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
-            List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
+            List<WMDishDetailListEntity> dishList = orderDetailEntity.dishList;
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
                 setCount(dataList);
@@ -311,15 +314,20 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             //订单来源-百度/饿了么
             tvTakeoutCompanyName.setText(orderDetailEntity.takeOutCompanyName);
             //创建时间-要求后台返回Long值 -07-06 11:00
-            tvCreateTime.setText(orderDetailEntity.orderTime);
+            tvCreateTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.orderTime, AppDateUtil.MM_DD_HH_MM)));
             //总计
             tvBillMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getBillOriginMoney());
 
             //缺的字段
-            //实收金额和收款时间
-            tvRealReceiveMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getBillMoney());
-            //2017-06-08 11:30
-            tvReceiveTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.billTime, AppDateUtil.YYYY_MM_DD_HH_MM)));
+            if (!TextUtils.isEmpty(orderDetailEntity.getBillMoney())) {
+                //实收金额和收款时间
+                tvRealReceiveMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getBillMoney());
+                //2017-06-08 11:30
+                tvReceiveTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.billTime, AppDateUtil.YYYY_MM_DD_HH_MM)));
+                layoutReceiveAmount.setVisibility(View.VISIBLE);
+            } else {
+                layoutReceiveAmount.setVisibility(View.GONE);
+            }
             //退款金额和退款时间
 //            tvRefundMoney.setText();
             //2017-06-08 11:30
@@ -358,7 +366,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
      *
      * @param dataList
      */
-    private void setCount(List<WMDishDetailEntity> dataList) {
+    private void setCount(List<WMDishDetailListEntity> dataList) {
         int limit = 0;
         int j = 0;
         for (; limit < dataList.size(); limit++) {
@@ -367,12 +375,13 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             }
             mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
             for (; j < dataList.size(); j++) {
-                WMDishDetailEntity wmDishDetailEntity = dataList.get(j);
+                WMDishDetailListEntity wmDishDetailEntity = dataList.get(j);
                 if (wmDishDetailEntity.orderTime == null) {
                     return;
                 }
                 String orderTime = StringUtil.getString(wmDishDetailEntity.orderTime);
                 if (!orderTime.equals(mCurrentTime)) {
+                    //key：time value:在该时间下单的菜品数量
                     map.put(mCurrentTime, StringUtil.getString(j - limit));
                     limit = j - 1;
                     break;

@@ -64,7 +64,7 @@ public class WDOrderDetailEntity implements Serializable {
     /**
      * 点菜明细
      */
-    public ArrayList<DishDetaiListlEntity> dishListDetail;
+    public ArrayList<WDDishDetaiListlEntity> dishListDetail;
     /**
      * 支付方式
      */

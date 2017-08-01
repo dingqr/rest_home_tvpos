@@ -79,6 +79,7 @@
     </LinearLayout>
     <!--实收金额-->
     <LinearLayout
+        android:id="@+id/layout_receive_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/px_18"

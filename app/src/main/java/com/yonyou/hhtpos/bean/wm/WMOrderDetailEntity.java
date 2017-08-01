@@ -47,7 +47,7 @@ public class WMOrderDetailEntity implements Serializable {
     /**
      * 菜品明细列表
      */
-    public List<WMDishDetailEntity> dishList;
+    public List<WMDishDetailListEntity> dishList;
     /**
      * 订单状态：开单1，下单2，结账3，退款4
      */
@@ -55,7 +55,7 @@ public class WMOrderDetailEntity implements Serializable {
     /**
      * 订单时间
      */
-    public String orderTime;
+    public Long orderTime;
     /**
      * 结账时间
      */

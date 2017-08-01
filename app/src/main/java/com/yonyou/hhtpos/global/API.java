@@ -13,7 +13,7 @@ public class API {
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
 
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
-//    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
+    //    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
 //        public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
@@ -56,7 +56,9 @@ public class API {
      */
     public static final String URL_RESET_PWD = BASE_SERVER_LOGIN + "/changePassword";
 
-    /**激活--获取所有门店*/
+    /**
+     * 激活--获取所有门店
+     */
     public static final String URL_GET_ALL_SHOPS = BASE_SERVER_SHOP + "/proshop/getAllShop";
 
     /**
@@ -130,7 +132,8 @@ public class API {
     /**
      * 外卖订单详情
      */
-    public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "/takeOut/getBillDetail";
+//    public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "/takeOut/getBillDetail";
+    public static final String URL_WM_ORDER_DETAIL = "http://10.220.23.197:8088" + "/takeOut/getBillDetail";//袁波本地
 
     /**
      * 点菜时，新加菜品
@@ -196,4 +199,5 @@ public class API {
      * 二次结账接口
      */
     public static final String URL_SETTLE_ACCOUNT = BASE_SERVER_SHOP + "/protablebill/settleaccount/settle";
+//    public static final String URL_SETTLE_ACCOUNT = "http://10.220.18.56:9000" + "/protablebill/settleaccount/settle";
 }

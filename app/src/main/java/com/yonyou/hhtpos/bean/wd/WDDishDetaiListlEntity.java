@@ -9,7 +9,11 @@ import java.io.Serializable;
  * 邮箱：zjuan@yonyou.com
  * 描述：外带-点菜明细列表实体类
  */
-public class DishDetaiListlEntity implements Serializable {
+public class WDDishDetaiListlEntity implements Serializable {
+    /**
+     * 用于记录在同一时间下单的菜品的总数量标记
+     */
+    public String totalCount;
     /**
      * 下单时间
      */
@@ -64,8 +68,9 @@ public class DishDetaiListlEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "DishDetaiListlEntity{" +
-                "orderTime='" + orderTime + '\'' +
+        return "WDDishDetaiListlEntity{" +
+                "totalCount='" + totalCount + '\'' +
+                ", orderTime=" + orderTime +
                 ", dishName='" + dishName + '\'' +
                 ", dishPrice='" + dishPrice + '\'' +
                 ", memberPrice='" + memberPrice + '\'' +
