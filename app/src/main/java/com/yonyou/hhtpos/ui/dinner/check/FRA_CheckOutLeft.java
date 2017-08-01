@@ -22,6 +22,10 @@ import butterknife.OnClick;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.IS_FROM_SETTLE_ACCOUNT;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
+
 /**
  * 结账左侧fragment
  * 作者：liushuofei on 2017/7/15 10:24
@@ -47,6 +51,8 @@ public class FRA_CheckOutLeft extends BaseFragment {
     private TextView tvDishCharge;//菜品消费
     private TextView tvServiceName;//服务费名称
     private TextView tvServiceSCharge;//服务费明细
+    private String tableBillId;
+    private int fromWhere;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshLeft(SettleAccountDataEntity settleAccountDataEntity) {
@@ -76,6 +82,9 @@ public class FRA_CheckOutLeft extends BaseFragment {
 
     @Override
     protected void initViewsAndEvents() {
+        tableBillId = ((ACT_CheckOut) getActivity()).getTableBillId();
+        fromWhere = ((ACT_CheckOut) getActivity()).getFromWhere();
+
         View headView = LayoutInflater.from(mContext).inflate(R.layout.header_check_out_list, null);
         tvTotalCharge = (TextView) headView.findViewById(R.id.tv_total_charge);
         tvPersonNum = (TextView) headView.findViewById(R.id.tv_person_num);
@@ -176,7 +185,9 @@ public class FRA_CheckOutLeft extends BaseFragment {
         switch (view.getId()) {
             case  R.id.tv_go_to_order:
                 Bundle bundle = new Bundle();
-//                bundle.putString("orderStatus",);
+                bundle.putBoolean(IS_FROM_SETTLE_ACCOUNT,true);
+                bundle.putString(TABLE_BILL_ID,tableBillId);
+                bundle.putInt(FROM_WHERE,fromWhere);
                 readyGo(ACT_OrderDishes.class,bundle);
                 break;
         }

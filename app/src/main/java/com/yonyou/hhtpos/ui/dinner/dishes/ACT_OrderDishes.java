@@ -32,6 +32,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     public static final String FROM_WD = "from.wd";
     public static final String TABLE_BILL_ID = "table.bill.id";
     public static final String FROM_WHERE = "from.where";
+    public static final String IS_FROM_SETTLE_ACCOUNT = "is_from_settle_account";
     private boolean fromWd;
     private String tableBillId;
     private int fromWhere;//1：堂食  2：外卖  3：外带
@@ -43,6 +44,8 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     /**中间者 */
     private IWDOpenOrderPresenter mWDOpenOrderPresenter;
     private IWDCloseOrderPresenter mWDCloseOrderPresenter;
+    //是否来自结账页面
+    public boolean isFromSettleAccount;
 
     @Override
     protected boolean isApplyKitKatTranslucency() {
@@ -54,6 +57,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
         fromWd = extras.getBoolean(FROM_WD, false);
         tableBillId = extras.getString(TABLE_BILL_ID, "");
         fromWhere = extras.getInt(FROM_WHERE, 0);
+        isFromSettleAccount = extras.getBoolean(IS_FROM_SETTLE_ACCOUNT, false);
     }
 
     public void setHasPlaceOrder(boolean hasPlaceOrder) {

@@ -227,7 +227,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                     readyGo(ACT_OrderDishes.class, bundle);
                 } else if (mOrderState == 2) {
                     Bundle bundle = new Bundle();
-                    bundle.putString(ACT_CheckOut.TABLE_BILL_ID, tableBillId);
+                    bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+                    bundle.putInt(ACT_OrderDishes.FROM_WHERE,DishConstants.TYPE_WM);
                     readyGo(ACT_CheckOut.class, bundle);
                     //去结账
                 } else if (mOrderState == 3 || mOrderState == 4) {

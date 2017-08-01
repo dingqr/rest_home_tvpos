@@ -19,8 +19,11 @@ import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
+import com.yonyou.hhtpos.presenter.ISettleAccountPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.SettleAccountPresenterImpl;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
+import com.yonyou.hhtpos.view.ISettleAccountView;
 
 import java.util.ArrayList;
 
@@ -33,7 +36,7 @@ import de.greenrobot.event.ThreadMode;
  * 结账页面右侧fragment
  * 作者：liushuofei on 2017/7/19 14:49
  */
-public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView {
+public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView, ISettleAccountView {
 
     @Bind(R.id.layout_root)
     LinearLayout layoutRoot;
@@ -62,11 +65,17 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付", "畅捷POS", "微信支付", "支付宝", "更多"};
     private DIA_CheckOutByCash mDiaCheckOutByCash;
     private IQueryBillInfoPresenter mPresenter;
+    private ISettleAccountPresenter mSettleAccountPresenter;
     private String tableBillId;
+    // 1-部分支付，2-支付完成，3-未支付，4-已退款
+    private int payStatus;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
         this.dataBean = settleAccountDataEntity;
+        if (dataBean.payStatus != null) {
+            payStatus = Integer.parseInt(dataBean.payStatus);
+        }
         setData();
     }
 
@@ -94,6 +103,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     protected void initViewsAndEvents() {
         mDiaCheckOutByCash = new DIA_CheckOutByCash(getActivity());
         mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
+        mSettleAccountPresenter = new SettleAccountPresenterImpl(mContext, this);
         tableBillId = ((ACT_CheckOut) getActivity()).getTableBillId();
         mDiscountAdapter = new ADA_DiscountType(mContext);
         mPayTypeAdapter = new ADA_CheckOutPayType(mContext);
@@ -123,9 +133,35 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 RequestPayEntity requestPayEntity = new RequestPayEntity();
                 requestPayEntity.payMoney = money;
                 requestPayEntity.payType = "现金";
-                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
+                handlePayStatus(requestPayEntity);
+
             }
         });
+    }
+
+    /**
+     * 根据账单状态做不同的处理
+     *
+     * @param requestPayEntity
+     */
+    private void handlePayStatus(RequestPayEntity requestPayEntity) {
+        switch (payStatus) {
+            //部分支付
+            case 1:
+                mSettleAccountPresenter.settleAccount(API.compId, "", API.shopId, tableBillId, requestPayEntity);
+                break;
+            //支付完成
+            case 2:
+                break;
+            //未支付
+            case 3:
+                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
+                break;
+            //已退款
+            case 4:
+                break;
+        }
+
     }
 
     @Override
@@ -184,6 +220,14 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     @Override
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
+        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
+        if (settleAccountDataEntity != null) {
+            EventBus.getDefault().post(settleAccountDataEntity);
+        }
+    }
+
+    @Override
+    public void settleAccount(SettleAccountDataEntity settleAccountDataEntity) {
         new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
         if (settleAccountDataEntity != null) {
             EventBus.getDefault().post(settleAccountDataEntity);

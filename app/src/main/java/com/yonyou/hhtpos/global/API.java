@@ -191,4 +191,8 @@ public class API {
      * 二次结账接口
      */
     public static final String URL_SETTLE_ACCOUNT = BASE_SERVER_SHOP + "/protablebill/settleaccount/settle";
+    /**
+     * 激活--获取所有门店
+     */
+    public static final String URL_GET_ALL_SHOPS = BASE_SERVER_SHOP + "/proshop/getAllShop";
 }

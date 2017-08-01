@@ -112,7 +112,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
     private List<DishListEntity.Dishes> mOrderedDishes = new ArrayList<>();
+    //销售模式
     private int saleManner;
+    //是否来自结账页面
+    private boolean isFromSettleAccount;
 
     /**
      * 接收右侧角标数量的数据集合
@@ -209,6 +212,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     protected void initViewsAndEvents() {
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
         saleManner = ((ACT_OrderDishes) getActivity()).getFromWhere();
+        isFromSettleAccount = ((ACT_OrderDishes) getActivity()).isFromSettleAccount;
+
         mPresenter.getAllDishes(compId, shopId, saleManner);
 
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
@@ -299,8 +304,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.remark = "";
                 requestAddDishEntity.standardId = "";
                 requestAddDishEntity.saleManner = StringUtil.getString(saleManner);
-                //账单状态
-                requestAddDishEntity.orderState = "";
+                //账单状态:是否来自结账页面
+                if (isFromSettleAccount) {
+                    requestAddDishEntity.orderState = "2";
+                } else {
+                    requestAddDishEntity.orderState = "";
+                }
 
                 //写死的字段
                 requestAddDishEntity.tableBillId = mTableBillId;
