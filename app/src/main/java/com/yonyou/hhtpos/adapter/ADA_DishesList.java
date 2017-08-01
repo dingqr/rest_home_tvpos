@@ -139,11 +139,11 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         if (!TextUtils.isEmpty(bean.getListShowPractice())){
             stringBuffer.append(mContext.getString(R.string.hint_dish_cookery));
             stringBuffer.append(bean.getListShowPractice());
+            stringBuffer.append("  ");
         }
 
         // 备注
         if (!TextUtils.isEmpty(bean.getListShowRemark())){
-            stringBuffer.append("  ");
             stringBuffer.append(mContext.getString(R.string.hint_dish_remark));
             stringBuffer.append(bean.getListShowRemark());
         }
