@@ -192,7 +192,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 Bundle bundle = new Bundle();
                 bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
                 bundle.putString(TABLE_BILL_ID, tableBillId);
-                readyGo(ACT_CheckOut.class,bundle);
+                readyGo(ACT_CheckOut.class, bundle);
                 break;
             case 2:
                 CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_dozen_bill), false);
@@ -200,6 +200,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
         }
     }
+
     /**
      * 按照下单时间对点菜的明细订单列表进行分组处理
      *
@@ -274,6 +275,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 break;
         }
     }
+
     /**
      * 外带订单详情
      *
@@ -296,7 +298,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             handlePayStatus();
 
             //会员手机号
-            if (orderDetailEntity.memberPhone.length() == 11) {
+            if (orderDetailEntity.memberPhone != null && orderDetailEntity.memberPhone.length() == 11) {
                 String maskNumber = orderDetailEntity.memberPhone.substring(0, 3) + "****" + orderDetailEntity.memberPhone.substring(7, orderDetailEntity.memberPhone.length());
                 tvPhoneNumber.setText(maskNumber);
             }
