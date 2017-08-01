@@ -14,8 +14,10 @@ import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutList;
+import com.yonyou.hhtpos.adapter.ADA_ServiceCharge;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
+import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -49,10 +51,10 @@ public class FRA_CheckOutLeft extends BaseFragment {
     private TextView tvDishPresent;//菜品赠送
     private TextView tvTotalServiceCharge;//服务费总计
     private TextView tvDishCharge;//菜品消费
-    private TextView tvServiceName;//服务费名称
-    private TextView tvServiceSCharge;//服务费明细
+    private BanSlideListView lvServiceCharge;//服务费详情列表
     private String tableBillId;
     private int fromWhere;
+    private ADA_ServiceCharge mServiceChargeAdapter;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshLeft(SettleAccountDataEntity settleAccountDataEntity) {
@@ -95,9 +97,12 @@ public class FRA_CheckOutLeft extends BaseFragment {
         tvDishPresent = (TextView) headView.findViewById(R.id.tv_dish_present);
         tvDishCharge = (TextView) headView.findViewById(R.id.tv_dish_charge);
         tvTotalServiceCharge = (TextView) headView.findViewById(R.id.tv_total_service_charge);
-        tvServiceName = (TextView) headView.findViewById(R.id.tv_service_name);
-        tvServiceSCharge = (TextView) headView.findViewById(R.id.tv_service_charge);
+        lvServiceCharge = (BanSlideListView) headView.findViewById(R.id.lv_service_charge);
         lvCheckOut.addHeaderView(headView);
+
+        //服务费明细
+        mServiceChargeAdapter = new ADA_ServiceCharge(mContext);
+        lvServiceCharge.setAdapter(mServiceChargeAdapter);
 
         mAdapter = new ADA_CheckOutList(mContext);
         lvCheckOut.setAdapter(mAdapter);
@@ -160,19 +165,9 @@ public class FRA_CheckOutLeft extends BaseFragment {
             if (!TextUtils.isEmpty(dataBean.serviceCharge)) {
                 tvTotalServiceCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.serviceCharge);
             }
-//            //服务费名称
-            if (dataBean.getServiceChargeDetail() != null && dataBean.getServiceChargeDetail().size() > 0) {
-                tvServiceName.setVisibility(View.VISIBLE);
-                tvServiceName.setText(dataBean.getServiceChargeDetail().get(0).getName());
-            } else {
-                tvServiceName.setVisibility(View.INVISIBLE);
-            }
-            //服务费金额
-            if (dataBean.getServiceChargeDetail() != null && dataBean.getServiceChargeDetail().size() > 0) {
-                tvServiceSCharge.setVisibility(View.VISIBLE);
-                tvServiceSCharge.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getServiceChargeDetail().get(0).getMoney());
-            } else {
-                tvServiceSCharge.setVisibility(View.INVISIBLE);
+            //服务费明细
+            if (dataBean.serviceChargeDetail != null && dataBean.serviceChargeDetail.size() > 0) {
+                mServiceChargeAdapter.update(dataBean.serviceChargeDetail,true);
             }
 
         }
@@ -180,15 +175,16 @@ public class FRA_CheckOutLeft extends BaseFragment {
             mAdapter.update(dataBean.orderDishes);
         }
     }
+
     @OnClick({R.id.tv_go_to_order})
-    public void onClick(View view){
+    public void onClick(View view) {
         switch (view.getId()) {
-            case  R.id.tv_go_to_order:
+            case R.id.tv_go_to_order:
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(IS_FROM_SETTLE_ACCOUNT,true);
-                bundle.putString(TABLE_BILL_ID,tableBillId);
-                bundle.putInt(FROM_WHERE,fromWhere);
-                readyGo(ACT_OrderDishes.class,bundle);
+                bundle.putBoolean(IS_FROM_SETTLE_ACCOUNT, true);
+                bundle.putString(TABLE_BILL_ID, tableBillId);
+                bundle.putInt(FROM_WHERE, fromWhere);
+                readyGo(ACT_OrderDishes.class, bundle);
                 break;
         }
     }

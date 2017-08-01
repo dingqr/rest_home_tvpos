@@ -190,10 +190,11 @@ public class API {
     /**
      * 获取结账信息
      */
-    public static final String URL_QUERY_BILL_INFO = BASE_SERVER_SHOP + "/protablebill/settleaccount/querybillinfo";
-//    public static final String URL_QUERY_BILL_INFO = "http://10.220.18.56:9000" + "/protablebill/settleaccount/querybillinfo";//李杨本地
+//    public static final String URL_QUERY_BILL_INFO = BASE_SERVER_SHOP + "/protablebill/settleaccount/querybillinfo";
+    public static final String URL_QUERY_BILL_INFO = "http://10.220.18.56:9000" + "/protablebill/settleaccount/querybillinfo";//李杨本地
     /**
      * 二次结账接口
      */
-    public static final String URL_SETTLE_ACCOUNT = BASE_SERVER_SHOP + "/protablebill/settleaccount/settle";
+//    public static final String URL_SETTLE_ACCOUNT = BASE_SERVER_SHOP + "/protablebill/settleaccount/settle";
+    public static final String URL_SETTLE_ACCOUNT = "http://10.220.18.56:9000" + "/protablebill/settleaccount/settle";
 }
