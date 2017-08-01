@@ -80,7 +80,7 @@ public class FRA_ActivateApp extends BaseFragment implements IActivateAppView {
 //        userToken = sharePre.getString(SpUtil.USER_TOKEN);
         shopId = sharePre.getString(SpUtil.SHOP_ID);
         if (!TextUtils.isEmpty(shopId)) {
-            readyGoThenKill(ACT_Login.class);
+            readyGoThenKill(ACT_Home.class);
         }
 
 //        HashMap<String,String> hashMap = new HashMap<>();
