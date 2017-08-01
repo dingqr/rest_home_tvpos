@@ -1,6 +1,5 @@
 package com.yonyou.hhtpos.ui.store;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,10 +17,11 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.StoreEntity;
 import com.yonyou.hhtpos.dialog.DIA_ChooseStore;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IGetAllShopsPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllShopsPresenterImpl;
 import com.yonyou.hhtpos.ui.login.ACT_Login;
-import com.yonyou.hhtpos.ui.login.FRA_Login;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
 import com.yonyou.hhtpos.view.IGetAllShopsView;
 
@@ -90,9 +90,12 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
                 sharePre.putString(SpUtil.SHOP_ID, StringUtil.getString(shop.id));
                 //保存shopName
                 sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shop.shopName));
-
+                Constants.SHOPID = shop.id;
                 Elog.e("SHOP_ID",sharePre.getString(SpUtil.SHOP_ID));
                 Elog.e("SHOP_NAME",sharePre.getString(SpUtil.SHOP_NAME));
+
+                //绑定成功后,发送一个广播
+                sendBroadcast(ReceiveConstants.BIND_SUCCESS);
             }
         });
 

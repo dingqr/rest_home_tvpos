@@ -58,16 +58,6 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
                 holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
             }
         }
-
-
-//        if (bean.isCheck()){
-//            currentBean = bean;
-//            holder.mLine.setVisibility(View.VISIBLE);
-//            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
-//        }else {
-//            holder.mLine.setVisibility(View.INVISIBLE);
-//            holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
-//        }
         return convertView;
     }
 

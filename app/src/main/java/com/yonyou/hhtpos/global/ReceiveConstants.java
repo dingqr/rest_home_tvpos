@@ -15,4 +15,6 @@ public class ReceiveConstants {
     public static final int WM_OPEN_ORDER_SUCCESS = 10004;
     // 刷新桌台列表
     public static final int REFRESH_TABLE_LIST = 10005;
+    //绑定门店成功后
+    public static final int BIND_SUCCESS = 10006;
 }

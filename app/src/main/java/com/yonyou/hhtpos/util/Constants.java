@@ -12,6 +12,7 @@ public class Constants {
     public static final  int DEAULT_2 = 2 ;
     public static final  int DEAULT_3 = 3 ;
     public static String TOKEN = "";
+    public static String SHOPID = "";
     /**
      * 页面传值时的参数名
      */

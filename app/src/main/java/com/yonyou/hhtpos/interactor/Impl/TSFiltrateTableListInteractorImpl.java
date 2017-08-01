@@ -17,10 +17,10 @@ import java.util.List;
  * 描述：堂食-桌台筛选列表
  */
 public class TSFiltrateTableListInteractorImpl implements ITSFiltrateTableListInteractor {
-    private BaseLoadedListener<List<CanteenTableEntity>> mWaiterListener;
+    private BaseLoadedListener<List<CanteenTableEntity>> fliterTableListListener;
 
     public TSFiltrateTableListInteractorImpl(BaseLoadedListener<List<CanteenTableEntity>> listener) {
-        this.mWaiterListener = listener;
+        this.fliterTableListListener = listener;
     }
 
     /**
@@ -41,18 +41,18 @@ public class TSFiltrateTableListInteractorImpl implements ITSFiltrateTableListIn
         RequestManager.getInstance().requestPostByAsyn(API.URL_TS_CLICKABLE_TABLE, params, new ReqCallBack<List<CanteenTableEntity>>() {
             @Override
             public void onReqSuccess(List<CanteenTableEntity> canteenTableEntityList) {
-                mWaiterListener.onSuccess(1, canteenTableEntityList);
+                fliterTableListListener.onSuccess(1, canteenTableEntityList);
             }
 
             @Override
             public void onFailure(String result) {
                 /**联网失败的回调*/
-                mWaiterListener.onException(result);
+                fliterTableListListener.onException(result);
             }
 
             @Override
             public void onReqFailed(ErrorBean error) {
-                mWaiterListener.onBusinessError(error);
+                fliterTableListListener.onBusinessError(error);
             }
         });
     }
