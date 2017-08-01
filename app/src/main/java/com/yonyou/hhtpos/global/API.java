@@ -109,8 +109,8 @@ public class API {
     /**
      * 左侧已点菜品列表接口
      */
-//    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
-    public static final String URL_DISH_LIST = "http://10.220.23.81:9001" + "/prodish/getbilldishinfo";
+    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+//    public static final String URL_DISH_LIST = "http://10.220.23.81:9001" + "/prodish/getbilldishinfo";
 
     /**
      * 点菜-获取所有菜品/菜类

@@ -29,10 +29,11 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<WDDishDetaiList
     protected void convert(ViewHolderListView holder, WDDishDetaiListlEntity dishDetaiListlEntity, int position) {
         if (dishDetaiListlEntity != null) {
             if (dishDetaiListlEntity.orderTime != null) {
-                //设置点菜时间
-                holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetaiListlEntity.orderTime, AppDateUtil.HH_MM)) + mContext.getResources().getString(R.string.string_order_dish));
-            } else {
-                holder.setText(R.id.tv_header_time, mContext.getResources().getString(R.string.string_unordered_dishes));
+                if (dishDetaiListlEntity.orderTime != 0) {
+                    holder.setText(R.id.tv_header_time, String.valueOf(AppDateUtil.getTimeStamp(dishDetaiListlEntity.orderTime, AppDateUtil.HH_MM)) + mContext.getResources().getString(R.string.string_order_dish));
+                } else {
+                    holder.setText(R.id.tv_header_time, mContext.getResources().getString(R.string.string_unordered_dishes));
+                }
             }
             //设置份数
             holder.setText(R.id.tv_quanlity, dishDetaiListlEntity.quantity + mContext.getResources().getString(R.string.string_unit_quanlity));
