@@ -389,6 +389,7 @@
         android:paddingLeft="@dimen/px_36"
         android:paddingRight="@dimen/px_36"
         android:paddingTop="@dimen/px_12"
+        android:gravity="center_horizontal"
         android:textColor="@color/color_eb6247"
         android:textSize="@dimen/sp_30" />
 </RelativeLayout>

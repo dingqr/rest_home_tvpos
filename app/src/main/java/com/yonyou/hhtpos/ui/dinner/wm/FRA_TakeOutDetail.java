@@ -21,7 +21,7 @@ import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
 import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
-import com.yonyou.hhtpos.bean.wm.WMDishDetailEntity;
+import com.yonyou.hhtpos.bean.wm.WMDishDetailListEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
 import com.yonyou.hhtpos.global.DishConstants;
@@ -61,7 +61,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Bind(R.id.lv_wm_order_detail)
     ListView wmListView;
     private ADA_TakeOutOrderDetail mAdapter;
-    private List<WMDishDetailEntity> dataList = new ArrayList<>();
+    private List<WMDishDetailListEntity> dataList = new ArrayList<>();
     //请求外面订单详情接口
     private IOrderDetailPresenter mPresenter;
     //请求外卖退款原因接口
@@ -301,7 +301,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     @Override
     public void requestWMOrderDetail(WMOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
-            List<WMDishDetailEntity> dishList = orderDetailEntity.dishList;
+            List<WMDishDetailListEntity> dishList = orderDetailEntity.dishList;
             if (dishList != null && dishList.size() > 0) {
                 this.dataList = dishList;
                 setCount(dataList);
@@ -366,7 +366,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
      *
      * @param dataList
      */
-    private void setCount(List<WMDishDetailEntity> dataList) {
+    private void setCount(List<WMDishDetailListEntity> dataList) {
         int limit = 0;
         int j = 0;
         for (; limit < dataList.size(); limit++) {
@@ -375,7 +375,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
             }
             mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
             for (; j < dataList.size(); j++) {
-                WMDishDetailEntity wmDishDetailEntity = dataList.get(j);
+                WMDishDetailListEntity wmDishDetailEntity = dataList.get(j);
                 if (wmDishDetailEntity.orderTime == null) {
                     return;
                 }
