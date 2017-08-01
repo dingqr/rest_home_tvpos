@@ -8,7 +8,9 @@ import com.yonyou.framework.library.common.utils.StringUtil;
  * 描述：外卖订单详情实体类
  */
 public class WMDishDetailEntity {
-    /**数量总价*/
+    /**
+     * 用于记录在同一时间下单的菜品的总数量标记
+     */
     public String totalCount;
     /**
      * 菜品id

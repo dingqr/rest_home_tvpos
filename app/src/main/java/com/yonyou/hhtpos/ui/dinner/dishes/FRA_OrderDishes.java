@@ -119,6 +119,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     /**
      * 接收右侧角标数量的数据集合
+     *
      * @param bean
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -498,19 +499,19 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         DataBean dataBean = new DataBean();
         dataBean.setDishName(dishesEntity.dishName);
         dataBean.setPrice(dishesEntity.getPrice());
-        if (dishesEntity.labels.size() > 0 && dishesEntity.labels != null) {
+        if (dishesEntity.labels != null && dishesEntity.labels.size() > 0) {
             dataBean.setLabels(dishesEntity.labels);
         }
-        if (dishesEntity.practices.size() > 0 && dishesEntity.practices != null) {
+        if (dishesEntity.practices != null && dishesEntity.practices.size() > 0) {
             dataBean.setPractices(dishesEntity.practices);
         }
-        if (dishesEntity.remarks.size() > 0 && dishesEntity.remarks != null) {
+        if (dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
             dataBean.setRemarks(dishesEntity.remarks);
         }
-        if (dishesEntity.standards.size() > 0 && dishesEntity.standards != null) {
+        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
             dataBean.setStandards(dishesEntity.standards);
         }
-        if (dishesEntity.tastes.size() > 0 && dishesEntity.tastes != null) {
+        if (dishesEntity.tastes != null && dishesEntity.tastes.size() > 0) {
             dataBean.setTastes(dishesEntity.tastes);
         }
         return dataBean;

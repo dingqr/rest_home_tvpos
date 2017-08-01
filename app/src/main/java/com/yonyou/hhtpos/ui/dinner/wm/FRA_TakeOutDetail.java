@@ -374,6 +374,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 }
                 String orderTime = StringUtil.getString(wmDishDetailEntity.orderTime);
                 if (!orderTime.equals(mCurrentTime)) {
+                    //key：time value:在该时间下单的菜品数量
                     map.put(mCurrentTime, StringUtil.getString(j - limit));
                     limit = j - 1;
                     break;
