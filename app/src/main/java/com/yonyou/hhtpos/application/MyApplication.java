@@ -40,6 +40,7 @@ public class MyApplication extends BaseApplication{
         mInstance = this;
         mContext = getApplicationContext();
         AppSharedPreferences sharePre = new AppSharedPreferences(this);
+
         String shopId = sharePre.getString(SpUtil.SHOP_ID);
         if (!TextUtils.isEmpty(shopId)){
             Constants.SHOPID = shopId;

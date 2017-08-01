@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.dialog.DIA_ChooseStore;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IGetAllShopsPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllShopsPresenterImpl;
+import com.yonyou.hhtpos.ui.home.ACT_Home;
 import com.yonyou.hhtpos.ui.login.ACT_Login;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
@@ -46,6 +47,7 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
 
     private DIA_ChooseStore diaChooseStore;
     private AppSharedPreferences sharePre;
+    private String shopId;
 
     /**
      * 获取所有门店
@@ -82,22 +84,24 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
         rbFinish.setChecked(false);
         tvStoreName.addTextChangedListener(new InputWatcher());
 
-        diaChooseStore = new DIA_ChooseStore(mContext, new DIA_ChooseStore.OnChooseStoreListener() {
-            @Override
-            public void onChooseStore(StoreEntity shop, int poition) {
-                tvStoreName.setText(shop.shopName);
-                //保存shopId
-                sharePre.putString(SpUtil.SHOP_ID, StringUtil.getString(shop.id));
-                //保存shopName
-                sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shop.shopName));
-                Constants.SHOPID = shop.id;
-                Elog.e("SHOP_ID",sharePre.getString(SpUtil.SHOP_ID));
-                Elog.e("SHOP_NAME",sharePre.getString(SpUtil.SHOP_NAME));
-
-                //绑定成功后,发送一个广播
-                sendBroadcast(ReceiveConstants.BIND_SUCCESS);
-            }
-        });
+        shopId = sharePre.getString(SpUtil.SHOP_ID);
+        if (!TextUtils.isEmpty(shopId)) {
+            readyGoThenKill(ACT_Login.class);
+        } else {
+            diaChooseStore = new DIA_ChooseStore(mContext, new DIA_ChooseStore.OnChooseStoreListener() {
+                @Override
+                public void onChooseStore(StoreEntity shop, int poition) {
+                    tvStoreName.setText(shop.shopName);
+                    //保存shopId
+                    sharePre.putString(SpUtil.SHOP_ID, StringUtil.getString(shop.id));
+                    //保存shopName
+                    sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shop.shopName));
+                    Constants.SHOPID = shop.id;
+                    Elog.e("SHOP_ID", sharePre.getString(SpUtil.SHOP_ID));
+                    Elog.e("SHOP_NAME", sharePre.getString(SpUtil.SHOP_NAME));
+                }
+            });
+        }
 
     }
 

@@ -161,7 +161,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      * 重置选中状态
      */
     private void resetCheckStatus() {
+        if (null == mDishDataBean)
+            return;
+
         List<DishTypesEntity> dishTypes = mDishDataBean.dishTypes;
+
         if (null == dishTypes)
             return;
 

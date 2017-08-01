@@ -28,7 +28,7 @@ public class InputWeightView extends RelativeLayout {
      * 页面控件
      */
     private TextView tvDishUnit;
-    private EditText evDishWeight;
+    private EditText etDishWeight;
 
     public InputWeightView(Context context) {
         this(context, null);
@@ -48,21 +48,28 @@ public class InputWeightView extends RelativeLayout {
     private void initView() {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.input_weight_view, this);
         tvDishUnit = (TextView) convertView.findViewById(R.id.tv_dish_unit);
-        evDishWeight = (EditText) convertView.findViewById(R.id.ev_dish_weight);
-        setPoint(evDishWeight);
+        etDishWeight = (EditText) convertView.findViewById(R.id.et_dish_weight);
+        setPoint(etDishWeight);
     }
 
     public void setData(WeightEntity weightEntity) {
         if (weightEntity != null) {
             tvDishUnit.setText(weightEntity.getUnit());
-            evDishWeight.setHint(weightEntity.getHint());
+            etDishWeight.setHint(weightEntity.getHint());
         }
     }
+
+    public void setWeight(double weight) {
+        if (weight != -1) {
+            etDishWeight.setText(String.valueOf(weight));
+        }
+    }
+
     public void reset(){
-        evDishWeight.setText("");
+        etDishWeight.setText("");
     }
     public String getNumber() {
-        String weight = evDishWeight.getText().toString().trim();
+        String weight = etDishWeight.getText().toString().trim();
         return StringUtil.getString(weight);
     }
 

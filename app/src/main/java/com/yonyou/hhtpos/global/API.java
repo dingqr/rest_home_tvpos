@@ -9,23 +9,19 @@ public class API {
     /**
      * 服务器ip
      */
-//    public static final String BASE_SERVER_IP = "http://api-c2b.honghuotai.com"; //正式服务器地址
-//    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
 
+    // 开发环境
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
-//        public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
-//        public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
-    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
-    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
-    //    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8088";// shop端口号
-//    public static final String BASE_SERVER_IP = "http://10.220.17.51:8062"; //线上ip
-//    public static final String BASE_SERVER_IP = "http://10.220.23.251:9000"; //吴贤川ip
-
-    //测试门店和公司id
     public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     public static final String shopId = "C13352966C000000A60000000016E000";
+    // 测试环境
+//    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
 //    public static final String compId = "2323";
 //    public static final String shopId = "C60D375FDC0000009200000000000000";
+
+    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
+    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
+
     /**
      * 运营平台地址
      */
@@ -141,7 +137,6 @@ public class API {
      * 外卖订单详情
      */
     public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "/takeOut/getBillDetail";
-//    public static final String URL_WM_ORDER_DETAIL = "http://10.220.23.197:8088" + "/takeOut/getBillDetail";//袁波本地
 
     /**
      * 点菜时，新加菜品
@@ -221,7 +216,6 @@ public class API {
      * 二次结账接口
      */
     public static final String URL_SETTLE_ACCOUNT = BASE_SERVER_SHOP + "/protablebill/settleaccount/settle";
-//    public static final String URL_SETTLE_ACCOUNT = "http://10.220.18.56:9000" + "/protablebill/settleaccount/settle";
 
     /**
      * 修改未下单菜品

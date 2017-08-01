@@ -55,7 +55,7 @@ public class DIA_ChooseWaiter {
 
     public void setData(List<WaiterEntity> waiterList) {
         mWaiterList = waiterList;
-        if (waiterList.size() >= 0 && waiterList != null) {
+        if ( waiterList != null && waiterList.size() >= 0) {
             waiterEntity = waiterList.get(0);
         }else {
             CommonUtils.makeEventToast(mContext,"请选择服务员",false);

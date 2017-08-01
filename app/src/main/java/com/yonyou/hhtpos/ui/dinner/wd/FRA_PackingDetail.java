@@ -298,7 +298,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             handlePayStatus();
 
             //会员手机号
-            if (orderDetailEntity.memberPhone != null && orderDetailEntity.memberPhone.length() == 11) {
+            if (null != orderDetailEntity.memberPhone && orderDetailEntity.memberPhone.length() == 11) {
                 String maskNumber = orderDetailEntity.memberPhone.substring(0, 3) + "****" + orderDetailEntity.memberPhone.substring(7, orderDetailEntity.memberPhone.length());
                 tvPhoneNumber.setText(maskNumber);
             }

@@ -172,6 +172,9 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 remarkEmptyFlag = true;
             }
         }
+        if(dataBean.getWeight()>0){
+            iwvDishWeight.setWeight(dataBean.getWeight());
+        }
         return this;
     }
 

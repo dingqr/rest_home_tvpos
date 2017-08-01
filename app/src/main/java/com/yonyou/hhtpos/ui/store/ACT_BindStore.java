@@ -8,6 +8,8 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
+import com.yonyou.hhtpos.global.ReceiveConstants;
+import com.yonyou.hhtpos.util.Constants;
 
 /**
  * 绑定门店页面
@@ -79,4 +81,5 @@ public class ACT_BindStore extends ACT_BaseFullScreen {
     public void showBusinessError(ErrorBean error) {
 
     }
+
 }

@@ -188,9 +188,13 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
                 }
                 break;
             case R.id.et_waiter:
+                if (waiterList!=null && waiterList.size()>0){
                 dia_chooseWaiter.setData(waiterList);
                 dia_chooseWaiter.setOnWaiterSelectedListener(this);
-                dia_chooseWaiter.show();
+                dia_chooseWaiter.show();}
+                else{
+                    CommonUtils.makeEventToast(mContext,mContext.getString(R.string.waiter_list_empty),false);
+                }
                 break;
             default:
                 break;

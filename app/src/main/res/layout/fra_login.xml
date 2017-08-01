@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/px_50"
-            android:text="58号花园（苏州街店）"
+            android:text=""
             android:textSize="@dimen/sp_34"
             android:textColor="@color/color_222222" />
         <EditText
@@ -29,7 +29,7 @@
             android:textSize="@dimen/sp_28"
             android:maxLength="11"
             android:clickable="true"
-            android:inputType="number" />
+            android:inputType="phone" />
         <EditText
             android:id="@+id/et_user_pwd"
             android:layout_width="@dimen/px_700"
