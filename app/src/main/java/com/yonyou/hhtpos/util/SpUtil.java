@@ -10,4 +10,8 @@ public class SpUtil {
      * 用户Token
      */
     public static final String USER_TOKEN = "user.token";
+    /**shopId*/
+    public static final String SHOP_ID = "shopId";
+    /**门店名称*/
+    public static final String SHOP_NAME = "shopName";
 }

@@ -30,11 +30,11 @@ public class DIA_ChooseStore {
     private ImageView ivClose;
     private Context mContext;
     private ArrayList<StoreEntity> datas = new ArrayList<>();
-    private OnChoosStoreListener chooseStoreListener;
+    private OnChooseStoreListener chooseStoreListener;
     private DashGridView gridView;
     private ADA_ChooseStore adapter;
 
-    public DIA_ChooseStore(Context context, OnChoosStoreListener chooseStoreListener) {
+    public DIA_ChooseStore(Context context, OnChooseStoreListener chooseStoreListener) {
         mContext = context;
         this.chooseStoreListener = chooseStoreListener;
         mDialog = new Dialog(context, R.style.ActionSheetDialogStyle);
@@ -43,16 +43,12 @@ public class DIA_ChooseStore {
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
         swipeRefreshLayout = (SwipeRefreshLayout) mContentView.findViewById(R.id.swipeRefreshLayout);
 
-
-
         mDialog.setContentView(mContentView);
         initListener();
 
-        setData();
+//        setData();
 
-        adapter = new ADA_ChooseStore(mContext);
-        gridView.setAdapter(adapter);
-        adapter.update(datas);
+
     }
 
     /**
@@ -65,9 +61,9 @@ public class DIA_ChooseStore {
                 adapter.setSelectItem(position);
                 adapter.notifyDataSetChanged();
                 if (chooseStoreListener != null) {
-                    chooseStoreListener.onChooseStore(datas.get(position).store_name,position);
+                    chooseStoreListener.onChooseStore(datas.get(position), position);
                 }
-                if(mDialog.isShowing()) {
+                if (mDialog.isShowing()) {
                     mDialog.dismiss();
                 }
             }
@@ -101,6 +97,13 @@ public class DIA_ChooseStore {
         }
     }
 
+    public void setData(ArrayList<StoreEntity> shopList) {
+        this.datas = shopList;
+        adapter = new ADA_ChooseStore(mContext);
+        gridView.setAdapter(adapter);
+        adapter.update(datas);
+    }
+
     public Dialog show() {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.getWindow().setGravity(Gravity.CENTER);
@@ -116,8 +119,8 @@ public class DIA_ChooseStore {
         return mDialog;
     }
 
-    public interface OnChoosStoreListener {
-        void onChooseStore(String storeName,int position);
+    public interface OnChooseStoreListener {
+        void onChooseStore(StoreEntity storeName, int position);
     }
 
 }

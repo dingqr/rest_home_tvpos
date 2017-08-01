@@ -17,6 +17,13 @@ public class StoreEntity implements Serializable {
     /**门店地址*/
     public String store_loaction;
 
+    /**门店名称*/
+    public String shopName;
+    /**门店id*/
+    public String shopId;
+    /**门店地址*/
+    public String shopAddress;
+
     @Override
     public String toString() {
         return "StoreEntity{" +

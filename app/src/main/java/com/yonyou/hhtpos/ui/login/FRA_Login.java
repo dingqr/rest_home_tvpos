@@ -45,6 +45,8 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     EditText etUserPwd;
     @Bind(R.id.rb_login)
     RadioButton rbLogin;
+    @Bind(R.id.tv_shop_name)
+    TextView tvShopName;
 
 
     //用户手机号 11位数字 符合 手机号的规律
@@ -56,6 +58,8 @@ public class FRA_Login extends BaseFragment implements ILoginView {
 
     private AppSharedPreferences sharePre;
     private String userToken;
+    private String shopId;
+    private String shopName;
 
     @Override
     protected void onFirstUserVisible() {
@@ -81,6 +85,10 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     protected void initViewsAndEvents() {
         sharePre = new AppSharedPreferences(mContext);
         userToken = sharePre.getString(SpUtil.USER_TOKEN);
+        shopName = sharePre.getString(SpUtil.SHOP_NAME);
+        if (!TextUtils.isEmpty(shopName)){
+            tvShopName.setText(shopName);
+        }
         if (!TextUtils.isEmpty(userToken)) {
             readyGoThenKill(ACT_Home.class);
         } else {
