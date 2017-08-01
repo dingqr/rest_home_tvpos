@@ -172,23 +172,30 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_button:
-//                1-部分支付，2-支付完成，3-已退款，4-未支付
-                switch (payStatus) {
-                    case 1:
-                    case 4:
-                        tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
-                        bundle.putString(TABLE_BILL_ID, tableBillId);
-                        readyGo(ACT_CheckOut.class);
-                        break;
-                    case 2:
-                        tvButton.setText(mContext.getResources().getString(R.string.string_dozen_bill));
-                        CommonUtils.makeEventToast(mContext,mContext.getResources().getString(R.string.string_dozen_bill),false);
-                        break;
-
-                }
+//                handleClickPayStatus();
                 break;
+        }
+    }
+
+    /**
+     * 根据账单支付状态处理跳转逻辑
+     */
+    private void handleClickPayStatus() {
+        //                1-部分支付，2-支付完成，3-已退款，4-未支付
+        switch (payStatus) {
+            case 1:
+            case 4:
+                tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
+                Bundle bundle = new Bundle();
+                bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
+                bundle.putString(TABLE_BILL_ID, tableBillId);
+                readyGo(ACT_CheckOut.class);
+                break;
+            case 2:
+                tvButton.setText(mContext.getResources().getString(R.string.string_dozen_bill));
+                CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_dozen_bill), false);
+                break;
+
         }
     }
 
@@ -201,7 +208,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     public void requestWDOrderDetail(WDOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
             if (orderDetailEntity.payStatus != null) {
-                payStatus = Integer.parseInt(orderDetailEntity.payStatus);
+//                payStatus = Integer.parseInt(orderDetailEntity.payStatus);
             }
 
             //开单服务员
@@ -211,7 +218,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             //开单服务员
             tvOpenOrderPersonNum.setText(StringUtil.getString(orderDetailEntity.personNum));
             //支付状态
-            handlePayStatus();
+//            handlePayStatus();
 
             //会员手机号
             if (orderDetailEntity.memberPhone.length() == 11) {

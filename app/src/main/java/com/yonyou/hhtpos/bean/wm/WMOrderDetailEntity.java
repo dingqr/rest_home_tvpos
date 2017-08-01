@@ -55,7 +55,7 @@ public class WMOrderDetailEntity implements Serializable {
     /**
      * 订单时间
      */
-    public String orderTime;
+    public Long orderTime;
     /**
      * 结账时间
      */
