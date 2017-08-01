@@ -60,6 +60,7 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     private String userToken;
     private String shopId;
     private String shopName;
+    private String employeePhone;
 
     @Override
     protected void onFirstUserVisible() {
@@ -86,21 +87,25 @@ public class FRA_Login extends BaseFragment implements ILoginView {
         sharePre = new AppSharedPreferences(mContext);
         userToken = sharePre.getString(SpUtil.USER_TOKEN);
         shopName = sharePre.getString(SpUtil.SHOP_NAME);
-        if (!TextUtils.isEmpty(shopName)){
+        employeePhone = sharePre.getString(SpUtil.EMPLOYEE_PHONE);
+        if (!TextUtils.isEmpty(shopName)) {
             tvShopName.setText(shopName);
         }
-        if (!TextUtils.isEmpty(userToken)) {
-            readyGoThenKill(ACT_Home.class);
-        } else {
-            mPresenter = new LoginPresenterImpl(this.getContext(), this);
-            showSoftInput(etUserPwd);
-            showSoftInput(etUserPhone);
-            //默认登录按钮不可点击并且是置灰状态
-            rbLogin.setChecked(false);
-            rbLogin.setClickable(false);
-            etUserPhone.addTextChangedListener(new InputWatcher());
-            etUserPwd.addTextChangedListener(new InputWatcher());
+        if (!TextUtils.isEmpty(employeePhone)) {
+            etUserPhone.setText(employeePhone);
         }
+//        if (!TextUtils.isEmpty(userToken)) {
+//            readyGoThenKill(ACT_Home.class);
+//        } else {
+        mPresenter = new LoginPresenterImpl(this.getContext(), this);
+        showSoftInput(etUserPwd);
+        showSoftInput(etUserPhone);
+        //默认登录按钮不可点击并且是置灰状态
+        rbLogin.setChecked(false);
+        rbLogin.setClickable(false);
+        etUserPhone.addTextChangedListener(new InputWatcher());
+        etUserPwd.addTextChangedListener(new InputWatcher());
+//        }
     }
 
     @Override
@@ -248,7 +253,7 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     public void login(UserEntity dataBean) {
         if (null != dataBean) {
             //保存用户信息
-            sharePre.putString(SpUtil.USER_TOKEN, StringUtil.getString(dataBean.token));
+            sharePre.putString(SpUtil.EMPLOYEE_PHONE, StringUtil.getString(userPhone));
         }
 
         readyGoThenKill(ACT_Home.class);

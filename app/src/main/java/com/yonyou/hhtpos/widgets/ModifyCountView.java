@@ -57,7 +57,10 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         currentCount.setFocusable(false);
         currentCount.setFocusableInTouchMode(true);
     }
-
+    public void setCount(int count){
+        this.count = count;
+        currentCount.setText(String.valueOf(count));
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){

@@ -130,6 +130,10 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
                 llDishNorms.setVisibility(View.GONE);
             }
         }
+        //设置菜品数量
+        if(!TextUtils.isEmpty(String.valueOf(dataBean.getQuantity()))){
+            mcvDishCount.setCount(dataBean.getQuantity());
+        }
         return this;
     }
 

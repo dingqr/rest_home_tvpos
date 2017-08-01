@@ -127,7 +127,9 @@
             android:id="@+id/iwv_dish_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_34"></com.yonyou.hhtpos.widgets.InputWeightView>
+            android:layout_marginLeft="@dimen/px_34">
+
+        </com.yonyou.hhtpos.widgets.InputWeightView>
     </LinearLayout>
 
     <ScrollView

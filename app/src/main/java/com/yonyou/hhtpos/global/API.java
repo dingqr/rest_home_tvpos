@@ -15,11 +15,12 @@ public class API {
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
 //        public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
 //        public static final String BASE_SERVER_IP = "http://10.220.23.197:"; //线上ip
+//    public static final String BASE_SERVER_IP = "http://10.220.19.142:"; //庞辉ip
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
     //    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8088";// shop端口号
 //    public static final String BASE_SERVER_IP = "http://10.220.17.51:8062"; //线上ip
-//    public static final String BASE_SERVER_IP = "http://10.220.23.251:9000"; //吴贤川ip
+
 
     //测试门店和公司id
     public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";

@@ -45,6 +45,12 @@ public class UserEntity {
 
     /**企业认证 0-认证，1-未认证*/
     private int source;
+    /**雇员id*/
+    private String employeeId;
+    /**雇员名字*/
+    private String employeeName;
+    /**雇员头像*/
+    private String employeeHead;
 
     @Generated(hash = 1729990473)
     public UserEntity(Long id, String phone, String name, String token,
@@ -154,6 +160,28 @@ public class UserEntity {
         this.source = source;
     }
 
-    
 
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getEmployeeHead() {
+        return employeeHead;
+    }
+
+    public void setEmployeeHead(String employeeHead) {
+        this.employeeHead = employeeHead;
+    }
 }

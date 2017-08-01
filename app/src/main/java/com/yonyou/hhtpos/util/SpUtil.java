@@ -14,4 +14,6 @@ public class SpUtil {
     public static final String SHOP_ID = "shopId";
     /**门店名称*/
     public static final String SHOP_NAME = "shopName";
+    /**登录用户手机号*/
+    public static final String EMPLOYEE_PHONE = "employee.phone";
 }

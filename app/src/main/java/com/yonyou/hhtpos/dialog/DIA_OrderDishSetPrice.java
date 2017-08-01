@@ -143,6 +143,9 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 llCookery.setVisibility(View.GONE);
             }
         }
+        if(dataBean.getWeight()>0){
+            iwvDishWeight.setWeight(dataBean.getWeight());
+        }
         return this;
     }
 
