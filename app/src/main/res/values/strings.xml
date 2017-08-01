@@ -379,5 +379,6 @@
     <string name="string_paying">结账中</string>
     <string name="string_settle_account">结账</string>
     <string name="string_dozen_bill">补打账单</string>
+    <string name="string_unit_coupon">张</string>
 
 </resources>

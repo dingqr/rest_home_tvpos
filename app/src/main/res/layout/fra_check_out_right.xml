@@ -137,6 +137,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_couponuseds"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/px_20"
@@ -153,6 +154,7 @@
                         android:layout_weight="1"/>
 
                     <TextView
+                        android:id="@+id/tv_coupon_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（3张）"
@@ -160,6 +162,7 @@
                         android:textColor="@color/color_eb6247"/>
 
                     <TextView
+                        android:id="@+id/tv_coupon_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥60.20"

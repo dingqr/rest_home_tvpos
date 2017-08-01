@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
@@ -61,6 +62,12 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     @Bind(R.id.lv_pay_type)
     BanSlideListView lvPaHistory;//支付方式
+    @Bind(R.id.layout_couponuseds)
+    LinearLayout layoutCouponuseds;//代金券
+    @Bind(R.id.tv_coupon_count)
+    TextView tvCouponCount;//使用的代金券数量
+    @Bind(R.id.tv_coupon_amount)
+    TextView tvCouponAmount;//使用的代金券总金额
 
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
@@ -214,6 +221,17 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
             tvIgnoreMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getIgnoreMoney());
         }
         //代金券
+        if (dataBean.couponUseds != null && dataBean.couponUseds.size() > 0) {
+            layoutCouponuseds.setVisibility(View.VISIBLE);
+            Double totalMoney = 0.0;
+            for (int i = 0; i < dataBean.couponUseds.size(); i++) {
+                totalMoney += Double.parseDouble(dataBean.couponUseds.get(i).getCouponMoney());
+            }
+            tvCouponAmount.setText("(" + dataBean.couponUseds.size() + mContext.getResources().getString(R.string.string_unit_coupon) + ")");
+            tvCouponAmount.setText(StringUtil.getString(totalMoney));
+        } else {
+            layoutCouponuseds.setVisibility(View.GONE);
+        }
         //支付方式
         if (dataBean.paidHistory != null && dataBean.paidHistory.size() > 0) {
             mPayhistoryAdapter.update(dataBean.paidHistory, true);
