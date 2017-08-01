@@ -1,7 +1,11 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
+import android.text.TextUtils;
+
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.dish.RequestEditDishEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IDishEditInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -15,17 +19,26 @@ import java.util.HashMap;
  */
 public class DishEditInteractorImpl implements IDishEditInteractor {
 
+    /**修改数量监听 */
     private BaseLoadedListener updateQuantityListener;
+    /**删除菜品监听 */
     private BaseLoadedListener deleteDishListener;
+    /**更新菜品状态监听 */
     private BaseLoadedListener updateDishStatusListener;
+    /**赠菜退菜监听 */
     private BaseLoadedListener handleDishListener;
+    /**称重确认监听 */
     private BaseLoadedListener confirmWeightListener;
+    /**转台监听 */
     private BaseLoadedListener switchTableListener;
+    /**取消赠送监听 */
     private BaseLoadedListener cancelGiftDishesListener;
+    /**修改菜品监听 */
+    private BaseLoadedListener updateDishListener;
 
     public DishEditInteractorImpl(BaseLoadedListener updateQuantityListener, BaseLoadedListener deleteDishListener, BaseLoadedListener updateDishStatusListener,
                                   BaseLoadedListener handleDishListener, BaseLoadedListener confirmWeightListener, BaseLoadedListener switchTableListener,
-                                  BaseLoadedListener cancelGiftDishesListener) {
+                                  BaseLoadedListener cancelGiftDishesListener, BaseLoadedListener updateDishListener) {
         this.updateQuantityListener = updateQuantityListener;
         this.deleteDishListener = deleteDishListener;
         this.updateDishStatusListener = updateDishStatusListener;
@@ -33,6 +46,7 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
         this.confirmWeightListener = confirmWeightListener;
         this.switchTableListener = switchTableListener;
         this.cancelGiftDishesListener = cancelGiftDishesListener;
+        this.updateDishListener = updateDishListener;
     }
     
     @Override
@@ -215,6 +229,56 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 cancelGiftDishesListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void updateDish(RequestEditDishEntity bean) {
+        if (null == bean)
+            return;
+
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("dishType", bean.getDishType());
+        hashMap.put("id", bean.getId());
+        hashMap.put("shopId", bean.getShopId());
+
+        // 	菜品规格id（为空则不修改，不为空修改）
+        if (!TextUtils.isEmpty(bean.getDishStandardId())){
+            hashMap.put("dishStandardId", bean.getDishStandardId());
+        }
+        // 	所选做法id列表（为空则不修改，不为空修改）
+        if (!TextUtils.isEmpty(bean.getPractices())){
+            hashMap.put("practices", bean.getPractices());
+        }
+        //  数量（为空则不修改，不为空修改）
+        if (!TextUtils.isEmpty(bean.getQuantity())){
+            hashMap.put("quantity", bean.getQuantity());
+        }
+        // 备注（为空则不修改，不为空修改）
+        if (!TextUtils.isEmpty(bean.getRemark())){
+            hashMap.put("remark", bean.getRemark());
+        }
+        // 所选备注id列表（为空则不修改，不为空修改）
+        if (!TextUtils.isEmpty(bean.getRemarks())){
+            hashMap.put("remarks", bean.getRemarks());
+        }
+
+        RequestManager.getInstance().requestPostByAsyn(API.URL_UPDATE_DISH, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                updateDishListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                updateDishListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                updateDishListener.onBusinessError(errorBean);
             }
         });
     }

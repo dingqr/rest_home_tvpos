@@ -56,16 +56,17 @@ public class DishListEntity implements Serializable {
         private String listShowPractice;
         /**展示备注 */
         private String listShowRemark;
-//        /**规格id列表 */
-//        private List<String> practices;
+
+        /**做法id */
+        private String practice;
         /**数量 */
         private String quantity;
-//        /**菜品备注 */
-//        //private String remark;
-//        /**备注id列表 */
-//        private List<String> remarks;
-//        /**规格ID */
-//        private String standardId;
+        /**菜品备注 */
+        private String remark;
+        /**备注id列表 */
+        private List<String> remarks;
+        /**规格ID */
+        private String standardId;
 
         /**下单时间 */
         private String orderTime;
@@ -75,6 +76,38 @@ public class DishListEntity implements Serializable {
 
         /**id */
         private String id;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public String getPractice() {
+            return practice;
+        }
+
+        public void setPractice(String practice) {
+            this.practice = practice;
+        }
+
+        public List<String> getRemarks() {
+            return remarks;
+        }
+
+        public void setRemarks(List<String> remarks) {
+            this.remarks = remarks;
+        }
+
+        public String getStandardId() {
+            return standardId;
+        }
+
+        public void setStandardId(String standardId) {
+            this.standardId = standardId;
+        }
 
         /**退增的list */
         private List<Abnormal> abnormalList;

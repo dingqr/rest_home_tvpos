@@ -82,7 +82,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     private ITableListPresenter mTableListPresenter;
     //测试请求参数
     private String diningAreaRelateId = "";
-    private String shopId = "hht";
+    private String shopId = API.shopId;
     //桌台状态
     private String mTableState;
 

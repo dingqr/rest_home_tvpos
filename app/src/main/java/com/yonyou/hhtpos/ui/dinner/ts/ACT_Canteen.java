@@ -22,6 +22,7 @@ import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
@@ -62,7 +63,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private ADA_MealArea mAdapter;
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
 
-    private String shopId = "hht";
+    private String shopId = API.shopId;
     private String shopIdFake = "C13352966C000000A60000000016E000";
 
     public static final int RB_FREE = 0;

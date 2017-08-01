@@ -47,4 +47,5 @@ public interface IDishEditView extends BaseView {
      * 取消赠菜接口成功回调
      */
     void cancelGiftDishesSuccess();
+
 }

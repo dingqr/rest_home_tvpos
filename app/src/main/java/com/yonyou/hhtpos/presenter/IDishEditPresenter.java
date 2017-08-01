@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.presenter;
 
+import com.yonyou.hhtpos.bean.dish.RequestEditDishEntity;
+
 /**
  * 作者：liushuofei on 2017/7/22 11:53
  * 邮箱：lsf@yonyou.com
@@ -64,4 +66,10 @@ public interface IDishEditPresenter {
      * @param waiterId 服务员id
      */
     void cancelGiftDish(String id, String shopId, String waiterId);
+
+    /**
+     * 修改菜品接口
+     * @param bean 修改菜品实体类
+     */
+    void updateDish(RequestEditDishEntity bean);
 }
