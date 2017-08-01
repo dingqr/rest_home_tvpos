@@ -27,6 +27,7 @@ import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
 import com.yonyou.hhtpos.view.ITSFiltrateTableView;
+import com.yonyou.hhtpos.view.ITSTableAreaListView;
 import com.yonyou.hhtpos.widgets.NoScrollViewPager;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
@@ -40,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * 堂食页面
  * 作者：liushuofei on 2017/7/8 10:42
  */
-public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView {
+public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView,ITSTableAreaListView {
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -497,5 +498,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     public void setTableOption(String tableOption) {
         this.tableOption = tableOption;
+    }
+
+    @Override
+    public void getTableAreaList( List<MealAreaEntity> bean) {
+
     }
 }

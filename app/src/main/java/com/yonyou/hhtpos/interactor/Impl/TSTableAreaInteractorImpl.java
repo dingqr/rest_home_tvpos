@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
+import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
 import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.global.API;
@@ -11,10 +12,12 @@ import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
- * 作者：ybing on 2017/7/19 10:11
+ * 作者：ybing on 2017/8/1 10:11
  * 邮箱：ybing@yonyou.com
+ * 获取餐区列表
  */
 public class TSTableAreaInteractorImpl implements ITSTableAreaInteractor {
 
@@ -25,15 +28,13 @@ public class TSTableAreaInteractorImpl implements ITSTableAreaInteractor {
     }
 
     @Override
-    public void getTableList(String shopId,String diningAreaRelatedId,String tableStatus) {
+    public void getTableList(String shopId) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("shopId", shopId);
-        hashMap.put("dining_area_relate_id",diningAreaRelatedId);
-        hashMap.put("tableStatus",tableStatus);
-        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_OPEN_ORDER, hashMap, new ReqCallBack<TSTableBillIdEntity>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TS_AREA_LIST, hashMap, new ReqCallBack<List<MealAreaEntity>>() {
 
             @Override
-            public void onReqSuccess(TSTableBillIdEntity result) {
+            public void onReqSuccess(List<MealAreaEntity> result) {
                 getTableListListener.onSuccess(0, result);
             }
 

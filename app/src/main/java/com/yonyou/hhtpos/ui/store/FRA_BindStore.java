@@ -116,6 +116,7 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
                     intent.putExtra(SpUtil.SHOP_ID, shopId);
                     intent.putExtra(SpUtil.SHOP_NAME, shopName);
                     startActivity(intent);
+                    this.getActivity().finish();
                 }else{
                     CommonUtils.makeEventToast(mContext,mContext.getString(R.string.bind_shop),false);
                 }
@@ -132,8 +133,10 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
     private boolean VerifyInput() {
         shopName = tvStoreName.getText().toString().trim();
         if (!TextUtils.isEmpty(shopName)) {
+            rbFinish.setChecked(true);
             return true;
         } else {
+            rbFinish.setChecked(false);
             return false;
         }
     }
