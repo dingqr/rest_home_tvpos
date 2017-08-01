@@ -6,6 +6,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
  * 描述：
  */
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,8 +14,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
@@ -23,8 +26,10 @@ import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
 import com.yonyou.hhtpos.adapter.ADA_WDDetailPayType;
 import com.yonyou.hhtpos.bean.wd.DishDetaiListlEntity;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.view.IWDOrderDetailView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
@@ -33,6 +38,9 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
+
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
 
 /**
  * Created by zj on 2017/7/4.
@@ -75,12 +83,17 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     //支付信息
     @Bind(R.id.layout_pay_info)
     LinearLayout layoutPayInfo;
+    @Bind(R.id.tv_button)
+    TextView tvButton;
     private ADA_WDDetailPayType mPaytypeAdapter;
     private ADA_OrderDishesDetail mAdapter;
     private ArrayList<DishDetaiListlEntity> dataList = new ArrayList<>();
 
     //请求外带详情接口
     private IOrderDetailPresenter mPresenter;
+    private WDOrderDetailEntity mDataBean;
+    private int payStatus;
+    private String tableBillId = "";
 
     /**
      * 左侧外带订单列表是否为空
@@ -151,7 +164,32 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     }
 
     public void requestPackingDetail(String tableBillId) {
+        this.tableBillId = tableBillId;
         mPresenter.requestWDOrderDetail(tableBillId);
+    }
+
+    @OnClick({R.id.tv_button})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_button:
+//                1-部分支付，2-支付完成，3-已退款，4-未支付
+                switch (payStatus) {
+                    case 1:
+                    case 4:
+                        tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
+                        bundle.putString(TABLE_BILL_ID, tableBillId);
+                        readyGo(ACT_CheckOut.class);
+                        break;
+                    case 2:
+                        tvButton.setText(mContext.getResources().getString(R.string.string_dozen_bill));
+                        CommonUtils.makeEventToast(mContext,mContext.getResources().getString(R.string.string_dozen_bill),false);
+                        break;
+
+                }
+                break;
+        }
     }
 
     /**
@@ -162,6 +200,10 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     @Override
     public void requestWDOrderDetail(WDOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
+            if (orderDetailEntity.payStatus != null) {
+                payStatus = Integer.parseInt(orderDetailEntity.payStatus);
+            }
+
             //开单服务员
             tvOpenOrderWaiter.setText(orderDetailEntity.waiterName);
             //开单时间
@@ -169,19 +211,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             //开单服务员
             tvOpenOrderPersonNum.setText(StringUtil.getString(orderDetailEntity.personNum));
             //支付状态
-            if (orderDetailEntity.payStatus.equals("Y")) {
-                tvPayStatus.setText(mContext.getResources().getString(R.string.string_pay_successful));
-                tvNotPay.setVisibility(View.GONE);
-                tvWaitReceiveMoney.setVisibility(View.GONE);
-                layoutPayInfo.setVisibility(View.VISIBLE);
-            } else {
-                tvNotPay.setVisibility(View.VISIBLE);
-                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
-                //待收金额
-//                tvWaitReceiveMoney.setText();
-                tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
-                layoutPayInfo.setVisibility(View.GONE);
-            }
+            handlePayStatus();
 
             //会员手机号
             if (orderDetailEntity.memberPhone.length() == 11) {
@@ -208,6 +238,39 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             if (dishListDetail != null && dishListDetail.size() > 0) {
                 mAdapter.update(dishListDetail, true);
             }
+        }
+    }
+
+    /**
+     * // 1-部分支付，2-支付完成，3-已退款，4-未支付
+     */
+    private void handlePayStatus() {
+        switch (payStatus) {
+            //部分支付
+            case 1:
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_paying));
+                tvNotPay.setVisibility(View.VISIBLE);
+                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
+                layoutPayInfo.setVisibility(View.VISIBLE);
+                break;
+            //支付完成
+            case 2:
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_pay_successful));
+                tvNotPay.setVisibility(View.GONE);
+                tvWaitReceiveMoney.setVisibility(View.GONE);
+                layoutPayInfo.setVisibility(View.VISIBLE);
+                break;
+            //已退款-外带无退款状态
+            case 3:
+
+                break;
+            //未支付
+            case 4:
+                tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
+                tvNotPay.setVisibility(View.VISIBLE);
+                tvWaitReceiveMoney.setVisibility(View.VISIBLE);
+                layoutPayInfo.setVisibility(View.GONE);
+                break;
         }
     }
 }

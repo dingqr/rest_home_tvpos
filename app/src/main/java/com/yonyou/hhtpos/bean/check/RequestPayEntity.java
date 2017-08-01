@@ -9,7 +9,7 @@ public class RequestPayEntity {
     /**
      * 支付金额
      */
-    public String payMoney;
+    public String payAmount;
     /**
      * 支付时间
      */

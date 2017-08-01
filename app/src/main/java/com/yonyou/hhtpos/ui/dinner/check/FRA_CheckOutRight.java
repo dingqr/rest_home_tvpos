@@ -140,7 +140,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
             @Override
             public void onReceiveMoney(String money) {
                 RequestPayEntity requestPayEntity = new RequestPayEntity();
-                requestPayEntity.payMoney = money;
+                requestPayEntity.payAmount = money;
                 requestPayEntity.payType = "现金";
                 handlePayStatus(requestPayEntity);
 

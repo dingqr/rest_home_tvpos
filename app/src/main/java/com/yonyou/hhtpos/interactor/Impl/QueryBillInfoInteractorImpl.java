@@ -41,7 +41,7 @@ public class QueryBillInfoInteractorImpl implements IQueryBillInfoInteractor {
 
         if (isPay) {
             HashMap<String, String> map = new HashMap<>();
-            map.put("payMoney", requestPayEntity.payMoney);
+            map.put("payAmount", requestPayEntity.payAmount);
             map.put("payType", requestPayEntity.payType);
             paramsMap.put("payInfo",map);
         }
