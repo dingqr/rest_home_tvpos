@@ -25,6 +25,7 @@ import com.yonyou.hhtpos.view.IQueryBillInfoView;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
@@ -52,6 +53,8 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     TextView tvPaidMoney;//已支付
     @Bind(R.id.tv_unpaid_money)
     TextView tvUnpaidMoney;//未支付
+    @Bind(R.id.tv_pay_money)
+    TextView tvPayMoney;//支付金额
 
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
@@ -167,6 +170,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         }
         //代金券
         //支付方式
+//        tvPaidMoney.setText();
         //发票
         //已支付
         if (!TextUtils.isEmpty(dataBean.getPaidMoney())) {
@@ -181,5 +185,8 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     @Override
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
         new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
+        if (settleAccountDataEntity != null) {
+            EventBus.getDefault().post(settleAccountDataEntity);
+        }
     }
 }

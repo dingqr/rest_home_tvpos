@@ -21,12 +21,13 @@
         android:layout_centerInParent="true"/>
 
     <TextView
+        android:id="@+id/tv_go_to_order"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:paddingLeft="@dimen/px_40"
         android:paddingRight="@dimen/px_20"
-        android:text="去下单"
+        android:text="去菜单"
         android:textSize="@dimen/sp_24"
         android:textColor="@color/color_FEFEFE"
         android:gravity="center_vertical"/>
