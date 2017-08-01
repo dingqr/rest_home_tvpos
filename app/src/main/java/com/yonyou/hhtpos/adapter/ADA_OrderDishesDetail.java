@@ -62,13 +62,16 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<WDDishDetaiList
     /**
      * 根据订单统一提交的时间，找到分组中每组应显示标题的第一个position
      *
-     * @param order_time
+     * @param orderTime
      */
-    private int getFirstVisiblePosition(String order_time) {
+    private int getFirstVisiblePosition(String orderTime) {
         for (int i = 0; i < mDatas.size(); i++) {
             WDDishDetaiListlEntity dishDetaiListlEntity = mDatas.get(i);
-            if (order_time.equals(StringUtil.getString(dishDetaiListlEntity.orderTime))) {
-                return i;
+            if (dishDetaiListlEntity.orderTime != null) {
+                String order_time = StringUtil.getString(dishDetaiListlEntity.orderTime);
+                if (orderTime.equals(order_time)) {
+                    return i;
+                }
             }
         }
         return -1;
