@@ -278,6 +278,7 @@
     <string name="string_ordered_dishes">下单菜品</string>
     <string name="string_ordered_dish_num">项</string>
     <string name="weight_confirm">称重确认</string>
+    <string name="check_out">去结账</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>

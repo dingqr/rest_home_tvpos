@@ -35,7 +35,6 @@ public class DishPracticeEntity {
      */
     public boolean isCheck;
 
-
     public DishPracticeEntity() {
     }
 
