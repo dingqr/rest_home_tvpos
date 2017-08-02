@@ -14,6 +14,7 @@
         <include layout="@layout/inc_dialog_title" />
 
         <com.yonyou.hhtpos.widgets.DialogInputView
+            android:id="@+id/input_dish_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_40"
@@ -22,6 +23,7 @@
             app:titleText="@string/string_input_dish_name" />
 
         <com.yonyou.hhtpos.widgets.DialogInputView
+            android:id="@+id/input_dish_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/px_70"
@@ -33,7 +35,7 @@
     </LinearLayout>
 
     <RadioButton
-        android:id="@+id/rb_next_step"
+        android:id="@+id/rb_confirm_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

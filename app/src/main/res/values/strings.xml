@@ -382,5 +382,7 @@
     <string name="string_settle_account">结账</string>
     <string name="string_dozen_bill">补打账单</string>
     <string name="string_unit_coupon">张</string>
+    <string name="string_input_dish_price">销售金额不能为空</string>
+    <string name="string_please_input_dish_name">菜品名称不能为空</string>
 
 </resources>
