@@ -5,12 +5,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseActivity;
+import com.yonyou.framework.library.common.utils.AppSharedPreferences;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
+import com.yonyou.hhtpos.util.SpUtil;
 
 import butterknife.Bind;
 
@@ -24,10 +28,13 @@ public abstract class ACT_BaseSimple extends BaseActivity implements View.OnClic
     protected FrameLayout flContent;
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
+    @Bind(R.id.tv_login_shop)
+    TextView tvLoginShop;
 
     /**左侧导航栏 */
     private DIA_Navigation dia_navigation;
 
+    private AppSharedPreferences sharePre;
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_base_simple;
@@ -44,6 +51,10 @@ public abstract class ACT_BaseSimple extends BaseActivity implements View.OnClic
         transaction.commitAllowingStateLoss();
 
         mMenuImg.setOnClickListener(this);
+
+        sharePre = new AppSharedPreferences(this);
+        String shopName = sharePre.getString(SpUtil.SHOP_NAME);
+        tvLoginShop.setText(StringUtil.getString(shopName));
     }
 
     @Override

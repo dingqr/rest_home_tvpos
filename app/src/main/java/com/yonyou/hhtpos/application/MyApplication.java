@@ -7,6 +7,7 @@ import com.yonyou.framework.library.BaseApplication;
 import com.yonyou.framework.library.common.utils.AppSharedPreferences;
 import com.yonyou.hhtpos.bean.NavigationNewEntity;
 import com.yonyou.hhtpos.db.DbManager;
+import com.yonyou.hhtpos.db.entity.UserEntity;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
 
@@ -34,6 +35,7 @@ public class MyApplication extends BaseApplication{
         return mContext;
     }
 
+    private UserEntity userEntity;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,9 +45,12 @@ public class MyApplication extends BaseApplication{
 
         String shopId = sharePre.getString(SpUtil.SHOP_ID);
         if (!TextUtils.isEmpty(shopId)){
-            Constants.SHOPID = shopId;
+            Constants.SHOP_ID = shopId;
         }
-
+        String userToken = sharePre.getString(SpUtil.USER_TOKEN);
+        if (!TextUtils.isEmpty(shopId)){
+            Constants.TOKEN = userToken;
+        }
         //初始化全局捕获异常类
         //CrashHandler.getInstance().init(this);
 
@@ -59,6 +64,9 @@ public class MyApplication extends BaseApplication{
 //        }
     }
 
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
     /**
      * 初始化数据库
      */

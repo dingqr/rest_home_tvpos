@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -64,6 +65,8 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     private String shopId;
     private String shopName;
     private String employeePhone;
+    private String employeeId;
+    private String employeeHead;
 
     @Override
     protected void onFirstUserVisible() {
@@ -254,17 +257,30 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     @Override
     public void login(UserEntity dataBean) {
         if (null != dataBean) {
-            //保存用户信息
+
+            //保存登录用户信息
             sharePre.putString(SpUtil.EMPLOYEE_PHONE, StringUtil.getString(userPhone));
+            sharePre.putString(SpUtil.EMPLOYEE_NAME, StringUtil.getString(dataBean.getEmployeeName()));
+            sharePre.putString(SpUtil.EMPLOYEE_ID, StringUtil.getString(dataBean.getEmployeeId()));
+            sharePre.putString(SpUtil.EMPLOYEE_HEAD, StringUtil.getString(dataBean.getEmployeeHead()));
+            sharePre.putString(SpUtil.USER_TOKEN, StringUtil.getString(dataBean.getToken()));
+
             //保存shopId
             sharePre.putString(SpUtil.SHOP_ID, StringUtil.getString(shopId));
             //保存shopName
             sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shopName));
-            Constants.SHOPID = shopId;
+            Constants.SHOP_ID = shopId;
+            Constants.TOKEN = dataBean.getToken();
+
             Elog.e("SHOP_ID", sharePre.getString(SpUtil.SHOP_ID));
             Elog.e("SHOP_NAME", sharePre.getString(SpUtil.SHOP_NAME));
-        }
+            Elog.e("TOKEN", sharePre.getString(SpUtil.USER_TOKEN));
 
-        readyGoThenKill(ACT_Home.class);
+            Intent intent = new Intent(getActivity(),ACT_Home.class);
+            intent.putExtra(SpUtil.SHOP_NAME,shopName);
+            intent.putExtra(SpUtil.SHOP_ID,shopId);
+            startActivity(intent);
+            this.getActivity().finish();
+        }
     }
 }
