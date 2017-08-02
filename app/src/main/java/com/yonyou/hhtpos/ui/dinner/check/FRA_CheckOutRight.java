@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
 import com.yonyou.hhtpos.adapter.ADA_PayHistory;
+import com.yonyou.hhtpos.bean.check.DiscountEntity;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
@@ -68,11 +69,15 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     TextView tvCouponCount;//使用的代金券数量
     @Bind(R.id.tv_coupon_amount)
     TextView tvCouponAmount;//使用的代金券总金额
+    @Bind(R.id.layout_settled)
+    LinearLayout layoutSettled;//结清
 
     private ADA_DiscountType mDiscountAdapter;
     private ADA_CheckOutPayType mPayTypeAdapter;
     private SettleAccountDataEntity dataBean;
     private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付", "畅捷POS", "微信支付", "支付宝", "更多"};
+    private String[] discountPrograms = {"折扣", "优惠券", "折让"};
+    private int[] discountIcons = {R.drawable.ic_check_out_discount, R.drawable.ic_discount_coupon, R.drawable.ic_discount_money};
     private DIA_CheckOutByCash mDiaCheckOutByCash;
     private IQueryBillInfoPresenter mPresenter;
     private ISettleAccountPresenter mSettleAccountPresenter;
@@ -87,7 +92,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         if (dataBean.payStatus != null) {
             payStatus = Integer.parseInt(dataBean.payStatus);
         }
-        setData();
+        refreshData();
     }
 
     @Override
@@ -121,19 +126,26 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         mPayhistoryAdapter = new ADA_PayHistory(mContext);
         lvPaHistory.setAdapter(mPayhistoryAdapter);
 
+        //折扣方案-暂时产品设计写死在前端
         mDiscountAdapter = new ADA_DiscountType(mContext);
-        mPayTypeAdapter = new ADA_CheckOutPayType(mContext);
         mDiscountTypeGv.setAdapter(mDiscountAdapter);
-        mPayTypeGv.setAdapter(mPayTypeAdapter);
-
-        for (int i = 0; i < 3; i++) {
-            mDiscountAdapter.update("");
+        ArrayList<DiscountEntity> discountProgramList = new ArrayList<>();
+        for (int i = 0; i < discountPrograms.length; i++) {
+            DiscountEntity discountEntity = new DiscountEntity();
+            discountEntity.discountName = discountPrograms[i];
+            discountEntity.icon = discountIcons[i];
+            discountProgramList.add(discountEntity);
         }
+        mDiscountAdapter.update(discountProgramList, true);
+
+        //支付方式
+        mPayTypeAdapter = new ADA_CheckOutPayType(mContext);
+        mPayTypeGv.setAdapter(mPayTypeAdapter);
         ArrayList<String> payTypeList = new ArrayList<>();
         for (int i = 0; i < payTypeNames.length; i++) {
             payTypeList.add(payTypeNames[i]);
         }
-        mPayTypeAdapter.update(payTypeList);
+        mPayTypeAdapter.update(payTypeList, true);
         mPayTypeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -151,6 +163,22 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 requestPayEntity.payType = "现金";
                 handlePayStatus(requestPayEntity);
 
+            }
+        });
+        mDiscountTypeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        //折扣
+                        break;
+                    case 1:
+                        //优惠券
+                        break;
+                    case 2:
+                        //折让
+                        break;
+                }
             }
         });
     }
@@ -203,7 +231,14 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     /**
      * 刷新界面数据
      */
-    private void setData() {
+    private void refreshData() {
+        if (payStatus == 2) {
+            layoutSettled.setVisibility(View.VISIBLE);
+            mPayTypeGv.setVisibility(View.GONE);
+        } else {
+            layoutSettled.setVisibility(View.GONE);
+            mPayTypeGv.setVisibility(View.VISIBLE);
+        }
         //待支付
         if (!TextUtils.isEmpty(dataBean.getUnpaidMoney())) {
             tvUnpaidMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getUnpaidMoney());

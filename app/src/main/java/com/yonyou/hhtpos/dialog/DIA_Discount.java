@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_Discount;
-import com.yonyou.hhtpos.bean.DiscountEntity;
+import com.yonyou.hhtpos.bean.check.DiscountEntity;
 
 import java.util.ArrayList;
 

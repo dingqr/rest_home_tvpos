@@ -7,61 +7,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/px_28"
-        android:paddingTop="@dimen/px_44"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/px_24"
-        android:orientation="vertical">
+        android:paddingLeft="@dimen/px_28"
+        android:paddingTop="@dimen/px_20">
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px_1"-->
+        <!--android:layout_marginTop="@dimen/px_20"-->
+        <!--android:background="@color/color_e6e5e5"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/px_20"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/consumption_total"
-                android:textSize="@dimen/sp_30"
-                android:textColor="@color/color_222222"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/RMB_symbol"
-                android:textSize="@dimen/sp_22"
-                android:textColor="@color/color_222222"/>
-
-            <TextView
-                android:id="@+id/tv_total_charge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_30"
-                android:textColor="@color/color_222222"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/px_1"
-            android:layout_marginTop="@dimen/px_20"
-            android:background="@color/color_e6e5e5"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_20"
             android:layout_marginRight="@dimen/px_20"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/dinner_number"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:id="@+id/tv_person_num"
@@ -75,17 +44,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_18"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_18"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/open_order_time"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:id="@+id/tv_open_time"
@@ -99,17 +68,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_18"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_18"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/dinner_waiter"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:id="@+id/tv_waiter_name"
@@ -123,17 +92,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_18"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_18"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/order_source"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:id="@+id/tv_bill_resource"
@@ -148,23 +117,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_32"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/px_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/consumption_total"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_30" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RMB_symbol"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_22" />
+
+            <TextView
+                android:id="@+id/tv_total_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_30" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_32"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_24"
-                android:textColor="@color/color_222222"
+                android:layout_weight="1"
                 android:text="@string/food_consumption"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_24" />
 
             <TextView
                 android:id="@+id/tv_dish_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24"/>
+                android:textSize="@dimen/sp_24" />
 
         </LinearLayout>
 
@@ -172,22 +172,22 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_1"
             android:layout_marginTop="@dimen/px_20"
-            android:background="@color/color_e6e5e5"/>
+            android:background="@color/color_e6e5e5" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_20"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_20"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/dishes_total_price"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:id="@+id/tv_dish_total_price"
@@ -201,17 +201,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_20"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_20"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/give"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:id="@+id/tv_dish_present"
@@ -225,17 +225,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_32"
             android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_32"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_24"
-                android:textColor="@color/color_222222"
+                android:layout_weight="1"
                 android:text="@string/service_fee"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_24" />
 
             <TextView
                 android:id="@+id/tv_total_service_charge"
@@ -250,7 +250,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_1"
             android:layout_marginTop="@dimen/px_20"
-            android:background="@color/color_e6e5e5"/>
+            android:background="@color/color_e6e5e5" />
         <!--服务费详情列表-->
         <com.yonyou.hhtpos.widgets.BanSlideListView
             android:id="@+id/lv_service_charge"
@@ -266,26 +266,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_18"
-            android:layout_marginRight="@dimen/px_20"
             android:layout_marginBottom="@dimen/px_24"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_18"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_20"
-                android:textColor="@color/color_999999"
+                android:layout_weight="1"
                 android:text="@string/perform"
-                android:layout_weight="1"/>
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_20" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="¥200.00"
                 android:textColor="@color/color_666666"
-                android:textSize="@dimen/sp_20"
-                android:text="¥200.00"/>
+                android:textSize="@dimen/sp_20" />
 
         </LinearLayout>
 
