@@ -5,26 +5,42 @@
     android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_top_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/head_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_top_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/px_34"
-            android:layout_marginTop="@dimen/px_34"
-            android:drawableLeft="@drawable/ic_recommend"
-            android:drawablePadding="@dimen/px_8"
-            android:text="推荐"
-            android:textColor="@color/color_222222"
-            android:textSize="@dimen/sp_22" />
+            android:gravity="center">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/head_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/px_34"
+                android:layout_marginTop="@dimen/px_34"
+                android:drawableLeft="@drawable/ic_recommend"
+                android:drawablePadding="@dimen/px_8"
+                android:text="推荐"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_22" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/right_line"
+            android:layout_width="@dimen/px_6"
+            android:layout_height="@dimen/px_70"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|center_vertical"
+            android:background="@color/color_eb6247"
+            android:visibility="gone" />
+    </RelativeLayout>
+
 
     <!--<View-->
     <!--android:layout_width="match_parent"-->
@@ -45,10 +61,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_4"
         android:background="@drawable/bg_gradient_bottom_c6_fb" />
+
     <LinearLayout
+        android:id="@+id/ll_bottom_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_bottom_title"
         android:gravity="center">
 
         <TextView

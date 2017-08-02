@@ -27,7 +27,7 @@ public class ADA_WDDetailPayType extends CommonAdapterListView<PayTypeEntity> {
     @Override
     protected void convert(ViewHolderListView holder, PayTypeEntity payTypeEntity, int position) {
         holder.setText(R.id.tv_pay_type_name, getPayTypeRemark(payTypeEntity.payType));
-        holder.setText(R.id.tv_pay_money, StringUtil.getFormattedMoney(payTypeEntity.getPayAmount()));
+        holder.setText(R.id.tv_pay_money, mContext.getResources().getString(R.string.RMB_symbol) + StringUtil.getFormattedMoney(payTypeEntity.getPayAmount()));
     }
 
     /**

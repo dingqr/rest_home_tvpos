@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.DiscountEntity;
+import com.yonyou.hhtpos.bean.check.DiscountEntity;
 
 /**
  * Created by zj on 2017/7/17.

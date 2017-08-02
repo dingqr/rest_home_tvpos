@@ -8,6 +8,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -86,6 +87,13 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     LinearLayout layoutPayInfo;
     @Bind(R.id.tv_button)
     TextView tvButton;
+    //会员信息
+    @Bind(R.id.layout_member_info)
+    LinearLayout layoutMemberInfo;
+    @Bind(R.id.layout_discount)
+    LinearLayout layoutDiscount;
+    @Bind(R.id.layout_ignore)
+    LinearLayout layoutIgnore;
     private ADA_WDDetailPayType mPaytypeAdapter;
     private ADA_OrderDishesDetail mAdapter;
     private ArrayList<WDDishDetaiListlEntity> dataList = new ArrayList<>();
@@ -200,44 +208,44 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
         }
     }
-
-    /**
-     * 按照下单时间对点菜的明细订单列表进行分组处理
-     *
-     * @param dataList
-     */
-    private void setCount(ArrayList<WDDishDetaiListlEntity> dataList) {
-        int limit = 0;
-        int j = 0;
-        for (; limit < dataList.size(); limit++) {
-            if (dataList.get(limit).orderTime == null) {
-                return;
-            }
-            mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
-            for (; j < dataList.size(); j++) {
-                WDDishDetaiListlEntity dishDetaiListlEntity = dataList.get(j);
-                if (dishDetaiListlEntity.orderTime == null) {
-                    return;
-                }
-                String orderTime = StringUtil.getString(dishDetaiListlEntity.orderTime);
-                if (!orderTime.equals(mCurrentTime)) {
-                    //key：time value:在该时间下单的菜品数量
-                    map.put(mCurrentTime, StringUtil.getString(j - limit));
-                    limit = j - 1;
-                    break;
-                }
-                if (j == dataList.size() - 1) {
-                    map.put(mCurrentTime, StringUtil.getString(j - limit + 1));
-                    limit = j;
-                    break;
-                }
-            }
-        }
-        for (int k = 0; k < dataList.size(); k++) {
-            String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
-            dataList.get(k).totalCount = count;
-        }
-    }
+//
+//    /**
+//     * 按照下单时间对点菜的明细订单列表进行分组处理
+//     *
+//     * @param dataList
+//     */
+//    private void setCount(ArrayList<WDDishDetaiListlEntity> dataList) {
+//        int limit = 0;
+//        int j = 0;
+//        for (; limit < dataList.size(); limit++) {
+//            if (dataList.get(limit).orderTime == null) {
+//                return;
+//            }
+//            mCurrentTime = StringUtil.getString(dataList.get(limit).orderTime);
+//            for (; j < dataList.size(); j++) {
+//                WDDishDetaiListlEntity dishDetaiListlEntity = dataList.get(j);
+//                if (dishDetaiListlEntity.orderTime == null) {
+//                    return;
+//                }
+//                String orderTime = StringUtil.getString(dishDetaiListlEntity.orderTime);
+//                if (!orderTime.equals(mCurrentTime)) {
+//                    //key：time value:在该时间下单的菜品数量
+//                    map.put(mCurrentTime, StringUtil.getString(j - limit));
+//                    limit = j - 1;
+//                    break;
+//                }
+//                if (j == dataList.size() - 1) {
+//                    map.put(mCurrentTime, StringUtil.getString(j - limit + 1));
+//                    limit = j;
+//                    break;
+//                }
+//            }
+//        }
+//        for (int k = 0; k < dataList.size(); k++) {
+//            String count = map.get(StringUtil.getString(dataList.get(k).orderTime));
+//            dataList.get(k).totalCount = count;
+//        }
+//    }
 
 
     /**
@@ -294,29 +302,55 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             tvOpenOrderTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.openTime, AppDateUtil.YYYY_MM_DD_HH_MM_SS)));
             //开单服务员
             tvOpenOrderPersonNum.setText(StringUtil.getString(orderDetailEntity.personNum));
-            //支付状态
-            handlePayStatus();
 
             //会员手机号
-            if (null != orderDetailEntity.memberPhone && orderDetailEntity.memberPhone.length() == 11) {
+            if (!TextUtils.isEmpty(orderDetailEntity.memberPhone) && orderDetailEntity.memberPhone.length() == 11) {
+                layoutMemberInfo.setVisibility(View.VISIBLE);
                 String maskNumber = orderDetailEntity.memberPhone.substring(0, 3) + "****" + orderDetailEntity.memberPhone.substring(7, orderDetailEntity.memberPhone.length());
                 tvPhoneNumber.setText(maskNumber);
+            } else {
+                layoutMemberInfo.setVisibility(View.GONE);
             }
             //优惠金额
-            tvReduceMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getReduceMoney());
-            //折扣
-            tvDiscountMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getDiscountMoney());
-            //抹零
-            tvIgnoreMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getIgnoreMoney());
-            //实际支付
-            tvRealReceiveAmount.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getRealReceiveAmount());
+            if (!TextUtils.isEmpty(orderDetailEntity.getReduceMoney())) {
+                tvReduceMoney.setVisibility(View.VISIBLE);
+                tvReduceMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getReduceMoney());
+            } else {
+                tvReduceMoney.setVisibility(View.GONE);
+            }
 
+            //折扣
+            if (!TextUtils.isEmpty(orderDetailEntity.getReduceMoney())) {
+                layoutDiscount.setVisibility(View.VISIBLE);
+                tvDiscountMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getDiscountMoney());
+            } else {
+                layoutDiscount.setVisibility(View.GONE);
+            }
+            //抹零
+            if (!TextUtils.isEmpty(orderDetailEntity.getIgnoreMoney())) {
+                layoutIgnore.setVisibility(View.VISIBLE);
+                tvIgnoreMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getIgnoreMoney());
+            } else {
+                layoutIgnore.setVisibility(View.GONE);
+            }
+            //实际支付
+            if (!TextUtils.isEmpty(orderDetailEntity.getIgnoreMoney())) {
+                tvRealReceiveAmount.setVisibility(View.VISIBLE);
+                tvRealReceiveAmount.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getRealReceiveAmount());
+            } else {
+                tvRealReceiveAmount.setVisibility(View.GONE);
+            }
             //支付方式-可能组合
             if (orderDetailEntity.payTypeList != null && orderDetailEntity.payTypeList.size() > 0) {
+                mLvPayType.setVisibility(View.VISIBLE);
                 mPaytypeAdapter.update(orderDetailEntity.payTypeList, true);
+            } else {
+                mLvPayType.setVisibility(View.GONE);
             }
             //收银员名称
             tvCashier.setText(orderDetailEntity.waiterName);
+            //支付状态
+            handlePayStatus();
             //点菜明细列表
             ArrayList<WDDishDetaiListlEntity> dishListDetail = orderDetailEntity.dishListDetail;
             if (dishListDetail != null && dishListDetail.size() > 0) {

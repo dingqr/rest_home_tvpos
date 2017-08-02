@@ -20,7 +20,9 @@ public class WMDishDetailListEntity {
      * 菜品名称
      */
     public String dishName;
-
+    /**
+     * 菜品状态：菜品状态:赠菜3，退菜4
+     */
     public String dishStatus;
     /**
      * 订单时间

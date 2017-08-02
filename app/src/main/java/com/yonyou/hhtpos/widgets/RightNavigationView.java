@@ -26,9 +26,12 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
     private List<DishTypesEntity> mData = new ArrayList<>();
     private TextView headTitle;
     private TextView bottomTitle;
-    private OnItemClickListener mListener;
     private LinearLayout llTopTitle;
     private LinearLayout llBottomTitle;
+    private View rightLine;
+    private OnItemClickListener mListener;
+    private OnDoAnimListener onDoAnimListener;
+    private OnHeadTitleClickListener mOnHeadTitleClickListener;
 
     public RightNavigationView(Context context) {
         this(context, null);
@@ -54,6 +57,7 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
         headTitle = (TextView) view.findViewById(R.id.head_title);
         bottomTitle = (TextView) view.findViewById(R.id.bottom_title);
         llTopTitle = (LinearLayout) view.findViewById(R.id.ll_top_title);
+        rightLine = view.findViewById(R.id.right_line);
         llBottomTitle = (LinearLayout) view.findViewById(R.id.ll_bottom_title);
     }
 
@@ -67,6 +71,7 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
                 //设置点击列表时，重置外部两个标题的字体颜色
                 bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
                 headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
+                rightLine.setVisibility(GONE);
                 if (mListener != null) {
                     mListener.onItemClick(count, title, position);
                 }
@@ -76,7 +81,7 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
         rightListView.setOnDoAnimListener(new RightListView.OnDoAnimListener() {
             @Override
             public void doAnim() {
-                if(onDoAnimListener!=null) {
+                if (onDoAnimListener != null) {
                     onDoAnimListener.doAnim();
                 }
             }
@@ -97,9 +102,13 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
         switch (v.getId()) {
             case R.id.ll_top_title:
                 headTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
+                rightLine.setVisibility(VISIBLE);
                 bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_222222));
                 rightListView.getRLAdapter().setSelectItem(-1);
                 rightListView.getRLAdapter().notifyDataSetChanged();
+                if (mOnHeadTitleClickListener != null) {
+                    mOnHeadTitleClickListener.onClick();
+                }
                 break;
 //            case R.id.ll_bottom_title:
 //                bottomTitle.setTextColor(ContextCompat.getColor(mContext, R.color.color_eb6247));
@@ -132,14 +141,6 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
     }
 
 
-    public interface OnItemClickListener {
-        void onItemClick(int count, String title, int postion);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener mListener) {
-        this.mListener = mListener;
-    }
-
     public TextView getBottomTitle() {
         return bottomTitle;
     }
@@ -148,13 +149,27 @@ public class RightNavigationView extends LinearLayout implements View.OnClickLis
         return rightListView;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int count, String title, int postion);
+    }
 
-    public interface OnDoAnimListener{
+    public void setOnItemClickListener(OnItemClickListener mListener) {
+        this.mListener = mListener;
+    }
+
+    public interface OnDoAnimListener {
         void doAnim();
     }
-    private OnDoAnimListener onDoAnimListener;
 
     public void setOnDoAnimListener(OnDoAnimListener onDoAnimListener) {
         this.onDoAnimListener = onDoAnimListener;
+    }
+
+    public interface OnHeadTitleClickListener {
+        void onClick();
+    }
+
+    public void setOnHeadTitleClickListener(OnHeadTitleClickListener mListener) {
+        this.mOnHeadTitleClickListener = mListener;
     }
 }
