@@ -55,6 +55,19 @@ public class DataBean implements Serializable {
      */
     private double weight;
 
+    /**
+     * 备注：手填
+     */
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public int getQuantity() {
         return quantity;
     }

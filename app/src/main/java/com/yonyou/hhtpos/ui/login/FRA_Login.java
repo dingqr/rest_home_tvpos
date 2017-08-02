@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.ui.login;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.common.utils.AppSharedPreferences;
 import com.yonyou.framework.library.common.utils.ReturnObject;
 import com.yonyou.framework.library.common.utils.StringUtil;
@@ -26,6 +28,7 @@ import com.yonyou.hhtpos.presenter.ILoginPresenter;
 import com.yonyou.hhtpos.presenter.Impl.LoginPresenterImpl;
 import com.yonyou.hhtpos.ui.activation.ACT_VerifyPhone;
 import com.yonyou.hhtpos.ui.home.ACT_Home;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
 import com.yonyou.hhtpos.view.ILoginView;
 
@@ -57,7 +60,7 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     private ILoginPresenter mPresenter;
 
     private AppSharedPreferences sharePre;
-    private String userToken;
+//    private String userToken;
     private String shopId;
     private String shopName;
     private String employeePhone;
@@ -85,8 +88,10 @@ public class FRA_Login extends BaseFragment implements ILoginView {
     @Override
     protected void initViewsAndEvents() {
         sharePre = new AppSharedPreferences(mContext);
-        userToken = sharePre.getString(SpUtil.USER_TOKEN);
-        shopName = sharePre.getString(SpUtil.SHOP_NAME);
+        Bundle argus = getArguments();
+        shopId = argus.getString(SpUtil.SHOP_ID);
+        shopName = argus.getString(SpUtil.SHOP_NAME);
+
         employeePhone = sharePre.getString(SpUtil.EMPLOYEE_PHONE);
         if (!TextUtils.isEmpty(shopName)) {
             tvShopName.setText(shopName);
@@ -94,9 +99,6 @@ public class FRA_Login extends BaseFragment implements ILoginView {
         if (!TextUtils.isEmpty(employeePhone)) {
             etUserPhone.setText(employeePhone);
         }
-//        if (!TextUtils.isEmpty(userToken)) {
-//            readyGoThenKill(ACT_Home.class);
-//        } else {
         mPresenter = new LoginPresenterImpl(this.getContext(), this);
         showSoftInput(etUserPwd);
         showSoftInput(etUserPhone);
@@ -254,6 +256,13 @@ public class FRA_Login extends BaseFragment implements ILoginView {
         if (null != dataBean) {
             //保存用户信息
             sharePre.putString(SpUtil.EMPLOYEE_PHONE, StringUtil.getString(userPhone));
+            //保存shopId
+            sharePre.putString(SpUtil.SHOP_ID, StringUtil.getString(shopId));
+            //保存shopName
+            sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shopName));
+            Constants.SHOPID = shopId;
+            Elog.e("SHOP_ID", sharePre.getString(SpUtil.SHOP_ID));
+            Elog.e("SHOP_NAME", sharePre.getString(SpUtil.SHOP_NAME));
         }
 
         readyGoThenKill(ACT_Home.class);

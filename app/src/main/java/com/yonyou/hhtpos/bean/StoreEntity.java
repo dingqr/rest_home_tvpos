@@ -19,8 +19,6 @@ public class StoreEntity implements Serializable {
 
     /**门店名称*/
     public String shopName;
-    /**门店id*/
-    public String shopId;
     /**门店地址*/
     public String shopAddress;
 

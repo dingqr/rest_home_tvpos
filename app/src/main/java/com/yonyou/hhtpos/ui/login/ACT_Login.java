@@ -5,11 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseFullScreen;
 import com.yonyou.hhtpos.db.entity.UserEntity;
 import com.yonyou.hhtpos.presenter.ILoginPresenter;
+import com.yonyou.hhtpos.util.SpUtil;
 import com.yonyou.hhtpos.view.ILoginView;
 
 /**
@@ -17,15 +19,21 @@ import com.yonyou.hhtpos.view.ILoginView;
  * 邮箱：ybing@yonyou.com
  */
 public class ACT_Login extends ACT_BaseFullScreen {
-
+    private String shopId;
+    private String shopName;
+    private FRA_Login fraLogin;
     @Override
     protected void initView() {
-
+        fraLogin = new FRA_Login();
+        Bundle bundle = new Bundle();
+        bundle.putString(SpUtil.SHOP_ID,shopId);
+        bundle.putString(SpUtil.SHOP_NAME,shopName);
+        fraLogin.setArguments(bundle);
     }
 
     @Override
     protected Fragment getContentFragment() {
-        return new FRA_Login();
+        return  fraLogin;
     }
 
     @Override
@@ -35,7 +43,8 @@ public class ACT_Login extends ACT_BaseFullScreen {
 
     @Override
     protected void getBundleExtras(Bundle extras) {
-
+        shopId = extras.getString(SpUtil.SHOP_ID);
+        shopName = extras.getString(SpUtil.SHOP_NAME);
     }
 
     @Override

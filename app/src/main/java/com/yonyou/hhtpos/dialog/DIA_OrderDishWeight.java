@@ -171,9 +171,11 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 llDishRemark.setVisibility(View.GONE);
                 remarkEmptyFlag = true;
             }
-        }
-        if(dataBean.getWeight()>0){
-            iwvDishWeight.setWeight(dataBean.getWeight());
+            if(dataBean.getWeight()>0){
+                iwvDishWeight.setWeight(dataBean.getWeight());
+            }
+            //设置手填备注
+            etOtherRemark.setText(StringUtil.getString(dataBean.getRemark()));
         }
         return this;
     }

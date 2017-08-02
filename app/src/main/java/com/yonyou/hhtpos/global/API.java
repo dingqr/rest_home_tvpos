@@ -202,9 +202,13 @@ public class API {
     public static final String URL_TS_CANCEL_SPLIT_TABLE = BASE_SERVER_SHOP + "/protabledynamic/cancelSplitTable";
 
     /**
-     * 堂食筛选不同桌台操作可用桌台
+     * 堂食筛选不同操作下的可用桌台
      */
     public static final String URL_TS_CLICKABLE_TABLE = BASE_SERVER_SHOP + "/protabledynamic/screenTableTable";
+    /**
+     * 堂食--查询餐区列表
+     */
+    public static final String URL_TS_AREA_LIST = BASE_SERVER_SHOP + "/prodiningarea/listProDiningArea";
 
     /**
      * 获取结账信息

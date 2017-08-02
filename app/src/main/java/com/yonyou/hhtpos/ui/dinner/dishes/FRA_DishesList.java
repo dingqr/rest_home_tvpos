@@ -341,10 +341,10 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         for (int i = 0; i < dataList.size(); i++){
             DishListEntity.Dishes bean = dataList.get(i);
             if (null != bean && TextUtils.isEmpty(bean.getOrderTime())){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -539,6 +539,12 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         DataBean dataBean = new DataBean();
         // 菜品名称
         dataBean.setDishName(dishesEntity.dishName);
+        // 价格
+        dataBean.setPrice(dishesEntity.getPrice());
+        // 标签
+        if (dishesEntity.labels != null && dishesEntity.labels.size() > 0 ) {
+            dataBean.setLabels(dishesEntity.labels);
+        }
         // 0：不是称重菜  1：是称重菜
         if (currentBean.getUnit() == 0){
             // 数量
@@ -547,13 +553,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 斤
             dataBean.setWeight(Double.parseDouble(currentBean.getQuantity()));
         }
-
-        // 价格
-        dataBean.setPrice(dishesEntity.getPrice());
-        // 标签
-        if (dishesEntity.labels != null && dishesEntity.labels.size() > 0 ) {
-            dataBean.setLabels(dishesEntity.labels);
-        }
+        // 备注：手填
+        dataBean.setRemark(StringUtil.getString(currentBean.getRemark()));
         // 做法（单选）
         if (dishesEntity.practices != null && dishesEntity.practices.size() > 0 ) {
             // 设置已选做法

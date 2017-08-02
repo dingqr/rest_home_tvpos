@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.store;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.common.utils.AppSharedPreferences;
 import com.yonyou.framework.library.common.utils.StringUtil;
@@ -48,6 +50,7 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
     private DIA_ChooseStore diaChooseStore;
     private AppSharedPreferences sharePre;
     private String shopId;
+    private String shopName;
 
     /**
      * 获取所有门店
@@ -83,7 +86,6 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
 
         rbFinish.setChecked(false);
         tvStoreName.addTextChangedListener(new InputWatcher());
-
         shopId = sharePre.getString(SpUtil.SHOP_ID);
         if (!TextUtils.isEmpty(shopId)) {
             readyGoThenKill(ACT_Login.class);
@@ -92,13 +94,8 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
                 @Override
                 public void onChooseStore(StoreEntity shop, int poition) {
                     tvStoreName.setText(shop.shopName);
-                    //保存shopId
-                    sharePre.putString(SpUtil.SHOP_ID, StringUtil.getString(shop.id));
-                    //保存shopName
-                    sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shop.shopName));
-                    Constants.SHOPID = shop.id;
-                    Elog.e("SHOP_ID", sharePre.getString(SpUtil.SHOP_ID));
-                    Elog.e("SHOP_NAME", sharePre.getString(SpUtil.SHOP_NAME));
+                    shopId = shop.id;
+                    shopName = shop.shopName;
                 }
             });
         }
@@ -114,7 +111,15 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rb_finish:
-                readyGoThenKill(ACT_Login.class);
+                if (VerifyInput()) {
+                    Intent intent = new Intent(this.getActivity(), ACT_Login.class);
+                    intent.putExtra(SpUtil.SHOP_ID, shopId);
+                    intent.putExtra(SpUtil.SHOP_NAME, shopName);
+                    startActivity(intent);
+                    this.getActivity().finish();
+                }else{
+                    CommonUtils.makeEventToast(mContext,mContext.getString(R.string.bind_shop),false);
+                }
                 break;
             case R.id.choose_store:
                 if (shopList != null && shopList.size() > 0) {
@@ -122,6 +127,17 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
                     diaChooseStore.show();
                 }
                 break;
+        }
+    }
+
+    private boolean VerifyInput() {
+        shopName = tvStoreName.getText().toString().trim();
+        if (!TextUtils.isEmpty(shopName)) {
+            rbFinish.setChecked(true);
+            return true;
+        } else {
+            rbFinish.setChecked(false);
+            return false;
         }
     }
 

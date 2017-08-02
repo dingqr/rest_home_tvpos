@@ -129,11 +129,14 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
                 normsEmptyFlag = true;
                 llDishNorms.setVisibility(View.GONE);
             }
+            //设置菜品数量
+            if(!TextUtils.isEmpty(String.valueOf(dataBean.getQuantity()))){
+                mcvDishCount.setCount(dataBean.getQuantity());
+            }
+            //设置手填备注
+            etOtherRemark.setText(StringUtil.getString(dataBean.getRemark()));
         }
-        //设置菜品数量
-        if(!TextUtils.isEmpty(String.valueOf(dataBean.getQuantity()))){
-            mcvDishCount.setCount(dataBean.getQuantity());
-        }
+
         return this;
     }
 
