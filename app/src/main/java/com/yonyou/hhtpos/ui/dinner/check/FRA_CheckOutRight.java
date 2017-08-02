@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
 import com.yonyou.hhtpos.adapter.ADA_PayHistory;
+import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.check.DiscountEntity;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
@@ -76,7 +77,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     private ADA_CheckOutPayType mPayTypeAdapter;
     private SettleAccountDataEntity dataBean;
     private String[] payTypeNames = {"现金", "免单", "零结", "会员余额", "聚合支付", "畅捷POS", "微信支付", "支付宝", "更多"};
-    private String[] discountPrograms = {mContext.getResources().getString(R.string.string_discount), mContext.getResources().getString(R.string.string_coupon), mContext.getResources().getString(R.string.string_discount_let)};
+    private String[] discountPrograms = {MyApplication.getInstance().getResources().getString(R.string.string_discount), MyApplication.getInstance().getResources().getString(R.string.string_coupon), MyApplication.getInstance().getResources().getString(R.string.string_discount_let)};
     private int[] discountIcons = {R.drawable.ic_check_out_discount, R.drawable.ic_discount_coupon, R.drawable.ic_discount_money};
     private DIA_CheckOutByCash mDiaCheckOutByCash;
     private IQueryBillInfoPresenter mPresenter;
