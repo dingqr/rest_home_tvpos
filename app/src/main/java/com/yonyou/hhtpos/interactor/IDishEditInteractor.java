@@ -13,8 +13,9 @@ public interface IDishEditInteractor {
      * @param id 点菜菜品id
      * @param quantity 	菜品数量
      * @param shopId
+     * @param unit 是否为称重菜
      */
-    void updateQuantity(String companyId, String id, String quantity, String shopId);
+    void updateQuantity(String companyId, String id, String quantity, String shopId, String unit);
 
     /**
      * 删除菜品接口

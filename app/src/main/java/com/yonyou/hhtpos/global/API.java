@@ -14,19 +14,16 @@ public class API {
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
     public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     public static final String shopId = "C13352966C000000A60000000016E000";
-    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
-    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
-
 
     // 测试环境
 //    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
 //    public static final String compId = "2323";
 //    public static final String shopId = "C60D375FDC0000009200000000000000";
 
-//
+    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
+    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
+
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
-//    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP;// login端口号
-//    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP;// shop端口号
 
     /**
      * 运营平台地址
@@ -112,7 +109,6 @@ public class API {
      * 左侧已点菜品列表接口
      */
     public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
-//    public static final String URL_DISH_LIST = "http://10.220.23.81:9001" + "/prodish/getbilldishinfo";
 
     /**
      * 点菜-获取所有菜品/菜类
@@ -149,7 +145,6 @@ public class API {
      * "http://10.220.23.81:9001"
      */
     public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
-//    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
 
     /**
      * 查询服务员
@@ -180,7 +175,6 @@ public class API {
      * 下单接口
      */
     public static final String URL_PLACE_ORDER = BASE_SERVER_SHOP + "/prodish/order";
-//    public static final String URL_PLACE_ORDER = "http://10.220.23.81:9001" + "/prodish/order";
 
     /**
      * 退菜和赠菜接口
@@ -231,4 +225,9 @@ public class API {
      * 修改未下单菜品
      */
     public static final String URL_UPDATE_DISH = BASE_SERVER_SHOP + "/prodish/modifydish";
+
+    /**
+     * 获取打印指令接口
+     */
+    public static final String GET_PRINT_ORDER = "http://10.220.17.51:8064/PrintService/getPrintommand";
 }

@@ -35,7 +35,7 @@ public class QueryBillInfoInteractorImpl implements IQueryBillInfoInteractor {
         HashMap<String, String> params = new HashMap<>();
         HashMap<String, HashMap<String,String>> paramsMap = new HashMap<String, HashMap<String,String>>();
 
-        params.put("companyId",compId);
+        //params.put("companyId",compId);
         params.put("shopId",shopId);
         params.put("tableBillId",tableBillId);
 

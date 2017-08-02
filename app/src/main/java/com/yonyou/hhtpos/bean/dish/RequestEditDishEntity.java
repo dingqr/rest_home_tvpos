@@ -7,8 +7,9 @@ import java.io.Serializable;
  * 作者：liushuofei on 2017/8/1 14:27
  */
 public class RequestEditDishEntity implements Serializable {
-    /**菜品规格id */
-    private String dishStandardId;
+
+    /**餐厅id */
+    private String shopId;
 
     /**菜品类型 */
     private String dishType;
@@ -28,8 +29,8 @@ public class RequestEditDishEntity implements Serializable {
     /**所选备注id列表 */
     private String remarks;
 
-    /**餐厅id */
-    private String shopId;
+    /**菜品规格id */
+    private String dishStandardId;
 
     public String getDishStandardId() {
         return dishStandardId;

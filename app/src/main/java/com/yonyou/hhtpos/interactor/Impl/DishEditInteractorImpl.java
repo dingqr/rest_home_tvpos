@@ -50,12 +50,13 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     }
     
     @Override
-    public void updateQuantity(String companyId, String id, String quantity, String shopId) {
+    public void updateQuantity(String companyId, String id, String quantity, String shopId, String unit) {
         HashMap<String,String> hashMap = new HashMap<>();
         //hashMap.put("companyId", companyId);
         hashMap.put("id", id);
         hashMap.put("quantity", quantity);
         hashMap.put("shopId", shopId);
+        hashMap.put("unit", unit);
         RequestManager.getInstance().requestPostByAsyn(API.URL_UPDATE_DISH_QUANTITY, hashMap, new ReqCallBack<String>() {
 
             @Override

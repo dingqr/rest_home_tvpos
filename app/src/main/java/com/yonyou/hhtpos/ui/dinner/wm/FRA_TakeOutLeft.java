@@ -212,7 +212,7 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     @Override
     public void openOrder() {
         sendBroadcast(ReceiveConstants.WM_OPEN_ORDER_SUCCESS);
-        CommonUtils.makeEventToast(mContext,"wm_open_order_success",false);
+        CommonUtils.makeEventToast(mContext,"开单成功",false);
         Elog.e("WM_OPEN_ORDER_SUCCESS","WM_OPEN_ORDER_SUCCESS");
     }
 

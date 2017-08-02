@@ -69,12 +69,28 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
 
     @Override
     protected void onFirstUserVisible() {
-
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+        } else {
+            // reset refresh state
+            if (null != srlPacking) {
+                srlPacking.setRefreshing(false);
+            }
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
     protected void onUserVisible() {
-
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+        } else {
+            // reset refresh state
+            if (null != srlPacking) {
+                srlPacking.setRefreshing(false);
+            }
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
@@ -105,15 +121,6 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         plaLvPacking.setOnLoadMoreListener(this);
 
         mPackingListPresenter = new WDListPresenterImpl(mContext, this);
-        if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
-        } else {
-            // reset refresh state
-            if (null != srlPacking) {
-                srlPacking.setRefreshing(false);
-            }
-            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
-        }
         mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
             @Override
             public void onItemClick(int position) {

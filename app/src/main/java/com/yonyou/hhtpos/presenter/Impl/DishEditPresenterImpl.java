@@ -30,8 +30,8 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     }
 
     @Override
-    public void updateQuantity(String companyId, String id, String quantity, String shopId) {
-        mDishEditInteractor.updateQuantity(companyId, id, quantity, shopId);
+    public void updateQuantity(String companyId, String id, String quantity, String shopId, String unit) {
+        mDishEditInteractor.updateQuantity(companyId, id, quantity, shopId, unit);
     }
 
     @Override

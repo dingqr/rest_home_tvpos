@@ -230,9 +230,24 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 dishCallBackEntity.setListShowPractice(fvCookery.getSelectedData().getOption());
                 dishCallBackEntity.setPractices(fvCookery.getSelectedData().getOptionId());
             }
-            dishCallBackEntity.setRemark(checkRemark(remarkEmptyFlag).get(0));
-            dishCallBackEntity.setListShowRemark(checkRemark(remarkEmptyFlag).get(1));
-            dishCallBackEntity.setRemarks(checkRemark(remarkEmptyFlag).get(2));
+            ArrayList<String> remarkList = checkRemark(remarkEmptyFlag);
+            if (null != remarkList){
+                if (remarkList.size() > 0){
+                    dishCallBackEntity.setRemark(remarkList.get(0));
+                }
+
+                if (remarkList.size() > 1){
+                    dishCallBackEntity.setListShowRemark(remarkList.get(1));
+                }
+
+                if (remarkList.size() > 2){
+                    dishCallBackEntity.setRemarks(remarkList.get(2));
+                }
+            }
+
+//            dishCallBackEntity.setRemark(checkRemark(remarkEmptyFlag).get(0));
+//            dishCallBackEntity.setListShowRemark(checkRemark(remarkEmptyFlag).get(1));
+//            dishCallBackEntity.setRemarks(checkRemark(remarkEmptyFlag).get(2));
             return dishCallBackEntity;
         } else {
             return null;
