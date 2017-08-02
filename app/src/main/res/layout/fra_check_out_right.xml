@@ -378,8 +378,8 @@
                             android:background="@color/color_f0f0f0"
                             android:drawableTop="@drawable/ic_settled"
                             android:gravity="center"
-                            android:paddingTop="@dimen/px_18"
-                            android:text="结清"
+                            android:paddingTop="@dimen/px_20"
+                            android:text="@string/string_settled"
                             android:textColor="@color/color_666666"
                             android:textSize="@dimen/sp_22" />
                     </LinearLayout>

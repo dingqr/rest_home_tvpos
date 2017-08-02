@@ -384,5 +384,7 @@
     <string name="string_unit_coupon">张</string>
     <string name="string_input_dish_price">销售金额不能为空</string>
     <string name="string_please_input_dish_name">菜品名称不能为空</string>
+    <string name="string_settled">结清</string>
+    <string name="string_discount_let">折让</string>
 
 </resources>
