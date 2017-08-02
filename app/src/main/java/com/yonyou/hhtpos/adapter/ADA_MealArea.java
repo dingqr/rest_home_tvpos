@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseAbsAdapter;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 
@@ -49,6 +50,7 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
             holder.mLine.setVisibility(View.INVISIBLE);
             holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_cccccc));
         } else {
+            holder.mMealName.setText(StringUtil.getString(bean.getDiningAreaName()));
             if (bean.isCheck()) {
                 currentBean = bean;
                 holder.mLine.setVisibility(View.VISIBLE);

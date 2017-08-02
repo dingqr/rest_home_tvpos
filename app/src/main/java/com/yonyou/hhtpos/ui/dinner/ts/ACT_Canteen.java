@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,16 +21,17 @@ import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
-import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
+import com.yonyou.hhtpos.presenter.ITSTableAreaPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.TSTableAreaPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.ITSFiltrateTableView;
 import com.yonyou.hhtpos.view.ITSTableAreaListView;
 import com.yonyou.hhtpos.widgets.NoScrollViewPager;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -41,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * 堂食页面
  * 作者：liushuofei on 2017/7/8 10:42
  */
-public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView,ITSTableAreaListView {
+public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView, ITSTableAreaListView {
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -59,13 +59,12 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     TextView tvSplitTable;
     @Bind(R.id.tv_table_clear)
     TextView tvClearTable;
-
     private List<MealAreaEntity> dataList;
     private ADA_MealArea mAdapter;
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
 
-    private String shopId = API.shopId;
-    private String shopIdFake = "C13352966C000000A60000000016E000";
+    private String shopId = Constants.SHOP_ID;
+
 
     public static final int RB_FREE = 0;
     public static final int RB_SETTLE = 1;
@@ -91,6 +90,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
      * 根据桌台操作筛选可用的桌台
      */
     private ITSFiltrateTableListPresenter filtrateTableListPresenter;
+    /**
+     * 获取所有餐区
+     */
+    private ITSTableAreaPresenter tableAreaPresenter;
 
     @Override
     protected boolean isApplyKitKatTranslucency() {
@@ -119,21 +122,22 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     protected void initViewsAndEvents() {
-
         filtrateTableListPresenter = new TSFiltrateTableListPresenterImpl(this, this);
+        tableAreaPresenter = new TSTableAreaPresenterImpl(this, this);
+        tableAreaPresenter.getTableArea(shopId);
         mAdapter = new ADA_MealArea(mContext);
         mListView.setAdapter(mAdapter);
 
-        // 假数据
-        dataList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            MealAreaEntity bean = new MealAreaEntity();
-            if (i == 0) {
-                bean.setCheck(true);
-            }
-            dataList.add(bean);
-        }
-        mAdapter.update(dataList);
+//        // 假数据
+//        dataList = new ArrayList<>();
+//        for (int i = 0; i < 4; i++) {
+//            MealAreaEntity bean = new MealAreaEntity();
+//            if (i == 0) {
+//                bean.setCheck(true);
+//            }
+//            dataList.add(bean);
+//        }
+//        mAdapter.update(dataList);
 
         setVpAdapter();
 
@@ -350,7 +354,6 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     mAdapter.enableItemChooser();
                     setTopTab(true);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
-//                    mCurrentFramgent.onRefresh();
                 }
                 break;
 
@@ -441,19 +444,20 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                 break;
         }
     }
-    private void filterTableByOption(int option){
-        switch (option){
+
+    private void filterTableByOption(int option) {
+        switch (option) {
             case 1:
-                break;
+
             case 2:
-                break;
+
             case 3:
-                setTableOption(String.valueOf(option));
-                filtrateTableListPresenter.requestFiltrateTableList("", shopIdFake, tableOption);
-                break;
+//                setTableOption(String.valueOf(option));
+//                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
+//                break;
             case 4:
                 setTableOption(String.valueOf(option));
-                filtrateTableListPresenter.requestFiltrateTableList("", shopIdFake, tableOption);
+                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
                 break;
             default:
                 break;
@@ -501,7 +505,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     }
 
     @Override
-    public void getTableAreaList( List<MealAreaEntity> bean) {
-
+    public void getTableAreaList(List<MealAreaEntity> mealAreas) {
+        if (mealAreas != null && mealAreas.size() > 0) {
+            mAdapter.update(mealAreas);
+        }
     }
 }
