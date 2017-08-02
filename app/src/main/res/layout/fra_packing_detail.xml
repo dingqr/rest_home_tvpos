@@ -176,6 +176,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_member_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/px_60"
@@ -235,6 +236,7 @@
                         android:background="@color/color_e6e5e5"></View>
 
                     <LinearLayout
+                        android:id="@+id/layout_discount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/px_20"
@@ -258,6 +260,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout_ignore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/px_20"
