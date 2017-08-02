@@ -64,6 +64,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
 
     private String shopId = Constants.SHOP_ID;
+    private String token = Constants.TOKEN;
 
 
     public static final int RB_FREE = 0;

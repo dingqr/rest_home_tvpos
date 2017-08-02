@@ -47,7 +47,10 @@ public class MyApplication extends BaseApplication{
         if (!TextUtils.isEmpty(shopId)){
             Constants.SHOP_ID = shopId;
         }
-
+        String userToken = sharePre.getString(SpUtil.USER_TOKEN);
+        if (!TextUtils.isEmpty(shopId)){
+            Constants.TOKEN = userToken;
+        }
         //初始化全局捕获异常类
         //CrashHandler.getInstance().init(this);
 
