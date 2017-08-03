@@ -269,7 +269,7 @@ public class RequestManager {
 
             Elog.e(TAG, "Method:post");
             Elog.e(TAG, "URL:" + requestUrl);
-            Elog.e(TAG, ":" + params);
+            Elog.e(TAG, "Params:" + params);
             final Request request = addHeaders().url(requestUrl).post(body).build();
             Call call = mOkHttpClient.newCall(request);
             call = onRequest(callBack, call);

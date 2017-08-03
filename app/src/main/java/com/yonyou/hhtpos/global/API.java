@@ -108,7 +108,8 @@ public class API {
     /**
      * 左侧已点菜品列表接口
      */
-    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+//    public static final String URL_DISH_LIST = BASE_SERVER_SHOP + "/prodish/getbilldishinfo";
+    public static final String URL_DISH_LIST = "http://10.220.23.81:9001" + "/prodish/getbilldishinfo";
 
     /**
      * 点菜-获取所有菜品/菜类
@@ -141,10 +142,11 @@ public class API {
     public static final String URL_WM_ORDER_DETAIL = BASE_SERVER_SHOP + "/takeOut/getBillDetail";
 
     /**
-     * 点菜时，新加菜品
+     * 点菜时，新加菜品-马建设本地
      * "http://10.220.23.81:9001"
      */
-    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
+//    public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
+    public static final String URL_ADD_DISH = "http://10.220.23.81:9001" + "/prodish/adddish";
 
     /**
      * 查询服务员
