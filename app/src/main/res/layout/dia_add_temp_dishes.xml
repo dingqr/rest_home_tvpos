@@ -18,9 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_40"
-            app:inputHint="@string/hint_dish_name"
+            app:titleText="@string/hint_dish_name"
             app:inputMode="0"
-            app:titleText="@string/string_input_dish_name" />
+            app:inputHint="@string/string_input_dish_name" />
 
         <com.yonyou.hhtpos.widgets.DialogInputView
             android:id="@+id/input_dish_price"
@@ -28,9 +28,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/px_70"
             android:layout_marginTop="@dimen/px_28"
-            app:inputHint="@string/hint_sale_price"
+            app:titleText="@string/hint_sale_price"
             app:inputMode="0"
-            app:titleText="@string/string_input_sale_price" />
+            app:inputHint="@string/string_input_sale_price" />
 
     </LinearLayout>
 
