@@ -27,7 +27,7 @@
         android:layout_alignParentRight="true"
         android:paddingLeft="@dimen/px_40"
         android:paddingRight="@dimen/px_20"
-        android:text="去菜单"
+        android:text="@string/string_order_dishes"
         android:textSize="@dimen/sp_24"
         android:textColor="@color/color_FEFEFE"
         android:gravity="center_vertical"/>
