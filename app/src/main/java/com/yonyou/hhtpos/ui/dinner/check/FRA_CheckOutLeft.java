@@ -138,6 +138,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
                 bundle.putString(TABLE_BILL_ID, tableBillId);
                 bundle.putInt(FROM_WHERE, fromWhere);
                 readyGo(ACT_OrderDishes.class, bundle);
+                getActivity().finish();
                 break;
         }
     }
@@ -187,11 +188,18 @@ public class FRA_CheckOutLeft extends BaseFragment {
             if (dataBean.serviceChargeDetail != null && dataBean.serviceChargeDetail.size() > 0) {
                 mServiceChargeAdapter.update(dataBean.serviceChargeDetail, true);
             }
+            //已点菜明细
+            if (dataBean.orderDishes != null && dataBean.orderDishes.size() > 0) {
+                mAdapter.update(dataBean.orderDishes);
+            }
+            //如果账单是部分支付，隐藏掉去点菜的入口
+            if (dataBean.payStatus != null && dataBean.payStatus.equals("1")) {
+                tvGoToOrder.setVisibility(View.GONE);
+            } else {
+                tvGoToOrder.setVisibility(View.VISIBLE);
+            }
+        }
 
-        }
-        if (dataBean.orderDishes != null && dataBean.orderDishes.size() > 0) {
-            mAdapter.update(dataBean.orderDishes);
-        }
     }
 
     @Override

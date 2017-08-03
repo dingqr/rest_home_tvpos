@@ -30,6 +30,7 @@ import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
+import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.view.IWDOrderDetailView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
@@ -41,6 +42,7 @@ import butterknife.OnClick;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
+import static com.yonyou.hhtpos.R.id.tv_wait_receive_money;
 import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
 import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
 
@@ -77,8 +79,10 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     TextView tvCashier;
     @Bind(R.id.tv_not_pay)
     TextView tvNotPay;
-    @Bind(R.id.tv_wait_receive_money)
+    @Bind(tv_wait_receive_money)
     TextView tvWaitReceiveMoney;
+    @Bind(R.id.layout_wait_receive)
+    LinearLayout layoutWaitReceive;//待收
     //支付方式
     @Bind(R.id.lv_pay_type)
     BanSlideListView mLvPayType;
@@ -106,6 +110,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     //处理外带订单明细列表分组
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
+    private boolean isUnOrdered;
 
     /**
      * 左侧外带订单列表是否为空
@@ -195,12 +200,19 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     private void handleClickPayStatus() {
         //                1-部分支付，2-支付完成，3-已退款，4-未支付
         switch (payStatus) {
+            //部分支付-去结账-结账页面屏蔽去菜单按钮
             case 1:
-            case 4:
                 Bundle bundle = new Bundle();
                 bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
                 bundle.putString(TABLE_BILL_ID, tableBillId);
                 readyGo(ACT_CheckOut.class, bundle);
+                break;
+            //未支付状态-去点菜
+            case 4:
+                Bundle bundles = new Bundle();
+                bundles.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
+                bundles.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WD);
+                readyGo(ACT_OrderDishes.class, bundles);
                 break;
             case 2:
                 CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_dozen_bill), false);
@@ -276,11 +288,30 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             //未支付
             case 4:
                 tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
-                tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
+                tvButton.setText(mContext.getResources().getString(R.string.string_order_dishes));
                 tvNotPay.setVisibility(View.VISIBLE);
                 tvWaitReceiveMoney.setVisibility(View.VISIBLE);
                 layoutPayInfo.setVisibility(View.GONE);
                 break;
+        }
+    }
+
+    /**
+     * 判断列表中是否有未下单的菜品
+     *
+     * @param orderDetailEntity
+     */
+    private void isExsitUnOrderedDish(WDOrderDetailEntity orderDetailEntity) {
+        if (orderDetailEntity.dishListDetail != null) {
+            ArrayList<WDDishDetaiListlEntity> dishListDetail = orderDetailEntity.dishListDetail;
+            isUnOrdered = false;
+            for (int i = 0; i < dishListDetail.size(); i++) {
+                WDDishDetaiListlEntity wdDishDetaiListlEntity = dishListDetail.get(i);
+                if (wdDishDetaiListlEntity.orderTime != null && wdDishDetaiListlEntity.orderTime == 0) {
+                    isUnOrdered = true;
+                    break;
+                }
+            }
         }
     }
 
@@ -357,8 +388,20 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 //                setCount(orderDetailEntity.dishListDetail);
                 mAdapter.update(dishListDetail, true);
             }
+            //待收金额
+            if (!TextUtils.isEmpty(orderDetailEntity.getReceiveAmount())) {
+                tvWaitReceiveMoney.setText(orderDetailEntity.getReceiveAmount());
+            }
+            //是否存在未下单的菜品
+            isExsitUnOrderedDish(orderDetailEntity);
+            //是部分支付，并且全部都是未下单的情况，待支付显示￥0.00
+            if (isUnOrdered && payStatus == 4) {
+                //待收
+                tvWaitReceiveMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + "0.00");
+            }
         }
     }
+
 
 }
 
