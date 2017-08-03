@@ -31,4 +31,7 @@ public class DishLabelEntity {
                 ", relateId='" + relateId + '\'' +
                 '}';
     }
+    public DishLabelEntity(String labelName){
+        this.labelName = labelName;
+    }
 }

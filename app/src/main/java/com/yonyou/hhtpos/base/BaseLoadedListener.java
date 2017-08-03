@@ -2,6 +2,8 @@ package com.yonyou.hhtpos.base;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * 统一返回数据接口
  */

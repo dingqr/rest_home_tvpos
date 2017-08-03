@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/px_70"
-        android:background="@drawable/bg_rb_radius_4"
+        android:background="@drawable/bg_fe563b_4"
         android:button="@null"
         android:checked="true"
         android:gravity="center"

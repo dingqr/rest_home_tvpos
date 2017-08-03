@@ -88,12 +88,28 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
 
     @Override
     protected void onFirstUserVisible() {
-
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mTakeOutListPresenter.requestTakeOutList(bean, false, true);
+        } else {
+            // reset refresh state
+            if (null != srlTakeOut) {
+                srlTakeOut.setRefreshing(false);
+            }
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
     protected void onUserVisible() {
-
+        if (NetUtils.isNetworkConnected(mContext)) {
+            mTakeOutListPresenter.requestTakeOutList(bean, false, true);
+        } else {
+            // reset refresh state
+            if (null != srlTakeOut) {
+                srlTakeOut.setRefreshing(false);
+            }
+            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
+        }
     }
 
     @Override
@@ -135,15 +151,6 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
 
         // 请求接口
         mTakeOutListPresenter = new WMListPresenterImpl(mContext, this);
-        if (NetUtils.isNetworkConnected(mContext)) {
-            mTakeOutListPresenter.requestTakeOutList(bean, false, true);
-        } else {
-            // reset refresh state
-            if (null != srlTakeOut) {
-                srlTakeOut.setRefreshing(false);
-            }
-            CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
-        }
 
         mAdapter.setOnItemClickListener(new ADA_PackingList.OnItemClickLister() {
             @Override

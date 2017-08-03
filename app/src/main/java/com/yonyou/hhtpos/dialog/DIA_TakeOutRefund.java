@@ -108,8 +108,6 @@ public class DIA_TakeOutRefund implements View.OnClickListener, FiltrationView.S
             String reason = fvRefundReason.getSelectedData().getOption();
             reasonCallbackEntity.setRefundReason(reason);
             flag = true;
-            //退款原因
-            reasonCallbackEntity.setRefundReason(String.valueOf(reason));
             if (!TextUtils.isEmpty(otherRemark)) {
                 //其他原因
                 reasonCallbackEntity.setOtherReason(otherRemark);

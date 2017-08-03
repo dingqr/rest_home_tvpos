@@ -14,7 +14,7 @@ public interface IDishEditPresenter {
      * @param quantity 	菜品数量
      * @param shopId
      */
-    void updateQuantity(String companyId, String id, String quantity, String shopId);
+    void updateQuantity(String companyId, String id, String quantity, String shopId, String unit);
 
     /**
      * 修改菜品状态接口

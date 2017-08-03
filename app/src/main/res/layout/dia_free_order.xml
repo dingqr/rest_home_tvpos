@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/px_580"
     android:layout_height="@dimen/px_920"
-    android:background="@color/sr_window_background">
+    android:background="@drawable/bg_radius_4">
 
     <LinearLayout
         android:id="@+id/title_takeout_refund"
@@ -118,12 +118,12 @@
     </LinearLayout>
 
     <RadioButton
-        android:id="@+id/rb_confirm_refund"
+        android:id="@+id/rb_confirm_free"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/px_70"
-        android:background="@drawable/bg_rb_radius_4"
+        android:background="@drawable/bg_fe563b_4"
         android:button="@null"
         android:checked="true"
         android:gravity="center"

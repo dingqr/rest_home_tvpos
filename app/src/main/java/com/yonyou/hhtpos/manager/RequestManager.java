@@ -12,6 +12,7 @@ import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.ResultBean;
+import com.yonyou.hhtpos.util.Constants;
 
 import java.io.File;
 import java.io.IOException;
@@ -648,7 +649,8 @@ public class RequestManager {
                 .addHeader("platform", HEADER_PLATFORM)
                 .addHeader("phoneModel", Build.MODEL)
                 .addHeader("systemVersion", Build.VERSION.RELEASE)
-                .addHeader("appVersion", HEADER_APPVERSION);
+                .addHeader("appVersion", HEADER_APPVERSION)
+                .addHeader("token", Constants.TOKEN);// TOKEN
         return builder;
     }
 

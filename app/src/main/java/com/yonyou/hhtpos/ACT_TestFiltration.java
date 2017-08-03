@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
 import com.yonyou.hhtpos.bean.TakeoutMarketEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
+import com.yonyou.hhtpos.dialog.DIA_AddedValueRaxInvoice;
 import com.yonyou.hhtpos.dialog.DIA_EmployeeFiltration;
 import com.yonyou.hhtpos.dialog.DIA_FamilySetMeal;
 import com.yonyou.hhtpos.dialog.DIA_FreeOrder;
@@ -33,6 +34,8 @@ import com.yonyou.hhtpos.dialog.DIA_SetMeal;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
+import com.yonyou.hhtpos.dialog.DIA_VipLogin;
+import com.yonyou.hhtpos.dialog.DIA_VipLoginVerifyCode;
 import com.yonyou.hhtpos.interfaces.EmployeeCallback;
 import com.yonyou.hhtpos.presenter.ITakeoutCompanyPresenter;
 import com.yonyou.hhtpos.presenter.ITakeoutMarketPresenter;
@@ -96,6 +99,12 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     Button btnConfirm11;
     @Bind(R.id.btn_confirm12)
     Button btnConfirm12;
+    @Bind(R.id.btn_confirm13)
+    Button btnConfirm13;
+    @Bind(R.id.btn_confirm14)
+    Button btnConfirm14;
+    @Bind(R.id.btn_confirm15)
+    Button btnConfirm15;
 
     private ArrayList<FilterItemEntity> filterItemList;
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
@@ -137,6 +146,9 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_SetMeal dia_SetMeal;
     DIA_FreeOrder dia_freeOrder;
     DIA_EmployeeFiltration dia_employeeFiltration;
+    DIA_VipLogin dia_vipLogin;
+    DIA_AddedValueRaxInvoice dia_addedValueRaxInvoice;
+    DIA_VipLoginVerifyCode dia_vipLoginVerifyCode;
 
     private String shopId = "C13352966C000000A60000000016E000";
 
@@ -186,6 +198,9 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm10.setOnClickListener(this);
         btnConfirm11.setOnClickListener(this);
         btnConfirm12.setOnClickListener(this);
+        btnConfirm13.setOnClickListener(this);
+        btnConfirm14.setOnClickListener(this);
+        btnConfirm15.setOnClickListener(this);
 
         //假数据
         filterItemList = getFakeData();
@@ -198,9 +213,6 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         freeReasons.setOptions(getFreeReasons());
 
         dishBean = getDishBean();
-
-//        takeoutType = new FilterItemEntity(getTakeOutType(),"外卖类型");
-//        takeoutMarket = new FilterItemEntity( getTakeOutMarket(),"市别");
 
         //外卖筛选数据获取
         companyPresenter = new TakeoutCompanyPresenterImpl(this, this);
@@ -339,6 +351,18 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
                 dia_employeeFiltration = new DIA_EmployeeFiltration(mContext, workState, employeePosition);
                 dia_employeeFiltration.setEmployeeCallback(this);
                 dia_employeeFiltration.getDialog().show();
+                break;
+            case R.id.btn_confirm13:
+                dia_vipLogin = new DIA_VipLogin(mContext);
+                dia_vipLogin.getDialog().show();
+                break;
+            case R.id.btn_confirm14:
+                dia_addedValueRaxInvoice = new DIA_AddedValueRaxInvoice(mContext);
+                dia_addedValueRaxInvoice.getDialog().show();
+                break;
+            case R.id.btn_confirm15:
+                dia_vipLoginVerifyCode = new DIA_VipLoginVerifyCode(mContext);
+                dia_vipLoginVerifyCode.getDialog().show();
                 break;
             default:
                 break;

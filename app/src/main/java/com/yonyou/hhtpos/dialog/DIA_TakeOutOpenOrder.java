@@ -23,6 +23,7 @@ import com.yonyou.hhtpos.bean.DistributeTimeEntity;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutLeft;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 
@@ -190,7 +191,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         receiverPhone = etEnterReceiverPhone.getText().toString().trim();
         if (verifyInput()) {
             takeOutCompanyId = takeoutCompany.getOptionId();
-            wmooe.setShopId("C13352966C000000A60000000016E000");
+            wmooe.setShopId(API.shopId);
             wmooe.setTakeOutCompanyId(takeOutCompanyId);
             wmooe.setName(receiverName);
             wmooe.setPhone(receiverPhone);

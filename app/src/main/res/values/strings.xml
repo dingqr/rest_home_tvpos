@@ -181,7 +181,7 @@
     <string name="locked">锁定</string>
     <string name="table_turn">转台</string>
     <string name="table_merge">并台</string>
-    <string name="table_put_together">拼台</string>
+    <string name="table_put_together">拼桌</string>
     <string name="table_clear">清台</string>
     <string name="abandon">放弃</string>
 
@@ -352,9 +352,15 @@
     <string name="no_use_member">不使用会员</string>
     <string name="pre_print_order">预打单</string>
 
-    <!--电子发票 -->
+    <!--发票 -->
     <string name="electronic_invoice">电子发票</string>
     <string name="print">打印</string>
+    <string name="added_value_rax_invoice">普通增值税发票</string>
+    <string name="rax_id">税号：</string>
+    <string name="invoice_title">发票抬头</string>
+    <string name="enter_invoice_title">输入发票抬头</string>
+    <string name="invoice_title_empty">发票抬头为空</string>
+    <string name="save">保存</string>
 
     <!--扫码 -->
     <string name="scan_customer_code">扫顾客码</string>
@@ -382,6 +388,16 @@
     <string name="string_settle_account">结账</string>
     <string name="string_dozen_bill">补打账单</string>
     <string name="string_unit_coupon">张</string>
+    <string name="vip_member">会员</string>
+    <string name="vip_phone">会员手机号</string>
+    <string name="vip_password">会员密码</string>
+    <string name="password">密码</string>
+    <string name="no_vip_check_out">非会员结账</string>
+    <string name="login_through_password">通过密码登录</string>
+    <string name="string_input_dish_price">销售金额不能为空</string>
+    <string name="string_please_input_dish_name">菜品名称不能为空</string>
+    <string name="string_settled">结清</string>
+    <string name="string_discount_let">折让</string>
     <string name="string_input_dish_price">销售金额不能为空</string>
     <string name="string_please_input_dish_name">菜品名称不能为空</string>
     <string name="string_settled">结清</string>
