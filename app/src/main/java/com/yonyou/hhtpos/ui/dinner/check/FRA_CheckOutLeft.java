@@ -22,6 +22,7 @@ import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -258,5 +259,25 @@ public class FRA_CheckOutLeft extends BaseFragment {
             mNewDataList.addAll(newList);
         }
         return mNewDataList;
+    }
+
+    /**
+     * 根据table唯一标识，存储所有不同的桌台,根据id可以获取桌台的名称
+     */
+    private String getTableNameById(String table_id) {
+        HashMap<String, String> tableMap = new HashMap<>();
+        for (int i = 0; i < dataBean.orderDishes.size(); i++) {
+            String tableId = dataBean.orderDishes.get(i).tableId;
+            String tableName = dataBean.orderDishes.get(i).tableName;
+            tableMap.put(tableId, tableName);
+        }
+        // 将Map Key 转化为List
+        List<String> mapKeyList = new ArrayList<String>(tableMap.keySet());
+//        for (int i = 0; i < mapKeyList.size(); i++) {
+//            Log.e("TAG", "mapKeyList="+mapKeyList.get(i));
+//        }
+        // 将Map value转化为List
+        List<String> mapValuesList = new ArrayList<String>(tableMap.values());
+        return tableMap.get(table_id);
     }
 }

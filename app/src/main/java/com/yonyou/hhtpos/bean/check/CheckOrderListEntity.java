@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class CheckOrderListEntity implements Serializable {
     /**
+     * 桌台唯一标识
+     */
+    public String tableId;
+    /**
      * 桌台名称
      */
     public String tableName;
