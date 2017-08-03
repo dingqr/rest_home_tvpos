@@ -37,10 +37,11 @@ public class MealAreaEntity implements Serializable {
 
     }
 
-    public MealAreaEntity(boolean isCheck, String diningAreaName, String shopId) {
+    public MealAreaEntity(boolean isCheck, String diningAreaName, String shopId,String relateId) {
         this.isCheck = isCheck;
         this.diningAreaName = diningAreaName;
         this.shopId = shopId;
+        this.relateId = relateId;
     }
 
     public String getDiningAreaName() {

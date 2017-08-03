@@ -9,6 +9,7 @@ import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
@@ -22,10 +23,12 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
 
     private MealAreaEntity currentBean;
     private boolean isAllItemEnable = true;
+    protected OnItemClickListener mOnItemClickListener;
 
     public ADA_MealArea(Context context) {
         super(context);
     }
+
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -63,7 +66,7 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
         return convertView;
     }
 
-    private void handleDataSource(int position, final ViewHolder holder, final MealAreaEntity bean) {
+    private void handleDataSource(final int position, final ViewHolder holder, final MealAreaEntity bean) {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +77,9 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
                     }
                     currentBean = bean;
                     notifyDataSetChanged();
+                }
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(position, holder, bean);
                 }
             }
         });
@@ -105,13 +111,14 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
         isAllItemEnable = false;
         notifyDataSetChanged();
     }
+
     //设置为全能选
     public void enableItemChooser() {
         isAllItemEnable = true;
         notifyDataSetChanged();
     }
 
-    static class ViewHolder {
+    public static class ViewHolder {
         FrameLayout mRoot;
         TextView mMealName;
         View mLine;
@@ -121,5 +128,15 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
             mMealName = (TextView) v.findViewById(R.id.tv_area_name);
             mLine = (View) v.findViewById(R.id.v_right_line);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, final ViewHolder holder, final MealAreaEntity bean);
+
+        boolean onItemLongClick(int position, final ViewHolder holder, final MealAreaEntity bean);
+    }
+
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 }

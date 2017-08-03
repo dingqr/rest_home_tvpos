@@ -437,6 +437,19 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         }
     }
 
+    /**
+     * 获取餐区id
+     *
+     * @param diningAreaRelateId
+     */
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onUpdateAreaId(String diningAreaRelateId) {
+        if (diningAreaRelateId != null) {
+            this.diningAreaRelateId = diningAreaRelateId;
+            onRefresh();
+        }
+    }
+
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_TABLE_LIST && getUserVisibleHint()) {

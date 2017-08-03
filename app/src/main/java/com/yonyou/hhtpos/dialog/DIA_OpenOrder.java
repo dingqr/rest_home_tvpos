@@ -54,7 +54,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
     private EditText etUserPhone;
     private EditText etBillRemark;
     private EditText etWaiter;
-    private RadioButton tvConfirmOpenOrder;
+    private RadioButton rbConfirmOpenOrder;
 
     /**
      * 开单数据接口
@@ -141,12 +141,12 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         etUserPhone = (EditText) mContentView.findViewById(R.id.et_user_phone);
         etBillRemark = (EditText) mContentView.findViewById(R.id.et_dinner_remark);
         etWaiter = (EditText) mContentView.findViewById(R.id.et_waiter);
-        tvConfirmOpenOrder = (RadioButton) mContentView.findViewById(R.id.tv_confirm_open_order);
+        rbConfirmOpenOrder = (RadioButton) mContentView.findViewById(R.id.tv_confirm_open_order);
         ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
 
         cancelSplitPresenter = new TSCancelSplitPresenterImpl(mContext, this);
 
-        tvConfirmOpenOrder.setOnClickListener(this);
+        rbConfirmOpenOrder.setOnClickListener(this);
         etWaiter.setOnClickListener(this);
         ivClose.setOnClickListener(this);
         dia_chooseWaiter = new DIA_ChooseWaiter(mContext);
@@ -161,8 +161,12 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_empty), false);
             return false;
         }
+        if (dinnerNumber.equals("0")){
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.receiver_num_zero), false);
+            return false;
+        }
         if (!TextUtils.isEmpty(userPhone) && !doValidatePhone()) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_name_empty), false);
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_phone_error), false);
             return false;
         }
         return true;
@@ -176,23 +180,28 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
                     if (canteenTableEntity.getTableOption() == 3) {
                         //调用取消拼台接口
                         cancelSplitPresenter.cancelSplit(canteenTableEntity.tableID);
+                    } else {
+                        mDialog.dismiss();
                     }
                 }
                 break;
             case R.id.tv_confirm_open_order:
                 OpenOrderEntity tsooe = initEntity();
                 if (tsCallback != null && tsooe != null) {
+                    rbConfirmOpenOrder.setChecked(true);
                     tsCallback.sendTsEntity(tsooe);
                     mDialog.dismiss();
+                }else{
+                    rbConfirmOpenOrder.setChecked(false);
                 }
                 break;
             case R.id.et_waiter:
-                if (waiterList!=null && waiterList.size()>0){
-                dia_chooseWaiter.setData(waiterList);
-                dia_chooseWaiter.setOnWaiterSelectedListener(this);
-                dia_chooseWaiter.show();}
-                else{
-                    CommonUtils.makeEventToast(mContext,mContext.getString(R.string.waiter_list_empty),false);
+                if (waiterList != null && waiterList.size() > 0) {
+                    dia_chooseWaiter.setData(waiterList);
+                    dia_chooseWaiter.setOnWaiterSelectedListener(this);
+                    dia_chooseWaiter.show();
+                } else {
+                    CommonUtils.makeEventToast(mContext, mContext.getString(R.string.waiter_list_empty), false);
                 }
                 break;
             default:

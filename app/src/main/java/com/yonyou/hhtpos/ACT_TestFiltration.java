@@ -31,6 +31,7 @@ import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishWeight;
 import com.yonyou.hhtpos.dialog.DIA_ReserveFiltration;
 import com.yonyou.hhtpos.dialog.DIA_SetMeal;
+import com.yonyou.hhtpos.dialog.DIA_SetMealSmall;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutFiltration;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
@@ -105,6 +106,9 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     Button btnConfirm14;
     @Bind(R.id.btn_confirm15)
     Button btnConfirm15;
+    @Bind(R.id.btn_confirm16)
+    Button btnConfirm16;
+
 
     private ArrayList<FilterItemEntity> filterItemList;
     private ArrayList<FilterOptionsEntity> filterOptionsEntities;
@@ -149,6 +153,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_VipLogin dia_vipLogin;
     DIA_AddedValueRaxInvoice dia_addedValueRaxInvoice;
     DIA_VipLoginVerifyCode dia_vipLoginVerifyCode;
+    DIA_SetMealSmall dia_setMealSmall;
 
     private String shopId = "C13352966C000000A60000000016E000";
 
@@ -201,6 +206,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm13.setOnClickListener(this);
         btnConfirm14.setOnClickListener(this);
         btnConfirm15.setOnClickListener(this);
+        btnConfirm16.setOnClickListener(this);
 
         //假数据
         filterItemList = getFakeData();
@@ -301,6 +307,10 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
             case R.id.btn_confirm12:
                 dia_SetMeal = new DIA_SetMeal(mContext, setMealListEntities);
                 dia_SetMeal.getDialog().show();
+                break;
+            case R.id.btn_confirm16:
+                dia_setMealSmall = new DIA_SetMealSmall(mContext, setMealListEntities);
+                dia_setMealSmall.getDialog().show();
                 break;
             case R.id.btn_confirm1:
                 dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext, filterItemList);

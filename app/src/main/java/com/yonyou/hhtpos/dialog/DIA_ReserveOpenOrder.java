@@ -123,7 +123,7 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             return false;
         }
         if (!TextUtils.isEmpty(userPhone) && !doValidatePhone()) {
-            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_name_empty), false);
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.user_phone_error), false);
             return false;
         }
         return true;
@@ -141,9 +141,10 @@ public class DIA_ReserveOpenOrder implements View.OnClickListener, DIA_ChooseWai
             case R.id.rb_confirm_open_order:
                 OpenOrderEntity tsooe = initEntity();
                 if (tsCallback != null && tsooe != null) {
+                    rbConfirmOpenOrder.setChecked(true);
                     tsCallback.sendTsEntity(tsooe);
                     mDialog.dismiss();
-                }
+                }else rbConfirmOpenOrder.setChecked(false);
                 break;
 
             case R.id.et_waiter:

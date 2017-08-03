@@ -158,6 +158,7 @@
     <string name="reserve_time_error">预定时间不能为空</string>
     <string name="take_out_company_error">请选择外卖公司</string>
     <string name="receiver_num_empty">就餐人数不能为空</string>
+    <string name="receiver_num_zero">就餐人数不能为零</string>
 
     <!--堂食 -->
     <string name="canteen_billing">开单</string>
@@ -165,7 +166,7 @@
 
     <string name="dinner_number_hint">输入就餐人数</string>
     <string name="dinner_member">会员</string>
-    <string name="dinner_member_hint">输入手机号</string>
+    <string name="dinner_member_hint">请输入会员手机号</string>
     <string name="dinner_waiter">服务员</string>
     <string name="dinner_waiter_hint">请选择</string>
     <string name="dinner_pre_order">预订单</string>
@@ -188,7 +189,7 @@
 
     <string name="dishes_no_data">还没有点菜哦~</string>
     <string name="order_no_data">今天还没有订单哦~</string>
-    <string name="user_name_empty">会员手机号不能为空</string>
+    <string name="user_phone_error">会员手机号格式错误</string>
     <string name="waiter_name_empty">服务员不能为空</string>
     <string name="bind_shop">请绑定门店</string>
 
@@ -242,6 +243,7 @@
     <string name="main_course">主食</string>
     <string name="selected">已选</string>
     <string name="set_detail_option">套餐明细选择</string>
+    <string name="commend_detail_set">推荐明细</string>
     <string name="dish_selected">已选菜品</string>
     <string name="add_price">加价</string>
     <string name="add_to_order">加入菜单(</string>
