@@ -629,6 +629,9 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         if (null != dishTypes && dishTypes.size() > 0) {
             for (int i = 0; i < dishTypes.size(); i++) {
                 DishTypesEntity dishTypesEntity = dishTypes.get(i);
+                if(null == currentClassId || null == dishTypesEntity || null == dishTypesEntity.relateId) {
+                    break;
+                }
                 if (currentClassId.equals(dishTypesEntity.relateId)) {
 
                     // 菜品列表

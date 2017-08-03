@@ -96,7 +96,7 @@ public class DIA_CheckOutByCash {
                     return;
                 }
                 double et_money = Double.parseDouble(etMoney.getText().toString());
-                if (!TextUtils.isEmpty(mMaxMoney) && et_money > Double.parseDouble(mMaxMoney)) {
+                if (!TextUtils.isEmpty(mMaxMoney) && (et_money > Double.parseDouble(mMaxMoney) || (et_money <= 0))) {
                     CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_format_money), false);
                     return;
                 }

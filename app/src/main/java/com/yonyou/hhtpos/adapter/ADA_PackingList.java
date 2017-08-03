@@ -101,13 +101,17 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
 
         // 支付状态
         // 时间
-        if (bean.getPayStatus().equals("Y")) {
+        if (bean.getPayStatus().equals("1")) {
+            holder.mStatus.setText(mContext.getResources().getString(R.string.string_paying));
+            holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getOpentime(), AppDateUtil.HH_MM));
+        } else if (bean.getPayStatus().equals("2")) {
             holder.mStatus.setText(mContext.getString(R.string.packing_status_checked_out));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getBillTime(), AppDateUtil.HH_MM));
-        } else {
+        } else if (bean.getPayStatus().equals("4")) {
             holder.mStatus.setText(mContext.getString(R.string.packing_status_out_standing));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getOpentime(), AppDateUtil.HH_MM));
         }
+
     }
 
     static class ViewHolder {
@@ -137,7 +141,7 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
         this.mListener = mListener;
     }
 
-    public List<OrderListEntity> getDataSource(){
+    public List<OrderListEntity> getDataSource() {
         return mDataSource;
     }
 }

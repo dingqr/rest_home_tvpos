@@ -35,6 +35,10 @@ public class WDOrderDetailEntity implements Serializable {
      * 实收金额
      */
     private String realReceiveAmount;
+    /**
+     * 待收金额
+     */
+    private String receiveAmount;
 
     /**
      * 会员电话
@@ -109,6 +113,15 @@ public class WDOrderDetailEntity implements Serializable {
     public void setRealReceiveAmount(String realReceiveAmount) {
         this.realReceiveAmount = realReceiveAmount;
     }
+
+    public String getReceiveAmount() {
+        return StringUtil.getFormattedMoney(receiveAmount);
+    }
+
+    public void setReceiveAmount(String receiveAmount) {
+        this.receiveAmount = receiveAmount;
+    }
+
     @Override
     public String toString() {
         return "WDOrderDetailEntity{" +

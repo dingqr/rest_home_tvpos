@@ -83,7 +83,8 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+//            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+            onRefresh();
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -106,7 +107,6 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void initViewsAndEvents() {
         type = getArguments().getInt(TYPE);
-        getPayStatus();
 
         // 加载中的4种颜色
         srlPacking.setColorSchemeColors(
@@ -140,24 +140,6 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         act_packing.requestPackingDetail(tableBillId);
     }
 
-    private void getPayStatus() {
-        switch (type) {
-            case 0:
-                payStatus = "";
-                break;
-
-            case 1:
-                payStatus = "N";
-                break;
-
-            case 2:
-                payStatus = "Y";
-                break;
-
-            default:
-                break;
-        }
-    }
 
     @Override
     protected int getContentViewLayoutID() {
