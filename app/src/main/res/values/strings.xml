@@ -173,6 +173,7 @@
     <string name="dinner_remarks_hint">输入备注信息</string>
     <string name="clear_table">顾客已离店，餐台清理完毕。</string>
     <string name="waiter_list_empty">本店服务员列表为空</string>
+    <string name="total_meal_area">全部餐区</string>
 
     <string name="free">空闲</string>
     <string name="settle">结清</string>
