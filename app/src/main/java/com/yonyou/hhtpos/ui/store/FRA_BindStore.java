@@ -125,6 +125,8 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
                 if (shopList != null && shopList.size() > 0) {
                     diaChooseStore.setData(shopList);
                     diaChooseStore.show();
+                }else{
+                    mGetAllShopsPresenter.getAllShops("");
                 }
                 break;
         }

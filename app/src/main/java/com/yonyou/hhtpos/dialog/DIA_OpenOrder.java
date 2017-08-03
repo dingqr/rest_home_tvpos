@@ -32,7 +32,7 @@ import com.yonyou.hhtpos.view.ITSCancelSplitOrderView;
 import java.util.List;
 
 /**
- * 开单对话框
+ * 堂食开单对话框
  * 作者：ybing on 2017/6/29 13:36
  * 邮箱：ybing@yonyou.com
  */
@@ -177,7 +177,6 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
                         //调用取消拼台接口
                         cancelSplitPresenter.cancelSplit(canteenTableEntity.tableID);
                     }
-                    mDialog.dismiss();
                 }
                 break;
             case R.id.tv_confirm_open_order:

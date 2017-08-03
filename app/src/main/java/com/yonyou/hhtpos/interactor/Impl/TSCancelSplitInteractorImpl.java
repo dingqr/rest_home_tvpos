@@ -29,7 +29,7 @@ public class TSCancelSplitInteractorImpl implements ITSCancelSplitInteractor {
     public void cancelSplit(String tableId) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
 
-        hashMap.put("tableId",StringUtil.getString(tableId));
+        hashMap.put("tableDynamicId",StringUtil.getString(tableId));
         RequestManager.getInstance().requestPostByAsyn(API.URL_TS_CANCEL_SPLIT_TABLE, hashMap, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {

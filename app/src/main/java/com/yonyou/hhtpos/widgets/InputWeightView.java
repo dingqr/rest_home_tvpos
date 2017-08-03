@@ -14,6 +14,8 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.WeightEntity;
 
+import java.text.DecimalFormat;
+
 
 /**
  * Created by ybing on 2017/7/10.
@@ -60,8 +62,9 @@ public class InputWeightView extends RelativeLayout {
     }
 
     public void setWeight(double weight) {
+        DecimalFormat df   = new DecimalFormat("######0.00");
         if (weight != -1) {
-            etDishWeight.setText(String.valueOf(weight));
+            etDishWeight.setText(df.format(weight));
         }
     }
 

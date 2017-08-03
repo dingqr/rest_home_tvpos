@@ -33,6 +33,16 @@ public class MealAreaEntity implements Serializable {
                 '}';
     }
 
+    public MealAreaEntity() {
+
+    }
+
+    public MealAreaEntity(boolean isCheck, String diningAreaName, String shopId) {
+        this.isCheck = isCheck;
+        this.diningAreaName = diningAreaName;
+        this.shopId = shopId;
+    }
+
     public String getDiningAreaName() {
         return diningAreaName;
     }

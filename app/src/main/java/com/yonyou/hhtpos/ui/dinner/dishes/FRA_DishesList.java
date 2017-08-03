@@ -550,6 +550,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         dataBean.setDishName(dishesEntity.dishName);
         // 价格
         dataBean.setPrice(dishesEntity.getPrice());
+        // 时价
+        dataBean.setCurrentPrice(currentBean.getDishPrice());
         // 标签
         if (dishesEntity.labels != null && dishesEntity.labels.size() > 0 ) {
             dataBean.setLabels(dishesEntity.labels);

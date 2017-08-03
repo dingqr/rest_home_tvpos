@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
+import com.yonyou.framework.library.widgets.cart.util.DoubleUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
@@ -104,7 +105,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
         tvDishName.setText(StringUtil.getString(dataBean.getDishName()));
         //设置菜品价格
         if (!TextUtils.isEmpty(dataBean.getPrice())) {
-            tvDishPrice.setText(StringUtil.getString(dataBean.getPrice()));
+            tvDishPrice.setText(mContext.getString(R.string.RMB_symbol)+StringUtil.getString(dataBean.getPrice()));
         }
         //设置菜品标签
         if (dataBean.getLabels() != null && dataBean.getLabels().size() > 0) {
@@ -145,6 +146,10 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
             //设置菜品数量
             if(dataBean.getWeight()>0){
                 iwvDishWeight.setWeight(dataBean.getWeight());
+            }
+            //TODO 设置菜品时价
+            if(dataBean.getCurrentPrice()!= null){
+                iwvDishPrice.setWeight(Double.parseDouble(dataBean.getCurrentPrice()));
             }
             //设置手填备注
             etOtherRemark.setText(StringUtil.getString(dataBean.getRemark()));
