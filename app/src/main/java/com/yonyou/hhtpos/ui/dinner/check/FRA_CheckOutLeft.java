@@ -15,9 +15,13 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CheckOutList;
 import com.yonyou.hhtpos.adapter.ADA_ServiceCharge;
+import com.yonyou.hhtpos.bean.check.CheckOrderListEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -59,7 +63,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshLeft(SettleAccountDataEntity settleAccountDataEntity) {
         this.dataBean = settleAccountDataEntity;
-        setData();
+        refreshData();
     }
 
     @Override
@@ -124,10 +128,23 @@ public class FRA_CheckOutLeft extends BaseFragment {
         });
     }
 
+    @OnClick({R.id.tv_go_to_order})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_go_to_order:
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(IS_FROM_SETTLE_ACCOUNT, true);
+                bundle.putString(TABLE_BILL_ID, tableBillId);
+                bundle.putInt(FROM_WHERE, fromWhere);
+                readyGo(ACT_OrderDishes.class, bundle);
+                break;
+        }
+    }
+
     /**
      * 刷新界面数据
      */
-    private void setData() {
+    private void refreshData() {
         if (dataBean != null) {
             //消费总计
             if (!TextUtils.isEmpty(dataBean.getTotalCharge())) {
@@ -167,25 +184,12 @@ public class FRA_CheckOutLeft extends BaseFragment {
             }
             //服务费明细
             if (dataBean.serviceChargeDetail != null && dataBean.serviceChargeDetail.size() > 0) {
-                mServiceChargeAdapter.update(dataBean.serviceChargeDetail,true);
+                mServiceChargeAdapter.update(dataBean.serviceChargeDetail, true);
             }
 
         }
         if (dataBean.orderDishes != null && dataBean.orderDishes.size() > 0) {
             mAdapter.update(dataBean.orderDishes);
-        }
-    }
-
-    @OnClick({R.id.tv_go_to_order})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_go_to_order:
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(IS_FROM_SETTLE_ACCOUNT, true);
-                bundle.putString(TABLE_BILL_ID, tableBillId);
-                bundle.putInt(FROM_WHERE, fromWhere);
-                readyGo(ACT_OrderDishes.class, bundle);
-                break;
         }
     }
 
@@ -204,8 +208,55 @@ public class FRA_CheckOutLeft extends BaseFragment {
         return true;
     }
 
+    private String currentTable;
+
     @Override
     public void showBusinessError(ErrorBean error) {
+    }
 
+    /**
+     * 重新组合账单中菜单明细列表的数据，按照桌台依次排列的新集合
+     */
+    private ArrayList<CheckOrderListEntity> regroupNewDataList() {
+        HashMap<String, ArrayList<CheckOrderListEntity>> map = new HashMap<>();
+        //(1)先删选出当前有多少个不同的桌台
+        //列表中涉及到的所有桌台
+        ArrayList<String> mTableTypeList = new ArrayList<>();
+        if (dataBean.orderDishes.size() > 0) {
+            mTableTypeList.add(dataBean.orderDishes.get(0).tableName);
+        }
+        for (int i = 0; i < dataBean.orderDishes.size(); i++) {
+            String tableName = dataBean.orderDishes.get(i).tableName;
+            for (int j = 0; j < mTableTypeList.size(); j++) {
+                String existTable = mTableTypeList.get(j);
+                if (tableName.equals(existTable)) {
+                    break;
+                }
+                if (!tableName.equals(existTable) && j == mTableTypeList.size() - 1) {
+                    mTableTypeList.add(tableName);
+                    break;
+                }
+            }
+        }
+        //(2)以桌台为key,将同一个桌台下的订单，分组到不同集合中。
+        for (int i = 0; i < mTableTypeList.size(); i++) {
+            currentTable = mTableTypeList.get(i);
+            ArrayList<CheckOrderListEntity> tableOrderList = new ArrayList<>();
+            for (int j = 0; j < dataBean.orderDishes.size(); j++) {
+                CheckOrderListEntity checkOrderListEntity = dataBean.orderDishes.get(0);
+                if (checkOrderListEntity.tableName.equals(currentTable)) {
+                    tableOrderList.add(checkOrderListEntity);
+                }
+            }
+            map.put(currentTable, tableOrderList);
+        }
+        //(3)将按照桌台分组的账单，重新添加到新的集合中
+        ArrayList<CheckOrderListEntity> mNewDataList = new ArrayList<>();
+        for (int i = 0; i < mTableTypeList.size(); i++) {
+            String key = mTableTypeList.get(i);
+            ArrayList<CheckOrderListEntity> newList = map.get(key);
+            mNewDataList.addAll(newList);
+        }
+        return mNewDataList;
     }
 }

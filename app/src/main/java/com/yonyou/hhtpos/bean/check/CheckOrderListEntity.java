@@ -11,7 +11,10 @@ import java.util.List;
  * 描述：结账-下单菜品列表实体类
  */
 public class CheckOrderListEntity implements Serializable {
-
+    /**
+     * 桌台名称
+     */
+    public String tableName;
     /**
      * 异常菜品列表（赠／退）
      */
