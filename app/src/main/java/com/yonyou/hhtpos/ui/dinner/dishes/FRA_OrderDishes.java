@@ -188,6 +188,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      * 重置右侧数量
      */
     private void resetCount() {
+        if (null == mDishDataBean || null == mDishDataBean.dishTypes)
+            return;
+
         for (int i = 0; i < mDishDataBean.dishTypes.size(); i++) {
             mDishDataBean.dishTypes.get(i).count = 0;
         }

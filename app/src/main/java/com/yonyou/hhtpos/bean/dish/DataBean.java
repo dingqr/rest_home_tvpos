@@ -25,6 +25,10 @@ public class DataBean implements Serializable {
      */
     private String vipPrice;
     /**
+     * 时价
+     */
+    private String currentPrice;
+    /**
      * 标签列表
      */
     private List<DishLabelEntity> labels;
@@ -59,6 +63,14 @@ public class DataBean implements Serializable {
      * 备注：手填
      */
     private String remark;
+
+    public String getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(String currentPrice) {
+        this.currentPrice = currentPrice;
+    }
 
     public String getRemark() {
         return remark;
