@@ -35,7 +35,7 @@ public class DIA_FreeOrder implements View.OnClickListener,FiltrationView.Select
     /**
      * 界面控件
      */
-    private RadioButton rbConfirmRefund;
+    private RadioButton rbConfirmFree;
     private ImageButton ibClose;
     private FiltrationView fvFreeReason;
     private FilterItemEntity freeOrderReason;
@@ -53,12 +53,12 @@ public class DIA_FreeOrder implements View.OnClickListener,FiltrationView.Select
         mDialog.setContentView(mContentView);
 
         fvFreeReason = (FiltrationView) mContentView.findViewById(R.id.fv_free_reason);
-        rbConfirmRefund = (RadioButton) mContentView.findViewById(R.id.rb_confirm_refund);
+        rbConfirmFree= (RadioButton) mContentView.findViewById(R.id.rb_confirm_free);
         ibClose = (ImageButton) mContentView.findViewById(R.id.ib_close);
         etEnterFreeReason = (EditText) mContentView.findViewById(R.id.et_enter_free_reason);
 
         ibClose.setOnClickListener(this);
-        rbConfirmRefund.setOnClickListener(this);
+        rbConfirmFree.setOnClickListener(this);
 
 
         fvFreeReason.setData(freeOrderReason);
@@ -76,7 +76,7 @@ public class DIA_FreeOrder implements View.OnClickListener,FiltrationView.Select
             case R.id.ib_close:
                 mDialog.dismiss();
                 break;
-            case R.id.rb_confirm_refund:
+            case R.id.rb_confirm_free:
                 break;
             default:
                 break;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/px_580"
-    android:layout_height="@dimen/px_920"
-    android:background="@drawable/bg_radius_4">
+    android:layout_width="@dimen/px_600"
+    android:layout_height="@dimen/px_508"
+    android:background="@drawable/bg_ffffff_4">
 
     <LinearLayout
         android:id="@+id/title_takeout_refund"
@@ -24,7 +24,7 @@
                 android:layout_marginBottom="@dimen/px_24"
                 android:layout_marginTop="@dimen/px_24"
                 android:gravity="center"
-                android:text="@string/free_order"
+                android:text="@string/added_value_rax_invoice"
                 android:textColor="@color/color_222222"
                 android:textSize="@dimen/sp_30" />
 
@@ -41,94 +41,76 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/px_1"
             android:background="@color/color_c4c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/px_36"
-            android:gravity="center"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/px_42">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/free_order_money"
-                android:textColor="#222222"
-                android:textSize="@dimen/sp_34" />
-
+                android:layout_marginLeft="@dimen/px_30"
+                android:text="@string/rax_id"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_24"/>
             <TextView
+                android:id="@+id/tv_rax_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="1160.00"
-                android:textColor="#222222"
-                android:textSize="@dimen/sp_34"
-                android:layout_marginLeft="@dimen/px_24"/>
-
-
+                android:paddingLeft="@dimen/px_10"
+                android:text="0000000000#"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_24"/>
         </LinearLayout>
-
-        <com.yonyou.hhtpos.widgets.FiltrationView
-            android:id="@+id/fv_free_reason"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_30"
-            android:layout_marginRight="@dimen/px_30"
-            android:layout_marginTop="@dimen/px_12">
-
-        </com.yonyou.hhtpos.widgets.FiltrationView>
 
         <LinearLayout
             android:id="@+id/ll_refund_reason"
-            android:layout_width="@dimen/px_770"
-            android:layout_height="@dimen/px_100"
-            android:layout_marginLeft="@dimen/px_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_30"
+            android:layout_marginLeft="@dimen/px_30"
             android:layout_marginRight="@dimen/px_30"
-            android:layout_marginTop="@dimen/px_40"
-            android:background="@drawable/bg_gray_side_gray"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/et_enter_free_reason"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px_70"
-                android:background="@null"
-                android:clickable="true"
-                android:gravity="top"
-                android:hint="@string/please_enter_other_reasons"
-                android:paddingTop="@dimen/px_12"
-                android:paddingLeft="@dimen/px_10"
-                android:textColor="@color/color_222222"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
-
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/px_30"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/px_10"
-                android:text="0/20"
-                android:textColor="@color/color_999999"
-                android:textSize="@dimen/sp_20" />
+                android:layout_height="wrap_content"
+                android:text="@string/invoice_title"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_24"/>
+            <EditText
+                android:id="@+id/et_invoice_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_130"
+                android:hint="@string/enter_invoice_title"
+                android:textColorHint="@color/color_cccccc"
+                android:layout_marginTop="@dimen/px_16"
+                android:paddingRight="@dimen/px_12"
+                android:paddingTop="@dimen/px_12"
+                android:paddingLeft="@dimen/px_12"
+                android:gravity="top"
+                android:textSize="@dimen/sp_24"
+                android:textColor="@color/color_222222"
+                android:clickable="true"
+                android:background="@drawable/bg_d8d8d8_4"/>
+
         </LinearLayout>
     </LinearLayout>
 
     <RadioButton
-        android:id="@+id/rb_confirm_free"
+        android:id="@+id/rb_save"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/px_70"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/px_70"
-        android:background="@drawable/bg_fe563b_4"
+        android:background="@drawable/rb_order_dish_bg"
         android:button="@null"
         android:checked="true"
         android:gravity="center"
         android:padding="@dimen/px_20"
-        android:text="@string/confirm"
+        android:text="@string/save"
         android:textColor="@color/color_FFFFFF"
         android:textSize="@dimen/sp_28" />
 </RelativeLayout>

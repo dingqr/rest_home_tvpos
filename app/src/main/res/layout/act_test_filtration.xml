@@ -1,73 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:id="@+id/ll_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btn_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="全家福" />
-    <Button
-        android:id="@+id/btn_confirm10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/free_order" />
-    <Button
-        android:id="@+id/btn_confirm11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/employee_filtration" />
-    <Button
-        android:id="@+id/btn_confirm12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="全家福2" />
-    <Button
-        android:id="@+id/btn_confirm1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/submit" />
-    <Button
-        android:id="@+id/btn_confirm2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/refund" />
-    <Button
-        android:id="@+id/btn_confirm3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/multiple_select" />
-    <Button
-        android:id="@+id/btn_confirm4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="时蔬弹框" />
-    <Button
-        android:id="@+id/btn_confirm5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="称重弹框" />
-    <Button
-        android:id="@+id/btn_confirm6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="设定规格" />
-    <Button
-        android:id="@+id/btn_confirm7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="设置时价称重" />
-    <Button
-        android:id="@+id/btn_confirm8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="固定价格称重" />
-    <Button
-        android:id="@+id/btn_confirm9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="全家福" />
+
+            <Button
+                android:id="@+id/btn_confirm10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/free_order" />
+
+            <Button
+                android:id="@+id/btn_confirm11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/employee_filtration" />
+
+            <Button
+                android:id="@+id/btn_confirm12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="全家福2" />
+
+            <Button
+                android:id="@+id/btn_confirm13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="会员登录_密码" />
+
+            <Button
+                android:id="@+id/btn_confirm15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="会员登录_验证码" />
+
+            <Button
+                android:id="@+id/btn_confirm14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="普通增值税发票" />
+
+            <Button
+                android:id="@+id/btn_confirm1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit" />
+
+            <Button
+                android:id="@+id/btn_confirm2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/refund" />
+
+            <Button
+                android:id="@+id/btn_confirm3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/multiple_select" />
+
+            <Button
+                android:id="@+id/btn_confirm4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="数量弹框" />
+
+            <Button
+                android:id="@+id/btn_confirm5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="称重弹框" />
+
+            <Button
+                android:id="@+id/btn_confirm6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="设定规格" />
+
+            <Button
+                android:id="@+id/btn_confirm7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="设置时价称重" />
+
+            <Button
+                android:id="@+id/btn_confirm8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="固定价格称重" />
+
+            <Button
+                android:id="@+id/btn_confirm9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
