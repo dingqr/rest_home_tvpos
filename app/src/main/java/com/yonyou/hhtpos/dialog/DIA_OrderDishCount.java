@@ -135,9 +135,16 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                         options.add(foe);
                     }
                 }
-                cookeryOption.setOptions(options);
-                cookeryOption.setTitle("");
-                fvCookery.setData(cookeryOption);
+                if (options.size() > 0) {
+                    cookeryOption.setOptions(options);
+                    cookeryOption.setTitle("");
+                    fvCookery.setData(cookeryOption);
+                } else {
+                    fvCookery.setVisibility(View.GONE);
+                    tvHintCookery.setVisibility(View.GONE);
+                    cookeryEmptyFlag = true;
+                }
+
             } else {
                 fvCookery.setVisibility(View.GONE);
                 tvHintCookery.setVisibility(View.GONE);
@@ -150,15 +157,23 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getRemarks().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
-                    foe.setOption(dataBean.getRemarks().get(i).remarkName);
-                    foe.setOptionId(dataBean.getRemarks().get(i).relateId);
-                    foe.setCheck(dataBean.getRemarks().get(i).isCheck);
-                    foe.setType(MultipleSelectView.DISH_REMARK);
-                    options.add(foe);
+                    if (dataBean.getRemarks() != null && dataBean.getRemarks().get(i) != null) {
+                        foe.setOption(dataBean.getRemarks().get(i).remarkName);
+                        foe.setOptionId(dataBean.getRemarks().get(i).relateId);
+                        foe.setCheck(dataBean.getRemarks().get(i).isCheck);
+                        foe.setType(MultipleSelectView.DISH_REMARK);
+                        options.add(foe);
+                    }
                 }
-                remarkOption.setOptions(options);
-                remarkOption.setTitle("");
-                fvRemark.setData(remarkOption);
+                if (options.size() > 0) {
+                    remarkOption.setOptions(options);
+                    remarkOption.setTitle("");
+                    fvRemark.setData(remarkOption);
+                } else {
+                    fvRemark.setVisibility(View.GONE);
+                    tvHintRemark.setVisibility(View.GONE);
+                    remarkEmptyFlag = true;
+                }
             } else {
                 fvRemark.setVisibility(View.GONE);
                 tvHintRemark.setVisibility(View.GONE);

@@ -410,7 +410,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-                CommonUtils.makeEventToast(mContext,"推薦",false);
+                CommonUtils.makeEventToast(mContext, "推薦", false);
             }
         });
     }

@@ -10,7 +10,7 @@ public class API {
      * 服务器ip
      */
 
-//    // 开发环境
+    // 开发环境
 //    public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
 //    public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
 //    public static final String shopId = "C13352966C000000A60000000016E000";

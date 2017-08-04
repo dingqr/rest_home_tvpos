@@ -28,28 +28,42 @@ import java.util.ArrayList;
 
 public class MultipleSelectView extends LinearLayout implements ADA_MultipleSelector.OnItemClickListener {
 
-    /**筛选框的类别*/
+    /**
+     * 筛选框的类别
+     */
     public static final int TAKE_OUT_TYPE = 0;
     public static final int MARKET_TYPE = 1;
     public static final int DISH_REMARK = 2;
 
-    /**筛选框的标题*/
+    /**
+     * 筛选框的标题
+     */
     private TextView filtrationType;
 
-    /**上下文*/
+    /**
+     * 上下文
+     */
     private Context mContext;
 
-    /**筛选列表*/
+    /**
+     * 筛选列表
+     */
     private RecyclerView mRecyclerView;
 
 
-    /**筛选框的选项数据*/
+    /**
+     * 筛选框的选项数据
+     */
     private FilterItemEntity filterItemEntity;
 
-    /**数据适配器*/
+    /**
+     * 数据适配器
+     */
     private ADA_MultipleSelector mAdapter;
 
-    /**当前选中的实体*/
+    /**
+     * 当前选中的实体
+     */
     private FilterOptionsEntity currentBean;
 
     public MultipleSelectView(Context context) {
@@ -89,15 +103,15 @@ public class MultipleSelectView extends LinearLayout implements ADA_MultipleSele
         this.filterItemEntity = filterItemEntity;
         RecyclerView.LayoutManager layoutManger;
         if (filterItemEntity != null) {
-            if (!TextUtils.isEmpty(filterItemEntity.getTitle())){
+            if (!TextUtils.isEmpty(filterItemEntity.getTitle())) {
                 filtrationType.setText(filterItemEntity.getTitle());
             }
-            if (filterItemEntity.getOptions() != null){
+            if (filterItemEntity.getOptions() != null && filterItemEntity.getOptions().size() > 0) {
                 mAdapter = new ADA_MultipleSelector(mContext, filterItemEntity.getOptions());
             }
             //按照类别设置recyclerView的layoutManager 和adapter
-            if (filterItemEntity.getOptions().get(0).getType() != -1){
-                switch (filterItemEntity.getOptions().get(0).getType()){
+            if (filterItemEntity.getOptions().size() > 0 && filterItemEntity.getOptions().get(0).getType() != -1) {
+                switch (filterItemEntity.getOptions().get(0).getType()) {
                     case TAKE_OUT_TYPE:
                         layoutManger = new GridLayoutManager(mContext, 3);
                         mRecyclerView.setLayoutManager(layoutManger);
@@ -117,22 +131,26 @@ public class MultipleSelectView extends LinearLayout implements ADA_MultipleSele
                         mRecyclerView.setLayoutManager(layoutManger);
                         break;
                 }
+                mAdapter.setmOnItemClickListener(this);
+                mRecyclerView.setAdapter(mAdapter);
             }
-            mAdapter.setmOnItemClickListener(this);
-            mRecyclerView.setAdapter(mAdapter);
         }
-    }
-    public ArrayList<FilterOptionsEntity> getSelectedList(){
-        mAdapter.notifyDataSetChanged();
-        return  mAdapter.getSelectedItem();
     }
 
-    public void reset(){
-        for(int i=0;i<filterItemEntity.getOptions().size();i++){
-            filterItemEntity.getOptions().get(i).setCheck(false);
-        }
-        mAdapter.updateDataSet(filterItemEntity.getOptions());
+    public ArrayList<FilterOptionsEntity> getSelectedList() {
+        mAdapter.notifyDataSetChanged();
+        return mAdapter.getSelectedItem();
     }
+
+    public void reset() {
+        if (filterItemEntity.getOptions() != null && filterItemEntity.getOptions().size() > 0) {
+            for (int i = 0; i < filterItemEntity.getOptions().size(); i++) {
+                filterItemEntity.getOptions().get(i).setCheck(false);
+            }
+            mAdapter.updateDataSet(filterItemEntity.getOptions());
+        }
+    }
+
     @Override
     public void onItemClick(View view, int position) {
         currentBean = filterItemEntity.getOptions().get(position);
