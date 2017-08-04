@@ -445,7 +445,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "规格=" + bean.toString());
                 //规格：必填
-                if (!TextUtils.isEmpty(requestAddDishEntity.standardId)) {
+                if (!TextUtils.isEmpty(bean.getDishStandardId())) {
                     requestAddDishEntity.standardId = bean.getDishStandardId();
                 }
                 //数量

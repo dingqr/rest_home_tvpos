@@ -87,6 +87,12 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="@dimen/px_1"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@color/color_d5d5d5" />
+
     <ImageView
         android:id="@+id/iv_take_out"
         android:layout_width="wrap_content"
@@ -95,10 +101,4 @@
         android:layout_marginBottom="@dimen/px_52"
         android:layout_marginRight="@dimen/px_44"
         android:src="@drawable/ic_take_out" />
-
-    <View
-        android:layout_width="@dimen/px_1"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="@color/color_d5d5d5" />
 </FrameLayout>

@@ -99,15 +99,15 @@ public class ADA_PackingList extends BaseAbsAdapter<OrderListEntity> {
         // 价格
         holder.mPrice.setText(mContext.getString(R.string.RMB_symbol) + bean.getBillMoney());
 
-        // 支付状态
+        // 支付状态:1-未支付，2-支付完成，3-已退款，4-部分支付
         // 时间
-        if (bean.getPayStatus().equals("1")) {
+        if (bean.getPayStatus().equals("4")) {
             holder.mStatus.setText(mContext.getResources().getString(R.string.string_paying));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getOpentime(), AppDateUtil.HH_MM));
         } else if (bean.getPayStatus().equals("2")) {
             holder.mStatus.setText(mContext.getString(R.string.packing_status_checked_out));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getBillTime(), AppDateUtil.HH_MM));
-        } else if (bean.getPayStatus().equals("4")) {
+        } else if (bean.getPayStatus().equals("1")) {
             holder.mStatus.setText(mContext.getString(R.string.packing_status_out_standing));
             holder.mTime.setText(AppDateUtil.getTimeStamp(bean.getOpentime(), AppDateUtil.HH_MM));
         }
