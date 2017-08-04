@@ -32,6 +32,7 @@ import com.yonyou.hhtpos.view.ITSTableAreaListView;
 import com.yonyou.hhtpos.widgets.NoScrollViewPager;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
