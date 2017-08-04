@@ -32,7 +32,6 @@ import com.yonyou.hhtpos.view.ITSTableAreaListView;
 import com.yonyou.hhtpos.widgets.NoScrollViewPager;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -42,7 +41,8 @@ import de.greenrobot.event.EventBus;
  * 堂食页面
  * 作者：liushuofei on 2017/7/8 10:42
  */
-public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView, ITSTableAreaListView {
+public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView,
+        ITSTableAreaListView,ADA_MealArea.OnItemClickListener {
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -86,7 +86,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private TextView tabTextView;
 
     private DIA_Navigation dia_navigation;
-
+    List<MealAreaEntity> mealAreaList;
     /**
      * 根据桌台操作筛选可用的桌台
      */
@@ -123,11 +123,18 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     protected void initViewsAndEvents() {
+        MealAreaEntity mealAreaEntity = new MealAreaEntity(true,mContext.getString(R.string.total_meal_area),shopId,"");
+        mealAreaList = new ArrayList<>();
+        mealAreaList.add(mealAreaEntity);
+
+        mAdapter = new ADA_MealArea(mContext);
+        mListView.setAdapter(mAdapter);
+        mAdapter.update(mealAreaList);
+        mAdapter.setmOnItemClickListener(this);
+
         filtrateTableListPresenter = new TSFiltrateTableListPresenterImpl(this, this);
         tableAreaPresenter = new TSTableAreaPresenterImpl(this, this);
         tableAreaPresenter.getTableArea(shopId);
-        mAdapter = new ADA_MealArea(mContext);
-        mListView.setAdapter(mAdapter);
 
         setVpAdapter();
 
@@ -489,12 +496,22 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     public void getTableAreaList(List<MealAreaEntity> mealAreas) {
-        MealAreaEntity mealAreaEntity = new MealAreaEntity(true,mContext.getString(R.string.total_meal_area),shopId);
-        List<MealAreaEntity> mealAreaList = new ArrayList<>();
-        mealAreaList.add(mealAreaEntity);
+
         if (mealAreas != null && mealAreas.size() > 0) {
             mealAreaList.addAll(mealAreas);
         }
+        mAdapter.clear();
         mAdapter.update(mealAreaList);
+    }
+
+    @Override
+    public void onItemClick(int position, ADA_MealArea.ViewHolder holder, MealAreaEntity bean) {
+        //筛选桌台
+        EventBus.getDefault().post(bean.getRelateId());
+    }
+
+    @Override
+    public boolean onItemLongClick(int position, ADA_MealArea.ViewHolder holder, MealAreaEntity bean) {
+        return false;
     }
 }
