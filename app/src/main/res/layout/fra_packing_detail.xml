@@ -145,8 +145,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/px_60"
-                    android:layout_marginRight="@dimen/px_40"
-                    android:layout_marginLeft="@dimen/px_30">
+                    android:layout_marginLeft="@dimen/px_30"
+                    android:layout_marginRight="@dimen/px_40">
 
                     <TextView
                         android:id="@+id/tv_pay_status"
@@ -229,18 +229,19 @@
                         android:textSize="@dimen/sp_24" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px_1"
+                    android:layout_marginBottom="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_20"
+                    android:background="@color/color_e6e5e5"></View>
+
                 <LinearLayout
                     android:id="@+id/layout_pay_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/px_1"
-                        android:layout_marginBottom="@dimen/px_20"
-                        android:layout_marginLeft="@dimen/px_20"
-                        android:background="@color/color_e6e5e5"></View>
 
                     <LinearLayout
                         android:id="@+id/layout_discount"
