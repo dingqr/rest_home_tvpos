@@ -87,11 +87,11 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="@dimen/px_1"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="@color/color_d5d5d5" />
+    <!--<View-->
+        <!--android:layout_width="@dimen/px_1"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:background="@color/color_d5d5d5" />-->
 
     <ImageView
         android:id="@+id/iv_take_out"

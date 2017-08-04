@@ -4,11 +4,14 @@
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_e9e9e9"
     android:orientation="vertical">
 
     <com.yonyou.framework.library.widgets.ESwipeRefreshLayout
         android:id="@+id/srl_take_out"
         android:layout_width="match_parent"
+        android:background="@drawable/bg_take_out_list"
+        android:layout_marginBottom="@dimen/px_20"
         android:layout_height="match_parent">
 
         <com.yonyou.framework.library.widgets.pla.PLALoadMoreListView
@@ -24,7 +27,7 @@
             android:overScrollMode="never"
             android:scrollbars="none"
             app:plaColumnNumber="1"
-            app:plaContentBackground="@color/color_FFFFFF" />
+            app:plaContentBackground="@color/color_e9e9e9" />
     </com.yonyou.framework.library.widgets.ESwipeRefreshLayout>
 
 </LinearLayout>
