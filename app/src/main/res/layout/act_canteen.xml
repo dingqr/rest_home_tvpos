@@ -33,6 +33,11 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_4"
+        android:background="@drawable/bg_gradient_top_dc" />
+
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
@@ -68,11 +73,6 @@
         </ListView>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_4"
-        android:background="@drawable/bg_gradient_top_dc" />
 
     <View
         android:layout_width="match_parent"

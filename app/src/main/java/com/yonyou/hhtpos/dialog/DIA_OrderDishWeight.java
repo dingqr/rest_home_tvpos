@@ -124,7 +124,7 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 tvChiefRecommend.setVisibility(View.VISIBLE);
                 tvChiefRecommend.setText(StringUtil.getString(dataBean.getLabels().get(1).labelName));
             }
-        }else{
+        } else {
             tvHotSale.setVisibility(View.GONE);
             tvChiefRecommend.setVisibility(View.GONE);
         }
@@ -137,16 +137,23 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 FilterItemEntity cookeryOption = new FilterItemEntity();
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
-                    FilterOptionsEntity foe = new FilterOptionsEntity();
-                    foe.setOption(dataBean.getPractices().get(i).practiceName);
-                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
-                    foe.setCheck(dataBean.getPractices().get(i).isCheck);
-                    foe.setType(FiltrationView.COOKERY);
-                    options.add(foe);
+                    if (dataBean.getPractices().get(i) != null) {
+                        FilterOptionsEntity foe = new FilterOptionsEntity();
+                        foe.setOption(dataBean.getPractices().get(i).practiceName);
+                        foe.setOptionId(dataBean.getPractices().get(i).relateId);
+                        foe.setCheck(dataBean.getPractices().get(i).isCheck);
+                        foe.setType(FiltrationView.COOKERY);
+                        options.add(foe);
+                    }
                 }
-                cookeryOption.setOptions(options);
-                cookeryOption.setTitle("");
-                fvCookery.setData(cookeryOption);
+                if (options.size() > 0) {
+                    cookeryOption.setOptions(options);
+                    cookeryOption.setTitle("");
+                    fvCookery.setData(cookeryOption);
+                } else {
+                    llDishCookery.setVisibility(View.GONE);
+                    cookeryEmptyFlag = true;
+                }
             } else {
                 llDishCookery.setVisibility(View.GONE);
                 cookeryEmptyFlag = true;
@@ -157,21 +164,28 @@ public class DIA_OrderDishWeight implements View.OnClickListener {
                 FilterItemEntity remarkOption = new FilterItemEntity();
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getRemarks().size(); i++) {
-                    FilterOptionsEntity foe = new FilterOptionsEntity();
-                    foe.setOption(dataBean.getRemarks().get(i).remarkName);
-                    foe.setOptionId(dataBean.getRemarks().get(i).relateId);
-                    foe.setCheck(dataBean.getRemarks().get(i).isCheck);
-                    foe.setType(MultipleSelectView.DISH_REMARK);
-                    options.add(foe);
+                    if (dataBean.getRemarks().get(i) != null) {
+                        FilterOptionsEntity foe = new FilterOptionsEntity();
+                        foe.setOption(dataBean.getRemarks().get(i).remarkName);
+                        foe.setOptionId(dataBean.getRemarks().get(i).relateId);
+                        foe.setCheck(dataBean.getRemarks().get(i).isCheck);
+                        foe.setType(MultipleSelectView.DISH_REMARK);
+                        options.add(foe);
+                    }
                 }
-                remarkOption.setOptions(options);
-                remarkOption.setTitle("");
-                fvRemark.setData(remarkOption);
+                if (options.size() > 0) {
+                    remarkOption.setOptions(options);
+                    remarkOption.setTitle("");
+                    fvRemark.setData(remarkOption);
+                } else {
+                    llDishRemark.setVisibility(View.GONE);
+                    remarkEmptyFlag = true;
+                }
             } else {
                 llDishRemark.setVisibility(View.GONE);
                 remarkEmptyFlag = true;
             }
-            if(dataBean.getWeight()>0){
+            if (dataBean.getWeight() > 0) {
                 iwvDishWeight.setWeight(dataBean.getWeight());
             }
             //设置手填备注

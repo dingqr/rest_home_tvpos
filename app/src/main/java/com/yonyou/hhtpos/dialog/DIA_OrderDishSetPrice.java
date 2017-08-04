@@ -129,26 +129,33 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 FilterItemEntity cookeryOption = new FilterItemEntity();
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
-                    FilterOptionsEntity foe = new FilterOptionsEntity();
-                    foe.setOption(dataBean.getPractices().get(i).practiceName);
-                    foe.setOptionId(dataBean.getPractices().get(i).relateId);
-                    foe.setCheck(dataBean.getPractices().get(i).isCheck);
-                    foe.setType(FiltrationView.COOKERY);
-                    options.add(foe);
+                    if (dataBean.getPractices().get(i) != null) {
+                        FilterOptionsEntity foe = new FilterOptionsEntity();
+                        foe.setOption(dataBean.getPractices().get(i).practiceName);
+                        foe.setOptionId(dataBean.getPractices().get(i).relateId);
+                        foe.setCheck(dataBean.getPractices().get(i).isCheck);
+                        foe.setType(FiltrationView.COOKERY);
+                        options.add(foe);
+                    }
                 }
-                cookeryOption.setOptions(options);
-                cookeryOption.setTitle("");
-                fvCookery.setData(cookeryOption);
+                if (options.size() > 0) {
+                    cookeryOption.setOptions(options);
+                    cookeryOption.setTitle("");
+                    fvCookery.setData(cookeryOption);
+                } else {
+                    cookeryEmptyFlag = true;
+                    llCookery.setVisibility(View.GONE);
+                }
             } else {
                 cookeryEmptyFlag = true;
                 llCookery.setVisibility(View.GONE);
             }
             //设置菜品重量
-            if(dataBean.getWeight()>0){
+            if (dataBean.getWeight() > 0) {
                 iwvDishWeight.setWeight(dataBean.getWeight());
             }
             //TODO 设置菜品时价
-            if(dataBean.getCurrentPrice()!= null){
+            if (dataBean.getCurrentPrice() != null) {
                 iwvDishPrice.setWeight(Double.parseDouble(dataBean.getCurrentPrice()));
             }
             //设置手填备注
