@@ -246,11 +246,11 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
 
         // 	菜品规格id（为空则不修改，不为空修改）
         if (!TextUtils.isEmpty(bean.getDishStandardId())){
-            hashMap.put("dishStandardId", bean.getDishStandardId());
+            hashMap.put("standardId", bean.getDishStandardId());
         }
         // 	所选做法id列表（为空则不修改，不为空修改）
         if (!TextUtils.isEmpty(bean.getPractices())){
-            hashMap.put("practices", bean.getPractices());
+            hashMap.put("spractices", bean.getPractices());
         }
         //  数量（为空则不修改，不为空修改）
         if (!TextUtils.isEmpty(bean.getQuantity())){
@@ -262,7 +262,17 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
         }
         // 所选备注id列表（为空则不修改，不为空修改）
         if (!TextUtils.isEmpty(bean.getRemarks())){
-            hashMap.put("remarks", bean.getRemarks());
+            hashMap.put("sremarks", bean.getRemarks());
+        }
+
+        // 时价
+        if (!TextUtils.isEmpty(bean.getDishPrice())){
+            hashMap.put("dishPrice", bean.getDishPrice());
+        }
+
+        // 时价菜标示
+        if (!TextUtils.isEmpty(bean.getIsCurrentDish())){
+            hashMap.put("isCurrentDish", bean.getIsCurrentDish());
         }
 
         RequestManager.getInstance().requestPostByAsyn(API.URL_UPDATE_DISH, hashMap, new ReqCallBack<String>() {

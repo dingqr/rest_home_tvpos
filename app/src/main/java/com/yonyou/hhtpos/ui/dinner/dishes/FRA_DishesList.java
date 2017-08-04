@@ -67,6 +67,8 @@ import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
  */
 public class FRA_DishesList extends BaseFragment implements IDishListView, IDishEditView, AdapterView.OnItemClickListener, POP_DishesEdit.OnEditListener, POP_DishesPlaceOrderEdit.OnPlaceEditListener, SwipeRefreshLayout.OnRefreshListener, DIA_SwitchTable.OnConfirmListener {
 
+    @Bind(R.id.tv_dishes_title)
+    TextView mTitleTxt;
     @Bind(R.id.lv_dishes)
     ListView mListView;
     @Bind(R.id.tv_total_price)
@@ -97,6 +99,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private String dishIds = "";
     /**总价格 */
     private double totalPrice;
+    /**未下单总数量 */
+    private int totalCount;
     /**账单id */
     private String tableBillId;
     /**是否为右侧传递过来的 */
@@ -106,13 +110,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private RequestEditDishEntity requestEditDishEntity;
     /**菜品数据 */
     private DishDataEntity dishDataEntity;
-
+    /**五类弹窗 */
     private DIA_OrderDishSetPrice mDiaCurrentDishWeight;//称重、时价
     private DIA_OrderDishSetWeight mDiaWeightNormal;//称重，无备注
     private DIA_OrderDishWeight mDiaWeightRemarks;//称重,有备注
     private DIA_OrderDishNorms mDiaStandards;//规格
     private DIA_OrderDishCount mDiaNormal;//normal
+    /**1：堂食  2：外带  3：外卖 */
     private int saleManner;
+    /**标题前缀 */
+    private String titleHeader;
 
     /**
      * 账单id
@@ -167,101 +174,124 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         mDiaWeightNormal = new DIA_OrderDishSetWeight(mContext);
         mDiaNormal = new DIA_OrderDishCount(mContext);//有做法，备注，数量的弹窗 -normal
 
+        // 为修改菜品弹窗添加监听
+        setUpListenerForDialog();
+
         //1：堂食  2：外卖  3：外带
         ACT_OrderDishes activity = (ACT_OrderDishes) getActivity();
         saleManner = activity.getFromWhere();
-
-        setUpListenerForDialog();
+        titleHeader = activity.getTitleText();
     }
 
+    /**
+     * 为修改菜品弹窗添加监听
+     */
     private void setUpListenerForDialog(){
         mDiaCurrentDishWeight.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "时价、称重=" + bean.toString());
+                // 修改菜品实体类
+                RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
+                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
+                requestEditDishEntity.setId(currentBean.getId());
+
                 //重量
-                requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
+                requestEditDishEntity.setQuantity(StringUtil.getString(bean.getDishWeight()));
                 //时价
-                requestAddDishEntity.setDishPrice(bean.getDishPrice());
+                requestEditDishEntity.setDishPrice(bean.getDishPrice());
+                requestEditDishEntity.setIsCurrentDish("Y");
                 //做法
-                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
-                    requestAddDishEntity.practices = bean.getPractices();
-                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
+                if (!TextUtils.isEmpty(bean.getPractices())) {
+                    requestEditDishEntity.setPractices(bean.getPractices());
                 }
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getRemark())) {
-                    requestAddDishEntity.remark = bean.getRemark();
+                    requestEditDishEntity.setRemark(bean.getRemark());
                 }
-                //mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                mDishEditPresenter.updateDish(requestEditDishEntity);
             }
         });
         mDiaStandards.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "规格=" + bean.toString());
-                //规格：必填
-                if (!TextUtils.isEmpty(requestAddDishEntity.standardId)) {
-                    requestAddDishEntity.standardId = bean.getDishStandardId();
-                }
+                // 修改菜品实体类
+                RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
+                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
+                requestEditDishEntity.setId(currentBean.getId());
+
                 //数量
-                requestAddDishEntity.quantity = StringUtil.getString(bean.getDishCount());
+                requestEditDishEntity.setQuantity(bean.getDishCount());
+                //规格：必填
+                if (!TextUtils.isEmpty(bean.getDishStandardId())) {
+                    requestEditDishEntity.setDishStandardId(bean.getDishStandardId());
+                }
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getRemark())) {
-                    requestAddDishEntity.remark = bean.getRemark();
+                    requestEditDishEntity.setRemark(bean.getRemark());
                 }
-                //mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                mDishEditPresenter.updateDish(requestEditDishEntity);
             }
         });
         mDiaWeightRemarks.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "称重、有备注列表=" + bean.toString());
+                // 修改菜品实体类
+                RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
+                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
+                requestEditDishEntity.setId(currentBean.getId());
+
                 //重量
-                requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
+                requestEditDishEntity.setQuantity(StringUtil.getString(bean.getDishWeight()));
                 //做法
-                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
-                    requestAddDishEntity.practices = bean.getPractices();
-                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
+                if (!TextUtils.isEmpty(bean.getPractices())) {
+                    requestEditDishEntity.setPractices(bean.getPractices());
                 }
                 //备注：列表
-                if (!TextUtils.isEmpty(bean.getListShowRemark()) && !TextUtils.isEmpty(bean.getRemarks())) {
-                    requestAddDishEntity.listShowRemark = bean.getListShowRemark();
-                    requestAddDishEntity.remarks = bean.getRemarks();
+                if (!TextUtils.isEmpty(bean.getRemarks())) {
+                    requestEditDishEntity.setRemarks(bean.getRemarks());
                 }
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getRemark())) {
-                    requestAddDishEntity.remark = bean.getRemark();
+                    requestEditDishEntity.setRemark(bean.getRemark());
                 }
 
-                RequestEditDishEntity currentBean = new RequestEditDishEntity();
-                currentBean.setShopId(API.shopId);
-
-                // 修改菜品
-                // mDishEditPresenter.updateDish(new RequestEditDishEntity());
+                mDishEditPresenter.updateDish(requestEditDishEntity);
             }
         });
         mDiaWeightNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "称重、无备注列表=" + bean.toString());
+                // 修改菜品实体类
+                RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
+                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
+                requestEditDishEntity.setId(currentBean.getId());
+
                 //重量
-                requestAddDishEntity.quantity = StringUtil.getString(bean.getDishWeight());
+                requestEditDishEntity.setQuantity(StringUtil.getString(bean.getDishWeight()));
                 //做法
-                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
-                    requestAddDishEntity.practices = bean.getPractices();
-                    requestAddDishEntity.listShowPractice = bean.getListShowPractice();
+                if (!TextUtils.isEmpty(bean.getPractices())) {
+                    requestEditDishEntity.setPractices(bean.getPractices());
                 }
                 //备注：手填
                 if (!TextUtils.isEmpty(bean.getRemark())) {
-                    requestAddDishEntity.remark = bean.getRemark();
+                    requestEditDishEntity.setRemark(bean.getRemark());
                 }
-                //mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                mDishEditPresenter.updateDish(requestEditDishEntity);
             }
         });
         mDiaNormal.setDishDataCallback(new DishDataCallback() {
             @Override
             public void sendItems(DishCallBackEntity bean) {
                 Elog.e("TAG", "数量、做法、备注列表、备注：手填=" + bean.toString());
+                // 修改菜品实体类
                 RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
                 requestEditDishEntity.setShopId(API.shopId);
                 requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
@@ -270,11 +300,11 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 //数量
                 requestEditDishEntity.setQuantity(StringUtil.getString(bean.getDishCount()));
                 //做法
-                if (!TextUtils.isEmpty(bean.getListShowPractice()) && !TextUtils.isEmpty(bean.getPractices())) {
+                if (!TextUtils.isEmpty(bean.getPractices())) {
                     requestEditDishEntity.setPractices(bean.getPractices());
                 }
                 //备注：列表
-                if (!TextUtils.isEmpty(bean.getListShowRemark()) && !TextUtils.isEmpty(bean.getRemarks())) {
+                if (!TextUtils.isEmpty(bean.getRemarks())) {
                     requestEditDishEntity.setRemarks(bean.getRemarks());
                 }
                 //备注：手填
@@ -284,6 +314,25 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 mDishEditPresenter.updateDish(requestEditDishEntity);
             }
         });
+    }
+
+    private void setTitleText(int count){
+        switch (saleManner){
+            case 1:
+                mTitleTxt.setText(titleHeader + "-堂食（" + count + "）");
+                break;
+
+            case 2:
+                mTitleTxt.setText(titleHeader + "-外带（" + count + "）");
+                break;
+
+            case 3:
+                mTitleTxt.setText(titleHeader + "-外卖（" + count + "）");
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override
@@ -323,6 +372,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             EventBus.getDefault().post(new DishListEntity());
             // 重置价格
             tvTotalPrice.setText("0.00");
+            // 设置标题
+            setTitleText(0);
         } else {
             // 设置未下单菜品id列表
             setDishIds(dataList);
@@ -332,6 +383,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             }else {
                 setOrderedTotalPrice(dataList);
             }
+            // 设置标题
+            setTitleText(dataList.size() - totalCount);
             //将右侧菜类的角标数量数据传递到右侧页面
             if (!isRightRefresh) {
                 EventBus.getDefault().post(bean);
@@ -384,10 +437,12 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     private void setNotOrderTotalPrice(List<DishListEntity.Dishes> dataList) {
         totalPrice = 0.00;
+        totalCount = 0;
         for (int i = 0; i < dataList.size(); i++) {
             DishListEntity.Dishes bean = dataList.get(i);
             if (TextUtils.isEmpty(bean.getOrderTime())) {
                 totalPrice += Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
+                totalCount++;
             }
         }
         // 未下单
@@ -395,7 +450,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         // 价格
         tvTotalPrice.setText(StringUtil.getFormattedMoney(totalPrice + ""));
         // 下单
-        tvPlaceOrder.setText(mContext.getString(R.string.dishes_order));
+        tvPlaceOrder.setText(mContext.getString(R.string.dishes_order) + "（"  + totalCount +  "）");
     }
 
     /**
@@ -411,11 +466,11 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 totalPrice += Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
             }
         }
-        // 已下单
-        tvOrderStatus.setText(mContext.getString(R.string.string_ordered));
+        // 消费
+        tvOrderStatus.setText(mContext.getString(R.string.consumption));
         // 价格
         tvTotalPrice.setText(StringUtil.getFormattedMoney(totalPrice + ""));
-        // 去结账
+        // 结账
         tvPlaceOrder.setText(mContext.getResources().getString(R.string.check_out));
     }
 
@@ -573,7 +628,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             for (int i = 0; i < practices.size(); i++){
                 if (practices.get(i).relateId.equals(currentBean.getPractice())){
                     practices.get(i).isCheck = true;
-                    break;
+                }else {
+                    practices.get(i).isCheck = false;
                 }
             }
             dataBean.setPractices(practices);
@@ -589,7 +645,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                     for (int j = 0; j < remarks.size(); j++){
                         if (remarkId.equals(remarks.get(j).relateId)){
                             remarks.get(j).isCheck = true;
-                            break;
+                        }else {
+                            remarks.get(j).isCheck = false;
                         }
                     }
                 }
@@ -604,6 +661,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             for (int i = 0; i < standards.size(); i++){
                 if (standards.get(i).relateId.equals(currentBean.getStandardId())){
                     standards.get(i).isCheck = true;
+                }else {
+                    standards.get(i).isCheck = false;
                 }
             }
             dataBean.setStandards(standards);
@@ -799,17 +858,17 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
                 break;
             case R.id.tv_place_order:
-                // 下单
-                if (tvPlaceOrder.getText().toString().equals(mContext.getString(R.string.dishes_order))){
-                    if (!TextUtils.isEmpty(dishIds)) {
-                        mDishListPresenter.requestPlaceOrder(dishIds, tableBillId, StringUtil.getString(saleManner));
-                    }
-                }else {
-                    // 去结账
+                // 去结账
+                if (tvPlaceOrder.getText().toString().equals(mContext.getString(R.string.check_out))){
                     Bundle bundle = new Bundle();
                     bundle.putString(TABLE_BILL_ID, tableBillId);
                     bundle.putInt(FROM_WHERE, saleManner);
                     readyGoThenKill(ACT_CheckOut.class, bundle);
+                }else {
+                    // 下单
+                    if (!TextUtils.isEmpty(dishIds)) {
+                        mDishListPresenter.requestPlaceOrder(dishIds, tableBillId, StringUtil.getString(saleManner));
+                    }
                 }
                 break;
 

@@ -278,6 +278,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         Bundle bundle = new Bundle();
                         bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
                         bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
+                        bundle.putString(ACT_OrderDishes.TITLE_TEXT, canteenTableEntity.tableName);
                         readyGo(ACT_OrderDishes.class, bundle);
                     }
                     break;
