@@ -149,7 +149,10 @@ public class DishesEntity implements Serializable {
      * 标记是否选中
      */
     public boolean isCheck;
-
+    /**
+     * 单位
+     */
+    public String dishUnit;
 
     public DishesEntity() {
     }
@@ -211,6 +214,7 @@ public class DishesEntity implements Serializable {
                 ", tastes=" + tastes +
                 ", weight='" + weight + '\'' +
                 ", isCheck=" + isCheck +
+                ", dishUnit='" + dishUnit + '\'' +
                 '}';
     }
 }

@@ -300,7 +300,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
                 requestAddDishEntity.isWeighDish = dishesEntity.isWeigh;
-                requestAddDishEntity.unit = (dishesEntity.isWeigh.equals("Y")) ? 1 : 0;
+                requestAddDishEntity.unit = dishesEntity.dishUnit;
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
                 //不确定的字段
