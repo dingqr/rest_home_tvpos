@@ -299,6 +299,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.setDishPrice(dishesEntity.getPrice());
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
+                requestAddDishEntity.isWeighDish = dishesEntity.isWeigh;
                 requestAddDishEntity.unit = (dishesEntity.isWeigh.equals("Y")) ? 1 : 0;
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
@@ -410,7 +411,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-                CommonUtils.makeEventToast(mContext, "推薦", false);
+                CommonUtils.makeEventToast(mContext, "推荐", false);
             }
         });
     }
@@ -658,6 +659,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 if (dishes != null && dishes.size() > 0) {
                     for (int k = 0; k < dishes.size(); k++) {
                         //所有菜品的唯一标识
+                        //崩潰bug
+                        if (dishes.get(k) == null || dishes.get(k).relateId == null) {
+                            continue;
+                        }
                         String relateId = dishes.get(k).relateId;
                         if (dishRelateId.equals(relateId)) {
                             dishes.get(k).isCheck = true;

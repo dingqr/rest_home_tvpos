@@ -336,7 +336,7 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
 //            tvRefundReason.setText();
 
             //右侧信息-要求返回Long型
-            tvArriveTime.setText(orderDetailEntity.arriveTime);
+            tvArriveTime.setText(String.valueOf(AppDateUtil.getTimeStamp(orderDetailEntity.arriveTime, AppDateUtil.YYYY_MM_DD_HH_MM)));
             tvSendNow.setText(orderDetailEntity.sendNow.equals("Y") ? "(" + mContext.getResources().getString(R.string.string_send_now) + ")" : "(" + mContext.getResources().getString(R.string.string_expect_send) + ")");
             tvPhone.setText(orderDetailEntity.phone);
             tvCustomerName.setText(orderDetailEntity.name);

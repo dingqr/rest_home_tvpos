@@ -49,6 +49,7 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         params.put("standardId", requestAddDishEntity.standardId);
         params.put("tableBillId", requestAddDishEntity.tableBillId);
         params.put("unit", requestAddDishEntity.unit + "");
+        params.put("isWeighDish", requestAddDishEntity.isWeighDish);
         params.put("saleManner", requestAddDishEntity.saleManner);
         params.put("orderState", requestAddDishEntity.orderState);
         RequestManager.getInstance().requestPostByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {

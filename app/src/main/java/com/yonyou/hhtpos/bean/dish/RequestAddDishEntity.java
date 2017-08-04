@@ -86,6 +86,10 @@ public class RequestAddDishEntity {
     /**
      * 是否称重
      */
+    public String isWeighDish;
+    /**
+     * 单位：0 非称重菜 1称重单位为斤
+     */
     public int unit;
     /**
      * 服务员id
