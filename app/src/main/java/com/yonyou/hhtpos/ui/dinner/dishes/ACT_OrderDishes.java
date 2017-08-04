@@ -18,6 +18,7 @@ import com.yonyou.hhtpos.presenter.IWDCloseOrderPresenter;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WDCloseOrderPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WDOpenOrderPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IWDCloseOrderView;
 import com.yonyou.hhtpos.view.IWDOpenOrderView;
 
@@ -102,7 +103,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
 
         if (fromWd){
             OpenOrderEntity bean = new OpenOrderEntity();
-            bean.setShopId(API.shopId);
+            bean.setShopId(Constants.SHOP_ID);
             bean.setWaiterId("0001");
             bean.setWaiterName("王五");
             bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);

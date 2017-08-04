@@ -42,6 +42,7 @@ import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
@@ -92,7 +93,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     //获取所有菜品/菜类presenter
     private IGetAllDishesPresenter mPresenter;
     private String compId = API.compId;
-    private String shopId = API.shopId;
+    private String shopId = Constants.SHOP_ID;
     private String mTableBillId = "";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
@@ -401,7 +402,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
                 requestAddDishEntity.quantity = "1";
                 requestAddDishEntity.dishName = tempDishName;
-                requestAddDishEntity.shopId = API.shopId;
+                requestAddDishEntity.shopId = Constants.SHOP_ID;
                 requestAddDishEntity.tableBillId = mTableBillId;
                 requestAddDishEntity.waiterId = "";
                 mAddDishPresenter.requestAddDish(requestAddDishEntity);

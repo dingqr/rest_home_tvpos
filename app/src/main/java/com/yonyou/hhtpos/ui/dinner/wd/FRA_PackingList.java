@@ -72,7 +72,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void onFirstUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -86,7 +86,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -199,7 +199,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         plaLvPacking.setCanLoadMore(true);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -215,7 +215,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         mCurrentPage = AdapterUtil.getPage(mAdapter, AdapterUtil.DEFAULT_PAGE_SIZE);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, false);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, false);
         } else {
             // reset load more state
             if (null != plaLvPacking) {

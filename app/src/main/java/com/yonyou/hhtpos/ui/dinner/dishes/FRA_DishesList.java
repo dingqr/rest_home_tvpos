@@ -47,6 +47,7 @@ import com.yonyou.hhtpos.presenter.IDishListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.DishEditPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.DishListPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IDishEditView;
 import com.yonyou.hhtpos.view.IDishListView;
 
@@ -93,7 +94,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     private POP_DishesEdit editPopup;
     private POP_DishesPlaceOrderEdit placeOrderEditPopup;
 
-    private String shopId = API.shopId;
+    private String shopId = Constants.SHOP_ID;
 
     /**未下单菜品的id列表 */
     private String dishIds = "";
@@ -193,7 +194,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 Elog.e("TAG", "时价、称重=" + bean.toString());
                 // 修改菜品实体类
                 RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
-                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setShopId(Constants.SHOP_ID);
                 requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
                 requestEditDishEntity.setId(currentBean.getId());
 
@@ -219,7 +220,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 Elog.e("TAG", "规格=" + bean.toString());
                 // 修改菜品实体类
                 RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
-                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setShopId(Constants.SHOP_ID);
                 requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
                 requestEditDishEntity.setId(currentBean.getId());
 
@@ -242,7 +243,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 Elog.e("TAG", "称重、有备注列表=" + bean.toString());
                 // 修改菜品实体类
                 RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
-                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setShopId(Constants.SHOP_ID);
                 requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
                 requestEditDishEntity.setId(currentBean.getId());
 
@@ -270,7 +271,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 Elog.e("TAG", "称重、无备注列表=" + bean.toString());
                 // 修改菜品实体类
                 RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
-                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setShopId(Constants.SHOP_ID);
                 requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
                 requestEditDishEntity.setId(currentBean.getId());
 
@@ -293,7 +294,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 Elog.e("TAG", "数量、做法、备注列表、备注：手填=" + bean.toString());
                 // 修改菜品实体类
                 RequestEditDishEntity requestEditDishEntity = new RequestEditDishEntity();
-                requestEditDishEntity.setShopId(API.shopId);
+                requestEditDishEntity.setShopId(Constants.SHOP_ID);
                 requestEditDishEntity.setDishType(DishTypeConstants.TYPE_DISH);
                 requestEditDishEntity.setId(currentBean.getId());
 
@@ -520,7 +521,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         if (quantity == 0) {
             deleteDish();
         } else {
-            mDishEditPresenter.updateQuantity("", dishId, String.valueOf(quantity), API.shopId, String.valueOf(currentBean.getUnit()));
+            mDishEditPresenter.updateQuantity("", dishId, String.valueOf(quantity), Constants.SHOP_ID, String.valueOf(currentBean.getUnit()));
         }
     }
 
@@ -545,7 +546,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         requestAddDishEntity.dishId = currentBean.getId();
         requestAddDishEntity.setDishPrice(currentBean.getDishPrice());
         requestAddDishEntity.dishType = currentBean.getDishType();
-        requestAddDishEntity.shopId = API.shopId;
+        requestAddDishEntity.shopId = Constants.SHOP_ID;
         requestAddDishEntity.unit = currentBean.getUnit();
 
         requestAddDishEntity.dishRelateId = currentBean.getDishRelateId();
@@ -720,7 +721,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     @Override
     public void updateDishStatus(String status) {
-        mDishEditPresenter.updateDishStatus("", status, dishId, API.shopId);
+        mDishEditPresenter.updateDishStatus("", status, dishId, Constants.SHOP_ID);
     }
 
     /**
@@ -739,7 +740,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_cancel_gift_dish), new DIA_DoubleConfirm.OnSelectedListener() {
                 @Override
                 public void confirm() {
-                    mDishEditPresenter.cancelGiftDish(currentBean.getId(), API.shopId, "");
+                    mDishEditPresenter.cancelGiftDish(currentBean.getId(), Constants.SHOP_ID, "");
                 }
             });
             dia_doubleConfirm.getDialog().show();
@@ -757,7 +758,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_delete_dish), new DIA_DoubleConfirm.OnSelectedListener() {
             @Override
             public void confirm() {
-                mDishEditPresenter.deleteDish("", dishId, API.shopId);
+                mDishEditPresenter.deleteDish("", dishId, Constants.SHOP_ID);
             }
         });
         dia_doubleConfirm.getDialog().show();
@@ -886,16 +887,16 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onConfirm(String mode, String count) {
         // 退菜或赠菜
         if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)) {
-            mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), API.shopId, count);
+            mDishEditPresenter.specialHandleDish(mode, currentBean.getId(), Constants.SHOP_ID, count);
         }
         // 称重确认
         else if (mode.equals(DishConstants.DISH_WEIGHT)) {
-            mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, API.shopId);
+            mDishEditPresenter.confirmWeightDish(currentBean.getId(), count, Constants.SHOP_ID);
         }
         // 转台
         else if (mode.equals(DishConstants.DISH_TURN)) {
             // TODO:tableBillId
-            mDishEditPresenter.switchTable(currentBean.getId(), count, API.shopId, "C5BA09D3380000008800000000257000");
+            mDishEditPresenter.switchTable(currentBean.getId(), count, Constants.SHOP_ID, "C5BA09D3380000008800000000257000");
         }
     }
 

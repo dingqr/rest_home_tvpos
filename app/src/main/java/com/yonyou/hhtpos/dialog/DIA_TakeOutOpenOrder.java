@@ -25,6 +25,7 @@ import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.wm.OpenOrderEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutLeft;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.widgets.FiltrationView;
 
 import java.text.SimpleDateFormat;
@@ -191,7 +192,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         receiverPhone = etEnterReceiverPhone.getText().toString().trim();
         if (verifyInput()) {
             takeOutCompanyId = takeoutCompany.getOptionId();
-            wmooe.setShopId(API.shopId);
+            wmooe.setShopId(Constants.SHOP_ID);
             wmooe.setTakeOutCompanyId(takeOutCompanyId);
             wmooe.setName(receiverName);
             wmooe.setPhone(receiverPhone);

@@ -12,6 +12,7 @@ import com.yonyou.hhtpos.dialog.DIA_ChooseWaiter;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IChooseWaiterPresenter;
 import com.yonyou.hhtpos.presenter.Impl.ChooseWaiterPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class FRA_BookDetail extends BaseFragment implements IChooseWaiterView {
     @Bind(R.id.ll_content)
     LinearLayout mContentLayout;
     //请求接口：查询所有服务员
-    private String shopId = API.shopId;//测试参数
+    private String shopId = Constants.SHOP_ID;//测试参数
     private List<WaiterEntity> mWaiterList = new ArrayList<>();
     private IChooseWaiterPresenter mChooseWaiterPresenter;
     private DIA_ChooseWaiter diaChooseWaiter;

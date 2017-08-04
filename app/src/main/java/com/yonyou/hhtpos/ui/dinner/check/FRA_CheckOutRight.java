@@ -26,6 +26,7 @@ import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.ISettleAccountPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.SettleAccountPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
 import com.yonyou.hhtpos.view.ISettleAccountView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
@@ -193,7 +194,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         switch (payStatus) {
             //部分支付
             case 1:
-                mSettleAccountPresenter.settleAccount(API.compId, "", API.shopId, tableBillId, requestPayEntity);
+                mSettleAccountPresenter.settleAccount(API.compId, "", Constants.SHOP_ID, tableBillId, requestPayEntity);
                 break;
             //支付完成
             case 2:
@@ -203,7 +204,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 break;
             //未支付
             case 4:
-                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
+                mPresenter.queryBillInfo(API.compId, Constants.SHOP_ID, tableBillId, true, requestPayEntity);
                 break;
         }
 

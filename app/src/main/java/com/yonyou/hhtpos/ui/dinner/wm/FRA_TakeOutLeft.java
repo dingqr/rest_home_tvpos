@@ -28,6 +28,7 @@ import com.yonyou.hhtpos.presenter.IWMOpenOrderPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TakeoutCompanyPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TakeoutMarketPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WMOpenOrderPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.FiltrationUtil;
 import com.yonyou.hhtpos.view.ITakeoutCompanyView;
 import com.yonyou.hhtpos.view.ITakeoutMarketView;
@@ -66,7 +67,7 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView, I
     private int prePosition;
 
     private TakeOutFragmentAdapter mFragmentAdapter;
-    private String shopId = API.shopId;
+    private String shopId = Constants.SHOP_ID;
 
     /**
      * 外卖开单弹框外卖公司列表数据

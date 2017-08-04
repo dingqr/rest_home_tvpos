@@ -40,6 +40,7 @@ import com.yonyou.hhtpos.presenter.Impl.TSClearTablePresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TSOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
 import com.yonyou.hhtpos.view.ITSClearTableView;
@@ -82,7 +83,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     private ITableListPresenter mTableListPresenter;
     //测试请求参数
     private String diningAreaRelateId = "";
-    private String shopId = API.shopId;
+    private String shopId = Constants.SHOP_ID;
     //桌台状态
     private String mTableState;
 
@@ -113,7 +114,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onFirstUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, API.shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -122,7 +123,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, API.shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -143,7 +144,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mTableListPresenter = new TableListPresenterImpl(mContext, this);
         mTSOpenOrderPresenter = new TSOpenOrderPresenterImpl(mContext, this);
         mChooseWaiterPresenter = new ChooseWaiterPresenterImpl(mContext, this);
-        mChooseWaiterPresenter.requestWaiterList(API.shopId);
+        mChooseWaiterPresenter.requestWaiterList(Constants.SHOP_ID);
         mTSClearTablePresenter = new TSClearTablePresenterImpl(mContext,this);
 
         //设置刷新时动画的颜色，可以设置4个
@@ -247,7 +248,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             mSwiperefreshLayout.setRefreshing(false);
         }
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, API.shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -290,7 +291,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                             new DIA_DoubleConfirm.OnSelectedListener() {
                                 @Override
                                 public void confirm() {
-                                    mTSClearTablePresenter.clearTable(API.shopId,canteenTableEntity.tableID);
+                                    mTSClearTablePresenter.clearTable(Constants.SHOP_ID,canteenTableEntity.tableID);
                                 }
                             });
                     diaClearTable.getDialog().show();
@@ -330,12 +331,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             switch (tsOpenOrderEntity.getTableStatus()) {
                 //桌台空闲
                 case 0:
-                    tsOpenOrderEntity.setShopId(API.shopId);
+                    tsOpenOrderEntity.setShopId(Constants.SHOP_ID);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
                 //桌台预定
                 case 5:
-                    tsOpenOrderEntity.setShopId(API.shopId);
+                    tsOpenOrderEntity.setShopId(Constants.SHOP_ID);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
             }
