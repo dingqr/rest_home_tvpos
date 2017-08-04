@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -122,6 +123,12 @@ public class DIA_CheckOutByCash {
         if (!mDialog.isShowing()) {
             mDialog.show();
         }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                etMoney.setFocusableInTouchMode(true);
+            }
+        }, 500);
         return mDialog;
     }
 

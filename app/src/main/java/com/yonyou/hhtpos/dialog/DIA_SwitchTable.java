@@ -2,7 +2,7 @@ package com.yonyou.hhtpos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.text.InputType;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +65,8 @@ public class DIA_SwitchTable implements View.OnClickListener{
         mConfirm.setOnClickListener(this);
         mDialog.setContentView(mContentView);
 
+        //不使用系统软件盘输入
+        disableShowInput(mCount);
         // 非称重菜
         if (currentBean.getUnit() == 0){
             // 最大值
@@ -89,9 +91,6 @@ public class DIA_SwitchTable implements View.OnClickListener{
         mCount.setHint(getHint());
 
         initListener();
-
-        //不使用系统软件盘输入
-//        disableShowInput(etMoney);
     }
 
     /**
@@ -193,6 +192,12 @@ public class DIA_SwitchTable implements View.OnClickListener{
         if (!mDialog.isShowing()) {
             mDialog.show();
         }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCount.setFocusableInTouchMode(true);
+            }
+        }, 500);
         return mDialog;
     }
 
@@ -202,17 +207,17 @@ public class DIA_SwitchTable implements View.OnClickListener{
      * @param editText
      */
     public void disableShowInput(EditText editText) {
-        if (android.os.Build.VERSION.SDK_INT <= 10) {
-            editText.setInputType(InputType.TYPE_NULL);
-        } else {
+//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(etMoney.getWindowToken(), 0);
+        try {
             Class<EditText> cls = EditText.class;
-            Method method;
-            try {
-                method = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
-                method.setAccessible(true);
-                method.invoke(editText, false);
-            } catch (Exception e) {
-            }
+            Method setShowSoftInputOnFocus;
+            setShowSoftInputOnFocus = cls.getMethod("setShowSoftInputOnFocus",
+                    boolean.class);
+            setShowSoftInputOnFocus.setAccessible(true);
+            setShowSoftInputOnFocus.invoke(editText, false);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
