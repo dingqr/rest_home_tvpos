@@ -4,6 +4,7 @@
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
     <com.yonyou.framework.library.widgets.ESwipeRefreshLayout
@@ -14,7 +15,7 @@
         <com.yonyou.framework.library.widgets.pla.PLALoadMoreListView
             android:id="@+id/pla_lv_take_out"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:cacheColorHint="@android:color/transparent"
             android:divider="@android:color/transparent"

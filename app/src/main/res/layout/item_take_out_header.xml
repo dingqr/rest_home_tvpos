@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_50"
-        android:layout_marginLeft="@dimen/px_18"
+        android:layout_marginLeft="@dimen/px_22"
         android:layout_marginTop="@dimen/px_20"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/px_20">
@@ -36,8 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_16"
-        android:layout_marginLeft="@dimen/px_18"
-        android:layout_marginRight="@dimen/px_10">
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginRight="@dimen/px_22">
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_16"
-        android:layout_marginLeft="@dimen/px_18"
-        android:layout_marginRight="@dimen/px_10">
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginRight="@dimen/px_22">
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,8 +83,8 @@
         android:id="@+id/layout_receive_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px_18"
-        android:layout_marginRight="@dimen/px_10"
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginRight="@dimen/px_22"
         android:orientation="vertical">
 
         <LinearLayout
@@ -121,8 +122,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px_18"
-        android:layout_marginRight="@dimen/px_10"
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginRight="@dimen/px_22"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -162,8 +163,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_36"
-        android:layout_marginLeft="@dimen/px_18"
-        android:layout_marginRight="@dimen/px_10"
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginRight="@dimen/px_22"
         android:visibility="gone">
 
         <TextView

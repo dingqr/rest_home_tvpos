@@ -9,7 +9,6 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.dialog.DIA_ChooseWaiter;
-import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IChooseWaiterPresenter;
 import com.yonyou.hhtpos.presenter.Impl.ChooseWaiterPresenterImpl;
 import com.yonyou.hhtpos.util.Constants;

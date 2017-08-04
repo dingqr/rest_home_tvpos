@@ -90,15 +90,11 @@ public class RequestAddDishEntity {
     /**
      * 单位：0 非称重菜 1称重单位为斤
      */
-    public int unit;
+    public String unit;
     /**
      * 服务员id
      */
     public String waiterId;
-    /**
-     * 是否称重
-     */
-    public int inBill;
     /**
      * 销售模式：1：堂食 2：外带 3：外卖
      */

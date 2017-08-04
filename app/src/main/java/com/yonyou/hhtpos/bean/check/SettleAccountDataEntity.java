@@ -17,6 +17,14 @@ public class SettleAccountDataEntity implements Serializable {
     }
 
     /**
+     * 基础信息：只有一条数据
+     */
+    public List<BaseInfoEntity> baseInfo;
+    /**
+     * 账单数量
+     */
+    public int tableBillNum;
+    /**
      * 折让金额
      */
     private String allowanceMoney;
@@ -52,10 +60,7 @@ public class SettleAccountDataEntity implements Serializable {
      * 自动抹零金额
      */
     private String ignoreMoney;
-    /**
-     * 开台时间
-     */
-    public Long openTime;
+
     /**
      * 下单菜品列表
      */
@@ -64,14 +69,7 @@ public class SettleAccountDataEntity implements Serializable {
      * 已支付金额
      */
     private String paidMoney;
-    /**
-     * 服务员名称
-     */
-    public String waiterName;
-    /**
-     * 消费人数
-     */
-    public String personNum;
+
     /**
      * 服务费
      */
@@ -96,6 +94,73 @@ public class SettleAccountDataEntity implements Serializable {
      * 账单支付状态：1-部分支付，2-支付完成，3-已退款，4-未支付
      */
     public String payStatus;
+
+    /**
+     * 基础信息
+     */
+    public class BaseInfoEntity implements Serializable {
+        public BaseInfoEntity() {
+        }
+
+        /**
+         * 开台时间
+         */
+        private Long openTime;
+        /**
+         * 消费人数
+         */
+        private String personNum;
+        /**
+         * 桌台名称：并台有值
+         */
+        private String tableName;
+        /**
+         * 服务员名
+         */
+        private String waiterName;
+
+        public Long getOpenTime() {
+            return openTime;
+        }
+
+        public void setOpenTime(Long openTime) {
+            this.openTime = openTime;
+        }
+
+        public String getPersonNum() {
+            return personNum;
+        }
+
+        public void setPersonNum(String personNum) {
+            this.personNum = personNum;
+        }
+
+        public String getTableName() {
+            return tableName;
+        }
+
+        public void setTableName(String tableName) {
+            this.tableName = tableName;
+        }
+
+        public String getWaiterName() {
+            return waiterName;
+        }
+
+        public void setWaiterName(String waiterName) {
+            this.waiterName = waiterName;
+        }
+
+        @Override
+        public String toString() {
+            return "BaseInfoEntity{" +
+                    "openTime=" + openTime +
+                    ", personNum='" + personNum + '\'' +
+                    ", tableName='" + tableName + '\'' +
+                    ", waiterName='" + waiterName + '\'' +
+                    '}';
+        }
+    }
 
     public class PaidHistory implements Serializable {
         public PaidHistory() {
@@ -321,7 +386,9 @@ public class SettleAccountDataEntity implements Serializable {
     @Override
     public String toString() {
         return "SettleAccountDataEntity{" +
-                "allowanceMoney='" + allowanceMoney + '\'' +
+                "baseInfo=" + baseInfo +
+                ", tableBillNum=" + tableBillNum +
+                ", allowanceMoney='" + allowanceMoney + '\'' +
                 ", couponUseds=" + couponUseds +
                 ", paidHistory=" + paidHistory +
                 ", discountTotal='" + discountTotal + '\'' +
@@ -330,11 +397,8 @@ public class SettleAccountDataEntity implements Serializable {
                 ", dishCharge='" + dishCharge + '\'' +
                 ", dishChargeDetail=" + dishChargeDetail +
                 ", ignoreMoney='" + ignoreMoney + '\'' +
-                ", openTime=" + openTime +
                 ", orderDishes=" + orderDishes +
                 ", paidMoney='" + paidMoney + '\'' +
-                ", waiterName='" + waiterName + '\'' +
-                ", personNum='" + personNum + '\'' +
                 ", serviceCharge='" + serviceCharge + '\'' +
                 ", serviceChargeDetail=" + serviceChargeDetail +
                 ", totalCharge='" + totalCharge + '\'' +

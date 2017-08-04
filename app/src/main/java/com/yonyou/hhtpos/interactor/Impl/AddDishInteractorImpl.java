@@ -7,6 +7,7 @@ import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IAddDishInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
+import com.yonyou.hhtpos.util.SpUtil;
 
 import java.util.HashMap;
 
@@ -48,10 +49,11 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         params.put("shopId", requestAddDishEntity.shopId);
         params.put("standardId", requestAddDishEntity.standardId);
         params.put("tableBillId", requestAddDishEntity.tableBillId);
-        params.put("unit", requestAddDishEntity.unit + "");
+        params.put("unit", requestAddDishEntity.unit);
         params.put("isWeighDish", requestAddDishEntity.isWeighDish);
         params.put("saleManner", requestAddDishEntity.saleManner);
         params.put("orderState", requestAddDishEntity.orderState);
+        params.put("waiterId", SpUtil.EMPLOYEE_ID);
         RequestManager.getInstance().requestPostByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {

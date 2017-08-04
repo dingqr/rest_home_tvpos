@@ -92,6 +92,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/px_30"
             android:layout_marginRight="@dimen/px_20"
             android:layout_marginTop="@dimen/px_18"
             android:orientation="horizontal">
@@ -114,9 +115,40 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_total_bill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_32"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/px_72"
+                android:layout_height="@dimen/px_1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/px_10"
+                android:background="@color/color_cdcdcd"></View>
+
+            <TextView
+                android:id="@+id/tv_bill_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_star"
+                android:drawablePadding="@dimen/px_20"
+                android:drawableRight="@drawable/ic_star"
+                android:text="共5个账单，消费￥1160.25" />
+
+            <View
+                android:layout_width="@dimen/px_72"
+                android:layout_height="@dimen/px_1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/px_10"
+                android:background="@color/color_cdcdcd"></View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_30"
             android:orientation="horizontal"
             android:paddingRight="@dimen/px_20">
 

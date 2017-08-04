@@ -14,9 +14,8 @@ import com.yonyou.hhtpos.bean.NavigationNewEntity;
 import com.yonyou.hhtpos.presenter.INavigationPresenter;
 import com.yonyou.hhtpos.presenter.IPrintPresenter;
 import com.yonyou.hhtpos.presenter.Impl.NavigationPresenterImpl;
-import com.yonyou.hhtpos.presenter.Impl.PrintPresenterImpl;
 import com.yonyou.hhtpos.util.AidlUtil;
-import com.yonyou.hhtpos.util.BytesUtil;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.INavigationView;
 import com.yonyou.hhtpos.view.IPrintView;
 
@@ -26,12 +25,14 @@ import java.util.List;
  * 首页
  * 作者：liushuofei on 2017/6/29 11:48
  */
-public class ACT_Home extends ACT_BaseSimple implements INavigationView, IPrintView{
+public class ACT_Home extends ACT_BaseSimple implements INavigationView, IPrintView {
 
     private INavigationPresenter mNavigationPresenter;
     private List<NavigationNewEntity> dataList;
 
-    /**打印中间者 */
+    /**
+     * 打印中间者
+     */
     private IPrintPresenter mPrintPresenter;
 
     @Override
@@ -41,6 +42,7 @@ public class ACT_Home extends ACT_BaseSimple implements INavigationView, IPrintV
 
 //        mPrintPresenter = new PrintPresenterImpl(this, this);
 //        mPrintPresenter.requestPrintOrder();
+        Elog.e("Token=" + Constants.TOKEN);
     }
 
     @Override
@@ -112,7 +114,7 @@ public class ACT_Home extends ACT_BaseSimple implements INavigationView, IPrintV
     @Override
     public void requestPrintOrder(String[] strings) {
         byte[] bytes = new byte[strings.length];
-        for (int i = 0; i < strings.length; i++){
+        for (int i = 0; i < strings.length; i++) {
             bytes[i] = Byte.parseByte(strings[i]);
         }
 
@@ -125,7 +127,7 @@ public class ACT_Home extends ACT_BaseSimple implements INavigationView, IPrintV
             AidlUtil.getInstance().sendRawData(bytes);
 
             Elog.e("printText", String.valueOf(bytes));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
