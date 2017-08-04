@@ -8,7 +8,7 @@
         android:layout_height="@dimen/px_50"
         android:layout_marginLeft="@dimen/px_1"
         android:layout_marginRight="@dimen/px_1"
-        android:background="@color/color_ececec"
+        android:background="@color/color_f2f2f2"
         android:gravity="center"
         android:text="点菜明细"
         android:textColor="@color/color_666666"
