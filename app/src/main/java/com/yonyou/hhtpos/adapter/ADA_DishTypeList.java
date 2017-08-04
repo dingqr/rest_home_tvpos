@@ -53,7 +53,9 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             @Override
             public void onClick(View v) {
                 if (mOnActionOrderDishListener != null) {
-                    mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position, dishesEntity);
+                    if (dishesEntity != null) {
+                        mOnActionOrderDishListener.OnActionOrderDish(ll_item_root, position, dishesEntity);
+                    }
                 }
             }
         });
