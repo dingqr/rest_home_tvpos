@@ -2,6 +2,7 @@ package com.yonyou.hhtpos.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
 
 import butterknife.Bind;
@@ -44,6 +46,11 @@ public abstract class ACT_BaseSimple extends BaseActivity implements View.OnClic
     protected void initViewsAndEvents() {
         // 初始化
         initView();
+
+        //设置店名
+        if (!TextUtils.isEmpty(Constants.SHOP_NAME)){
+            tvLoginShop.setText(Constants.SHOP_NAME);
+        }
 
         // 替换fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

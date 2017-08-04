@@ -146,7 +146,7 @@ public class FRA_Login extends BaseFragment implements ILoginView {
                 if (doValidatePhone() && doValidatePwd()) {
                     userPhone = etUserPhone.getText().toString();
                     userPwd = etUserPwd.getText().toString();
-                    mPresenter.login("", "", userPhone, userPwd, "");
+                    mPresenter.login("", "", userPhone, userPwd, shopId);
                 } else {
                     CommonUtils.makeEventToast(mContext, mContext.getString(R.string.phone_pwd_error), false);
                 }
