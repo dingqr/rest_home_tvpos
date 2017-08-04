@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +41,8 @@ import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
  */
 public class FRA_CheckOutLeft extends BaseFragment {
 
+    @Bind(R.id.iv_close)
+    ImageView ivClose;
     @Bind(R.id.tv_header)
     TextView tvHeader;
     @Bind(R.id.lv_check_out)
@@ -58,9 +62,11 @@ public class FRA_CheckOutLeft extends BaseFragment {
     private TextView tvDishCharge;//菜品消费
     private BanSlideListView lvServiceCharge;//服务费详情列表
     private TextView tvBillCount;//总账单
+    private LinearLayout layoutTotalBill;//总账单信息
     private String tableBillId;
     private int fromWhere;
     private ADA_ServiceCharge mServiceChargeAdapter;
+
 
 
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -106,6 +112,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
         tvTotalServiceCharge = (TextView) headView.findViewById(R.id.tv_total_service_charge);
         lvServiceCharge = (BanSlideListView) headView.findViewById(R.id.lv_service_charge);
         tvBillCount = (TextView) headView.findViewById(R.id.tv_bill_count);
+        layoutTotalBill = (LinearLayout) headView.findViewById(R.id.layout_total_bill);
         lvCheckOut.addHeaderView(headView);
 
         //服务费明细
@@ -132,7 +139,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.tv_go_to_order})
+    @OnClick({R.id.tv_go_to_order,R.id.iv_close})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_go_to_order:
@@ -141,6 +148,9 @@ public class FRA_CheckOutLeft extends BaseFragment {
                 bundle.putString(TABLE_BILL_ID, tableBillId);
                 bundle.putInt(FROM_WHERE, fromWhere);
                 readyGo(ACT_OrderDishes.class, bundle);
+                getActivity().finish();
+                break;
+            case R.id.iv_close:
                 getActivity().finish();
                 break;
         }
@@ -154,6 +164,13 @@ public class FRA_CheckOutLeft extends BaseFragment {
             //消费总计
             if (!TextUtils.isEmpty(dataBean.getTotalCharge())) {
                 tvTotalCharge.setText(dataBean.getTotalCharge());
+                tvBillCount.setText("共" + dataBean.tableBillNum + "个账单，消费" + mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getTotalCharge());
+                if (dataBean.tableBillNum > 0) {
+                    layoutTotalBill.setVisibility(View.VISIBLE);
+                    tvBillCount.setText("共" + dataBean.tableBillNum + "个账单，消费" + mContext.getResources().getString(R.string.RMB_symbol) + dataBean.getTotalCharge());
+                }else {
+                    layoutTotalBill.setVisibility(View.GONE);
+                }
             }
             //不是并台
             if (dataBean.baseInfo != null && dataBean.baseInfo.size() > 0) {
@@ -172,9 +189,6 @@ public class FRA_CheckOutLeft extends BaseFragment {
                         tvWaiteName.setText(baseInfoEntity.getWaiterName());
                     }
                 }
-            }
-            if (dataBean.tableBillNum > 0) {
-                tvBillCount.setText("");
             }
 
             //订单来源

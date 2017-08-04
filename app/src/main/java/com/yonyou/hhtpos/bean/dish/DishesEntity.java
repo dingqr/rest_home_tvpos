@@ -152,7 +152,7 @@ public class DishesEntity implements Serializable {
     /**
      * 单位
      */
-    public String dishUnit;
+    public DishUnitEntity dishUnit;
 
     public DishesEntity() {
     }
@@ -180,7 +180,28 @@ public class DishesEntity implements Serializable {
     public void setVipPrice(String vipPrice) {
         this.vipPrice = vipPrice;
     }
+    public class DishUnitEntity implements Serializable{
+        public DishUnitEntity() {
+        }
+        private String id;
+        private String unitName;
 
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getUnitName() {
+            return unitName;
+        }
+
+        public void setUnitName(String unitName) {
+            this.unitName = unitName;
+        }
+    }
     @Override
     public String toString() {
         return "DishesEntity{" +

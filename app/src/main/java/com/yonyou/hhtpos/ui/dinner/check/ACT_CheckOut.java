@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
 
 import butterknife.Bind;
@@ -40,7 +41,7 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
         mTitleLay.setVisibility(View.GONE);
         mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
         RequestPayEntity requestPayEntity = new RequestPayEntity();
-        mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId,false,requestPayEntity);
+        mPresenter.queryBillInfo(API.compId, Constants.SHOP_ID, tableBillId,false,requestPayEntity);
     }
 
     @Override

@@ -42,6 +42,7 @@ import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
@@ -92,7 +93,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     //获取所有菜品/菜类presenter
     private IGetAllDishesPresenter mPresenter;
     private String compId = API.compId;
-    private String shopId = API.shopId;
+    private String shopId = Constants.SHOP_ID;
     private String mTableBillId = "";
     //菜品/菜类实体
     private DishDataEntity mDishDataBean;
@@ -300,7 +301,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
                 requestAddDishEntity.isWeighDish = dishesEntity.isWeigh;
-                requestAddDishEntity.unit = dishesEntity.dishUnit;
+                requestAddDishEntity.unit = dishesEntity.dishUnit.getUnitName();
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
                 //不确定的字段

@@ -26,6 +26,7 @@ import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.ISettleAccountPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.SettleAccountPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
 import com.yonyou.hhtpos.view.ISettleAccountView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
@@ -86,6 +87,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     // 1-部分支付，2-支付完成，3-已退款，4-未支付
     private int payStatus;
     private ADA_PayHistory mPayhistoryAdapter;
+    private String shopId;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
@@ -119,6 +121,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     @Override
     protected void initViewsAndEvents() {
         tableBillId = ((ACT_CheckOut) getActivity()).getTableBillId();
+        shopId = Constants.SHOP_ID;
 
         mDiaCheckOutByCash = new DIA_CheckOutByCash(getActivity());
         mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
@@ -193,7 +196,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         switch (payStatus) {
             //部分支付
             case 1:
-                mSettleAccountPresenter.settleAccount(API.compId, "", API.shopId, tableBillId, requestPayEntity);
+                mSettleAccountPresenter.settleAccount(API.compId, "", shopId, tableBillId, requestPayEntity);
                 break;
             //支付完成
             case 2:
@@ -203,7 +206,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 break;
             //未支付
             case 4:
-                mPresenter.queryBillInfo(API.compId, API.shopId, tableBillId, true, requestPayEntity);
+                mPresenter.queryBillInfo(API.compId, shopId, tableBillId, true, requestPayEntity);
                 break;
         }
 

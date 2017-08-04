@@ -96,10 +96,6 @@ public class RequestAddDishEntity {
      */
     public String waiterId;
     /**
-     * 是否称重
-     */
-    public int inBill;
-    /**
      * 销售模式：1：堂食 2：外带 3：外卖
      */
     public String saleManner;

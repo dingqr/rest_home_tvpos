@@ -92,6 +92,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/px_30"
             android:layout_marginRight="@dimen/px_20"
             android:layout_marginTop="@dimen/px_18"
             android:orientation="horizontal">
@@ -114,10 +115,9 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_total_bill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/px_30"
-            android:layout_marginTop="@dimen/px_30"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -148,6 +148,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_30"
             android:orientation="horizontal"
             android:paddingRight="@dimen/px_20">
 
