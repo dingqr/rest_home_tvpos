@@ -115,16 +115,23 @@ public class DIA_OrderDishNorms implements View.OnClickListener {
                 FilterItemEntity dishNorms = new FilterItemEntity();
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getStandards().size(); i++) {
-                    FilterOptionsEntity foe = new FilterOptionsEntity();
-                    foe.setOption(dataBean.getStandards().get(i).standardName);
-                    foe.setOptionId(dataBean.getStandards().get(i).relateId);
-                    foe.setCheck(dataBean.getStandards().get(i).isCheck);
-                    foe.setType(FiltrationView.DISH_NORMS);
-                    options.add(foe);
+                    if (dataBean.getStandards() != null && dataBean.getStandards().get(i) != null) {
+                        FilterOptionsEntity foe = new FilterOptionsEntity();
+                        foe.setOption(dataBean.getStandards().get(i).standardName);
+                        foe.setOptionId(dataBean.getStandards().get(i).relateId);
+                        foe.setCheck(dataBean.getStandards().get(i).isCheck);
+                        foe.setType(FiltrationView.DISH_NORMS);
+                        options.add(foe);
+                    }
                 }
-                dishNorms.setOptions(options);
-                dishNorms.setTitle("");
-                fvDishNorms.setData(dishNorms);
+                if (options.size() > 0) {
+                    dishNorms.setOptions(options);
+                    dishNorms.setTitle("");
+                    fvDishNorms.setData(dishNorms);
+                } else {
+                    normsEmptyFlag = true;
+                    llDishNorms.setVisibility(View.GONE);
+                }
             } else {
                 normsEmptyFlag = true;
                 llDishNorms.setVisibility(View.GONE);

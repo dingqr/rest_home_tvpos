@@ -126,7 +126,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 FilterItemEntity cookeryOption = new FilterItemEntity();
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getPractices().size(); i++) {
-                    if (dataBean.getPractices() != null && dataBean.getPractices().get(i) != null) {
+                    if ( dataBean.getPractices().get(i) != null) {
                         FilterOptionsEntity foe = new FilterOptionsEntity();
                         foe.setOption(dataBean.getPractices().get(i).practiceName);
                         foe.setOptionId(dataBean.getPractices().get(i).relateId);
@@ -157,7 +157,7 @@ public class DIA_OrderDishCount implements View.OnClickListener {
                 ArrayList<FilterOptionsEntity> options = new ArrayList<>();
                 for (int i = 0; i < dataBean.getRemarks().size(); i++) {
                     FilterOptionsEntity foe = new FilterOptionsEntity();
-                    if (dataBean.getRemarks() != null && dataBean.getRemarks().get(i) != null) {
+                    if ( dataBean.getRemarks().get(i) != null) {
                         foe.setOption(dataBean.getRemarks().get(i).remarkName);
                         foe.setOptionId(dataBean.getRemarks().get(i).relateId);
                         foe.setCheck(dataBean.getRemarks().get(i).isCheck);
