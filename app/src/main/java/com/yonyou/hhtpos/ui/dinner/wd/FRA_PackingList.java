@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -16,6 +17,7 @@ import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_PackingList;
 import com.yonyou.hhtpos.bean.wd.OrderListEntity;
+import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDListPresenter;
@@ -51,14 +53,13 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     private String payStatus;
 
     private ADA_PackingList mAdapter;
-    
+
     /**中间者 */
     private IWDListPresenter mPackingListPresenter;
     /**当前页数 */
     private int mCurrentPage = 1;
     /**默认页数 */
     private static final String DEFAULT_PAGE = "1";
-    private String shopId = Constants.SHOP_ID;
 
     public static final FRA_PackingList newInstance(int type) {
         FRA_PackingList f = new FRA_PackingList();
@@ -71,7 +72,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void onFirstUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -79,12 +80,13 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
+        Log.e("TAG", "token="+ Constants.TOKEN);
     }
 
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -107,7 +109,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void initViewsAndEvents() {
         type = getArguments().getInt(TYPE);
-        
+
         // 加载中的4种颜色
         srlPacking.setColorSchemeColors(
                 ContextCompat.getColor(mContext, R.color.gplus_color_1),
@@ -197,7 +199,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         plaLvPacking.setCanLoadMore(true);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, true, false);
         } else {
             // reset refresh state
             if (null != srlPacking) {
@@ -213,7 +215,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         mCurrentPage = AdapterUtil.getPage(mAdapter, AdapterUtil.DEFAULT_PAGE_SIZE);
 
         if (NetUtils.isNetworkConnected(mContext)) {
-            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, shopId, String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, false);
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, Constants.SHOP_ID, String.valueOf(mCurrentPage), String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, false);
         } else {
             // reset load more state
             if (null != plaLvPacking) {

@@ -178,6 +178,7 @@
     <string name="waiter_list_empty">本店服务员列表为空</string>
     <string name="total_meal_area">全部餐区</string>
 
+    <string name="total">全部</string>
     <string name="free">空闲</string>
     <string name="settle">结清</string>
     <string name="book">预订</string>
@@ -285,7 +286,10 @@
     <string name="string_ordered_dishes">下单菜品</string>
     <string name="string_ordered_dish_num">项</string>
     <string name="weight_confirm">称重确认</string>
-    <string name="check_out">去结账</string>
+    <string name="consumption">消费</string>
+    <string name="check_out">结账</string>
+    <string name="not_order_dishes">未下单菜品</string>
+    <string name="ordered_dishes">已下单菜品</string>
 
     <!--外卖 -->
     <string name="total_price">合计</string>

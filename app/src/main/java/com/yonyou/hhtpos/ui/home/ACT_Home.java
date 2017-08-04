@@ -121,8 +121,10 @@ public class ACT_Home extends ACT_BaseSimple implements INavigationView, IPrintV
         // 打印文字
 //        AidlUtil.getInstance().printText(AidlUtil.PRINT_TEXT, 20, false, false);
         try {
-            AidlUtil.getInstance().printText(new String(bytes, "UTF-8"), 20, false, false);
+//            AidlUtil.getInstance().printText(new String(BytesUtil.getBaiduTestBytes(), "UTF-8"), 20, false, false);
+//            AidlUtil.getInstance().printText(new String(BytesUtil.getBaiduTestBytes(), "GBK"), 20, false, false);
 //            AidlUtil.getInstance().sendRawData(BytesUtil.getBaiduTestBytes());
+            AidlUtil.getInstance().sendRawData(bytes);
 
             Elog.e("printText", String.valueOf(bytes));
         } catch (Exception e) {

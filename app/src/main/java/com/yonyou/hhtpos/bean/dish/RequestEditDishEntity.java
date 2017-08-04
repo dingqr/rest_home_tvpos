@@ -32,6 +32,28 @@ public class RequestEditDishEntity implements Serializable {
     /**菜品规格id */
     private String dishStandardId;
 
+    /**时价菜的时价 */
+    private String dishPrice;
+
+    /**时价菜标示 */
+    private String isCurrentDish;
+
+    public String getDishPrice() {
+        return dishPrice;
+    }
+
+    public void setDishPrice(String dishPrice) {
+        this.dishPrice = dishPrice;
+    }
+
+    public String getIsCurrentDish() {
+        return isCurrentDish;
+    }
+
+    public void setIsCurrentDish(String isCurrentDish) {
+        this.isCurrentDish = isCurrentDish;
+    }
+
     public String getDishStandardId() {
         return dishStandardId;
     }
@@ -99,14 +121,16 @@ public class RequestEditDishEntity implements Serializable {
     @Override
     public String toString() {
         return "RequestEditDishEntity{" +
-                "dishStandardId='" + dishStandardId + '\'' +
+                "shopId='" + shopId + '\'' +
                 ", dishType='" + dishType + '\'' +
                 ", id='" + id + '\'' +
                 ", practices='" + practices + '\'' +
                 ", quantity='" + quantity + '\'' +
                 ", remark='" + remark + '\'' +
                 ", remarks='" + remarks + '\'' +
-                ", shopId='" + shopId + '\'' +
+                ", dishStandardId='" + dishStandardId + '\'' +
+                ", dishPrice='" + dishPrice + '\'' +
+                ", isCurrentDish='" + isCurrentDish + '\'' +
                 '}';
     }
 }

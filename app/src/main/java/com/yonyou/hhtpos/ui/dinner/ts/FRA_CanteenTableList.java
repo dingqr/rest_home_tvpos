@@ -114,7 +114,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onFirstUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -123,7 +123,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -144,7 +144,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mTableListPresenter = new TableListPresenterImpl(mContext, this);
         mTSOpenOrderPresenter = new TSOpenOrderPresenterImpl(mContext, this);
         mChooseWaiterPresenter = new ChooseWaiterPresenterImpl(mContext, this);
-        mChooseWaiterPresenter.requestWaiterList(shopId);
+        mChooseWaiterPresenter.requestWaiterList(Constants.SHOP_ID);
         mTSClearTablePresenter = new TSClearTablePresenterImpl(mContext,this);
 
         //设置刷新时动画的颜色，可以设置4个
@@ -248,7 +248,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             mSwiperefreshLayout.setRefreshing(false);
         }
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -279,6 +279,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         Bundle bundle = new Bundle();
                         bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
                         bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
+                        bundle.putString(ACT_OrderDishes.TITLE_TEXT, canteenTableEntity.tableName);
                         readyGo(ACT_OrderDishes.class, bundle);
                     }
                     break;
@@ -290,7 +291,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                             new DIA_DoubleConfirm.OnSelectedListener() {
                                 @Override
                                 public void confirm() {
-                                    mTSClearTablePresenter.clearTable(shopId,canteenTableEntity.tableID);
+                                    mTSClearTablePresenter.clearTable(Constants.SHOP_ID,canteenTableEntity.tableID);
                                 }
                             });
                     diaClearTable.getDialog().show();
@@ -330,12 +331,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             switch (tsOpenOrderEntity.getTableStatus()) {
                 //桌台空闲
                 case 0:
-                    tsOpenOrderEntity.setShopId(shopId);
+                    tsOpenOrderEntity.setShopId(Constants.SHOP_ID);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
                 //桌台预定
                 case 5:
-                    tsOpenOrderEntity.setShopId(shopId);
+                    tsOpenOrderEntity.setShopId(Constants.SHOP_ID);
                     mTSOpenOrderPresenter.openOrder(tsOpenOrderEntity);
                     break;
             }

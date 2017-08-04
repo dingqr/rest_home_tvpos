@@ -66,24 +66,42 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         if (null == bean)
             return;
 
-        // 下单时间
+        // 下单时间和头布局
         if (pos == 0){
             if (!TextUtils.isEmpty(bean.getOrderTime())){
                 holder.mDishesTime.setVisibility(View.VISIBLE);
                 holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
+
+                // 已下单菜品
+                holder.mDishHeader.setVisibility(View.VISIBLE);
+                holder.mDishHeader.setText(mContext.getString(R.string.ordered_dishes));
+                holder.mDishHeader.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
             }else {
                 holder.mDishesTime.setVisibility(View.GONE);
+
+                // 未下单菜品
+                holder.mDishHeader.setVisibility(View.VISIBLE);
+                holder.mDishHeader.setText(mContext.getString(R.string.not_order_dishes));
+                holder.mDishHeader.setTextColor(mContext.getResources().getColor(R.color.color_999999));
             }
         }else {
             DishListEntity.Dishes preBean = mDataSource.get(pos - 1);
             if (null != preBean && !TextUtils.isEmpty(preBean.getOrderTime()) && !TextUtils.isEmpty(bean.getOrderTime()) && !preBean.getOrderTime().equals(bean.getOrderTime())){
                 holder.mDishesTime.setVisibility(View.VISIBLE);
                 holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
+
+                holder.mDishHeader.setVisibility(View.GONE);
             }else if (null != preBean && TextUtils.isEmpty(preBean.getOrderTime()) && !TextUtils.isEmpty(bean.getOrderTime())){
                 holder.mDishesTime.setVisibility(View.VISIBLE);
                 holder.mDishesTime.setText(AppDateUtil.getTimeStamp(Long.parseLong(bean.getOrderTime()), AppDateUtil.HH_MM) + "点菜");
+
+                // 已下单菜品
+                holder.mDishHeader.setVisibility(View.VISIBLE);
+                holder.mDishHeader.setText(mContext.getString(R.string.ordered_dishes));
+                holder.mDishHeader.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
             } else {
                 holder.mDishesTime.setVisibility(View.GONE);
+                holder.mDishHeader.setVisibility(View.GONE);
             }
         }
 
@@ -174,6 +192,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
 
     static class ViewHolder {
 
+        TextView mDishHeader;
         TextView mDishesTime;
         TextView mDishesName;
         TextView mDishesRemark;
@@ -186,6 +205,7 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         DashView mLineView;
 
         ViewHolder(View v) {
+            mDishHeader = (TextView) v.findViewById(R.id.tv_dishes_status_header);
             mDishesTime = (TextView) v.findViewById(R.id.tv_dishes_time);
             mDishesName = (TextView) v.findViewById(R.id.tv_dishes_name);
             mDishesRemark = (TextView) v.findViewById(R.id.tv_dishes_remark);

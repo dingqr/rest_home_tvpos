@@ -10,12 +10,12 @@ public class API {
      * 服务器ip
      */
 
-//    // 开发环境
+    // 开发环境
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
     public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     public static final String shopId = "C13352966C000000A60000000016E000";
 
-//    // 测试环境
+    // 测试环境
 //    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
 //    public static final String compId = "2323";
 //    public static final String shopId = "C60D375FDC0000009200000000000000";
@@ -225,6 +225,7 @@ public class API {
      * 修改未下单菜品
      */
     public static final String URL_UPDATE_DISH = BASE_SERVER_SHOP + "/prodish/modifydish";
+//    public static final String URL_UPDATE_DISH = "http://10.220.23.81:9001" + "/prodish/modifydish";
 
     /**
      * 获取打印指令接口

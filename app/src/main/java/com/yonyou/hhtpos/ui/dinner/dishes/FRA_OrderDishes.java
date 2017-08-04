@@ -402,7 +402,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
                 requestAddDishEntity.quantity = "1";
                 requestAddDishEntity.dishName = tempDishName;
-                requestAddDishEntity.shopId = API.shopId;
+                requestAddDishEntity.shopId = Constants.SHOP_ID;
                 requestAddDishEntity.tableBillId = mTableBillId;
                 requestAddDishEntity.waiterId = "";
                 mAddDishPresenter.requestAddDish(requestAddDishEntity);

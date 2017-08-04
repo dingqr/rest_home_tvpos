@@ -18,6 +18,7 @@ import com.yonyou.hhtpos.presenter.IWDCloseOrderPresenter;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WDCloseOrderPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WDOpenOrderPresenterImpl;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IWDCloseOrderView;
 import com.yonyou.hhtpos.view.IWDOpenOrderView;
 
@@ -34,9 +35,11 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     public static final String TABLE_BILL_ID = "table.bill.id";
     public static final String FROM_WHERE = "from.where";
     public static final String IS_FROM_SETTLE_ACCOUNT = "is_from_settle_account";
+    public static final String TITLE_TEXT = "title.text";
     private boolean fromWd;
     private String tableBillId;
     private int fromWhere;//1：堂食  2：外卖  3：外带
+    private String titleText;
 
     private boolean hasPlaceOrder;
 
@@ -59,6 +62,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
         tableBillId = extras.getString(TABLE_BILL_ID, "");
         fromWhere = extras.getInt(FROM_WHERE, 0);
         isFromSettleAccount = extras.getBoolean(IS_FROM_SETTLE_ACCOUNT, false);
+        titleText = extras.getString(TITLE_TEXT, "");
     }
 
     public void setHasPlaceOrder(boolean hasPlaceOrder) {
@@ -99,7 +103,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
 
         if (fromWd){
             OpenOrderEntity bean = new OpenOrderEntity();
-            bean.setShopId(API.shopId);
+            bean.setShopId(Constants.SHOP_ID);
             bean.setWaiterId("0001");
             bean.setWaiterName("王五");
             bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);
@@ -188,4 +192,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
         return fromWhere;
     }
 
+    public String getTitleText() {
+        return titleText;
+    }
 }

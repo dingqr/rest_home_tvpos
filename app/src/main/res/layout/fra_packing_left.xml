@@ -68,7 +68,7 @@
         android:layout_gravity="right|bottom"
         android:layout_marginBottom="@dimen/px_52"
         android:layout_marginRight="@dimen/px_44"
-        android:src="@drawable/ic_order_dish" />
+        android:src="@drawable/ic_bill" />
 
     <View
         android:layout_width="@dimen/px_1"
