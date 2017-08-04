@@ -42,7 +42,8 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
             for (int i = 0; i < mDatas.size(); i++) {
                 if (mDatas.get(i) != null && mDatas.get(i).isCheck()) {
                     currentBean = mDatas.get(i);
-                } else currentBean = null;
+                    return;
+                }
             }
             if (currentBean == null && mDatas.get(0) != null) {
                 currentBean = mDatas.get(0);
