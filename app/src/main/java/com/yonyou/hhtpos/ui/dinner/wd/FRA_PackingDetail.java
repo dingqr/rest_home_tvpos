@@ -198,17 +198,17 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
      * 根据账单支付状态处理跳转逻辑
      */
     private void handleClickPayStatus() {
-        //                1-部分支付，2-支付完成，3-已退款，4-未支付
+        //                1-未支付，2-支付完成，3-已退款，4-部分支付
         switch (payStatus) {
             //部分支付-去结账-结账页面屏蔽去菜单按钮
-            case 1:
+            case 4:
                 Bundle bundle = new Bundle();
                 bundle.putInt(FROM_WHERE, DishConstants.TYPE_WD);
                 bundle.putString(TABLE_BILL_ID, tableBillId);
                 readyGo(ACT_CheckOut.class, bundle);
                 break;
             //未支付状态-去点菜
-            case 4:
+            case 1:
                 Bundle bundles = new Bundle();
                 bundles.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
                 bundles.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WD);
@@ -261,12 +261,12 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
 
     /**
-     * // 1-部分支付，2-支付完成，3-已退款，4-未支付
+     * // 1-未支付，2-支付完成，3-已退款，4-部分支付
      */
     private void handlePayStatus() {
         switch (payStatus) {
             //部分支付
-            case 1:
+            case 4:
                 tvPayStatus.setText(mContext.getResources().getString(R.string.string_paying));
                 tvButton.setText(mContext.getResources().getString(R.string.string_settle_account));
                 tvNotPay.setVisibility(View.VISIBLE);
@@ -286,7 +286,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
                 break;
             //未支付
-            case 4:
+            case 1:
                 tvPayStatus.setText(mContext.getResources().getString(R.string.string_wait_pay));
                 tvButton.setText(mContext.getResources().getString(R.string.string_order_dishes));
                 tvNotPay.setVisibility(View.VISIBLE);
