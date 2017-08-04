@@ -62,12 +62,14 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
         TextView tvLabelOne = holder.getView(R.id.tv_label_one);
         TextView tvLabelTwo = holder.getView(R.id.tv_label_two);
         ImageView sellOutSign = holder.getView(R.id.iv_sell_out_sign);
-        if (dishesEntity.isCheck) {
-            rbDishCheck.setVisibility(View.VISIBLE);
-            rbDishCheck.setChecked(dishesEntity.isCheck);
-        } else {
-            rbDishCheck.setVisibility(View.GONE);
-            rbDishCheck.setChecked(dishesEntity.isCheck);
+        if (dishesEntity != null) {
+            if (dishesEntity.isCheck) {
+                rbDishCheck.setVisibility(View.VISIBLE);
+                rbDishCheck.setChecked(dishesEntity.isCheck);
+            } else {
+                rbDishCheck.setVisibility(View.GONE);
+                rbDishCheck.setChecked(dishesEntity.isCheck);
+            }
         }
 
 
