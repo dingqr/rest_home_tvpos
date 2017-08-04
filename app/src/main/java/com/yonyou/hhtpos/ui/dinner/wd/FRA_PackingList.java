@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.ui.dinner.wd;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -22,6 +23,7 @@ import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDListPresenter;
 import com.yonyou.hhtpos.presenter.Impl.WDListPresenterImpl;
 import com.yonyou.hhtpos.util.AdapterUtil;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IWDListView;
 
 import java.util.ArrayList;
@@ -78,13 +80,13 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
             }
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
+        Log.e("TAG", "token="+ Constants.TOKEN);
     }
 
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-//            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
-            onRefresh();
+            mPackingListPresenter.requestPackingList("", SalesModeConstants.SALES_MODE_WD, API.shopId, DEFAULT_PAGE, String.valueOf(AdapterUtil.DEFAULT_PAGE_SIZE), payStatus, false, true);
         } else {
             // reset refresh state
             if (null != srlPacking) {

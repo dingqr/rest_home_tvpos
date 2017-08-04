@@ -31,7 +31,7 @@ public class WMOrderDetailEntity implements Serializable {
     /**
      * 到达时间
      */
-    public String arriveTime;
+    public Long arriveTime;
     /**
      * 总计-原始金额
      */
