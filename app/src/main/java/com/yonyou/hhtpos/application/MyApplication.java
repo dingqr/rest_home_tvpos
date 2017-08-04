@@ -57,7 +57,10 @@ public class MyApplication extends BaseApplication{
         if (!TextUtils.isEmpty(shopId)){
             Constants.SHOP_ID = shopId;
         }
-
+        String shopName = sharePre.getString(SpUtil.SHOP_NAME);
+        if (!TextUtils.isEmpty(shopName)){
+            Constants.SHOP_NAME = shopName;
+        }
         String userToken = sharePre.getString(SpUtil.USER_TOKEN);
         if (!TextUtils.isEmpty(shopId)){
             Constants.TOKEN = userToken;

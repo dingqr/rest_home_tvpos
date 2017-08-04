@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -61,6 +62,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     TextView tvSplitTable;
     @Bind(R.id.tv_table_clear)
     TextView tvClearTable;
+    @Bind(R.id.tv_login_shop)
+    TextView tvLoginShop;
 
     private ADA_MealArea mAdapter;
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
@@ -124,6 +127,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     protected void initViewsAndEvents() {
+        if (!TextUtils.isEmpty(Constants.SHOP_NAME)){
+            tvLoginShop.setText(Constants.SHOP_NAME);
+        }
         MealAreaEntity mealAreaEntity = new MealAreaEntity(true,mContext.getString(R.string.total_meal_area),shopId,"");
         mealAreaList = new ArrayList<>();
         mealAreaList.add(mealAreaEntity);
