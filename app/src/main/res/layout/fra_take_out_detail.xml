@@ -9,29 +9,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/px_100"
-        android:layout_marginLeft="@dimen/px_44"
+        android:layout_marginBottom="@dimen/px_20"
+        android:layout_marginLeft="@dimen/px_20"
         android:layout_marginTop="@dimen/px_18"
+        android:background="@drawable/bg_take_out_detail"
         android:orientation="horizontal">
+
         <!--left-->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/px_12"
             android:layout_weight="11"
-            android:background="@drawable/bg_billing_big"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/lv_wm_order_detail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:listSelector="@android:color/transparent"
-                android:paddingBottom="@dimen/px_20"
-                android:paddingLeft="@dimen/px_1"
-                android:paddingRight="@dimen/px_1"
-                android:scrollbars="none"></ListView>
             <!--悬浮标题-->
             <LinearLayout
                 android:id="@+id/suspension_title"
@@ -51,15 +41,29 @@
                     android:textColor="@color/color_666666"
                     android:textSize="@dimen/sp_24" />
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/lv_wm_order_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:paddingBottom="@dimen/px_20"
+                android:paddingLeft="@dimen/px_1"
+                android:paddingRight="@dimen/px_1"
+                android:scrollbars="none"></ListView>
         </FrameLayout>
 
+        <View
+            android:layout_width="@dimen/px_1"
+            android:layout_height="match_parent"
+            android:background="@color/color_eaeaea"></View>
         <!--Right-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/px_14"
             android:layout_weight="10"
-            android:background="@drawable/bg_billing_small"
             android:orientation="vertical"
             android:paddingTop="@dimen/px_24">
 
@@ -68,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_20"
-                android:paddingLeft="@dimen/px_20"
+                android:paddingLeft="@dimen/px_32"
                 android:text="收餐人信息"
                 android:textColor="@color/color_222222"
                 android:textSize="@dimen/sp_24" />
@@ -83,13 +87,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
+                android:layout_marginRight="@dimen/px_32"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/px_14"
-                    android:layout_marginLeft="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_32"
                     android:layout_marginTop="@dimen/px_16">
 
                     <TextView
@@ -117,7 +122,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/px_14"
-                    android:layout_marginLeft="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_32"
+                    android:layout_marginRight="@dimen/px_32"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -150,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/px_14"
-                    android:layout_marginLeft="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_32"
                     android:drawableLeft="@drawable/ic_wm_people_num"
                     android:drawablePadding="@dimen/px_20"
                     android:textColor="@color/color_999999"
@@ -161,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/px_14"
-                    android:layout_marginLeft="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_32"
                     android:drawableLeft="@drawable/ic_wm_address"
                     android:drawablePadding="@dimen/px_20"
                     android:textColor="@color/color_999999"
@@ -171,7 +177,7 @@
                     android:id="@+id/tv_remarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px_20"
+                    android:layout_marginLeft="@dimen/px_32"
                     android:drawableLeft="@drawable/ic_wm_remark"
                     android:drawablePadding="@dimen/px_20"
                     android:text="不要葱花、香菜"
@@ -183,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_18"
-                android:layout_marginLeft="@dimen/px_20"
+                android:layout_marginLeft="@dimen/px_32"
                 android:text="优惠与支付"
                 android:textColor="@color/color_222222"
                 android:textSize="@dimen/sp_24" />
@@ -198,8 +204,8 @@
                 android:id="@+id/ll_total_billmoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_20"
-                android:layout_marginRight="@dimen/px_20"
+                android:layout_marginLeft="@dimen/px_32"
+                android:layout_marginRight="@dimen/px_32"
                 android:layout_marginTop="@dimen/px_16">
 
                 <TextView
@@ -224,8 +230,8 @@
                 android:id="@+id/ll_reduce_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_20"
-                android:layout_marginRight="@dimen/px_20"
+                android:layout_marginLeft="@dimen/px_32"
+                android:layout_marginRight="@dimen/px_32"
                 android:layout_marginTop="@dimen/px_14">
 
                 <TextView
@@ -305,12 +311,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
-                android:layout_marginLeft="@dimen/px_20"
-                android:layout_marginRight="@dimen/px_20"
+                android:layout_marginLeft="@dimen/px_32"
+                android:layout_marginRight="@dimen/px_32"
                 android:layout_marginTop="@dimen/px_14"
                 android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="积分："
@@ -331,11 +338,11 @@
                 android:id="@+id/ll_invoidce"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_2"
-                android:layout_marginRight="@dimen/px_2"
-                android:background="@color/color_FFFFFF"
+                android:layout_marginLeft="@dimen/px_32"
+                android:layout_marginRight="@dimen/px_32"
+                android:background="@drawable/bg_grey_side_cc_0"
                 android:gravity="center"
-                android:paddingLeft="@dimen/px_18"
+                android:paddingLeft="@dimen/px_22"
                 android:visibility="visible">
 
                 <LinearLayout
@@ -368,7 +375,7 @@
                     android:drawablePadding="@dimen/px_20"
                     android:drawableRight="@drawable/ic_red_arrow_right"
                     android:gravity="end"
-                    android:paddingRight="@dimen/px_20"
+                    android:paddingRight="@dimen/px_10"
                     android:text="查看二维码"
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_24" />
@@ -382,7 +389,7 @@
         android:layout_width="@dimen/px_200"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/px_22"
+        android:layout_marginBottom="@dimen/px_44"
         android:layout_marginRight="@dimen/px_20"
         android:layout_toLeftOf="@+id/btn_right"
         android:background="@drawable/bg_shape_grey_side_12"
@@ -400,7 +407,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/px_22"
+        android:layout_marginBottom="@dimen/px_44"
         android:layout_marginRight="@dimen/px_16"
         android:background="@drawable/bg_shape_red_side_12"
         android:gravity="center_horizontal"

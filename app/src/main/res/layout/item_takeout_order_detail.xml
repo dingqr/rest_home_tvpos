@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
@@ -31,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_12"
-        android:layout_marginLeft="@dimen/px_20"
-        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginLeft="@dimen/px_22"
+        android:layout_marginRight="@dimen/px_22"
         android:layout_marginTop="@dimen/px_14">
 
         <TextView
@@ -70,13 +71,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/px_14"
-        android:paddingLeft="@dimen/px_20"
+        android:paddingLeft="@dimen/px_22"
         android:text="注：不要辣椒"
         android:textColor="@color/color_eb6247"
         android:textSize="@dimen/sp_20" />
 
-    <View
+
+    <com.yonyou.hhtpos.widgets.DashView
+        android:id="@+id/dv_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_1"
-        android:background="@color/color_e6e5e5"></View>
+        android:layout_height="@dimen/px_2"
+        app:dashWidth="@dimen/px_2"
+        app:lineColor="@color/color_d5d5d5"
+        app:lineHeight="@dimen/px_2"
+        app:lineWidth="@dimen/px_6" />
 </LinearLayout>
