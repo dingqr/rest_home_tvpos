@@ -57,9 +57,11 @@ public class FRA_CheckOutLeft extends BaseFragment {
     private TextView tvTotalServiceCharge;//服务费总计
     private TextView tvDishCharge;//菜品消费
     private BanSlideListView lvServiceCharge;//服务费详情列表
+    private TextView tvBillCount;//总账单
     private String tableBillId;
     private int fromWhere;
     private ADA_ServiceCharge mServiceChargeAdapter;
+
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshLeft(SettleAccountDataEntity settleAccountDataEntity) {
@@ -103,6 +105,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
         tvDishCharge = (TextView) headView.findViewById(R.id.tv_dish_charge);
         tvTotalServiceCharge = (TextView) headView.findViewById(R.id.tv_total_service_charge);
         lvServiceCharge = (BanSlideListView) headView.findViewById(R.id.lv_service_charge);
+        tvBillCount = (TextView) headView.findViewById(R.id.tv_bill_count);
         lvCheckOut.addHeaderView(headView);
 
         //服务费明细
@@ -152,18 +155,28 @@ public class FRA_CheckOutLeft extends BaseFragment {
             if (!TextUtils.isEmpty(dataBean.getTotalCharge())) {
                 tvTotalCharge.setText(dataBean.getTotalCharge());
             }
-            //就餐人数
-            if (!TextUtils.isEmpty(dataBean.personNum)) {
-                tvPersonNum.setText(dataBean.personNum);
+            //不是并台
+            if (dataBean.baseInfo != null && dataBean.baseInfo.size() > 0) {
+                SettleAccountDataEntity.BaseInfoEntity baseInfoEntity = dataBean.baseInfo.get(0);
+                if (baseInfoEntity != null) {
+                    //就餐人数
+                    if (!TextUtils.isEmpty(baseInfoEntity.getPersonNum())) {
+                        tvPersonNum.setText(baseInfoEntity.getPersonNum());
+                    }
+                    //开台时间
+                    if (baseInfoEntity.getOpenTime() != null) {
+                        tvOpenTime.setText(AppDateUtil.getTimeStamp(baseInfoEntity.getOpenTime(), AppDateUtil.MM_DD_HH_MM));
+                    }
+                    //服务员
+                    if (!TextUtils.isEmpty(baseInfoEntity.getWaiterName())) {
+                        tvWaiteName.setText(baseInfoEntity.getWaiterName());
+                    }
+                }
             }
-            //就餐人数
-            if (dataBean.openTime != null) {
-                tvOpenTime.setText(AppDateUtil.getTimeStamp(dataBean.openTime, AppDateUtil.MM_DD_HH_MM));
+            if (dataBean.tableBillNum > 0) {
+                tvBillCount.setText("");
             }
-            //服务员
-            if (!TextUtils.isEmpty(dataBean.waiterName)) {
-                tvWaiteName.setText(dataBean.waiterName);
-            }
+
             //订单来源
             if (!TextUtils.isEmpty(dataBean.billResource)) {
                 tvBillResource.setText(dataBean.billResource);
