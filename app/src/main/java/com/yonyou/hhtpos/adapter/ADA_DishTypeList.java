@@ -75,9 +75,15 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
         if (dishesEntity != null) {
             //设置口味显示
             List<DishTastesEntity> tastes = dishesEntity.tastes;
-            if (tastes.size() > 0) {
+            if (dishesEntity.tastes != null && tastes.size() > 0) {
                 tvTastes.setVisibility(View.VISIBLE);
                 for (int i = 0; i < tastes.size(); i++) {
+                    if (tastes.get(i) == null) {
+                        continue;
+                    }
+                    if (tastes.get(i).tasteName == null) {
+                        continue;
+                    }
                     mBuffer.append(tastes.get(i).tasteName + " ");
                 }
                 tvTastes.setText(mBuffer.toString().trim());
@@ -85,7 +91,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
                 tvTastes.setVisibility(View.INVISIBLE);
             }
             //设置价格
-            holder.setText(R.id.tv_dish_price,mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+            holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
             //设置是否是称重
             ivWeightSign.setVisibility(dishesEntity.isWeigh.equals("Y") ? View.VISIBLE : View.GONE);
 
@@ -126,15 +132,19 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
                         if (i > labels.size() - 1) {
                             return;
                         }
-                        tvLabelOne.setVisibility(View.VISIBLE);
-                        tvLabelOne.setText(labels.get(i).labelName);
+                        if (labels.get(i) != null && labels.get(i).labelName != null) {
+                            tvLabelOne.setVisibility(View.VISIBLE);
+                            tvLabelOne.setText(labels.get(i).labelName);
+                        }
                         continue;
                     case 1:
                         if (i > labels.size() - 1) {
                             return;
                         }
-                        tvLabelTwo.setVisibility(View.VISIBLE);
-                        tvLabelTwo.setText(labels.get(i).labelName);
+                        if (labels.get(i) != null && labels.get(i).labelName != null) {
+                            tvLabelTwo.setVisibility(View.VISIBLE);
+                            tvLabelTwo.setText(labels.get(i).labelName);
+                        }
                         return;
                 }
             }

@@ -351,7 +351,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             }
 
             //折扣
-            if (!TextUtils.isEmpty(orderDetailEntity.getReduceMoney())) {
+            if (!TextUtils.isEmpty(orderDetailEntity.getDiscountMoney())) {
                 layoutDiscount.setVisibility(View.VISIBLE);
                 tvDiscountMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getDiscountMoney());
             } else {
@@ -390,7 +390,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
             }
             //待收金额
             if (!TextUtils.isEmpty(orderDetailEntity.getReceiveAmount())) {
-                tvWaitReceiveMoney.setText(orderDetailEntity.getReceiveAmount());
+                tvWaitReceiveMoney.setText(mContext.getResources().getString(R.string.RMB_symbol) + orderDetailEntity.getReceiveAmount());
             }
             //是否存在未下单的菜品
             isExsitUnOrderedDish(orderDetailEntity);
