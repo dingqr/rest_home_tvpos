@@ -299,6 +299,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.setDishPrice(dishesEntity.getPrice());
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
+                requestAddDishEntity.isWeighDish = dishesEntity.isWeigh;
                 requestAddDishEntity.unit = (dishesEntity.isWeigh.equals("Y")) ? 1 : 0;
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
