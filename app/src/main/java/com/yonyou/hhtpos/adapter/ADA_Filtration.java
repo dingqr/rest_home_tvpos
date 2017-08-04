@@ -59,33 +59,33 @@ public class ADA_Filtration extends RecyclerView.Adapter<ADA_Filtration.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         switch (viewType){
             case DISH_TYPE:{
-                View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
+                View view = mInflater.inflate(R.layout.item_filtration_dish_type, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
             case DISH_AREA:{
-                View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
+                View view = mInflater.inflate(R.layout.item_filtration_dish_type, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
 
             case RESERVE_STATUS: {
-                View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
+                View view = mInflater.inflate(R.layout.item_filtration_dish_type, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 viewHolder.mBtn.setPadding(3,10,3,10);
                 return viewHolder;
             }
             case ORDER_RESOURCE: {
-                View view = mInflater.inflate(R.layout.item_filtration_ada_type1, viewGroup, false);
+                View view = mInflater.inflate(R.layout.item_filtration_dish_type, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;
             }
             case VIEW_TAKEOUT_TYPE: {
-                View view = mInflater.inflate(R.layout.item_filtration_ada_type2, viewGroup, false);
+                View view = mInflater.inflate(R.layout.item_filtration_wm_type, viewGroup, false);
                 ViewHolder viewHolder = new ViewHolder(view);
                 viewHolder.mBtn = (RadioButton) view.findViewById(R.id.btn_option);
                 return viewHolder;

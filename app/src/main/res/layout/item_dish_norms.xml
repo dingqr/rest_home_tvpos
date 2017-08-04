@@ -10,7 +10,8 @@
         android:button="@null"
         android:gravity="center"
         android:clickable="true"
-        android:layout_marginRight="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_10"
+        android:layout_marginBottom="@dimen/px_20"
         android:background="@drawable/bg_dish_norms_item"
         android:textColor="@drawable/text_color_filtration_selector"
         android:textSize="@dimen/sp_24"/>

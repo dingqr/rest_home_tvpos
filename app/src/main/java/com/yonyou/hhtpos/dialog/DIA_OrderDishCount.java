@@ -166,7 +166,9 @@ public class DIA_OrderDishCount implements View.OnClickListener {
             }
             //设置菜品数量
             if (!TextUtils.isEmpty(String.valueOf(dataBean.getQuantity()))) {
-                mcvDishCount.setCount(dataBean.getQuantity());
+                if (dataBean.getQuantity() != 0) {
+                    mcvDishCount.setCount(dataBean.getQuantity());
+                }
             }
             //设置手填备注
             etOtherRemark.setText(StringUtil.getString(dataBean.getRemark()));

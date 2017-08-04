@@ -44,8 +44,8 @@ import de.greenrobot.event.EventBus;
  * 外卖左侧fragment
  * 作者：liushuofei on 2017/7/6 10:46
  */
-public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,ITakeoutCompanyView,ITakeoutMarketView,
-        DIA_TakeOutOpenOrder.WmCallback,DIA_TakeOutFiltration.WMFCallback {
+public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView, ITakeoutCompanyView, ITakeoutMarketView,
+        DIA_TakeOutOpenOrder.WmCallback, DIA_TakeOutFiltration.WMFCallback {
 
     @Bind(R.id.psts_tab)
     PagerSlidingTabStrip mTab;
@@ -56,29 +56,43 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     @Bind(R.id.tv_filter)
     TextView tvFilter;
 
-    /**当前Fragment */
+    /**
+     * 当前Fragment
+     */
     private FRA_TakeOutList mCurrentFramgent;
-    /**记录前一个被选中的tab的位置 */
+    /**
+     * 记录前一个被选中的tab的位置
+     */
     private int prePosition;
 
     private TakeOutFragmentAdapter mFragmentAdapter;
     private String shopId = API.shopId;
 
-    /**外卖开单弹框外卖公司列表数据*/
+    /**
+     * 外卖开单弹框外卖公司列表数据
+     */
     private FilterItemEntity openOrderCompany;
     private ITakeoutCompanyPresenter companyPresenter;
 
 
-    /**外卖列表筛选弹框外卖公司列表数据*/
+    /**
+     * 外卖列表筛选弹框外卖公司列表数据
+     */
     private FilterItemEntity takeoutType;
 
-    /**外卖列表筛选弹框外卖市别列表数据*/
+    /**
+     * 外卖列表筛选弹框外卖市别列表数据
+     */
     private FilterItemEntity takeoutMarket;
     private ITakeoutMarketPresenter marketPresenter;
 
-    /**筛选弹框*/
-    private  DIA_TakeOutFiltration dia_takeOutFiltration;
-    /**开单弹框*/
+    /**
+     * 筛选弹框
+     */
+    private DIA_TakeOutFiltration dia_takeOutFiltration;
+    /**
+     * 开单弹框
+     */
     private DIA_TakeOutOpenOrder dia_takeOutOpenOrder;
 
     public static final int RB_ALL = 0;
@@ -87,7 +101,9 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     public static final int RB_CHECKED_OUT = 3;
     public static final int RB_REFUNDED = 4;
 
-    /**中间者 */
+    /**
+     * 中间者
+     */
     private IWMOpenOrderPresenter mTakeOutPresenter;
 
     @Override
@@ -117,26 +133,31 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
         initSlidingTab();
 
         mTakeOutPresenter = new WMOpenOrderPresenterImpl(mContext, this);
-        companyPresenter = new TakeoutCompanyPresenterImpl(mContext,this);
-        marketPresenter = new TakeoutMarketPresenterImpl(mContext,this);
+        companyPresenter = new TakeoutCompanyPresenterImpl(mContext, this);
+        marketPresenter = new TakeoutMarketPresenterImpl(mContext, this);
 
         companyPresenter.getAllTakeOutCompany(shopId);
-
 
         ivTakeOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dia_takeOutOpenOrder = new DIA_TakeOutOpenOrder(mContext,openOrderCompany);
-                dia_takeOutOpenOrder.setWmCallback(FRA_TakeOutLeft.this);
-                dia_takeOutOpenOrder.getDialog().show();
+                if (openOrderCompany != null) {
+                    dia_takeOutOpenOrder = new DIA_TakeOutOpenOrder(mContext, openOrderCompany);
+                    dia_takeOutOpenOrder.setWmCallback(FRA_TakeOutLeft.this);
+                    dia_takeOutOpenOrder.getDialog().show();
+                }else{
+                    CommonUtils.makeEventToast(mContext,mContext.getString(R.string.take_out_company_empty),false);
+                }
             }
         });
         tvFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != dia_takeOutFiltration){
+                if (null != dia_takeOutFiltration) {
                     dia_takeOutFiltration.setWmfCallback(FRA_TakeOutLeft.this);
                     dia_takeOutFiltration.getDialog().show();
+                }else{
+                    CommonUtils.makeEventToast(mContext,mContext.getString(R.string.wm_company_empty),false);
                 }
             }
         });
@@ -153,13 +174,12 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     }
 
 
-
     private void setVpAdapter() {
         mFragmentAdapter = new TakeOutFragmentAdapter(getSupportFragmentManager(), mContext);
         mViewPager.setAdapter(mFragmentAdapter);
     }
 
-    private void initSlidingTab(){
+    private void initSlidingTab() {
         mTab.setViewPager(mViewPager);
         mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_eb6247));
         TextView tabTextView = (TextView) mTab.getTabsContainer().getChildAt(prePosition); //设置默认选中第一个时为红色
@@ -212,30 +232,33 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
     @Override
     public void openOrder() {
         sendBroadcast(ReceiveConstants.WM_OPEN_ORDER_SUCCESS);
-        CommonUtils.makeEventToast(mContext,"开单成功",false);
-        Elog.e("WM_OPEN_ORDER_SUCCESS","WM_OPEN_ORDER_SUCCESS");
+        CommonUtils.makeEventToast(mContext, "开单成功", false);
+        Elog.e("WM_OPEN_ORDER_SUCCESS", "WM_OPEN_ORDER_SUCCESS");
     }
 
     @Override
     public void getAllTakeOutCompany(List<TakeoutCompanyEntity> list) {
         ArrayList<FilterOptionsEntity> filterCompanies = new ArrayList<>();
         ArrayList<FilterOptionsEntity> openOrderCompanies = new ArrayList<>();
-        if (list!=null && list.size()>0){
-            for (int i=0;i<list.size();i++){
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
                 //外卖筛选 多项选择
-                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(),list.get(i).getTakeOutCompanyId(),
-                        FiltrationUtil.TAKE_OUT_TYPE,false);
+                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(), list.get(i).getTakeOutCompanyId(),
+                        FiltrationUtil.TAKE_OUT_TYPE, false);
                 filterCompanies.add(fde);
                 //外卖开单 单项选择
-                FilterOptionsEntity market = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(),list.get(i).getTakeOutCompanyId(),
-                        FiltrationUtil.VIEW_TAKEOUT_TYPE,false);
+                FilterOptionsEntity market = new FilterOptionsEntity(list.get(i).getTakeOutCompanyName(), list.get(i).getTakeOutCompanyId(),
+                        FiltrationUtil.VIEW_TAKEOUT_TYPE, false);
                 openOrderCompanies.add(market);
             }
         }
         marketPresenter.getAllSchedule(shopId);
-        takeoutType = new FilterItemEntity(filterCompanies,"外卖类型");
-        openOrderCompany = new FilterItemEntity(openOrderCompanies,"");
-
+        if (filterCompanies != null && filterCompanies.size() > 0) {
+            takeoutType = new FilterItemEntity(filterCompanies, "外卖类型");
+        } else takeoutType = null;
+        if (openOrderCompanies != null && openOrderCompanies.size() > 0) {
+            openOrderCompany = new FilterItemEntity(openOrderCompanies, "");
+        } else openOrderCompany = null;
     }
 
     @Override
@@ -245,16 +268,20 @@ public class FRA_TakeOutLeft extends BaseFragment implements IWMOpenOrderView,IT
 
     @Override
     public void getAllTakeOutMarket(List<TakeoutMarketEntity> list) {
-        ArrayList<FilterOptionsEntity> filterOptionsEntities = new ArrayList<>();
-        if (list != null){
-            for (int i = 0;i < list.size();i++){
-                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getScheduleName(),list.get(i).getScheduleId(),
-                        FiltrationUtil.MARKET_TYPE,false);
-                filterOptionsEntities.add(fde);
+        ArrayList<FilterOptionsEntity> takeoutMarkets = new ArrayList<>();
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                FilterOptionsEntity fde = new FilterOptionsEntity(list.get(i).getScheduleName(), list.get(i).getScheduleId(),
+                        FiltrationUtil.MARKET_TYPE, false);
+                takeoutMarkets.add(fde);
             }
         }
-        takeoutMarket = new FilterItemEntity(filterOptionsEntities,"市别");
-        dia_takeOutFiltration = new DIA_TakeOutFiltration(mContext,takeoutType,takeoutMarket);
+        if (takeoutMarkets != null && takeoutMarkets.size() > 0) {
+            takeoutMarket = new FilterItemEntity(takeoutMarkets, "市别");
+            dia_takeOutFiltration = new DIA_TakeOutFiltration(mContext, takeoutType, takeoutMarket);
+        } else {
+            takeoutMarket = null;
+        }
     }
 
 

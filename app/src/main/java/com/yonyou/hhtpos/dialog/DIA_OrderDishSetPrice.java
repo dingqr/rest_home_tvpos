@@ -143,7 +143,7 @@ public class DIA_OrderDishSetPrice implements View.OnClickListener {
                 cookeryEmptyFlag = true;
                 llCookery.setVisibility(View.GONE);
             }
-            //设置菜品数量
+            //设置菜品重量
             if(dataBean.getWeight()>0){
                 iwvDishWeight.setWeight(dataBean.getWeight());
             }
