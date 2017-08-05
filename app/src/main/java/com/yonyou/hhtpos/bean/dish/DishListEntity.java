@@ -40,6 +40,9 @@ public class DishListEntity implements Serializable {
     public class Dishes implements Serializable{
 //        /**套餐详情列表 */
 //        private List<String> details;
+
+        /**退增的list */
+        private List<Abnormal> abnormalList;
         /**分类id */
         private String dishClassId;
         /**唯一标识*/
@@ -72,7 +75,10 @@ public class DishListEntity implements Serializable {
         private String orderTime;
 
         /**是否为称重菜（0：不是  1：是） */
-        private int unit;
+        //private int unit;
+
+        /**是否为称重菜 */
+        private String isWeighDish;
 
         /**id */
         private String id;
@@ -108,9 +114,6 @@ public class DishListEntity implements Serializable {
         public void setStandardId(String standardId) {
             this.standardId = standardId;
         }
-
-        /**退增的list */
-        private List<Abnormal> abnormalList;
 
         public String getDishType() {
             return dishType;
@@ -192,12 +195,12 @@ public class DishListEntity implements Serializable {
             this.listShowRemark = listShowRemark;
         }
 
-        public int getUnit() {
-            return unit;
+        public String getIsWeighDish() {
+            return isWeighDish;
         }
 
-        public void setUnit(int unit) {
-            this.unit = unit;
+        public void setIsWeighDish(String isWeighDish) {
+            this.isWeighDish = isWeighDish;
         }
 
         public String getId() {
@@ -217,7 +220,10 @@ public class DishListEntity implements Serializable {
         }
 
         public class Abnormal implements Serializable{
-            /**退增状态 */
+
+            /**退增状态(退菜：retreat， 赠菜：gift) */
+            private String dishStatus;
+            /**异常状态(退菜：retreat， 赠菜：gift) */
             private String dishAbnormalStatus;
             /**服务员姓名 */
             private String waiterName;
@@ -225,6 +231,14 @@ public class DishListEntity implements Serializable {
             private long createTime;
             /**数量 */
             private String quantity;
+
+            public String getDishStatus() {
+                return dishStatus;
+            }
+
+            public void setDishStatus(String dishStatus) {
+                this.dishStatus = dishStatus;
+            }
 
             public long getCreateTime() {
                 return createTime;

@@ -68,7 +68,7 @@ public class DIA_SwitchTable implements View.OnClickListener{
         //不使用系统软件盘输入
         disableShowInput(mCount);
         // 非称重菜
-        if (currentBean.getUnit() == 0){
+        if (currentBean.getIsWeighDish().equals("N")){
             // 最大值
             numberGridView.setMaxIntValue(getOperationalQuantity());
             // 整数
@@ -135,7 +135,7 @@ public class DIA_SwitchTable implements View.OnClickListener{
         int quantity = (int)Double.parseDouble(currentBean.getQuantity());
 
         // 非称重菜
-        if (currentBean.getUnit() == 0){
+        if (currentBean.getIsWeighDish().equals("N")){
             // 有退赠记录
             if (null != currentBean.getAbnormalList() && currentBean.getAbnormalList().size() > 0){
                 List<DishListEntity.Dishes.Abnormal> abnormalList = currentBean.getAbnormalList();

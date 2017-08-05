@@ -50,13 +50,14 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     }
     
     @Override
-    public void updateQuantity(String companyId, String id, String quantity, String shopId, String unit) {
+    public void updateQuantity(String companyId, String id, String quantity, String shopId, String isWeighDish) {
         HashMap<String,String> hashMap = new HashMap<>();
         //hashMap.put("companyId", companyId);
         hashMap.put("id", id);
         hashMap.put("quantity", quantity);
         hashMap.put("shopId", shopId);
-        hashMap.put("unit", unit);
+        hashMap.put("isWeighDish", isWeighDish);
+        //hashMap.put("unit", unit);
         RequestManager.getInstance().requestPostByAsyn(API.URL_UPDATE_DISH_QUANTITY, hashMap, new ReqCallBack<String>() {
 
             @Override
@@ -128,8 +129,9 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     }
 
     @Override
-    public void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count) {
+    public void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count) {
         HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("dishStatus", dishStatus);
         hashMap.put("dishAbnormalStatus", dishAbnormalStatus);
         hashMap.put("shopId", shopId);
         hashMap.put("count", count);

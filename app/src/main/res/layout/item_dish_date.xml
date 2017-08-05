@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px_252"
+    android:layout_height="@dimen/px_100"
+    android:background="@drawable/bg_ff_side_c7_radius_4"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_20"
+        android:text="今天"
+        android:textColor="@color/color_222222"
+        android:textSize="@dimen/sp_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_16"
+        android:text="2017.6.13"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_20" />
+
+</LinearLayout>

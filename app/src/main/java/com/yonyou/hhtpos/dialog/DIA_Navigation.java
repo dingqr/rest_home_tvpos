@@ -65,7 +65,7 @@ public class DIA_Navigation extends DIA_Base implements AdapterView.OnItemClickL
         mDialog.getWindow().setWindowAnimations(R.style.style_left_in_anim);
         mDialog.getWindow().setGravity(Gravity.LEFT);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
-        // lp.dimAmount = 0.0f; 背景灰度
+        lp.dimAmount = 0.0f; //背景灰度
         lp.width = 680; // 设置宽度
         lp.height = ScreenUtil.getScreenHeight((Activity) mContext); // 设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -88,9 +88,9 @@ public class DIA_Navigation extends DIA_Base implements AdapterView.OnItemClickL
         }
     }
 
-    @OnClick(R.id.iv_back)
+    @OnClick({R.id.iv_back, R.id.ll_root})
     public void onClick() {
-        if (null != mDialog){
+        if (null != mDialog) {
             mDialog.dismiss();
         }
     }

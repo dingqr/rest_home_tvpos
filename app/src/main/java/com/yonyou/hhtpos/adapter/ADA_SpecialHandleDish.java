@@ -52,7 +52,6 @@ public class ADA_SpecialHandleDish extends BaseAbsAdapter<DishListEntity.Dishes.
             return;
 
         // 退增标识
-
         if (!TextUtils.isEmpty(bean.getDishAbnormalStatus())){
             if (bean.getDishAbnormalStatus().equals(DishConstants.RETURN_DISH)){
                 holder.mSignIv.setImageResource(R.drawable.ic_dishes_retreat);
