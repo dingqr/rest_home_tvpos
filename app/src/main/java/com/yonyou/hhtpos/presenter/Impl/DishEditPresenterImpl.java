@@ -40,8 +40,8 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     }
 
     @Override
-    public void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count) {
-        mDishEditInteractor.specialHandleDish(dishAbnormalStatus, id, shopId, count);
+    public void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count) {
+        mDishEditInteractor.specialHandleDish(dishStatus, dishAbnormalStatus, id, shopId, count);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class LoginInteractorImpl implements ILoginInteractor{
         hashMap.put("mobileNo",StringUtil.getString(mobileNo));
         hashMap.put("password",StringUtil.getString(password));
         hashMap.put("shopId",StringUtil.getString(shopId));
+//        hashMap.put("shopId","");
 
         RequestManager.getInstance().requestPostByAsyn(API.URL_PASSPORT_LOGIN, hashMap, new ReqCallBack<UserEntity>() {
             @Override

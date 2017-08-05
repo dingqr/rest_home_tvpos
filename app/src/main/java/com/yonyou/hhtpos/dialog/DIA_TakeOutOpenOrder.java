@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -49,10 +50,11 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
     /**
      * 界面控件
      */
+    private TextView mTitleText;
+    private ImageView mCloseImg;
     private RadioButton rbReserveTime;
     private RadioButton rbRightNow;
     private RadioButton rbConfirmOpenOrder;
-    private ImageButton ibClose;
     private FiltrationView filtrationView;
     private FilterItemEntity takeoutCompanies;
     private ScrollView scrollView;
@@ -88,11 +90,13 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_take_out_open_order, null);
         mDialog.setContentView(mContentView);
 
+        mTitleText = (TextView) mContentView.findViewById(R.id.tv_dialog_title);
+        mCloseImg = (ImageView) mContentView.findViewById(R.id.iv_close);
+
         filtrationView = (FiltrationView) mContentView.findViewById(R.id.fv_order_source);
         rbReserveTime = (RadioButton) mContentView.findViewById(R.id.rb_reserve_time);
         rbRightNow = (RadioButton) mContentView.findViewById(R.id.rb_right_now);
         rbConfirmOpenOrder = (RadioButton) mContentView.findViewById(R.id.rb_confirm_open_order);
-        ibClose = (ImageButton) mContentView.findViewById(R.id.ib_close);
         etSelectDeliverTime = (TextView) mContentView.findViewById(R.id.et_select_deliver_time);
         scrollView = (ScrollView) mContentView.findViewById(R.id.sv_content);
 
@@ -101,11 +105,13 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         etEnterReceiverAddress = (EditText) mContentView.findViewById(R.id.et_enter_receiver_address);
         etDinnerNumber = (EditText) mContentView.findViewById(R.id.et_dinner_number);
 
-        ibClose.setOnClickListener(this);
+        mTitleText.setText(mContext.getString(R.string.take_out_open_order));
+
         rbReserveTime.setOnClickListener(this);
         rbRightNow.setOnClickListener(this);
         etSelectDeliverTime.setOnClickListener(this);
         rbConfirmOpenOrder.setOnClickListener(this);
+        mCloseImg.setOnClickListener(this);
 
         filtrationView.setData(takeoutCompanies);
     }
@@ -113,11 +119,12 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ib_close:
-                if (mDialog != null) {
+            case R.id.iv_close:
+                if (null != mDialog){
                     mDialog.dismiss();
                 }
                 break;
+
             case R.id.rb_reserve_time:
                 scrollView.scrollTo(300, 1080);
                 etSelectDeliverTime.setVisibility(View.VISIBLE);

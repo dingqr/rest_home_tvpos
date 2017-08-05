@@ -111,12 +111,14 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
         holder.mDishesPrice.setText(mContext.getString(R.string.RMB_symbol) + bean.getDishPrice());
 
         // 不是称重菜
-        if (bean.getUnit() == 0){
-            // 数量
-            holder.mDishesCount.setText(mContext.getString(R.string.multiply) + (int)Double.parseDouble(bean.getQuantity()));
-        }else if (bean.getUnit() == 1){
-            // 斤
-            holder.mDishesCount.setText(bean.getQuantity() + mContext.getString(R.string.dish_weight_unit));
+        if (!TextUtils.isEmpty(bean.getIsWeighDish())){
+            if (bean.getIsWeighDish().equals("N")){
+                // 数量
+                holder.mDishesCount.setText(mContext.getString(R.string.multiply) + (int)Double.parseDouble(bean.getQuantity()));
+            }else if (bean.getIsWeighDish().equals("Y")){
+                // 斤
+                holder.mDishesCount.setText(bean.getQuantity() + mContext.getString(R.string.dish_weight_unit));
+            }
         }
 
         // 备注

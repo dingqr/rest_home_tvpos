@@ -36,12 +36,13 @@ public interface IDishEditInteractor {
 
     /**
      * 退菜和赠菜的接口
+     * @param dishStatus 菜品状态
      * @param dishAbnormalStatus 异常状态
      * @param id 点菜菜单id
      * @param shopId
      * @param count 数量
      */
-    void specialHandleDish(String dishAbnormalStatus, String id, String shopId, String count);
+    void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count);
 
     /**
      * 称重确认接口

@@ -75,7 +75,7 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
         }
 
         // 0:不是称重菜  1：是称重菜
-        if (pos == 1 && bean.getUnit() == 0){
+        if (pos == 1 && !TextUtils.isEmpty(bean.getIsWeighDish()) && bean.getIsWeighDish().equals("N")){
             holder.mOperationTxt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_dishes_edit_selected_no));
             holder.mOperationTxt.setTextColor(mContext.getResources().getColor(R.color.color_999999));
             holder.mOperationTxt.setEnabled(false);
