@@ -111,6 +111,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private int scrollOffset = 52;
     private int indicatorHeight = 2;
+
     private int indicatorPadding = 50; // 指示indicator距左右两侧padding值
     private int underlineHeight = 0;//tab下方分割线高度
     private int dividerPadding = 12;//竖直分割线的padding
@@ -197,7 +198,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         dividerPaint.setStrokeWidth(dividerWidth);
 
         defaultTabLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT, 1.0f);
-        expandedTabLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f);
+//        expandedTabLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f);
+        expandedTabLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT + 500, 1.0f);
 
         if (locale == null) {
             locale = getResources().getConfiguration().locale;
@@ -313,7 +315,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                 if (isClickAble()) {
                     tab.setFocusable(true);
                     pager.setCurrentItem(position);
-                }else{
+                } else {
                     tab.setFocusable(false);
                 }
             }

@@ -27,6 +27,7 @@ import com.yonyou.hhtpos.presenter.ITSFiltrateTableListPresenter;
 import com.yonyou.hhtpos.presenter.ITSTableAreaPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TSFiltrateTableListPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TSTableAreaPresenterImpl;
+import com.yonyou.hhtpos.ui.mine.ACT_PersonalCenter;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.ITSFiltrateTableView;
 import com.yonyou.hhtpos.view.ITSTableAreaListView;
@@ -64,6 +65,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     TextView tvClearTable;
     @Bind(R.id.tv_login_shop)
     TextView tvLoginShop;
+    @Bind(R.id.iv_user_logo)
+    ImageView userLogo;
 
     private ADA_MealArea mAdapter;
     private CanteenFragmentAdapter mCanteenFragmentAdapter;
@@ -71,11 +74,12 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private String shopId = Constants.SHOP_ID;
 
 
-    public static final int RB_FREE = 0;
-    public static final int RB_SETTLE = 1;
+    public static final int RB_TOTAL = 0;
+    public static final int RB_FREE = 1;
     public static final int RB_BOOK = 2;
     public static final int RB_OCCUPY = 3;
-    public static final int RB_LOCKED = 4;
+    public static final int RB_SETTLE = 4;
+    public static final int RB_LOCKED = 5;
 
     private String tableOption;
 
@@ -152,6 +156,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         tvMergeTable.setOnClickListener(this);
         tvSplitTable.setOnClickListener(this);
         tvClearTable.setOnClickListener(this);
+        userLogo.setOnClickListener(this);
     }
 
     private boolean checkAbandonFlag() {
@@ -180,7 +185,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_eb6247));
         tabTextView = (TextView) mTab.getTabsContainer().getChildAt(prePosition); //设置默认选中第一个时为红色
         tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
-
+        if (prePosition == 3){
+            mTab.setShouldExpand(true);
+        }
         mTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -269,7 +276,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                 dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
                 dia_navigation.getDialog().show();
                 break;
-
+            case R.id.iv_user_logo:
+                readyGo(ACT_PersonalCenter.class);
+                break;
             case R.id.tv_table_turn:
                 // 转台按钮变成放弃，并台、转台、清台按钮置灰并且不可点。
                 // top导航不可点击，默认选中的红线消失，选项置灰。
@@ -491,10 +500,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     public void getFiltrateTable(List<CanteenTableEntity> tableList) {
-        Elog.e("tableList.size==", tableList.size() + "EventBusSend");
-
-        EventBus.getDefault().post(tableList);
+        Elog.e("tableList.size==", tableList.size() + "-------EventBusSend");
         EventBus.getDefault().post(tableOption);
+        EventBus.getDefault().post(tableList);
+
     }
 
     public void setTableOption(String tableOption) {
@@ -503,7 +512,6 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     public void getTableAreaList(List<MealAreaEntity> mealAreas) {
-
         if (mealAreas != null && mealAreas.size() > 0) {
             mealAreaList.addAll(mealAreas);
         }

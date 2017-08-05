@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
+import com.yonyou.hhtpos.ui.mine.ACT_PersonalCenter;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
 
@@ -32,6 +33,8 @@ public abstract class ACT_BaseSimple extends BaseActivity implements View.OnClic
     ImageView mMenuImg;
     @Bind(R.id.tv_login_shop)
     TextView tvLoginShop;
+    @Bind(R.id.iv_user_logo)
+    ImageView userLogo;
 
     /**左侧导航栏 */
     private DIA_Navigation dia_navigation;
@@ -58,6 +61,7 @@ public abstract class ACT_BaseSimple extends BaseActivity implements View.OnClic
         transaction.commitAllowingStateLoss();
 
         mMenuImg.setOnClickListener(this);
+        userLogo.setOnClickListener(this);
 
         sharePre = new AppSharedPreferences(this);
         String shopName = sharePre.getString(SpUtil.SHOP_NAME);
@@ -71,7 +75,9 @@ public abstract class ACT_BaseSimple extends BaseActivity implements View.OnClic
                 dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
                 dia_navigation.getDialog().show();
                 break;
-
+            case R.id.iv_user_logo:
+                readyGo(ACT_PersonalCenter.class);
+                break;
             default:
                 break;
         }

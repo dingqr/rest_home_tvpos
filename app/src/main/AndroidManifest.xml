@@ -119,6 +119,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--个人中心页面 -->
+        <activity
+            android:name=".ui.mine.ACT_PersonalCenter"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
         <!--会员页面 -->
         <activity
             android:name=".ui.member.ACT_Member"

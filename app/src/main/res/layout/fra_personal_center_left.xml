@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_mine"
+    android:orientation="vertical">
+
+
+    <com.yonyou.hhtpos.widgets.CircleImageView
+        android:id="@+id/cir_user_head_image"
+        android:layout_width="@dimen/px_130"
+        android:layout_height="@dimen/px_130"
+        android:layout_marginLeft="@dimen/px_276"
+        android:layout_marginTop="@dimen/px_6"
+        android:src="@drawable/ic_user_default" />
+
+
+</RelativeLayout>

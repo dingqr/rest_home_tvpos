@@ -114,7 +114,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onFirstUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -123,7 +123,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -187,36 +187,40 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
         Bundle mArgument = getArguments();
         if (null != mArgument) {
-            switchStatus(mArgument.getInt(TYPE, ACT_Canteen.RB_FREE));
+            switchStatus(mArgument.getInt(TYPE, ACT_Canteen.RB_TOTAL));
         }
     }
 
     /**
-     * 桌台状态0 空闲 ，1 占用（消费中），2 占用（部分支付），3 占用（锁定），4 占用（结清），5 预订，传（1,2，3,4）为查询占用，不传默认查询全部
+     * 桌台状态 空为全部 0 空闲 ，1 占用（消费中），2 占用（部分支付），8 占用（锁定），9占用（结清），3 预订，传（6,7,8,9,10）为查询占用，不传默认查询全部
      *
      * @param state 每个tab对应的值
      */
     private void switchStatus(int state) {
         switch (state) {
+            //全部
+            case ACT_Canteen.RB_TOTAL:
+                mTableState = null;
+                break;
             //空闲
             case ACT_Canteen.RB_FREE:
                 mTableState = "0";
                 break;
             //结清
             case ACT_Canteen.RB_SETTLE:
-                mTableState = "4";
+                mTableState = "9";
                 break;
             //预定
             case ACT_Canteen.RB_BOOK:
-                mTableState = "5";
+                mTableState = "3";
                 break;
             //占用
             case ACT_Canteen.RB_OCCUPY:
-                mTableState = "1,2,3,4";
+                mTableState = "6,7,8,9,10";
                 break;
             //锁定
             case ACT_Canteen.RB_LOCKED:
-                mTableState = "3";
+                mTableState = "8";
                 break;
         }
     }
@@ -248,7 +252,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             mSwiperefreshLayout.setRefreshing(false);
         }
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTableListPresenter.requestTableList(diningAreaRelateId, Constants.SHOP_ID, mTableState);
+            mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
         } else {
             CommonUtils.makeEventToast(mContext, getString(R.string.network_error), false);
         }
@@ -267,7 +271,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     dia_openOrder.getDialog().show();
                     break;
                 //桌台占用，订单服务中
-                case 1:
+                case 6:
                     if (tableOption.equals("3")) {
                         DIA_OpenOrder dia_openOrderSplit = new DIA_OpenOrder(mContext);
                         canteenTableEntity.setTableOption(3);
@@ -284,7 +288,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     }
                     break;
                //桌台占用，筛选已结清的账单
-                case 4:
+                case 9:
                     if(tableOption.equals("4")){
                     //桌台占用，订单清台中
                     DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
@@ -298,7 +302,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 }
                     break;
                 //桌台预定 弹出预订单开单对话框
-                case 5:
+                case 3:
                     DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
                     dia_reserveOpenOrder.setData(canteenTableEntity, mWaiterList);
                     dia_reserveOpenOrder.setTsCallback(FRA_CanteenTableList.this);
@@ -446,7 +450,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onUpdateAreaId(String diningAreaRelateId) {
-        if (diningAreaRelateId != null) {
+        if (diningAreaRelateId != null && getUserVisibleHint()) {
             this.diningAreaRelateId = diningAreaRelateId;
             onRefresh();
         }
