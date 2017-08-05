@@ -271,7 +271,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     dia_openOrder.getDialog().show();
                     break;
                 //桌台占用，订单服务中
-                case 1:
+                case 6:
                     if (tableOption.equals("3")) {
                         DIA_OpenOrder dia_openOrderSplit = new DIA_OpenOrder(mContext);
                         canteenTableEntity.setTableOption(3);
@@ -288,7 +288,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     }
                     break;
                //桌台占用，筛选已结清的账单
-                case 4:
+                case 9:
                     if(tableOption.equals("4")){
                     //桌台占用，订单清台中
                     DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
@@ -302,7 +302,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 }
                     break;
                 //桌台预定 弹出预订单开单对话框
-                case 5:
+                case 3:
                     DIA_ReserveOpenOrder dia_reserveOpenOrder = new DIA_ReserveOpenOrder(mContext);
                     dia_reserveOpenOrder.setData(canteenTableEntity, mWaiterList);
                     dia_reserveOpenOrder.setTsCallback(FRA_CanteenTableList.this);

@@ -13,6 +13,7 @@ import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
+import com.yonyou.hhtpos.ui.mine.ACT_PersonalCenter;
 import com.yonyou.hhtpos.util.Constants;
 
 import butterknife.Bind;
@@ -33,6 +34,9 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
     LinearLayout layoutRoot;
     @Bind(R.id.tv_login_shop)
     TextView tvLoginShop;
+    @Bind(R.id.iv_user_logo)
+    ImageView userLogo;
+
     /**左侧导航栏 */
     private DIA_Navigation dia_navigation;
 
@@ -65,6 +69,7 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
         rightTrans.commitAllowingStateLoss();
 
         mMenuImg.setOnClickListener(this);
+        userLogo.setOnClickListener(this);
     }
 
     @Override
@@ -74,7 +79,9 @@ public abstract class ACT_BaseMultiple extends BaseActivity implements View.OnCl
                 dia_navigation = new DIA_Navigation(mContext, MyApplication.dataList);
                 dia_navigation.getDialog().show();
                 break;
-
+            case R.id.iv_user_logo:
+                readyGo(ACT_PersonalCenter.class);
+                break;
             default:
                 break;
         }
