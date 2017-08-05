@@ -125,6 +125,13 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--会员页面 -->
+        <activity
+            android:name=".ui.member.ACT_Member"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>

@@ -18,17 +18,17 @@ import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutDetail;
 public class ACT_Member extends ACT_BaseMultiple implements View.OnClickListener {
 
     private FRA_MemberList mLeftContent;
-    private FRA_TakeOutDetail mRightContent;
+    private FRA_MemberDetail mRightContent;
 
     @Override
     protected void initView() {
         mLeftContent = new FRA_MemberList();
-        mRightContent = new FRA_TakeOutDetail();
+        mRightContent = new FRA_MemberDetail();
     }
 
     @Override
     protected float getLeftWeight() {
-        return 0.66f;
+        return 0.51f;
     }
 
     @Override

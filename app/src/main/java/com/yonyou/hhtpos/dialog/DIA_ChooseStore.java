@@ -123,4 +123,7 @@ public class DIA_ChooseStore {
         void onChooseStore(StoreEntity storeName, int position);
     }
 
+    public ADA_ChooseStore getAdapter() {
+        return adapter;
+    }
 }

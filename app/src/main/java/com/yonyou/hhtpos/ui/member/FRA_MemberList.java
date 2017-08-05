@@ -1,12 +1,14 @@
 package com.yonyou.hhtpos.ui.member;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
+import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
@@ -40,6 +42,7 @@ public class FRA_MemberList extends BaseFragment implements SwipeRefreshLayout.O
     private ADA_MemberList mAdapter;
     private LuRecyclerViewAdapter mLuRecyclerViewAdapter;
     private ArrayList<MemberEntity> datas = new ArrayList<>();
+
     @Override
     protected void onFirstUserVisible() {
 
@@ -75,8 +78,8 @@ public class FRA_MemberList extends BaseFragment implements SwipeRefreshLayout.O
 
         mAdapter = new ADA_MemberList(mContext);
         //设置LayoutManager必须在设置setAdapter之前
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mColumnNum);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         //setAdapter
         mLuRecyclerViewAdapter = new LuRecyclerViewAdapter(mAdapter);
         mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
@@ -88,16 +91,28 @@ public class FRA_MemberList extends BaseFragment implements SwipeRefreshLayout.O
             }
         });
         //设置底部加载颜色-
-        mRecyclerView.setFooterViewColor(R.color.colorAccent, R.color.dark, R.color.color_dcdcdc);
+        mRecyclerView.setFooterViewColor(R.color.color_eb6247, R.color.color_999999, R.color.color_FFFFFF);
         //设置底部加载文字提示
         mRecyclerView.setFooterViewHint(mContext.getResources().getString(R.string.loading_note), mContext.getResources().getString(R.string.no_more_note), "");
         mRecyclerView.setHasFixedSize(true);
 
+        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                mAdapter.setSelectItem(position);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
         for (int i = 0; i < 30; i++) {
             MemberEntity memberEntity = new MemberEntity();
             datas.add(memberEntity);
         }
-        mAdapter.update(datas,true);
+        mAdapter.update(datas, true);
     }
 
     @Override

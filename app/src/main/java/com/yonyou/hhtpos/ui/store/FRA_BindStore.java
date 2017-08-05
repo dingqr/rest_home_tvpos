@@ -12,19 +12,14 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
-import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.common.utils.AppSharedPreferences;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.StoreEntity;
 import com.yonyou.hhtpos.dialog.DIA_ChooseStore;
-import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IGetAllShopsPresenter;
 import com.yonyou.hhtpos.presenter.Impl.GetAllShopsPresenterImpl;
-import com.yonyou.hhtpos.ui.home.ACT_Home;
 import com.yonyou.hhtpos.ui.login.ACT_Login;
-import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.SpUtil;
 import com.yonyou.hhtpos.view.IGetAllShopsView;
 
@@ -51,6 +46,9 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
     private AppSharedPreferences sharePre;
     private String shopId;
     private String shopName;
+    //当前选中的门店位置
+    private int mSelectPos;
+
 
     /**
      * 获取所有门店
@@ -93,6 +91,7 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
             diaChooseStore = new DIA_ChooseStore(mContext, new DIA_ChooseStore.OnChooseStoreListener() {
                 @Override
                 public void onChooseStore(StoreEntity shop, int poition) {
+                    mSelectPos = poition;
                     tvStoreName.setText(shop.shopName);
                     shopId = shop.id;
                     shopName = shop.shopName;
@@ -124,6 +123,9 @@ public class FRA_BindStore extends BaseFragment implements IGetAllShopsView {
             case R.id.choose_store:
                 if (shopList != null && shopList.size() > 0) {
                     diaChooseStore.setData(shopList);
+                    //设置选中之前选中的门店
+                    diaChooseStore.getAdapter().setSelectItem(mSelectPos);
+                    diaChooseStore.getAdapter().notifyDataSetChanged();
                     diaChooseStore.show();
                 }else{
                     mGetAllShopsPresenter.getAllShops("");
