@@ -23,7 +23,7 @@
 
         <com.yonyou.hhtpos.widgets.PagerSlidingTabStrip
             android:id="@+id/psts_tab"
-            android:layout_width="@dimen/px_1720"
+            android:layout_width="@dimen/px_1000"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             app:pstsDividerColor="@color/color_e3e3e5"

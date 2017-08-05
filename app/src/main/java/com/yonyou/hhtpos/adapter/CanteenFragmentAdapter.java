@@ -15,7 +15,7 @@ import com.yonyou.hhtpos.ui.dinner.ts.FRA_CanteenTableList;
  * 邮箱：lsf@yonyou.com
  */
 public class CanteenFragmentAdapter extends FragmentPagerAdapter {
-    public final static int TAB_COUNT = 5;
+    public final static int TAB_COUNT = 6;
 
     private Context mContext;
     private final String[] TITLES;
@@ -23,7 +23,12 @@ public class CanteenFragmentAdapter extends FragmentPagerAdapter {
     public CanteenFragmentAdapter(FragmentManager fragmentManager, Context context) {
         super(fragmentManager);
         this.mContext = context;
-        TITLES = new String[]{ mContext.getString(R.string.free), mContext.getString(R.string.settle), mContext.getString(R.string.book), mContext.getString(R.string.occupy), mContext.getString(R.string.locked)};
+        TITLES = new String[]{mContext.getString(R.string.total),
+                mContext.getString(R.string.free),
+                mContext.getString(R.string.book),
+                mContext.getString(R.string.occupy),
+                mContext.getString(R.string.settle),
+                mContext.getString(R.string.locked)};
     }
 
     @Override
@@ -34,16 +39,18 @@ public class CanteenFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int id) {
         switch (id) {
-            case ACT_Canteen.RB_FREE:
+            case ACT_Canteen.RB_TOTAL:
                 return FRA_CanteenTableList.newInstance(0);
-            case ACT_Canteen.RB_SETTLE:
+            case ACT_Canteen.RB_FREE:
                 return FRA_CanteenTableList.newInstance(1);
             case ACT_Canteen.RB_BOOK:
                 return FRA_CanteenTableList.newInstance(2);
             case ACT_Canteen.RB_OCCUPY:
                 return FRA_CanteenTableList.newInstance(3);
-            case ACT_Canteen.RB_LOCKED:
+            case ACT_Canteen.RB_SETTLE:
                 return FRA_CanteenTableList.newInstance(4);
+            case ACT_Canteen.RB_LOCKED:
+                return FRA_CanteenTableList.newInstance(5);
             default:
                 break;
         }
