@@ -438,6 +438,7 @@
     <string name="enter_original_password">请输入原密码</string>
     <string name="enter_new_password">请输入新密码</string>
     <string name="enter_verify_new_password">请确认新密码</string>
+    <string name="more_daily_data">更多日结数据，请登录商家后台查询</string>
 
 
 
@@ -450,18 +451,6 @@
     <string name="string_update_user_info">修改个人资料</string>
     <string name="string_card_activation">电子卡激活</string>
     <string name="string_transaction_record">交易记录</string>
-    <!--<string name="personal_center">晚市</string>-->
-    <!--<string name="personal_center">天未结</string>-->
-    <!--<string name="personal_center">退出当前账户</string>-->
-    <!--<string name="personal_center">服务热线：400-0000-0000</string>-->
-    <!--<string name="personal_center">红火台餐饮云服务有限公司提供服务</string>-->
-    <!--<string name="personal_center">交班人</string>-->
-    <!--<string name="personal_center">待上交的现金及票据</string>-->
-    <!--<string name="personal_center">现金</string>-->
-    <!--<string name="personal_center">银行卡</string>-->
-    <!--<string name="personal_center">会员卡</string>-->
-    <!--<string name="personal_center">添加收款类型</string>-->
-    <!--<string name="personal_center">马上交班</string>-->
-    <!--<string name="personal_center">至</string>-->
+
 
 </resources>

@@ -495,6 +495,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void onUpdateTableOption(String tableOption) {
         if (tableOption != null) {
             this.tableOption = tableOption;
+            if (tableOption.equals("99")){
+                mSwiperefreshLayout.setEnabled(true);
+            }else{
+                mSwiperefreshLayout.setEnabled(false);
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import com.yonyou.hhtpos.bean.dish.DishPracticeEntity;
 import com.yonyou.hhtpos.bean.dish.DishRemarkEntity;
 import com.yonyou.hhtpos.bean.dish.DishStandardEntity;
 import com.yonyou.hhtpos.bean.mine.CashTypeEntity;
+import com.yonyou.hhtpos.bean.mine.DailyAccountEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -570,7 +571,21 @@ public class FiltrationUtil {
 
         return cashTypeEntities;
     }
+    public static ArrayList<DailyAccountEntity> getDailyAccounts() {
+        ArrayList<DailyAccountEntity> dailyAccountEntities = new ArrayList<>();
+        DailyAccountEntity dae1 = new DailyAccountEntity("2017-05-31 8:00~20:00", "我要结算");
+        DailyAccountEntity dae2 = new DailyAccountEntity("2017-06-02 8:00~20:00", "我要结算");
+        DailyAccountEntity dae3 = new DailyAccountEntity("2017-06-03 8:00~20:00", "经营情况查询");
+        DailyAccountEntity dae4 = new DailyAccountEntity("2017-06-04 8:00~20:00", "经营情况查询");
 
+        dailyAccountEntities.add(dae1);
+        dailyAccountEntities.add(dae2);
+        dailyAccountEntities.add(dae3);
+        dailyAccountEntities.add(dae4);
+
+
+        return dailyAccountEntities;
+    }
 }
 
 //        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度

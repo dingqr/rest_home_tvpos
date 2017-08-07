@@ -182,7 +182,9 @@
     <dimen name="px_862">574.6dp</dimen>
     <dimen name="px_890">593.3dp</dimen>
     <dimen name="px_948">632dp</dimen>
+    <dimen name="px_324">216dp</dimen>
     <dimen name="px_950">633.3dp</dimen>
+    <dimen name="px_162">108dp</dimen>
     <dimen name="px_246">164dp</dimen>
     <dimen name="px_970">646.6dp</dimen>
     <dimen name="px_1010">673.3dp</dimen>

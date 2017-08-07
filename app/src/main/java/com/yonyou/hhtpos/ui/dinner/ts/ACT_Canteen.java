@@ -324,9 +324,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     mAdapter.enableItemChooser();
 
                     setTopTab(true);
-
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     // 重置桌台列表
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
+
                 }
                 break;
 
@@ -367,6 +369,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvClearTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     setTopTab(true);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
@@ -411,6 +415,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.enableItemChooser();
                     setTopTab(true);
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
                 break;
@@ -451,6 +457,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvSplitTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     setTopTab(true);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
@@ -513,7 +521,6 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         Elog.e("tableList.size==", tableList.size() + "-------EventBusSend");
         EventBus.getDefault().post(tableOption);
         EventBus.getDefault().post(tableList);
-
     }
 
     public void setTableOption(String tableOption) {
