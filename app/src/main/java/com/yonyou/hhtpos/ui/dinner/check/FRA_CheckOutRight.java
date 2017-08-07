@@ -192,9 +192,9 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
      */
     private void handlePayStatus(RequestPayEntity requestPayEntity) {
         switch (payStatus) {
-            //部分支付
+            //未支付
             case 1:
-                mSettleAccountPresenter.settleAccount(API.compId, "", Constants.SHOP_ID, tableBillId, requestPayEntity);
+                mPresenter.queryBillInfo(API.compId, Constants.SHOP_ID, tableBillId, true, requestPayEntity);
                 break;
             //支付完成
             case 2:
@@ -202,9 +202,9 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
             //已退款
             case 3:
                 break;
-            //未支付
+            //部分支付
             case 4:
-                mPresenter.queryBillInfo(API.compId, Constants.SHOP_ID, tableBillId, true, requestPayEntity);
+                mSettleAccountPresenter.settleAccount(API.compId, "", Constants.SHOP_ID, tableBillId, requestPayEntity);
                 break;
         }
 
