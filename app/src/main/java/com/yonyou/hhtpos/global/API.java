@@ -15,7 +15,7 @@ public class API {
 //    public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
 //    public static final String shopId = "C13352966C000000A60000000016E000";
 
-//    // 测试环境
+    // 测试环境
     public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
     public static final String compId = "2323";
     public static final String shopId = "C60D375FDC0000009200000000000000";

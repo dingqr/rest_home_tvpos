@@ -323,7 +323,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     @Override
     public void requestWDOrderDetail(WDOrderDetailEntity orderDetailEntity) {
         if (orderDetailEntity != null) {
-            if (orderDetailEntity.payStatus != null) {
+            if (orderDetailEntity.payStatus != null && !orderDetailEntity.payStatus.equals("Y") && !orderDetailEntity.payStatus.equals("N")) {
                 payStatus = Integer.parseInt(orderDetailEntity.payStatus);
             }
 

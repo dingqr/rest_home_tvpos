@@ -303,7 +303,7 @@
     <string name="open_order_success">开单成功</string>
 
     <!-- 外带-->
-    <string name="packing_order_no_data">今天还没有外订单哦~</string>
+    <string name="packing_order_no_data">今天还没有外带订单哦~</string>
 
     <!--结账 -->
     <string name="consumption_total">消费总计</string>

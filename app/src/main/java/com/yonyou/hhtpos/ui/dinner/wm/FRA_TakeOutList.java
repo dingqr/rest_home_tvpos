@@ -103,7 +103,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     @Override
     protected void onUserVisible() {
         if (NetUtils.isNetworkConnected(mContext)) {
-            mTakeOutListPresenter.requestTakeOutList(bean, true, true);
+            mTakeOutListPresenter.requestTakeOutList(bean, true, false);
         } else {
             // reset refresh state
             if (null != srlTakeOut) {

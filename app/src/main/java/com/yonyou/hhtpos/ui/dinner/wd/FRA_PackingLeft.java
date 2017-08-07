@@ -30,6 +30,8 @@ public class FRA_PackingLeft extends BaseFragment implements View.OnClickListene
     PagerSlidingTabStrip mTab;
     @Bind(R.id.iv_order_dish)
     ImageView mDishImg;
+    @Bind(R.id.tv_filter)
+    TextView mSearchTxt;
 
     /**当前Fragment */
     private FRA_PackingList mCurrentFramgent;
@@ -41,11 +43,6 @@ public class FRA_PackingLeft extends BaseFragment implements View.OnClickListene
     public static final int RB_ALL = 0;
     public static final int RB_OUT_STANDING = 1;
     public static final int RB_CHECKED_OUT = 2;
-
-    /**中间者 */
-    private IWDOpenOrderPresenter mPackingLeftPresenter;
-
-    private String shopId = "C13352966C000000A60000000016E000";
 
     @Override
     protected void onFirstUserVisible() {
@@ -73,8 +70,8 @@ public class FRA_PackingLeft extends BaseFragment implements View.OnClickListene
 
         initSlidingTab();
 
-        //mPackingLeftPresenter = new WDOpenOrderPresenterImpl(mContext, this);
         mDishImg.setOnClickListener(this);
+        mSearchTxt.setOnClickListener(this);
     }
 
     private void setVpAdapter() {
@@ -132,24 +129,18 @@ public class FRA_PackingLeft extends BaseFragment implements View.OnClickListene
 
     }
 
-//    @Override
-//    public void openOrder() {
-//        CommonUtils.makeEventToast(mContext, mContext.getString(R.string.open_order_success), false);
-//        sendBroadcast(ReceiveConstants.WD_OPEN_ORDER_SUCCESS);
-//    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_order_dish:
-                // 开单操作在下单的时候，后台处理
-//                DIA_WDOpenOrder dia_wdOpenOrder = new DIA_WDOpenOrder(mContext, this);
-//                dia_wdOpenOrder.getDialog().show();
-
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ACT_OrderDishes.FROM_WD, true);
                 bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WD);
                 readyGo(ACT_OrderDishes.class, bundle);
+                break;
+
+            case R.id.tv_filter:
+                ((ACT_Packing)getActivity()).switchToSearch();
                 break;
 
             default:
@@ -157,17 +148,4 @@ public class FRA_PackingLeft extends BaseFragment implements View.OnClickListene
         }
     }
 
-//    @Override
-//    public void confirm(String dinnerCount, String phone) {
-//        OpenOrderEntity bean = new OpenOrderEntity();
-//        bean.setPersonNum(dinnerCount);
-////        bean.setMobileNo(phone);
-//        bean.setMobileNo("13671205992");
-//        bean.setShopId("hht");
-//        bean.setTableId("0001");
-//        bean.setWaiterId("0001");
-//        bean.setWaiterName("王五");
-//        bean.setSalesMode(SalesModeConstants.SALES_MODE_WD);
-//        mPackingLeftPresenter.openOrder(bean);
-//    }
 }
