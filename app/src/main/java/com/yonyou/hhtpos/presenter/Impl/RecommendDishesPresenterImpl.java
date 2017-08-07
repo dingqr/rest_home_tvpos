@@ -27,18 +27,10 @@ public class RecommendDishesPresenterImpl implements IRecommendDishPresenter {
         this.mDishesView = dishesView;
         mRecommendDishInteractor = new RecommendDishInteractorImpl(new RecommendDishListener());
     }
-
-    /**
-     * 获取菜品/菜类
-     *
-     * @param compId
-     * @param shopId
-     * @param saleManner 销售模式：1：堂食 2：外带 3：外卖
-     */
     @Override
-    public void getRecommendDishes(String compId, String shopId, int saleManner) {
+    public void getRecommendDishes(String shopId) {
         mDishesView.showLoading(mContext.getResources().getString(R.string.common_loading_message));
-        mRecommendDishInteractor.getRecommendDishes(compId, shopId, saleManner);
+        mRecommendDishInteractor.getRecommendDishes(shopId);
     }
 
     private class RecommendDishListener implements BaseLoadedListener<RecommendDataEntity> {

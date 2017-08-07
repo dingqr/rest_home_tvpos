@@ -64,7 +64,7 @@ public class RecommendDataEntity implements Serializable {
     public List<DishTastesEntity> tastes;
 
     public String price;
-    public String saleManner;
+//    public String saleManner;
 
     private class RecommendDishList {
         public RecommendDishList() {

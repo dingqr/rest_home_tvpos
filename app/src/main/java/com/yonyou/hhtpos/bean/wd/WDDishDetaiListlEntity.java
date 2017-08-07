@@ -49,6 +49,10 @@ public class WDDishDetaiListlEntity implements Serializable {
      * 菜品规格
      */
     public String standardName;
+    /**
+     * 菜品状态：菜品状态:赠菜=3，退菜=4，折扣=10
+     */
+    public String dishAbnormalStatus;
 
     public String getDishPrice() {
         return StringUtil.getFormattedMoney(dishPrice);
@@ -78,6 +82,7 @@ public class WDDishDetaiListlEntity implements Serializable {
                 ", dishType='" + dishType + '\'' +
                 ", quantity='" + quantity + '\'' +
                 ", standardName='" + standardName + '\'' +
+                ", dishAbnormalStatus='" + dishAbnormalStatus + '\'' +
                 '}';
     }
 }
