@@ -175,7 +175,7 @@
                             android:id="@+id/tv_wait_receive_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="sdsads"
+                            android:text="￥0.00"
                             android:textColor="@color/color_eb6247"
                             android:textSize="@dimen/sp_30" />
                     </LinearLayout>

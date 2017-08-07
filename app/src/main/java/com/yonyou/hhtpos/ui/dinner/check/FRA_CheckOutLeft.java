@@ -220,7 +220,7 @@ public class FRA_CheckOutLeft extends BaseFragment {
                 mAdapter.update(dataBean.orderDishes);
             }
             //如果账单是部分支付，隐藏掉去点菜的入口
-            if (dataBean.payStatus != null && dataBean.payStatus.equals("1")) {
+            if (dataBean.payStatus != null && dataBean.payStatus.equals("4")) {
                 tvGoToOrder.setVisibility(View.GONE);
             } else {
                 tvGoToOrder.setVisibility(View.VISIBLE);
