@@ -277,12 +277,80 @@
             android:layout_height="@dimen/px_140"
             android:src="@drawable/ic_user_default" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="王小米"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/px_30"
+                android:text="王小米"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_32" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/px_10"
+                android:drawableRight="@drawable/ic_modify_user_info"
+                android:text="13877637672"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_26" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/px_20"
+        android:layout_marginRight="@dimen/px_46"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/px_240"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_shape_grey_side_12"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/px_12"
+            android:paddingLeft="@dimen/px_36"
+            android:paddingRight="@dimen/px_36"
+            android:paddingTop="@dimen/px_12"
+            android:text="@string/string_card_activation"
             android:textColor="@color/color_222222"
-            android:textSize="@dimen/sp_32" />
+            android:textSize="@dimen/sp_28" />
+
+        <TextView
+            android:layout_width="@dimen/px_240"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_20"
+            android:background="@drawable/bg_shape_grey_side_12"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/px_12"
+            android:paddingLeft="@dimen/px_36"
+            android:paddingRight="@dimen/px_36"
+            android:paddingTop="@dimen/px_12"
+            android:text="@string/string_update_pay_pwd"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_28" />
+
+        <TextView
+            android:layout_width="@dimen/px_240"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_20"
+            android:background="@drawable/bg_shape_red_side_12"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/px_12"
+            android:paddingLeft="@dimen/px_36"
+            android:paddingRight="@dimen/px_36"
+            android:paddingTop="@dimen/px_12"
+            android:text="@string/string_update_user_info"
+            android:textColor="@color/color_eb6247"
+            android:textSize="@dimen/sp_28" />
     </LinearLayout>
 
 </RelativeLayout>
