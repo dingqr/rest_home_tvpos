@@ -21,7 +21,7 @@ public class API {
     public static final String shopId = "C60D375FDC0000009200000000000000";
 
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
-//        public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP ;// login端口号
+//    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP ;// login端口号
 //    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP ;// shop端口号
 
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
