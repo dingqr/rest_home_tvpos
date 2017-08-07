@@ -7,7 +7,6 @@ import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IDiscountPlanInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
-import com.yonyou.hhtpos.util.Constants;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +26,7 @@ public class DiscountPlanInteractorImpl implements IDiscountPlanInteractor {
     @Override
     public void getAllDiscountPlan(String shopId) {
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("shopId", Constants.SHOP_ID);
+        params.put("shopId", shopId);
         RequestManager.getInstance().requestGetByAsyn(API.URL_GET_DISCOUNT_PLAN, params, new ReqCallBack<List<DiscountEntity>>() {
             @Override
             public void onReqSuccess(List<DiscountEntity> dataList) {

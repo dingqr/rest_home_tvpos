@@ -61,7 +61,9 @@
             android:id="@+id/iv_user_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_64"
+            android:layout_marginLeft="@dimen/px_44"
+            android:paddingLeft="@dimen/px_20"
+            android:paddingRight="@dimen/px_20"
             android:scaleType="fitXY"
             android:src="@drawable/ic_user_default" />
 
@@ -69,7 +71,8 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_50">
+            android:paddingLeft="@dimen/px_30"
+            android:paddingRight="@dimen/px_30">
 
             <ImageView
                 android:layout_width="wrap_content"

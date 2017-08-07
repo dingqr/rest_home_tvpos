@@ -28,9 +28,9 @@ public class DiscountEntity {
      */
     public String remark;
     /**
-     * 方案编码
+     * 折扣率
      */
-    public String schemeCode;
+    public String totalDiscountRate;
     /**
      * 方案名称
      */

@@ -21,17 +21,21 @@ import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
+import com.yonyou.hhtpos.dialog.DIA_Discount;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.ISettleAccountPresenter;
+import com.yonyou.hhtpos.presenter.Impl.DiscountPlanPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.SettleAccountPresenterImpl;
 import com.yonyou.hhtpos.util.Constants;
+import com.yonyou.hhtpos.view.IDiscountPlanView;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
 import com.yonyou.hhtpos.view.ISettleAccountView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import de.greenrobot.event.EventBus;
@@ -42,7 +46,7 @@ import de.greenrobot.event.ThreadMode;
  * 结账页面右侧fragment
  * 作者：liushuofei on 2017/7/19 14:49
  */
-public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView, ISettleAccountView {
+public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView, ISettleAccountView, IDiscountPlanView {
 
     @Bind(R.id.layout_root)
     LinearLayout layoutRoot;
@@ -87,6 +91,11 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     // 1-部分支付，2-支付完成，3-已退款，4-未支付
     private int payStatus;
     private ADA_PayHistory mPayhistoryAdapter;
+    //选择折扣方案弹窗
+    private DIA_Discount mDiaDiscount;
+    private DiscountPlanPresenterImpl mDiscountPlanPresenter;
+    //折扣方案集合
+    private List<DiscountEntity> mDiscountPlanList = new ArrayList<>();
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
@@ -124,6 +133,9 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         mDiaCheckOutByCash = new DIA_CheckOutByCash(getActivity());
         mPresenter = new QueryBillInfoPresenterImpl(mContext, this);
         mSettleAccountPresenter = new SettleAccountPresenterImpl(mContext, this);
+        mDiscountPlanPresenter = new DiscountPlanPresenterImpl(mContext, this);
+        mDiscountPlanPresenter.getAllDiscountPlan(Constants.SHOP_ID);
+
         //支付记录
         mPayhistoryAdapter = new ADA_PayHistory(mContext);
         lvPaHistory.setAdapter(mPayhistoryAdapter);
@@ -167,12 +179,15 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
             }
         });
+        mDiaDiscount = new DIA_Discount(mContext);
+
         mDiscountTypeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
                         //折扣
+                        mDiaDiscount.show();
                         break;
                     case 1:
                         //优惠券
@@ -286,6 +301,11 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     }
 
+    /**
+     * 查询账单信息及首次支付
+     *
+     * @param settleAccountDataEntity
+     */
     @Override
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
         new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
@@ -294,11 +314,32 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         }
     }
 
+    /**
+     * 二次及多次结账
+     *
+     * @param settleAccountDataEntity
+     */
     @Override
     public void settleAccount(SettleAccountDataEntity settleAccountDataEntity) {
         new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
         if (settleAccountDataEntity != null) {
+            if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
+                getActivity().finish();
+            }
             EventBus.getDefault().post(settleAccountDataEntity);
+        }
+    }
+
+    /**
+     * 获取所有折扣方案
+     *
+     * @param dataList
+     */
+    @Override
+    public void getAllDiscountPlan(List<DiscountEntity> dataList) {
+        this.mDiscountPlanList = dataList;
+        if (mDiscountPlanList != null && mDiscountPlanList.size() > 0) {
+            mDiaDiscount.setData(mDiscountPlanList);
         }
     }
 }
