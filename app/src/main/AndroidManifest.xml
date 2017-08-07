@@ -138,6 +138,12 @@
             android:screenOrientation="landscape"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--菜品时价页面 -->
+        <activity
+            android:name=".ui.dinner.dishes.sj.ACT_CurrentPrice"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>

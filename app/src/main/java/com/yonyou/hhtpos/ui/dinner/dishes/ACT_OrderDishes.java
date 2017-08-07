@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
@@ -87,6 +88,8 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     @Override
     protected void initViewsAndEvents() {
         mDishesLeft = new FRA_DishesList();
+        //默认不弹出软键盘
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         // 替换left fragment
         FragmentTransaction leftTrans = getSupportFragmentManager().beginTransaction();
@@ -119,6 +122,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
                 }
             }
         }, 0);
+
     }
 
     @Override

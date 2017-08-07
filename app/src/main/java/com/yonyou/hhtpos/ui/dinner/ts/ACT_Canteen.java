@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.log.Elog;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
@@ -45,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * 作者：liushuofei on 2017/7/8 10:42
  */
 public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView,
-        ITSTableAreaListView,ADA_MealArea.OnItemClickListener {
+        ITSTableAreaListView, ADA_MealArea.OnItemClickListener {
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -82,6 +83,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     public static final int RB_LOCKED = 5;
 
     private String tableOption;
+    private String diningAreaRelateId;
 
     /**
      * 当前Fragment
@@ -95,6 +97,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     private DIA_Navigation dia_navigation;
     List<MealAreaEntity> mealAreaList;
+    private MealAreaEntity currentMealArea;
     /**
      * 根据桌台操作筛选可用的桌台
      */
@@ -131,10 +134,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     protected void initViewsAndEvents() {
-        if (!TextUtils.isEmpty(Constants.SHOP_NAME)){
+        if (!TextUtils.isEmpty(Constants.SHOP_NAME)) {
             tvLoginShop.setText(Constants.SHOP_NAME);
         }
-        MealAreaEntity mealAreaEntity = new MealAreaEntity(true,mContext.getString(R.string.total_meal_area),shopId,"");
+        MealAreaEntity mealAreaEntity = new MealAreaEntity(true, mContext.getString(R.string.total_meal_area), shopId, "");
         mealAreaList = new ArrayList<>();
         mealAreaList.add(mealAreaEntity);
 
@@ -185,7 +188,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_eb6247));
         tabTextView = (TextView) mTab.getTabsContainer().getChildAt(prePosition); //设置默认选中第一个时为红色
         tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
-        if (prePosition == 3){
+        if (prePosition == 3) {
             mTab.setShouldExpand(true);
         }
         mTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -460,14 +463,19 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private void filterTableByOption(int option) {
         switch (option) {
             case 1:
-                break;
+
             case 2:
-                break;
+
             case 3:
-                break;
+
             case 4:
                 setTableOption(String.valueOf(option));
-                filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
+                if (currentMealArea != null) {
+                    filtrateTableListPresenter.requestFiltrateTableList(StringUtil.getString(currentMealArea.getRelateId()),
+                            shopId, tableOption);
+                }else{
+                    filtrateTableListPresenter.requestFiltrateTableList(diningAreaRelateId, shopId, tableOption);
+                }
                 break;
             default:
                 break;
@@ -498,6 +506,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         super.finish();
     }
 
+    //根据桌台操作获取桌台列表
     @Override
     public void getFiltrateTable(List<CanteenTableEntity> tableList) {
         Elog.e("tableList.size==", tableList.size() + "-------EventBusSend");
@@ -522,7 +531,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     @Override
     public void onItemClick(int position, ADA_MealArea.ViewHolder holder, MealAreaEntity bean) {
         //根据餐区筛选桌台
-        EventBus.getDefault().post(bean);
+        if (bean != null) {
+            currentMealArea = bean;
+            diningAreaRelateId = bean.getRelateId();
+            EventBus.getDefault().post(bean);
+        }
     }
 
     @Override

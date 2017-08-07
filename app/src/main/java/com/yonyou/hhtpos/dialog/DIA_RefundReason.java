@@ -37,7 +37,9 @@ public class DIA_RefundReason {
     private Dialog mDialog;
     private Context mContext;
     private ArrayList<String> refoundReasons = new ArrayList<>();;
-    private String[] strings = {"服务员不满意", "服务员不好看", "服务点错菜", "服务员太胖", "服务员难交流", "服务员卖萌", "服务员太高", "服务员太瘦", "餐厅菜不好吃", "餐厅不注意卫生", "服务员太漂亮", "服务员太多"};
+    private String[] strings = {"服务员不满意", "服务员不好看", "服务员点错菜", "服务员太胖",
+            "服务员难交流", "服务员卖萌", "服务员太高", "服务员太瘦", "餐厅菜不好吃",
+            "餐厅不注意卫生", "服务员太漂亮", "服务员太多"};
     private String selectedReason;
 
     public DIA_RefundReason(Context context) {

@@ -96,17 +96,23 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         }
         this.waiterList = waiterList;
         this.canteenTableEntity = canteenTableEntity;
+        etUserNumber.setText(canteenTableEntity.seatNum);
         return this;
     }
 
     private String getSplitName(String tableName) {
         String lastCharacter = tableName.substring(tableName.length() - 1, tableName.length());
         String tmp;
-        char lastE = 'Z';
-        int lastEnglish = (int) lastE;
+        char first = 'A';
+        char last = 'Z';
+        int lastEnglish = (int) last;
+        int firstEnglish = (int) first;
         char[] c = lastCharacter.toCharArray();
         int now = (int) c[0];
-        if (now >= lastEnglish) {
+        if ( now >= lastEnglish) {
+            tmp = "A";
+            return tableName + tmp;
+        }else if( firstEnglish >= now){
             tmp = "A";
             return tableName + tmp;
         } else {
@@ -127,6 +133,7 @@ public class DIA_OpenOrder implements View.OnClickListener, DIA_ChooseWaiter.OnW
         }
         this.waiterList = waiterList;
         this.canteenTableEntity = canteenTableEntity;
+        etUserNumber.setText(canteenTableEntity.seatNum);
         return this;
     }
 

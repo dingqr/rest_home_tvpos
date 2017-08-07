@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
     private ImageButton add;
     private ImageButton minus;
     private EditText currentCount;
+    private TextView tvHide;
 
     int count = 1;
 
@@ -51,6 +53,11 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         add.setOnClickListener(this);
         minus.setOnClickListener(this);
         currentCount = (EditText)convertView.findViewById(R.id.tv_current_count);
+        tvHide = (TextView) convertView.findViewById(R.id.tv_hide_request_focus);
+        tvHide.requestFocus();
+        String content = currentCount.getText().toString().trim();
+        currentCount.setText(content);//设置EditText控件的内容
+        currentCount.setSelection(content.length());//将光标移至文字末尾
     }
     public void reset(){
         currentCount.setText("1");
