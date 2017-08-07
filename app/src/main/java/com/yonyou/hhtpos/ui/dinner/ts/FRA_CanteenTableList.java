@@ -21,6 +21,7 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_CanteenList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
+import com.yonyou.hhtpos.bean.MealAreaEntity;
 import com.yonyou.hhtpos.bean.WaiterEntity;
 import com.yonyou.hhtpos.bean.ts.OpenOrderEntity;
 import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
@@ -272,6 +273,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     break;
                 //桌台占用，订单服务中
                 case 6:
+                case 10:
                     if (tableOption.equals("3")) {
                         DIA_OpenOrder dia_openOrderSplit = new DIA_OpenOrder(mContext);
                         canteenTableEntity.setTableOption(3);
@@ -287,6 +289,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         readyGo(ACT_OrderDishes.class, bundle);
                     }
                     break;
+
                //桌台占用，筛选已结清的账单
                 case 9:
                     if(tableOption.equals("4")){
@@ -446,12 +449,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     /**
      * 获取餐区id
      *
-     * @param diningAreaRelateId
+     * @param diningArea
      */
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void onUpdateAreaId(String diningAreaRelateId) {
+    public void onUpdateAreaId(MealAreaEntity diningArea) {
         if (diningAreaRelateId != null && getUserVisibleHint()) {
-            this.diningAreaRelateId = diningAreaRelateId;
+            this.diningAreaRelateId = diningArea.getRelateId();
             onRefresh();
         }
     }

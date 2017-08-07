@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_pass_work_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_70"
+        android:background="@color/color_f3f3f3"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/pass_work"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_28" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_pass_work_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_pass_work_title"
+        android:layout_marginLeft="@dimen/px_140"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_40"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pass_work_employee"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_26" />
+
+            <TextView
+                android:id="@+id/tv_pass_work_employee_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="阿狸"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_26" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/working_time"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_26" />
+
+            <TextView
+                android:id="@+id/tv_pass_work_working_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="2017/06/29 14:00:00至2017/06/29 20:00:05"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_26" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_46"
+            android:text="@string/cash_invoice_to_hand_in"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_24" />
+
+        <LinearLayout
+            android:layout_width="@dimen/px_950"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/px_16"
+            android:background="@drawable/bg_d8d8d8_4">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lv_cash_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/px_1">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_add_cash_type"
+            android:layout_width="@dimen/px_950"
+            android:layout_height="@dimen/px_80"
+            android:layout_marginTop="@dimen/px_30"
+            android:background="@drawable/bg_dotted_b2b2b2_4"
+            android:gravity="center"
+            android:text="@string/add_gathering_type"
+            android:textColor="@color/color_eb6247"
+            android:textSize="@dimen/sp_28" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_btn_pass_work"
+        android:layout_width="@dimen/px_230"
+        android:layout_height="@dimen/px_70"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/px_70"
+        android:layout_marginRight="@dimen/px_140"
+        android:background="@drawable/bg_shape_red_side_12"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/px_12"
+        android:paddingLeft="@dimen/px_36"
+        android:paddingRight="@dimen/px_36"
+        android:paddingTop="@dimen/px_12"
+        android:text="@string/pass_work_right_now"
+        android:textColor="@color/color_eb6247"
+        android:textSize="@dimen/sp_30" />
+</RelativeLayout>

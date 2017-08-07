@@ -13,6 +13,7 @@ import com.yonyou.hhtpos.bean.dish.DishLabelEntity;
 import com.yonyou.hhtpos.bean.dish.DishPracticeEntity;
 import com.yonyou.hhtpos.bean.dish.DishRemarkEntity;
 import com.yonyou.hhtpos.bean.dish.DishStandardEntity;
+import com.yonyou.hhtpos.bean.mine.CashTypeEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -556,6 +557,20 @@ public class FiltrationUtil {
 
         return filterOptionsEntities;
     }
+    public static ArrayList<CashTypeEntity> getCashTypies() {
+        ArrayList<CashTypeEntity> cashTypeEntities = new ArrayList<>();
+        CashTypeEntity cpe1 = new CashTypeEntity("现金", "50.00");
+        CashTypeEntity cpe2 = new CashTypeEntity("银行卡", "0.00");
+        CashTypeEntity cpe3 = new CashTypeEntity("会员卡", "0.00");
+
+        cashTypeEntities.add(cpe1);
+        cashTypeEntities.add(cpe2);
+        cashTypeEntities.add(cpe3);
+
+
+        return cashTypeEntities;
+    }
+
 }
 
 //        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度

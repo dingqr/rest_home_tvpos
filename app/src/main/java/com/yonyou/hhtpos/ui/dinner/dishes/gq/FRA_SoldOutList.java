@@ -1,26 +1,26 @@
-package com.yonyou.hhtpos.ui.mine;
-
-/**
- * Created by ybing on 2017/8/5.
- * 邮箱：ybing@yonyou.com
- * 描述：个人中心右侧页面
- */
+package com.yonyou.hhtpos.ui.dinner.dishes.gq;
 
 import android.view.View;
+import android.widget.ListView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.adapter.ADA_SoldOutList;
+
+import butterknife.Bind;
 
 /**
- * Created by zj on 2017/7/4.
- * 邮箱：zjuan@yonyou.com
- * 描述：外带订单明细-马诗雨
+ * 估清列表fragment
+ * 作者：liushuofei on 2017/8/7 11:08
  */
-public class FRA_PersonalCenterDetail extends BaseFragment   {
+public class FRA_SoldOutList extends BaseFragment {
 
+    @Bind(R.id.lv_sold_out)
+    ListView mListView;
+
+    private ADA_SoldOutList mAdapter;
 
     @Override
     protected void onFirstUserVisible() {
@@ -44,12 +44,17 @@ public class FRA_PersonalCenterDetail extends BaseFragment   {
 
     @Override
     protected void initViewsAndEvents() {
+        mAdapter = new ADA_SoldOutList(mContext);
+        mListView.setAdapter(mAdapter);
 
+        for (int i = 0; i < 10; i++){
+            mAdapter.update("");
+        }
     }
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fra_personal_center_right;
+        return R.layout.fra_sold_out_list;
     }
 
     @Override
@@ -67,4 +72,3 @@ public class FRA_PersonalCenterDetail extends BaseFragment   {
 
     }
 }
-

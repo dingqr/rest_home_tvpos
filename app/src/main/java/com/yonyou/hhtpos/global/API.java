@@ -180,7 +180,6 @@ public class API {
      * 退菜和赠菜接口
      */
     public static final String URL_SPECIAL_HANDLE_DISH = BASE_SERVER_SHOP + "/prodish/setabnormal";
-//    public static final String URL_SPECIAL_HANDLE_DISH = "http://10.220.23.81:9001" + "/prodish/setabnormal";
 
     /**
      * 称重确认接口

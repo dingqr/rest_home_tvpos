@@ -132,6 +132,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:theme="@style/style_translucent_activity"/>
 
+        <!--菜品估清页面 -->
+        <activity
+            android:name=".ui.dinner.dishes.gq.ACT_SoldOut"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_translucent_activity"/>
+
     </application>
 
 </manifest>

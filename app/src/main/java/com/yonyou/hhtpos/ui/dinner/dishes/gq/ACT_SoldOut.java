@@ -1,51 +1,40 @@
-package com.yonyou.hhtpos.ui.mine;
+package com.yonyou.hhtpos.ui.dinner.dishes.gq;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.TextView;
 
+import com.yonyou.framework.library.base.BaseAppCompatActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
-import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-
-import butterknife.Bind;
+import com.yonyou.hhtpos.ui.dinner.wm.FRA_TakeOutDetail;
 
 /**
- * 个人中心页面
- * 作者：ybing on 2017/8/4 16:41
+ * 菜品估清列表
+ * 作者：liushuofei on 2017/8/7 11:00
  */
-public class ACT_PersonalCenter extends ACT_BaseMultiple implements View.OnClickListener {
-    @Bind(R.id.tv_title)
-    TextView tvTitle;
-
-    private FRA_PersonalCenterLeft mPersonalCenterLeft;
-    private FRA_PersonalCenterEmpty mPersonalCenterEmpty;
-    private FRA_PassWork mFraPasswork;
+public class ACT_SoldOut extends ACT_BaseMultiple {
 
     @Override
     protected void initView() {
-        tvTitle.setText(mContext.getString(R.string.personal_center));
-        mPersonalCenterLeft= new FRA_PersonalCenterLeft();
-        mPersonalCenterEmpty = new FRA_PersonalCenterEmpty();
-        mFraPasswork = new FRA_PassWork();
+
     }
 
     @Override
     protected float getLeftWeight() {
-        return 0.55f;
+        return 0.33f;
     }
 
     @Override
     protected Fragment getLeftContent() {
-        return mPersonalCenterLeft;
+        return new FRA_SoldOutList();
     }
 
     @Override
     protected Fragment getRightContent() {
-        return mFraPasswork;
+        return new FRA_TakeOutDetail();
     }
 
     @Override
