@@ -2,6 +2,8 @@ package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
@@ -27,6 +29,7 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<WDDishDetaiList
 
     @Override
     protected void convert(ViewHolderListView holder, WDDishDetaiListlEntity dishDetaiListlEntity, int position) {
+        ImageView ivDishSign = holder.getView(R.id.iv_dish_status_sign);
         if (dishDetaiListlEntity != null) {
             if (dishDetaiListlEntity.orderTime != null) {
                 if (dishDetaiListlEntity.orderTime != 0) {
@@ -49,6 +52,18 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<WDDishDetaiList
             }
             //设置规格
             holder.setText(R.id.tv_standard_name, dishDetaiListlEntity.standardName);
+            //设置退赠表标记:菜品状态:赠菜=3，退菜=4，折扣=10
+            if (dishDetaiListlEntity.dishAbnormalStatus != null) {
+                ivDishSign.setVisibility(View.VISIBLE);
+                if (dishDetaiListlEntity.dishAbnormalStatus.equals("3")) {
+                    holder.setImageResource(R.id.iv_dish_status_sign, R.drawable.ic_dish_gift);
+                } else if (dishDetaiListlEntity.equals("4")) {
+                    ivDishSign.setImageResource(R.drawable.ic_dish_back);
+                }
+            } else {
+                ivDishSign.setVisibility(View.GONE);
+            }
+            ivDishSign.setImageResource(R.drawable.ic_dish_back);
         }
         if (dishDetaiListlEntity.orderTime != null) {
             //根据菜品的提交订单时间，分组显示列表

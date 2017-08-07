@@ -21,6 +21,7 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
+import com.yonyou.hhtpos.bean.RecommendDataEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
@@ -41,10 +42,12 @@ import com.yonyou.hhtpos.presenter.IAddDishPresenter;
 import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.RecommendDishesPresenterImpl;
 import com.yonyou.hhtpos.util.AnimationUtil;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IAddDishView;
 import com.yonyou.hhtpos.view.IGetAllDishesView;
+import com.yonyou.hhtpos.view.IRecommendDishesView;
 import com.yonyou.hhtpos.widgets.RightListView;
 import com.yonyou.hhtpos.widgets.RightNavigationView;
 
@@ -66,7 +69,7 @@ import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
  * 描述：点菜页面-获取所有菜品/菜类
  * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView {
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView,IRecommendDishesView {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
     @Bind(ll_content)
@@ -119,6 +122,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private boolean isFromSettleAccount;
     private DIA_AddTempDishes mDiaAddTempDishes;
     private boolean isAddTempDish;
+    private RecommendDishesPresenterImpl mGetcommendDishesPresenter;
 
     /**
      * 接收右侧角标数量的数据集合
@@ -221,11 +225,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     @Override
     protected void initViewsAndEvents() {
         mPresenter = new GetAllDishesPresenterImpl(mContext, this);
+        mGetcommendDishesPresenter = new RecommendDishesPresenterImpl(mContext, this);
         saleManner = ((ACT_OrderDishes) getActivity()).getFromWhere();
         isFromSettleAccount = ((ACT_OrderDishes) getActivity()).isFromSettleAccount;
 
         mPresenter.getAllDishes(compId, shopId, saleManner);
-
+//        mGetcommendDishesPresenter.getRecommendDishes(Constants.SHOP_ID);
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
         //点菜的请求实体类
         requestAddDishEntity = new RequestAddDishEntity();
@@ -761,5 +766,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         // 刷新左侧列表
         sendBroadcast(ReceiveConstants.REFRESH_LEFT_DISHES);
     }
+    /**
+     * 获取推荐套餐的菜品集合
+     */
+    @Override
+    public void getRecommendDishes(RecommendDataEntity recommendDishEntity) {
 
+    }
 }

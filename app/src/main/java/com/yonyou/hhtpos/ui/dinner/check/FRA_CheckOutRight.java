@@ -310,7 +310,11 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
         new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
         if (settleAccountDataEntity != null) {
-            EventBus.getDefault().post(settleAccountDataEntity);
+            if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
+                getActivity().finish();
+            } else {
+                EventBus.getDefault().post(settleAccountDataEntity);
+            }
         }
     }
 
@@ -325,8 +329,9 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         if (settleAccountDataEntity != null) {
             if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
                 getActivity().finish();
+            } else {
+                EventBus.getDefault().post(settleAccountDataEntity);
             }
-            EventBus.getDefault().post(settleAccountDataEntity);
         }
     }
 

@@ -1,7 +1,6 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.RecommendDataEntity;
 import com.yonyou.hhtpos.global.API;
@@ -25,11 +24,9 @@ public class RecommendDishInteractorImpl implements IRecommendDishInteractor {
 
 
     @Override
-    public void getRecommendDishes(String compId, String shopId, int saleManner) {
+    public void getRecommendDishes(String shopId) {
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("compId", compId);
         params.put("shopId", shopId);
-        params.put("saleManner", StringUtil.getString(saleManner));
         RequestManager.getInstance().requestGetByAsyn(API.URL_RECOMMEND_DISH, params, new ReqCallBack<RecommendDataEntity>() {
             @Override
             public void onReqSuccess(RecommendDataEntity recommendDishEntity) {

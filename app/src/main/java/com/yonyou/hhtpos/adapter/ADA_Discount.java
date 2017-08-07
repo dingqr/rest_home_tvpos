@@ -3,13 +3,17 @@ package com.yonyou.hhtpos.adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yonyou.framework.library.adapter.lv.CommonAdapterListView;
 import com.yonyou.framework.library.adapter.lv.ViewHolderListView;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.check.DiscountEntity;
+
+import static com.yonyou.hhtpos.R.id.tv_discount_num;
 
 /**
  * Created by zj on 2017/7/17.
@@ -32,8 +36,9 @@ public class ADA_Discount extends CommonAdapterListView<DiscountEntity> {
     @Override
     protected void convert(ViewHolderListView holder, DiscountEntity bean, int position) {
         LinearLayout llRoot = holder.getView(R.id.item_discount_root);
-        TextView tvDiscountNum = holder.getView(R.id.tv_discount_num);
+        TextView tvDiscountNum = holder.getView(tv_discount_num);
         TextView tvDiscountUnit = holder.getView(R.id.tv_discount_unit);
+        TextView tvRemark = holder.getView(R.id.tv_remark);
         //设置字体为方正宋黑繁体
         tvDiscountNum.setTypeface(customTypeface);
         tvDiscountUnit.setTypeface(customTypeface);
@@ -42,11 +47,13 @@ public class ADA_Discount extends CommonAdapterListView<DiscountEntity> {
                 holder.setText(R.id.tv_scheme_name, bean.schemeName);
             }
             if (!TextUtils.isEmpty(bean.remark)) {
-                holder.setText(R.id.tv_remark, bean.remark);
+                tvRemark.setVisibility(View.VISIBLE);
+                tvRemark.setText(bean.remark);
+            } else {
+                tvRemark.setVisibility(View.INVISIBLE);
             }
             if (bean.totalDiscountRate != null) {
-                double discount = Double.parseDouble(bean.totalDiscountRate) / 10.00;
-
+                tvDiscountNum.setText(StringUtil.getFormatDiscount(bean.totalDiscountRate));
             }
         }
 
