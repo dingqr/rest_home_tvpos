@@ -40,6 +40,7 @@
                 android:textSize="@dimen/sp_20" />
 
             <TextView
+                android:id="@+id/tv_check_transaction_records"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/px_32"
@@ -131,6 +132,7 @@
                 android:background="@color/color_d5d5d5"></View>
             <!--优惠券-->
             <LinearLayout
+                android:id="@+id/ll_coupon"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

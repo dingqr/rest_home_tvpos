@@ -420,6 +420,7 @@
     <string name="string_update_pay_pwd">修改支付密码</string>
     <string name="string_update_user_info">修改个人资料</string>
     <string name="string_card_activation">电子卡激活</string>
+    <string name="string_transaction_record">交易记录</string>
     <!--<string name="personal_center">晚市</string>-->
     <!--<string name="personal_center">天未结</string>-->
     <!--<string name="personal_center">退出当前账户</string>-->
