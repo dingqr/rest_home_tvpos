@@ -147,6 +147,12 @@ public class API {
     public static final String URL_ADD_DISH = BASE_SERVER_SHOP + "/prodish/adddish";
 
     /**
+     * 点菜-推荐套餐
+     * "http://10.220.23.81:9001"
+     */
+    public static final String URL_RECOMMEND_DISH = BASE_SERVER_SHOP + "/prodish/getAllRecommendDish";
+
+    /**
      * 查询服务员
      */
     public static final String URL_GET_ALL_WAITERS = BASE_SERVER_SHOP + "/dineIn/getAllWaiter";
@@ -231,4 +237,8 @@ public class API {
      * 获取打印指令接口
      */
     public static final String GET_PRINT_ORDER = "http://10.220.17.51:8064/PrintService/getPrintommand";
+    /**
+     * 查询所有可用折扣方案
+     */
+    public static final String URL_GET_DISCOUNT_PLAN = BASE_SERVER_SHOP + "/prodiscountscheme/qryshopenable";
 }
