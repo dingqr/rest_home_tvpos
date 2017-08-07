@@ -14,4 +14,25 @@ public class DiscountEntity {
      * 优惠方案名称
      */
     public String discountName;
+
+    /**
+     * 主键
+     */
+    public String id;
+    /**
+     * 关联id
+     */
+    public String relateId;
+    /**
+     * 备注
+     */
+    public String remark;
+    /**
+     * 折扣率
+     */
+    public String totalDiscountRate;
+    /**
+     * 方案名称
+     */
+    public String schemeName;
 }

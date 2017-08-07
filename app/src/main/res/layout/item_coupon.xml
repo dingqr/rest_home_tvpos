@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/px_24"
+        android:layout_marginLeft="@dimen/px_156"
         android:text="2017.10.02-2017.10.27"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/px_18" />

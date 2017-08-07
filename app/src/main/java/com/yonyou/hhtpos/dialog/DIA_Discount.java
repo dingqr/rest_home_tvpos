@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.adapter.ADA_Discount;
 import com.yonyou.hhtpos.bean.check.DiscountEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * Created by zj on 2017/7/17.
  * 邮箱：zjuan@yonyou.com
- * 描述：服务台结账-折扣弹窗页面
+ * 描述：服务台结账-折扣方案弹窗页面
  */
 public class DIA_Discount {
     @Bind(R.id.tv_dialog_title)
@@ -50,15 +51,14 @@ public class DIA_Discount {
         mListView.addHeaderView(discount_head_view);
         mAdapter = new ADA_Discount(mContext);
         mListView.setAdapter(mAdapter);
-        setData();
     }
 
-    private void setData() {
-        for (int i = 0; i < 10; i++) {
-            DiscountEntity discountEntity = new DiscountEntity();
-            mData.add(discountEntity);
-        }
-        mAdapter.update(mData);
+    /**
+     * 传入数据
+     * @param discountList
+     */
+    public void setData(List<DiscountEntity> discountList) {
+        mAdapter.update(discountList);
     }
 
     private void initListener() {
