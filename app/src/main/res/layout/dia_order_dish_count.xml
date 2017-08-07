@@ -127,6 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/rb_finish_select"
         android:layout_below="@+id/ll_dish_count"
+        android:layout_marginBottom="@dimen/px_20"
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"

@@ -143,7 +143,7 @@ public class DIA_TurnChooseTable {
     /**
      * 测试数据
      */
-    private void setData() {
+    public void setData() {
         for (int i = 0; i < tableAreas.length; i++) {
             TableAreaEntity tableAreaEntity = new TableAreaEntity();
             tableAreaEntity.name = tableAreas[i];

@@ -76,6 +76,7 @@
             android:layout_height="@dimen/px_50"
             android:layout_marginTop="@dimen/px_14"
             android:hint="@string/hint_input_guests_num"
+            android:maxLength="2"
             android:inputType="number"
             android:textColorHint="@color/color_cccccc"
             android:paddingLeft="@dimen/px_10"

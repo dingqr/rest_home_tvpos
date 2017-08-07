@@ -155,6 +155,7 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:inputType="number"
+                android:maxLength="2"
                 android:hint="@string/hint_enter_dinner_number"
                 android:padding="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"

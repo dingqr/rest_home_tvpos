@@ -28,6 +28,7 @@ import com.yonyou.hhtpos.bean.ts.TSTableBillIdEntity;
 import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.dialog.DIA_OpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_ReserveOpenOrder;
+import com.yonyou.hhtpos.dialog.DIA_TurnChooseTable;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.global.ReceiveConstants;
@@ -63,7 +64,7 @@ import de.greenrobot.event.ThreadMode;
  */
 public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         MultiItemTypeAdapter.OnItemClickListener, ITableListView, ITSOpenOrderView, OpenOrderCallback,
-        IChooseWaiterView,ITSClearTableView {
+        IChooseWaiterView, ITSClearTableView {
 
     @Bind(R.id.rv_canteen_list)
     LRecyclerView mRecyclerView;
@@ -103,6 +104,9 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public static final String TYPE = "type";
     private int type;
     private String tableOption = "-1";
+
+    //转台标记
+    private boolean turnFlag = false;
 
     public static final FRA_CanteenTableList newInstance(int type) {
         FRA_CanteenTableList f = new FRA_CanteenTableList();
@@ -146,7 +150,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mTSOpenOrderPresenter = new TSOpenOrderPresenterImpl(mContext, this);
         mChooseWaiterPresenter = new ChooseWaiterPresenterImpl(mContext, this);
         mChooseWaiterPresenter.requestWaiterList(Constants.SHOP_ID);
-        mTSClearTablePresenter = new TSClearTablePresenterImpl(mContext,this);
+        mTSClearTablePresenter = new TSClearTablePresenterImpl(mContext, this);
 
         //设置刷新时动画的颜色，可以设置4个
         if (mSwiperefreshLayout != null) {
@@ -273,15 +277,25 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     break;
                 //桌台占用，订单服务中
                 case 6:
+                case 7:
+                case 8:
                 case 10:
+                    //可以被拼台的桌台列表
                     if (tableOption.equals("3")) {
+                        //点击桌台 开拼桌的单子
                         DIA_OpenOrder dia_openOrderSplit = new DIA_OpenOrder(mContext);
                         canteenTableEntity.setTableOption(3);
                         dia_openOrderSplit.setData(canteenTableEntity, mWaiterList);
                         dia_openOrderSplit.setTsCallback(FRA_CanteenTableList.this);
                         dia_openOrderSplit.getDialog().show();
                     }
-                    else {
+                    //可以被转台的桌台列表
+                    if (tableOption.equals("1")) {
+                        //点击桌台 筛选可以被转入的桌台
+                        canteenTableEntity.setTableOption(1);
+                        mTableListPresenter.requestTableList(diningAreaRelateId, shopId, "0,6,10");
+                        turnFlag = true;
+                    } else {
                         Bundle bundle = new Bundle();
                         bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
                         bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
@@ -290,19 +304,19 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     }
                     break;
 
-               //桌台占用，筛选已结清的账单
+                //桌台占用，筛选已结清的账单
                 case 9:
-                    if(tableOption.equals("4")){
-                    //桌台占用，订单清台中
-                    DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
-                            new DIA_DoubleConfirm.OnSelectedListener() {
-                                @Override
-                                public void confirm() {
-                                    mTSClearTablePresenter.clearTable(Constants.SHOP_ID,canteenTableEntity.tableID);
-                                }
-                            });
-                    diaClearTable.getDialog().show();
-                }
+                    if (tableOption.equals("4")) {
+                        //桌台占用，订单清台中
+                        DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
+                                new DIA_DoubleConfirm.OnSelectedListener() {
+                                    @Override
+                                    public void confirm() {
+                                        mTSClearTablePresenter.clearTable(Constants.SHOP_ID, canteenTableEntity.tableID);
+                                    }
+                                });
+                        diaClearTable.getDialog().show();
+                    }
                     break;
                 //桌台预定 弹出预订单开单对话框
                 case 3:
@@ -397,14 +411,32 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
 
         if (tableList != null && tableList.size() > 0) {
-            this.datas = (ArrayList<CanteenTableEntity>) tableList;
-            if (mSwiperefreshLayout.isRefreshing()) {
-                mSwiperefreshLayout.setRefreshing(false);
+            if (turnFlag) {
+                DIA_TurnChooseTable dia_turnChooseTable = new DIA_TurnChooseTable(mContext);
+                //桌台列表是tablelist
+                //餐区列表是ACT_Canteen里的mealAreas
+
+                dia_turnChooseTable.show();
+            } else {
+                this.datas = (ArrayList<CanteenTableEntity>) tableList;
+                if (mSwiperefreshLayout.isRefreshing()) {
+                    mSwiperefreshLayout.setRefreshing(false);
+                }
+                mAdapter.update(tableList, true);
             }
-            mAdapter.update(tableList, true);
         } else {
             // 空页面
             showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
+        }
+    }
+
+    /**
+     * 根据餐区筛选转台弹框里的桌台数据
+     */
+    private void updateTurnList(MealAreaEntity mealAreaEntity) {
+        if (mealAreaEntity != null) {
+            mTableListPresenter.requestTableList(mealAreaEntity.getRelateId(), shopId, "0,6,10");
+            turnFlag = true;
         }
     }
 
