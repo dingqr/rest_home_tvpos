@@ -91,7 +91,7 @@ public class SettleAccountDataEntity implements Serializable {
 //     */
 //    public boolean settleComplete;
     /**
-     * 账单支付状态：1-部分支付，2-支付完成，3-已退款，4-未支付
+     * 账单支付状态：1-未支付，2-支付完成，3-已退款，4-部分支付
      */
     public String payStatus;
 
