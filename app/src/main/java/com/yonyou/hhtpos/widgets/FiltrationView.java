@@ -225,6 +225,7 @@ public class FiltrationView extends LinearLayout implements ADA_Filtration.OnIte
             for (int i = 0; i < filterItemEntity.getOptions().size(); i++) {
                 filterItemEntity.getOptions().get(i).setCheck(false);
             }
+            currentBean = null;
             mAdapter.update(filterItemEntity.getOptions());
         }
     }

@@ -60,6 +60,8 @@ public class CanteenTableEntity implements Serializable {
     public String tableBillId;
     /**桌台操作 0=清台，1=转台，2=并台，3=拼台，4=菜品转台*/
     public int tableOption;
+    /**实收金额*/
+    private String relReceiveAmount;
 
     public int getTableOption() {
         return tableOption;
@@ -106,5 +108,13 @@ public class CanteenTableEntity implements Serializable {
 
     public void setTableID(String tableID) {
         this.tableID = tableID;
+    }
+
+    public String getRelReceiveAmount() {
+        return  StringUtil.getFormattedMoney(relReceiveAmount);
+    }
+
+    public void setRelReceiveAmount(String relReceiveAmount) {
+        this.relReceiveAmount = relReceiveAmount;
     }
 }

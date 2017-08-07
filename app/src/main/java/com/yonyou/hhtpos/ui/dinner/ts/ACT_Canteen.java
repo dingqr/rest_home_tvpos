@@ -433,7 +433,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvSplitTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
-                    filterTableByOption(4);
+                    filterTableByOption(0);
                     setTopTab(false);
                 } else {
                     tvClearTable.setText(mContext.getString(R.string.table_clear));
@@ -462,13 +462,14 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     private void filterTableByOption(int option) {
         switch (option) {
+            case 0:
+
             case 1:
 
             case 2:
 
             case 3:
 
-            case 4:
                 setTableOption(String.valueOf(option));
                 if (currentMealArea != null) {
                     filtrateTableListPresenter.requestFiltrateTableList(StringUtil.getString(currentMealArea.getRelateId()),

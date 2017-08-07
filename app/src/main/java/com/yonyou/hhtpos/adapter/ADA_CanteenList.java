@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import com.yonyou.framework.library.adapter.rv.CommonAdapter;
 import com.yonyou.framework.library.adapter.rv.ViewHolder;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
+import com.yonyou.framework.library.common.utils.ScreenUtil;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 
@@ -24,7 +26,7 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
         return R.layout.item_table_list;
     }
 
-    //    桌台状态：0 空闲 ，1 占用（消费中），2 占用（部分支付），3 占用（锁定），4 占用（结清），5 预订，传（1,2，3,4）为查询占用，不传默认查询全部
+    //    桌台状态：0 空闲 ，6 占用（消费中），7占用（部分支付），8 占用（锁定），9 占用（结清），5 预订，10 占用未消费  传（6,7,8,9,10）为查询占用，不传默认查询全部
     @Override
     protected void convert(ViewHolder holder, final CanteenTableEntity canteenTableEntity, int position) {
         //除了空闲状态，都显示操作时间
@@ -56,22 +58,24 @@ public class ADA_CanteenList extends CommonAdapter<CanteenTableEntity> {
                 //背景
                 holder.setBackgroundRes(R.id.rl_table_root, R.drawable.bg_table_free);
                 break;
-            case 1:
-            case 2:
-            case 3:
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
                 //锁定小icon
                 holder.setVisible(R.id.tv_locked, true);
                 holder.setImageResource(R.id.tv_locked, R.drawable.ic_table_locked);
                 holder.setBackgroundRes(R.id.rl_table_root, R.drawable.bg_table_unavailable);
                 break;
-            case 4:
+            case 9:
+                //结清
                 holder.setVisible(R.id.tv_person_num, false);
                 holder.setVisible(R.id.tv_seat_num, false);
-
                 holder.setVisible(R.id.tv_locked, true);
                 holder.setImageResource(R.id.tv_locked, R.drawable.ic_table_settled);
                 holder.setText(R.id.tv_make_time, String.valueOf(AppDateUtil.getTimeStamp(canteenTableEntity.billTime, AppDateUtil.HH_MM)));
-                holder.setText(R.id.tv_money, canteenTableEntity.getReceiveAmount());
+                holder.setText(R.id.tv_money, mContext.getString(R.string.RMB_symbol) + StringUtil.getString(canteenTableEntity.getRelReceiveAmount()));
                 break;
             case 5:
                 holder.setBackgroundRes(R.id.rl_table_root, R.drawable.bg_table_ordering);

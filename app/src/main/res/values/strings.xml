@@ -432,6 +432,13 @@
     <string name="add_gathering_type"> + 添加收款类型</string>
     <string name="pass_work_right_now">马上交班</string>
     <string name="until">至</string>
+    <string name="original_passord">* 原密码</string>
+    <string name="set_new_password">* 设置新密码</string>
+    <string name="verify_new_password">* 确认新密码</string>
+    <string name="enter_original_password">请输入原密码</string>
+    <string name="enter_new_password">请输入新密码</string>
+    <string name="enter_verify_new_password">请确认新密码</string>
+
 
 
     <!--菜品估清 -->
