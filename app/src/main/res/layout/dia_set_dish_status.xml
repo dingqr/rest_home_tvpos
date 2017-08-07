@@ -7,53 +7,55 @@
 
     <include
         android:id="@+id/inc_title"
-        layout="@layout/inc_dialog_title"/>
+        layout="@layout/inc_dialog_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/inc_title"
         android:layout_above="@+id/rb_finish"
+        android:layout_below="@+id/inc_title"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="--黑松露牛肝菌焖牛蛙--"
-            android:textSize="@dimen/sp_26"
-            android:textColor="@color/color_666666"
             android:layout_marginTop="@dimen/px_36"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:text="--黑松露牛肝菌焖牛蛙--"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_26" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="有效时间"
-            android:textSize="@dimen/sp_24"
-            android:textColor="@color/color_222222"
+            android:layout_marginLeft="@dimen/px_30"
             android:layout_marginTop="@dimen/px_60"
-            android:layout_marginLeft="@dimen/px_30"/>
+            android:text="有效时间"
+            android:textColor="@color/color_222222"
+            android:textSize="@dimen/sp_24" />
 
         <com.yonyou.hhtpos.widgets.BanSlideGridView
             android:id="@+id/gv_dish_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_20"
             android:layout_marginLeft="@dimen/px_30"
             android:layout_marginRight="@dimen/px_30"
+            android:layout_marginTop="@dimen/px_20"
             android:layout_weight="1"
+            android:horizontalSpacing="@dimen/px_30"
             android:numColumns="2"
-            android:verticalSpacing="@dimen/px_30"
-            android:horizontalSpacing="@dimen/px_30">
+            android:verticalSpacing="@dimen/px_30">
         </com.yonyou.hhtpos.widgets.BanSlideGridView>
 
         <com.yonyou.hhtpos.widgets.DialogInputView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_50"
             android:layout_marginBottom="@dimen/px_80"
-            app:titleText="可售数量"
-            app:inputHint="输入可售数量">
+            android:layout_marginTop="@dimen/px_50"
+            app:inputHint="输入可售数量"
+            app:marginLeft="30"
+            app:marginRight="30"
+            app:titleText="可售数量">
         </com.yonyou.hhtpos.widgets.DialogInputView>
 
     </LinearLayout>

@@ -84,7 +84,8 @@
             android:id="@+id/vp_take_out"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/px_20"></android.support.v4.view.ViewPager>
+            android:layout_marginBottom="@dimen/px_20">
+        </android.support.v4.view.ViewPager>
 
     </LinearLayout>
 
@@ -100,6 +101,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_marginBottom="@dimen/px_52"
-        android:layout_marginRight="@dimen/px_44"
+        android:layout_marginRight="@dimen/px_100"
         android:src="@drawable/ic_take_out" />
 </FrameLayout>

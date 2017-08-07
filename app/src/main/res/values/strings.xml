@@ -433,4 +433,10 @@
     <string name="pass_work_right_now">马上交班</string>
     <string name="until">至</string>
 
+    <!--菜品估清 -->
+    <string name="the_day_before">前一天</string>
+    <string name="the_day_after">后一天</string>
+    <string name="dish_name">菜品名称</string>
+    <string name="surplus_quantity">余量</string>
+
 </resources>

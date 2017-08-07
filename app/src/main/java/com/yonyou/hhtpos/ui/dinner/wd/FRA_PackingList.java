@@ -109,6 +109,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     @Override
     protected void initViewsAndEvents() {
         type = getArguments().getInt(TYPE);
+        getPayStatus();
 
         // 加载中的4种颜色
         srlPacking.setColorSchemeColors(
@@ -132,6 +133,25 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
                 }
             }
         });
+    }
+
+    private void getPayStatus() {
+        switch (type) {
+            case 0:
+                payStatus = "";
+                break;
+
+            case 1:
+                payStatus = "N";
+                break;
+
+            case 2:
+                payStatus = "Y";
+                break;
+
+            default:
+                break;
+        }
     }
 
     /**
