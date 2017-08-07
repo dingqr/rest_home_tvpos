@@ -277,15 +277,17 @@
             android:layout_height="@dimen/px_140"
             android:src="@drawable/ic_user_default" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_member_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/px_30"
+                android:gravity="center_horizontal"
                 android:text="王小米"
                 android:textColor="@color/color_222222"
                 android:textSize="@dimen/sp_32" />
@@ -293,12 +295,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_member_name"
                 android:drawablePadding="@dimen/px_10"
                 android:drawableRight="@drawable/ic_modify_user_info"
                 android:text="13877637672"
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_26" />
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
