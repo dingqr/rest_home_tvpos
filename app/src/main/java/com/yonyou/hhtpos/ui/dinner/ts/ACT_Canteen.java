@@ -460,11 +460,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private void filterTableByOption(int option) {
         switch (option) {
             case 1:
-
+                break;
             case 2:
-
+                break;
             case 3:
-
+                break;
             case 4:
                 setTableOption(String.valueOf(option));
                 filtrateTableListPresenter.requestFiltrateTableList("", shopId, tableOption);
@@ -521,8 +521,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     @Override
     public void onItemClick(int position, ADA_MealArea.ViewHolder holder, MealAreaEntity bean) {
-        //筛选桌台
-        EventBus.getDefault().post(bean.getRelateId());
+        //根据餐区筛选桌台
+        EventBus.getDefault().post(bean);
     }
 
     @Override

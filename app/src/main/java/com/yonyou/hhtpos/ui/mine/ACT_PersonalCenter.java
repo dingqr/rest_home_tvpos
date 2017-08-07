@@ -22,13 +22,15 @@ public class ACT_PersonalCenter extends ACT_BaseMultiple implements View.OnClick
     TextView tvTitle;
 
     private FRA_PersonalCenterLeft mPersonalCenterLeft;
-    private FRA_PersonalCenterDetail mPersonalCenterDetail;
+    private FRA_PersonalCenterEmpty mPersonalCenterEmpty;
+    private FRA_PassWork mFraPasswork;
 
     @Override
     protected void initView() {
         tvTitle.setText(mContext.getString(R.string.personal_center));
         mPersonalCenterLeft= new FRA_PersonalCenterLeft();
-        mPersonalCenterDetail = new FRA_PersonalCenterDetail();
+        mPersonalCenterEmpty = new FRA_PersonalCenterEmpty();
+        mFraPasswork = new FRA_PassWork();
     }
 
     @Override
@@ -43,7 +45,7 @@ public class ACT_PersonalCenter extends ACT_BaseMultiple implements View.OnClick
 
     @Override
     protected Fragment getRightContent() {
-        return mPersonalCenterDetail;
+        return mFraPasswork;
     }
 
     @Override

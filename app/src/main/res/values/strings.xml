@@ -411,24 +411,26 @@
 
     <!--个人中心-->
     <string name="personal_center">个人中心</string>
+    <string name="employee_number">工号:</string>
     <string name="pass_work">我要交班</string>
     <string name="modify_password">修改密码</string>
     <string name="daily_settle_account">每日结算</string>
-    <string name="open_cashbox">开钱箱</string>
+    <string name="open_cash_box">开钱箱</string>
     <string name="morning_market">早市</string>
     <string name="midday_market">午市</string>
-    <!--<string name="personal_center">晚市</string>-->
-    <!--<string name="personal_center">天未结</string>-->
-    <!--<string name="personal_center">退出当前账户</string>-->
-    <!--<string name="personal_center">服务热线：400-0000-0000</string>-->
-    <!--<string name="personal_center">红火台餐饮云服务有限公司提供服务</string>-->
-    <!--<string name="personal_center">交班人</string>-->
-    <!--<string name="personal_center">待上交的现金及票据</string>-->
-    <!--<string name="personal_center">现金</string>-->
-    <!--<string name="personal_center">银行卡</string>-->
-    <!--<string name="personal_center">会员卡</string>-->
-    <!--<string name="personal_center">添加收款类型</string>-->
-    <!--<string name="personal_center">马上交班</string>-->
-    <!--<string name="personal_center">至</string>-->
+    <string name="dinner_market">晚市</string>
+    <string name="unsettle_time">天未结</string>
+    <string name="logout">退出当前账户</string>
+    <string name="service_hot_line">服务热线：400-0000-0000</string>
+    <string name="service_provider">红火台餐饮云服务有限公司提供服务</string>
+    <string name="pass_work_employee">交班人：</string>
+    <string name="working_time">上班时间：</string>
+    <string name="cash_invoice_to_hand_in">待上交的现金及票据</string>
+    <string name="cash">现金</string>
+    <string name="bank_card">银行卡</string>
+    <string name="vip_member_card">会员卡</string>
+    <string name="add_gathering_type"> + 添加收款类型</string>
+    <string name="pass_work_right_now">马上交班</string>
+    <string name="until">至</string>
 
 </resources>

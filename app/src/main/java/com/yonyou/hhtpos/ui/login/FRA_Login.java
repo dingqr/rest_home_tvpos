@@ -271,6 +271,7 @@ public class FRA_Login extends BaseFragment implements ILoginView {
             sharePre.putString(SpUtil.SHOP_NAME, StringUtil.getString(shopName));
             Constants.SHOP_ID = shopId;
             Constants.TOKEN = dataBean.getToken();
+            Constants.SHOP_NAME = shopName;
 
             Elog.e("SHOP_ID", sharePre.getString(SpUtil.SHOP_ID));
             Elog.e("SHOP_NAME", sharePre.getString(SpUtil.SHOP_NAME));
