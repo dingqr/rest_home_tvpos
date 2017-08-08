@@ -176,7 +176,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
 
         // 账单编号设置到标题
         if (!TextUtils.isEmpty(bean.getBillNo()) && bean.getBillNo().length() > 5){
-            mDishesLeft.setTitleText(bean.getBillNo().substring(bean.getBillNo().length() - 5, bean.getBillNo().length()), 0);
+            mDishesLeft.setTitleHeader(bean.getBillNo().substring(bean.getBillNo().length() - 5, bean.getBillNo().length()));
         }
     }
 

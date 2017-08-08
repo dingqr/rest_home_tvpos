@@ -182,6 +182,10 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         titleHeader = activity.getTitleText();
     }
 
+    public void setTitleHeader(String titleHeader) {
+        this.titleHeader = titleHeader;
+    }
+
     /**
      * 为修改菜品弹窗添加监听
      */
