@@ -60,8 +60,10 @@ public class DishListEntity implements Serializable {
         /**展示备注 */
         private String listShowRemark;
 
-        /**做法id */
+        /**做法id（已废弃） */
         private String practice;
+        /**做法id */
+        private List<String> practices;
         /**数量 */
         private String quantity;
         /**菜品备注 */
@@ -93,6 +95,14 @@ public class DishListEntity implements Serializable {
 
         public String getPractice() {
             return practice;
+        }
+
+        public List<String> getPractices() {
+            return practices;
+        }
+
+        public void setPractices(List<String> practices) {
+            this.practices = practices;
         }
 
         public void setPractice(String practice) {

@@ -180,9 +180,22 @@ public class SettleAccountDataEntity implements Serializable {
          */
         private String payTime;
         /**
-         * 支付方式
+         * 支付方式编码
          */
         private String payType;
+
+        /**
+         * 支付方式名称
+         */
+        private String payWayName;
+
+        public String getPayWayName() {
+            return payWayName;
+        }
+
+        public void setPayWayName(String payWayName) {
+            this.payWayName = payWayName;
+        }
 
         public String getPayAmount() {
             return StringUtil.getFormattedMoney(payAmount);

@@ -96,6 +96,11 @@ public class API {
     public static final String URL_TAKE_OUT_LIST = BASE_SERVER_SHOP + "/takeOut/orderList";
 
     /**
+     * 外卖--获取退款原因
+     */
+    public static final String URL_GET_REFUND_REASONS = BASE_SERVER_SHOP + "/takeOut/getAllRefundReason";
+
+    /**
      * 外带开单接口
      */
     public static final String URL_WD_OPEN_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayOpenOrder";
@@ -240,7 +245,7 @@ public class API {
     /**
      * 获取打印指令接口
      */
-    public static final String GET_PRINT_ORDER =  BASE_SERVER_PRINT + "/PrintService/getPrintCommand";
+    public static final String GET_PRINT_ORDER = BASE_SERVER_PRINT + "/PrintService/getPrintCommand";
 
     /**
      * 查询所有可用折扣方案

@@ -25,7 +25,7 @@ public class ADA_PayHistory extends CommonAdapterListView<SettleAccountDataEntit
     @Override
     protected void convert(ViewHolderListView holder, SettleAccountDataEntity.PaidHistory bean, int position) {
         if (bean != null) {
-            holder.setText(R.id.tv_pay_name, bean.getPayType());
+            holder.setText(R.id.tv_pay_name, bean.getPayWayName());
             holder.setText(R.id.tv_pay_money, mContext.getResources().getString(R.string.RMB_symbol) + bean.getPayAmount());
         }
     }

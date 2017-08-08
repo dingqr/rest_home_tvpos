@@ -655,27 +655,39 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 设置已选做法
             List<DishPracticeEntity> practices = dishesEntity.practices;
             for (int i = 0; i < practices.size(); i++){
-                if (practices.get(i).relateId.equals(currentBean.getPractice())){
-                    practices.get(i).isCheck = true;
-                }else {
-                    practices.get(i).isCheck = false;
+                List<String> currentPractices = currentBean.getPractices();
+                if (null != currentPractices && currentPractices.size() > 0){
+                    if (practices.get(i).relateId.equals(currentPractices.get(0))){
+                        practices.get(i).isCheck = true;
+                    }else {
+                        practices.get(i).isCheck = false;
+                    }
                 }
             }
             dataBean.setPractices(practices);
         }
+
         // 备注（多选）
         if (dishesEntity.remarks != null && dishesEntity.remarks.size() > 0 ) {
             // 设置已选备注
             List<DishRemarkEntity> remarks = dishesEntity.remarks;
             List<String> remarkList = currentBean.getRemarks();
+
+            // 把remarks都置为false
+            if (null != remarks){
+                for (int i = 0; i < remarks.size(); i++){
+                    remarks.get(i).isCheck = false;
+                }
+            }
+
+            // 遍历选中
             if (null != remarkList && remarkList.size() > 0){
                 for (int i = 0; i < remarkList.size(); i++){
                     String remarkId = remarkList.get(i);
                     for (int j = 0; j < remarks.size(); j++){
                         if (remarkId.equals(remarks.get(j).relateId)){
                             remarks.get(j).isCheck = true;
-                        }else {
-                            remarks.get(j).isCheck = false;
+                            break;
                         }
                     }
                 }
@@ -683,6 +695,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
 
             dataBean.setRemarks(remarks);
         }
+
         // 规格（单选）
         if (dishesEntity.standards != null && dishesEntity.standards.size() > 0 ) {
             // 设置已选规格

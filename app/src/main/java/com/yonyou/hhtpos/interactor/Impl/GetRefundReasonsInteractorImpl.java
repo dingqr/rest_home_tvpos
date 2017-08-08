@@ -1,10 +1,11 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.check.PayTypeEntity;
+import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.global.API;
-import com.yonyou.hhtpos.interactor.IPayTypeListInteractor;
+import com.yonyou.hhtpos.interactor.IGetRefundReasonsInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
 import com.yonyou.hhtpos.manager.RequestManager;
 
@@ -12,24 +13,28 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 作者：liushuofei on 2017/8/8 14:56
- * 邮箱：lsf@yonyou.com
+ * Created by ybing on 2017/8/8.
+ * 获取所有外卖退款原因
  */
-public class PayTypeListInteractorImpl implements IPayTypeListInteractor {
+
+public class GetRefundReasonsInteractorImpl implements IGetRefundReasonsInteractor {
 
     private BaseLoadedListener mBaseLoadedListener;
 
-    public PayTypeListInteractorImpl(BaseLoadedListener mBaseLoadedListener) {
+    public GetRefundReasonsInteractorImpl(BaseLoadedListener mBaseLoadedListener) {
         this.mBaseLoadedListener = mBaseLoadedListener;
     }
 
     @Override
-    public void requestPayTypeList(String shopId) {
+    public void getRefundReasons(String extendsTypeId,String pageNum,String pageSize) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
-        hashMap.put("shopId",shopId);
-        RequestManager.getInstance().requestGetByAsyn(API.GET_PAY_TYPE_LIST, hashMap, new ReqCallBack<List<PayTypeEntity>>() {
+
+        hashMap.put("extendsTypeId",StringUtil.getString(extendsTypeId));
+        hashMap.put("pageNum",StringUtil.getString(pageNum));
+        hashMap.put("pageSize",StringUtil.getString(pageSize));
+        RequestManager.getInstance().requestGetByAsyn(API.URL_GET_REFUND_REASONS, hashMap, new ReqCallBack<List<RefundReasonEntity>>() {
             @Override
-            public void onReqSuccess(List<PayTypeEntity> result) {
+            public void onReqSuccess(List<RefundReasonEntity> result) {
                 mBaseLoadedListener.onSuccess(1,result);
             }
 
@@ -42,7 +47,6 @@ public class PayTypeListInteractorImpl implements IPayTypeListInteractor {
             public void onReqFailed(ErrorBean errorBean) {
                 mBaseLoadedListener.onBusinessError(errorBean);
             }
-
         });
     }
 }

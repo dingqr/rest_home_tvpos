@@ -586,6 +586,29 @@ public class FiltrationUtil {
 
         return dailyAccountEntities;
     }
+    public static ArrayList<CashTypeEntity> getCashTypeEntities() {
+        ArrayList<CashTypeEntity> cashTypeEntities = new ArrayList<>();
+        CashTypeEntity cte1 = new CashTypeEntity("现金",false);
+        CashTypeEntity cte2 = new CashTypeEntity("支付宝",false);
+        CashTypeEntity cte3 = new CashTypeEntity("微信",false);
+        CashTypeEntity cte4 = new CashTypeEntity("会员卡",false);
+        CashTypeEntity cte5 = new CashTypeEntity("现金",false);
+        CashTypeEntity cte6 = new CashTypeEntity("支付宝",false);
+        CashTypeEntity cte7 = new CashTypeEntity("微信",false);
+        CashTypeEntity cte8 = new CashTypeEntity("会员卡",false);
+        cashTypeEntities.add(cte1);
+        cashTypeEntities.add(cte2);
+        cashTypeEntities.add(cte3);
+        cashTypeEntities.add(cte4);
+        cashTypeEntities.add(cte5);
+        cashTypeEntities.add(cte6);
+        cashTypeEntities.add(cte7);
+        cashTypeEntities.add(cte8);
+
+
+
+        return cashTypeEntities;
+    }
 }
 
 //        lp.width = ScreenUtil.getScreenWidth((Activity) mContext) / 10 * 9; // 设置宽度

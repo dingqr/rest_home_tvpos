@@ -15,7 +15,11 @@ public class RequestPayEntity {
      */
     public String payTime;
     /**
-     * 支付方式
+     * 支付方式编码
      */
     public String payType;
+    /**
+     * 支付方式名称
+     */
+    public String payWayName;
 }

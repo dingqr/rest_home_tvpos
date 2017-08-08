@@ -5,7 +5,7 @@ import android.content.Context;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.PayTypeEntity;
+import com.yonyou.hhtpos.bean.check.PayTypeEntity;
 import com.yonyou.hhtpos.interactor.IPayTypeListInteractor;
 import com.yonyou.hhtpos.interactor.Impl.PayTypeListInteractorImpl;
 import com.yonyou.hhtpos.presenter.IPayTypePresenter;

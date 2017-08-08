@@ -1,7 +1,7 @@
 package com.yonyou.hhtpos.view;
 
 import com.yonyou.framework.library.view.BaseView;
-import com.yonyou.hhtpos.bean.PayTypeEntity;
+import com.yonyou.hhtpos.bean.check.PayTypeEntity;
 
 import java.util.List;
 
