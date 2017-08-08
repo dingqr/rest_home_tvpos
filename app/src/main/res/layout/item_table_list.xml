@@ -13,7 +13,7 @@
     <!--android:layout_height="@dimen/px_172"-->
     <!--图片标记-->
     <ImageView
-        android:id="@+id/tv_locked"
+        android:id="@+id/iv_locked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/px_14"

@@ -152,9 +152,9 @@ public class DIA_TurnChooseTable {
                 }
                 break;
             case R.id.rb_finish_choose:
-//                if (mDialog != null) {
-//                    mDialog.dismiss();
-//                }
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 if (mTableListener != null && mTableEntity != null) {
                     mTableListener.onChooseTableResult(mTableEntity);
                 }
@@ -166,7 +166,7 @@ public class DIA_TurnChooseTable {
      * 刷新餐区
      */
     public void refreshMealAreaData(List<MealAreaEntity> mealAreas) {
-        if (mealAreas != null && mealAreas.size() > 0) {
+        if (mealAreas != null && mealAreas.size() >= 1) {
             mTableAreaAdapter.update(mealAreas, true);
         }
     }

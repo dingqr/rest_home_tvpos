@@ -309,8 +309,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.unit = dishesEntity.dishUnit.getUnitName();
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
-                //不确定的字段
                 requestAddDishEntity.dishStatus = "waitCall";//等叫
+                requestAddDishEntity.isDiscount = dishesEntity.isDiscount;
 
                 //缺少的字段
                 //把所有已选做法名连接到一起的字符串，逗号分隔

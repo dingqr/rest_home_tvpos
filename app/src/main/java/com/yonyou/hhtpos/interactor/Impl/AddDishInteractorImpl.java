@@ -54,6 +54,7 @@ public class AddDishInteractorImpl implements IAddDishInteractor {
         params.put("saleManner", requestAddDishEntity.saleManner);
         params.put("orderState", requestAddDishEntity.orderState);
         params.put("waiterId", SpUtil.EMPLOYEE_ID);
+        params.put("isDiscount", requestAddDishEntity.isDiscount);
         RequestManager.getInstance().requestPostByAsyn(API.URL_ADD_DISH, params, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {
