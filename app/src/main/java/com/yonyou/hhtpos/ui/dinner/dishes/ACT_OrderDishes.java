@@ -14,7 +14,7 @@ import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
 import com.yonyou.hhtpos.bean.wd.OpenOrderSuccessEntity;
-import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDCloseOrderPresenter;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
@@ -43,15 +43,16 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     private int fromWhere;//1：堂食  2：外卖  3：外带
     private String titleText;
 
+    /**有无下单动作 */
     private boolean hasPlaceOrder;
-
-    private FRA_DishesList mDishesLeft;
+    /**是否来自结账页面 */
+    public boolean isFromSettleAccount;
 
     /**中间者 */
     private IWDOpenOrderPresenter mWDOpenOrderPresenter;
     private IWDCloseOrderPresenter mWDCloseOrderPresenter;
-    //是否来自结账页面
-    public boolean isFromSettleAccount;
+
+    private FRA_DishesList mDishesLeft;
 
     @Override
     protected boolean isApplyKitKatTranslucency() {
@@ -176,7 +177,7 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
 
         // 账单编号设置到标题
         if (!TextUtils.isEmpty(bean.getBillNo()) && bean.getBillNo().length() > 5){
-            mDishesLeft.setTitleText(bean.getBillNo().substring(bean.getBillNo().length() - 5, bean.getBillNo().length()), 0);
+            mDishesLeft.setTitleHeader(bean.getBillNo().substring(bean.getBillNo().length() - 5, bean.getBillNo().length()));
         }
     }
 
@@ -192,7 +193,13 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
         //System.out.println("按下了back键   onBackPressed()");
 
         if (fromWd && !hasPlaceOrder){
-            mWDCloseOrderPresenter.closeOrder(tableBillId);
+            DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_clear_dishes), new DIA_DoubleConfirm.OnSelectedListener() {
+                @Override
+                public void confirm() {
+                    mWDCloseOrderPresenter.closeOrder(tableBillId);
+                }
+            });
+            dia_doubleConfirm.getDialog().show();
         }else {
             super.onBackPressed();
         }

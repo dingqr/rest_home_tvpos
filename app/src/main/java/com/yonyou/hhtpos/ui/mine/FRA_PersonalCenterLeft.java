@@ -4,11 +4,13 @@ package com.yonyou.hhtpos.ui.mine;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.dialog.DIA_DoubleConfirm;
 import com.yonyou.hhtpos.util.Constants;
 
 import butterknife.Bind;
@@ -35,6 +37,8 @@ public class FRA_PersonalCenterLeft extends BaseFragment
     View redDailySettleAccount;
     @Bind(R.id.im_left_open_cash_box)
     View redOpenCashBox;
+    @Bind(R.id.tv_logout)
+    TextView tvLogout;
 
     //fragment 切换回调
     private FrgOptionCallBack frgOptionCallBack;
@@ -65,6 +69,7 @@ public class FRA_PersonalCenterLeft extends BaseFragment
         rlModifyPassword.setOnClickListener(this);
         rlDailySettleAccount.setOnClickListener(this);
         rlOpenCashBox.setOnClickListener(this);
+        tvLogout.setOnClickListener(this);
 
         frgOptionCallBack = (FrgOptionCallBack) getActivity();
         setFrgOptionCallBack(frgOptionCallBack);
@@ -104,6 +109,17 @@ public class FRA_PersonalCenterLeft extends BaseFragment
                 frgOptionCallBack.sendOption(Constants.OPEN_CASH_BOX);
                 break;
 
+            case R.id.tv_logout:
+                DIA_DoubleConfirm diaLogout = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.confirm_logout),
+                        mContext.getString(R.string.string_logout),
+                        new DIA_DoubleConfirm.OnSelectedListener() {
+                            @Override
+                            public void confirm() {
+
+                            }
+                        });
+                diaLogout.getDialog().show();
+                break;
             default:
                 break;
         }

@@ -22,9 +22,12 @@ public class DIA_DoubleConfirm extends DIA_Base {
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.tv_double_confirm_right)
+    TextView tvRight;
 
     private String title;
     private OnSelectedListener onSelectedListener;
+    private String right;
 
     public DIA_DoubleConfirm(Context context, String title, OnSelectedListener onSelectedListener) {
         super(context);
@@ -34,7 +37,15 @@ public class DIA_DoubleConfirm extends DIA_Base {
 
         this.onSelectedListener = onSelectedListener;
     }
+    public DIA_DoubleConfirm(Context context, String title,String right, OnSelectedListener onSelectedListener) {
+        super(context);
 
+        // 标题
+        tvTitle.setText(StringUtil.getString(title));
+        tvRight.setText(StringUtil.getString(right));
+
+        this.onSelectedListener = onSelectedListener;
+    }
     public Dialog getDialog() {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.getWindow().setGravity(Gravity.CENTER);

@@ -271,6 +271,7 @@
     <string name="string_late_make_bill">补打账单</string>
     <string name="string_go_settle_amount">去结账</string>
     <string name="tip_delete_dish">确认删除该菜品吗？</string>
+    <string name="tip_clear_dishes">确认清空当前已选菜品？</string>
     <string name="tip_cancel_gift_dish">确认取消赠送吗？</string>
     <string name="tip_delete_no_order_dishes">确认删除未下单菜品吗？</string>
     <string name="tip_place_order_success">下单成功</string>
@@ -440,6 +441,8 @@
     <string name="enter_new_password">请输入新密码</string>
     <string name="enter_verify_new_password">请确认新密码</string>
     <string name="more_daily_data">更多日结数据，请登录商家后台查询</string>
+    <string name="confirm_logout">确定退出登录</string>
+    <string name="string_logout">退出登录</string>
 
 
 
