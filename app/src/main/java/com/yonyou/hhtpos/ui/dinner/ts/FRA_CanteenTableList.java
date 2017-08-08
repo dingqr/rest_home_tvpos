@@ -476,6 +476,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     //刷新转入桌台弹窗的数据
                     mDiaTurnChooseTable.refreshMealAreaData(mMealAreas);
                     mDiaTurnChooseTable.refreshTableList(tableList);
+                    mDiaTurnChooseTable.getTableListAdapter().setSelectItem(0);
+                    mDiaTurnChooseTable.getTableListAdapter().notifyDataSetChanged();
                     mDiaTurnChooseTable.show();
                 }
 //                Log.e("TAG", "请求可用桌台列表");

@@ -84,7 +84,7 @@ public class ADA_TableChooseList extends CommonAdapter<CanteenTableEntity> {
 //                break;
 //        }
         //设置选中效果
-        if (mDatas.get(mActualPos).isCheck) {
+        if (mSelectedPos == mActualPos) {
             rbTableCheck.setChecked(true);
         } else {
             rbTableCheck.setChecked(false);
