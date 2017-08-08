@@ -7,14 +7,14 @@ import android.widget.TextView;
 import com.yonyou.framework.library.adapter.rv.CommonAdapter;
 import com.yonyou.framework.library.adapter.rv.ViewHolder;
 import com.yonyou.hhtpos.R;
-import com.yonyou.hhtpos.bean.TableAreaEntity;
+import com.yonyou.hhtpos.bean.MealAreaEntity;
 
 /**
  * Created by zj on 2017/7/10.
  * 邮箱：zjuan@yonyou.com
  * 描述：餐区选择的适配器
  */
-public class ADA_TableArea extends CommonAdapter<TableAreaEntity> {
+public class ADA_TableArea extends CommonAdapter<MealAreaEntity> {
     private int mSelectedPos;
 //    private onItemClickListener mListener;
 
@@ -28,7 +28,7 @@ public class ADA_TableArea extends CommonAdapter<TableAreaEntity> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, TableAreaEntity tableAreaEntity, final int position) {
+    protected void convert(ViewHolder holder, MealAreaEntity mealAreaEntity, final int position) {
 //        View itemView = holder.getView(R.id.layout_item);
 //        itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -38,7 +38,7 @@ public class ADA_TableArea extends CommonAdapter<TableAreaEntity> {
 //                }
 //            }
 //        });
-        holder.setText(R.id.tv_table_area_name,tableAreaEntity.name);
+        holder.setText(R.id.tv_table_area_name,mealAreaEntity.getDiningAreaName());
         TextView tvTableAreaAame = holder.getView(R.id.tv_table_area_name);
         //设置选中效果
         if (mSelectedPos == position) {

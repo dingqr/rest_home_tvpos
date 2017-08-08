@@ -53,7 +53,7 @@ public class CanteenTableEntity implements Serializable {
     /**
      * 是否选中
      */
-    public String isCheck;
+    public boolean isCheck;
     /**预定单号*/
     public String billNo;
     /**账单id*/
@@ -98,9 +98,6 @@ public class CanteenTableEntity implements Serializable {
         this.receiveAmount = receiveAmount;
     }
 
-    public void isCheck(String isCheck) {
-        this.isCheck = isCheck;
-    }
 
     public String getTableID() {
         return tableID;

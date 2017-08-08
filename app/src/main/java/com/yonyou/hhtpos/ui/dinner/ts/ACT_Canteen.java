@@ -96,7 +96,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     private TextView tabTextView;
 
     private DIA_Navigation dia_navigation;
-    List<MealAreaEntity> mealAreaList;
+    private List<MealAreaEntity> mealAreaList;
     private MealAreaEntity currentMealArea;
     /**
      * 根据桌台操作筛选可用的桌台
@@ -527,7 +527,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     }
 
     @Override
-    public void getTableAreaList(List<MealAreaEntity> mealAreas) {
+    public void getTableAreaList(final List<MealAreaEntity> mealAreas) {
         if (mealAreas != null && mealAreas.size() > 0) {
             mealAreaList.addAll(mealAreas);
         }
@@ -548,5 +548,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     @Override
     public boolean onItemLongClick(int position, ADA_MealArea.ViewHolder holder, MealAreaEntity bean) {
         return false;
+    }
+
+    public List<MealAreaEntity> getMealAreaList() {
+        return mealAreaList;
     }
 }

@@ -54,7 +54,7 @@
         android:layout_height="@dimen/px_40"
         android:layout_marginTop="@dimen/px_42"
         android:gravity="center"
-        android:text="￥188.88"
+        android:text="￥0.008"
         android:textColor="@color/color_333333"
         android:textSize="@dimen/sp_24" />
 
@@ -77,7 +77,6 @@
         android:layout_below="@+id/tv_money"
         android:layout_marginRight="@dimen/px_14"
         android:gravity="center"
-        android:text="16:45"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_20" />
 
@@ -89,18 +88,20 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_person_num"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px_40"
             android:gravity="center"
-            android:text="10"
+            android:text="0"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_20" />
 
         <TextView
+            android:id="@+id/tv_seat_num"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/px_40"
             android:gravity="center"
-            android:text="/12人"
+            android:text="/0人"
             android:textColor="@color/color_666666"
             android:textSize="@dimen/sp_20" />
     </LinearLayout>

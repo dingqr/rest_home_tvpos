@@ -24,6 +24,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_OrderDishesDetail;
 import com.yonyou.hhtpos.adapter.ADA_WDDetailPayType;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.bean.wd.WDDishDetaiListlEntity;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
 import com.yonyou.hhtpos.global.DishConstants;
@@ -111,6 +112,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
     private boolean isUnOrdered;
+    private OrderListEntity mPackingOrderBean;
 
     /**
      * 左侧外带订单列表是否为空
@@ -180,9 +182,14 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
 
     }
 
-    public void requestPackingDetail(String tableBillId) {
-        this.tableBillId = tableBillId;
-        mPresenter.requestWDOrderDetail(tableBillId);
+    public void requestPackingDetail(OrderListEntity orderListEntity) {
+        if (orderListEntity != null) {
+            this.mPackingOrderBean = orderListEntity;
+            if (!TextUtils.isEmpty(orderListEntity.id)) {
+                tableBillId = orderListEntity.id;
+                mPresenter.requestWDOrderDetail(tableBillId);
+            }
+        }
     }
 
     @OnClick({R.id.tv_button})
@@ -212,6 +219,9 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 Bundle bundles = new Bundle();
                 bundles.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
                 bundles.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WD);
+                if (!TextUtils.isEmpty(mPackingOrderBean.getBillNo()) && mPackingOrderBean.getBillNo().length() > 5) {
+                    bundles.putString(ACT_OrderDishes.TITLE_TEXT, mPackingOrderBean.getBillNo().substring(mPackingOrderBean.getBillNo().length() - 5, mPackingOrderBean.getBillNo().length()));
+                }
                 readyGo(ACT_OrderDishes.class, bundles);
                 break;
             case 2:
