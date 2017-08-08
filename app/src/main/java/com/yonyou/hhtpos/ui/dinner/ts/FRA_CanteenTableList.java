@@ -301,25 +301,19 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         dia_openOrderSplit.setData(canteenTableEntity, mWaiterList);
                         dia_openOrderSplit.setTsCallback(FRA_CanteenTableList.this);
                         dia_openOrderSplit.getDialog().show();
+                        turnFlag = false;
                     }
                     //可以被转台的桌台列表
-                    if (tableOption.equals("1")) {
+                    else if (tableOption.equals("1")) {
                         //点击桌台 筛选可以被转入的桌台
                         canteenTableEntity.setTableOption(1);
                         mTableListPresenter.requestTableList(diningAreaRelateId, shopId, "0,6,10");
                         turnFlag = true;
-                    } else {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
-                        bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
-                        bundle.putString(ACT_OrderDishes.TITLE_TEXT, canteenTableEntity.tableName);
-                        readyGo(ACT_OrderDishes.class, bundle);
-                    }
-                    break;
 
-                //桌台占用，筛选已结清的账单
-                case 9:
-                    if (tableOption.equals("4")) {
+                    }
+                    //可以被清台的桌台列表
+                    else if (tableOption.equals("0")){
+                        turnFlag = false;
                         //桌台占用，订单清台中
                         DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
                                 new DIA_DoubleConfirm.OnSelectedListener() {
@@ -329,6 +323,36 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                                     }
                                 });
                         diaClearTable.getDialog().show();
+                    }
+                    else {
+                        turnFlag = false;
+                        Bundle bundle = new Bundle();
+                        bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
+                        bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
+                        bundle.putString(ACT_OrderDishes.TITLE_TEXT, canteenTableEntity.tableName);
+                        readyGo(ACT_OrderDishes.class, bundle);
+                    }
+                    break;
+
+                //桌台占用，筛选已结清账单的桌台
+                case 9:
+                    if (tableOption.equals("0")) {
+                        //桌台占用，订单清台中
+                        DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
+                                new DIA_DoubleConfirm.OnSelectedListener() {
+                                    @Override
+                                    public void confirm() {
+                                        mTSClearTablePresenter.clearTable(Constants.SHOP_ID, canteenTableEntity.tableID);
+                                    }
+                                });
+                        diaClearTable.getDialog().show();
+                    } else if (tableOption.equals("3")) {
+                        //点击桌台 开拼桌的单子
+                        DIA_OpenOrder dia_openOrderSplit = new DIA_OpenOrder(mContext);
+                        canteenTableEntity.setTableOption(3);
+                        dia_openOrderSplit.setData(canteenTableEntity, mWaiterList);
+                        dia_openOrderSplit.setTsCallback(FRA_CanteenTableList.this);
+                        dia_openOrderSplit.getDialog().show();
                     }
                     break;
                 //桌台预定 弹出预订单开单对话框
@@ -388,7 +412,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     @Override
     public void clearTable(String result) {
         onRefresh();
-
     }
 
     /**
@@ -498,6 +521,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void onUpdateTableOption(String tableOption) {
         if (tableOption != null) {
             this.tableOption = tableOption;
+            if (tableOption.equals("99")){
+                mSwiperefreshLayout.setEnabled(true);
+            }else{
+                mSwiperefreshLayout.setEnabled(false);
+            }
         }
     }
 

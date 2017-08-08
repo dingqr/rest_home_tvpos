@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
@@ -308,7 +309,10 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
      */
     @Override
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
-        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
+//        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
+
+        // 收款成功
+        CommonUtils.makeEventToast(mContext, getString(R.string.string_receive_money_successful), false);
         if (settleAccountDataEntity != null) {
             if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
                 getActivity().finish();

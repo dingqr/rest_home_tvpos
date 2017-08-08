@@ -24,6 +24,8 @@ public class ACT_PersonalCenter extends ACT_BaseMultiple implements View.OnClick
     private FRA_PersonalCenterLeft mPersonalCenterLeft;
     private FRA_PersonalCenterEmpty mPersonalCenterEmpty;
     private FRA_PassWork mFraPasswork;
+    private FRA_ModifyPassword mFraModifyPassword;
+    private FRA_DailySettleAccount mFraDailySettleAccount;
 
     @Override
     protected void initView() {
@@ -31,6 +33,8 @@ public class ACT_PersonalCenter extends ACT_BaseMultiple implements View.OnClick
         mPersonalCenterLeft= new FRA_PersonalCenterLeft();
         mPersonalCenterEmpty = new FRA_PersonalCenterEmpty();
         mFraPasswork = new FRA_PassWork();
+        mFraModifyPassword = new FRA_ModifyPassword();
+        mFraDailySettleAccount = new FRA_DailySettleAccount();
     }
 
     @Override
@@ -45,7 +49,7 @@ public class ACT_PersonalCenter extends ACT_BaseMultiple implements View.OnClick
 
     @Override
     protected Fragment getRightContent() {
-        return mFraPasswork;
+        return mFraDailySettleAccount;
     }
 
     @Override

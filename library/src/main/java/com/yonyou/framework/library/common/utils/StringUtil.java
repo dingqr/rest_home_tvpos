@@ -47,4 +47,16 @@ public class StringUtil {
         }
         return "";
     }
+
+    /**
+     * 转成折扣格式
+     *
+     * @param discountRate
+     * @return
+     */
+    public static String getFormatDiscount(String discountRate) {
+        double v = Double.parseDouble(discountRate) / 10.00;
+        DecimalFormat mFormat = new DecimalFormat("0.0");
+        return mFormat.format(discountRate);
+    }
 }

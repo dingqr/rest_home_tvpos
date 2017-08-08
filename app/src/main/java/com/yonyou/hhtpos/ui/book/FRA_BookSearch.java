@@ -102,8 +102,11 @@ public class FRA_BookSearch extends BaseFragment implements IWDListView, SwipeRe
     protected void initViewsAndEvents() {
         Bundle bundle = getArguments();
         if (null != bundle) {
-            searchType = bundle.getString(SEARCH_TYPE);
+            searchType = bundle.getString(SEARCH_TYPE, "");
         }
+
+        if (null == searchType)
+            return;
 
         // 加载中的4种颜色
         srlData.setColorSchemeColors(
@@ -243,8 +246,10 @@ public class FRA_BookSearch extends BaseFragment implements IWDListView, SwipeRe
                 etSearch.setText("");
                 break;
             case R.id.tv_filter:
-                if (searchType.equals(TYPE_WD)) {
-                    ((ACT_Packing) getActivity()).switchToLeft();
+                if (null != searchType){
+                    if (searchType.equals(TYPE_WD)) {
+                        ((ACT_Packing) getActivity()).switchToLeft();
+                    }
                 }
                 break;
         }

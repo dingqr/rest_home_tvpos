@@ -324,9 +324,11 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     mAdapter.enableItemChooser();
 
                     setTopTab(true);
-
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     // 重置桌台列表
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
+
                 }
                 break;
 
@@ -367,6 +369,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvClearTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     setTopTab(true);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
@@ -411,6 +415,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
                     mAdapter.enableItemChooser();
                     setTopTab(true);
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
                 break;
@@ -433,7 +439,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvSplitTable.setClickable(false);
 
                     mAdapter.disableAllItemChooser();
-                    filterTableByOption(4);
+                    filterTableByOption(0);
                     setTopTab(false);
                 } else {
                     tvClearTable.setText(mContext.getString(R.string.table_clear));
@@ -451,6 +457,8 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvSplitTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
+                    setTableOption("99");
+                    EventBus.getDefault().post(tableOption);
                     setTopTab(true);
                     sendBroadcast(ReceiveConstants.REFRESH_TABLE_LIST);
                 }
@@ -462,13 +470,14 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     private void filterTableByOption(int option) {
         switch (option) {
+            case 0:
+
             case 1:
 
             case 2:
 
             case 3:
 
-            case 4:
                 setTableOption(String.valueOf(option));
                 if (currentMealArea != null) {
                     filtrateTableListPresenter.requestFiltrateTableList(StringUtil.getString(currentMealArea.getRelateId()),
@@ -512,7 +521,6 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         Elog.e("tableList.size==", tableList.size() + "-------EventBusSend");
         EventBus.getDefault().post(tableOption);
         EventBus.getDefault().post(tableList);
-
     }
 
     public void setTableOption(String tableOption) {

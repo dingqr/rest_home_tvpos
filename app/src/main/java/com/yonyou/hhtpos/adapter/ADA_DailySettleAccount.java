@@ -7,21 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.yonyou.framework.library.common.utils.AppDateUtil;
+import com.yonyou.framework.library.common.utils.AppUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.mine.CashTypeEntity;
+import com.yonyou.hhtpos.bean.mine.DailyAccountEntity;
 
 import java.util.List;
 
 /**
- * 现金票据类型adapter
+ * 每日结算adapter
  * 作者：ybing on 2017/8/5 19:21
  */
-public class ADA_CashType extends RecyclerView.Adapter<ADA_CashType.ViewHolder>  {
+public class ADA_DailySettleAccount extends RecyclerView.Adapter<ADA_DailySettleAccount.ViewHolder>  {
     private LayoutInflater mInflater;
-    private List<CashTypeEntity> mDatas;
+    private List<DailyAccountEntity> mDatas;
 
-    public ADA_CashType(Context mContext, List< CashTypeEntity> mDatas) {
+    public ADA_DailySettleAccount(Context mContext, List< DailyAccountEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
         this.mDatas = mDatas;
     }
@@ -35,22 +38,21 @@ public class ADA_CashType extends RecyclerView.Adapter<ADA_CashType.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = mInflater.inflate(R.layout.item_cash_type, viewGroup, false);
+        View view = mInflater.inflate(R.layout.item_daily_account, viewGroup, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.tvCashyType = (TextView) view.findViewById(R.id.tv_cash_type);
-        viewHolder.tvAmount = (TextView) view.findViewById(R.id.tv_amount);
+        viewHolder.tvSettleTime = (TextView) view.findViewById(R.id.tv_settle_account_time);
+        viewHolder.tvSettleOption = (TextView) view.findViewById(R.id.tv_settle_account_option);
         viewHolder.ivSplitLine = view.findViewById(R.id.iv_split_line);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final CashTypeEntity dataBean = mDatas.get(position);
+        final DailyAccountEntity dataBean = mDatas.get(position);
         if (dataBean != null) {
-            holder.tvCashyType.setText(StringUtil.getString(dataBean.getCashTypeName()));
-            holder.tvAmount.setText(mInflater.getContext().getString(R.string.RMB_symbol)+
-            StringUtil.getString(dataBean.getCashAmount()));
+            holder.tvSettleTime.setText(StringUtil.getString(dataBean.getSettleTime()));
+            holder.tvSettleOption.setText(StringUtil.getString(dataBean.getSettleOption()));
         }
         if (position == mDatas.size()-1){
             holder.ivSplitLine.setVisibility(View.GONE);
@@ -65,7 +67,7 @@ public class ADA_CashType extends RecyclerView.Adapter<ADA_CashType.ViewHolder> 
      *
      * @param mDatas
      */
-    public void update(List<CashTypeEntity> mDatas) {
+    public void update(List<DailyAccountEntity> mDatas) {
         if (null != mDatas) {
             this.mDatas = mDatas;
         }
@@ -77,8 +79,8 @@ public class ADA_CashType extends RecyclerView.Adapter<ADA_CashType.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
         }
-        public TextView tvCashyType;
-        public TextView tvAmount;
+        public TextView tvSettleTime;
+        public TextView tvSettleOption;
         public View ivSplitLine;
 
     }
