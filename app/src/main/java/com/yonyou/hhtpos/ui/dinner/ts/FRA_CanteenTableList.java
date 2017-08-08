@@ -42,7 +42,9 @@ import com.yonyou.hhtpos.presenter.Impl.ChooseWaiterPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TSClearTablePresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TSOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
+import com.yonyou.hhtpos.ui.mine.FRA_PersonalCenterLeft;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
@@ -54,6 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
@@ -97,6 +100,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     //查询所有服务员接口
     private IChooseWaiterPresenter mChooseWaiterPresenter;
     private List<WaiterEntity> mWaiterList = new ArrayList<>();
+
+    private ClearTableCallBack clearTableCallBack;
     //测试参数
 //    private String shopIdFake = "C13352966C000000A60000000016E000";
     /**
@@ -219,7 +224,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mDiaTurnChooseTable.setOnChooseResultListener(new DIA_TurnChooseTable.OnChooseTableListener() {
             @Override
             public void onChooseTableResult(CanteenTableEntity tableEntity) {
-                Elog.e("chooseTable=" + tableEntity.tableName);
+                mSwiperefreshLayout.setEnabled(true);
+//                Elog.e("chooseTable=" + tableEntity.tableName);
             }
         });
     }
@@ -331,7 +337,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                             mTableListPresenter.requestTableList(diningAreaRelateId, shopId, "0,6,10");
                         }
                         turnFlag = true;
-
                     }
                     //可以被清台的桌台列表
                     else if (tableOption.equals("0")) {
@@ -367,6 +372,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                                     }
                                 });
                         diaClearTable.getDialog().show();
+                        setClearTableCallBack((ClearTableCallBack)getActivity());
                     } else if (tableOption.equals("3")) {
                         //点击桌台 开拼桌的单子
                         DIA_OpenOrder dia_openOrderSplit = new DIA_OpenOrder(mContext);
@@ -374,6 +380,9 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         dia_openOrderSplit.setData(canteenTableEntity, mWaiterList);
                         dia_openOrderSplit.setTsCallback(FRA_CanteenTableList.this);
                         dia_openOrderSplit.getDialog().show();
+                    }else{
+                        //去账单详情页
+                        readyGo(ACT_CheckOut.class);
                     }
                     break;
                 //桌台预定 弹出预订单开单对话框
@@ -432,7 +441,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void clearTable(String result) {
-//        onRefresh();
+        clearTableCallBack.sendOption(0);
     }
 
     /**
@@ -502,7 +511,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     private void updateTurnList(MealAreaEntity mealAreaEntity) {
         if (mealAreaEntity != null) {
             mTableListPresenter.requestTableList(mealAreaEntity.getRelateId(), shopId, "0,6,10");
-            turnFlag = true;
+            mSwiperefreshLayout.setEnabled(false);
+            mSwiperefreshLayout.setRefreshing(false);
         }
     }
 
@@ -515,7 +525,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void onUpdateTableList(List<CanteenTableEntity> tableList) {
         if (tableList != null && tableList.size() > 0) {
             this.datas = (ArrayList<CanteenTableEntity>) tableList;
-
             if (getUserVisibleHint()) {
                 // restore view helper
                 restoreViewHelper();
@@ -545,8 +554,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             if (tableOption.equals("99")){
                 turnFlag = false;
                 mSwiperefreshLayout.setEnabled(true);
-                Elog.e("TURNFLAG",turnFlag);
-                Elog.e("TABLEOPTION",tableOption);
             }else{
                 mSwiperefreshLayout.setEnabled(false);
             }
@@ -571,5 +578,13 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (intent == ReceiveConstants.REFRESH_TABLE_LIST && getUserVisibleHint()) {
             onRefresh();
         }
+    }
+
+    public interface ClearTableCallBack{
+        void sendOption(int option);
+    }
+
+    public void setClearTableCallBack(ClearTableCallBack clearTableCallBack) {
+        this.clearTableCallBack = clearTableCallBack;
     }
 }

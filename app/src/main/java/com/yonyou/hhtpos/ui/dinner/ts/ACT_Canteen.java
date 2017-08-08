@@ -46,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * 作者：liushuofei on 2017/7/8 10:42
  */
 public class ACT_Canteen extends BaseActivity implements View.OnClickListener, ITSFiltrateTableView,
-        ITSTableAreaListView, ADA_MealArea.OnItemClickListener {
+        ITSTableAreaListView, ADA_MealArea.OnItemClickListener,FRA_CanteenTableList.ClearTableCallBack {
 
     @Bind(R.id.iv_menu)
     ImageView mMenuImg;
@@ -552,5 +552,10 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
 
     public List<MealAreaEntity> getMealAreaList() {
         return mealAreaList;
+    }
+
+    @Override
+    public void sendOption(int option) {
+        filterTableByOption(option);
     }
 }

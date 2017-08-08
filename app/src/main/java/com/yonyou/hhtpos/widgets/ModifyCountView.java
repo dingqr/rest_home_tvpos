@@ -60,6 +60,7 @@ public class ModifyCountView extends LinearLayout implements  View.OnClickListen
         currentCount.setSelection(content.length());//将光标移至文字末尾
     }
     public void reset(){
+        this.count = 1;
         currentCount.setText("1");
         currentCount.setFocusable(false);
         currentCount.setFocusableInTouchMode(true);

@@ -31,7 +31,7 @@ public class ADA_TableChooseList extends CommonAdapter<CanteenTableEntity> {
     @Override
     protected void convert(ViewHolder holder, CanteenTableEntity canteenTableEntity, int position) {
         int mActualPos = position - 1;
-        Elog.e("canteenTableEntity=" + canteenTableEntity.tableName + "Pos=" + mActualPos);
+//        Elog.e("canteenTableEntity=" + canteenTableEntity.tableName + "Pos=" + mActualPos);
         RadioButton rbTableCheck = holder.getView(R.id.rb_table_check);
 //        //除了空闲状态，都显示操作时间
 //        //桌台名称
