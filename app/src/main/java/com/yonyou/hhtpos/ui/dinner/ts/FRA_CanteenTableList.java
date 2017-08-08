@@ -60,6 +60,9 @@ import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.FROM_WHERE;
+import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
+
 
 /**
  * Created by zj on 2017/7/8.
@@ -381,7 +384,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         dia_openOrderSplit.getDialog().show();
                     }else{
                         //去账单详情页
-                        readyGo(ACT_CheckOut.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(TABLE_BILL_ID,canteenTableEntity.tableBillId);
+                        bundle.putInt(FROM_WHERE,DishConstants.TYPE_TS);
+                        readyGo(ACT_CheckOut.class,bundle);
                     }
                     break;
                 //桌台预定 弹出预订单开单对话框

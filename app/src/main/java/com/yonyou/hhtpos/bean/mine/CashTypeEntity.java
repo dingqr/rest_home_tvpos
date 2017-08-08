@@ -15,6 +15,16 @@ public class CashTypeEntity {
      */
     private String cashAmount;
 
+    private boolean isCheck;
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
+
     public String getCashTypeName() {
         return cashTypeName;
     }
@@ -37,5 +47,8 @@ public class CashTypeEntity {
         this.cashTypeName = cashTypeName;
         this.cashAmount = cashAmount;
     }
-
+    public CashTypeEntity(String cashTypeName, boolean isCheck) {
+        this.cashTypeName = cashTypeName;
+       this.isCheck = isCheck;
+    }
 }

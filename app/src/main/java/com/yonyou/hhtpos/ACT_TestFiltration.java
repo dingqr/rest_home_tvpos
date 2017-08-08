@@ -19,8 +19,10 @@ import com.yonyou.hhtpos.bean.TableCapacityEntity;
 import com.yonyou.hhtpos.bean.TakeoutCompanyEntity;
 import com.yonyou.hhtpos.bean.TakeoutMarketEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
+import com.yonyou.hhtpos.bean.mine.CashTypeEntity;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.dialog.DIA_AddedValueRaxInvoice;
+import com.yonyou.hhtpos.dialog.DIA_ChooseCashType;
 import com.yonyou.hhtpos.dialog.DIA_EmployeeFiltration;
 import com.yonyou.hhtpos.dialog.DIA_FamilySetMeal;
 import com.yonyou.hhtpos.dialog.DIA_FreeOrder;
@@ -52,6 +54,7 @@ import java.util.List;
 import butterknife.Bind;
 
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCapacities;
+import static com.yonyou.hhtpos.util.FiltrationUtil.getCashTypeEntities;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookery;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getCookeryFish;
 import static com.yonyou.hhtpos.util.FiltrationUtil.getDishBean;
@@ -108,6 +111,8 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     Button btnConfirm15;
     @Bind(R.id.btn_confirm16)
     Button btnConfirm16;
+    @Bind(R.id.btn_confirm17)
+    Button btnConfirm17;
 
 
     private ArrayList<FilterItemEntity> filterItemList;
@@ -134,6 +139,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     FilterItemEntity mealSetDetailOption;
     ArrayList<SetMealGridEntity> setMealGridEntities = new ArrayList<>();
     ArrayList<SetMealListEntity> setMealListEntities = new ArrayList<>();
+    ArrayList<CashTypeEntity> cashTypeEntities = new ArrayList<>();
 
     //    DIA_ChooseTable dia_reserveFiltration;
     DIA_ReserveFiltration dia_reserveFiltration1;
@@ -154,6 +160,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     DIA_AddedValueRaxInvoice dia_addedValueRaxInvoice;
     DIA_VipLoginVerifyCode dia_vipLoginVerifyCode;
     DIA_SetMealSmall dia_setMealSmall;
+    DIA_ChooseCashType dia_chooseCashType;
 
     private String shopId = "C13352966C000000A60000000016E000";
 
@@ -207,6 +214,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
         btnConfirm14.setOnClickListener(this);
         btnConfirm15.setOnClickListener(this);
         btnConfirm16.setOnClickListener(this);
+        btnConfirm17.setOnClickListener(this);
 
         //假数据
         filterItemList = getFakeData();
@@ -260,6 +268,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
 
         setMealGridEntities = getSetMealGrid();
         setMealListEntities = getSetMealList();
+        cashTypeEntities = getCashTypeEntities();
     }
 
     @Override
@@ -311,6 +320,11 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
             case R.id.btn_confirm16:
                 dia_setMealSmall = new DIA_SetMealSmall(mContext, setMealListEntities);
                 dia_setMealSmall.getDialog().show();
+                break;
+            case R.id.btn_confirm17:
+                dia_chooseCashType = new DIA_ChooseCashType(mContext);
+                dia_chooseCashType.setData(cashTypeEntities);
+                dia_chooseCashType.getDialog().show();
                 break;
             case R.id.btn_confirm1:
                 dia_reserveFiltration1 = new DIA_ReserveFiltration(mContext, filterItemList);

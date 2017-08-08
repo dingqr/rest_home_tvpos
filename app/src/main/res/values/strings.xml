@@ -443,6 +443,10 @@
     <string name="more_daily_data">更多日结数据，请登录商家后台查询</string>
     <string name="confirm_logout">确定退出登录</string>
     <string name="string_logout">退出登录</string>
+    <string name="choose_cash_type">选择收款类型 </string>
+    <string name="ali_pay">支付宝 </string>
+    <string name="we_chat_pay">微信 </string>
+    <string name="vip_card">会员卡 </string>
 
 
 
