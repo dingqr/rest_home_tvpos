@@ -32,6 +32,7 @@
         android:paddingRight="@dimen/px_22"/>
 
     <ImageView
+        android:id="@+id/iv_delete_no_order_dishes"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/ic_dishes_delete"

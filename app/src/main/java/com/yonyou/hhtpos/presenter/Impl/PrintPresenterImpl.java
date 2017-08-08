@@ -28,8 +28,8 @@ public class PrintPresenterImpl implements IPrintPresenter{
     }
 
     @Override
-    public void requestPrintOrder() {
-        mPrintInteractor.requestPrintOrder();
+    public void requestPrintOrder(String printType, String shopId, String companyId, String sourceId) {
+        mPrintInteractor.requestPrintOrder(printType, shopId, companyId, sourceId);
     }
 
     private class PrintListener implements BaseLoadedListener<String[]> {

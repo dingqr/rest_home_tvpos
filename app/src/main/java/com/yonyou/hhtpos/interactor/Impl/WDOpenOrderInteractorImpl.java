@@ -3,6 +3,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.wd.OpenOrderSuccessEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IWDOpenOrderInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
@@ -32,10 +33,10 @@ public class WDOpenOrderInteractorImpl implements IWDOpenOrderInteractor {
         hashMap.put("tableId", bean.getTableId());
         hashMap.put("waiterId", bean.getWaiterId());
         hashMap.put("waiterName", bean.getWaiterName());
-        RequestManager.getInstance().requestPostByAsyn(API.URL_WD_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_WD_OPEN_ORDER, hashMap, new ReqCallBack<OpenOrderSuccessEntity>() {
 
             @Override
-            public void onReqSuccess(String dataList) {
+            public void onReqSuccess(OpenOrderSuccessEntity dataList) {
                 openOrderListener.onSuccess(0, dataList);
             }
 

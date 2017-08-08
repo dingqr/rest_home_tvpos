@@ -15,6 +15,7 @@ import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.dialog.DIA_Navigation;
 import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
+import com.yonyou.hhtpos.dialog.DIA_Upgrade;
 import com.yonyou.hhtpos.ui.dinner.dishes.sj.ACT_CurrentPrice;
 import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
 import com.yonyou.hhtpos.ui.mine.ACT_PersonalCenter;

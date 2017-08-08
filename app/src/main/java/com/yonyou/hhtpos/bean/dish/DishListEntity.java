@@ -52,7 +52,7 @@ public class DishListEntity implements Serializable {
         /**价格 */
         private String dishPrice;
         /**状态 */
-        private int dishStatus;
+        private String dishStatus;
         /**类型 */
         private String dishType;
         /**展示做法 */
@@ -163,11 +163,11 @@ public class DishListEntity implements Serializable {
             this.quantity = quantity;
         }
 
-        public int getDishStatus() {
+        public String getDishStatus() {
             return dishStatus;
         }
 
-        public void setDishStatus(int dishStatus) {
+        public void setDishStatus(String dishStatus) {
             this.dishStatus = dishStatus;
         }
 

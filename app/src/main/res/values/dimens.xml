@@ -114,6 +114,7 @@
     <dimen name="px_270">180dp</dimen>
     <dimen name="px_290">193.3dp</dimen>
     <dimen name="px_300">200dp</dimen>
+    <dimen name="px_330">220dp</dimen>
     <dimen name="px_338">225.3dp</dimen>
     <dimen name="px_382">254.6dp</dimen>
     <dimen name="px_384">256dp</dimen>

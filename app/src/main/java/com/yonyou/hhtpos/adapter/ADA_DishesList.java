@@ -14,6 +14,7 @@ import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.dish.DishListEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 import com.yonyou.hhtpos.widgets.DashView;
 
@@ -172,24 +173,33 @@ public class ADA_DishesList extends BaseAbsAdapter<DishListEntity.Dishes> {
 
     /**
      * 设置菜品状态
-     * @param status 等叫：7，即起：8，催菜：6，确认上菜：5
+     * @param status 等叫 waitCall 即起 callNow 催菜 reminder
      * @param holder
      */
-    private void setDishStatus(int status, ViewHolder holder){
-        switch (status){
-            case 7:
-                holder.mDishesStatus.setText("等叫");
-                break;
-
-            case 8:
-                // 即起不显示
-                holder.mDishesStatus.setText("");
-                break;
-
-            default:
-                holder.mDishesStatus.setText("");
-                break;
+    private void setDishStatus(String status, ViewHolder holder){
+        if (status.equals(DishConstants.STATUS_WAIT_CALLED)){
+            holder.mDishesStatus.setText("等叫");
+            return;
         }
+
+        // 即起不显示
+        holder.mDishesStatus.setText("");
+
+
+//        switch (status){
+//            case DishConstants.STATUS_WAIT_CALLED:
+//                holder.mDishesStatus.setText("等叫");
+//                break;
+//
+//            case DishConstants.STATUS_SERVING:
+//                // 即起不显示
+//                holder.mDishesStatus.setText("");
+//                break;
+//
+//            default:
+//                holder.mDishesStatus.setText("");
+//                break;
+//        }
     }
 
     static class ViewHolder {

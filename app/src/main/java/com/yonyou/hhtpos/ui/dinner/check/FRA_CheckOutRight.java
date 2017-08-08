@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
@@ -17,6 +18,7 @@ import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
 import com.yonyou.hhtpos.adapter.ADA_PayHistory;
 import com.yonyou.hhtpos.application.MyApplication;
+import com.yonyou.hhtpos.bean.PayTypeEntity;
 import com.yonyou.hhtpos.bean.check.DiscountEntity;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
@@ -24,13 +26,20 @@ import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
 import com.yonyou.hhtpos.dialog.DIA_Discount;
 import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.presenter.IPayTypePresenter;
+import com.yonyou.hhtpos.presenter.IPrintPresenter;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.ISettleAccountPresenter;
 import com.yonyou.hhtpos.presenter.Impl.DiscountPlanPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.PayTypeListPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.PrintPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.SettleAccountPresenterImpl;
+import com.yonyou.hhtpos.util.AidlUtil;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IDiscountPlanView;
+import com.yonyou.hhtpos.view.IPayTypeView;
+import com.yonyou.hhtpos.view.IPrintView;
 import com.yonyou.hhtpos.view.IQueryBillInfoView;
 import com.yonyou.hhtpos.view.ISettleAccountView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
@@ -47,7 +56,7 @@ import de.greenrobot.event.ThreadMode;
  * 结账页面右侧fragment
  * 作者：liushuofei on 2017/7/19 14:49
  */
-public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView, ISettleAccountView, IDiscountPlanView {
+public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoView, ISettleAccountView, IDiscountPlanView, IPrintView, IPayTypeView{
 
     @Bind(R.id.layout_root)
     LinearLayout layoutRoot;
@@ -97,6 +106,13 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     private DiscountPlanPresenterImpl mDiscountPlanPresenter;
     //折扣方案集合
     private List<DiscountEntity> mDiscountPlanList = new ArrayList<>();
+
+    /**打印中间者 */
+    private IPrintPresenter mPrintPresenter;
+    /**支付方式中间者 */
+    private IPayTypePresenter mPayTypePresenter;
+
+    private SettleAccountDataEntity settleAccountDataEntity;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
@@ -199,6 +215,12 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 }
             }
         });
+
+        mPrintPresenter = new PrintPresenterImpl(mContext, this);
+        mPayTypePresenter = new PayTypeListPresenterImpl(mContext, this);
+
+        // 请求支付方式列表
+        mPayTypePresenter.requestPayTypeList(Constants.SHOP_ID);
     }
 
     /**
@@ -311,9 +333,17 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     public void queryBillInfo(SettleAccountDataEntity settleAccountDataEntity) {
 //        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
 
-        // 收款成功
-        CommonUtils.makeEventToast(mContext, getString(R.string.string_receive_money_successful), false);
-        if (settleAccountDataEntity != null) {
+        if (null == settleAccountDataEntity)
+            return;
+
+        this.settleAccountDataEntity = settleAccountDataEntity;
+
+        if (!TextUtils.isEmpty(settleAccountDataEntity.sourceId)){
+            mPrintPresenter.requestPrintOrder("before1", Constants.SHOP_ID, "", settleAccountDataEntity.sourceId);
+        }else {
+            // 收款成功
+            CommonUtils.makeEventToast(mContext, getString(R.string.string_receive_money_successful), false);
+            // 结清
             if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
                 getActivity().finish();
             } else {
@@ -350,5 +380,42 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         if (mDiscountPlanList != null && mDiscountPlanList.size() > 0) {
             mDiaDiscount.setData(mDiscountPlanList);
         }
+    }
+
+    @Override
+    public void requestPrintOrder(String[] strings) {
+        byte[] bytes = new byte[strings.length];
+        for (int i = 0; i < strings.length; i++) {
+            bytes[i] = Byte.parseByte(strings[i]);
+        }
+
+        // 打印文字
+//        AidlUtil.getInstance().printText(AidlUtil.PRINT_TEXT, 20, false, false);
+        try {
+//            AidlUtil.getInstance().printText(new String(BytesUtil.getBaiduTestBytes(), "UTF-8"), 20, false, false);
+//            AidlUtil.getInstance().printText(new String(BytesUtil.getBaiduTestBytes(), "GBK"), 20, false, false);
+//            AidlUtil.getInstance().sendRawData(BytesUtil.getBaiduTestBytes());
+            AidlUtil.getInstance().sendRawData(bytes);
+
+            Elog.e("printText", String.valueOf(bytes));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 收款成功
+        CommonUtils.makeEventToast(mContext, getString(R.string.string_receive_money_successful), false);
+        // 结清
+        if (null != settleAccountDataEntity){
+            if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
+                getActivity().finish();
+            } else {
+                EventBus.getDefault().post(settleAccountDataEntity);
+            }
+        }
+    }
+
+    @Override
+    public void requestPayTypeList(List<PayTypeEntity> dataList) {
+
     }
 }

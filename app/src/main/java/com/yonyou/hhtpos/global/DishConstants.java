@@ -10,15 +10,15 @@ public class DishConstants {
     public static final int TYPE_WD = 2;
     public static final int TYPE_WM = 3;
 
-    /**催菜：6，等叫：7，叫起：8 */
-    public static final String STATUS_REMINDER = "6";
-    public static final String STATUS_WAIT_CALLED = "7";
-    public static final String STATUS_SERVING = "8";
-
     public static final String DISH_WEIGHT = "1";// 称重确认
     public static final String DISH_TURN = "2";// 转台
 
     /**退菜：retreat， 赠菜：gift*/
     public static final String SERVE_DISH = "gift";
     public static final String RETURN_DISH = "retreat";
+
+    /**等叫 waitCall 即起 callNow 催菜 reminder */
+    public static final String STATUS_REMINDER = "reminder";
+    public static final String STATUS_WAIT_CALLED = "waitCall";
+    public static final String STATUS_SERVING = "callNow";
 }

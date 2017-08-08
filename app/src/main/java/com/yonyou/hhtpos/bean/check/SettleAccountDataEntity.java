@@ -96,6 +96,11 @@ public class SettleAccountDataEntity implements Serializable {
     public String payStatus;
 
     /**
+     * 打印指令id
+     */
+    public String sourceId;
+
+    /**
      * 基础信息
      */
     public class BaseInfoEntity implements Serializable {

@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import com.yonyou.framework.library.base.BaseAbsAdapter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.DishEditEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 
 /**
  * 菜品编辑adapter
@@ -18,16 +19,11 @@ import com.yonyou.hhtpos.bean.DishEditEntity;
 public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
 
     private DishEditEntity currentBean;
-    private int dishStatus;
+    private String dishStatus;
 
     private OnSelectedListener onSelectedListener;
 
-    /**催菜：6，等叫：7，叫起：8 */
-    private static final int STATUS_REMINDER = 6;
-    private static final int STATUS_WAIT_CALLED = 7;
-    private static final int STATUS_SERVING = 8;
-
-    public ADA_DishesEdit(Context context, OnSelectedListener onSelectedListener, int dishStatus) {
+    public ADA_DishesEdit(Context context, OnSelectedListener onSelectedListener, String dishStatus) {
         super(context);
         this.onSelectedListener = onSelectedListener;
         this.dishStatus = dishStatus;
@@ -63,7 +59,7 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
         }
 
         // 等叫和即起状态
-        if ((dishStatus == STATUS_WAIT_CALLED && pos == 4) || (dishStatus == STATUS_SERVING && pos == 5)){
+        if ((dishStatus.equals(DishConstants.STATUS_WAIT_CALLED) && pos == 4) || (dishStatus.equals(DishConstants.STATUS_SERVING) && pos == 5)){
             holder.mOperationTxt.setBackground(mContext.getResources().getDrawable(R.drawable.bg_dishes_edit_selected_no));
             holder.mOperationTxt.setTextColor(mContext.getResources().getColor(R.color.color_999999));
             holder.mOperationTxt.setEnabled(false);
@@ -85,9 +81,9 @@ public class ADA_DishesEdit extends BaseAbsAdapter<DishEditEntity> {
 
                     // pos:4 5（等叫和即起）
                     if (pos == 4){
-                        dishStatus = 7;
+                        dishStatus = DishConstants.STATUS_WAIT_CALLED;
                     }else if (pos == 5){
-                        dishStatus = 8;
+                        dishStatus = DishConstants.STATUS_SERVING;
                     }
                     notifyDataSetChanged();
                 }

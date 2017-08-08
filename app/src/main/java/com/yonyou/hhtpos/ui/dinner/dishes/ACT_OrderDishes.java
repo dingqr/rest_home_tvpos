@@ -13,6 +13,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.wd.OpenOrderSuccessEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDCloseOrderPresenter;
@@ -161,11 +162,21 @@ public class ACT_OrderDishes extends BaseActivity implements IWDOpenOrderView, I
     }
 
     @Override
-    public void openOrder(String tableBillId) {
-        this.tableBillId = tableBillId;
-        //发送到右侧列表
-        if (!TextUtils.isEmpty(tableBillId)){
+    public void openOrder(OpenOrderSuccessEntity bean) {
+        if (null == bean)
+            return;
+
+        // 账单id
+        if (!TextUtils.isEmpty(bean.getId())){
+            this.tableBillId = bean.getId();
+
+            //发送到右侧列表
             EventBus.getDefault().post(tableBillId);
+        }
+
+        // 账单编号设置到标题
+        if (!TextUtils.isEmpty(bean.getBillNo()) && bean.getBillNo().length() > 5){
+            mDishesLeft.setTitleText(bean.getBillNo().substring(bean.getBillNo().length() - 5, bean.getBillNo().length()), 0);
         }
     }
 

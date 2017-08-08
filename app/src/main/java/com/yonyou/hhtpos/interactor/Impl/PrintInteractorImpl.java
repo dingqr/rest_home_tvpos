@@ -1,5 +1,7 @@
 package com.yonyou.hhtpos.interactor.Impl;
 
+import android.text.TextUtils;
+
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.global.API;
@@ -22,15 +24,16 @@ public class PrintInteractorImpl implements IPrintInteractor {
     }
 
     @Override
-    public void requestPrintOrder() {
-//        http://10.220.17.51:8064/PrintService/getPrintommand
-//        ?printType=before1&shopId=C13352966C000000A60000000016E000&companyId=DIE49JkEU29JHD819HRh19hGDAY1&sourceId=22
-
+    public void requestPrintOrder(String printType, String shopId, String companyId, String sourceId) {
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("printType", "before1");
-        hashMap.put("shopId", "C13352966C000000A60000000016E000");
-        hashMap.put("companyId", "DIE49JkEU29JHD819HRh19hGDAY1");
-        hashMap.put("sourceId", "22");
+        hashMap.put("printType", printType);
+        hashMap.put("shopId", shopId);
+
+        if (!TextUtils.isEmpty(companyId)){
+            hashMap.put("companyId", companyId);
+        }
+
+        hashMap.put("sourceId", sourceId);
         RequestManager.getInstance().requestGetByAsyn(API.GET_PRINT_ORDER, hashMap, new ReqCallBack<String[]>() {
 
             @Override

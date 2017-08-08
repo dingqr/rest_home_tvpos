@@ -25,7 +25,7 @@ public class DishListPresenterImpl implements IDishListPresenter {
     public DishListPresenterImpl(Context mContext, IDishListView mDishListView) {
         this.mContext = mContext;
         this.mDishListView = mDishListView;
-        mDishListInteractor = new DishListInteractorImpl(new DishListListener(), new PlaceOrderListener());
+        mDishListInteractor = new DishListInteractorImpl(new DishListListener(), new PlaceOrderListener(), new DeleteDishListener());
     }
 
     @Override
@@ -41,6 +41,11 @@ public class DishListPresenterImpl implements IDishListPresenter {
     public void requestPlaceOrder(String dishIds,String tableBillId, String saleManner) {
         mDishListView.showDialogLoading(mContext.getString(R.string.network_loading));
         mDishListInteractor.requestPlaceOrder(dishIds,tableBillId,saleManner);
+    }
+
+    @Override
+    public void deleteNoOrderDish(String shopId, String tableBillId) {
+        mDishListInteractor.deleteNoOrderDish(shopId, tableBillId);
     }
 
     private class DishListListener implements BaseLoadedListener<DishListEntity> {
@@ -78,6 +83,35 @@ public class DishListPresenterImpl implements IDishListPresenter {
         public void onSuccess(int event_tag, String result) {
             mDishListView.dismissDialogLoading();
             mDishListView.requestPlaceOrder();
+        }
+
+        @Override
+        public void onError(String msg) {
+            mDishListView.dismissDialogLoading();
+            CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onException(String msg) {
+            mDishListView.dismissDialogLoading();
+            mDishListView.showException(msg);
+            //CommonUtils.makeEventToast(mContext, msg, false);
+        }
+
+        @Override
+        public void onBusinessError(ErrorBean error) {
+            mDishListView.dismissDialogLoading();
+            mDishListView.showBusinessError(error);
+            //CommonUtils.makeEventToast(mContext, error.getMsg(), false);
+        }
+    }
+
+    private class DeleteDishListener implements BaseLoadedListener<String> {
+
+        @Override
+        public void onSuccess(int event_tag, String result) {
+            mDishListView.dismissDialogLoading();
+            mDishListView.deleteNoOrderDishes();
         }
 
         @Override

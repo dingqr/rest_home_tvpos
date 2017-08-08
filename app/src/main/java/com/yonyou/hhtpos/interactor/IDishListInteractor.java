@@ -16,4 +16,11 @@ public interface IDishListInteractor {
      * @param dishIds 未下单菜品id
      */
     void requestPlaceOrder(String dishIds,String tableBillId,String saleManner);
+
+    /**
+     * 删除未下单菜品接口
+     * @param shopId 店铺id
+     * @param tableBillId 账单id
+     */
+    void deleteNoOrderDish(String shopId, String tableBillId);
 }

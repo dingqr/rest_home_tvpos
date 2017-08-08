@@ -315,18 +315,18 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         });
     }
 
-    private void setTitleText(int count){
+    public void setTitleText(String titleTxt, int count){
         switch (saleManner){
             case 1:
-                mTitleTxt.setText(titleHeader + "-堂食（" + count + "）");
+                mTitleTxt.setText(titleTxt + "-堂食（" + count + "）");
                 break;
 
             case 2:
-                mTitleTxt.setText(titleHeader + "-外带（" + count + "）");
+                mTitleTxt.setText(titleTxt + "-外带（" + count + "）");
                 break;
 
             case 3:
-                mTitleTxt.setText(titleHeader + "-外卖（" + count + "）");
+                mTitleTxt.setText(titleTxt + "-外卖（" + count + "）");
                 break;
 
             default:
@@ -374,7 +374,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             // 重置下单
             tvPlaceOrder.setText(mContext.getString(R.string.dishes_order));
             // 设置标题
-            setTitleText(0);
+            setTitleText(titleHeader, 0);
         } else {
             // 设置未下单菜品id列表
             setDishIds(dataList);
@@ -386,7 +386,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                 setOrderedTotalPrice(dataList);
             }
             // 设置标题
-            setTitleText(dataList.size() - totalCount);
+            setTitleText(titleHeader, dataList.size() - totalCount);
             //将右侧菜类的角标数量数据传递到右侧页面
             if (!isRightRefresh) {
                 EventBus.getDefault().post(bean);
@@ -464,7 +464,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         for (int i = 0; i < dataList.size(); i++) {
             DishListEntity.Dishes bean = dataList.get(i);
             if (!TextUtils.isEmpty(bean.getOrderTime())) {
-                totalPrice += Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
+//                totalPrice += Double.parseDouble(bean.getDishPrice()) * Double.parseDouble(bean.getQuantity());
+                totalPrice += Double.parseDouble(bean.getDishPrice()) * getValidQuantity(bean);
             }
         }
         // 消费
@@ -473,6 +474,29 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         tvTotalPrice.setText(StringUtil.getFormattedMoney(totalPrice + ""));
         // 结账
         tvPlaceOrder.setText(mContext.getResources().getString(R.string.check_out));
+    }
+
+    /**
+     * 去掉赠菜和退菜的数量
+     * @param bean
+     * @return
+     */
+    private Double getValidQuantity(DishListEntity.Dishes bean){
+        if (null != bean){
+            double count = Double.parseDouble(bean.getQuantity());
+            if (null == bean.getAbnormalList() && bean.getAbnormalList().size() == 0){
+                return count;
+            }
+
+            for (int i= 0; i < bean.getAbnormalList().size(); i++){
+                DishListEntity.Dishes.Abnormal abnormal = bean.getAbnormalList().get(i);
+                if (null != abnormal && !TextUtils.isEmpty(abnormal.getQuantity())){
+                    count-= Double.parseDouble(abnormal.getQuantity());
+                }
+            }
+            return count;
+        }
+        return 0.00;
     }
 
     @Override
@@ -848,9 +872,20 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         mDishListPresenter.requestDishList(tableBillId, false);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_total_price, R.id.tv_place_order})
+    @Override
+    public void deleteNoOrderDishes() {
+        // Toast提示
+        DIA_AutoDismiss dia_autoDismiss = new DIA_AutoDismiss(mContext, mContext.getString(R.string.tip_delete_dish_success));
+        dia_autoDismiss.show();
+
+        isRightRefresh = false;
+        mDishListPresenter.requestDishList(tableBillId, false);
+    }
+
+    @OnClick({R.id.iv_back, R.id.tv_total_price, R.id.tv_place_order, R.id.iv_delete_no_order_dishes})
     public void onClick(View view) {
         switch (view.getId()) {
+            // 后退
             case R.id.iv_back:
                 ((ACT_OrderDishes)getActivity()).onBackPressed();
                 break;
@@ -858,6 +893,8 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
             case R.id.tv_total_price:
 
                 break;
+
+            // 下单结账
             case R.id.tv_place_order:
                 // 去结账
                 if (tvPlaceOrder.getText().toString().equals(mContext.getString(R.string.check_out))){
@@ -871,6 +908,17 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
                         mDishListPresenter.requestPlaceOrder(dishIds, tableBillId, StringUtil.getString(saleManner));
                     }
                 }
+                break;
+
+            // 删除未下单菜品
+            case R.id.iv_delete_no_order_dishes:
+                DIA_DoubleConfirm dia_doubleConfirm = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.tip_delete_no_order_dishes), new DIA_DoubleConfirm.OnSelectedListener() {
+                    @Override
+                    public void confirm() {
+                        mDishListPresenter.deleteNoOrderDish(Constants.SHOP_ID, tableBillId);
+                    }
+                });
+                dia_doubleConfirm.getDialog().show();
                 break;
 
             default:
