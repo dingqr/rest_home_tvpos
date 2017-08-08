@@ -288,6 +288,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         dia_openOrderSplit.setData(canteenTableEntity, mWaiterList);
                         dia_openOrderSplit.setTsCallback(FRA_CanteenTableList.this);
                         dia_openOrderSplit.getDialog().show();
+                        turnFlag = false;
                     }
                     //可以被转台的桌台列表
                     else if (tableOption.equals("1")) {
@@ -299,6 +300,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     }
                     //可以被清台的桌台列表
                     else if (tableOption.equals("0")){
+                        turnFlag = false;
                         //桌台占用，订单清台中
                         DIA_DoubleConfirm diaClearTable = new DIA_DoubleConfirm(mContext, mContext.getString(R.string.clear_table),
                                 new DIA_DoubleConfirm.OnSelectedListener() {
@@ -310,6 +312,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                         diaClearTable.getDialog().show();
                     }
                     else {
+                        turnFlag = false;
                         Bundle bundle = new Bundle();
                         bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, canteenTableEntity.tableBillId);
                         bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_TS);
