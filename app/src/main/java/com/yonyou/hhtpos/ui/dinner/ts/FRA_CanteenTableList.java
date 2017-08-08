@@ -224,8 +224,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             public void onChooseTableResult(CanteenTableEntity tableEntity) {
                 if (tableEntity != null && !TextUtils.isEmpty(tableEntity.tableName)) {
                     Elog.e("chooseTable=" + tableEntity.tableName);
-                } else {
-                    CommonUtils.makeEventToast(mContext, "请选择转入的桌台", false);
                 }
                 mSwiperefreshLayout.setEnabled(true);
             }
