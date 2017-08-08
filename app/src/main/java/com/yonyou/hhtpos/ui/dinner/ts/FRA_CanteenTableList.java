@@ -107,6 +107,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     //转台标记
     private boolean turnFlag = false;
+    private List<MealAreaEntity> mMealAreas = new ArrayList<>();
+    private DIA_TurnChooseTable mDiaTurnChooseTable;
 
     public static final FRA_CanteenTableList newInstance(int type) {
         FRA_CanteenTableList f = new FRA_CanteenTableList();
@@ -118,6 +120,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected void onFirstUserVisible() {
+        mChooseWaiterPresenter.requestWaiterList(Constants.SHOP_ID);
         if (NetUtils.isNetworkConnected(mContext)) {
             mTableListPresenter.requestTableList(diningAreaRelateId, shopId, mTableState);
         } else {
@@ -149,7 +152,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mTableListPresenter = new TableListPresenterImpl(mContext, this);
         mTSOpenOrderPresenter = new TSOpenOrderPresenterImpl(mContext, this);
         mChooseWaiterPresenter = new ChooseWaiterPresenterImpl(mContext, this);
-        mChooseWaiterPresenter.requestWaiterList(Constants.SHOP_ID);
+//        mChooseWaiterPresenter.requestWaiterList(Constants.SHOP_ID);
         mTSClearTablePresenter = new TSClearTablePresenterImpl(mContext, this);
 
         //设置刷新时动画的颜色，可以设置4个
@@ -194,6 +197,16 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (null != mArgument) {
             switchStatus(mArgument.getInt(TYPE, ACT_Canteen.RB_TOTAL));
         }
+
+        //转台弹窗
+        mDiaTurnChooseTable = new DIA_TurnChooseTable(mContext);
+        //餐区筛选
+        mDiaTurnChooseTable.setOnChooseMealAreaListener(new DIA_TurnChooseTable.OnChooseMealAreaListener() {
+            @Override
+            public void onMealAreaResult(MealAreaEntity areaEntity) {
+                updateTurnList(areaEntity);
+            }
+        });
     }
 
     /**
@@ -412,11 +425,21 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
         if (tableList != null && tableList.size() > 0) {
             if (turnFlag) {
-                DIA_TurnChooseTable dia_turnChooseTable = new DIA_TurnChooseTable(mContext);
                 //桌台列表是tablelist
                 //餐区列表是ACT_Canteen里的mealAreas
+                mMealAreas = ((ACT_Canteen) getActivity()).getMealAreaList();
+                if (mMealAreas != null && mMealAreas.size() > 0) {
+                    //刷新转入桌台弹窗的数据
+                    mDiaTurnChooseTable.refreshMealAreaData(mMealAreas);
+                    mDiaTurnChooseTable.refreshTableList(tableList);
+                    mDiaTurnChooseTable.getTableListAdapter().setSelectItem(0);
+                    mDiaTurnChooseTable.getTableListAdapter().notifyDataSetChanged();
+                    mDiaTurnChooseTable.show();
+                }else {
+                    CommonUtils.makeEventToast(mContext,"无可转的桌台",false);
+                }
+//                Log.e("TAG", "请求可用桌台列表");
 
-                dia_turnChooseTable.show();
             } else {
                 this.datas = (ArrayList<CanteenTableEntity>) tableList;
                 if (mSwiperefreshLayout.isRefreshing()) {
@@ -490,6 +513,19 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             onRefresh();
         }
     }
+//
+//    /**
+//     * 获取餐区集合
+//     *
+//     * @param mealAreas
+//     */
+//    @Subscribe(threadMode = ThreadMode.MainThread)
+//    public void onGetMealArea(List<MealAreaEntity> mealAreas) {
+//        if (mealAreas != null && mealAreas.size() > 0) {
+//            this.mMealAreas = mealAreas;
+//            Log.e("TAG", "获取餐区集合");
+//        }
+//    }
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {

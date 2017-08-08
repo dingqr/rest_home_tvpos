@@ -29,6 +29,7 @@
     </LinearLayout>
 
     <RadioButton
+        android:id="@+id/rb_finish_choose"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_70"
         android:layout_marginTop="@dimen/px_50"

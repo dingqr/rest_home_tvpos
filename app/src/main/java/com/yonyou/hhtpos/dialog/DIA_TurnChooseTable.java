@@ -15,19 +15,18 @@ import android.widget.TextView;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
-import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TableArea;
 import com.yonyou.hhtpos.adapter.ADA_TableChooseList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
-import com.yonyou.hhtpos.bean.TableAreaEntity;
+import com.yonyou.hhtpos.bean.MealAreaEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by zj on 2017/7/10.
@@ -44,8 +43,6 @@ public class DIA_TurnChooseTable {
     @Bind(R.id.lrecyclerview)
     LRecyclerView mLRecyclerView;
     private Context mContext;
-    private ArrayList<TableAreaEntity> mTableAreaList = new ArrayList<>();
-    private String[] tableAreas = {"全部餐厅", "一楼宴会厅", "一楼大厅", "一楼包厢"};
     private ADA_TableArea mTableAreaAdapter;
 
     /**
@@ -54,7 +51,7 @@ public class DIA_TurnChooseTable {
     private int mColumnNum = 4; //列表显示列数
     private ADA_TableChooseList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
-    private ArrayList<CanteenTableEntity> mTableList = new ArrayList<>();
+    private CanteenTableEntity mTableEntity;
 
     public DIA_TurnChooseTable(Context context) {
         mContext = context;
@@ -91,7 +88,6 @@ public class DIA_TurnChooseTable {
         mLRecyclerView.setFooterViewHint(mContext.getResources().getString(R.string.loading_note), mContext.getResources().getString(R.string.no_more_note), "");
 
         mLRecyclerView.setHasFixedSize(true);
-        setData();
 
         initListener();
 
@@ -101,12 +97,16 @@ public class DIA_TurnChooseTable {
      * 设置监听
      */
     private void initListener() {
+        //餐区
         mTableAreaAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 mTableAreaAdapter.setSelectItem(position);
                 mTableAreaAdapter.notifyDataSetChanged();
-                CommonUtils.makeEventToast(mContext,mTableAreaList.get(position).name,false);
+                if (mAreaListener != null) {
+                    mAreaListener.onMealAreaResult(mTableAreaAdapter.getDataList().get(position));
+                }
+//                CommonUtils.makeEventToast(mContext, mTableAreaAdapter.getDataList().get(position).getDiningAreaName(), false);
             }
 
             @Override
@@ -114,12 +114,16 @@ public class DIA_TurnChooseTable {
                 return false;
             }
         });
+        //桌台
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 mAdapter.setSelectItem(position);
                 mAdapter.notifyDataSetChanged();
-                CommonUtils.makeEventToast(mContext,mTableList.get(position).tableName,false);
+                //选择的桌台
+                mTableEntity = mAdapter.getDataList().get(position);
+//                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(position).tableName, false);
+
             }
 
             @Override
@@ -137,26 +141,35 @@ public class DIA_TurnChooseTable {
                     mDialog.dismiss();
                 }
                 break;
+            case R.id.rb_finish_choose:
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
+                if (mTableListener != null) {
+                    mTableListener.onChooseTableResult(mTableEntity);
+                }
+                break;
         }
     }
 
     /**
-     * 测试数据
+     * 刷新餐区
      */
-    public void setData() {
-        for (int i = 0; i < tableAreas.length; i++) {
-            TableAreaEntity tableAreaEntity = new TableAreaEntity();
-            tableAreaEntity.name = tableAreas[i];
-            mTableAreaList.add(tableAreaEntity);
+    public void refreshMealAreaData(List<MealAreaEntity> mealAreas) {
+        if (mealAreas != null && mealAreas.size() > 0) {
+            mTableAreaAdapter.update(mealAreas, true);
         }
-        mTableAreaAdapter.update(mTableAreaList);
+    }
 
-        for (int i = 0; i < 30; i++) {
-            CanteenTableEntity canteenTableEntity = new CanteenTableEntity();
-            canteenTableEntity.tableName = "item=" + i;
-            mTableList.add(canteenTableEntity);
+    /**
+     * 刷新桌台列表
+     *
+     * @param tableList
+     */
+    public void refreshTableList(List<CanteenTableEntity> tableList) {
+        if (tableList != null && tableList.size() > 0) {
+            mAdapter.update(tableList, true);
         }
-        mAdapter.update(mTableList);
     }
 
     public Dialog show() {
@@ -201,4 +214,33 @@ public class DIA_TurnChooseTable {
         }
     }
 
+    public ADA_TableChooseList getTableListAdapter() {
+        return mAdapter;
+    }
+
+    /**
+     * 选择转出的目标桌台回调结果
+     */
+    public interface OnChooseTableListener {
+        void onChooseTableResult(CanteenTableEntity tableEntity);
+    }
+
+    private OnChooseTableListener mTableListener;
+
+    public void setOnChooseResultListener(OnChooseTableListener listener) {
+        this.mTableListener = listener;
+    }
+
+    /**
+     * 选择餐区回调
+     */
+    public interface OnChooseMealAreaListener {
+        void onMealAreaResult(MealAreaEntity areaEntity);
+    }
+
+    private OnChooseMealAreaListener mAreaListener;
+
+    public void setOnChooseMealAreaListener(OnChooseMealAreaListener listener) {
+        this.mAreaListener = listener;
+    }
 }
