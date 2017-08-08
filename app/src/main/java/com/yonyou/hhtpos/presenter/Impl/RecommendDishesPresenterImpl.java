@@ -12,6 +12,8 @@ import com.yonyou.hhtpos.interactor.Impl.RecommendDishInteractorImpl;
 import com.yonyou.hhtpos.presenter.IRecommendDishPresenter;
 import com.yonyou.hhtpos.view.IRecommendDishesView;
 
+import java.util.List;
+
 /**
  * Created by zj on 2017/7/15.
  * 邮箱：zjuan@yonyou.com
@@ -33,12 +35,12 @@ public class RecommendDishesPresenterImpl implements IRecommendDishPresenter {
         mRecommendDishInteractor.getRecommendDishes(shopId);
     }
 
-    private class RecommendDishListener implements BaseLoadedListener<RecommendDataEntity> {
+    private class RecommendDishListener implements BaseLoadedListener<List<RecommendDataEntity>> {
 
         @Override
-        public void onSuccess(int event_tag, RecommendDataEntity recommendDishEntity) {
+        public void onSuccess(int event_tag, List<RecommendDataEntity> dataList) {
             mDishesView.hideLoading();
-            mDishesView.getRecommendDishes(recommendDishEntity);
+            mDishesView.getRecommendDishes(dataList);
         }
 
         @Override

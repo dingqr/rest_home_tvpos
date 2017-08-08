@@ -69,7 +69,7 @@ import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
  * 描述：点菜页面-获取所有菜品/菜类
  * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView,IRecommendDishesView {
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView, IRecommendDishesView {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
     @Bind(ll_content)
@@ -229,8 +229,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         saleManner = ((ACT_OrderDishes) getActivity()).getFromWhere();
         isFromSettleAccount = ((ACT_OrderDishes) getActivity()).isFromSettleAccount;
 
+        //所有菜品/菜类
         mPresenter.getAllDishes(compId, shopId, saleManner);
-//        mGetcommendDishesPresenter.getRecommendDishes(Constants.SHOP_ID);
+        //推荐套餐
+        mGetcommendDishesPresenter.getRecommendDishes(Constants.SHOP_ID);
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
         //点菜的请求实体类
         requestAddDishEntity = new RequestAddDishEntity();
@@ -402,15 +404,16 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             @Override
             public void tempDishResult(String tempDishName, String tempDishPrice) {
                 isAddTempDish = true;
-                requestAddDishEntity.setDishPrice(tempDishPrice);
-                requestAddDishEntity.dishStatus = "waitCall";//等叫
-                requestAddDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
-                requestAddDishEntity.quantity = "1";
-                requestAddDishEntity.dishName = tempDishName;
-                requestAddDishEntity.shopId = Constants.SHOP_ID;
-                requestAddDishEntity.tableBillId = mTableBillId;
-                requestAddDishEntity.waiterId = "";
-                mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                RequestAddDishEntity requestAddTempDishEntity = new RequestAddDishEntity();
+                requestAddTempDishEntity.setDishPrice(tempDishPrice);
+                requestAddTempDishEntity.dishStatus = "waitCall";//等叫
+                requestAddTempDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
+                requestAddTempDishEntity.quantity = "1";
+                requestAddTempDishEntity.dishName = tempDishName;
+                requestAddTempDishEntity.shopId = Constants.SHOP_ID;
+                requestAddTempDishEntity.tableBillId = mTableBillId;
+                requestAddTempDishEntity.waiterId = "";
+                mAddDishPresenter.requestAddDish(requestAddTempDishEntity);
             }
         });
         //推荐
@@ -766,11 +769,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         // 刷新左侧列表
         sendBroadcast(ReceiveConstants.REFRESH_LEFT_DISHES);
     }
+
     /**
      * 获取推荐套餐的菜品集合
      */
     @Override
-    public void getRecommendDishes(RecommendDataEntity recommendDishEntity) {
+    public void getRecommendDishes(List<RecommendDataEntity> dataList) {
 
     }
 }
