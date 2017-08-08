@@ -48,12 +48,12 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
 
         final MealAreaEntity bean = mDataSource.get(position);
         handleDataSource(position, holder, bean);
+        holder.mMealName.setText(StringUtil.getString(bean.getDiningAreaName()));
 
         if (!isAllItemEnable) {
             holder.mLine.setVisibility(View.INVISIBLE);
             holder.mMealName.setTextColor(ContextCompat.getColor(mContext, R.color.color_cccccc));
         } else {
-            holder.mMealName.setText(StringUtil.getString(bean.getDiningAreaName()));
             if (bean.isCheck()) {
                 currentBean = bean;
                 holder.mLine.setVisibility(View.VISIBLE);
@@ -70,40 +70,44 @@ public class ADA_MealArea extends BaseAbsAdapter<MealAreaEntity> {
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!bean.equals(currentBean)) {
-                    bean.setCheck(true);
-                    if (null != currentBean) {
-                        currentBean.setCheck(false);
+                if (!isAllItemEnable) {
+                    return;
+                } else {
+                    if (!bean.equals(currentBean)) {
+                        bean.setCheck(true);
+                        if (null != currentBean) {
+                            currentBean.setCheck(false);
+                        }
+                        currentBean = bean;
+                        notifyDataSetChanged();
                     }
-                    currentBean = bean;
-                    notifyDataSetChanged();
-                }
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(position, holder, bean);
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(position, holder, bean);
+                    }
                 }
             }
         });
 
-        switch (position) {
-            case 0:
-                holder.mMealName.setText("全部餐区");
-                break;
-
-            case 1:
-                holder.mMealName.setText("一楼大厅");
-                break;
-
-            case 2:
-                holder.mMealName.setText("二楼包厢");
-                break;
-
-            case 3:
-                holder.mMealName.setText("二楼宴会厅");
-                break;
-
-            default:
-                break;
-        }
+//        switch (position) {
+//            case 0:
+//                holder.mMealName.setText("全部餐区");
+//                break;
+//
+//            case 1:
+//                holder.mMealName.setText("一楼大厅");
+//                break;
+//
+//            case 2:
+//                holder.mMealName.setText("二楼包厢");
+//                break;
+//
+//            case 3:
+//                holder.mMealName.setText("二楼宴会厅");
+//                break;
+//
+//            default:
+//                break;
+//        }
     }
 
     //设置为全不能选

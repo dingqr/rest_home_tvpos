@@ -14,6 +14,13 @@ public class Constants {
     public static String TOKEN = "";
     public static String SHOP_ID = "";
     public static String SHOP_NAME = "";
+
+    public static final int PASS_WORK = 10;
+    public static final int MODIFY_PWD = 11;
+    public static final int DAILY_SETTLE_ACCOUNT = 12;
+    public static final int OPEN_CASH_BOX = 13;
+
+
     /**
      * 页面传值时的参数名
      */

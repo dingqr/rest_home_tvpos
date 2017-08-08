@@ -9,6 +9,7 @@ import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
+import com.yonyou.hhtpos.util.Constants;
 
 import butterknife.Bind;
 
@@ -34,6 +35,9 @@ public class FRA_PersonalCenterLeft extends BaseFragment
     View redDailySettleAccount;
     @Bind(R.id.im_left_open_cash_box)
     View redOpenCashBox;
+
+    //fragment 切换回调
+    private FrgOptionCallBack frgOptionCallBack;
 
     @Override
     protected void onFirstUserVisible() {
@@ -61,6 +65,9 @@ public class FRA_PersonalCenterLeft extends BaseFragment
         rlModifyPassword.setOnClickListener(this);
         rlDailySettleAccount.setOnClickListener(this);
         rlOpenCashBox.setOnClickListener(this);
+
+        frgOptionCallBack = (FrgOptionCallBack) getActivity();
+        setFrgOptionCallBack(frgOptionCallBack);
     }
     @Override
     public void onClick(View v) {
@@ -70,6 +77,7 @@ public class FRA_PersonalCenterLeft extends BaseFragment
                 setUnCheck(redModifyPassword,rlModifyPassword);
                 setUnCheck(redDailySettleAccount,rlDailySettleAccount);
                 setUnCheck(redOpenCashBox,rlOpenCashBox);
+                frgOptionCallBack.sendOption(Constants.PASS_WORK);
                 break;
 
             case R.id.rl_modify_password:
@@ -77,6 +85,7 @@ public class FRA_PersonalCenterLeft extends BaseFragment
                 setCheck(redModifyPassword,rlModifyPassword);
                 setUnCheck(redDailySettleAccount,rlDailySettleAccount);
                 setUnCheck(redOpenCashBox,rlOpenCashBox);
+                frgOptionCallBack.sendOption(Constants.MODIFY_PWD);
                 break;
 
             case R.id.rl_daily_settle_account:
@@ -84,6 +93,7 @@ public class FRA_PersonalCenterLeft extends BaseFragment
                 setUnCheck(redModifyPassword,rlModifyPassword);
                 setCheck(redDailySettleAccount,rlDailySettleAccount);
                 setUnCheck(redOpenCashBox,rlOpenCashBox);
+                frgOptionCallBack.sendOption(Constants.DAILY_SETTLE_ACCOUNT);
                 break;
 
             case R.id.rl_open_cash_box:
@@ -91,6 +101,7 @@ public class FRA_PersonalCenterLeft extends BaseFragment
                 setUnCheck(redModifyPassword,rlModifyPassword);
                 setUnCheck(redDailySettleAccount,rlDailySettleAccount);
                 setCheck(redOpenCashBox,rlOpenCashBox);
+                frgOptionCallBack.sendOption(Constants.OPEN_CASH_BOX);
                 break;
 
             default:
@@ -123,5 +134,13 @@ public class FRA_PersonalCenterLeft extends BaseFragment
     @Override
     public void showBusinessError(ErrorBean error) {
 
+    }
+
+    public interface FrgOptionCallBack{
+        void sendOption(int option);
+    }
+
+    public void setFrgOptionCallBack(FrgOptionCallBack frgOptionCallBack) {
+        this.frgOptionCallBack = frgOptionCallBack;
     }
 }

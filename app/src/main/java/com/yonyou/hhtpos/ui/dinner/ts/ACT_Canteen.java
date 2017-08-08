@@ -322,7 +322,6 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                     tvClearTable.setClickable(true);
 
                     mAdapter.enableItemChooser();
-
                     setTopTab(true);
                     setTableOption("99");
                     EventBus.getDefault().post(tableOption);

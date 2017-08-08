@@ -398,7 +398,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void clearTable(String result) {
-        onRefresh();
+//        onRefresh();
     }
 
     /**
@@ -434,7 +434,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
 
         if (tableList != null && tableList.size() > 0) {
-            if (turnFlag) {
+            if (turnFlag ) {
                 DIA_TurnChooseTable dia_turnChooseTable = new DIA_TurnChooseTable(mContext);
                 //桌台列表是tablelist
                 //餐区列表是ACT_Canteen里的mealAreas
@@ -498,10 +498,17 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void onUpdateTableOption(String tableOption) {
         if (tableOption != null) {
             this.tableOption = tableOption;
+            //act点击放弃
             if (tableOption.equals("99")){
+                turnFlag = false;
                 mSwiperefreshLayout.setEnabled(true);
+                Elog.e("TURNFLAG",turnFlag);
+                Elog.e("TABLEOPTION",tableOption);
             }else{
+                turnFlag = true;
                 mSwiperefreshLayout.setEnabled(false);
+                Elog.e("TURNFLAG",turnFlag);
+                Elog.e("TABLEOPTION",tableOption);
             }
         }
     }
