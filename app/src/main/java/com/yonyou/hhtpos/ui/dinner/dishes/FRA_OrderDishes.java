@@ -28,6 +28,7 @@ import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
+import com.yonyou.hhtpos.dialog.DIA_AddNewMember;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
@@ -361,7 +362,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                     return;
                 }
                 //无规格、无做法，直接加入购物车；
-                if (dishesEntity.practices.size() == 0 && dishesEntity.dishStandards.size() == 0) {
+                if (dishesEntity.practices.size() == 0 && dishesEntity.standards.size() == 0) {
                     mAddDishPresenter.requestAddDish(requestAddDishEntity);
                     return;
                 }
@@ -422,8 +423,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-                mAdapter.setRecommend(true);
-                showDataOrEmptyPage(mRecommendDishes);
+//                mAdapter.setRecommend(true);
+//                showDataOrEmptyPage(mRecommendDishes);
+                new DIA_AddNewMember(mContext).show();
             }
         });
     }

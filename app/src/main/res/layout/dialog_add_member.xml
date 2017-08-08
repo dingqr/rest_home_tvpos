@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/px_598"
     android:layout_height="match_parent"
     android:background="@drawable/bg_white_side_white_4"
@@ -16,8 +17,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px_80"
-        android:layout_marginRight="@dimen/px_80"
+        android:layout_marginLeft="@dimen/px_52"
+        android:layout_marginRight="@dimen/px_52"
         android:layout_marginTop="@dimen/px_42"
         android:layout_weight="1"
         android:scrollbars="none">
@@ -27,79 +28,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_17"
-                android:text="@string/hint_arrive_shop_time"
-                android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24" />
-
-            <EditText
+            <!--顾客姓名-->
+            <com.yonyou.hhtpos.widgets.DialogInputView
+                android:id="@+id/input_customer_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_30"
-                android:background="@drawable/bg_side_gray_d8_4"
-                android:hint="@string/string_choose_arrive_time"
-                android:padding="@dimen/px_12"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_17"
-                android:text="@string/string_table"
-                android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_30"
-                android:background="@drawable/bg_side_gray_d8_4"
-                android:hint="@string/hint_choose_table"
-                android:padding="@dimen/px_12"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_17"
-                android:text="@string/string_number_of_people"
-                android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_30"
-                android:background="@drawable/bg_side_gray_d8_4"
-                android:hint="@string/hint_input_guests_num"
-                android:padding="@dimen/px_12"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_17"
-                android:text="@string/string_respect_name"
-                android:textColor="@color/color_222222"
-                android:textSize="@dimen/sp_24" />
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_30"
-                android:background="@drawable/bg_side_gray_d8_4"
-                android:hint="@string/hint_guests_respect_name"
-                android:padding="@dimen/px_12"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
-
+                android:layout_marginTop="@dimen/px_40"
+                app:inputHint="@string/string_input_customer_name"
+                app:inputMode="0"
+                app:marginLeft="0"
+                app:titleText="@string/hint_customer_name" />
+            <!--性别-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,58 +83,83 @@
                     android:textColor="@drawable/text_color_sex_selector"
                     android:textSize="@dimen/px_22" />
             </RadioGroup>
-
+            <!--生日-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_17"
-                android:hint="@string/hint_input_phone_number"
-                android:text="@string/string_phone_number"
+                android:text="@string/string_sex"
                 android:textColor="@color/color_222222"
                 android:textSize="@dimen/sp_24" />
 
-            <EditText
+            <RadioGroup
+                android:id="@+id/rg_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
                 android:background="@drawable/bg_side_gray_d8_4"
-                android:hint="@string/string_choose_arrive_time"
-                android:padding="@dimen/px_12"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
+                android:orientation="horizontal"
+                android:padding="@dimen/px_4">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/rb_lunar"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/px_17"
-                    android:text="@string/string_remarks"
-                    android:textColor="@color/color_222222"
-                    android:textSize="@dimen/sp_24" />
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_sex_btn_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="@dimen/px_12"
+                    android:text="@string/string_lunar"
+                    android:textColor="@drawable/text_color_sex_selector"
+                    android:textSize="@dimen/px_22" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/rb_solar"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/px_17"
-                    android:layout_marginLeft="@dimen/px_12"
-                    android:text="@string/string_not_necessary"
-                    android:textColor="@color/color_cccccc"
-                    android:textSize="@dimen/sp_24" />
-            </LinearLayout>
-
-            <EditText
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_sex_btn_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="@dimen/px_12"
+                    android:text="@string/string_solar"
+                    android:textColor="@drawable/text_color_sex_selector"
+                    android:textSize="@dimen/px_22" />
+            </RadioGroup>
+            <!--手机号-->
+            <com.yonyou.hhtpos.widgets.DialogInputView
+                android:id="@+id/input_customer_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/px_30"
-                android:background="@drawable/bg_side_gray_d8_4"
-                android:hint="@string/hint_customer_requirement"
-                android:padding="@dimen/px_12"
-                android:textColorHint="@color/color_cccccc"
-                android:textSize="@dimen/sp_24" />
+                android:layout_marginTop="@dimen/px_40"
+                app:inputHint="@string/string_phone"
+                app:inputMode="0"
+                app:marginLeft="0"
+                app:titleText="@string/hint_input_customer_phone" />
+            <!--邮箱-->
+            <com.yonyou.hhtpos.widgets.DialogInputView
+                android:id="@+id/input_customer_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_40"
+                app:inputHint="@string/string_email"
+                app:inputMode="0"
+                app:marginLeft="0"
+                app:secondTitleText="@string/string_have_choice"
+                app:titleText="@string/hint_input_customer_email" />
+            <!--联系地址-->
+            <com.yonyou.hhtpos.widgets.DialogInputView
+                android:id="@+id/input_customer_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_40"
+                app:inputHint="@string/string_address"
+                app:inputMode="0"
+                app:marginLeft="0"
+                app:secondTitleText="@string/string_have_choice"
+                app:titleText="@string/hint_input_customer_address" />
 
         </LinearLayout>
 
@@ -211,7 +175,7 @@
         android:checked="true"
         android:gravity="center"
         android:padding="@dimen/px_20"
-        android:text="@string/string_commit"
+        android:text="@string/save"
         android:textColor="@drawable/rb_next_step_txt"
         android:textSize="@dimen/sp_28" />
 </LinearLayout>

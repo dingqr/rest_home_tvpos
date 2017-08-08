@@ -451,11 +451,23 @@
     <string name="the_day_after">后一天</string>
     <string name="dish_name">菜品名称</string>
     <string name="surplus_quantity">余量</string>
+    <!--会员管理-->
     <string name="string_update_pay_pwd">修改支付密码</string>
     <string name="string_update_user_info">修改个人资料</string>
     <string name="string_card_activation">电子卡激活</string>
     <string name="string_transaction_record">交易记录</string>
     <string name="string_input_new_member_info">新会员信息</string>
+    <string name="string_lunar">阴历</string>
+    <string name="string_solar">阳历</string>
+    <string name="hint_customer_name">顾客姓名</string>
+    <string name="string_input_customer_name">输入顾客姓名</string>
+    <string name="string_phone">手机号</string>
+    <string name="hint_input_customer_phone">输入顾客手机号</string>
+    <string name="string_email">邮箱</string>
+    <string name="string_address">联系地址</string>
+    <string name="hint_input_customer_email">输入顾客邮箱</string>
+    <string name="hint_input_customer_address">输入顾客联系地址</string>
+    <string name="string_have_choice">选填</string>
 
 
 </resources>
