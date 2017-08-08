@@ -432,7 +432,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void clearTable(String result) {
-        onRefresh();
+//        onRefresh();
     }
 
     /**
@@ -539,10 +539,17 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     public void onUpdateTableOption(String tableOption) {
         if (tableOption != null) {
             this.tableOption = tableOption;
-            if (tableOption.equals("99")) {
+            //act点击放弃
+            if (tableOption.equals("99")){
+                turnFlag = false;
                 mSwiperefreshLayout.setEnabled(true);
-            } else {
+                Elog.e("TURNFLAG",turnFlag);
+                Elog.e("TABLEOPTION",tableOption);
+            }else{
+                turnFlag = true;
                 mSwiperefreshLayout.setEnabled(false);
+                Elog.e("TURNFLAG",turnFlag);
+                Elog.e("TABLEOPTION",tableOption);
             }
         }
     }
@@ -559,19 +566,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
             onRefresh();
         }
     }
-//
-//    /**
-//     * 获取餐区集合
-//     *
-//     * @param mealAreas
-//     */
-//    @Subscribe(threadMode = ThreadMode.MainThread)
-//    public void onGetMealArea(List<MealAreaEntity> mealAreas) {
-//        if (mealAreas != null && mealAreas.size() > 0) {
-//            this.mMealAreas = mealAreas;
-//            Log.e("TAG", "获取餐区集合");
-//        }
-//    }
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
