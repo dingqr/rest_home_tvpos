@@ -115,7 +115,6 @@ public class DIA_TurnChooseTable {
                 //默认选中第一个
                 if (mTableList != null && mTableList.size() > 0) {
                     mAdapter.setSelectItem(0);
-                    mAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -133,7 +132,7 @@ public class DIA_TurnChooseTable {
                 mAdapter.notifyDataSetChanged();
                 //选择的桌台
                 mTableEntity = mAdapter.getDataList().get(mPosition);
-                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(mPosition).tableName, false);
+                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(mPosition).tableName + "--position--" + mPosition, false);
 
             }
 

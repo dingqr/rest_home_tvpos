@@ -219,7 +219,11 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mDiaTurnChooseTable.setOnChooseResultListener(new DIA_TurnChooseTable.OnChooseTableListener() {
             @Override
             public void onChooseTableResult(CanteenTableEntity tableEntity) {
-                Elog.e("chooseTable=" + tableEntity.tableName);
+                if (tableEntity != null && !TextUtils.isEmpty(tableEntity.tableName)) {
+                    Elog.e("chooseTable=" + tableEntity.tableName);
+                } else {
+                    CommonUtils.makeEventToast(mContext, "请选择转入的桌台", false);
+                }
             }
         });
     }
@@ -474,10 +478,9 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 mMealAreas = ((ACT_Canteen) getActivity()).getMealAreaList();
                 if (mMealAreas != null && mMealAreas.size() > 0) {
                     //刷新转入桌台弹窗的数据
+                    mDiaTurnChooseTable.getTableListAdapter().setSelectItem(0);
                     mDiaTurnChooseTable.refreshMealAreaData(mMealAreas);
                     mDiaTurnChooseTable.refreshTableList(tableList);
-                    mDiaTurnChooseTable.getTableListAdapter().setSelectItem(0);
-                    mDiaTurnChooseTable.getTableListAdapter().notifyDataSetChanged();
                     mDiaTurnChooseTable.show();
                 }
 //                Log.e("TAG", "请求可用桌台列表");
@@ -542,12 +545,12 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (tableOption != null) {
             this.tableOption = tableOption;
             //act点击放弃
-            if (tableOption.equals("99")){
+            if (tableOption.equals("99")) {
                 turnFlag = false;
                 mSwiperefreshLayout.setEnabled(true);
-                Elog.e("TURNFLAG",turnFlag);
-                Elog.e("TABLEOPTION",tableOption);
-            }else{
+                Elog.e("TURNFLAG", turnFlag);
+                Elog.e("TABLEOPTION", tableOption);
+            } else {
                 mSwiperefreshLayout.setEnabled(false);
             }
         }

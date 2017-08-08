@@ -310,7 +310,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
                 //不确定的字段
-                requestAddDishEntity.dishStatus = "8";//等叫
+                requestAddDishEntity.dishStatus = "waitCall";//等叫
 
                 //缺少的字段
                 //把所有已选做法名连接到一起的字符串，逗号分隔
@@ -403,7 +403,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             public void tempDishResult(String tempDishName, String tempDishPrice) {
                 isAddTempDish = true;
                 requestAddDishEntity.setDishPrice(tempDishPrice);
-                requestAddDishEntity.dishStatus = "8";//等叫
+                requestAddDishEntity.dishStatus = "waitCall";//等叫
                 requestAddDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
                 requestAddDishEntity.quantity = "1";
                 requestAddDishEntity.dishName = tempDishName;
