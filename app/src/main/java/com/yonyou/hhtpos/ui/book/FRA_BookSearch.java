@@ -192,7 +192,7 @@ public class FRA_BookSearch extends BaseFragment implements IWDListView, SwipeRe
         } else {
             if (null != dataList && dataList.size() > 0) {
                 //默认请求第一条详情
-                ((ACT_Packing) getActivity()).requestPackingDetail(dataList.get(0).id);
+                ((ACT_Packing) getActivity()).requestPackingDetail(dataList.get(0));
 
                 dataList.get(0).setCheck(true);
                 mAdapter.update(dataList, isRefresh);

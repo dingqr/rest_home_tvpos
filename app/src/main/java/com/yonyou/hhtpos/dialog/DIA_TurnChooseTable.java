@@ -10,18 +10,21 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.yonyou.framework.library.adapter.rv.MultiItemTypeAdapter;
+import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_TableArea;
 import com.yonyou.hhtpos.adapter.ADA_TableChooseList;
 import com.yonyou.hhtpos.bean.CanteenTableEntity;
 import com.yonyou.hhtpos.bean.MealAreaEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -42,6 +45,8 @@ public class DIA_TurnChooseTable {
     RecyclerView rvTableArea;
     @Bind(R.id.lrecyclerview)
     LRecyclerView mLRecyclerView;
+    @Bind(R.id.layout_empty)
+    LinearLayout layoutEmpty;
     private Context mContext;
     private ADA_TableArea mTableAreaAdapter;
 
@@ -52,6 +57,7 @@ public class DIA_TurnChooseTable {
     private ADA_TableChooseList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
     private CanteenTableEntity mTableEntity;
+    private List<CanteenTableEntity> mTableList = new ArrayList<>();
 
     public DIA_TurnChooseTable(Context context) {
         mContext = context;
@@ -104,9 +110,13 @@ public class DIA_TurnChooseTable {
                 mTableAreaAdapter.setSelectItem(position);
                 mTableAreaAdapter.notifyDataSetChanged();
                 if (mAreaListener != null) {
-                    mAreaListener.onMealAreaResult(mTableAreaAdapter.getDataList().get(position));
+                    mAreaListener.onMealAreaResult(mTableAreaAdapter.getDataList().get(position), position);
                 }
-//                CommonUtils.makeEventToast(mContext, mTableAreaAdapter.getDataList().get(position).getDiningAreaName(), false);
+                //默认选中第一个
+                if (mTableList != null && mTableList.size() > 0) {
+                    mAdapter.setSelectItem(0);
+                    mAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -118,11 +128,12 @@ public class DIA_TurnChooseTable {
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                mAdapter.setSelectItem(position);
+                int mPosition = position - 1;
+                mAdapter.setSelectItem(mPosition);
                 mAdapter.notifyDataSetChanged();
                 //选择的桌台
-                mTableEntity = mAdapter.getDataList().get(position);
-//                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(position).tableName, false);
+                mTableEntity = mAdapter.getDataList().get(mPosition);
+                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(mPosition).tableName, false);
 
             }
 
@@ -133,7 +144,7 @@ public class DIA_TurnChooseTable {
         });
     }
 
-    @OnClick({R.id.iv_close})
+    @OnClick({R.id.iv_close, R.id.rb_finish_choose})
     public void Click(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
@@ -142,10 +153,10 @@ public class DIA_TurnChooseTable {
                 }
                 break;
             case R.id.rb_finish_choose:
-                if (mDialog != null) {
-                    mDialog.dismiss();
-                }
-                if (mTableListener != null) {
+//                if (mDialog != null) {
+//                    mDialog.dismiss();
+//                }
+                if (mTableListener != null && mTableEntity != null) {
                     mTableListener.onChooseTableResult(mTableEntity);
                 }
                 break;
@@ -168,8 +179,22 @@ public class DIA_TurnChooseTable {
      */
     public void refreshTableList(List<CanteenTableEntity> tableList) {
         if (tableList != null && tableList.size() > 0) {
-            mAdapter.update(tableList, true);
+            mTableList = tableList;
+            layoutEmpty.setVisibility(View.GONE);
+            mLRecyclerView.setVisibility(View.VISIBLE);
+            mLRecyclerView.setAdapter(mLuRecyclerViewAdapter);
+            mTableEntity = mTableList.get(0);
+            mAdapter.update(mTableList, true);
         }
+    }
+
+    /**
+     * 无可用桌台的情况
+     */
+    public void showNoData() {
+        layoutEmpty.setVisibility(View.VISIBLE);
+        mLRecyclerView.setVisibility(View.GONE);
+        mAdapter.update(mTableList, true);
     }
 
     public Dialog show() {
@@ -235,7 +260,7 @@ public class DIA_TurnChooseTable {
      * 选择餐区回调
      */
     public interface OnChooseMealAreaListener {
-        void onMealAreaResult(MealAreaEntity areaEntity);
+        void onMealAreaResult(MealAreaEntity areaEntity, int position);
     }
 
     private OnChooseMealAreaListener mAreaListener;

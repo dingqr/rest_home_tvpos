@@ -10,7 +10,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.ui.book.FRA_BookLeft;
+import com.yonyou.hhtpos.bean.wd.OrderListEntity;
 import com.yonyou.hhtpos.ui.book.FRA_BookSearch;
 
 /**
@@ -127,8 +127,8 @@ public class ACT_Packing extends ACT_BaseMultiple implements View.OnClickListene
         }
     }
 
-    public void requestPackingDetail(String tableBillId) {
-        mPackingDetail.requestPackingDetail(tableBillId);
+    public void requestPackingDetail(OrderListEntity orderListEntity) {
+            mPackingDetail.requestPackingDetail(orderListEntity);
     }
 
 }

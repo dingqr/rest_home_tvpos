@@ -17,7 +17,6 @@ import com.yonyou.framework.library.widgets.pla.PLALoadMoreListView;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_PackingList;
 import com.yonyou.hhtpos.bean.wd.OrderListEntity;
-import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWDListPresenter;
@@ -129,7 +128,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
             public void onItemClick(int position) {
                 List<OrderListEntity> dataList = mAdapter.getDataSource();
                 if (null != dataList && dataList.size() > 0){
-                    requestPackingDetail(dataList.get(position).id);
+                    requestPackingDetail(dataList.get(position));
                 }
             }
         });
@@ -157,9 +156,11 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
     /**
      * 触发右侧请求外带详情接口
      */
-    private void requestPackingDetail(String tableBillId) {
+    private void requestPackingDetail(OrderListEntity orderListEntity) {
         ACT_Packing act_packing = (ACT_Packing) getActivity();
-        act_packing.requestPackingDetail(tableBillId);
+        if(orderListEntity!=null) {
+            act_packing.requestPackingDetail(orderListEntity);
+        }
     }
 
 
@@ -198,7 +199,7 @@ public class FRA_PackingList extends BaseFragment implements IWDListView, SwipeR
         } else {
             if (null != dataList && dataList.size() > 0) {
                 //默认请求第一条详情
-                requestPackingDetail(dataList.get(0).id);
+                requestPackingDetail(dataList.get(0));
 
                 dataList.get(0).setCheck(true);
                 mAdapter.update(dataList, isRefresh);

@@ -18,14 +18,19 @@
         android:layout_marginLeft="@dimen/px_20"
         android:layout_marginRight="@dimen/px_20"
         android:layout_weight="1"
-        android:background="@color/color_d9d9d9">
+        android:background="@color/color_d9d9d9"
+        android:orientation="vertical">
 
         <com.github.jdsjlzx.recyclerview.LRecyclerView
             android:id="@+id/lrecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/px_6"
-            android:paddingRight="@dimen/px_6"></com.github.jdsjlzx.recyclerview.LRecyclerView>
+            android:paddingRight="@dimen/px_6"
+            android:visibility="gone"></com.github.jdsjlzx.recyclerview.LRecyclerView>
+
+        <include layout="@layout/empty_useable_table" />
+
     </LinearLayout>
 
     <RadioButton
