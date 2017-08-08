@@ -518,6 +518,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     @Override
     public void getFiltrateTable(List<CanteenTableEntity> tableList) {
         Elog.e("tableList.size==", tableList.size() + "-------EventBusSend");
+        Elog.e("tableOption==", tableOption + "-------EventBusSend");
         EventBus.getDefault().post(tableOption);
         EventBus.getDefault().post(tableList);
     }

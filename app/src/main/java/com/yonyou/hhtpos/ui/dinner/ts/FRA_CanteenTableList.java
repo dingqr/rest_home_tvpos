@@ -224,8 +224,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mDiaTurnChooseTable.setOnChooseResultListener(new DIA_TurnChooseTable.OnChooseTableListener() {
             @Override
             public void onChooseTableResult(CanteenTableEntity tableEntity) {
-                mSwiperefreshLayout.setEnabled(true);
-//                Elog.e("chooseTable=" + tableEntity.tableName);
+                Elog.e("chooseTable=" + tableEntity.tableName);
             }
         });
     }
@@ -471,13 +470,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void requestTableList(List<CanteenTableEntity> tableList) {
-        // restore view helper
-        restoreViewHelper();
-        // reset adapter
-        mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
-
-        if (tableList != null && tableList.size() > 0) {
-            if (turnFlag) {
+        if (turnFlag) {
+            if (tableList != null && tableList.size() > 0) {
                 //桌台列表是tablelist
                 //餐区列表是ACT_Canteen里的mealAreas
                 mMealAreas = ((ACT_Canteen) getActivity()).getMealAreaList();
@@ -490,18 +484,23 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     mDiaTurnChooseTable.show();
                 }
 //                Log.e("TAG", "请求可用桌台列表");
-
-            } else {
+            }
+        } else {
+            if (tableList != null && tableList.size() > 0) {
+                // restore view helper
+                restoreViewHelper();
+                // reset adapter
+                mRecyclerView.setAdapter(mLuRecyclerViewAdapter);
                 this.datas = (ArrayList<CanteenTableEntity>) tableList;
                 if (mSwiperefreshLayout.isRefreshing()) {
                     mSwiperefreshLayout.setRefreshing(false);
                 }
                 mAdapter.update(tableList, true);
+            }else{
+                mDiaTurnChooseTable.showNoData();
+                // 空页面
+                showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
             }
-        } else {
-            mDiaTurnChooseTable.showNoData();
-            // 空页面
-            showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
         }
     }
 
@@ -511,8 +510,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     private void updateTurnList(MealAreaEntity mealAreaEntity) {
         if (mealAreaEntity != null) {
             mTableListPresenter.requestTableList(mealAreaEntity.getRelateId(), shopId, "0,6,10");
-            mSwiperefreshLayout.setEnabled(false);
-            mSwiperefreshLayout.setRefreshing(false);
+            this.hideLoading();
         }
     }
 
