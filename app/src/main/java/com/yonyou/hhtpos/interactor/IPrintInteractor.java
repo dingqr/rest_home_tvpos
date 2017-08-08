@@ -5,5 +5,12 @@ package com.yonyou.hhtpos.interactor;
  * 邮箱：lsf@yonyou.com
  */
 public interface IPrintInteractor {
-    void requestPrintOrder();
+    /**
+     * 请求打印指令接口
+     * @param printType 打印类型
+     * @param shopId 店铺id
+     * @param companyId 公司id
+     * @param sourceId 打印指令id
+     */
+    void requestPrintOrder(String printType, String shopId, String companyId, String sourceId);
 }

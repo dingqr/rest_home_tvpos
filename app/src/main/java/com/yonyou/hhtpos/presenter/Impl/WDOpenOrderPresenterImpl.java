@@ -7,6 +7,7 @@ import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.wd.OpenOrderEntity;
+import com.yonyou.hhtpos.bean.wd.OpenOrderSuccessEntity;
 import com.yonyou.hhtpos.interactor.IWDOpenOrderInteractor;
 import com.yonyou.hhtpos.interactor.Impl.WDOpenOrderInteractorImpl;
 import com.yonyou.hhtpos.presenter.IWDOpenOrderPresenter;
@@ -34,10 +35,10 @@ public class WDOpenOrderPresenterImpl implements IWDOpenOrderPresenter {
         mPackingListInteractor.openOrder(bean);
     }
 
-    private class OpenOrderListener implements BaseLoadedListener<String> {
+    private class OpenOrderListener implements BaseLoadedListener<OpenOrderSuccessEntity> {
 
         @Override
-        public void onSuccess(int event_tag, String result) {
+        public void onSuccess(int event_tag, OpenOrderSuccessEntity result) {
             mPackingLeftView.dismissDialogLoading();
             mPackingLeftView.openOrder(result);
         }

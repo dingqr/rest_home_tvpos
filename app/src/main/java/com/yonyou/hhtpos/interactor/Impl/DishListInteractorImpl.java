@@ -18,10 +18,12 @@ public class DishListInteractorImpl implements IDishListInteractor {
 
     private BaseLoadedListener dishListListener;
     private BaseLoadedListener placeOrderListener;
+    private BaseLoadedListener deleteDishListener;
 
-    public DishListInteractorImpl(BaseLoadedListener dishListListener, BaseLoadedListener placeOrderListener) {
+    public DishListInteractorImpl(BaseLoadedListener dishListListener, BaseLoadedListener placeOrderListener, BaseLoadedListener deleteDishListener) {
         this.dishListListener = dishListListener;
         this.placeOrderListener = placeOrderListener;
+        this.deleteDishListener = deleteDishListener;
     }
 
     @Override
@@ -68,6 +70,30 @@ public class DishListInteractorImpl implements IDishListInteractor {
             @Override
             public void onReqFailed(ErrorBean errorBean) {
                 placeOrderListener.onBusinessError(errorBean);
+            }
+        });
+    }
+
+    @Override
+    public void deleteNoOrderDish(String shopId, String tableBillId) {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("shopId", shopId);
+        hashMap.put("tableBillId", tableBillId);
+        RequestManager.getInstance().requestGetByAsyn(API.URL_DELETE_NO_ORDER_DISH, hashMap, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                deleteDishListener.onSuccess(0, result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                deleteDishListener.onException(result);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean errorBean) {
+                deleteDishListener.onBusinessError(errorBean);
             }
         });
     }

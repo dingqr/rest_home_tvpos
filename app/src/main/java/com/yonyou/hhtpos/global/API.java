@@ -26,6 +26,7 @@ public class API {
 
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
     public static final String BASE_SERVER_SHOP = BASE_SERVER_IP + "8063";// shop端口号
+    public static final String BASE_SERVER_PRINT = BASE_SERVER_IP + "8064";// 打印端口号
 
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
 
@@ -235,14 +236,24 @@ public class API {
      * 修改未下单菜品
      */
     public static final String URL_UPDATE_DISH = BASE_SERVER_SHOP + "/prodish/modifydish";
-//    public static final String URL_UPDATE_DISH = "http://10.220.23.81:9001" + "/prodish/modifydish";
 
     /**
      * 获取打印指令接口
      */
-    public static final String GET_PRINT_ORDER = "http://10.220.17.51:8064/PrintService/getPrintommand";
+    public static final String GET_PRINT_ORDER =  BASE_SERVER_PRINT + "/PrintService/getPrintCommand";
+
     /**
      * 查询所有可用折扣方案
      */
     public static final String URL_GET_DISCOUNT_PLAN = BASE_SERVER_SHOP + "/prodiscountscheme/qryshopenable";
+
+    /**
+     * 删除未下单菜品接口
+     */
+    public static final String URL_DELETE_NO_ORDER_DISH = BASE_SERVER_SHOP + "/prodish/deleteNoOrderDish";
+
+    /**
+     * 请求支付方式
+     */
+    public static final String GET_PAY_TYPE_LIST = BASE_SERVER_SHOP + "/protablebill/payway/list";
 }

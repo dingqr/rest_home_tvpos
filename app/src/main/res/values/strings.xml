@@ -272,6 +272,7 @@
     <string name="string_go_settle_amount">去结账</string>
     <string name="tip_delete_dish">确认删除该菜品吗？</string>
     <string name="tip_cancel_gift_dish">确认取消赠送吗？</string>
+    <string name="tip_delete_no_order_dishes">确认删除未下单菜品吗？</string>
     <string name="tip_place_order_success">下单成功</string>
     <string name="tip_update_count_success">修改数量成功</string>
     <string name="tip_update_dish_success">修改菜品成功</string>

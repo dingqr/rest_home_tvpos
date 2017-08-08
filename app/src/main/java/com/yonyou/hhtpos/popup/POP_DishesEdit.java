@@ -10,6 +10,7 @@ import android.widget.PopupWindow;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishesEdit;
 import com.yonyou.hhtpos.bean.DishEditEntity;
+import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.widgets.BanSlideGridView;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
     /**传入数据 */
     private Context context;
     private OnEditListener onEditListener;
-    private int dishStatus;
+    private String dishStatus;
 
     /**布局 */
     private View convertView;
@@ -33,12 +34,7 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
     private List<DishEditEntity> dataList;
     private ADA_DishesEdit mAdapter;
 
-    /**催菜：6，等叫：7，叫起：8 */
-    private static final String STATUS_REMINDER = "6";
-    private static final String STATUS_WAIT_CALLED = "7";
-    private static final String STATUS_SERVING = "8";
-
-    public POP_DishesEdit(Context context, OnEditListener onEditListener, int dishStatus) {
+    public POP_DishesEdit(Context context, OnEditListener onEditListener, String dishStatus) {
         super(context);
         this.context = context;
         this.onEditListener = onEditListener;
@@ -47,7 +43,7 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
         setConvertView();
     }
 
-    public void setDishStatus(int dishStatus) {
+    public void setDishStatus(String dishStatus) {
         this.dishStatus = dishStatus;
     }
 
@@ -100,11 +96,11 @@ public class POP_DishesEdit extends PopupWindow implements ADA_DishesEdit.OnSele
                 break;
 
             case 4:
-                onEditListener.updateDishStatus(STATUS_WAIT_CALLED);
+                onEditListener.updateDishStatus(DishConstants.STATUS_WAIT_CALLED);
                 break;
 
             case 5:
-                onEditListener.updateDishStatus(STATUS_SERVING);
+                onEditListener.updateDishStatus(DishConstants.STATUS_SERVING);
                 break;
 
             default:

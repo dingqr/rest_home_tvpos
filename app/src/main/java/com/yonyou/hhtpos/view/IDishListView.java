@@ -21,4 +21,9 @@ public interface IDishListView extends BaseView {
      * 下单
      */
     void requestPlaceOrder();
+
+    /**
+     * 删除未下单菜品接口
+     */
+    void deleteNoOrderDishes();
 }

@@ -27,11 +27,6 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
 
     private ADA_DishesPlaceOrderEdit.OnSelectedListener onSelectedListener;
 
-    /**催菜：6，等叫：7，叫起：8 */
-    private static final int STATUS_REMINDER = 6;
-    private static final int STATUS_WAIT_CALLED = 7;
-    private static final int STATUS_SERVING = 8;
-
     public ADA_DishesPlaceOrderEdit(Context context, ADA_DishesPlaceOrderEdit.OnSelectedListener onSelectedListener, DishListEntity.Dishes bean) {
         super(context);
         this.onSelectedListener = onSelectedListener;
@@ -93,7 +88,7 @@ public class ADA_DishesPlaceOrderEdit extends BaseAbsAdapter<DishEditEntity> {
 
                     // 修改菜品状态
                     if (pos == 0){
-                        bean.setDishStatus(8);
+                        bean.setDishStatus(DishConstants.STATUS_SERVING);
                     }
                     notifyDataSetChanged();
                 }
