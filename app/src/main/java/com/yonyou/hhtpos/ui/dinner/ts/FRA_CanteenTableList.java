@@ -505,10 +505,7 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 Elog.e("TURNFLAG",turnFlag);
                 Elog.e("TABLEOPTION",tableOption);
             }else{
-                turnFlag = true;
                 mSwiperefreshLayout.setEnabled(false);
-                Elog.e("TURNFLAG",turnFlag);
-                Elog.e("TABLEOPTION",tableOption);
             }
         }
     }
