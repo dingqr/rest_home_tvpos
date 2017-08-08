@@ -18,8 +18,8 @@ import com.yonyou.hhtpos.adapter.ADA_CheckOutPayType;
 import com.yonyou.hhtpos.adapter.ADA_DiscountType;
 import com.yonyou.hhtpos.adapter.ADA_PayHistory;
 import com.yonyou.hhtpos.application.MyApplication;
-import com.yonyou.hhtpos.bean.PayTypeEntity;
 import com.yonyou.hhtpos.bean.check.DiscountEntity;
+import com.yonyou.hhtpos.bean.check.PayTypeEntity;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
@@ -113,6 +113,7 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
     private IPayTypePresenter mPayTypePresenter;
 
     private SettleAccountDataEntity settleAccountDataEntity;
+    private PayTypeEntity currentPayTypeBean;
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onRefreshRight(SettleAccountDataEntity settleAccountDataEntity) {
@@ -172,26 +173,39 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
         //支付方式
         mPayTypeAdapter = new ADA_CheckOutPayType(mContext);
         mPayTypeGv.setAdapter(mPayTypeAdapter);
-        ArrayList<String> payTypeList = new ArrayList<>();
-        for (int i = 0; i < payTypeNames.length; i++) {
-            payTypeList.add(payTypeNames[i]);
-        }
-        mPayTypeAdapter.update(payTypeList, true);
+//        ArrayList<String> payTypeList = new ArrayList<>();
+//        for (int i = 0; i < payTypeNames.length; i++) {
+//            payTypeList.add(payTypeNames[i]);
+//        }
+//        mPayTypeAdapter.update(payTypeList, true);
+
+
         mPayTypeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    mDiaCheckOutByCash.show();
+                currentPayTypeBean = (PayTypeEntity)parent.getAdapter().getItem(position);
+
+                if (null != currentPayTypeBean){
+                    if (!TextUtils.isEmpty(currentPayTypeBean.getPayWayName()) && currentPayTypeBean.getPayWayName().equals("现金")){
+                        mDiaCheckOutByCash.show();
+                    }
                 }
             }
         });
+
         //收到现金
         mDiaCheckOutByCash.setOnReceiveMoneyListener(new DIA_CheckOutByCash.OnReceiveMoneyListener() {
             @Override
             public void onReceiveMoney(String money) {
                 RequestPayEntity requestPayEntity = new RequestPayEntity();
                 requestPayEntity.payAmount = money;
-                requestPayEntity.payType = "现金";
+
+                if (null != currentPayTypeBean){
+                    // 支付方式编码
+                    requestPayEntity.payType = currentPayTypeBean.getPayWayCode();
+                    // 支付方式名称
+                    requestPayEntity.payWayName = currentPayTypeBean.getPayWayName();
+                }
                 handlePayStatus(requestPayEntity);
 
             }
@@ -416,6 +430,6 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
     @Override
     public void requestPayTypeList(List<PayTypeEntity> dataList) {
-
+        mPayTypeAdapter.update(dataList, true);
     }
 }

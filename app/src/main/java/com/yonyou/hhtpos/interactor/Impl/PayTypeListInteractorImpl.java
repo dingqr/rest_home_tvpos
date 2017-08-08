@@ -2,7 +2,7 @@ package com.yonyou.hhtpos.interactor.Impl;
 
 import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.PayTypeEntity;
+import com.yonyou.hhtpos.bean.check.PayTypeEntity;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.interactor.IPayTypeListInteractor;
 import com.yonyou.hhtpos.manager.ReqCallBack;
