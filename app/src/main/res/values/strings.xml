@@ -455,6 +455,7 @@
     <string name="string_update_user_info">修改个人资料</string>
     <string name="string_card_activation">电子卡激活</string>
     <string name="string_transaction_record">交易记录</string>
+    <string name="string_input_new_member_info">新会员信息</string>
 
 
 </resources>

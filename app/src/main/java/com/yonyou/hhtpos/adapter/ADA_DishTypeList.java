@@ -1,6 +1,7 @@
 package com.yonyou.hhtpos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
     private OnActionOrderDishListener mOnActionOrderDishListener;
     //字符串拼接
     private StringBuffer mBuffer;
+    private boolean isRecommend;
 
     public ADA_DishTypeList(Context context) {
         super(context);
@@ -74,7 +76,6 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             }
         }
 
-
         //设置接口返回数据
         if (dishesEntity != null) {
             //设置口味显示
@@ -94,10 +95,43 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             } else {
                 tvTastes.setVisibility(View.INVISIBLE);
             }
-            //设置价格
+            //设置价格-暂时显示方案
             holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
-            //设置是否是称重
-            ivWeightSign.setVisibility(dishesEntity.isWeigh.equals("Y") ? View.VISIBLE : View.GONE);
+
+            //设置菜品价格-以此为准
+            if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 0) {
+                if (dishesEntity.dishStandards.size() == 1) {
+                    //设置价格
+                    holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.dishStandards.get(0).getDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+                } else {
+                    //菜品规格-有多个，取isDefault中为“Y”的数据
+                    for (int i = 0; i < dishesEntity.dishStandards.size(); i++) {
+                        String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
+                        if (isDefault.equals("Y")) {
+                            holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.dishStandards.get(i).getDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+                            break;
+                        }
+                    }
+                }
+
+            }
+            //设置显示的标签
+            setLabels(dishesEntity, dishName, tvLabelOne, tvLabelTwo);
+
+            //处理推荐菜品
+            if (isRecommend) {
+                ivWeightSign.setVisibility(View.VISIBLE);
+                ivWeightSign.setImageResource(R.drawable.ic_recommend_dish);
+                if (!TextUtils.isEmpty(dishesEntity.getComboDishPrice())) {
+                    holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.getComboDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+                }
+
+            } else {
+                //设置是否是称重
+                ivWeightSign.setVisibility(dishesEntity.isWeigh.equals("Y") ? View.VISIBLE : View.GONE);
+                ivWeightSign.setImageResource(R.drawable.ic_weighing);
+            }
+
 
             //售罄状态item置灰效果
 //        if () {
@@ -110,8 +144,6 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
 //            holder.setTextColor(R.id.dish_name, ContextCompat.getColor(mContext, R.color.color_222222));
 //            holder.setTextColor(R.id.tv_dish_price, ContextCompat.getColor(mContext, R.color.color_222222));
 //        }
-            //设置显示的标签
-            setLabels(dishesEntity, dishName, tvLabelOne, tvLabelTwo);
         }
     }
 
@@ -168,5 +200,9 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
 
     public void setOnActionOrderDishListener(OnActionOrderDishListener onActionOrderDishListener) {
         this.mOnActionOrderDishListener = onActionOrderDishListener;
+    }
+
+    public void setRecommend(boolean recommend) {
+        isRecommend = recommend;
     }
 }

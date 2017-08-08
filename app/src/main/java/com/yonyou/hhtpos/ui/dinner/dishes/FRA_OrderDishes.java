@@ -21,7 +21,6 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
-import com.yonyou.hhtpos.bean.RecommendDataEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
@@ -85,6 +84,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private int mCurrentPage = 1;
     //列表显示的列数
     private int mColumnNum = 4;
+    //菜品列表Adapter
     private ADA_DishTypeList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
 
@@ -123,6 +123,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_AddTempDishes mDiaAddTempDishes;
     private boolean isAddTempDish;
     private RecommendDishesPresenterImpl mGetcommendDishesPresenter;
+    private List<DishesEntity> mRecommendDishes = new ArrayList<>();
 
     /**
      * 接收右侧角标数量的数据集合
@@ -354,13 +355,13 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                     mDiaWeightNormal.setData(dataBean).getDialog().show();
                     return;
                 }
-                //规格
-                if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
+                //规格大于1，才弹窗
+                if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
                     mDiaStandards.setDataBean(dataBean).getDialog().show();
                     return;
                 }
                 //无规格、无做法，直接加入购物车；
-                if (dishesEntity.practices.size() == 0 && dishesEntity.standards.size() == 0) {
+                if (dishesEntity.practices.size() == 0 && dishesEntity.dishStandards.size() == 0) {
                     mAddDishPresenter.requestAddDish(requestAddDishEntity);
                     return;
                 }
@@ -383,6 +384,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             @Override
             public void onItemClick(int count, String title, final int postion) {
                 if (mDishDataBean != null && mDishDataBean.dishTypes.size() > 0) {
+                    mAdapter.setRecommend(false);
                     List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
                     // restore view helper
                     showDataOrEmptyPage(dishes);
@@ -420,8 +422,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-                CommonUtils.makeEventToast(mContext, "推荐", false);
-//                readyGo(ACT_Member.class);
+                mAdapter.setRecommend(true);
+                showDataOrEmptyPage(mRecommendDishes);
             }
         });
     }
@@ -554,11 +556,21 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         if (dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
             dataBean.setRemarks(dishesEntity.remarks);
         }
-        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
-            dataBean.setStandards(dishesEntity.standards);
-        }
         if (dishesEntity.tastes != null && dishesEntity.tastes.size() > 0) {
             dataBean.setTastes(dishesEntity.tastes);
+        }
+        //设置规格
+        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() == 1 && dishesEntity.dishStandards.get(0) != null && dishesEntity.dishStandards.get(0).getStandards() != null) {
+            dataBean.setStandards(dishesEntity.dishStandards.get(0).getStandards());
+        }
+        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
+            for (int i = 0; i < dishesEntity.dishStandards.size() ; i++) {
+                String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
+                if(isDefault.equals("Y")) {
+                    dataBean.setStandards(dishesEntity.dishStandards.get(i).getStandards());
+                    break;
+                }
+            }
         }
         return dataBean;
     }
@@ -774,7 +786,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
      * 获取推荐套餐的菜品集合
      */
     @Override
-    public void getRecommendDishes(List<RecommendDataEntity> dataList) {
-
+    public void getRecommendDishes(List<DishesEntity> dataList) {
+        this.mRecommendDishes = dataList;
     }
 }

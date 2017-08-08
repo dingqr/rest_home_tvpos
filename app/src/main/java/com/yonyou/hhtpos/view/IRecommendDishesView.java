@@ -1,7 +1,7 @@
 package com.yonyou.hhtpos.view;
 
 import com.yonyou.framework.library.view.BaseView;
-import com.yonyou.hhtpos.bean.RecommendDataEntity;
+import com.yonyou.hhtpos.bean.dish.DishesEntity;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ import java.util.List;
  * 描述：查询所有推荐套餐-View层接口
  */
 public interface IRecommendDishesView extends BaseView {
-    void getRecommendDishes(List<RecommendDataEntity> dataList);
+    void getRecommendDishes(List<DishesEntity> dataList);
 }
