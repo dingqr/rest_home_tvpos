@@ -62,7 +62,7 @@ public class DIA_UpdateUserInfo {
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
         lp.dimAmount = 0.8f; //背景灰度 -0.0全透明
         lp.width = 752; // 设置宽度
-        lp.height = 1024;//设置高度
+        lp.height = 960;//设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         if (!mDialog.isShowing()) {

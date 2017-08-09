@@ -260,5 +260,9 @@ public class API {
     /**
      * 请求支付方式
      */
-    public static final String GET_PAY_TYPE_LIST = BASE_SERVER_SHOP + "/protablebill/payway/list";
+    public static final String GET_PAY_TYPE_LIST = BASE_SERVER_SHOP + "/protablebill/payway/lis";
+    /**
+     * 外带补打账单
+     */
+    public static final String URL_TAKE_OUT_PRINT_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayPrint";
 }

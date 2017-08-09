@@ -155,32 +155,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
-                app:inputHint="@string/string_phone"
+                app:inputHint="@string/hint_input_customer_phone"
                 app:inputMode="0"
                 app:marginLeft="0"
-                app:titleText="@string/hint_input_customer_phone" />
+                app:titleText="@string/string_phone" />
             <!--邮箱-->
             <com.yonyou.hhtpos.widgets.DialogInputView
                 android:id="@+id/input_customer_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
-                app:inputHint="@string/string_email"
+                app:inputHint="@string/hint_input_customer_email"
                 app:inputMode="0"
                 app:marginLeft="0"
                 app:secondTitleText="@string/string_have_choice"
-                app:titleText="@string/hint_input_customer_email" />
+                app:titleText="@string/string_email" />
             <!--联系地址-->
             <com.yonyou.hhtpos.widgets.DialogInputView
                 android:id="@+id/input_customer_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/px_30"
-                app:inputHint="@string/string_address"
+                app:inputHint="@string/hint_input_customer_address"
                 app:inputMode="0"
                 app:marginLeft="0"
                 app:secondTitleText="@string/string_have_choice"
-                app:titleText="@string/hint_input_customer_address" />
+                app:titleText="@string/string_address" />
 
         </LinearLayout>
 

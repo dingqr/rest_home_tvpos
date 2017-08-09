@@ -73,7 +73,8 @@
             android:layout_below="@+id/tv_dishes_single_price"
             android:paddingBottom="@dimen/px_12"
             android:paddingTop="@dimen/px_12"
-            android:src="@drawable/ic_coupon" />
+            android:src="@drawable/ic_coupon"
+            android:visibility="invisible" />
 
         <com.yonyou.hhtpos.widgets.DashView
             android:layout_width="match_parent"
