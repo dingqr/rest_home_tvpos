@@ -762,7 +762,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
      */
     @Override
     public void updateDishStatus(String status) {
-        mDishEditPresenter.updateDishStatus("", status, dishId, Constants.SHOP_ID);
+        mDishEditPresenter.updateDishStatus("", status, dishId, Constants.SHOP_ID, StringUtil.getString(saleManner));
     }
 
     /**
@@ -952,7 +952,7 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
     public void onConfirm(String mode, String count) {
         // 退菜或赠菜
         if (mode.equals(DishConstants.RETURN_DISH) || mode.equals(DishConstants.SERVE_DISH)) {
-            mDishEditPresenter.specialHandleDish(mode, mode, currentBean.getId(), Constants.SHOP_ID, count);
+            mDishEditPresenter.specialHandleDish(mode, mode, currentBean.getId(), Constants.SHOP_ID, count, StringUtil.getString(saleManner));
         }
         // 称重确认
         else if (mode.equals(DishConstants.DISH_WEIGHT)) {

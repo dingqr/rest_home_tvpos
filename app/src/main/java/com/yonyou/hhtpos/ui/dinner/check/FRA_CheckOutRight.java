@@ -20,11 +20,13 @@ import com.yonyou.hhtpos.adapter.ADA_PayHistory;
 import com.yonyou.hhtpos.application.MyApplication;
 import com.yonyou.hhtpos.bean.check.DiscountEntity;
 import com.yonyou.hhtpos.bean.check.PayTypeEntity;
+import com.yonyou.hhtpos.bean.check.QRCodeEntity;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.dialog.DIA_AutoDismiss;
 import com.yonyou.hhtpos.dialog.DIA_CheckOutByCash;
 import com.yonyou.hhtpos.dialog.DIA_Discount;
+import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
 import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.presenter.IPayTypePresenter;
 import com.yonyou.hhtpos.presenter.IPrintPresenter;
@@ -186,8 +188,19 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                 currentPayTypeBean = (PayTypeEntity)parent.getAdapter().getItem(position);
 
                 if (null != currentPayTypeBean){
-                    if (!TextUtils.isEmpty(currentPayTypeBean.getPayWayName()) && currentPayTypeBean.getPayWayName().equals("现金")){
-                        mDiaCheckOutByCash.show();
+                    if (!TextUtils.isEmpty(currentPayTypeBean.getPayWayName())){
+                        if (currentPayTypeBean.getPayWayName().equals("现金")){
+                            mDiaCheckOutByCash.show();
+                        }else if (currentPayTypeBean.getPayWayName().equals("哆啦宝")){
+                            RequestPayEntity requestPayEntity = new RequestPayEntity();
+                            if (null != currentPayTypeBean){
+                                // 支付方式编码
+                                requestPayEntity.payType = currentPayTypeBean.getPayWayCode();
+                                // 支付方式名称
+                                requestPayEntity.payWayName = currentPayTypeBean.getPayWayName();
+                            }
+                            handlePayStatus(requestPayEntity);
+                        }
                     }
                 }
             }
@@ -352,18 +365,39 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
         this.settleAccountDataEntity = settleAccountDataEntity;
 
-        if (!TextUtils.isEmpty(settleAccountDataEntity.sourceId)){
-            mPrintPresenter.requestPrintOrder("before1", Constants.SHOP_ID, "", settleAccountDataEntity.sourceId);
-        }else {
-            // 收款成功
-            CommonUtils.makeEventToast(mContext, getString(R.string.string_receive_money_successful), false);
-            // 结清
-            if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
-                getActivity().finish();
-            } else {
-                EventBus.getDefault().post(settleAccountDataEntity);
+        if (null != currentPayTypeBean){
+            if (!TextUtils.isEmpty(currentPayTypeBean.getPayWayName())){
+                if (currentPayTypeBean.getPayWayName().equals("现金")){
+                    // 现金的逻辑
+                    if (!TextUtils.isEmpty(settleAccountDataEntity.sourceId)){
+                        mPrintPresenter.requestPrintOrder("before1", Constants.SHOP_ID, "", settleAccountDataEntity.sourceId);
+                    }else {
+                        // 收款成功
+                        CommonUtils.makeEventToast(mContext, getString(R.string.string_receive_money_successful), false);
+                        // 结清
+                        if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
+                            getActivity().finish();
+                        } else {
+                            EventBus.getDefault().post(settleAccountDataEntity);
+                        }
+                    }
+                }else if (currentPayTypeBean.getPayWayName().equals("哆啦宝")){
+                    Elog.e("qrCode----------------------->", settleAccountDataEntity.qrCode);
+
+                    QRCodeEntity bean = new QRCodeEntity();
+                    bean.setTableBillId(tableBillId);
+                    bean.setPayType(currentPayTypeBean.getPayWayName());
+                    bean.setQrCode(settleAccountDataEntity.qrCode);
+                    bean.setUnpaidMoney(settleAccountDataEntity.getUnpaidMoney());
+
+                    // 展示扫码弹窗
+                    DIA_ScanCodeNew dia_scanCodeNew = new DIA_ScanCodeNew().newInstance(bean);
+                    dia_scanCodeNew.show(getSupportFragmentManager(), "DIA_ScanCodeNew");
+                }
             }
         }
+
+
     }
 
     /**

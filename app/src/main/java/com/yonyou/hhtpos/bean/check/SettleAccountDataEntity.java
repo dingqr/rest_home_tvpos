@@ -101,6 +101,11 @@ public class SettleAccountDataEntity implements Serializable {
     public String sourceId;
 
     /**
+     * 支付二维码链接
+     */
+    public String qrCode;
+
+    /**
      * 基础信息
      */
     public class BaseInfoEntity implements Serializable {

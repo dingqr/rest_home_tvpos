@@ -10,18 +10,18 @@ public class API {
      * 服务器ip
      */
 
-//    // 开发环境
+    // 开发环境
     public static final String BASE_SERVER_IP = "http://10.220.17.51:"; //开发环境ip
     public static final String compId = "DIE49JkEU29JHD819HRh19hGDAY1";
     public static final String shopId = "C13352966C000000A60000000016E000";
 
-//     测试环境
+    // 测试环境
 //    public static final String BASE_SERVER_IP = "http://10.220.17.61:"; //测试环境ip
 //    public static final String compId = "2323";
 //    public static final String shopId = "C60D375FDC0000009200000000000000";
 
 //    public static final String BASE_SERVER_IP = "http://10.220.18.216:9000"; //马诗雨ip
-//        public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP ;// login端口号
+//    public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP ;// login端口号
 //    public static final String BASE_SERVER_SHOP = BASE_SERVER_IP ;// shop端口号
 
     public static final String BASE_SERVER_LOGIN = BASE_SERVER_IP + "8062";// login端口号
@@ -265,4 +265,8 @@ public class API {
      * 外带补打账单
      */
     public static final String URL_TAKE_OUT_PRINT_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayPrint";
+    /**
+     * 获取账单扫码支付结果
+     */
+    public static final String GET_PAY_RESULT = BASE_SERVER_SHOP + "/protablebill/settleaccount/querystatus";
 }

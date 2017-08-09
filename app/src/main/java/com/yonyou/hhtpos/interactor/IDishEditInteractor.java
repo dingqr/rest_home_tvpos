@@ -31,8 +31,9 @@ public interface IDishEditInteractor {
      * @param dishStatus 状态（催菜：6，等叫：7，叫起：8）
      * @param id 点菜菜单id
      * @param shopId
+     * @param saleManner 堂食：1  外带：2  外卖：3
      */
-    void updateDishStatus(String companyId, String dishStatus, String id, String shopId);
+    void updateDishStatus(String companyId, String dishStatus, String id, String shopId, String saleManner);
 
     /**
      * 退菜和赠菜的接口
@@ -41,8 +42,9 @@ public interface IDishEditInteractor {
      * @param id 点菜菜单id
      * @param shopId
      * @param count 数量
+     * @param saleManner 堂食：1  外带：2  外卖：3
      */
-    void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count);
+    void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count, String saleManner);
 
     /**
      * 称重确认接口

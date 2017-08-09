@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ScanCodeFragmentAdapter;
+import com.yonyou.hhtpos.bean.check.QRCodeEntity;
 import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
 
 /**
@@ -24,6 +25,10 @@ import com.yonyou.hhtpos.widgets.PagerSlidingTabStrip;
  * 作者：liushuofei on 2017/7/22 09:52
  */
 public class DIA_ScanCodeNew extends DialogFragment implements View.OnClickListener{
+
+    /**传入参数 */
+    public static final String QR_CODE_ENTITY = "qr.code.entity";
+    private QRCodeEntity bean;
 
     /**界面控件 */
     PagerSlidingTabStrip mTab;
@@ -37,6 +42,20 @@ public class DIA_ScanCodeNew extends DialogFragment implements View.OnClickListe
 
     public static final int SCAN_CUSTOMER = 0;
     public static final int CUSTOMER_SCAN = 1;
+
+    public static final DIA_ScanCodeNew newInstance(QRCodeEntity bean) {
+        DIA_ScanCodeNew f = new DIA_ScanCodeNew();
+        Bundle bdl = new Bundle(1);
+        bdl.putSerializable(QR_CODE_ENTITY, bean);
+        f.setArguments(bdl);
+        return f;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bean = (QRCodeEntity)getArguments().getSerializable(QR_CODE_ENTITY);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +85,10 @@ public class DIA_ScanCodeNew extends DialogFragment implements View.OnClickListe
         initSlidingTab();
 
         return convertView;
+    }
+
+    public QRCodeEntity getBean() {
+        return bean;
     }
 
     @Override
