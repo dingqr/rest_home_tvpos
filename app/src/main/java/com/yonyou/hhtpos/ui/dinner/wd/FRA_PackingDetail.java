@@ -112,6 +112,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
     private boolean isUnOrdered;
+    //外带订单实体类
     private OrderListEntity mPackingOrderBean;
 
     /**

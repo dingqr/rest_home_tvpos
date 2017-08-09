@@ -8,10 +8,7 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.base.ACT_BaseMultiple;
-import com.yonyou.hhtpos.bean.wm.FilterEntity;
-
-import de.greenrobot.event.Subscribe;
-import de.greenrobot.event.ThreadMode;
+import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 
 /**
  * 外卖
@@ -98,8 +95,8 @@ public class ACT_TakeOut extends ACT_BaseMultiple implements View.OnClickListene
 
     }
 
-    public void requestTakeOutDetail(String tableBillId) {
-        mRightContent.requestTakeOutDetail(tableBillId);
+    public void requestTakeOutDetail(OrderListEntity orderListEntity) {
+        mRightContent.requestTakeOutDetail(orderListEntity);
     }
 
 }

@@ -20,6 +20,7 @@ import com.yonyou.hhtpos.adapter.ADA_TakeOutOrderDetail;
 import com.yonyou.hhtpos.bean.FilterItemEntity;
 import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.dish.WMRefundFreeReasonCallbackEntity;
+import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.RefundReasonEntity;
 import com.yonyou.hhtpos.bean.wm.WMDishDetailListEntity;
 import com.yonyou.hhtpos.bean.wm.WMOrderDetailEntity;
@@ -144,6 +145,8 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
     private String mCurrentTime;
     private HashMap<String, String> map = new HashMap<String, String>();
     private LinearLayout layoutReceiveAmount;
+    //外卖订单列表实体类
+    private OrderListEntity mTakeOutOrderBean;
 
     /**
      * 左侧外卖订单列表是否为空
@@ -225,6 +228,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                     Bundle bundle = new Bundle();
                     bundle.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
                     bundle.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WM);
+                    //传给ACT_OrderDishes订单编号和订单来源
+                    if (!TextUtils.isEmpty(mTakeOutOrderBean.getBillNo()) && mTakeOutOrderBean.getBillNo().length() > 5) {
+                        bundle.putString(ACT_OrderDishes.TITLE_TEXT, mTakeOutOrderBean.getBillNo().substring(mTakeOutOrderBean.getBillNo().length() - 5, mTakeOutOrderBean.getBillNo().length())+mTakeOutOrderBean.getTakeOutCompanyName());
+                    }
                     readyGo(ACT_OrderDishes.class, bundle);
                 } else if (mOrderState == 2) {
                     Bundle bundle = new Bundle();
@@ -288,9 +295,14 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
         tvRefundReason = (TextView) headerView.findViewById(R.id.tv_refund_reason);
     }
 
-    public void requestTakeOutDetail(String tableBillId) {
-        this.tableBillId = tableBillId;
-        mPresenter.requestWMOrderDetail(tableBillId);
+    public void requestTakeOutDetail(OrderListEntity orderListEntity) {
+        if (orderListEntity != null) {
+            this.mTakeOutOrderBean = orderListEntity;
+            if (!TextUtils.isEmpty(orderListEntity.getTableBillId())) {
+                tableBillId = orderListEntity.getTableBillId();
+                mPresenter.requestWMOrderDetail(tableBillId);
+            }
+        }
     }
 
     /**

@@ -18,7 +18,6 @@ import com.yonyou.hhtpos.adapter.ADA_TakeOutList;
 import com.yonyou.hhtpos.bean.wm.FilterEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListEntity;
 import com.yonyou.hhtpos.bean.wm.OrderListRequestEntity;
-import com.yonyou.hhtpos.global.API;
 import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.global.SalesModeConstants;
 import com.yonyou.hhtpos.presenter.IWMListPresenter;
@@ -158,7 +157,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             public void onItemClick(int position) {
                 List<OrderListEntity> dataList = mAdapter.getDataSource();
                 if (null != dataList && dataList.size() > 0) {
-                    requestTakeOutDetail(dataList.get(position).getTableBillId());
+                    requestTakeOutDetail(dataList.get(position));
                 }
             }
         });
@@ -187,9 +186,11 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
     /**
      * 触发右侧请求外卖详情接口
      */
-    private void requestTakeOutDetail(String tableBillId) {
-        ACT_TakeOut actTakeOutc = (ACT_TakeOut) getActivity();
-        actTakeOutc.requestTakeOutDetail(tableBillId);
+    private void requestTakeOutDetail(OrderListEntity orderListEntity) {
+        ACT_TakeOut actTakeOut = (ACT_TakeOut) getActivity();
+        if(orderListEntity!=null) {
+            actTakeOut.requestTakeOutDetail(orderListEntity);
+        }
     }
 
     @Override
@@ -211,7 +212,7 @@ public class FRA_TakeOutList extends BaseFragment implements IWMListView, SwipeR
             if (null != dataList && dataList.size() > 0) {
                 //触发详情接口
                 ACT_TakeOut actTakeOut = (ACT_TakeOut) getActivity();
-                actTakeOut.requestTakeOutDetail(dataList.get(0).getTableBillId());
+                actTakeOut.requestTakeOutDetail(dataList.get(0));
                 this.dataList = dataList;
                 dataList.get(0).setCheck(true);
                 mAdapter.update(dataList, isRefresh);
