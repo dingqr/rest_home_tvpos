@@ -42,6 +42,7 @@ import com.yonyou.hhtpos.presenter.IGetAllDishesPresenter;
 import com.yonyou.hhtpos.presenter.Impl.AddDishPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.GetAllDishesPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.RecommendDishesPresenterImpl;
+import com.yonyou.hhtpos.ui.member.ACT_Member;
 import com.yonyou.hhtpos.util.AnimationUtil;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IAddDishView;
@@ -422,8 +423,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-                mAdapter.setRecommend(true);
-                showDataOrEmptyPage(mRecommendDishes);
+//                mAdapter.setRecommend(true);
+//                showDataOrEmptyPage(mRecommendDishes);
+                readyGo(ACT_Member.class);
             }
         });
     }

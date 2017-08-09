@@ -105,7 +105,7 @@ public class DIA_TransactionList implements SwipeRefreshLayout.OnRefreshListener
         mDialog.getWindow().setGravity(Gravity.RIGHT);
         mDialog.getWindow().setWindowAnimations(R.style.style_right_in_anim);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
-//        lp.dimAmount = 0.2f; //背景灰度 -0.0全透明
+        lp.dimAmount = 0.2f; //背景灰度 -0.0全透明
         lp.width = 590; // 设置宽度
         lp.height = 970;//设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
