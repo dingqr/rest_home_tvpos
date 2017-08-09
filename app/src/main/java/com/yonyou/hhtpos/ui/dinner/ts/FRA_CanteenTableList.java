@@ -210,12 +210,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
 
         //转台弹窗
         mDiaTurnChooseTable = new DIA_TurnChooseTable(mContext);
-        //餐区列表是ACT_Canteen里的mealAreas
-        mMealAreas = ((ACT_Canteen) getActivity()).getMealAreaList();
-        if (mMealAreas != null && mMealAreas.size() > 0) {
-            //刷新转入桌台弹窗餐区的数据
-            mDiaTurnChooseTable.refreshMealAreaData(mMealAreas);
-        }
 
         //餐区筛选
         mDiaTurnChooseTable.setOnChooseMealAreaListener(new DIA_TurnChooseTable.OnChooseMealAreaListener() {
@@ -581,6 +575,13 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_TABLE_LIST && getUserVisibleHint()) {
             onRefresh();
+        } else if (intent == ReceiveConstants.REFRESH_MEAL_AREA_LIST) {
+            //餐区列表是ACT_Canteen里的mealAreas
+            mMealAreas = ((ACT_Canteen) getActivity()).getMealAreaList();
+            if (mMealAreas != null && mMealAreas.size() > 0) {
+                //刷新转入桌台弹窗餐区的数据
+                mDiaTurnChooseTable.refreshMealAreaData(mMealAreas);
+            }
         }
     }
 

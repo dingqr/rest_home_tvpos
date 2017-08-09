@@ -541,6 +541,7 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
         }
         mAdapter.clear();
         mAdapter.update(mealAreaList);
+        sendBroadcast(ReceiveConstants.REFRESH_MEAL_AREA_LIST);
     }
 
     @Override
