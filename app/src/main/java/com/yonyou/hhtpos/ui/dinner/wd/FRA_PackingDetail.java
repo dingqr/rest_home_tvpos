@@ -219,6 +219,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 Bundle bundles = new Bundle();
                 bundles.putString(ACT_OrderDishes.TABLE_BILL_ID, tableBillId);
                 bundles.putInt(ACT_OrderDishes.FROM_WHERE, DishConstants.TYPE_WD);
+                //传给ACT_OrderDishes订单编号
                 if (!TextUtils.isEmpty(mPackingOrderBean.getBillNo()) && mPackingOrderBean.getBillNo().length() > 5) {
                     bundles.putString(ACT_OrderDishes.TITLE_TEXT, mPackingOrderBean.getBillNo().substring(mPackingOrderBean.getBillNo().length() - 5, mPackingOrderBean.getBillNo().length()));
                 }
