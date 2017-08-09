@@ -589,13 +589,19 @@ public class FiltrationUtil {
     public static ArrayList<CashTypeEntity> getCashTypeEntities() {
         ArrayList<CashTypeEntity> cashTypeEntities = new ArrayList<>();
         CashTypeEntity cte1 = new CashTypeEntity("现金",false);
-        CashTypeEntity cte2 = new CashTypeEntity("支付宝",false);
+        CashTypeEntity cte2 = new CashTypeEntity("支付宝",true);
         CashTypeEntity cte3 = new CashTypeEntity("微信",false);
         CashTypeEntity cte4 = new CashTypeEntity("会员卡",false);
         CashTypeEntity cte5 = new CashTypeEntity("现金",false);
         CashTypeEntity cte6 = new CashTypeEntity("支付宝",false);
         CashTypeEntity cte7 = new CashTypeEntity("微信",false);
         CashTypeEntity cte8 = new CashTypeEntity("会员卡",false);
+        CashTypeEntity cte9 = new CashTypeEntity("现金",false);
+        CashTypeEntity cte10 = new CashTypeEntity("支付宝",false);
+        CashTypeEntity cte11 = new CashTypeEntity("微信",false);
+        CashTypeEntity cte12 = new CashTypeEntity("会员卡",false);
+
+
         cashTypeEntities.add(cte1);
         cashTypeEntities.add(cte2);
         cashTypeEntities.add(cte3);
@@ -604,6 +610,10 @@ public class FiltrationUtil {
         cashTypeEntities.add(cte6);
         cashTypeEntities.add(cte7);
         cashTypeEntities.add(cte8);
+        cashTypeEntities.add(cte9);
+        cashTypeEntities.add(cte10);
+        cashTypeEntities.add(cte11);
+        cashTypeEntities.add(cte12);
 
 
 

@@ -184,13 +184,17 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
     }
 
     private void initSlidingTab() {
+//        if (prePosition == 3) {
+//            mTab.setShouldExpand(true);
+//        } else {
+//            mTab.setShouldExpand(false);
+//        }
+//        mTab.setShouldExpand(true);
         mTab.setViewPager(mViewPager);
         mTab.setIndicatorColor(mContext.getResources().getColor(R.color.color_eb6247));
         tabTextView = (TextView) mTab.getTabsContainer().getChildAt(prePosition); //设置默认选中第一个时为红色
         tabTextView.setTextColor(mContext.getResources().getColor(R.color.color_eb6247));
-        if (prePosition == 3) {
-            mTab.setShouldExpand(true);
-        }
+
         mTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -204,6 +208,9 @@ public class ACT_Canteen extends BaseActivity implements View.OnClickListener, I
                 TextView preTabTextView = (TextView) mTab.getTabsContainer().getChildAt(prePosition);
                 preTabTextView.setTextColor(mContext.getResources().getColor(R.color.color_222222));
                 prePosition = position;
+                if (prePosition == 3) {
+                    mTab.setShouldExpand(true);
+                }
                 //获取当前显示的Fragment
                 mCurrentFramgent = (FRA_CanteenTableList) mCanteenFragmentAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
             }

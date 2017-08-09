@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.yonyou.framework.library.base.BaseActivity;
 import com.yonyou.framework.library.bean.ErrorBean;
+import com.yonyou.framework.library.common.log.Elog;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.framework.library.netstatus.NetUtils;
 import com.yonyou.hhtpos.bean.EmployeeEntity;
@@ -39,11 +40,13 @@ import com.yonyou.hhtpos.dialog.DIA_TakeOutOpenOrder;
 import com.yonyou.hhtpos.dialog.DIA_TakeOutRefund;
 import com.yonyou.hhtpos.dialog.DIA_VipLogin;
 import com.yonyou.hhtpos.dialog.DIA_VipLoginVerifyCode;
+import com.yonyou.hhtpos.interfaces.CashTypeCallback;
 import com.yonyou.hhtpos.interfaces.EmployeeCallback;
 import com.yonyou.hhtpos.presenter.ITakeoutCompanyPresenter;
 import com.yonyou.hhtpos.presenter.ITakeoutMarketPresenter;
 import com.yonyou.hhtpos.presenter.Impl.TakeoutCompanyPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TakeoutMarketPresenterImpl;
+import com.yonyou.hhtpos.ui.dinner.ts.FRA_CanteenTableList;
 import com.yonyou.hhtpos.util.FiltrationUtil;
 import com.yonyou.hhtpos.view.ITakeoutCompanyView;
 import com.yonyou.hhtpos.view.ITakeoutMarketView;
@@ -73,7 +76,7 @@ import static com.yonyou.hhtpos.util.FiltrationUtil.getWorkState;
 
 //测试筛选布局
 public class ACT_TestFiltration extends BaseActivity implements View.OnClickListener, ITakeoutCompanyView, ITakeoutMarketView,
-        DIA_TakeOutFiltration.WMFCallback, EmployeeCallback {
+        DIA_TakeOutFiltration.WMFCallback, EmployeeCallback,CashTypeCallback {
 
     @Bind(R.id.ll_content)
     LinearLayout llContent;
@@ -324,6 +327,7 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
             case R.id.btn_confirm17:
                 dia_chooseCashType = new DIA_ChooseCashType(mContext);
                 dia_chooseCashType.setData(cashTypeEntities);
+                dia_chooseCashType.setCashTypeCallback(this);
                 dia_chooseCashType.getDialog().show();
                 break;
             case R.id.btn_confirm1:
@@ -439,5 +443,10 @@ public class ACT_TestFiltration extends BaseActivity implements View.OnClickList
     public void sendItems(EmployeeEntity bean) {
         String workState = bean.getWorkState();
         String employeePosition = bean.getEmployeePosition();
+    }
+
+    @Override
+    public void sendCashTypeItem(CashTypeEntity bean) {
+        Elog.e("CASHTYPEENTNTY",bean.getCashTypeName()+bean.isCheck());
     }
 }

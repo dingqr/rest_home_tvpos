@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_pay_type_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="畅捷支付（线上支付）"
@@ -14,10 +15,10 @@
         android:layout_marginTop="@dimen/px_34"/>
 
     <ImageView
+        android:id="@+id/iv_qr_code"
         android:layout_width="@dimen/px_360"
         android:layout_height="@dimen/px_360"
-        android:layout_marginTop="@dimen/px_40"
-        android:background="@color/color_999999"/>
+        android:layout_marginTop="@dimen/px_40" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +35,7 @@
             android:textColor="@color/color_222222"/>
 
         <TextView
+            android:id="@+id/tv_unpaid_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_30"
@@ -44,6 +46,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_refresh_pay_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="获取支付结果"
@@ -61,7 +64,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="使用扫码枪扫描顾客付款码"
+        android:text="由顾客打开微信、支付宝、扫码付款"
         android:textSize="@dimen/sp_24"
         android:textColor="@color/color_999999"
         android:layout_marginTop="@dimen/px_40"/>

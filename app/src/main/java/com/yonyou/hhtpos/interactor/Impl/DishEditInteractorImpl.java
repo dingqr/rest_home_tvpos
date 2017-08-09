@@ -3,7 +3,6 @@ package com.yonyou.hhtpos.interactor.Impl;
 import android.text.TextUtils;
 
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
 import com.yonyou.hhtpos.bean.dish.RequestEditDishEntity;
 import com.yonyou.hhtpos.global.API;
@@ -103,12 +102,13 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     }
 
     @Override
-    public void updateDishStatus(String companyId, String dishStatus, String id, String shopId) {
+    public void updateDishStatus(String companyId, String dishStatus, String id, String shopId, String saleManner) {
         HashMap<String,String> hashMap = new HashMap<>();
         //hashMap.put("companyId", companyId);
         hashMap.put("id", id);
         hashMap.put("shopId", shopId);
         hashMap.put("dishStatus", dishStatus);
+        hashMap.put("saleManner", saleManner);
         RequestManager.getInstance().requestPostByAsyn(API.URL_UPDATE_DISH_STATUS, hashMap, new ReqCallBack<String>() {
 
             @Override
@@ -129,13 +129,14 @@ public class DishEditInteractorImpl implements IDishEditInteractor {
     }
 
     @Override
-    public void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count) {
+    public void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count, String saleManner) {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("dishStatus", dishStatus);
         hashMap.put("dishAbnormalStatus", dishAbnormalStatus);
         hashMap.put("shopId", shopId);
         hashMap.put("count", count);
         hashMap.put("id", id);
+        hashMap.put("saleManner", saleManner);
 
         // TODO: waiterId
         hashMap.put("waiterId", "BB9930642C000000FD00000000316122");

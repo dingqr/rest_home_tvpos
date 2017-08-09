@@ -40,8 +40,8 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     }
 
     @Override
-    public void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count) {
-        mDishEditInteractor.specialHandleDish(dishStatus, dishAbnormalStatus, id, shopId, count);
+    public void specialHandleDish(String dishStatus, String dishAbnormalStatus, String id, String shopId, String count, String saleManner) {
+        mDishEditInteractor.specialHandleDish(dishStatus, dishAbnormalStatus, id, shopId, count, saleManner);
     }
 
     @Override
@@ -65,8 +65,8 @@ public class DishEditPresenterImpl implements IDishEditPresenter {
     }
 
     @Override
-    public void updateDishStatus(String companyId, String dishStatus, String id, String shopId) {
-        mDishEditInteractor.updateDishStatus(companyId, dishStatus, id, shopId);
+    public void updateDishStatus(String companyId, String dishStatus, String id, String shopId, String saleManner) {
+        mDishEditInteractor.updateDishStatus(companyId, dishStatus, id, shopId, saleManner);
     }
 
     private class UpdateQuantityListener implements BaseLoadedListener<String> {

@@ -61,6 +61,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
 
 
     private TextView etSelectDeliverTime;
+    private EditText etEnterSerialNumber;
     private EditText etEnterReceiverName;
     private EditText etEnterReceiverPhone;
     private EditText etEnterReceiverAddress;
@@ -70,10 +71,9 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
      * 外卖开单信息
      */
     private String receiverName;
-    private String receiverPhone;
+    private String serialNumber;
     private String receiverAddress;
     private String dinnerNumber;
-    private String takeOutCompanyId;
     private String reserveTime;
     private DistributeTimeEntity deliverTime;
     private FilterOptionsEntity takeoutCompany;
@@ -100,6 +100,7 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         etSelectDeliverTime = (TextView) mContentView.findViewById(R.id.et_select_deliver_time);
         scrollView = (ScrollView) mContentView.findViewById(R.id.sv_content);
 
+        etEnterSerialNumber = (EditText) mContentView.findViewById(R.id.et_enter_wm_serial_number);
         etEnterReceiverName = (EditText) mContentView.findViewById(R.id.et_enter_receiver_name);
         etEnterReceiverPhone = (EditText) mContentView.findViewById(R.id.et_enter_receiver_phone);
         etEnterReceiverAddress = (EditText) mContentView.findViewById(R.id.et_enter_receiver_address);
@@ -164,8 +165,14 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
         receiverName = etEnterReceiverName.getText().toString().trim();
         receiverAddress = etEnterReceiverAddress.getText().toString().trim();
         dinnerNumber = etDinnerNumber.getText().toString().trim();
+        serialNumber = etEnterSerialNumber.getText().toString().trim();
+
         if (takeoutCompany == null) {
             CommonUtils.makeEventToast(mContext, mContext.getString(R.string.take_out_company_error), false);
+            return false;
+        }
+        if (TextUtils.isEmpty(serialNumber)) {
+            CommonUtils.makeEventToast(mContext, mContext.getString(R.string.wm_serial_number_error), false);
             return false;
         }
         if (TextUtils.isEmpty(receiverName)) {
@@ -196,11 +203,12 @@ public class DIA_TakeOutOpenOrder implements View.OnClickListener {
 
     private OpenOrderEntity initEntity() {
         OpenOrderEntity wmooe = new OpenOrderEntity();
-        receiverPhone = etEnterReceiverPhone.getText().toString().trim();
+        String receiverPhone = etEnterReceiverPhone.getText().toString().trim();
         if (verifyInput()) {
-            takeOutCompanyId = takeoutCompany.getOptionId();
+            String takeOutCompanyId = takeoutCompany.getOptionId();
             wmooe.setShopId(Constants.SHOP_ID);
             wmooe.setTakeOutCompanyId(takeOutCompanyId);
+            wmooe.setTakeOutNumber(serialNumber);
             wmooe.setName(receiverName);
             wmooe.setPhone(receiverPhone);
             wmooe.setAddress(receiverAddress);

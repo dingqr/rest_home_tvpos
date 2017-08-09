@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yonyou.hhtpos.R;
@@ -19,6 +20,7 @@ import com.yonyou.hhtpos.bean.FilterOptionsEntity;
 import com.yonyou.hhtpos.bean.TableCapacityEntity;
 import com.yonyou.hhtpos.bean.TableEntity;
 import com.yonyou.hhtpos.bean.mine.CashTypeEntity;
+import com.yonyou.hhtpos.interfaces.CashTypeCallback;
 
 import java.util.ArrayList;
 
@@ -28,11 +30,12 @@ import java.util.ArrayList;
  * 邮箱：ybing@yonyou.com
  */
 
-public class DIA_ChooseCashType implements View.OnClickListener, ADA_ChooseCashType.OnCashTypeClickListener{
+public class DIA_ChooseCashType implements View.OnClickListener, ADA_ChooseCashType.OnCashTypeItemClickListener{
     protected Context mContext;
     protected Dialog mDialog;
     protected View mContentView;
     private TextView tvConfirm;
+    private ImageView ivClose;
 
     private ADA_ChooseCashType mAdapter;
 
@@ -41,6 +44,8 @@ public class DIA_ChooseCashType implements View.OnClickListener, ADA_ChooseCashT
     private ArrayList<CashTypeEntity> cashTypeEntities;
 
     private CashTypeEntity currentCashType;
+
+    private CashTypeCallback cashTypeCallback;
 
     public DIA_ChooseCashType(Context mContext ) {
         this.mContext = mContext;
@@ -53,12 +58,17 @@ public class DIA_ChooseCashType implements View.OnClickListener, ADA_ChooseCashT
         mDialog.setContentView(mContentView);
         rvCashType = (RecyclerView)mContentView.findViewById(R.id.rlv_cash_type);
         tvConfirm = (TextView)mContentView.findViewById(R.id.tv_confirm);
+        ivClose = (ImageView) mContentView.findViewById(R.id.iv_close);
+
+        tvConfirm.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext,4);
         rvCashType.setLayoutManager(gridLayoutManager);
     }
 
     public void setData( ArrayList<CashTypeEntity> cashTypeEntities) {
+        this.cashTypeEntities = cashTypeEntities;
         mAdapter = new ADA_ChooseCashType(mContext,cashTypeEntities);
         rvCashType.setAdapter(mAdapter);
         mAdapter.setmOnItemClickListener(this);
@@ -81,8 +91,8 @@ public class DIA_ChooseCashType implements View.OnClickListener, ADA_ChooseCashT
             case R.id.iv_close:
                 mDialog.dismiss();
                 break;
-            case R.id.confirm:
-                getSelectedItems();
+            case R.id.tv_confirm:
+                cashTypeCallback.sendCashTypeItem(getSelectedItem());
                 mDialog.dismiss();
                 break;
             default:
@@ -90,14 +100,17 @@ public class DIA_ChooseCashType implements View.OnClickListener, ADA_ChooseCashT
         }
     }
 
-    private CashTypeEntity getSelectedItems() {
+    private CashTypeEntity getSelectedItem() {
         return new CashTypeEntity(currentCashType.getCashTypeName(),true);
     }
 
-
-
     @Override
-    public void onCashTypeClick(View view, int position) {
-        currentCashType = cashTypeEntities.get(position);
+    public void onCashTypeItemClick(View view, int position) {
+        if (cashTypeEntities !=null && cashTypeEntities.size()>0){
+        currentCashType = cashTypeEntities.get(position);}
+    }
+
+    public void setCashTypeCallback(CashTypeCallback cashTypeCallback) {
+        this.cashTypeCallback = cashTypeCallback;
     }
 }
