@@ -21,7 +21,6 @@ import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_DishTypeList;
-import com.yonyou.hhtpos.bean.RecommendDataEntity;
 import com.yonyou.hhtpos.bean.dish.DataBean;
 import com.yonyou.hhtpos.bean.dish.DishCallBackEntity;
 import com.yonyou.hhtpos.bean.dish.DishDataEntity;
@@ -69,7 +68,7 @@ import static com.yonyou.hhtpos.R.id.rv_orderdish_list;
  * 描述：点菜页面-获取所有菜品/菜类
  * 右侧导航及菜品列表
  */
-public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView,IRecommendDishesView {
+public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, IAddDishView, IRecommendDishesView {
     @Bind(R.id.layout_dish_root)
     RelativeLayout layoutRoot;
     @Bind(ll_content)
@@ -85,6 +84,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private int mCurrentPage = 1;
     //列表显示的列数
     private int mColumnNum = 4;
+    //菜品列表Adapter
     private ADA_DishTypeList mAdapter;
     private LRecyclerViewAdapter mLuRecyclerViewAdapter;
 
@@ -123,6 +123,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private DIA_AddTempDishes mDiaAddTempDishes;
     private boolean isAddTempDish;
     private RecommendDishesPresenterImpl mGetcommendDishesPresenter;
+    private List<DishesEntity> mRecommendDishes = new ArrayList<>();
 
     /**
      * 接收右侧角标数量的数据集合
@@ -229,8 +230,10 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         saleManner = ((ACT_OrderDishes) getActivity()).getFromWhere();
         isFromSettleAccount = ((ACT_OrderDishes) getActivity()).isFromSettleAccount;
 
+        //所有菜品/菜类
         mPresenter.getAllDishes(compId, shopId, saleManner);
-//        mGetcommendDishesPresenter.getRecommendDishes(Constants.SHOP_ID);
+        //推荐套餐
+        mGetcommendDishesPresenter.getRecommendDishes(Constants.SHOP_ID);
         mAddDishPresenter = new AddDishPresenterImpl(mContext, this);
         //点菜的请求实体类
         requestAddDishEntity = new RequestAddDishEntity();
@@ -309,8 +312,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.unit = dishesEntity.dishUnit.getUnitName();
 
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
-                //不确定的字段
-                requestAddDishEntity.dishStatus = "8";//等叫
+                requestAddDishEntity.dishStatus = "waitCall";//等叫
+                requestAddDishEntity.isDiscount = dishesEntity.isDiscount;
 
                 //缺少的字段
                 //把所有已选做法名连接到一起的字符串，逗号分隔
@@ -352,8 +355,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                     mDiaWeightNormal.setData(dataBean).getDialog().show();
                     return;
                 }
-                //规格
-                if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
+                //规格大于1，才弹窗
+                if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
                     mDiaStandards.setDataBean(dataBean).getDialog().show();
                     return;
                 }
@@ -381,6 +384,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             @Override
             public void onItemClick(int count, String title, final int postion) {
                 if (mDishDataBean != null && mDishDataBean.dishTypes.size() > 0) {
+                    mAdapter.setRecommend(false);
                     List<DishesEntity> dishes = mDishDataBean.dishTypes.get(postion).dishes;
                     // restore view helper
                     showDataOrEmptyPage(dishes);
@@ -402,23 +406,24 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             @Override
             public void tempDishResult(String tempDishName, String tempDishPrice) {
                 isAddTempDish = true;
-                requestAddDishEntity.setDishPrice(tempDishPrice);
-                requestAddDishEntity.dishStatus = "8";//等叫
-                requestAddDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
-                requestAddDishEntity.quantity = "1";
-                requestAddDishEntity.dishName = tempDishName;
-                requestAddDishEntity.shopId = Constants.SHOP_ID;
-                requestAddDishEntity.tableBillId = mTableBillId;
-                requestAddDishEntity.waiterId = "";
-                mAddDishPresenter.requestAddDish(requestAddDishEntity);
+                RequestAddDishEntity requestAddTempDishEntity = new RequestAddDishEntity();
+                requestAddTempDishEntity.setDishPrice(tempDishPrice);
+                requestAddTempDishEntity.dishStatus = "waitCall";//等叫
+                requestAddTempDishEntity.dishType = "4";//菜品：1，固定套餐：2，N选N套餐：3，临时菜：4
+                requestAddTempDishEntity.quantity = "1";
+                requestAddTempDishEntity.dishName = tempDishName;
+                requestAddTempDishEntity.shopId = Constants.SHOP_ID;
+                requestAddTempDishEntity.tableBillId = mTableBillId;
+                requestAddTempDishEntity.waiterId = "";
+                mAddDishPresenter.requestAddDish(requestAddTempDishEntity);
             }
         });
         //推荐
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-                CommonUtils.makeEventToast(mContext, "推荐", false);
-//                readyGo(ACT_Member.class);
+                mAdapter.setRecommend(true);
+                showDataOrEmptyPage(mRecommendDishes);
             }
         });
     }
@@ -551,11 +556,21 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         if (dishesEntity.remarks != null && dishesEntity.remarks.size() > 0) {
             dataBean.setRemarks(dishesEntity.remarks);
         }
-        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
-            dataBean.setStandards(dishesEntity.standards);
-        }
         if (dishesEntity.tastes != null && dishesEntity.tastes.size() > 0) {
             dataBean.setTastes(dishesEntity.tastes);
+        }
+        //设置规格
+        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() == 1 && dishesEntity.dishStandards.get(0) != null && dishesEntity.dishStandards.get(0).getStandards() != null) {
+            dataBean.setStandards(dishesEntity.dishStandards.get(0).getStandards());
+        }
+        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
+            for (int i = 0; i < dishesEntity.dishStandards.size() ; i++) {
+                String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
+                if(isDefault.equals("Y")) {
+                    dataBean.setStandards(dishesEntity.dishStandards.get(i).getStandards());
+                    break;
+                }
+            }
         }
         return dataBean;
     }
@@ -766,11 +781,12 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         // 刷新左侧列表
         sendBroadcast(ReceiveConstants.REFRESH_LEFT_DISHES);
     }
+
     /**
      * 获取推荐套餐的菜品集合
      */
     @Override
-    public void getRecommendDishes(RecommendDataEntity recommendDishEntity) {
-
+    public void getRecommendDishes(List<DishesEntity> dataList) {
+        this.mRecommendDishes = dataList;
     }
 }

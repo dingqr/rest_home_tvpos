@@ -6,11 +6,13 @@ import com.yonyou.framework.library.bean.ErrorBean;
 import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.base.BaseLoadedListener;
-import com.yonyou.hhtpos.bean.RecommendDataEntity;
+import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.interactor.IRecommendDishInteractor;
 import com.yonyou.hhtpos.interactor.Impl.RecommendDishInteractorImpl;
 import com.yonyou.hhtpos.presenter.IRecommendDishPresenter;
 import com.yonyou.hhtpos.view.IRecommendDishesView;
+
+import java.util.List;
 
 /**
  * Created by zj on 2017/7/15.
@@ -33,12 +35,12 @@ public class RecommendDishesPresenterImpl implements IRecommendDishPresenter {
         mRecommendDishInteractor.getRecommendDishes(shopId);
     }
 
-    private class RecommendDishListener implements BaseLoadedListener<RecommendDataEntity> {
+    private class RecommendDishListener implements BaseLoadedListener<List<DishesEntity>> {
 
         @Override
-        public void onSuccess(int event_tag, RecommendDataEntity recommendDishEntity) {
+        public void onSuccess(int event_tag, List<DishesEntity> dataList) {
             mDishesView.hideLoading();
-            mDishesView.getRecommendDishes(recommendDishEntity);
+            mDishesView.getRecommendDishes(dataList);
         }
 
         @Override

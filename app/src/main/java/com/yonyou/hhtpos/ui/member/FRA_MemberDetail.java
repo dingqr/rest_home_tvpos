@@ -8,6 +8,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.dialog.DIA_MemberCouponList;
 import com.yonyou.hhtpos.dialog.DIA_TransactionList;
+import com.yonyou.hhtpos.dialog.DIA_UpdateUserInfo;
 
 import butterknife.OnClick;
 
@@ -52,7 +53,7 @@ public class FRA_MemberDetail extends BaseFragment {
         return R.layout.fra_member_detail;
     }
 
-    @OnClick({R.id.tv_check_transaction_records,R.id.ll_coupon})
+    @OnClick({R.id.tv_check_transaction_records, R.id.ll_coupon, R.id.tv_update_userinfo})
     public void onClick(View view) {
         switch (view.getId()) {
             //查看交易记录
@@ -62,6 +63,10 @@ public class FRA_MemberDetail extends BaseFragment {
             //优惠券
             case R.id.ll_coupon:
                 mDiaMemberCouponList.show();
+                break;
+            //修改个人信息
+            case R.id.tv_update_userinfo:
+                new DIA_UpdateUserInfo(mContext).show();
                 break;
         }
     }

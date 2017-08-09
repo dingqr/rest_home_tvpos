@@ -115,7 +115,6 @@ public class DIA_TurnChooseTable {
                 //默认选中第一个
                 if (mTableList != null && mTableList.size() > 0) {
                     mAdapter.setSelectItem(0);
-                    mAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -133,7 +132,7 @@ public class DIA_TurnChooseTable {
                 mAdapter.notifyDataSetChanged();
                 //选择的桌台
                 mTableEntity = mAdapter.getDataList().get(mPosition);
-                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(mPosition).tableName, false);
+                CommonUtils.makeEventToast(mContext, mAdapter.getDataList().get(mPosition).tableName + "--position--" + mPosition, false);
 
             }
 
@@ -153,9 +152,9 @@ public class DIA_TurnChooseTable {
                 }
                 break;
             case R.id.rb_finish_choose:
-//                if (mDialog != null) {
-//                    mDialog.dismiss();
-//                }
+                if (mDialog != null) {
+                    mDialog.dismiss();
+                }
                 if (mTableListener != null && mTableEntity != null) {
                     mTableListener.onChooseTableResult(mTableEntity);
                 }
@@ -167,7 +166,7 @@ public class DIA_TurnChooseTable {
      * 刷新餐区
      */
     public void refreshMealAreaData(List<MealAreaEntity> mealAreas) {
-        if (mealAreas != null && mealAreas.size() > 0) {
+        if (mealAreas != null && mealAreas.size() >= 1) {
             mTableAreaAdapter.update(mealAreas, true);
         }
     }

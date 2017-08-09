@@ -345,6 +345,7 @@
             android:textSize="@dimen/sp_28" />
 
         <TextView
+            android:id="@+id/tv_update_userinfo"
             android:layout_width="@dimen/px_240"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_20"

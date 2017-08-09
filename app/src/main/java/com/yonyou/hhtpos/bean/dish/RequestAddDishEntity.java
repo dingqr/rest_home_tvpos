@@ -103,6 +103,10 @@ public class RequestAddDishEntity {
      * 账单：开单1，下单2，结账3，退款4
      */
     public String orderState;
+    /**
+     * 是否折扣
+     */
+    public String isDiscount;
 
     public String getDishPrice() {
         return StringUtil.getFormattedMoney(dishPrice);

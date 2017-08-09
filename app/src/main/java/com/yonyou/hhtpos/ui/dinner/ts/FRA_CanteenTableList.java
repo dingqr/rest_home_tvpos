@@ -44,7 +44,6 @@ import com.yonyou.hhtpos.presenter.Impl.TSOpenOrderPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.TableListPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.ui.mine.FRA_PersonalCenterLeft;
 import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.util.DP2PX;
 import com.yonyou.hhtpos.view.IChooseWaiterView;
@@ -56,7 +55,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
@@ -227,7 +225,10 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         mDiaTurnChooseTable.setOnChooseResultListener(new DIA_TurnChooseTable.OnChooseTableListener() {
             @Override
             public void onChooseTableResult(CanteenTableEntity tableEntity) {
-                Elog.e("chooseTable=" + tableEntity.tableName);
+                if (tableEntity != null && !TextUtils.isEmpty(tableEntity.tableName)) {
+                    Elog.e("chooseTable=" + tableEntity.tableName);
+                }
+                mSwiperefreshLayout.setEnabled(true);
             }
         });
     }
@@ -490,6 +491,8 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                     mDiaTurnChooseTable.show();
                 }
 //                Log.e("TAG", "请求可用桌台列表");
+            }else {
+                mDiaTurnChooseTable.showNoData();
             }
         } else {
             if (tableList != null && tableList.size() > 0) {
@@ -503,7 +506,6 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
                 }
                 mAdapter.update(tableList, true);
             }else{
-                mDiaTurnChooseTable.showNoData();
                 // 空页面
                 showEmptyHyperLink(getActivity(), API.URL_OPERATION_PALTFORM, "");
             }
