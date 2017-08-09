@@ -197,7 +197,7 @@ public class DIA_TurnChooseTable {
         mAdapter.update(mTableList, true);
     }
 
-    public Dialog show() {
+    public Dialog getDialog() {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.getWindow().setGravity(Gravity.CENTER);
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
@@ -206,10 +206,13 @@ public class DIA_TurnChooseTable {
         lp.height = 710;//设置高度
         lp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        return mDialog;
+    }
+
+    public void show() {
         if (!mDialog.isShowing()) {
             mDialog.show();
         }
-        return mDialog;
     }
 
 

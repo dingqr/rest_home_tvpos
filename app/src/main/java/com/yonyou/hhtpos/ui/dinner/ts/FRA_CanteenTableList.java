@@ -482,7 +482,9 @@ public class FRA_CanteenTableList extends BaseFragment implements SwipeRefreshLa
         if (turnFlag) {
             if (tableList != null && tableList.size() > 0) {
                 mDiaTurnChooseTable.refreshTableList(tableList);
-                mDiaTurnChooseTable.show();
+                if(!mDiaTurnChooseTable.getDialog().isShowing()) {
+                    mDiaTurnChooseTable.getDialog().show();
+                }
             } else {
                 mDiaTurnChooseTable.showNoData();
             }
