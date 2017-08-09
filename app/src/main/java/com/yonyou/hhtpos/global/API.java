@@ -260,7 +260,7 @@ public class API {
     /**
      * 请求支付方式
      */
-    public static final String GET_PAY_TYPE_LIST = BASE_SERVER_SHOP + "/protablebill/payway/lis";
+    public static final String GET_PAY_TYPE_LIST = BASE_SERVER_SHOP + "/protablebill/payway/list";
     /**
      * 外带补打账单
      */

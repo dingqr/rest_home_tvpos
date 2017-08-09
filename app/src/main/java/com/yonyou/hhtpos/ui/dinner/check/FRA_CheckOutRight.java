@@ -365,11 +365,35 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
 
         this.settleAccountDataEntity = settleAccountDataEntity;
 
+        handlePayType();
+    }
+
+    /**
+     * 二次及多次结账
+     *
+     * @param settleAccountDataEntity
+     */
+    @Override
+    public void settleAccount(SettleAccountDataEntity settleAccountDataEntity) {
+//        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
+        if (null == settleAccountDataEntity)
+            return;
+
+        this.settleAccountDataEntity = settleAccountDataEntity;
+
+        handlePayType();
+    }
+
+    /**
+     * 处理不同的支付方式
+     */
+    private void handlePayType(){
         if (null != currentPayTypeBean){
             if (!TextUtils.isEmpty(currentPayTypeBean.getPayWayName())){
                 if (currentPayTypeBean.getPayWayName().equals("现金")){
                     // 现金的逻辑
                     if (!TextUtils.isEmpty(settleAccountDataEntity.sourceId)){
+                        // 打印
                         mPrintPresenter.requestPrintOrder("before1", Constants.SHOP_ID, "", settleAccountDataEntity.sourceId);
                     }else {
                         // 收款成功
@@ -394,25 +418,6 @@ public class FRA_CheckOutRight extends BaseFragment implements IQueryBillInfoVie
                     DIA_ScanCodeNew dia_scanCodeNew = new DIA_ScanCodeNew().newInstance(bean);
                     dia_scanCodeNew.show(getSupportFragmentManager(), "DIA_ScanCodeNew");
                 }
-            }
-        }
-
-
-    }
-
-    /**
-     * 二次及多次结账
-     *
-     * @param settleAccountDataEntity
-     */
-    @Override
-    public void settleAccount(SettleAccountDataEntity settleAccountDataEntity) {
-        new DIA_AutoDismiss(mContext, getString(R.string.string_receive_money_successful)).show();
-        if (settleAccountDataEntity != null) {
-            if (settleAccountDataEntity.payStatus != null && settleAccountDataEntity.payStatus.equals("2")) {
-                getActivity().finish();
-            } else {
-                EventBus.getDefault().post(settleAccountDataEntity);
             }
         }
     }

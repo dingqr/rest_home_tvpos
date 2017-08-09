@@ -29,7 +29,7 @@ public class PayResultPresenterImpl implements IPayResultPresenter{
 
     @Override
     public void requestPayResult(String shopId, String tableBillId) {
-        mView.showDialogLoading(mContext.getResources().getString(R.string.common_loading_message));
+//        mView.showDialogLoading(mContext.getResources().getString(R.string.common_loading_message));
         mInteractor.requestPayResult(shopId, tableBillId);
     }
 
@@ -37,25 +37,25 @@ public class PayResultPresenterImpl implements IPayResultPresenter{
 
         @Override
         public void onSuccess(int event_tag, Boolean isPaid) {
-            mView.dismissDialogLoading();
+//            mView.dismissDialogLoading();
             mView.requestPayResult(isPaid);
         }
 
         @Override
         public void onError(String msg) {
-            mView.dismissDialogLoading();
+//            mView.dismissDialogLoading();
             CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onException(String msg) {
-            mView.dismissDialogLoading();
+//            mView.dismissDialogLoading();
             CommonUtils.makeEventToast(mContext, msg, false);
         }
 
         @Override
         public void onBusinessError(ErrorBean error) {
-            mView.dismissDialogLoading();
+//            mView.dismissDialogLoading();
             CommonUtils.makeEventToast(mContext, error.getMsg(), false);
         }
     }

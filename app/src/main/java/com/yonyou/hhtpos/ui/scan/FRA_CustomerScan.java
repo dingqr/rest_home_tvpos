@@ -1,5 +1,6 @@
 package com.yonyou.hhtpos.ui.scan;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.bean.check.QRCodeEntity;
 import com.yonyou.hhtpos.dialog.DIA_ScanCodeNew;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IPayResultPresenter;
 import com.yonyou.hhtpos.presenter.Impl.PayResultPresenterImpl;
 import com.yonyou.hhtpos.util.Constants;
@@ -41,6 +43,8 @@ public class FRA_CustomerScan extends BaseFragment implements IPayResultView{
 
     /**中间者 */
     private IPayResultPresenter mPayResultPresenter;
+
+    private int count = 0;
 
     @Override
     protected void onFirstUserVisible() {
@@ -82,6 +86,14 @@ public class FRA_CustomerScan extends BaseFragment implements IPayResultView{
         }
 
         mPayResultPresenter = new PayResultPresenterImpl(mContext, this);
+        callApiForPayResult();
+    }
+
+    private void callApiForPayResult(){
+        if (null != bean){
+            count++;
+            mPayResultPresenter.requestPayResult(Constants.SHOP_ID, bean.getTableBillId());
+        }
     }
 
     @Override
@@ -116,8 +128,19 @@ public class FRA_CustomerScan extends BaseFragment implements IPayResultView{
         if (isPaid){
             CommonUtils.makeEventToast(mContext, "支付成功", false);
             ((DIA_ScanCodeNew)getParentFragment()).dismiss();
+            sendBroadcast(ReceiveConstants.PAY_SUCCESS);
         }else {
-            CommonUtils.makeEventToast(mContext, "支付未完成", false);
+            //CommonUtils.makeEventToast(mContext, "支付未完成", false);
+
+            // 每一秒请求一次，请求十次
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (count != 20){
+                        callApiForPayResult();
+                    }
+                }
+            }, 2000);
         }
     }
 }
