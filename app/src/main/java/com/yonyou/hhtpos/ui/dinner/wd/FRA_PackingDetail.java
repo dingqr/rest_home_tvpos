@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.yonyou.framework.library.base.BaseFragment;
 import com.yonyou.framework.library.bean.ErrorBean;
-import com.yonyou.framework.library.common.CommonUtils;
 import com.yonyou.framework.library.common.utils.AppDateUtil;
 import com.yonyou.framework.library.common.utils.StringUtil;
 import com.yonyou.framework.library.eventbus.EventCenter;
@@ -29,10 +28,14 @@ import com.yonyou.hhtpos.bean.wd.WDDishDetaiListlEntity;
 import com.yonyou.hhtpos.bean.wd.WDOrderDetailEntity;
 import com.yonyou.hhtpos.global.DishConstants;
 import com.yonyou.hhtpos.presenter.IOrderDetailPresenter;
+import com.yonyou.hhtpos.presenter.IWDPrintOrderPresenter;
 import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
+import com.yonyou.hhtpos.presenter.Impl.WDPrintOrderPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
+import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IWDOrderDetailView;
+import com.yonyou.hhtpos.view.IWDPrintOrderView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
 
 import java.util.ArrayList;
@@ -52,7 +55,7 @@ import static com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes.TABLE_BILL_ID;
  * 邮箱：zjuan@yonyou.com
  * 描述：外带订单明细-马诗雨
  */
-public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailView {
+public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailView, IWDPrintOrderView {
     @Bind(R.id.rl_root_view)
     RelativeLayout rlRootView;
     @Bind(R.id.lv_order_detail)
@@ -114,6 +117,8 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     private boolean isUnOrdered;
     //外带订单实体类
     private OrderListEntity mPackingOrderBean;
+    //补打账单
+    private IWDPrintOrderPresenter mPrintPresenter;
 
     /**
      * 左侧外带订单列表是否为空
@@ -151,7 +156,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
     @Override
     protected void initViewsAndEvents() {
         mPresenter = new OrderDetailPresenterImpl(getActivity(), this);
-
+        mPrintPresenter = new WDPrintOrderPresenterImpl(mContext, this);
         //有数据页面
         mAdapter = new ADA_OrderDishesDetail(mContext);
         lvOrderDishes.setAdapter(mAdapter);
@@ -226,10 +231,10 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 }
                 readyGo(ACT_OrderDishes.class, bundles);
                 break;
+            //补打账单
             case 2:
-                CommonUtils.makeEventToast(mContext, mContext.getResources().getString(R.string.string_dozen_bill), false);
+                mPrintPresenter.requestPrintOrder(tableBillId, Constants.SHOP_ID);
                 break;
-
         }
     }
 //
@@ -414,6 +419,14 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
         }
     }
 
+    /**
+     * 补打账单
+     *
+     * @param result
+     */
+    @Override
+    public void requestPrintOrder(String result) {
 
+    }
 }
 
