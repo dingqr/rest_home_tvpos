@@ -358,7 +358,17 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                     return;
                 }
                 //规格大于1，才弹窗
-                if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
+//                if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
+//                    mDiaStandards.setDataBean(dataBean).getDialog().show();
+//                    return;
+//                }
+//                //无规格、无做法，直接加入购物车；
+//                if (dishesEntity.practices.size() == 0 && dishesEntity.dishStandards.size() == 0) {
+//                    mAddDishPresenter.requestAddDish(requestAddDishEntity);
+//                    return;
+//                }
+                //规格
+                if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
                     mDiaStandards.setDataBean(dataBean).getDialog().show();
                     return;
                 }
@@ -367,6 +377,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                     mAddDishPresenter.requestAddDish(requestAddDishEntity);
                     return;
                 }
+
                 //不考虑临时菜和套餐的其他普通情况-只有数量、做法、备注
                 mDiaNormal.setData(dataBean).getDialog().show();
 
@@ -561,18 +572,21 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         if (dishesEntity.tastes != null && dishesEntity.tastes.size() > 0) {
             dataBean.setTastes(dishesEntity.tastes);
         }
-        //设置规格
-        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() == 1 && dishesEntity.dishStandards.get(0) != null && dishesEntity.dishStandards.get(0).getStandards() != null) {
-            dataBean.setStandards(dishesEntity.dishStandards.get(0).getStandards());
-        }
-        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
-            for (int i = 0; i < dishesEntity.dishStandards.size(); i++) {
-                String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
-                if (isDefault.equals("Y")) {
-                    dataBean.setStandards(dishesEntity.dishStandards.get(i).getStandards());
-                    break;
-                }
-            }
+//        //设置规格
+//        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() == 1 && dishesEntity.dishStandards.get(0) != null && dishesEntity.dishStandards.get(0).getStandards() != null) {
+//            dataBean.setStandards(dishesEntity.dishStandards.get(0).getStandards());
+//        }
+//        if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
+//            for (int i = 0; i < dishesEntity.dishStandards.size(); i++) {
+//                String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
+//                if (isDefault.equals("Y")) {
+//                    dataBean.setStandards(dishesEntity.dishStandards.get(i).getStandards());
+//                    break;
+//                }
+//            }
+//        }
+        if (dishesEntity.standards != null && dishesEntity.standards.size() > 0) {
+            dataBean.setStandards(dishesEntity.standards);
         }
         return dataBean;
     }

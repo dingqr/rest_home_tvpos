@@ -68,7 +68,8 @@ public class API {
     /**
      * 左侧导航栏
      */
-    public static final String GET_NAVIGATION_LIST = BASE_SERVER_SHOP + "/proFunction/listProFunction";
+//    public static final String GET_NAVIGATION_LIST = BASE_SERVER_SHOP + "/profunction/getPartFunctionList";
+    public static final String GET_NAVIGATION_LIST = "http://10.220.19.142:8062" + "/profunction/getPartFunctionList";//庞辉本地
 
     /**
      * 堂食桌台开单接口
@@ -265,4 +266,8 @@ public class API {
      * 外带补打账单
      */
     public static final String URL_TAKE_OUT_PRINT_ORDER = BASE_SERVER_SHOP + "/proTakeAway/takeAwayPrint";
+    /**
+     * 查询权限列表
+     */
+    public static final String URL_GET_RIGHTS_LIST = BASE_SERVER_SHOP + "/profunction/getPartFunctionList";
 }

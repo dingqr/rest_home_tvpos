@@ -98,23 +98,23 @@ public class ADA_DishTypeList extends CommonAdapter<DishesEntity> {
             //设置价格-暂时显示方案
             holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.getPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
 
-            //设置菜品价格-以此为准
-            if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 0) {
-                if (dishesEntity.dishStandards.size() == 1) {
-                    //设置价格
-                    holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.dishStandards.get(0).getDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
-                } else {
-                    //菜品规格-有多个，取isDefault中为“Y”的数据
-                    for (int i = 0; i < dishesEntity.dishStandards.size(); i++) {
-                        String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
-                        if (isDefault.equals("Y")) {
-                            holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.dishStandards.get(i).getDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
-                            break;
-                        }
-                    }
-                }
-
-            }
+//            //设置菜品价格-以此为准
+//            if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 0) {
+//                if (dishesEntity.dishStandards.size() == 1) {
+//                    //设置价格
+//                    holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.dishStandards.get(0).getDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+//                } else {
+//                    //菜品规格-有多个，取isDefault中为“Y”的数据
+//                    for (int i = 0; i < dishesEntity.dishStandards.size(); i++) {
+//                        String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
+//                        if (isDefault.equals("Y")) {
+//                            holder.setText(R.id.tv_dish_price, mContext.getResources().getString(R.string.RMB_symbol) + dishesEntity.dishStandards.get(i).getDishPrice() + "/" + mContext.getResources().getString(R.string.string_unit_quanlity));
+//                            break;
+//                        }
+//                    }
+//                }
+//
+//            }
             //设置显示的标签
             setLabels(dishesEntity, dishName, tvLabelOne, tvLabelTwo);
 

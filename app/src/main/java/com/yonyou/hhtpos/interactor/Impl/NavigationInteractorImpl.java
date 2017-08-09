@@ -27,7 +27,7 @@ public class NavigationInteractorImpl implements INavigationInteractor {
     public void requestNavigationList(String functionCode) {
         HashMap<String,String> hashMap = new HashMap<String,String>();
         hashMap.put("functionCode", functionCode);
-        RequestManager.getInstance().requestPostByAsyn(API.GET_NAVIGATION_LIST, hashMap, new ReqCallBack<List<NavigationNewEntity>>() {
+        RequestManager.getInstance().requestGetByAsyn(API.GET_NAVIGATION_LIST, hashMap, new ReqCallBack<List<NavigationNewEntity>>() {
             @Override
             public void onReqSuccess(List<NavigationNewEntity> result) {
                 mBaseLoadedListener.onSuccess(1,result);
