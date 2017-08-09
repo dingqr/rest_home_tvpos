@@ -33,7 +33,6 @@ import com.yonyou.hhtpos.presenter.Impl.OrderDetailPresenterImpl;
 import com.yonyou.hhtpos.presenter.Impl.WDPrintOrderPresenterImpl;
 import com.yonyou.hhtpos.ui.dinner.check.ACT_CheckOut;
 import com.yonyou.hhtpos.ui.dinner.dishes.ACT_OrderDishes;
-import com.yonyou.hhtpos.util.Constants;
 import com.yonyou.hhtpos.view.IWDOrderDetailView;
 import com.yonyou.hhtpos.view.IWDPrintOrderView;
 import com.yonyou.hhtpos.widgets.BanSlideListView;
@@ -233,7 +232,7 @@ public class FRA_PackingDetail extends BaseFragment implements IWDOrderDetailVie
                 break;
             //补打账单
             case 2:
-                mPrintPresenter.requestPrintOrder(tableBillId, Constants.SHOP_ID);
+//                mPrintPresenter.requestPrintOrder(tableBillId, Constants.SHOP_ID);
                 break;
         }
     }

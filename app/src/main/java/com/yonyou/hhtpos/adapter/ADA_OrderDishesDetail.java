@@ -52,18 +52,17 @@ public class ADA_OrderDishesDetail extends CommonAdapterListView<WDDishDetaiList
             }
             //设置规格
             holder.setText(R.id.tv_standard_name, dishDetaiListlEntity.standardName);
-            //设置退赠表标记:菜品状态:赠菜=3，退菜=4，折扣=10
+            //设置退赠表标记:菜品状态:赠菜=gift，退菜=retreat，等叫：waitCall
             if (dishDetaiListlEntity.dishAbnormalStatus != null) {
                 ivDishSign.setVisibility(View.VISIBLE);
-                if (dishDetaiListlEntity.dishAbnormalStatus.equals("3")) {
+                if (dishDetaiListlEntity.dishAbnormalStatus.equals("gift")) {
                     holder.setImageResource(R.id.iv_dish_status_sign, R.drawable.ic_dish_gift);
-                } else if (dishDetaiListlEntity.equals("4")) {
+                } else if (dishDetaiListlEntity.dishAbnormalStatus.equals("retreat")) {
                     ivDishSign.setImageResource(R.drawable.ic_dish_back);
                 }
             } else {
                 ivDishSign.setVisibility(View.GONE);
             }
-            ivDishSign.setImageResource(R.drawable.ic_dish_back);
         }
         if (dishDetaiListlEntity.orderTime != null) {
             //根据菜品的提交订单时间，分组显示列表

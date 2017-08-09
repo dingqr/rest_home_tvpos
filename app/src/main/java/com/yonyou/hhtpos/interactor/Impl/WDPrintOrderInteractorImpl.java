@@ -26,7 +26,7 @@ public class WDPrintOrderInteractorImpl implements IWDPrintOrderInteractor {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("tableBillId", tableBillId);
         params.put("shopId", shopId);
-        RequestManager.getInstance().requestGetByAsyn(API.URL_TAKE_OUT_PRINT_ORDER, params, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestPostByAsyn(API.URL_TAKE_OUT_PRINT_ORDER, params, new ReqCallBack<String>() {
 
             @Override
             public void onReqSuccess(String result) {
