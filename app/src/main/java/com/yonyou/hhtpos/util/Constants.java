@@ -11,6 +11,7 @@ public class Constants {
     public static final  int DEAULT_1 = 1 ;
     public static final  int DEAULT_2 = 2 ;
     public static final  int DEAULT_3 = 3 ;
+    public static String EMPLOYEE_ID = "";
     public static String TOKEN = "";
     public static String SHOP_ID = "";
     public static String SHOP_NAME = "";
