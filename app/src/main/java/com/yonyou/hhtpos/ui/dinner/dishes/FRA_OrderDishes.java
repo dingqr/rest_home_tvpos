@@ -28,7 +28,6 @@ import com.yonyou.hhtpos.bean.dish.DishListEntity;
 import com.yonyou.hhtpos.bean.dish.DishTypesEntity;
 import com.yonyou.hhtpos.bean.dish.DishesEntity;
 import com.yonyou.hhtpos.bean.dish.RequestAddDishEntity;
-import com.yonyou.hhtpos.dialog.DIA_AddNewMember;
 import com.yonyou.hhtpos.dialog.DIA_AddTempDishes;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishCount;
 import com.yonyou.hhtpos.dialog.DIA_OrderDishNorms;
@@ -423,9 +422,8 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
-//                mAdapter.setRecommend(true);
-//                showDataOrEmptyPage(mRecommendDishes);
-                new DIA_AddNewMember(mContext).show();
+                mAdapter.setRecommend(true);
+                showDataOrEmptyPage(mRecommendDishes);
             }
         });
     }

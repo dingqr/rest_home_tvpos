@@ -15,11 +15,13 @@ import com.yonyou.framework.library.eventbus.EventCenter;
 import com.yonyou.hhtpos.R;
 import com.yonyou.hhtpos.adapter.ADA_MemberList;
 import com.yonyou.hhtpos.bean.MemberEntity;
+import com.yonyou.hhtpos.dialog.DIA_AddNewMember;
 import com.yonyou.hhtpos.util.DP2PX;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by zj on 2017/8/4.
@@ -42,6 +44,7 @@ public class FRA_MemberList extends BaseFragment implements SwipeRefreshLayout.O
     private ADA_MemberList mAdapter;
     private LuRecyclerViewAdapter mLuRecyclerViewAdapter;
     private ArrayList<MemberEntity> datas = new ArrayList<>();
+    private DIA_AddNewMember mDiaAddNewMember;
 
     @Override
     protected void onFirstUserVisible() {
@@ -113,11 +116,24 @@ public class FRA_MemberList extends BaseFragment implements SwipeRefreshLayout.O
             datas.add(memberEntity);
         }
         mAdapter.update(datas, true);
+
+        //新增会员信息弹窗
+        mDiaAddNewMember = new DIA_AddNewMember(mContext);
     }
 
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.fra_member_list;
+    }
+
+    @OnClick({R.id.iv_add_member})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            //新增会员
+            case R.id.iv_add_member:
+                mDiaAddNewMember.show();
+                break;
+        }
     }
 
     @Override
