@@ -32,6 +32,9 @@ public class OpenOrderEntity implements Serializable {
     /**外卖公司id */
     private String takeOutCompanyId;
 
+    /**外卖编号 */
+    private String takeOutNumber;
+
     public String getAddress() {
         return address;
     }
@@ -96,6 +99,14 @@ public class OpenOrderEntity implements Serializable {
         this.takeOutCompanyId = takeOutCompanyId;
     }
 
+    public String getTakeOutNumber() {
+        return takeOutNumber;
+    }
+
+    public void setTakeOutNumber(String takeOutNumber) {
+        this.takeOutNumber = takeOutNumber;
+    }
+
     @Override
     public String toString() {
         return "OpenOrderEntity{" +
@@ -107,6 +118,7 @@ public class OpenOrderEntity implements Serializable {
                 ", sendNow='" + sendNow + '\'' +
                 ", shopId='" + shopId + '\'' +
                 ", takeOutCompanyId='" + takeOutCompanyId + '\'' +
+                ", takeOutNumber='" + takeOutNumber + '\'' +
                 '}';
     }
 }

@@ -477,6 +477,10 @@ public class FRA_TakeOutDetail extends BaseFragment implements IWMOrderDetailVie
                 foe.setType(FiltrationView.REFUND_REASON);
                 refundReasonOptions.add(foe);
             }
+            FilterOptionsEntity foe = new FilterOptionsEntity();
+            foe.setOption("其它原因");
+            foe.setType(FiltrationView.REFUND_REASON);
+            refundReasonOptions.add(foe);
             refundReasons.setOptions(refundReasonOptions);
 
             dia_takeOutRefund = new DIA_TakeOutRefund(mContext, refundReasons);

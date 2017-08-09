@@ -34,6 +34,7 @@ public class WMOpenOrderInteractorImpl implements IWMOpenOrderInteractor {
         hashMap.put("sendNow",StringUtil.getString(bean.getSendNow()));
         hashMap.put("shopId",StringUtil.getString(bean.getShopId()));
         hashMap.put("takeOutCompanyId",StringUtil.getString(bean.getTakeOutCompanyId()));
+        hashMap.put("takeOutNumber",StringUtil.getString(bean.getTakeOutNumber()));
         RequestManager.getInstance().requestPostByAsyn(API.URL_WM_OPEN_ORDER, hashMap, new ReqCallBack<String>() {
             @Override
             public void onReqSuccess(String result) {

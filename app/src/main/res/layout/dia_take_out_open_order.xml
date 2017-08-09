@@ -13,47 +13,46 @@
         android:orientation="vertical">
 
         <!--<FrameLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/tv_title"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="@dimen/px_24"-->
-                <!--android:layout_marginTop="@dimen/px_24"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/take_out_open_order"-->
-                <!--android:textColor="@color/color_222222"-->
-                <!--android:textSize="@dimen/sp_30" />-->
+        <!--<TextView-->
+        <!--android:id="@+id/tv_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/px_24"-->
+        <!--android:layout_marginTop="@dimen/px_24"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/take_out_open_order"-->
+        <!--android:textColor="@color/color_222222"-->
+        <!--android:textSize="@dimen/sp_30" />-->
 
-            <!--<ImageView-->
-                <!--android:id="@+id/ib_close"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="right"-->
-                <!--android:layout_marginRight="@dimen/px_30"-->
-                <!--android:layout_marginTop="@dimen/px_27"-->
-                <!--android:src="@drawable/ic_close"-->
-                <!--android:padding="10dp" />-->
+        <!--<ImageView-->
+        <!--android:id="@+id/ib_close"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginRight="@dimen/px_30"-->
+        <!--android:layout_marginTop="@dimen/px_27"-->
+        <!--android:src="@drawable/ic_close"-->
+        <!--android:padding="10dp" />-->
         <!--</FrameLayout>-->
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="@color/color_c4c4c4" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/color_c4c4c4" />-->
 
-        <include layout="@layout/inc_dialog_title"/>
+        <include layout="@layout/inc_dialog_title" />
 
         <com.yonyou.hhtpos.widgets.FiltrationView
             android:id="@+id/fv_order_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px_20"
             android:layout_marginLeft="@dimen/px_20"
-            android:layout_marginRight="@dimen/px_20">
-        </com.yonyou.hhtpos.widgets.FiltrationView>
+            android:layout_marginRight="@dimen/px_20"
+            android:layout_marginTop="@dimen/px_20"></com.yonyou.hhtpos.widgets.FiltrationView>
     </LinearLayout>
 
     <ScrollView
@@ -71,6 +70,29 @@
             android:layout_marginLeft="@dimen/px_30"
             android:layout_marginRight="@dimen/px_30"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_16"
+                android:text="@string/wm_serial_number"
+                android:textColor="@color/color_222222"
+                android:textSize="@dimen/sp_24" />
+
+            <EditText
+                android:id="@+id/et_enter_wm_serial_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_14"
+                android:background="@drawable/bg_gray_side_gray"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:maxLength="3"
+                android:hint="@string/hint_enter_wm_serial_number"
+                android:padding="@dimen/px_10"
+                android:textColorHint="@color/color_cccccc"
+                android:textSize="@dimen/sp_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -131,9 +153,9 @@
                 android:layout_marginTop="@dimen/px_14"
                 android:background="@drawable/bg_gray_side_gray"
                 android:clickable="true"
+                android:gravity="top"
                 android:hint="@string/hint_enter_receiver_address"
                 android:minLines="2"
-                android:gravity="top"
                 android:padding="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"
                 android:textSize="@dimen/sp_24" />
@@ -154,9 +176,9 @@
                 android:background="@drawable/bg_gray_side_gray"
                 android:clickable="true"
                 android:gravity="center_vertical"
+                android:hint="@string/hint_enter_dinner_number"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="@string/hint_enter_dinner_number"
                 android:padding="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"
                 android:textSize="@dimen/sp_24" />
@@ -222,7 +244,7 @@
                 android:paddingRight="@dimen/px_10"
                 android:textColorHint="@color/color_cccccc"
                 android:textSize="@dimen/sp_24"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

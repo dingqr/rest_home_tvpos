@@ -24,7 +24,7 @@ public class ADA_ChooseCashType extends RecyclerView.Adapter<ADA_ChooseCashType.
     private LayoutInflater mInflater;
     private List<CashTypeEntity> mDatas;
     private CashTypeEntity currentBean;
-    private OnCashTypeClickListener mOnItemClickListener ;
+    private OnCashTypeItemClickListener mOnItemClickListener ;
 
     public ADA_ChooseCashType(Context mContext, List<CashTypeEntity> mDatas) {
         mInflater = LayoutInflater.from(mContext);
@@ -64,7 +64,7 @@ public class ADA_ChooseCashType extends RecyclerView.Adapter<ADA_ChooseCashType.
                 @Override
                 public void onClick(View v) {
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onCashTypeClick(holder.itemView,position);
+                        mOnItemClickListener.onCashTypeItemClick(holder.itemView,position);
                     }
                     //实现单选功能
                     if(null != dataBean && null != currentBean){
@@ -80,11 +80,11 @@ public class ADA_ChooseCashType extends RecyclerView.Adapter<ADA_ChooseCashType.
             //设置选中效果
             if (dataBean.isCheck()) {
 //                holder.llSelectTableCapacity.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_red_4));
-                holder.llCashType.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_dotted_b2b2b2_red_4));
+                holder.llCashType.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_dotted_b2b2b2_red));
                 holder.tvCashTypeName.setTextColor(Color.parseColor("#eb6247"));
             } else {
 //                holder.llSelectTableCapacity.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_gray_4));
-                holder.llCashType.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_dotted_b2b2b2_4));
+                holder.llCashType.setBackground(this.mInflater.getContext().getResources().getDrawable(R.drawable.bg_dotted_b2b2b2));
                 holder.tvCashTypeName.setTextColor(Color.parseColor("#222222"));
             }
         }
@@ -95,11 +95,11 @@ public class ADA_ChooseCashType extends RecyclerView.Adapter<ADA_ChooseCashType.
     /**
      * 点击事件的回调接口
      */
-    public interface OnCashTypeClickListener {
-        void onCashTypeClick(View view, int position);
+    public interface OnCashTypeItemClickListener {
+        void onCashTypeItemClick(View view, int position);
     }
 
-    public void setmOnItemClickListener(OnCashTypeClickListener mOnItemClickListener) {
+    public void setmOnItemClickListener(OnCashTypeItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 

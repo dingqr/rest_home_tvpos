@@ -133,9 +133,11 @@
 
     <!--外卖-->
     <string name="name">姓名</string>
+    <string name="wm_serial_number">外卖编号</string>
     <string name="phone">电话</string>
     <string name="address">地址</string>
     <string name="hint_enter_receiver_name">请填写收餐人姓名</string>
+    <string name="hint_enter_wm_serial_number">请填写外卖编号</string>
     <string name="take_out_open_order">外卖开单</string>
     <string name="hint_enter_receiver_phone">请填写收餐人的手机号</string>
     <string name="hint_enter_receiver_address">例：北京海淀区中关村苏州街29号维亚大厦12层</string>
@@ -157,6 +159,7 @@
     <string name="phone_error">手机号输入格式不正确,请检查</string>
     <string name="reserve_time_error">预定时间不能为空</string>
     <string name="take_out_company_error">请选择外卖公司</string>
+    <string name="wm_serial_number_error">请输入外卖编号</string>
     <string name="take_out_company_empty">没有符合条件的外卖公司，不能开单</string>
     <string name="wm_company_empty">没有符合条件的外卖公司，不能筛选</string>
     <string name="receiver_num_empty">就餐人数不能为空</string>
