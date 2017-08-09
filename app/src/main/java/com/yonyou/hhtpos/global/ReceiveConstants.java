@@ -17,4 +17,6 @@ public class ReceiveConstants {
     public static final int REFRESH_TABLE_LIST = 10005;
     //绑定门店成功后
     public static final int BIND_SUCCESS = 10006;
+    //哆啦宝支付成功后
+    public static final int PAY_SUCCESS = 10007;
 }

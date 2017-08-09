@@ -513,7 +513,6 @@ public class FRA_DishesList extends BaseFragment implements IDishListView, IDish
         dia_autoDismiss.show();
 
         mDishListPresenter.requestDishList(tableBillId, false);
-
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.yonyou.hhtpos.base.ACT_BaseMultiple;
 import com.yonyou.hhtpos.bean.check.RequestPayEntity;
 import com.yonyou.hhtpos.bean.check.SettleAccountDataEntity;
 import com.yonyou.hhtpos.global.API;
+import com.yonyou.hhtpos.global.ReceiveConstants;
 import com.yonyou.hhtpos.presenter.IQueryBillInfoPresenter;
 import com.yonyou.hhtpos.presenter.Impl.QueryBillInfoPresenterImpl;
 import com.yonyou.hhtpos.util.Constants;
@@ -128,5 +129,12 @@ public class ACT_CheckOut extends ACT_BaseMultiple implements IQueryBillInfoView
 
     public int getFromWhere() {
         return fromWhere;
+    }
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.PAY_SUCCESS){
+            finish();
+        }
     }
 }
