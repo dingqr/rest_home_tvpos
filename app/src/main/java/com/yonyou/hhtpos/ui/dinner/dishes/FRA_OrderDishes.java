@@ -122,6 +122,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
     private boolean isFromSettleAccount;
     private DIA_AddTempDishes mDiaAddTempDishes;
     private boolean isAddTempDish;
+    private boolean isAddRecommendDish;
     private RecommendDishesPresenterImpl mGetcommendDishesPresenter;
     private List<DishesEntity> mRecommendDishes = new ArrayList<>();
 
@@ -287,6 +288,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
 
     private void initListener() {
         /**
+         * 点菜操作
          *1、无规格、无做法，直接加入购物车；
          *2.有规格或有做法，弹窗；
          2、时价的价格未设置，弹窗；设置的价格，直接加入购物车；
@@ -309,8 +311,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 requestAddDishEntity.dishType = dishesEntity.dishType;
                 requestAddDishEntity.shopId = dishesEntity.shopId;
                 requestAddDishEntity.isWeighDish = dishesEntity.isWeigh;
-                requestAddDishEntity.unit = dishesEntity.dishUnit.getUnitName();
-
+                if (dishesEntity.dishUnit != null && !TextUtils.isEmpty(dishesEntity.dishUnit.getUnitName())) {
+                    requestAddDishEntity.unit = dishesEntity.dishUnit.getUnitName();
+                }
                 requestAddDishEntity.dishRelateId = dishesEntity.relateId;
                 requestAddDishEntity.dishStatus = "waitCall";//等叫
                 requestAddDishEntity.isDiscount = dishesEntity.isDiscount;
@@ -333,12 +336,11 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 } else {
                     requestAddDishEntity.orderState = "";
                 }
-
-                //写死的字段
                 requestAddDishEntity.tableBillId = mTableBillId;
 
                 //传入弹窗的bean
                 DataBean dataBean = setDialogData(dishesEntity);
+
 
                 //称重、时价
                 if (dishesEntity.isWeigh.equals("Y") && dishesEntity.isCurrentDish != null && dishesEntity.isCurrentDish.equals("Y")) {
@@ -418,7 +420,7 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
                 mAddDishPresenter.requestAddDish(requestAddTempDishEntity);
             }
         });
-        //推荐
+        //筛选展示推荐菜品
         mRightNavigationView.setOnHeadTitleClickListener(new RightNavigationView.OnHeadTitleClickListener() {
             @Override
             public void onClick() {
@@ -564,9 +566,9 @@ public class FRA_OrderDishes extends BaseFragment implements IGetAllDishesView, 
             dataBean.setStandards(dishesEntity.dishStandards.get(0).getStandards());
         }
         if (dishesEntity.dishStandards != null && dishesEntity.dishStandards.size() > 1) {
-            for (int i = 0; i < dishesEntity.dishStandards.size() ; i++) {
+            for (int i = 0; i < dishesEntity.dishStandards.size(); i++) {
                 String isDefault = dishesEntity.dishStandards.get(i).getIsDefault();
-                if(isDefault.equals("Y")) {
+                if (isDefault.equals("Y")) {
                     dataBean.setStandards(dishesEntity.dishStandards.get(i).getStandards());
                     break;
                 }
