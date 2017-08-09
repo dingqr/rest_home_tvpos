@@ -68,8 +68,9 @@ public class API {
     /**
      * 左侧导航栏
      */
+    public static final String GET_NAVIGATION_LIST = BASE_SERVER_SHOP + "/proFunction/listProFunction";//马诗雨
 //    public static final String GET_NAVIGATION_LIST = BASE_SERVER_SHOP + "/profunction/getPartFunctionList";
-    public static final String GET_NAVIGATION_LIST = "http://10.220.19.142:8062" + "/profunction/getPartFunctionList";//庞辉本地
+//    public static final String GET_NAVIGATION_LIST = "http://10.220.19.142:8062" + "/profunction/getPartFunctionList";//庞辉本地
 
     /**
      * 堂食桌台开单接口

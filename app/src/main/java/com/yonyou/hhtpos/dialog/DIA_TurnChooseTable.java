@@ -183,6 +183,7 @@ public class DIA_TurnChooseTable {
             mLRecyclerView.setVisibility(View.VISIBLE);
             mLRecyclerView.setAdapter(mLuRecyclerViewAdapter);
             mTableEntity = mTableList.get(0);
+            mAdapter.setSelectItem(0);
             mAdapter.update(mTableList, true);
         }
     }
