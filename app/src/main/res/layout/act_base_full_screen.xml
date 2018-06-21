@@ -17,11 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/px_30"
-        android:drawableLeft="@drawable/ic_exit"
         android:drawablePadding="@dimen/px_16"
         android:onClick="onActionFinish"
         android:padding="@dimen/px_50"
-        android:text="@string/exit"
+        android:text="退出"
         android:textColor="@color/color_FFFFFF"
         android:textSize="@dimen/sp_32" />
 
@@ -45,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="服务模式：云端服务"
-            android:textColor="@color/color_666666"
+            android:textColor="#666666"
             android:textSize="@dimen/sp_20" />
 
         <TextView
@@ -54,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_30"
             android:text="服务热线：400-0000-0000"
-            android:textColor="@color/color_666666"
+            android:textColor="#666666"
             android:textSize="@dimen/sp_20" />
 
         <TextView
@@ -63,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_30"
             android:text="应用版本：V1.0.1"
-            android:textColor="@color/color_666666"
+            android:textColor="#666666"
             android:textSize="@dimen/sp_20" />
     </LinearLayout>
 

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_marginTop="20px"
+        android:padding="20px"
+        android:src="@drawable/ic_home_menu" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30px"
+        android:text="哈福云智慧养老数据监控平台"
+        android:textColor="@color/color_FFFFFF"
+        android:textSize="20sp" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12px"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="2018年05月30日"
+            android:textColor="@color/color_55ddf2"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36px"
+            android:text="星期三"
+            android:textColor="@color/color_55ddf2"
+            android:textSize="12sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34px"
+        android:orientation="horizontal">
+        <!--入住养老院-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="入住养老院"
+                android:textColor="@color/color_d4f1ff"
+                android:textSize="10sp" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_rest_home_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="523"
+                    android:textColor="@color/color_53ddf2"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_rest_home_num"
+                    android:text="个"
+                    android:textColor="@color/color_d4f1ff"
+                    android:textSize="11sp" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+        <!--用户总数-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120px"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="用户总数"
+                android:textColor="@color/color_d4f1ff"
+                android:textSize="10sp" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_user_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="523"
+                    android:textColor="@color/color_53ddf2"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_user_num"
+                    android:text="位"
+                    android:textColor="@color/color_d4f1ff"
+                    android:textSize="11sp" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+        <!--床位数-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120px"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="床位数"
+                android:textColor="@color/color_d4f1ff"
+                android:textSize="10sp" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_bedroom_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="523"
+                    android:textColor="@color/color_53ddf2"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_bedroom_num"
+                    android:text="位"
+                    android:textColor="@color/color_d4f1ff"
+                    android:textSize="11sp" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+        <!--入住率-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120px"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:includeFontPadding="false"
+                android:text="入住率"
+                android:textColor="@color/color_d4f1ff"
+                android:textSize="10sp" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_live_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="53.01"
+                    android:textColor="@color/color_53ddf2"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_live_rate"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_live_num"
+                    android:text="%"
+                    android:textColor="@color/color_d4f1ff"
+                    android:textSize="11sp" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

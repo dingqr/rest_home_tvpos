@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/color_F7F7F7"
     android:orientation="vertical"
     android:paddingBottom="@dimen/px_70"
     android:paddingLeft="@dimen/px_90"
     android:paddingRight="@dimen/px_90"
+    android:visibility="gone"
     android:paddingTop="@dimen/px_50">
 
     <TextView
@@ -14,8 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/activate_app"
-        android:textColor="@color/color_222222"
         android:textSize="@dimen/sp_34" />
 
     <TextView
@@ -23,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_56"
         android:text="所属企业：四川海底捞餐饮服务有限公司"
-        android:textColor="@color/color_999999"
         android:textSize="@dimen/sp_24" />
 
     <TextView
@@ -31,19 +28,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_20"
         android:text="设备IMEI：8612 9903 1027 838"
-        android:textColor="@color/color_999999"
         android:textSize="@dimen/sp_24" />
 
     <EditText
         android:layout_width="@dimen/px_700"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_40"
-        android:background="@drawable/bg_white_side_gray_1"
         android:gravity="center"
-        android:hint="@string/activate_app_code_hint"
         android:padding="@dimen/px_30"
-        android:textColor="@color/color_333333"
-        android:textColorHint="@color/color_cccccc"
         android:textSize="@dimen/sp_28"
         android:inputType="number"
         android:singleLine="true"/>
@@ -55,8 +47,6 @@
         android:layout_gravity="right"
         android:layout_marginBottom="@dimen/px_60"
         android:layout_marginTop="@dimen/px_30"
-        android:text="@string/activate_app_get_code"
-        android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_26" />
 
     <RadioButton
@@ -67,7 +57,7 @@
         android:button="@null"
         android:checked="false"
         android:padding="@dimen/px_24"
-        android:text="@string/next_step"
+        android:text="下一步"
         android:textColor="@drawable/rb_next_step_txt"
         android:textSize="@dimen/sp_32"
         android:gravity="center"/>

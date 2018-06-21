@@ -1,148 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yonyou.hhtpos">
+    package="com.smart.tvpos">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
-        android:name=".application.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<activity-->
-            <!--android:name=".ACT_TestFiltration"-->
-            <!--android:screenOrientation="landscape"-->
-            <!--android:theme="@style/style_translucent_activity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-
         <activity
-            android:name=".ui.activation.ACT_ActivateApp"
+            android:name=".ui.ACT_Login"
             android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity">
+            android:theme="@style/style_full_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--绑定门店 -->
+        <!-- AutoLinearLayout UI设置图稿尺寸基准 -->
+        <meta-data
+            android:name="design_width"
+            android:value="1920" />
+        <meta-data
+            android:name="design_height"
+            android:value="1100" />
+        <!--首页-数据监控-->
         <activity
-            android:name=".ui.store.ACT_BindStore"
+            android:name=".ui.ACT_Home"
             android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--登录页面 -->
-        <activity
-            android:name=".ui.login.ACT_Login"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!--验证手机号 -->
-        <activity
-            android:name=".ui.activation.ACT_VerifyPhone"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--设置新密码 -->
-        <activity
-            android:name=".ui.login.ACT_ResetNewPwd"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--首页 -->
-        <activity
-            android:name=".ui.home.ACT_Home"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--预定总览 -->
-        <activity
-            android:name=".ui.book.ACT_BookPreview"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--待确认订单 -->
-        <activity
-            android:name=".ui.reserve.ACT_TobeConfirmOrder"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--桌台预订查询 -->
-        <activity
-            android:name=".ui.reserve.ACT_ReserveTableQuery"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--外带 -->
-        <activity
-            android:name=".ui.dinner.wd.ACT_Packing"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--外卖 -->
-        <activity
-            android:name=".ui.dinner.wm.ACT_TakeOut"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--堂食页面 -->
-        <activity
-            android:name=".ui.dinner.ts.ACT_Canteen"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--服务员点菜页面 -->
-        <activity
-            android:name=".ui.dinner.dishes.ACT_OrderDishes"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--结账页面 -->
-        <activity
-            android:name=".ui.dinner.check.ACT_CheckOut"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--个人中心页面 -->
-        <activity
-            android:name=".ui.mine.ACT_PersonalCenter"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--会员页面 -->
-        <activity
-            android:name=".ui.member.ACT_Member"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--菜品估清页面 -->
-        <activity
-            android:name=".ui.dinner.dishes.gq.ACT_SoldOut"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
-
-        <!--菜品时价页面 -->
-        <activity
-            android:name=".ui.dinner.dishes.sj.ACT_CurrentPrice"
-            android:screenOrientation="landscape"
-            android:theme="@style/style_translucent_activity"/>
+            android:theme="@style/style_full_screen" />
 
     </application>
 

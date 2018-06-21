@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140px"
+        android:text="老年福利院监控概览"
+        android:textColor="@color/color_FFFFFF"
+        android:textSize="35sp" />
+
+    <ImageView
+        android:id="@+id/tv_slogon_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="left"
+        android:layout_marginBottom="40px"
+        android:layout_marginTop="26px"
+        android:src="@drawable/bg_slogon" />
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignRight="@+id/tv_title"-->
+    <!--android:layout_below="@+id/tv_title"-->
+    <!--android:layout_marginBottom="40px"-->
+    <!--android:layout_marginTop="30px"-->
+    <!--android:text="创  作  美  好  生  活"-->
+    <!--android:textColor="@color/color_FFFFFF"-->
+    <!--android:textSize="12sp" />-->
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="750px"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_slogon_one"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_shape_solid_ffffff_coner_10"
+        android:orientation="vertical"
+        android:paddingBottom="52px"
+        android:paddingLeft="122px"
+        android:paddingRight="122px"
+        android:paddingTop="112px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号"
+            android:textColor="@color/color_4e4e4e"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@drawable/bg_shape_side_bfbfbf_coner_5"
+            android:gravity="left"
+            android:hint="@string/hint_input_phone"
+            android:padding="16px"
+            android:singleLine="true"
+            android:textColor="@color/color_acacac"
+            android:textColorHint="@color/color_b9b9b9"
+            android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
+            android:textSize="12sp" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:layout_marginTop="32px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/string_password"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rb_get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:button="@null"
+                android:text="@string/string_get_verify_code"
+                android:textColor="@color/color_519bef"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@drawable/bg_shape_side_bfbfbf_coner_5"
+            android:gravity="left"
+            android:padding="16px"
+            android:singleLine="true"
+            android:textColor="@color/color_acacac"
+            android:textColorHint="@color/color_b9b9b9"
+            android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10px"
+            android:layout_marginTop="52px"
+            android:background="@drawable/bg_selector_login_solid_519bef"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingBottom="18px"
+            android:paddingLeft="96px"
+            android:paddingRight="96px"
+            android:paddingTop="18px"
+            android:text="登录"
+            android:textColor="@color/color_fefeff"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="如忘记账号密码请联系管理员"
+            android:textColor="@color/color_6ea4ee"
+            android:textSize="9sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>
