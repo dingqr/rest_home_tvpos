@@ -3,12 +3,14 @@ package com.smart.tvpos.ui;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.R;
+import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
 
 import butterknife.Bind;
@@ -28,6 +30,8 @@ public class ACT_Home extends BaseActivity {
     TextView tvBedroomNum;
     @Bind(R.id.tv_live_rate)
     TextView tvLiveRate;
+    @Bind(R.id.iv_menu)
+    ImageView ivMenu;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
 
@@ -38,10 +42,12 @@ public class ACT_Home extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
-        mPopupWindow = new CommonPopupWindow(this, R.layout.popup_home_menu, 80, ViewGroup.LayoutParams.WRAP_CONTENT) {
+        mPopupWindow = new CommonPopupWindow(this, R.layout.popup_home_menu, 192, ViewGroup.LayoutParams.WRAP_CONTENT) {
             @Override
             protected void initView() {
                 View view = getContentView();
+                BanSlideListView listview = (BanSlideListView) view.findViewById(R.id.listview);
+
             }
 
             @Override
@@ -61,7 +67,7 @@ public class ACT_Home extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_menu:
-
+                mPopupWindow.showBashOfAnchor(ivMenu, mPopuplayoutGravity, 0, 0);
                 break;
         }
     }

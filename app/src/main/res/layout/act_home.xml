@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
-        android:layout_marginTop="20px"
-        android:padding="20px"
+        android:layout_marginTop="40px"
+        android:paddingBottom="20px"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
         android:src="@drawable/ic_home_menu" />
 
     <TextView
@@ -210,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/tv_live_rate"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/tv_live_num"
+                    android:layout_toRightOf="@+id/tv_live_rate"
                     android:text="%"
                     android:textColor="@color/color_d4f1ff"
                     android:textSize="11sp" />
