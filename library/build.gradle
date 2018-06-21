@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -34,7 +34,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile files('src/main/libs/nineoldandroids-2.4.0.jar')
     compile files('src/main/libs/eventbus-3.0.0-beta1.jar')
     compile files('src/main/libs/dom4j-2.0.0-RC1.jar')
@@ -52,4 +52,6 @@ dependencies {
     compile files('src/main/libs/httpclient-4.5.1.jar')
     compile files('src/main/libs/httpcore-4.4.3.jar')
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //    布局适配
+    compile 'com.zhy:autolayout:1.4.5'
 }

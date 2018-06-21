@@ -38,7 +38,6 @@
             android:paddingBottom="15dp"
             android:paddingRight="40dp"
             android:paddingTop="15dp"
-            android:text="@string/position"
             android:textSize="15sp"
             android:textColor="#666666"
             android:visibility="gone"/>

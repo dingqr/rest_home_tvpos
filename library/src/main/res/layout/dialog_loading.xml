@@ -8,10 +8,10 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <com.yonyou.framework.library.loading.LoadingIndicatorView
+    <com.smart.framework.library.loading.LoadingIndicatorView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicator="Pacman" />
+        app:indicator="LineSpinFadeLoader" />
 
     <TextView
         android:id="@+id/message_txt"

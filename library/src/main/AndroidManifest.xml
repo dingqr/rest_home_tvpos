@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yonyou.framework.library">
+    package="com.smart.framework.library">
 
     <application
         android:allowBackup="true"
