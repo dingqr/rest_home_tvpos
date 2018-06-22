@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.smart.framework.library.BaseApplication;
+import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.AppSharedPreferences;
 import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.util.SharePreConstants;
@@ -43,6 +44,7 @@ public class MyApplication extends BaseApplication {
         if (isLogin) {
             Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
             Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
+            Elog.e("TAG", "USER_ID=" + Constants.USER_ID + "USER_SIGN=" + Constants.USER_SIGN);
         }
     }
 }

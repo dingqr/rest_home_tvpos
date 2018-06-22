@@ -1,6 +1,7 @@
 package com.smart.tvpos.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,15 +9,23 @@ import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
+import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
+import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
+import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
+import com.smart.tvpos.global.API;
+import com.smart.tvpos.manager.ReqCallBack;
+import com.smart.tvpos.manager.RequestManager;
+import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
 import com.smart.tvpos.widgets.RingChartView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -82,6 +91,9 @@ public class ACT_Home extends BaseActivity {
         mPopuplayoutGravity = new CommonPopupWindow.LayoutGravity(CommonPopupWindow.LayoutGravity.ALIGN_ABOVE | CommonPopupWindow.LayoutGravity.TO_RIGHT);
 
         initChartView();
+
+        //联网获取数据
+        requestNet();
     }
 
     private void initChartView() {
@@ -162,6 +174,129 @@ public class ACT_Home extends BaseActivity {
         chartviewEmployee.setShow(employeeChartcolorList, employeeChartRateList, true, true);
 
     }
+
+    /**
+     * 联网获取数据
+     */
+    private void requestNet() {
+        //1.入住养老院数等
+        requestHeaderData();
+        //2.入住用戶
+        requestLivingUserData();
+    }
+
+    /**
+     * 1.	入住养老院数等
+     */
+    private void requestHeaderData() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", "branchNum");
+        params.put("name", "hafuadmin");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<HomeHeadEntity>() {
+
+            @Override
+            public void onReqSuccess(HomeHeadEntity result) {
+                Log.e("TAG", "branchNum=" + result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 2.	入住养老入住\用户整体趋势
+     */
+    private void requesLivingTrendData() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", "user");//????接口数据存在问题
+        params.put("name", "hafuadmin");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                Log.e("TAG", "admitInOut=" + result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 3. 接待入住
+     */
+    private void requestAdmitLivingData() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", "admitInOut");
+        params.put("name", "hafuadmin");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                Log.e("TAG", "admitInOut=" + result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 4. 入住用户
+     */
+    private void requestLivingUserData() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", "user");
+        params.put("name", "hafuadmin");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String result) {
+                Log.e("TAG", "user=" + result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
 
     @Override
     protected int getContentViewLayoutID() {

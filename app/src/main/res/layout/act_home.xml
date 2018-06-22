@@ -252,7 +252,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="430px"
                     android:layout_height="224px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -265,7 +265,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="10px"
                         android:layout_marginLeft="12px"
-                        android:layout_marginRight="40px"
+                        android:layout_marginRight="20px"
                         android:orientation="vertical">
 
                         <TextView
@@ -380,7 +380,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="430px"
                     android:layout_height="224px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -447,7 +447,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
-                android:text="护理级别"
+                android:text="入住用户"
                 android:textColor="@color/color_b0cddb"
                 android:textSize="12sp" />
 
@@ -460,7 +460,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="430px"
                     android:layout_height="224px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -550,7 +550,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="430px"
                     android:layout_height="224px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -563,7 +563,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="10px"
                         android:layout_marginLeft="12px"
-                        android:layout_marginRight="40px"
+                        android:layout_marginRight="20px"
                         android:orientation="vertical">
 
                         <TextView
