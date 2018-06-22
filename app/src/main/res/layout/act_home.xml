@@ -52,8 +52,9 @@
             android:textColor="@color/color_55ddf2"
             android:textSize="12sp" />
     </com.zhy.autolayout.AutoLinearLayout>
-
+    <!--数据总览统计-->
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_total_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_date"
@@ -217,8 +218,414 @@
                     android:textColor="@color/color_d4f1ff"
                     android:textSize="11sp" />
             </com.zhy.autolayout.AutoRelativeLayout>
-
         </com.zhy.autolayout.AutoLinearLayout>
     </com.zhy.autolayout.AutoLinearLayout>
 
+    <!--图表统计左-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24px"
+        android:layout_marginLeft="60px"
+        android:orientation="vertical">
+        <!--入住用户-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_user_living_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/chartview"
+                android:text="入住用户"
+                android:textColor="@color/color_b0cddb"
+                android:textSize="12sp" />
+
+            <!--环形图表-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_user_living_title"
+                android:layout_marginTop="16px"
+                android:background="@drawable/bg_four_angle_short">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="436px"
+                    android:layout_height="224px"
+                    android:layout_centerInParent="true"
+                    android:background="@color/color_081638">
+
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/ll_user_chart_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginLeft="12px"
+                        android:layout_marginRight="40px"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_60_down"
+                            android:drawablePadding="8px"
+                            android:text="60岁以下"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_60_69"
+                            android:drawablePadding="8px"
+                            android:text="60-69岁"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_70_79"
+                            android:drawablePadding="8px"
+                            android:text="70-79岁"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_special_level"
+                            android:drawablePadding="8px"
+                            android:text="80-89岁"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_one_level"
+                            android:drawablePadding="8px"
+                            android:text="90-99岁"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_two_level"
+                            android:drawablePadding="8px"
+                            android:text="100岁以上"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_three_level"
+                            android:drawablePadding="8px"
+                            android:text="其他"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.smart.tvpos.widgets.RingChartView
+                        android:id="@+id/userlivingchartview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ll_user_chart_sign" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--入住用户-->
+        <!--报警数据-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44px">
+
+            <TextView
+                android:id="@+id/tv_alert_data_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/chartview"
+                android:text="报警数据"
+                android:textColor="@color/color_b0cddb"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/chartview"
+                android:layout_alignBottom="@+id/tv_alert_data_title"
+                android:layout_marginLeft="254px"
+                android:text="最近三个月"
+                android:textColor="@color/color_93acbb"
+                android:textSize="5sp" />
+            <!--环形图表-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_alert_data_title"
+                android:layout_marginTop="16px"
+                android:background="@drawable/bg_four_angle_short">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="436px"
+                    android:layout_height="224px"
+                    android:layout_centerInParent="true"
+                    android:background="@color/color_081638">
+
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/ll_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="38px"
+                        android:layout_marginLeft="12px"
+                        android:layout_marginRight="40px"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_unhandled"
+                            android:drawablePadding="8px"
+                            android:text="未处理"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_handled"
+                            android:drawablePadding="8px"
+                            android:text="已处理"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.smart.tvpos.widgets.RingChartView
+                        android:id="@+id/alertchartview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ll_sign" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--报警数据-->
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--图表统计左-->
+
+    <!--图表统计右-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24px"
+        android:layout_marginRight="60px"
+        android:orientation="vertical">
+        <!--护理级别-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_nurse_level_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/chartview"
+                android:text="护理级别"
+                android:textColor="@color/color_b0cddb"
+                android:textSize="12sp" />
+
+            <!--环形图表-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_nurse_level_title"
+                android:layout_marginTop="16px"
+                android:background="@drawable/bg_four_angle_short">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="436px"
+                    android:layout_height="224px"
+                    android:layout_centerInParent="true"
+                    android:background="@color/color_081638">
+
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/ll_nurse_chart_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginLeft="12px"
+                        android:layout_marginRight="40px"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_special_level"
+                            android:drawablePadding="8px"
+                            android:text="专户"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_one_level"
+                            android:drawablePadding="8px"
+                            android:text="一级"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_two_level"
+                            android:drawablePadding="8px"
+                            android:text="二级"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_three_level"
+                            android:drawablePadding="8px"
+                            android:text="三级"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.smart.tvpos.widgets.RingChartView
+                        android:id="@+id/nurselevelchartview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ll_nurse_chart_sign" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--护理级别-->
+        <!--员工统计-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44px">
+
+            <TextView
+                android:id="@+id/tv_employee_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/chartview"
+                android:text="员工统计"
+                android:textColor="@color/color_b0cddb"
+                android:textSize="12sp" />
+            <!--环形图表-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_employee_title"
+                android:layout_marginTop="16px"
+                android:background="@drawable/bg_four_angle_short">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="436px"
+                    android:layout_height="224px"
+                    android:layout_centerInParent="true"
+                    android:background="@color/color_081638">
+
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/ll_employee_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginLeft="12px"
+                        android:layout_marginRight="40px"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_special_level"
+                            android:drawablePadding="8px"
+                            android:text="护理员"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_one_level"
+                            android:drawablePadding="8px"
+                            android:text="护士"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_60_down"
+                            android:drawablePadding="8px"
+                            android:text="医师"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_three_level"
+                            android:drawablePadding="8px"
+                            android:text="管理人员"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_unhandled"
+                            android:drawablePadding="8px"
+                            android:text="工勤人员"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.smart.tvpos.widgets.RingChartView
+                        android:id="@+id/employeechartview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ll_employee_sign" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--报警数据-->
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--图表统计右-->
 </com.zhy.autolayout.AutoRelativeLayout>

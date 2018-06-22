@@ -19,4 +19,23 @@
     <color name="color_d4f1ff">#d4f1ff</color>
     <color name="color_53ddf2">#53ddf2</color>
     <color name="color_0f3068">#0f3068</color>
+    <color name="color_284d8e">#284d8e</color>
+    <color name="color_09143b">#09143b</color>
+    <color name="color_red">#ff0000</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_081638">#081638</color>
+    <color name="color_b0cddb">#b0cddb</color>
+    <color name="color_93acbb">#93acbb</color>
+    <color name="color_264c6a">#264c6a</color>
+    <color name="color_b69b4f">#b69b4f</color>
+    <color name="color_2b84b9">#2b84b9</color>
+    <color name="color_a9c6d6">#a9c6d6</color>
+    <!--环形饼状图颜色-员工统计-->
+    <color name="color_55c7f2">#55c7f2</color>
+    <color name="color_5ffefd">#5ffefd</color>
+    <color name="color_34617e">#34617e</color>
+    <color name="color_7c80fe">#7c80fe</color>
+    <color name="color_f1b133">#f1b133</color>
+    <color name="color_e36853">#e36853</color>
+    <color name="color_2e84ba">#2e84ba</color>
 </resources>

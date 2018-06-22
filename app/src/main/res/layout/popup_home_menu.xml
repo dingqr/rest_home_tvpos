@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="222px"
-    android:layout_height="300px"
-    android:background="@drawable/bg_shape_popopwindow_solid_0f3068"
-    android:orientation="vertical">
+<com.smart.tvpos.widgets.BanSlideListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:dividerHeight="1px"
+    android:divider="@color/color_09143b"
+    android:listSelector="@android:color/transparent"
+    android:scrollbars="none"></com.smart.tvpos.widgets.BanSlideListView>
 
-    <com.smart.tvpos.widgets.BanSlideListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none"></com.smart.tvpos.widgets.BanSlideListView>
+    <!--<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="222px"--><!--android:layout_height="300px"--><!--android:background="@drawable/bg_shape_popopwindow_solid_0f3068"--><!--android:gravity="center"--><!--android:orientation="vertical">-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30px"
-        android:text="数据监控"
-        android:textColor="@color/color_fefeff"
-        android:textSize="10sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30px"
-        android:text="数据监控"
-        android:textColor="@color/color_fefeff"
-        android:textSize="10sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30px"
-        android:text="数据监控"
-        android:textColor="@color/color_fefeff"
-        android:textSize="10sp" />
-</com.zhy.autolayout.AutoLinearLayout>
+    <!--<com.smart.tvpos.widgets.BanSlideListView--><!--xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:id="@+id/listview"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:listSelector="@android:color/transparent"--><!--android:scrollbars="none"></com.smart.tvpos.widgets.BanSlideListView>--><!--</com.zhy.autolayout.AutoLinearLayout>-->

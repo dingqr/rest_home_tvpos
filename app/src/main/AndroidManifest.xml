@@ -36,7 +36,11 @@
             android:name=".ui.ACT_Home"
             android:screenOrientation="landscape"
             android:theme="@style/style_full_screen" />
-
+        <!--监控概览-->
+        <activity
+            android:name=".ui.ACT_WatchingOverview"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_full_screen" />
     </application>
 
 </manifest>

@@ -12,7 +12,7 @@ import com.smart.tvpos.bean.HomeMenuEntity;
  * wechat：18510829974
  * description：homepage menulist adapter
  */
-public class ADA_HomeMenu extends CommonAdapterListView<HomeMenuEntity>{
+public class ADA_HomeMenu extends CommonAdapterListView<HomeMenuEntity> {
     public ADA_HomeMenu(Context context) {
         super(context);
     }
@@ -23,7 +23,8 @@ public class ADA_HomeMenu extends CommonAdapterListView<HomeMenuEntity>{
     }
 
     @Override
-    protected void convert(ViewHolderListView viewHolder, HomeMenuEntity item, int position) {
-
+    protected void convert(ViewHolderListView holder, HomeMenuEntity itemMenu, int position) {
+        holder.setText(R.id.tv_menu_txt, itemMenu.menuTxt);
+        holder.setImageResource(R.id.iv_menu, itemMenu.menuIcon);
     }
 }
