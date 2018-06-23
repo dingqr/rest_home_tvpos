@@ -2,15 +2,6 @@
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home">
+    android:background="@color/color_f6f9fb">
 
-    <!--<lecho.lib.hellocharts.view.ColumnChartView-->
-    <!--android:id="@+id/column_chart_cc"-->
-    <!--android:layout_width="380px"-->
-    <!--android:layout_height="600px"-->
-    <!--android:layout_centerInParent="true" />-->
-    <com.smart.tvpos.widgets.PannelChartView
-        android:id="@+id/pannelChartView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </com.zhy.autolayout.AutoRelativeLayout>

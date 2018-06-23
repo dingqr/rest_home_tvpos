@@ -5,6 +5,9 @@ import com.smart.framework.library.base.BaseView;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
+import com.smart.tvpos.bean.NurseLevelEntity;
+import com.smart.tvpos.bean.StaffEntity;
+import com.smart.tvpos.bean.WarningEntity;
 
 import java.util.List;
 
@@ -15,8 +18,16 @@ import java.util.List;
  */
 public interface IHomeView extends BaseView {
     void getHeaderData(HomeHeadEntity bean);
+
     void getAdmitLivingData(AdmitLivingEntity bean);
+
     void getLivingUserData(List<ChartCommonEntity> dataList);
-    void getAlertData(ChartCommonEntity bean);
+
+    void getAlertData(WarningEntity bean);
+
     void getLivingTrendData(ChartCommonEntity bean);
+
+    void getUserNurseData(List<NurseLevelEntity> dataList);
+
+    void getStaffData(List<StaffEntity> dataList);
 }

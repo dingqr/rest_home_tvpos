@@ -15,4 +15,8 @@ public interface IHomePresenter {
     void getAlertData(String requestType);
 
     void getLivingTrendData(String requestType);
+
+    void getUserNurseData(String requestType);
+
+    void getStaffData(String requestType);
 }

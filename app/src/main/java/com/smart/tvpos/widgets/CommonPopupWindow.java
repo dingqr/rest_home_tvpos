@@ -14,7 +14,7 @@ import android.widget.PopupWindow;
 public abstract class CommonPopupWindow {
     protected Context context;
     protected View contentView;
-    protected PopupWindow mInstance;
+    public PopupWindow mInstance;
 
     public CommonPopupWindow(Context c, int layoutRes, int w, int h) {
         context=c;

@@ -1,16 +1,19 @@
 package com.smart.tvpos.mvp;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.smart.framework.library.bean.ErrorBean;
+import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
+import com.smart.tvpos.bean.NurseLevelEntity;
+import com.smart.tvpos.bean.StaffEntity;
+import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.global.API;
 import com.smart.tvpos.manager.ReqCallBack;
 import com.smart.tvpos.manager.RequestManager;
@@ -112,7 +115,7 @@ public class HomePresenter implements IHomePresenter {
 
             @Override
             public void onReqSuccess(String result) {
-                Log.e("TAG", "user=" + result);
+                Elog.e("TAG", "user=" + result);
                 resolveJson(result);
                 mView.getLivingUserData(mLivingUserList);
             }
@@ -141,11 +144,12 @@ public class HomePresenter implements IHomePresenter {
         params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<WarningEntity>() {
 
             @Override
-            public void onReqSuccess(String result) {
-                Log.e("TAG", "user=" + result);
+            public void onReqSuccess(WarningEntity result) {
+                Elog.e("TAG", "warning=" + result.getNumA());
+                mView.getAlertData(result);
             }
 
             @Override
@@ -176,7 +180,7 @@ public class HomePresenter implements IHomePresenter {
 
             @Override
             public void onReqSuccess(String result) {
-                Log.e("TAG", "admitInOut=" + result);
+                Elog.e("TAG", "branchUserTrend=" + result);
             }
 
             @Override
@@ -191,10 +195,77 @@ public class HomePresenter implements IHomePresenter {
         });
     }
 
-    private List<ChartCommonEntity> mLivingUserList = new ArrayList<>();
 
     /**
-     * 手动解析json数组
+     * 6.	护理级别
+     *
+     * @param requestType userByNurse
+     */
+    @Override
+    public void getUserNurseData(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("name", "hafuadmin");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<NurseLevelEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<NurseLevelEntity>  result) {
+                Elog.e("TAG", "nurse=" + result);
+                mView.getUserNurseData(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 7.	员工统计
+     *
+     * @param requestType staff
+     */
+    @Override
+    public void getStaffData(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("name", "hafuadmin");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<StaffEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<StaffEntity> result) {
+                Elog.e("TAG", "staff=" + result);
+                mView.getStaffData(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    //入住用户
+    private List<ChartCommonEntity> mLivingUserList = new ArrayList<>();
+    public int livingTotal;
+
+    /**
+     * 手动解析入住用户的json数据
      *
      * @param jsonString
      */
@@ -208,23 +279,15 @@ public class HomePresenter implements IHomePresenter {
             map = gson.fromJson(jsonString, type);
         }
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            Log.e("TAG", entry.getKey() + "---|---" + entry.getValue().toString());
+            Elog.e("TAG", entry.getKey() + "---|---" + entry.getValue().toString());
             ChartCommonEntity commonEntity = new ChartCommonEntity();
             commonEntity.keyName = entry.getKey();
             commonEntity.value = entry.getValue();
             commonEntity.showTxt = entry.getKey();
+            livingTotal += entry.getValue();
             mLivingUserList.add(commonEntity);
         }
+        Elog.e("TAG", "livingTotal=" + livingTotal);
         return map;
     }
-
-//
-//    private void formatJsonData(Map<String, ChartCommonEntity> mapList) {
-//        for (Map.Entry<String, ChartCommonEntity> entry : mapList.entrySet()) {
-//            Log.e("TAG", entry.getKey() + "|" + entry.getValue().toString());
-////            ChartCommonEntity bean = entry.getValue();
-////            bean.keyName = entry.getKey();
-////            mRecordList.add(bean);
-//        }
-//    }
 }

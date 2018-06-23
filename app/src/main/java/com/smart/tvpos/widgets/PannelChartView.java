@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.DP2PX;
 import com.smart.tvpos.R;
 
@@ -35,7 +36,7 @@ public class PannelChartView extends View {
     private int scaleSpace = 40;//柱状条之间的间距
     private int spanelViewWidth = 56;//柱状条的宽度
     //数据值
-    private int[] valueDatas = {30, 60, 100};
+    private int[] valueDatas = new int[]{};
     private int[] keduList = {0, 20, 40, 60, 80, 100};
     //每个刻度对应的高度值
     private int valueSpace = 20;
@@ -97,14 +98,16 @@ public class PannelChartView extends View {
         mPaintWhite.setStrokeWidth(1);
     }
 
-    public void setValueData(int[] valueDatas) {
-        this.valueDatas = valueDatas;
-        invalidate();
+    public void setValueData(int[] valueData) {
+        this.valueDatas = valueData;
+        //调用postInvalidate不起作用，必须调用initView(mContext)中方法
+        initView(mContext);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Elog.e("TAG", "onDraw()");
         //画布背景
 //        canvas.drawColor(Color.WHITE);
         arrPaintArc[0].setTextSize(25);
@@ -152,7 +155,7 @@ public class PannelChartView extends View {
         }
 
         //画柱状条
-        for (i = 0; i < 3; i++) {
+        for (i = 0; i < valueDatas.length; i++) {
             //记录前一根柱子离起始点的距离
             if (i == 0) {
                 //设置第一根柱子距离原点的距离长10

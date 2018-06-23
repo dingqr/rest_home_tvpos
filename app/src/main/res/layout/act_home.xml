@@ -485,7 +485,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_unhandled"
                             android:drawablePadding="8px"
-                            android:text="未处理"
+                            android:text="@string/string_unhandled"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -494,7 +494,7 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_handled"
                             android:drawablePadding="8px"
-                            android:text="已处理"
+                            android:text="@string/string_handled"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
                     </com.zhy.autolayout.AutoLinearLayout>
@@ -565,7 +565,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_special_level"
                             android:drawablePadding="8px"
-                            android:text="专户"
+                            android:text="@string/string_special_nurse"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -575,7 +575,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_one_level"
                             android:drawablePadding="8px"
-                            android:text="一级"
+                            android:text="@string/string_one_level"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -585,7 +585,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_two_level"
                             android:drawablePadding="8px"
-                            android:text="二级"
+                            android:text="@string/string_two_level"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -595,7 +595,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_three_level"
                             android:drawablePadding="8px"
-                            android:text="三级"
+                            android:text="@string/string_three_level"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -655,7 +655,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_special_level"
                             android:drawablePadding="8px"
-                            android:text="护理员"
+                            android:text="@string/string_huliyuan"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -665,7 +665,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_one_level"
                             android:drawablePadding="8px"
-                            android:text="护士"
+                            android:text="@string/string_hushi"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -675,7 +675,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_60_down"
                             android:drawablePadding="8px"
-                            android:text="医师"
+                            android:text="@string/string_yishi"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -685,7 +685,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_three_level"
                             android:drawablePadding="8px"
-                            android:text="管理人员"
+                            android:text="@string/string_guanlirenyuan"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 
@@ -695,7 +695,7 @@
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_unhandled"
                             android:drawablePadding="8px"
-                            android:text="工勤人员"
+                            android:text="@string/string_gongqinrenyuan"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
                     </com.zhy.autolayout.AutoLinearLayout>

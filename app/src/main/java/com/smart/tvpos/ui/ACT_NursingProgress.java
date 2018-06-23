@@ -9,11 +9,12 @@ import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.R;
 
 /**
- * Created by JoJo on 2018/6/22.
+ * Created by JoJo on 2018/6/23.
  * wechat：18510829974
- * description：监控概览页面
+ * description：护理进度页面
  */
-public class ACT_WatchingOverview extends BaseActivity {
+public class ACT_NursingProgress extends BaseActivity {
+
 
     @Override
     protected void getBundleExtras(Bundle extras) {
@@ -22,22 +23,12 @@ public class ACT_WatchingOverview extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
-    }
-
-    @Override
-    public void showBusinessError(ErrorBean error) {
 
     }
-
-    @Override
-    protected boolean isApplyKitKatTranslucency() {
-        return false;
-    }
-
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.act_watching_overview;
+        return R.layout.act_nursing_progress;
     }
 
     @Override
@@ -54,6 +45,16 @@ public class ACT_WatchingOverview extends BaseActivity {
     @Override
     protected void onNetworkDisConnected() {
 
+    }
+
+    @Override
+    public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    protected boolean isApplyKitKatTranslucency() {
+        return false;
     }
 
     @Override

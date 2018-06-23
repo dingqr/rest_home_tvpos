@@ -72,6 +72,8 @@ public class RingChartView extends View {
     private boolean isRing;
     private boolean isShowCenterPoint;
     private boolean isShowRate;
+    //柱状图每块显示的文字
+    private List<String> mShowTextList = new ArrayList<>();
 
     public RingChartView(Context context) {
         super(context, null);
@@ -258,7 +260,9 @@ public class RingChartView extends View {
         mPaint.setTextSize(dip2px(showRateSize));
         mPaint.setStyle(Paint.Style.STROKE);
         //绘制显示的文字,需要根据类型显示不同的文字
-        canvas.drawText(rateList.get(position) + "%", floats[6], floats[7] + dip2px(showRateSize) / 3, mPaint);
+        if (mShowTextList.size() > 0) {
+            canvas.drawText(mShowTextList.get(position), floats[6], floats[7] + dip2px(showRateSize) / 3, mPaint);
+        }
         preRate = rateList.get(position);
     }
 
@@ -326,4 +330,9 @@ public class RingChartView extends View {
         return (int) (pxValue / dm.density + 0.5f);
     }
 
+    public void setShowTextList(List<String> showTextList) {
+        this.mShowTextList = showTextList;
+//        initView();
+        postInvalidate();
+    }
 }

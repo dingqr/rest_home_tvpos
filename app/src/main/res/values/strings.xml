@@ -13,5 +13,17 @@
     <string name="arise_exception">亲，出现异常了</string>
     <string name="activate_app_get_code">获取激活码</string>
     <string name="string_password">密码</string>
+    <string name="string_special_nurse">专护</string>
+    <string name="string_one_level">一级</string>
+    <string name="string_two_level">二级</string>
+    <string name="string_three_level">三级</string>
+    <string name="string_huliyuan">护理员</string>
+    <string name="string_hushi">护士</string>
+    <string name="string_yishi">医师</string>
+    <string name="string_guanlirenyuan">管理人员</string>
+    <string name="string_gongqinrenyuan">工勤人员</string>
+    <string name="string_percent_symbol">%</string>
+    <string name="string_handled">已处理</string>
+    <string name="string_unhandled">未处理</string>
 
 </resources>
