@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.smart.tvpos.manager.RequestManager;
 import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
+import com.smart.tvpos.widgets.PannelChartView;
 import com.smart.tvpos.widgets.RingChartView;
 
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ public class ACT_Home extends BaseActivity {
     TextView tvLiveRate;
     @Bind(R.id.iv_menu)
     ImageView ivMenu;
+    @Bind(R.id.pannelChartView)
+    PannelChartView mPannelChartView;
     @Bind(R.id.alertchartview)
     RingChartView chartviewDataAlert;
     @Bind(R.id.userlivingchartview)
@@ -82,6 +86,12 @@ public class ACT_Home extends BaseActivity {
                 ADA_HomeMenu adapter = new ADA_HomeMenu(mContext);
                 listview.setAdapter(adapter);
                 adapter.update(menuList, true);
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                });
             }
 
             @Override
@@ -97,6 +107,11 @@ public class ACT_Home extends BaseActivity {
     }
 
     private void initChartView() {
+        /**
+         * 接待入住
+         */
+        int[] valueDatas = {50, 35, 80};
+//        mPannelChartView.setValueData(valueDatas);
         /**
          *  入住用户
          */

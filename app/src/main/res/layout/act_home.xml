@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30px"
+        android:includeFontPadding="false"
         android:text="哈福云智慧养老数据监控平台"
         android:textColor="@color/color_FFFFFF"
         android:textSize="20sp" />
@@ -32,13 +33,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12px"
+        android:layout_marginTop="10px"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:includeFontPadding="false"
             android:text="2018年05月30日"
             android:textColor="@color/color_55ddf2"
             android:textSize="12sp" />
@@ -59,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_date"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34px"
+        android:layout_marginTop="30px"
         android:orientation="horizontal">
         <!--入住养老院-->
         <com.zhy.autolayout.AutoLinearLayout
@@ -229,10 +231,91 @@
         android:layout_marginBottom="24px"
         android:layout_marginLeft="60px"
         android:orientation="vertical">
-        <!--入住用户-->
+        <!--接待入住-->
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_admit_living_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/chartview"
+                android:text="接待入住"
+                android:textColor="@color/color_b0cddb"
+                android:textSize="12sp" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_admit_living_title"
+                android:layout_marginTop="16px"
+                android:background="@drawable/bg_four_angle_hign">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="430px"
+                    android:layout_height="260px"
+                    android:layout_centerInParent="true"
+                    android:background="@color/color_081638">
+
+
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/ll_admit_chart_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="20px"
+                        android:layout_marginTop="12px"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="18px"
+                            android:drawableLeft="@drawable/ic_admit"
+                            android:drawablePadding="4px"
+                            android:text="接待"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="6sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="18px"
+                            android:drawableLeft="@drawable/ic_living"
+                            android:drawablePadding="4px"
+                            android:text="入住"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="6sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="18px"
+                            android:drawableLeft="@drawable/ic_back_living"
+                            android:drawablePadding="4px"
+                            android:text="退住"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="6sp" />
+
+                    </com.zhy.autolayout.AutoLinearLayout>
+
+                    <com.smart.tvpos.widgets.PannelChartView
+                        android:id="@+id/pannelChartView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll_admit_chart_sign"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="6px" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--接待入住-->
+        <!--入住用户-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_user_living_title"
@@ -351,7 +434,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_alert_data_title"
@@ -447,7 +530,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
-                android:text="入住用户"
+                android:text="护理级别"
                 android:textColor="@color/color_b0cddb"
                 android:textSize="12sp" />
 
@@ -531,7 +614,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_employee_title"

@@ -10,6 +10,7 @@
     <!--android:layout_height="600px"-->
     <!--android:layout_centerInParent="true" />-->
     <com.smart.tvpos.widgets.PannelChartView
+        android:id="@+id/pannelChartView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </com.zhy.autolayout.AutoRelativeLayout>
