@@ -1,0 +1,18 @@
+package com.smart.tvpos.mvp;
+
+/**
+ * Created by JoJo on 2018/6/23.
+ * wechat：18510829974
+ * description：
+ */
+public interface IHomePresenter {
+    void getHeaderData(String requestType);
+
+    void getAdmitLivingData(String requestType);
+
+    void getLivingUserData(String requestType);
+
+    void getAlertData(String requestType);
+
+    void getLivingTrendData(String requestType);
+}

@@ -271,13 +271,13 @@ public class RingChartView extends View {
         orbit.addArc(rectF, startAngle, endAngle);
 
         PathMeasure measure = new PathMeasure(orbit, false);
-        Log.e("路径的测量长度:", "" + measure.getLength());
+//        Log.e("路径的测量长度:", "" + measure.getLength());
 
         float[] coords = new float[]{0f, 0f};
         //利用PathMeasure分别测量出各个点的坐标值coords
         int divisor = 1;
         measure.getPosTan(measure.getLength() / divisor, coords, null);
-        Log.e("coords:", "x轴:" + coords[0] + " -- y轴:" + coords[1]);
+//        Log.e("coords:", "x轴:" + coords[0] + " -- y轴:" + coords[1]);
         float x = coords[0];
         float y = coords[1];
         Point point = new Point(Math.round(x), Math.round(y));

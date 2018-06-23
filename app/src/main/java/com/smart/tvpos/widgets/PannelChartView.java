@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.DP2PX;
 import com.smart.tvpos.R;
 
@@ -100,16 +99,14 @@ public class PannelChartView extends View {
 
     public void setValueData(int[] valueDatas) {
         this.valueDatas = valueDatas;
-        Elog.e("TAG", "setValueData");
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Elog.e("TAG", "onDraw");
         //画布背景
 //        canvas.drawColor(Color.WHITE);
-
         arrPaintArc[0].setTextSize(25);
         arrPaintArc[3].setTextSize(25);
 

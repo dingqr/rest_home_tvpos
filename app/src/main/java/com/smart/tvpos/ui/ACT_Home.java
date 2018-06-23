@@ -10,24 +10,22 @@ import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
-import com.smart.framework.library.common.utils.CommonUtils;
+import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
-import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
+import com.smart.tvpos.bean.AdmitLivingEntity;
+import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
-import com.smart.tvpos.global.API;
-import com.smart.tvpos.manager.ReqCallBack;
-import com.smart.tvpos.manager.RequestManager;
-import com.smart.tvpos.util.Constants;
+import com.smart.tvpos.mvp.HomePresenter;
+import com.smart.tvpos.mvp.IHomeView;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
 import com.smart.tvpos.widgets.PannelChartView;
 import com.smart.tvpos.widgets.RingChartView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -38,7 +36,7 @@ import butterknife.OnClick;
  * wechat：18510829974
  * description：主页：数据监控
  */
-public class ACT_Home extends BaseActivity {
+public class ACT_Home extends BaseActivity implements IHomeView {
     @Bind(R.id.tv_rest_home_num)
     TextView tvRestHomeNum;
     @Bind(R.id.tv_user_num)
@@ -64,6 +62,7 @@ public class ACT_Home extends BaseActivity {
     private List<HomeMenuEntity> menuList = new ArrayList();
     private String[] memuTitle = {"数据监控", "概览", "护理进度"};
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
+    private HomePresenter mPresenter;
 
     @Override
     protected void getBundleExtras(Bundle extras) {
@@ -72,6 +71,15 @@ public class ACT_Home extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
+        initPopupWindow();
+
+        initChartView();
+
+        //联网获取数据
+        requestNet();
+    }
+
+    private void initPopupWindow() {
         for (int i = 0; i < 3; i++) {
             HomeMenuEntity itemMenu = new HomeMenuEntity();
             itemMenu.menuIcon = memuIcons[i];
@@ -89,7 +97,9 @@ public class ACT_Home extends BaseActivity {
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                        if (position == 0) {
+                            readyGo(ACT_WatchingOverview.class);
+                        }
                     }
                 });
             }
@@ -99,19 +109,9 @@ public class ACT_Home extends BaseActivity {
             }
         };
         mPopuplayoutGravity = new CommonPopupWindow.LayoutGravity(CommonPopupWindow.LayoutGravity.ALIGN_ABOVE | CommonPopupWindow.LayoutGravity.TO_RIGHT);
-
-        initChartView();
-
-        //联网获取数据
-        requestNet();
     }
 
     private void initChartView() {
-        /**
-         * 接待入住
-         */
-        int[] valueDatas = {50, 35, 80};
-//        mPannelChartView.setValueData(valueDatas);
         /**
          *  入住用户
          */
@@ -190,128 +190,20 @@ public class ACT_Home extends BaseActivity {
 
     }
 
-    /**
-     * 联网获取数据
-     */
+
     private void requestNet() {
-        //1.入住养老院数等
-        requestHeaderData();
-        //2.入住用戶
-        requestLivingUserData();
+        mPresenter = new HomePresenter(this);
+        //1. 入住养老院数等
+        mPresenter.getHeaderData("branchNum");
+        //2. 接待入住
+        mPresenter.getAdmitLivingData("admitInOut");
+        //3. 入住用户
+        mPresenter.getLivingUserData("user");
+        //4. 近三个月报警数据
+        mPresenter.getAlertData("warning");
+        //5. 入住养老入住\用户整体趋势
+        mPresenter.getLivingTrendData("branchUserTrend");
     }
-
-    /**
-     * 1.	入住养老院数等
-     */
-    private void requestHeaderData() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", "branchNum");
-        params.put("name", "hafuadmin");
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<HomeHeadEntity>() {
-
-            @Override
-            public void onReqSuccess(HomeHeadEntity result) {
-                Log.e("TAG", "branchNum=" + result);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
-
-    /**
-     * 2.	入住养老入住\用户整体趋势
-     */
-    private void requesLivingTrendData() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", "user");//????接口数据存在问题
-        params.put("name", "hafuadmin");
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
-
-            @Override
-            public void onReqSuccess(String result) {
-                Log.e("TAG", "admitInOut=" + result);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
-
-    /**
-     * 3. 接待入住
-     */
-    private void requestAdmitLivingData() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", "admitInOut");
-        params.put("name", "hafuadmin");
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
-
-            @Override
-            public void onReqSuccess(String result) {
-                Log.e("TAG", "admitInOut=" + result);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
-
-    /**
-     * 4. 入住用户
-     */
-    private void requestLivingUserData() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", "user");
-        params.put("name", "hafuadmin");
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
-
-            @Override
-            public void onReqSuccess(String result) {
-                Log.e("TAG", "user=" + result);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
-
 
     @Override
     protected int getContentViewLayoutID() {
@@ -371,5 +263,47 @@ public class ACT_Home extends BaseActivity {
     @Override
     protected TransitionMode getOverridePendingTransitionMode() {
         return TransitionMode.RIGHT;
+    }
+
+    @Override
+    public void getHeaderData(HomeHeadEntity bean) {
+        if (bean != null) {
+            //入住养老院
+            tvRestHomeNum.setText(bean.getNumBranch() + "");
+            //入住用户数
+            tvUserNum.setText(bean.getNumUser() + "");
+            //床位数
+            tvBedroomNum.setText(bean.getNumBed() + "");
+            //入住率
+            tvLiveRate.setText(StringUtil.getFormattedMoney(bean.getNumIn() * 1.0 / bean.getNumBed() * 100 + ""));
+
+        }
+    }
+
+    @Override
+    public void getAdmitLivingData(AdmitLivingEntity bean) {
+        /**
+         * 接待入住
+         */
+//        int[] valueDatas = {bean.getAdminNum(), bean.getInNum(), bean.getOutNum()};
+        int[] valueDatas = {30, 50, 90};
+        mPannelChartView.setValueData(valueDatas);
+    }
+
+    @Override
+    public void getLivingUserData(List<ChartCommonEntity> dataList) {
+        for (int i = 0; i < dataList.size(); i++) {
+            Log.e("TAG", "item=" + dataList.get(i).keyName+"-----item-value=" + dataList.get(i).value);
+        }
+    }
+
+    @Override
+    public void getAlertData(ChartCommonEntity bean) {
+
+    }
+
+    @Override
+    public void getLivingTrendData(ChartCommonEntity bean) {
+
     }
 }

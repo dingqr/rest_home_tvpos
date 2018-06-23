@@ -15,11 +15,11 @@ public class HomeHeadEntity {
      * numUser : 39
      */
 
-    private int num;
-    private int numBed;
-    private int numBranch;
-    private int numIn;
-    private int numUser;
+    private int num; //床位数+咨询数
+    private int numBed;//床位数
+    private int numBranch;//养老院数
+    private int numIn;//入住床位数
+    private int numUser;//入住用户数
 
     public int getNum() {
         return num;
