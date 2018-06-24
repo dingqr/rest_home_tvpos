@@ -112,7 +112,6 @@ public class DoubleCurveChartView extends View {
         upStartX = 40;
         //起始点Y的位置（+1的原因：X轴画笔的宽度为2 ; +DP2PX.dip2px(mContext, 5)原因：为刻度文字所占的超出的高度 ）——>解决曲线画到最大刻度值时，显示高度不够，曲线显示扁扁的问题
         upStartY = yAxisSpace * (mYAxisData.length - 1) + 1 + DP2PX.dip2px(mContext, keduTextSize);
-        Elog.e("TAG", "initView-upStartX=" + upStartX + "---upStartY=" + upStartY);
         originalUpStartX = upStartX;
         originalUpStartY = upStartY;
 
@@ -127,6 +126,9 @@ public class DoubleCurveChartView extends View {
         mYAxisMaxValue = (mYAxisData.length - 1) * yAxisSpace;
 
         mPoints = initPoint();
+        //坐标起始点Y轴高度=(upStartY+mKeduWidth)  下方文字所占高度= DP2PX.dip2px(mContext, keduTextSize)
+        int viewHeight = upStartY + 2 * mKeduWidth + DP2PX.dip2px(mContext, keduTextSize);
+        Elog.e("TAG", "viewHeight=" + viewHeight);
     }
 
     private void initData() {
@@ -175,7 +177,7 @@ public class DoubleCurveChartView extends View {
                 //绘制左边Y轴刻度线
                 canvas.drawLine(upStartX, yAxisHeight, upStartX - mKeduWidth, yAxisHeight, mAxisPaint);
             }
-            //5为刻度文字的大小
+            //绘制文字时,Y轴方向递增的高度
             int yTextHeight = upStartY - yAxisSpace * i;
             //绘制Y轴刻度旁边的刻度文字值,10为刻度线与文字的间距
             mPaintText.setTextAlign(Paint.Align.RIGHT);
@@ -190,6 +192,7 @@ public class DoubleCurveChartView extends View {
         for (int i = 0; i < mXAxisData.size(); i++) {
             int xTextWidth = upStartX + xAxisSpace * i - mKeduWidth;
             mPaintText.setTextAlign(Paint.Align.LEFT);
+            //canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 1 * mKeduWidth +, mPaintText); //紧挨着X轴画文字
             canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 2 * mKeduWidth, mPaintText);
         }
         //连接所有的数据点,画曲线
@@ -237,6 +240,4 @@ public class DoubleCurveChartView extends View {
             canvas.drawLine(startp.x, startp.y, endp.x, endp.y, mPaint);
         }
     }
-
-
 }

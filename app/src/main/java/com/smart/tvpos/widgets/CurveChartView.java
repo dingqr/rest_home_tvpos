@@ -62,6 +62,7 @@ public class CurveChartView extends View {
     //绘制X轴上方的画笔
     private Paint mXAxisLinePaint;
     private Paint mPaintText;
+    private float keduTextSize = 5;
 
     public CurveChartView(Context context) {
         this(context, null);
@@ -102,7 +103,7 @@ public class CurveChartView extends View {
         //绘制刻度值文字的画笔
         mPaintText = new Paint();
         //文字大小10px
-        mPaintText.setTextSize(DP2PX.dip2px(mContext, 5));
+        mPaintText.setTextSize(DP2PX.dip2px(mContext, keduTextSize));
         mPaintText.setColor(ContextCompat.getColor(mContext, R.color.color_a9c6d6));
         mPaintText.setAntiAlias(true);
         mPaintText.setStrokeWidth(1);
@@ -110,8 +111,7 @@ public class CurveChartView extends View {
         //指定绘制的起始位置
         upStartX = 40;
         //起始点Y的位置（+1的原因：X轴画笔的宽度为2 ; +DP2PX.dip2px(mContext, 5)原因：为刻度文字所占的超出的高度 ）——>解决曲线画到最大刻度值时，显示高度不够，曲线显示扁扁的问题
-        upStartY = yAxisSpace * (mYAxisData.length - 1) + 1 + DP2PX.dip2px(mContext, 5);
-        Elog.e("TAG", "initView-upStartX=" + upStartX + "---upStartY=" + upStartY);
+        upStartY = yAxisSpace * (mYAxisData.length - 1) + 1 + DP2PX.dip2px(mContext, keduTextSize);
         originalUpStartX = upStartX;
         originalUpStartY = upStartY;
 
@@ -126,6 +126,10 @@ public class CurveChartView extends View {
         mYAxisMaxValue = (mYAxisData.length - 1) * yAxisSpace;
 
         mPoints = initPoint();
+        //坐标起始点Y轴高度=(upStartY+mKeduWidth)  下方文字所占高度= DP2PX.dip2px(mContext, keduTextSize)
+        int viewHeight = upStartY + 2 * mKeduWidth + DP2PX.dip2px(mContext, keduTextSize);
+        //viewHeight=121
+        Elog.e("TAG", "viewHeight=" + viewHeight);
     }
 
     private void initData() {
@@ -174,7 +178,7 @@ public class CurveChartView extends View {
                 //绘制左边Y轴刻度线
                 canvas.drawLine(upStartX, yAxisHeight, upStartX - mKeduWidth, yAxisHeight, mAxisPaint);
             }
-            //5为刻度文字的大小
+            //绘制文字时,Y轴方向递增的高度
             int yTextHeight = upStartY - yAxisSpace * i;
             //绘制Y轴刻度旁边的刻度文字值,10为刻度线与文字的间距
             mPaintText.setTextAlign(Paint.Align.RIGHT);
@@ -189,6 +193,7 @@ public class CurveChartView extends View {
         for (int i = 0; i < mXAxisData.size(); i++) {
             int xTextWidth = upStartX + xAxisSpace * i - mKeduWidth;
             mPaintText.setTextAlign(Paint.Align.LEFT);
+            //canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 1 * mKeduWidth +, mPaintText); //紧挨着X轴画文字
             canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 2 * mKeduWidth, mPaintText);
         }
         //连接所有的数据点,画曲线
@@ -236,6 +241,4 @@ public class CurveChartView extends View {
             canvas.drawLine(startp.x, startp.y, endp.x, endp.y, mPaint);
         }
     }
-
-
 }

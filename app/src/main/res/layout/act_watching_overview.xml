@@ -8,7 +8,6 @@
         android:id="@+id/ll_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36px"
         android:layout_marginTop="10px"
         android:orientation="horizontal">
 
@@ -61,7 +60,7 @@
 
     <com.smart.tvpos.widgets.CurveChartView
         android:layout_width="540px"
-        android:layout_height="550px"
+        android:layout_height="121px"
         android:layout_below="@+id/ll_title" />
 
 </com.zhy.autolayout.AutoRelativeLayout>

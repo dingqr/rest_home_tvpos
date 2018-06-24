@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by JoJo on 2018/6/24.
  * wechat：18510829974
- * description：曲线统计图表
+ * description：曲线统计图表——>原始案例：https://www.cnblogs.com/justboy/articles/5647253.html
  */
 public class CurveGraphicView extends View {
     /**
