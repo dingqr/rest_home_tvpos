@@ -59,6 +59,7 @@
 
 
     <com.smart.tvpos.widgets.CurveChartView
+        android:id="@+id/curveViewUp"
         android:layout_width="540px"
         android:layout_height="121px"
         android:layout_below="@+id/ll_title" />

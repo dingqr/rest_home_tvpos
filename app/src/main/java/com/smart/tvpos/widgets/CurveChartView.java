@@ -63,7 +63,8 @@ public class CurveChartView extends View {
     private Paint mXAxisLinePaint;
     private Paint mPaintText;
     private float keduTextSize = 5;
-
+    //刻度线与刻度值文字直接的间距
+    private int keduTextSpace = 4;
     public CurveChartView(Context context) {
         this(context, null);
     }
@@ -125,7 +126,6 @@ public class CurveChartView extends View {
         //Y轴绘制距离
         mYAxisMaxValue = (mYAxisData.length - 1) * yAxisSpace;
 
-        mPoints = initPoint();
         //坐标起始点Y轴高度=(upStartY+mKeduWidth)  下方文字所占高度= DP2PX.dip2px(mContext, keduTextSize)
         int viewHeight = upStartY + 2 * mKeduWidth + DP2PX.dip2px(mContext, keduTextSize);
         //viewHeight=121
@@ -169,6 +169,8 @@ public class CurveChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        mPoints = initPoint();
+
         for (int i = 0; i < mYAxisData.length; i++) {
             //Y轴方向递增的高度
             int yAxisHeight = upStartY - yAxisSpace * (i + 1);
@@ -182,7 +184,7 @@ public class CurveChartView extends View {
             int yTextHeight = upStartY - yAxisSpace * i;
             //绘制Y轴刻度旁边的刻度文字值,10为刻度线与文字的间距
             mPaintText.setTextAlign(Paint.Align.RIGHT);
-            canvas.drawText(mYAxisData[i] + "", (upStartX - mKeduWidth) - 10, yTextHeight, mPaintText);
+            canvas.drawText(mYAxisData[i] + "", (upStartX - mKeduWidth) - keduTextSpace, yTextHeight, mPaintText);
         }
         //绘制X轴
         canvas.drawLine(upStartX - mKeduWidth, upStartY, upStartX + mXAxisMaxValue, upStartY, mAxisPaint);
@@ -240,5 +242,14 @@ public class CurveChartView extends View {
             endp = mPoints[i + 1];
             canvas.drawLine(startp.x, startp.y, endp.x, endp.y, mPaint);
         }
+    }
+
+    /**
+     * 传入数据，重新绘制图表
+     * @param mIncressUserList
+     */
+    public void setData(ArrayList<Integer> mIncressUserList) {
+        this.mRealDatas = mIncressUserList;
+        postInvalidate();
     }
 }
