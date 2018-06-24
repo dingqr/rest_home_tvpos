@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="523"
+                    android:text="0"
                     android:textColor="@color/color_53ddf2"
                     android:textSize="24sp" />
 
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="523"
+                    android:text="0"
                     android:textColor="@color/color_53ddf2"
                     android:textSize="24sp" />
 
@@ -176,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="523"
+                    android:text="0"
                     android:textColor="@color/color_53ddf2"
                     android:textSize="24sp" />
 
@@ -216,7 +216,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="53.01"
+                    android:text="0.00"
                     android:textColor="@color/color_53ddf2"
                     android:textSize="24sp" />
 
@@ -915,21 +915,36 @@
     <!--地图下方文字-->
     <!--地图-->
     <!--江浙沪-->
-    <ImageView
-        android:id="@+id/iv_jiangzhe"
+    <RelativeLayout
+        android:id="@+id/fl_jiangzhe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/rl_map_des"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="220px"
-        android:src="@drawable/bg_map_jiangzhe" />
+        android:layout_marginBottom="220px">
 
-    <ImageView
+        <ImageView
+            android:id="@+id/iv_jiangzhe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_map_jiangzhe" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fl_shanghai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="300px"
-        android:layout_toRightOf="@+id/iv_jiangzhe"
-        android:src="@drawable/bg_map_shanghai" />
+        android:layout_toRightOf="@+id/fl_jiangzhe">
+
+        <ImageView
+            android:id="@+id/iv_shanghai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/bg_map_shanghai" />
+    </RelativeLayout>
+
     <!--地图-->
 </com.zhy.autolayout.AutoRelativeLayout>

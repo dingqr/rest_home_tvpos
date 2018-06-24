@@ -19,4 +19,6 @@ public interface IHomePresenter {
     void getUserNurseData(String requestType);
 
     void getStaffData(String requestType);
+
+    void getBranchAddress(String requestType);
 }

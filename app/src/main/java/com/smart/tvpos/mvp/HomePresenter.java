@@ -9,6 +9,7 @@ import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.bean.AdmitLivingEntity;
+import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
@@ -247,6 +248,37 @@ public class HomePresenter implements IHomePresenter {
             public void onReqSuccess(List<StaffEntity> result) {
                 Elog.e("TAG", "staff=" + result);
                 mView.getStaffData(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 分院的地址
+     * @param requestType  branchList
+     */
+    @Override
+    public void getBranchAddress(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("name", "branchList");
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<BranchAddressEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<BranchAddressEntity> result) {
+                Elog.e("TAG", "branchList=" + result);
+                mView.getBranchAddress(result);
             }
 
             @Override

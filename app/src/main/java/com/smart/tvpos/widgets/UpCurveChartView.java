@@ -192,6 +192,7 @@ public class UpCurveChartView extends View {
         //绘制X轴下面显示的文字
         for (int i = 0; i < mXAxisData.size(); i++) {
             int xTextWidth = upStartX + xAxisSpace * i - mKeduWidth;
+            //设置从起点位置的左边对齐绘制文字
             mPaintText.setTextAlign(Paint.Align.LEFT);
             //canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 1 * mKeduWidth +, mPaintText); //紧挨着X轴画文字
             canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 2 * mKeduWidth, mPaintText);

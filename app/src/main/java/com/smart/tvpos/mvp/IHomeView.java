@@ -3,6 +3,7 @@ package com.smart.tvpos.mvp;
 
 import com.smart.framework.library.base.BaseView;
 import com.smart.tvpos.bean.AdmitLivingEntity;
+import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
@@ -31,4 +32,6 @@ public interface IHomeView extends BaseView {
     void getUserNurseData(List<NurseLevelEntity> dataList);
 
     void getStaffData(List<StaffEntity> dataList);
+
+    void getBranchAddress(List<BranchAddressEntity> dataList);
 }

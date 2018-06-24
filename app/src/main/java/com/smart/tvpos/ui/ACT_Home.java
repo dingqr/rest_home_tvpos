@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
@@ -16,6 +17,7 @@ import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
 import com.smart.tvpos.bean.AdmitLivingEntity;
+import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
@@ -69,6 +71,14 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     UpCurveChartView mUpCurveView;
     @Bind(R.id.curveViewDown)
     DownCurveChartView mDowncurveView;
+    @Bind(R.id.iv_jiangzhe)
+    ImageView ivJiangzhe;
+    @Bind(R.id.iv_shanghai)
+    ImageView ivShanghai;
+    @Bind(R.id.fl_jiangzhe)
+    RelativeLayout flJiangzhe;
+    @Bind(R.id.fl_shanghai)
+    RelativeLayout flShanghai;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
@@ -88,6 +98,39 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     @Override
     protected void initViewsAndEvents() {
+        int[] location = new int[2];
+        ivJiangzhe.getLocationOnScreen(location);
+        int x = location[0];
+        int y = location[1];
+        Elog.e("jiangzhe", "jiangzhe" + "x=" + x + "--" + "y=" + y);
+        Elog.e("jiangzhe", "jiangzhe" + "left=" + ivJiangzhe.getLeft() + "--" + "bottom=" + ivJiangzhe.getBottom());
+        Elog.e("shanghai", "shanghai" + "left=" + ivShanghai.getLeft() + "--" + "bottom=" + ivShanghai.getBottom());
+        //在地图上添加分院的点
+        //江浙沪
+        RelativeLayout.LayoutParams jiangzhelayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ImageView circleJiangzhe = new ImageView(mContext);
+        circleJiangzhe.setImageResource(R.drawable.ic_circle_jiangzhe);
+        //不起作用
+        //        jiangzhelayoutParams.setMargins(200, 100, 0, 0);
+        jiangzhelayoutParams.topMargin = 300;
+        jiangzhelayoutParams.leftMargin = 300;
+        circleJiangzhe.setLayoutParams(jiangzhelayoutParams);
+        flJiangzhe.addView(circleJiangzhe, 10, 10);
+//
+//        ImageView circleJiangzhe1= new ImageView(mContext);
+//        circleJiangzhe1.setImageResource(R.drawable.ic_circle_jiangzhe);
+//        jiangzhelayoutParams.setMargins(220, 120, 0, 0);
+//        circleJiangzhe1.setLayoutParams(jiangzhelayoutParams);
+//        flJiangzhe.addView(circleJiangzhe, 10, 10);
+
+
+        //上海
+//        RelativeLayout.LayoutParams shanghailayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        ImageView circleShanghai = new ImageView(mContext);
+//        circleShanghai.setImageResource(R.drawable.ic_circle_shanghai);
+//        shanghailayoutParams.setMargins(200, 200, 0, 0);
+//        circleShanghai.setLayoutParams(shanghailayoutParams);
+//        flShanghai.addView(circleJiangzhe, 10, 10);
         initPopupWindow();
 
         initChartView();
@@ -232,6 +275,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mPresenter.getUserNurseData("userByNurse");
         //7. 员工统计
         mPresenter.getStaffData("staff");
+        //8.分院地址
+        mPresenter.getBranchAddress("branchList");
     }
 
 
@@ -427,12 +472,15 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     }
 
     /**
-     * 5、护理级别
+     * 6、护理级别
      *
      * @param dataList
      */
     @Override
     public void getUserNurseData(List<NurseLevelEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            return;
+        }
         List<Integer> nurseLevelChartcolorList = new ArrayList<>();
         //专户，一级，二级，三级
         int[] colors = {R.color.color_55c7f2, R.color.color_5ffefd, R.color.color_e36853, R.color.color_7c80fe};
@@ -472,7 +520,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     }
 
     /**
-     * 6、员工统计
+     * 7、员工统计
      *
      * @param dataList
      */
@@ -519,6 +567,22 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         }
         mChartviewEmployeeView.setShow(employeeChartcolorList, employeeChartRateList, true, true);
         mChartviewEmployeeView.setShowTextList(showTextList);
+    }
+
+    /**
+     * 8.分院地址
+     *
+     * @param dataList
+     */
+    @Override
+    public void getBranchAddress(List<BranchAddressEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < dataList.size(); i++) {
+            //分院名称
+            Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
+        }
     }
 
 }
