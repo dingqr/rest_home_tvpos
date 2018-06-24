@@ -21,11 +21,11 @@ import java.util.ArrayList;
  * wechat：18510829974
  * description：带坐标的双曲线图（上下两个坐标）
  */
-public class DoubleCurveChartView extends View {
+public class DownCurveChartView extends View {
     private Context mContext;
     //向上的曲线图的绘制起点(px)
-    private int upStartX;
-    private int upStartY;
+//    private int downStartX;
+//    private int downStartY;
     //向下的曲线图的绘制起点(px)
     private int downStartX;
     private int downStartY;
@@ -42,7 +42,7 @@ public class DoubleCurveChartView extends View {
     //X轴刻度间距(px)
     private int xAxisSpace = 90;
     //Y轴刻度集合
-    private int[] mYAxisData = new int[]{0, 200, 400, 600, 800};
+    private int[] mYAxisData = new int[]{0, 2, 4, 6, 8};
     //X轴刻度集合
     private ArrayList<String> mXAxisData = new ArrayList<>();
     //最大刻度值
@@ -51,8 +51,6 @@ public class DoubleCurveChartView extends View {
     private int mXAxisMaxValue;
     //Y轴的绘制距离
     private int mYAxisMaxValue;
-    private int originalUpStartX;
-    private int originalUpStartY;
     //Y轴刻度线宽度
     private int mKeduWidth = 10;
     //绘制坐标轴的画笔
@@ -65,16 +63,17 @@ public class DoubleCurveChartView extends View {
     private float keduTextSize = 5;
     //刻度线与刻度值文字直接的间距
     private int keduTextSpace = 4;
-
-    public DoubleCurveChartView(Context context) {
+    //X轴的偏移量
+    private int xOffset = 46;
+    public DownCurveChartView(Context context) {
         this(context, null);
     }
 
-    public DoubleCurveChartView(Context context, @Nullable AttributeSet attrs) {
+    public DownCurveChartView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DoubleCurveChartView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DownCurveChartView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         initData();
@@ -85,7 +84,7 @@ public class DoubleCurveChartView extends View {
     private void initView() {
         //初始化画笔
         mPaint = new Paint();
-        mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_efaf34));
+        mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_4487bc));
         mPaint.setStrokeWidth(2);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
@@ -111,12 +110,9 @@ public class DoubleCurveChartView extends View {
         mPaintText.setStrokeWidth(1);
 
         //指定绘制的起始位置
-        upStartX = 40;
-        //起始点Y的位置（+1的原因：X轴画笔的宽度为2 ; +DP2PX.dip2px(mContext, 5)原因：为刻度文字所占的超出的高度 ）——>解决曲线画到最大刻度值时，显示高度不够，曲线显示扁扁的问题
-        upStartY = yAxisSpace * (mYAxisData.length - 1) + 1 + DP2PX.dip2px(mContext, keduTextSize);
-        originalUpStartX = upStartX;
-        originalUpStartY = upStartY;
-
+        downStartX = xOffset;
+        //坐标原点Y的位置(距离左上角Y方向的mKeduWidth位置)
+        downStartY = mKeduWidth;
         //最大刻度值
         maxKeduValue = (mYAxisData[mYAxisData.length - 1]);
         //每单位的值所占的像素
@@ -127,26 +123,64 @@ public class DoubleCurveChartView extends View {
         //Y轴绘制距离
         mYAxisMaxValue = (mYAxisData.length - 1) * yAxisSpace;
 
-        //坐标起始点Y轴高度=(upStartY+mKeduWidth)  下方文字所占高度= DP2PX.dip2px(mContext, keduTextSize)
-        int viewHeight = upStartY + 2 * mKeduWidth + DP2PX.dip2px(mContext, keduTextSize);
+        //坐标起始点Y轴高度=(downStartY+mKeduWidth)  下方文字所占高度= DP2PX.dip2px(mContext, keduTextSize)
+        int viewHeight = downStartY + 2 * mKeduWidth + DP2PX.dip2px(mContext, keduTextSize);
         //viewHeight=121
         Elog.e("TAG", "viewHeight=" + viewHeight);
     }
 
     private void initData() {
         //外界传入的数据，即为绘制曲线的每个点
-        mRealDatas.add(100);
-        mRealDatas.add(700);
-        mRealDatas.add(400);
-        mRealDatas.add(800);
-        mRealDatas.add(200);
+        mRealDatas.add(0);
+        mRealDatas.add(2);
+        mRealDatas.add(4);
+        mRealDatas.add(2);
+        mRealDatas.add(6);
 
         //X轴数据
-        mXAxisData.add("01月");
-        mXAxisData.add("02月");
-        mXAxisData.add("03月");
-        mXAxisData.add("04月");
-        mXAxisData.add("05月");
+//        mXAxisData.add("01月");
+//        mXAxisData.add("02月");
+//        mXAxisData.add("03月");
+//        mXAxisData.add("04月");
+//        mXAxisData.add("05月");
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        mPoints = initPoint();
+        //绘制X轴
+        canvas.drawLine(downStartX - mKeduWidth, downStartY, downStartX + mXAxisMaxValue, downStartY, mAxisPaint);
+        //绘制Y轴
+        canvas.drawLine(downStartX, downStartY, downStartX, downStartY + mYAxisMaxValue, mAxisPaint);
+
+        for (int i = 0; i < mYAxisData.length; i++) {
+            //Y轴方向递增的高度
+            int yAxisHeight = downStartY + yAxisSpace * (i + 1);
+            if (i < mYAxisData.length - 1) {
+                //绘制X轴下方横线
+                canvas.drawLine(downStartX, yAxisHeight, downStartX + mXAxisMaxValue, yAxisHeight, mXAxisLinePaint);
+                //绘制左边Y轴刻度线
+                canvas.drawLine(downStartX, yAxisHeight, downStartX - mKeduWidth, yAxisHeight, mAxisPaint);
+            }
+            //绘制文字时,Y轴方向递增的高度
+            int yTextHeight = downStartY + yAxisSpace * i;
+            //绘制Y轴刻度旁边的刻度文字值,10为刻度线与文字的间距
+            mPaintText.setTextAlign(Paint.Align.RIGHT);
+            canvas.drawText(mYAxisData[i] + "", (downStartX - mKeduWidth) - keduTextSpace, yTextHeight, mPaintText);
+        }
+        //绘制X轴下面显示的文字
+//        for (int i = 0; i < mXAxisData.size(); i++) {
+//            int xTextWidth = downStartX + xAxisSpace * i - mKeduWidth;
+//            mPaintText.setTextAlign(Paint.Align.LEFT);
+//            //canvas.drawText(mXAxisData.get(i), xTextWidth, downStartY + 1 * mKeduWidth +, mPaintText); //紧挨着X轴画文字
+//            canvas.drawText(mXAxisData.get(i), xTextWidth, downStartY + 2 * mKeduWidth, mPaintText);
+//        }
+        //连接所有的数据点,画曲线
+        drawScrollLine(canvas);
+        //画折线
+        // drawLine(canvas);
     }
 
     /**
@@ -158,51 +192,12 @@ public class DoubleCurveChartView extends View {
         Point[] points = new Point[mRealDatas.size()];
         for (int i = 0; i < mRealDatas.size(); i++) {
             Integer ybean = mRealDatas.get(i);
-            int drawHeight = (int) (upStartY * 1.0 - (ybean * YAxisUpUnitValue));
-            int startx = upStartX + xAxisSpace * i;
+            int drawHeight = downStartY + (int) (ybean * YAxisUpUnitValue);
+            int startx = downStartX + xAxisSpace * i;
             points[i] = new Point(startx, drawHeight);
         }
-        Elog.e("TAG", "upStartX=" + upStartX + "---upStartY=" + upStartY);
+        Elog.e("TAG", "downStartX=" + downStartX + "---downStartY=" + downStartY);
         return points;
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        mPoints = initPoint();
-
-        for (int i = 0; i < mYAxisData.length; i++) {
-            //Y轴方向递增的高度
-            int yAxisHeight = upStartY - yAxisSpace * (i + 1);
-            if (i < mYAxisData.length - 1) {
-                //绘制X轴上方横线
-                canvas.drawLine(upStartX, yAxisHeight, upStartX + mXAxisMaxValue, yAxisHeight, mXAxisLinePaint);
-                //绘制左边Y轴刻度线
-                canvas.drawLine(upStartX, yAxisHeight, upStartX - mKeduWidth, yAxisHeight, mAxisPaint);
-            }
-            //绘制文字时,Y轴方向递增的高度
-            int yTextHeight = upStartY - yAxisSpace * i;
-            //绘制Y轴刻度旁边的刻度文字值,10为刻度线与文字的间距
-            mPaintText.setTextAlign(Paint.Align.RIGHT);
-            canvas.drawText(mYAxisData[i] + "", (upStartX - mKeduWidth) - keduTextSpace, yTextHeight, mPaintText);
-        }
-        //绘制X轴
-        canvas.drawLine(upStartX - mKeduWidth, upStartY, upStartX + mXAxisMaxValue, upStartY, mAxisPaint);
-        //绘制Y轴
-        canvas.drawLine(upStartX, upStartY + mKeduWidth, upStartX, upStartY - mYAxisMaxValue, mAxisPaint);
-
-        //绘制X轴下面显示的文字
-        for (int i = 0; i < mXAxisData.size(); i++) {
-            int xTextWidth = upStartX + xAxisSpace * i - mKeduWidth;
-            mPaintText.setTextAlign(Paint.Align.LEFT);
-            //canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 1 * mKeduWidth +, mPaintText); //紧挨着X轴画文字
-            canvas.drawText(mXAxisData.get(i), xTextWidth, upStartY + 2 * mKeduWidth, mPaintText);
-        }
-        //连接所有的数据点,画曲线
-        drawScrollLine(canvas);
-        //画折线
-        // drawLine(canvas);
     }
 
     /**
@@ -252,6 +247,7 @@ public class DoubleCurveChartView extends View {
      */
     public void setData(ArrayList<Integer> mIncressUserList) {
         this.mRealDatas = mIncressUserList;
+//        this.mXAxisData = xAxisData;
         postInvalidate();
     }
 }

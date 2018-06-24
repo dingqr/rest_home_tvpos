@@ -19,9 +19,9 @@ import java.util.ArrayList;
 /**
  * Created by JoJo on 2018/6/24.
  * wechat：18510829974
- * description：带坐标的曲线图
+ * description：带坐标的曲线图：在布局中使用必须指定 精确的宽高才能调整其放置的位置
  */
-public class CurveChartView extends View {
+public class UpCurveChartView extends View {
     private Context mContext;
     //向上的曲线图的绘制起点(px)
     private int upStartX;
@@ -42,7 +42,7 @@ public class CurveChartView extends View {
     //X轴刻度间距(px)
     private int xAxisSpace = 90;
     //Y轴刻度集合
-    private int[] mYAxisData = new int[]{0, 200, 400, 600, 800};
+    private int[] mYAxisData = new int[]{0, 2, 4, 6};
     //X轴刻度集合
     private ArrayList<String> mXAxisData = new ArrayList<>();
     //最大刻度值
@@ -51,8 +51,6 @@ public class CurveChartView extends View {
     private int mXAxisMaxValue;
     //Y轴的绘制距离
     private int mYAxisMaxValue;
-    private int originalUpStartX;
-    private int originalUpStartY;
     //Y轴刻度线宽度
     private int mKeduWidth = 10;
     //绘制坐标轴的画笔
@@ -65,15 +63,17 @@ public class CurveChartView extends View {
     private float keduTextSize = 5;
     //刻度线与刻度值文字直接的间距
     private int keduTextSpace = 4;
-    public CurveChartView(Context context) {
+    //X轴的偏移量
+    private int xOffset = 46;
+    public UpCurveChartView(Context context) {
         this(context, null);
     }
 
-    public CurveChartView(Context context, @Nullable AttributeSet attrs) {
+    public UpCurveChartView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CurveChartView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public UpCurveChartView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         initData();
@@ -110,11 +110,9 @@ public class CurveChartView extends View {
         mPaintText.setStrokeWidth(1);
 
         //指定绘制的起始位置
-        upStartX = 40;
-        //起始点Y的位置（+1的原因：X轴画笔的宽度为2 ; +DP2PX.dip2px(mContext, 5)原因：为刻度文字所占的超出的高度 ）——>解决曲线画到最大刻度值时，显示高度不够，曲线显示扁扁的问题
+        upStartX = xOffset;
+        //坐标原点Y的位置（+1的原因：X轴画笔的宽度为2 ; +DP2PX.dip2px(mContext, 5)原因：为刻度文字所占的超出的高度 ）——>解决曲线画到最大刻度值时，显示高度不够，曲线显示扁扁的问题
         upStartY = yAxisSpace * (mYAxisData.length - 1) + 1 + DP2PX.dip2px(mContext, keduTextSize);
-        originalUpStartX = upStartX;
-        originalUpStartY = upStartY;
 
         //最大刻度值
         maxKeduValue = (mYAxisData[mYAxisData.length - 1]);
@@ -135,9 +133,9 @@ public class CurveChartView extends View {
     private void initData() {
         //外界传入的数据，即为绘制曲线的每个点
         mRealDatas.add(100);
-        mRealDatas.add(700);
+        mRealDatas.add(600);
         mRealDatas.add(400);
-        mRealDatas.add(800);
+        mRealDatas.add(150);
         mRealDatas.add(200);
 
         //X轴数据
@@ -189,7 +187,7 @@ public class CurveChartView extends View {
         //绘制X轴
         canvas.drawLine(upStartX - mKeduWidth, upStartY, upStartX + mXAxisMaxValue, upStartY, mAxisPaint);
         //绘制Y轴
-        canvas.drawLine(upStartX, upStartY + mKeduWidth, upStartX, upStartY - mYAxisMaxValue, mAxisPaint);
+        canvas.drawLine(upStartX, upStartY, upStartX, upStartY - mYAxisMaxValue, mAxisPaint);
 
         //绘制X轴下面显示的文字
         for (int i = 0; i < mXAxisData.size(); i++) {
@@ -246,10 +244,12 @@ public class CurveChartView extends View {
 
     /**
      * 传入数据，重新绘制图表
+     *
      * @param mIncressUserList
      */
-    public void setData(ArrayList<Integer> mIncressUserList) {
+    public void setData(ArrayList<Integer> mIncressUserList,ArrayList<String> xAxisData) {
         this.mRealDatas = mIncressUserList;
+        this.mXAxisData = xAxisData;
         postInvalidate();
     }
 }

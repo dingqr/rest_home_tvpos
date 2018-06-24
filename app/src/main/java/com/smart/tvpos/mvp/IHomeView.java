@@ -7,6 +7,7 @@ import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
+import com.smart.tvpos.bean.TrendDataEntity;
 import com.smart.tvpos.bean.WarningEntity;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface IHomeView extends BaseView {
 
     void getAlertData(WarningEntity bean);
 
-    void getLivingTrendData(ChartCommonEntity bean);
+    void getLivingTrendData(List<TrendDataEntity> dataList);
 
     void getUserNurseData(List<NurseLevelEntity> dataList);
 

@@ -21,13 +21,16 @@ import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
+import com.smart.tvpos.bean.TrendDataEntity;
 import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.mvp.HomePresenter;
 import com.smart.tvpos.mvp.IHomeView;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
+import com.smart.tvpos.widgets.DownCurveChartView;
 import com.smart.tvpos.widgets.PannelChartView;
 import com.smart.tvpos.widgets.RingChartView;
+import com.smart.tvpos.widgets.UpCurveChartView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,19 +58,28 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     @Bind(R.id.pannelChartView)
     PannelChartView mPannelChartView;
     @Bind(R.id.alertchartview)
-    RingChartView chartviewDataAlert;
+    RingChartView mChartviewDataAlertView;
     @Bind(R.id.userlivingchartview)
-    RingChartView chartviewUserLiving;
+    RingChartView mChartviewUserLivingView;
     @Bind(R.id.nurselevelchartview)
     RingChartView chartviewNurselevel;
     @Bind(R.id.employeechartview)
-    RingChartView chartviewEmployee;
+    RingChartView mChartviewEmployeeView;
+    @Bind(R.id.curveViewUp)
+    UpCurveChartView mUpCurveView;
+    @Bind(R.id.curveViewDown)
+    DownCurveChartView mDowncurveView;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
     private String[] memuTitle = {"数据监控", "概览", "护理进度"};
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
     private HomePresenter mPresenter;
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.act_home;
+    }
 
     @Override
     protected void getBundleExtras(Bundle extras) {
@@ -215,17 +227,13 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //4. 近三个月报警数据
         mPresenter.getAlertData("warning");
         //5. 入住养老入住\用户整体趋势
-//        mPresenter.getLivingTrendData("branchUserTrend");
+        mPresenter.getLivingTrendData("branchUserTrend");
         //6. 护理级别
         mPresenter.getUserNurseData("userByNurse");
         //7. 员工统计
         mPresenter.getStaffData("staff");
     }
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.act_home;
-    }
 
     @OnClick({R.id.iv_menu})
     public void onClick(View view) {
@@ -284,6 +292,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     /**
      * 1、入住养老院数据等
+     *
      * @param bean
      */
     @Override
@@ -345,8 +354,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             userLivingChartRateList.add(bean.value * 1f / mPresenter.livingTotal * 100);
             showTextList.add(bean.keyName);
         }
-        chartviewUserLiving.setShow(userLivingChartcolorList, userLivingChartRateList, true, true);
-        chartviewUserLiving.setShowTextList(showTextList);
+        mChartviewUserLivingView.setShow(userLivingChartcolorList, userLivingChartRateList, true, true);
+        mChartviewUserLivingView.setShowTextList(showTextList);
 
     }
 
@@ -379,13 +388,42 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //设置显示的text
         showTextList.add(MyApplication.getContext().getString(R.string.string_handled) + Float.parseFloat(formatHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
         showTextList.add(MyApplication.getContext().getString(R.string.string_unhandled) + Float.parseFloat(formatUnHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-        chartviewDataAlert.setShow(alertChartcolorList, alertChartRateList, true, true);
-        chartviewDataAlert.setShowTextList(showTextList);
+        mChartviewDataAlertView.setShow(alertChartcolorList, alertChartRateList, true, true);
+        mChartviewDataAlertView.setShowTextList(showTextList);
     }
 
+    /**
+     * 5.	入住养老入住\用户整体趋势
+     *
+     * @param dataList branchUserTrend
+     */
     @Override
-    public void getLivingTrendData(ChartCommonEntity bean) {
-
+    public void getLivingTrendData(List<TrendDataEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            return;
+        }
+        ArrayList<String> xAxisData = new ArrayList<>();
+        //新增养老院
+        ArrayList<Integer> branchNewAddList = new ArrayList<>();
+        //新增用户
+        ArrayList<Integer> userNewAddList = new ArrayList<>();
+        if (dataList.size() > 5) {
+            for (int i = 0; i < 5; i++) {
+                TrendDataEntity bean = dataList.get(i);
+                xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
+                userNewAddList.add(bean.getUserNewN());
+                branchNewAddList.add(bean.getBranchNewN());
+            }
+        } else {
+            for (int i = 0; i < dataList.size(); i++) {
+                TrendDataEntity bean = dataList.get(i);
+                xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
+                userNewAddList.add(bean.getUserNewN());
+                branchNewAddList.add(bean.getBranchNewN());
+            }
+        }
+        mUpCurveView.setData(userNewAddList, xAxisData);
+        mDowncurveView.setData(branchNewAddList);
     }
 
     /**
@@ -479,8 +517,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             StaffEntity bean = dataList.get(i);
             employeeChartRateList.add(Float.parseFloat(StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100)));
         }
-        chartviewEmployee.setShow(employeeChartcolorList, employeeChartRateList, true, true);
-        chartviewEmployee.setShowTextList(showTextList);
+        mChartviewEmployeeView.setShow(employeeChartcolorList, employeeChartRateList, true, true);
+        mChartviewEmployeeView.setShowTextList(showTextList);
     }
 
 }

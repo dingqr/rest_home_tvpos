@@ -7,11 +7,6 @@ import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.R;
-import com.smart.tvpos.widgets.CurveChartView;
-
-import java.util.ArrayList;
-
-import butterknife.Bind;
 
 /**
  * Created by JoJo on 2018/6/22.
@@ -19,10 +14,10 @@ import butterknife.Bind;
  * description：监控概览页面
  */
 public class ACT_WatchingOverview extends BaseActivity {
-    @Bind(R.id.curveViewUp)
-    CurveChartView curveViewUp;
-    private ArrayList<Integer> mIncressUserList = new ArrayList<>();
-    private ArrayList<String> mXAxisList = new ArrayList<>();
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.act_watching_overview;
+    }
     @Override
     protected void getBundleExtras(Bundle extras) {
 
@@ -33,19 +28,8 @@ public class ACT_WatchingOverview extends BaseActivity {
         initData();
     }
     private void initData() {
-        //外界传入的数据，即为绘制曲线的每个点
-        mIncressUserList.add(700);
-        mIncressUserList.add(100);
-        mIncressUserList.add(800);
-        mIncressUserList.add(400);
-        mIncressUserList.add(200);
-        curveViewUp.setData(mIncressUserList);
     }
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.act_watching_overview;
-    }
 
     @Override
     protected View getLoadingTargetView() {

@@ -25,5 +25,6 @@
     <string name="string_percent_symbol">%</string>
     <string name="string_handled">已处理</string>
     <string name="string_unhandled">未处理</string>
+    <string name="string_unit_month">月</string>
 
 </resources>

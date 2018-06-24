@@ -46,6 +46,11 @@ public class ACT_Login extends BaseActivity {
     private AppSharedPreferences sharePre;
 
     @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.act_login;
+    }
+
+    @Override
     protected void getBundleExtras(Bundle extras) {
 
     }
@@ -65,10 +70,6 @@ public class ACT_Login extends BaseActivity {
         }
     }
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.act_login;
-    }
 
     @OnClick({R.id.rb_get_code, R.id.rb_login})
     public void onClick(View view) {

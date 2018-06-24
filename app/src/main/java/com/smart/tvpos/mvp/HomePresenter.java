@@ -13,6 +13,7 @@ import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
+import com.smart.tvpos.bean.TrendDataEntity;
 import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.global.API;
 import com.smart.tvpos.manager.ReqCallBack;
@@ -116,8 +117,7 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqSuccess(String result) {
                 Elog.e("TAG", "user=" + result);
-                resolveJson(result);
-                mView.getLivingUserData(mLivingUserList);
+                mView.getLivingUserData(resolveLivingUserJson(result));
             }
 
             @Override
@@ -181,6 +181,7 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqSuccess(String result) {
                 Elog.e("TAG", "branchUserTrend=" + result);
+                mView.getLivingTrendData(resolveTrendJson(result));
             }
 
             @Override
@@ -211,7 +212,7 @@ public class HomePresenter implements IHomePresenter {
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<NurseLevelEntity>>() {
 
             @Override
-            public void onReqSuccess(List<NurseLevelEntity>  result) {
+            public void onReqSuccess(List<NurseLevelEntity> result) {
                 Elog.e("TAG", "nurse=" + result);
                 mView.getUserNurseData(result);
             }
@@ -260,17 +261,16 @@ public class HomePresenter implements IHomePresenter {
         });
     }
 
-    //入住用户
-    private List<ChartCommonEntity> mLivingUserList = new ArrayList<>();
+    //入住用户:总数
     public int livingTotal;
 
     /**
-     * 手动解析入住用户的json数据
+     * 解析入住用户的json数据
      *
      * @param jsonString
      */
-    private Map<String, Integer> resolveJson(String jsonString) {
-
+    private List<ChartCommonEntity> resolveLivingUserJson(String jsonString) {
+        List<ChartCommonEntity> mLivingUserList = new ArrayList<>();
         Gson gson = new Gson();
         Type type = new TypeToken<Map<String, Integer>>() {
         }.getType();
@@ -278,16 +278,39 @@ public class HomePresenter implements IHomePresenter {
         if (!TextUtils.isEmpty(jsonString)) {
             map = gson.fromJson(jsonString, type);
         }
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            Elog.e("TAG", entry.getKey() + "---|---" + entry.getValue().toString());
+        for (Map.Entry<String, Integer> item : map.entrySet()) {
+            Elog.e("map", item.getKey() + "---|---" + item.getValue().toString());
             ChartCommonEntity commonEntity = new ChartCommonEntity();
-            commonEntity.keyName = entry.getKey();
-            commonEntity.value = entry.getValue();
-            commonEntity.showTxt = entry.getKey();
-            livingTotal += entry.getValue();
+            commonEntity.keyName = item.getKey();
+            commonEntity.value = item.getValue();
+            commonEntity.showTxt = item.getKey();
+            livingTotal += item.getValue();
             mLivingUserList.add(commonEntity);
         }
-        Elog.e("TAG", "livingTotal=" + livingTotal);
-        return map;
+//        Elog.e("TAG", "livingTotal=" + livingTotal);
+        return mLivingUserList;
+    }
+
+    /**
+     * 解析入住养老院\用户整体趋势的json数据
+     *
+     * @param jsonString
+     */
+    private List<TrendDataEntity> resolveTrendJson(String jsonString) {
+        List<TrendDataEntity> mTrendList = new ArrayList<>();
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, TrendDataEntity>>() {
+        }.getType();
+        Map<String, TrendDataEntity> map = new HashMap<>();
+        if (!TextUtils.isEmpty(jsonString)) {
+            map = gson.fromJson(jsonString, type);
+        }
+        for (Map.Entry<String, TrendDataEntity> item : map.entrySet()) {
+            Elog.e("map", item.getKey() + "---|---" + item.getValue().toString());
+            TrendDataEntity bean = item.getValue();
+            bean.setKeyName(item.getKey());
+            mTrendList.add(bean);
+        }
+        return mTrendList;
     }
 }

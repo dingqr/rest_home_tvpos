@@ -15,6 +15,10 @@ import com.smart.tvpos.R;
  */
 public class ACT_NursingProgress extends BaseActivity {
 
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.act_nursing_progress;
+    }
 
     @Override
     protected void getBundleExtras(Bundle extras) {
@@ -24,11 +28,6 @@ public class ACT_NursingProgress extends BaseActivity {
     @Override
     protected void initViewsAndEvents() {
 
-    }
-
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.act_nursing_progress;
     }
 
     @Override
