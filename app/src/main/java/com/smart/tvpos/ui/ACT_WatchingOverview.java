@@ -7,7 +7,6 @@ import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.R;
-
 /**
  * Created by JoJo on 2018/6/22.
  * wechat：18510829974
@@ -25,17 +24,6 @@ public class ACT_WatchingOverview extends BaseActivity {
     }
 
     @Override
-    public void showBusinessError(ErrorBean error) {
-
-    }
-
-    @Override
-    protected boolean isApplyKitKatTranslucency() {
-        return false;
-    }
-
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_watching_overview;
     }
@@ -43,6 +31,16 @@ public class ACT_WatchingOverview extends BaseActivity {
     @Override
     protected View getLoadingTargetView() {
         return null;
+    }
+
+    @Override
+    public void showBusinessError(ErrorBean error) {
+
+    }
+
+    @Override
+    protected boolean isApplyKitKatTranslucency() {
+        return false;
     }
 
 

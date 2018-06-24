@@ -2,6 +2,66 @@
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f6f9fb">
+    android:background="@drawable/bg_home">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36px"
+        android:layout_marginTop="10px"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16px"
+            android:text="养老院"
+            android:textColor="@color/color_a9c6d6"
+            android:textSize="7sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_title_one"
+            android:drawableLeft="@drawable/ic_incress_one"
+            android:drawablePadding="16px"
+            android:text="新增"
+            android:textColor="@color/color_a9c6d6"
+            android:textSize="7sp" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="16px"
+            android:layout_gravity="center"
+            android:layout_marginLeft="26px"
+            android:layout_marginRight="26px"
+            android:background="@color/color_4487bc"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16px"
+            android:text="入住用户"
+            android:textColor="@color/color_a9c6d6"
+            android:textSize="7sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_title_one"
+            android:drawableLeft="@drawable/ic_incress_one"
+            android:drawablePadding="16px"
+            android:text="新增"
+            android:textColor="@color/color_a9c6d6"
+            android:textSize="7sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+    <com.smart.tvpos.widgets.CurveChartView
+        android:layout_width="540px"
+        android:layout_height="550px"
+        android:layout_below="@+id/ll_title" />
 
 </com.zhy.autolayout.AutoRelativeLayout>

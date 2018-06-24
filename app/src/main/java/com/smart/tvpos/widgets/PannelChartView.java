@@ -18,7 +18,7 @@ import com.smart.tvpos.R;
 /**
  * Created by JoJo on 2018/6/22.
  * wechat：18510829974
- * description：https://blog.csdn.net/xcl168/article/details/23134055
+ * description：柱状统计图表 https://blog.csdn.net/xcl168/article/details/23134055
  */
 public class PannelChartView extends View {
     private Context mContext;
@@ -70,7 +70,8 @@ public class PannelChartView extends View {
         ScrWidth = dm.widthPixels;
         //文字+刻度宽度+文字与刻度之间间距
         startx = 10 + lnkeduWidth + scaleTextSpace + 10;
-        starty = lnkeduSpace * 5 + lnkeduWidth;
+        //为该曲线图Y轴所占的高度
+        starty = lnkeduSpace * (keduList.length - 1) + lnkeduWidth;
         //设置边缘特殊效果
         BlurMaskFilter PaintBGBlur = new BlurMaskFilter(
                 1, BlurMaskFilter.Blur.INNER);
@@ -100,7 +101,7 @@ public class PannelChartView extends View {
 
     public void setValueData(int[] valueData) {
         this.valueDatas = valueData;
-        //调用postInvalidate不起作用，必须调用initView(mContext)中方法
+        //调用postInvalidate不起作用,应该是因为画笔的原因，暂时采用调用initView(mContext)中方法
         initView(mContext);
     }
 

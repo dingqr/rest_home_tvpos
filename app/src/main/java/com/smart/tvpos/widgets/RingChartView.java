@@ -174,7 +174,9 @@ public class RingChartView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(mRes.getColor(R.color.color_transparent));
         mPaint.setStrokeWidth(1);
+        //画圆
         canvas.drawArc(rectFPoint, preAngle, (endAngle) / 2, true, mPaint);
+        //处理每块圆饼弧的中心点，绘制折线，显示对应的文字
         dealPoint(rectFPoint, preAngle, (endAngle) / 2, pointArcCenterList);
         Point point = pointArcCenterList.get(position);
         mPaint.setColor(mRes.getColor(R.color.color_FFFFFF));
@@ -256,6 +258,7 @@ public class RingChartView extends View {
         //根据每块的颜色，绘制对应颜色的折线
 //        mPaint.setColor(mRes.getColor(colorList.get(position)));
         mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_b69b4f));
+        //画圆饼图每块边上的折线
         canvas.drawLines(floats, mPaint);
         mPaint.setTextSize(dip2px(showRateSize));
         mPaint.setStyle(Paint.Style.STROKE);
