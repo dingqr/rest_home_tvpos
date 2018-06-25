@@ -122,7 +122,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="10px"
             android:layout_marginTop="52px"
-            android:background="@drawable/bg_selector_login_solid_519bef"
+            android:background="@drawable/bg_selector_login_solid_corner_5"
             android:button="@null"
             android:checked="false"
             android:gravity="center"

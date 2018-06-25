@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
-        android:layout_marginTop="20px"
-        android:padding="20px"
+        android:layout_marginTop="40px"
+        android:paddingBottom="20px"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
         android:src="@drawable/ic_home_menu" />
 
     <ImageView
