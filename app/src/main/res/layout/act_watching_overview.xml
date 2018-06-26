@@ -58,12 +58,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_num_help"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-12px"
                     android:layout_marginTop="-12px"
                     android:text="33"
-
                     android:textColor="#3e3e3e"
                     android:textSize="33sp" />
 
@@ -107,12 +107,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_num_monitoring"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-12px"
                     android:layout_marginTop="-12px"
                     android:text="0"
-
                     android:textColor="#3e3e3e"
                     android:textSize="33sp" />
 
@@ -156,6 +156,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_num_sleep"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-12px"
@@ -167,7 +168,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="求助报警"
+                    android:text="离床异常"
                     android:textColor="#bcbcbc"
                     android:textSize="7sp" />
 
@@ -204,6 +205,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_num_health"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-12px"
@@ -215,7 +217,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="求助报警"
+                    android:text="生命体征异常"
                     android:textColor="#bcbcbc"
                     android:textSize="7sp" />
 

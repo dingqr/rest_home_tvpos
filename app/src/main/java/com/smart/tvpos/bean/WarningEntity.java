@@ -21,10 +21,24 @@ public class WarningEntity {
      * numN : 51
      * numA : 127830
      */
-
+    //首页数据监控最近三个月报警数据统计结果
     private int numY;//已解决数
     private int numN;//未解决数
     private int numA;//总数
+
+    //实体共用——监控概览页面报警数据实体返回字段
+    /**
+     * numHealth	生命体征异常报警数据
+     numSleep	离床报警数据
+     numMonitoring	当日离线/离开/进入范围报警数据
+
+     numHelp	当日一键求助报警数据
+     */
+    private int numHelp;
+    private int numSleep;
+    private int numMonitoring;
+    private int numHealth;
+
 
     public int getNumY() {
         return numY;
@@ -48,5 +62,37 @@ public class WarningEntity {
 
     public void setNumA(int numA) {
         this.numA = numA;
+    }
+
+    public int getNumHelp() {
+        return numHelp;
+    }
+
+    public void setNumHelp(int numHelp) {
+        this.numHelp = numHelp;
+    }
+
+    public int getNumSleep() {
+        return numSleep;
+    }
+
+    public void setNumSleep(int numSleep) {
+        this.numSleep = numSleep;
+    }
+
+    public int getNumMonitoring() {
+        return numMonitoring;
+    }
+
+    public void setNumMonitoring(int numMonitoring) {
+        this.numMonitoring = numMonitoring;
+    }
+
+    public int getNumHealth() {
+        return numHealth;
+    }
+
+    public void setNumHealth(int numHealth) {
+        this.numHealth = numHealth;
     }
 }

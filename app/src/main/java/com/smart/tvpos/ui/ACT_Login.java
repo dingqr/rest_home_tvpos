@@ -18,6 +18,7 @@ import com.smart.tvpos.bean.UserEntity;
 import com.smart.tvpos.global.API;
 import com.smart.tvpos.manager.ReqCallBack;
 import com.smart.tvpos.manager.RequestManager;
+import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.util.SharePreConstants;
 
 import java.util.HashMap;
@@ -122,6 +123,8 @@ public class ACT_Login extends BaseActivity {
                 sharePre.putString(SharePreConstants.USER_ID, userEntity.getId() + "");
                 sharePre.putString(SharePreConstants.USER_NAME, userEntity.getName());
                 sharePre.putBoolean(SharePreConstants.LOGOUT, false);
+                Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
+                Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
                 MyApplication.isLogin = true;
                 readyGo(ACT_Home.class);
                 finish();
