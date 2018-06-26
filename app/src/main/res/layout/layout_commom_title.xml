@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_f6f9fb"
-        android:paddingBottom="30px"
-        android:paddingTop="42px">
+        android:paddingBottom="28px"
+        android:paddingTop="38px">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -78,7 +78,7 @@
     <View
         android:id="@+id/view_divider"
         android:layout_width="match_parent"
-        android:layout_height="6px"
+        android:layout_height="7px"
         android:background="@drawable/bg_shape_gradient_line"></View>
 
 

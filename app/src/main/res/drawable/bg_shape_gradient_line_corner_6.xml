@@ -4,6 +4,8 @@
     <item>
         <shape>
             <corners
+                android:bottomLeftRadius="50px"
+                android:bottomRightRadius="50px"
                 android:topLeftRadius="6px"
                 android:topRightRadius="6px"></corners>
             <gradient

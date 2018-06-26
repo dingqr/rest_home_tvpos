@@ -239,7 +239,7 @@
         android:layout_alignLeft="@+id/ll_head"
         android:layout_alignRight="@+id/ll_head"
         android:layout_below="@+id/ll_head"
-        android:background="@drawable/bg_shape_gradient_line"></View>
+        android:background="@drawable/bg_shape_gradient_line_corner_6"></View>
     <!--head-->
     <TextView
         android:id="@+id/tv_watching_title"
@@ -282,9 +282,9 @@
         android:paddingBottom="6px"
         android:paddingLeft="20px"
         android:paddingRight="20px"
-        android:textColor="@color/color_b9b9b9"
         android:paddingTop="6px"
         android:text="住养大楼"
+        android:textColor="@color/color_b9b9b9"
         android:textSize="10sp" />
 
     <!--时间-->
@@ -318,12 +318,14 @@
             android:textSize="10sp" />
     </com.zhy.autolayout.AutoLinearLayout>
     <!--时间-->
-    <android.support.v7.widget.RecyclerView
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/ll_new_alert_title"
+        android:layout_alignRight="@+id/ll_new_alert_title"
         android:layout_below="@+id/ll_new_alert_title"
-        android:layout_marginRight="50px"
-        android:layout_marginTop="44px"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="44px"
+        android:overScrollMode="never"
+        android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
 </com.zhy.autolayout.AutoRelativeLayout>
