@@ -30,18 +30,19 @@ public class UserNurseListEntity {
      * typeChild : 心率异常
      */
     /**
-//     * userName	老人名称
-//     * buildingName	楼名
-//     * floorName	楼层
-//     * roomName	房间
-//     * bedName	床位
-//     * headImg	头像
-//     * age	年龄
-//     * numA	总护理项目数
-//     * numF	已完成护理项目数
-//     * endTimeMax	最后护理时间
-//     * typeChild	未解决警报类型
-//     */
+     * //     * userName	老人名称
+     * //     * buildingName	楼名
+     * //     * floorName	楼层
+     * //     * roomName	房间
+     * //     * bedName	床位
+     * //     * headImg	头像
+     * //     * age	年龄
+     * //     * numA	总护理项目数
+     * //     * numF	已完成护理项目数
+     * //     * endTimeMax	最后护理时间
+     * //     * typeChild	未解决警报类型
+     * //
+     */
 
     private int bedId;
     private int userId;
@@ -161,7 +162,7 @@ public class UserNurseListEntity {
     }
 
     public String getRoomName() {
-        return roomName;
+        return roomName == null ? "" : roomName;
     }
 
     public void setRoomName(String roomName) {
@@ -169,7 +170,7 @@ public class UserNurseListEntity {
     }
 
     public String getFloorName() {
-        return floorName;
+        return floorName == null ? "" : floorName;
     }
 
     public void setFloorName(String floorName) {
@@ -177,7 +178,7 @@ public class UserNurseListEntity {
     }
 
     public String getBuildingName() {
-        return buildingName;
+        return buildingName == null ? "" : buildingName;
     }
 
     public void setBuildingName(String buildingName) {

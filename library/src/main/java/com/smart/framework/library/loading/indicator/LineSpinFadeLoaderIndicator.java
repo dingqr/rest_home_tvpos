@@ -2,6 +2,7 @@ package com.smart.framework.library.loading.indicator;
 
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
@@ -25,6 +26,7 @@ public class LineSpinFadeLoaderIndicator extends BallSpinFadeLoaderIndicator {
             RectF rectF=new RectF(-radius,-radius/1.5f,1.5f*radius,radius/1.5f);
             /*RectF rectF=new RectF(0,0,2*radius,1f*radius);*/
             canvas.drawRoundRect(rectF,5,5,paint);
+            paint.setColor(Color.parseColor("#ff999999"));
             canvas.restore();
         }
     }

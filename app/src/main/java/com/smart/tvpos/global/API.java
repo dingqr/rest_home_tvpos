@@ -15,6 +15,7 @@ public class API {
     // 开发环境
     public static final String BASE_SERVER_IP = "http://resthome.wotaomi.com";
     public static final String SERVER_IP = "http://resthome.php-liyong.com/";
+    public static final String IMG_SERVER_IP = "http://resthome.php-liyong.com";
 
     //登录
     public static final String URL_LOGIN = SERVER_IP + "?a=login";

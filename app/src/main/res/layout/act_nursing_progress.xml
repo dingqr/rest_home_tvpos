@@ -5,9 +5,18 @@
     android:background="@color/color_f6f9fb"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="护理进度" />
+    <include
+        android:id="@+id/ll_common_title"
+        layout="@layout/layout_commom_title"></include>
+
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@color/color_f6f9fb"
+        android:overScrollMode="never"
+        android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
 
 </com.zhy.autolayout.AutoLinearLayout>
