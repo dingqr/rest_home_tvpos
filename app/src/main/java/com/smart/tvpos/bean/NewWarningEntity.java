@@ -8,7 +8,7 @@ import java.util.List;
  * description: 监控概览页面-最新报警列表实体
  */
 
-public class WarningNewEntity {
+public class NewWarningEntity {
     /**
      * id : 2410
      * title : 用户 (童芯) 发出了求助信息
@@ -116,6 +116,15 @@ public class WarningNewEntity {
     private String floorName;
     private String buildingName;
     private List<StaffBean> staff;
+    private String allStaff;//展示的所有护工，、隔开
+
+    public String getAllStaff() {
+        return allStaff;
+    }
+
+    public void setAllStaff(String allStaff) {
+        this.allStaff = allStaff;
+    }
 
     public int getId() {
         return id;
@@ -502,7 +511,7 @@ public class WarningNewEntity {
     }
 
     public String getRoomName() {
-        return roomName;
+        return roomName == null ? "" : roomName;
     }
 
     public void setRoomName(String roomName) {
@@ -510,7 +519,7 @@ public class WarningNewEntity {
     }
 
     public String getFloorName() {
-        return floorName;
+        return floorName == null ? "" : floorName;
     }
 
     public void setFloorName(String floorName) {
@@ -518,7 +527,7 @@ public class WarningNewEntity {
     }
 
     public String getBuildingName() {
-        return buildingName;
+        return buildingName == null ? "" : buildingName;
     }
 
     public void setBuildingName(String buildingName) {

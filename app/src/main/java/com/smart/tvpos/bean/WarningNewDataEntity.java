@@ -10,13 +10,13 @@ import java.util.List;
 
 public class WarningNewDataEntity {
 
-    private List<WarningNewEntity> num;
+    private List<NewWarningEntity> num;
 
-    public List<WarningNewEntity> getNum() {
+    public List<NewWarningEntity> getNum() {
         return num;
     }
 
-    public void setNum(List<WarningNewEntity> num) {
+    public void setNum(List<NewWarningEntity> num) {
         this.num = num;
     }
 
