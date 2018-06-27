@@ -53,12 +53,6 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> {
                     .load(API.IMG_SERVER_IP + bean.getHeadImg())
                     .apply(requestOptions)
                     .into(ivUserAvatar);
-            if (position == 6 || position == 9 || position == 13) {
-                rlRoot.setBackgroundResource(R.drawable.bg_warning_one);
-            }
-            if (position == 17 || position == 20) {
-                rlRoot.setBackgroundResource(R.drawable.bg_warning_two);
-            }
         }
     }
 }

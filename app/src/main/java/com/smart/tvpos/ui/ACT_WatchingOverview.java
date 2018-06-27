@@ -106,6 +106,7 @@ public class ACT_WatchingOverview extends BaseActivity {
     private void requestNet() {
         requestWarningShow("warningShow");
         requestWarningNewList("warningNewList");
+        showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
     }
 
     /**
@@ -123,6 +124,7 @@ public class ACT_WatchingOverview extends BaseActivity {
 
             @Override
             public void onReqSuccess(WarningEntity bean) {
+                hideLoading();
                 if (bean != null) {
                     tvNumHelp.setText(bean.getNumHelp() + "");
                     tvNumMonitoring.setText(bean.getNumMonitoring() + "");
@@ -133,11 +135,13 @@ public class ACT_WatchingOverview extends BaseActivity {
 
             @Override
             public void onFailure(String result) {
+                hideLoading();
                 CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
             }
 
             @Override
             public void onReqFailed(ErrorBean error) {
+                hideLoading();
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
         });
@@ -216,7 +220,7 @@ public class ACT_WatchingOverview extends BaseActivity {
 
     @Override
     protected View getLoadingTargetView() {
-        return null;
+        return mRecyclerView;
     }
 
     @Override

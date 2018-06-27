@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -99,36 +100,24 @@ public class ACT_NursingProgress extends BaseActivity {
 
         @Override
         public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-            switch (itemPosition) {
-                case 6:
-                case 9:
-                case 13:
-                case 17:
-                case 20:
-                    outRect.bottom = 0;
-                    outRect.top = 0;
-                    outRect.right = 0;
-                    outRect.left = 0;
-                    break;
-            }
             //设计图item之间的间距为30
-            outRect.left = 15;
-            outRect.right = 15;
-            outRect.top = 15;
             outRect.bottom = 15;
+            outRect.top = 15;
+            outRect.left= 15;
+            outRect.right = 15;
             //header占了一个位置，故从位置1开始显示实际的item-第一行不设置顶部间距(UI)
             if (itemPosition <= mColumnNum) {
-                outRect.top = 22;//设计图recyclerview距离上方控件为44px
+                outRect.top = 15;//设计图recyclerview距离上方控件为44px
             } else {
                 outRect.top = 15;
             }
-
-
-            //设置放大的效果
-//            if (itemPosition == 6) {
-//                outRect.bottom = -15;
-//                outRect.top = -15;
-//            }
+            if (itemPosition % 4 == 0) {
+                //右边第一列
+                outRect.right = 0;
+            } else if (itemPosition - 1 % mColumnNum == 0) {
+                //左边第一列
+                outRect.left = 0;
+            }
 //            //header占了列表头部的一个位置,设置bottom为0
 //            if (itemPosition == 0) {
 //                outRect.bottom = 5;
@@ -156,6 +145,7 @@ public class ACT_NursingProgress extends BaseActivity {
 
             @Override
             public void onReqSuccess(UserNurseDataEntity bean) {
+                setHeaderTitle(TextUtils.isEmpty(bean.getBranch()) ? "" : bean.getBranch());
                 hideLoading();
                 if (bean == null || bean.getUser() == null || bean.getUser().size() == 0) {
                     return;

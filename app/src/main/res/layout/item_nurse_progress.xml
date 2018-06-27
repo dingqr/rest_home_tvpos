@@ -1,7 +1,7 @@
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_shape_side_e3e6e5_coner_5"
     android:orientation="vertical"
     android:paddingLeft="30px"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="19px"
                 android:text="服务进度"
-                android:textColor="#4990e3"
+                android:textColor="@color/color_4990e3"
                 android:textSize="9sp" />
 
             <ImageView
@@ -96,6 +96,32 @@
                 android:text="2018年06月01日 12:23:02"
                 android:textColor="@color/color_adadad"
                 android:textSize="8sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23px"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_item_arrow_right" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_circle_bule" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="三级跌倒"
+                android:textColor="@color/color_4990e3"
+                android:textSize="9sp" />
         </com.zhy.autolayout.AutoLinearLayout>
 
     </com.zhy.autolayout.AutoLinearLayout>

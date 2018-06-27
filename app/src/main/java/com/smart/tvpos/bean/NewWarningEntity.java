@@ -117,6 +117,15 @@ public class NewWarningEntity {
     private String buildingName;
     private List<StaffBean> staff;
     private String allStaff;//展示的所有护工，、隔开
+    private String headImg;//老人头像
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
 
     public String getAllStaff() {
         return allStaff;

@@ -49,7 +49,7 @@ public class ADA_NewWarningList extends CommonAdapter<NewWarningEntity> {
                     .priority(Priority.HIGH)
                     .transform(new CircleCrop());
             Glide.with(MyApplication.getContext())
-                    .load(API.IMG_SERVER_IP + "")
+                    .load(API.IMG_SERVER_IP + bean.getHeadImg())
                     .apply(requestOptions)
                     .into(ivUserAvatar);
         }
