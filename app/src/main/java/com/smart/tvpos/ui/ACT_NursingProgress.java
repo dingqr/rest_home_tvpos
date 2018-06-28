@@ -103,7 +103,7 @@ public class ACT_NursingProgress extends BaseActivity {
             //设计图item之间的间距为30
             outRect.bottom = 15;
             outRect.top = 15;
-            outRect.left= 15;
+            outRect.left = 15;
             outRect.right = 15;
             //header占了一个位置，故从位置1开始显示实际的item-第一行不设置顶部间距(UI)
             if (itemPosition <= mColumnNum) {
@@ -114,7 +114,7 @@ public class ACT_NursingProgress extends BaseActivity {
             if (itemPosition % 4 == 0) {
                 //右边第一列
                 outRect.right = 0;
-            } else if (itemPosition - 1 % mColumnNum == 0) {
+            } else if ((itemPosition - 1) % mColumnNum == 0) {
                 //左边第一列
                 outRect.left = 0;
             }
