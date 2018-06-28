@@ -64,6 +64,15 @@ public class UserNurseListEntity {
     private int numF;//     * numF	已完成护理项目数
     private Object endTimeMax;//     * endTimeMax	最后护理时间
     private String typeChild;//     * typeChild	未解决警报类型
+    private int warningLevel ; //1:一级 2：二级 3 ：三级
+
+    public int getWarningLevel() {
+        return warningLevel;
+    }
+
+    public void setWarningLevel(int warningLevel) {
+        this.warningLevel = warningLevel;
+    }
 
     public int getBedId() {
         return bedId;

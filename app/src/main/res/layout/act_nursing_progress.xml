@@ -2,13 +2,24 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:background="@color/color_f6f9fb"
     android:orientation="vertical">
+    <!--android:clipChildren="false"-->
+    <!--android:clipToPadding="false"-->
 
     <include
         android:id="@+id/ll_common_title"
         layout="@layout/layout_commom_title"></include>
 
+    <!--<com.smart.tvpos.widgets.ScaleRecyclerView-->
+        <!--android:id="@+id/recyclerview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/color_f6f9fb"-->
+        <!--android:overScrollMode="never"-->
+        <!--android:scrollbars="none"></com.smart.tvpos.widgets.ScaleRecyclerView>-->
     <com.github.jdsjlzx.recyclerview.LRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"

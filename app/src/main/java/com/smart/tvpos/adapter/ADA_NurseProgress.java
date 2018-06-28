@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.smart.framework.library.adapter.rv.CommonAdapter;
 import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.common.utils.DP2PX;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.bean.UserNurseListEntity;
@@ -26,9 +27,10 @@ import com.smart.tvpos.global.API;
  * description:
  */
 //http://ycljf86.iteye.com/blog/2345413  droidtv 开发系列 二 recycleview item放大效果
+//https://www.jb51.net/article/138747.htm Android RecyclerView item选中放大被遮挡问题详解
 public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implements RecyclerView.ChildDrawingOrderCallback {
-    boolean isclick = true;
     private ViewGroup viewGroup;
+    private int mSelectedPosition;
 
     public ADA_NurseProgress(Context context) {
         super(context);
@@ -61,27 +63,46 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
                     .apply(requestOptions)
                     .into(ivUserAvatar);
         }
-        if (position == 2 || position == 5 || position == 9) {
-            ViewCompat.animate(holder.itemView).scaleX(1.10f).scaleY(1.10f).translationZ(1).start();
+        //设置itemview的高度固定,以防两种类型的Itemview高度不一致，导致列表的item显示间距和item的高度不一致导致的问题
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 132));
+        rlRoot.setLayoutParams(params);
+        View itemNormal = holder.getView(R.id.item_normal);
+        View itemZoom = holder.getView(R.id.item_zoom);
+        if (bean.getWarningLevel() == 1) {
+            itemZoom.setBackgroundResource(R.drawable.bg_warning_one);
+        } else if (bean.getWarningLevel() == 2) {
+            itemZoom.setBackgroundResource(R.drawable.bg_warning_two);
         } else {
-            ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).translationZ(1).start();
+            itemZoom.setBackgroundResource(R.drawable.bg_warning_three);
         }
+        //设置某些Item放大-把动画时间置为0 缩放比例：（18*2+264）/264=1.136
+        if (bean.getWarningLevel() != 0) {
+                        ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
+//            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
+            //测试item遮挡问题，还未解决，需在实践：https://www.jb51.net/article/138747.htm Android
+//            ViewCompat.animate(holder.itemView).scaleX(1.8f).scaleY(1.8f).translationY(10).setDuration(0).start();
+            itemNormal.setVisibility(View.GONE);
+            itemZoom.setVisibility(View.VISIBLE);
+        } else {
+            itemZoom.setVisibility(View.GONE);
+            itemNormal.setVisibility(View.VISIBLE);
+            ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).setDuration(0).translationZ(1).start();
+        }
+
 //        holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View view, boolean b) {
 //
-//
 //                if(b){
 //                    //zoom in
-////                    if(Build.VERSION.SDK_INT>=21) {
-////                        ViewCompat.animate(view).scaleX(1.17f).scaleY(1.17f).translationZ(1).start();
-////                    }
+//                    if(Build.VERSION.SDK_INT>=21) {
+//                        ViewCompat.animate(view).scaleX(1.17f).scaleY(1.17f).translationZ(1).start();
+//                    }
 //
 //                    //view.bringToFront();
 //                    //zoomin.setFillAfter(true);//这两句基本没用
 //
 ////                    view.startAnimation(zoomin);
-//                    ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).translationZ(1).start();
 //
 //                    //recyclerView.requestLayout();会全部抖动下
 //
@@ -100,12 +121,11 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
 //
 //                }else{
 //                    //restore
-////                    if(Build.VERSION.SDK_INT>=21) {
-////                        ViewCompat.animate(view).scaleX(1f).scaleY(1f).translationZ(0).start();
-////                    }
-//                    //zoomout.setFillAfter(true);
+//                    if(Build.VERSION.SDK_INT>=21) {
+//                        ViewCompat.animate(view).scaleX(1f).scaleY(1f).translationZ(0).start();
+//                    }
+////                    zoomout.setFillAfter(true);
 ////                    view.startAnimation(zoomout);
-//                    ViewCompat.animate(holder.itemView).scaleX(1.10f).scaleY(1.10f).translationZ(1).start();
 //                }
 //
 //            }
@@ -118,6 +138,9 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         return super.onCreateViewHolder(parent, viewType);
     }
 
+    /**
+     * 改变绘制顺序,让获得焦点的最后绘制,从而浮在其他item上面 http://www.aichengxu.com/view/11147419
+     */
     @Override
     public int onGetChildDrawingOrder(int childCount, int i) {
         View focusedChild = viewGroup.getFocusedChild();

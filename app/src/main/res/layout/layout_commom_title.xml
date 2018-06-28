@@ -8,9 +8,7 @@
     <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_f6f9fb"
-        android:paddingBottom="28px"
-        android:paddingTop="38px">
+        android:background="@color/color_f6f9fb">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -18,8 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:onClick="onActionFinish"
+            android:paddingBottom="32px"
             android:paddingLeft="50px"
             android:paddingRight="52px"
+            android:paddingTop="42px"
             android:src="@drawable/ic_back" />
 
         <com.zhy.autolayout.AutoLinearLayout
@@ -57,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="112px"
             android:background="@drawable/bg_shape_solid_ffffff_coner_6"
             android:paddingBottom="8px"
@@ -72,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="40px"
             android:src="@drawable/ic_user_default" />
     </com.zhy.autolayout.AutoRelativeLayout>

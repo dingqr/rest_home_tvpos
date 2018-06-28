@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.smart.framework.library.base.BaseActivity;
@@ -38,6 +39,8 @@ public class ACT_Login extends BaseActivity {
     EditText etPhone;
     @Bind(R.id.et_password)
     EditText etPassword;
+    @Bind(R.id.ll_login)
+    LinearLayout llLogin;
     //验证码倒计时
     private TimeCount timer;
     //倒计时间隔时间
@@ -69,6 +72,10 @@ public class ACT_Login extends BaseActivity {
             etPhone.setText(sharePre.getString(SharePreConstants.USER_NAME));
             etPhone.setSelection(etPhone.getText().length());
         }
+
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) (ScreenUtil.getScreenWidth(mContext) * 2.0f  / 5));
+//        layoutParams.addRule();
+//        llLogin.setLayoutParams(layoutParams);
     }
 
 

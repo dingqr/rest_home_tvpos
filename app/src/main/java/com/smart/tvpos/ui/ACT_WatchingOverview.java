@@ -47,6 +47,8 @@ public class ACT_WatchingOverview extends BaseActivity {
     TextView tvNumHhealth;//生命体征异常报警数据
     @Bind(R.id.recyclerview)
     LRecyclerView mRecyclerView;
+    @Bind(R.id.tv_sub_title)
+    TextView tvSubTitle;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
     private ADA_NewWarningList mAdapter;
 
@@ -62,6 +64,7 @@ public class ACT_WatchingOverview extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
+        tvSubTitle.setText("护理进度");
         initRecyclerView();
         requestNet();
     }
