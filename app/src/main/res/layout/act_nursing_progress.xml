@@ -13,8 +13,6 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30px"
-        android:layout_marginRight="30px"
         android:background="@color/color_f6f9fb"
         android:overScrollMode="never"
         android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>

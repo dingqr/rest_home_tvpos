@@ -31,6 +31,8 @@ import java.util.List;
 
 import butterknife.Bind;
 
+import static android.view.ViewGroup.FOCUS_AFTER_DESCENDANTS;
+
 /**
  * Created by JoJo on 2018/6/23.
  * wechat：18510829974
@@ -56,7 +58,24 @@ public class ACT_NursingProgress extends BaseActivity {
     @Override
     protected void initViewsAndEvents() {
         initRecyclerView();
+        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
+
         requestNet();
+        initListener();
+    }
+
+    private void initListener() {
+//        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                ViewCompat.animate(view).scaleX(1.17f).scaleY(1.17f).translationZ(1).start();
+//            }
+//
+//            @Override
+//            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                return false;
+//            }
+//        });
     }
 
     /**
@@ -113,10 +132,10 @@ public class ACT_NursingProgress extends BaseActivity {
             }
             if (itemPosition % 4 == 0) {
                 //右边第一列
-                outRect.right = 0;
+                outRect.right = 30;
             } else if ((itemPosition - 1) % mColumnNum == 0) {
                 //左边第一列
-                outRect.left = 0;
+                outRect.left = 30;
             }
 //            //header占了列表头部的一个位置,设置bottom为0
 //            if (itemPosition == 0) {
