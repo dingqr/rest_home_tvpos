@@ -42,6 +42,12 @@ public class GradientProgressBar extends View {
     public int mWidth, mHeight;
     private Paint mPaintText;
     private int progressBarWidth;
+    //百分比文字的颜色
+    private int mTextColor;
+    private int lineColor;
+    private float leftMargin = 30;
+    private Paint mPaintLine;
+    private float startY;
 
 
     public GradientProgressBar(Context context) {
@@ -97,7 +103,8 @@ public class GradientProgressBar extends View {
         }
         setMeasuredDimension(mWidth, mHeight);
         //左右两边30px的间距
-        progressBarWidth = mWidth - 60;
+        progressBarWidth = (int) (mWidth - (2 * leftMargin));
+        startY = mHeight * 1f * 3 / 4; //控件高度为40px，上方留出10px的margin,20px的文字大小高度，10px进度条的高度
     }
 
     @Override
@@ -110,10 +117,15 @@ public class GradientProgressBar extends View {
         //绘制刻度值文字的画笔
         mPaintText = new Paint();
         //文字大小26px
-        mPaintText.setTextSize(DP2PX.dip2px(mContext, 10));
+        mPaintText.setTextSize(DP2PX.dip2px(mContext, 13));
         mPaintText.setAntiAlias(true);
         mPaintText.setStrokeWidth(2);
-//        mPaintText.setTextAlign(Paint.Align.LEFT);
+
+        //绘制背景线的画笔
+        mPaintLine = new Paint();
+        mPaintLine.setColor(lineColor == 0 ? Color.parseColor("#d8dae1") : lineColor);
+        mPaintLine.setAntiAlias(true);
+        mPaintLine.setStrokeWidth(2);
         //头和尾圆角半径
         int round = (int) ((mHeight * 1f / 3) / 2);
 //        Elog.e("TAG", "max=" + maxProgress + "  current=" + currentProgress);
@@ -131,7 +143,9 @@ public class GradientProgressBar extends View {
         float percent = currentProgress / maxProgress;
 //        RectF rectProgressBg = new RectF(0, 0, mWidth * percent, mHeight);
         //腾出20px绘制上方百分比的文字:mHeight * 1f * 2 / 3
-        RectF rectProgressBg = new RectF(0 + 30, mHeight * 1f * 2 / 3, (progressBarWidth + 30) * percent, mHeight);
+        RectF rectProgressBg = new RectF(0 + leftMargin, startY, (progressBarWidth + leftMargin) * percent, mHeight);
+        //绘制2px高的底线
+        canvas.drawLine(leftMargin, startY + (mHeight - startY) / 2, leftMargin + progressBarWidth, startY + (mHeight - startY) / 2, mPaintLine);
         if (percent <= 1.0f / 3.0f) {
             if (percent != 0.0f) {
                 mPaint.setColor(mGradientColorArray[0]);
@@ -152,17 +166,23 @@ public class GradientProgressBar extends View {
                 positions[2] = 1.0f - positions[0] * 2;
             }
             positions[positions.length - 1] = 1.0f;
-            LinearGradient shader = new LinearGradient(0 + 30, mHeight * 1f * 2 / 3, (progressBarWidth + 30) * percent, mHeight, colors, null, Shader.TileMode.MIRROR);
+            LinearGradient shader = new LinearGradient(0 + leftMargin, startY, (progressBarWidth + leftMargin) * percent, mHeight, colors, null, Shader.TileMode.MIRROR);
             mPaint.setShader(shader);
         }
         canvas.drawRoundRect(rectProgressBg, round, round, mPaint);
         //测量的高度全部绘制进度条了，所以显示不出下面画的文字
-        mPaintText.setColor(mGradientColorArray[2]);
+        mPaintText.setColor(mTextColor == 0 ? Color.parseColor("#4791e1") : mTextColor);
         mPaintText.setTextAlign(Paint.Align.LEFT);
-
-        int showProgress = (int) this.currentProgress;
         //绘制百分比文字
-        canvas.drawText(showProgress + "%", (progressBarWidth * percent), mHeight * 1f * 2 / 3 - 4, mPaintText);
+        int showProgress = (int) this.currentProgress;
+        if (showProgress <= 5) {
+            canvas.drawText(showProgress + "%", (progressBarWidth * percent) + (leftMargin - 10), mHeight * 1f * 2 / 3 - 4, mPaintText);
+        } else if (showProgress >= 90) {
+            canvas.drawText(showProgress + "%", (progressBarWidth * percent) - (leftMargin - 10), startY - 4, mPaintText);
+        } else {
+            canvas.drawText(showProgress + "%", (progressBarWidth * percent), startY - 4, mPaintText);
+        }
+
     }
 
     public void setGradientColor(int[] gradientColorArray) {
@@ -193,6 +213,20 @@ public class GradientProgressBar extends View {
 //            this.currentProgress = 10;
 //        }
         invalidate();
+    }
+
+    //百分比文字
+    public void setTextColor(int mTextColor) {
+        this.mTextColor = mTextColor;
+    }
+
+    //设置进度条绘制的x轴起点-距离左边的距离
+    public void setLeftMargin(float leftMargin) {
+        this.leftMargin = leftMargin;
+    }
+
+    public void setLineColor(int lineColor) {
+        this.lineColor = lineColor;
     }
 
     public float getmaxProgress() {

@@ -131,16 +131,17 @@
 
     <com.zhy.autolayout.AutoFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="30px"
+        android:layout_height="40px"
         android:layout_marginBottom="36px"
-        android:layout_marginTop="18px">
+        android:layout_marginTop="8px">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
             android:layout_marginLeft="30px"
             android:layout_marginRight="30px"
-            android:layout_marginTop="25px"
+            android:layout_marginTop="35px"
+            android:visibility="gone"
             android:background="#feeed2"></View>
 
         <com.smart.tvpos.widgets.GradientProgressBar

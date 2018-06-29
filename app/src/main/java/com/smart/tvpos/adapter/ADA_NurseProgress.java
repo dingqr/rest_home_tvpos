@@ -39,12 +39,15 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
     private int[] zoomColors;
     private ViewGroup viewGroup;
     private int mSelectedPosition;
+    private final int[] textcolor;
 
     public ADA_NurseProgress(Activity context) {
         super(context);
         this.context = context;
         normalColors = new int[]{Color.parseColor("#41a0eb"), Color.parseColor("#6488e5"), Color.parseColor("#7084e4")};
         zoomColors = new int[]{Color.parseColor("#ffffff"), Color.parseColor("#af8f5b"), Color.parseColor("#936622")};
+        //textcolor  #6c100e  956a25  3372ba
+        textcolor = new int[]{Color.parseColor("#6c100e"), Color.parseColor("#956a25"), Color.parseColor("#3372ba"), Color.parseColor("#4791e1")};
     }
 
     @Override
@@ -74,18 +77,25 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
 
         //根据警报级别设置item的背景
         if (bean.getWarningLevel() == 1) {
+            progressBarZoom.setTextColor(textcolor[0]);
+
             itemZoom.setBackgroundResource(R.drawable.bg_warning_one);
 //            ivWarningLevelNormal.setImageResource(R.drawable.ic_warning_red);
             ivWarningLevelZoom.setImageResource(R.drawable.ic_warning_red_zoom);
 //            tvWarningNoteNormal.setText(MyApplication.getContext().getString(R.string.string_one_fall_down));
             tvWarningNoteZoom.setText(MyApplication.getContext().getString(R.string.string_one_fall_down));
+
         } else if (bean.getWarningLevel() == 2) {
+            progressBarZoom.setTextColor(textcolor[1]);
+
             itemZoom.setBackgroundResource(R.drawable.bg_warning_two);
 //            ivWarningLevelNormal.setImageResource(R.drawable.ic_warning_yellow);
             ivWarningLevelZoom.setImageResource(R.drawable.ic_warning_yellow_zoom);
 //            tvWarningNoteNormal.setText(MyApplication.getContext().getString(R.string.string_two_fall_down));
             tvWarningNoteZoom.setText(MyApplication.getContext().getString(R.string.string_two_fall_down));
         } else if (bean.getWarningLevel() == 3) {
+            progressBarZoom.setTextColor(textcolor[2]);
+
             itemZoom.setBackgroundResource(R.drawable.bg_warning_three);
 //            ivWarningLevelNormal.setImageResource(R.drawable.ic_warning_blue);
             ivWarningLevelZoom.setImageResource(R.drawable.ic_warning_blue_zoom);
@@ -95,6 +105,8 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         Elog.e("TTT", "percent=" + (bean.getNumF() * 1.f / bean.getNumA()) * 100);
         //如果是警报的前三级，突出放大显示——（设置某些Item放大-把动画时间置为0 缩放比例：（18*2+264）/264=1.136）
         if (bean.getWarningLevel() != 0) {
+            progressBarZoom.setLeftMargin(20 + 30);
+            progressBarZoom.setLineColor(Color.parseColor("#feeed2"));
             if (bean != null) {
                 holder.setText(R.id.tv_name_zoom, bean.getUserName() == null ? "" : bean.getUserName());
                 holder.setText(R.id.tv_type_child_zoom, bean.getTypeChild() == null ? "" : bean.getTypeChild());
@@ -125,6 +137,10 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             itemNormal.setVisibility(View.GONE);
             itemZoom.setVisibility(View.VISIBLE);
         } else {
+            //普通的百分比文字的颜色
+            progressBarNormal.setTextColor(textcolor[3]);
+            progressBarNormal.setLeftMargin(30);
+            progressBarNormal.setLineColor(Color.parseColor("#d8dae1"));
             if (bean != null) {
                 holder.setText(R.id.tv_name, bean.getUserName() == null ? "" : bean.getUserName());
                 holder.setText(R.id.tv_type_child, bean.getTypeChild() == null ? "" : bean.getTypeChild());
@@ -148,7 +164,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             progressBarNormal.setcurrentProgress((bean.getNumF() * 1f / bean.getNumA()) * 100);
 
             //缩放动画重置
-            ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).setDuration(0).start();
+            ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).translationY(0).setDuration(0).start();
             itemNormal.setVisibility(View.VISIBLE);
             itemZoom.setVisibility(View.GONE);
         }
