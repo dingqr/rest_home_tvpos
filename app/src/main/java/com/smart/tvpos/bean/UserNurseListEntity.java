@@ -64,7 +64,8 @@ public class UserNurseListEntity {
     private int numF;//     * numF	已完成护理项目数
     private Object endTimeMax;//     * endTimeMax	最后护理时间
     private String typeChild;//     * typeChild	未解决警报类型
-    private int warningLevel ; //1:一级 2：二级 3 ：三级
+    private int warningLevel; //1:一级 2：二级 3 ：三级
+    private float nurseProgress;//护理进度
 
     public int getWarningLevel() {
         return warningLevel;
@@ -203,7 +204,7 @@ public class UserNurseListEntity {
     }
 
     public int getNumA() {
-        return numA;
+        return numA == 0 ? 1 : numA;
     }
 
     public void setNumA(int numA) {

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.LuRecyclerView;
@@ -32,17 +33,15 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-import static android.view.ViewGroup.FOCUS_AFTER_DESCENDANTS;
-
 /**
  * Created by JoJo on 2018/6/23.
  * wechat：18510829974
  * description：护理进度页面
  */
 public class ACT_NursingProgress extends BaseActivity {
-        @Bind(R.id.recyclerview)
-        LRecyclerView mRecyclerView;
-//    @Bind(R.id.recyclerview)
+    @Bind(R.id.recyclerview)
+    LRecyclerView mRecyclerView;
+    //    @Bind(R.id.recyclerview)
 //    ScaleRecyclerView mRecyclerView;
     @Bind(R.id.tv_sub_title)
     TextView tvSubTitle;
@@ -73,24 +72,9 @@ public class ACT_NursingProgress extends BaseActivity {
     protected void initViewsAndEvents() {
         tvSubTitle.setText("概览");
         initRecyclerView();
-        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
+//        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
 
         requestNet();
-        initListener();
-    }
-
-    private void initListener() {
-//        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                ViewCompat.animate(view).scaleX(1.17f).scaleY(1.17f).translationZ(1).start();
-//            }
-//
-//            @Override
-//            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                return false;
-//            }
-//        });
     }
 
     /**
@@ -102,24 +86,23 @@ public class ACT_NursingProgress extends BaseActivity {
         mLRecyclerViewAdapter = new LRecyclerViewAdapter(mAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mColumnNum);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-//        mRecyclerView.setAdapter(mAdapter);
 //        设置外层列表Adapter
         mRecyclerView.setAdapter(mLRecyclerViewAdapter);
         //设置item之间的间距
         mRecyclerView.addItemDecoration(new SpaceItemDecoration());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setChildDrawingOrderCallback(mAdapter);//这句很关键,让获得焦点item浮在其他item上面
-//        mRecyclerView.setPullRefreshEnabled(false);
-//        mRecyclerView.setLoadMoreEnabled(false);
-//        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//
-//
-//            }
-//        });
+        mRecyclerView.setPullRefreshEnabled(false);
+        mRecyclerView.setLoadMoreEnabled(false);
+        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+
+            }
+        });
 //        //设置头部文字颜色
-//        mRecyclerView.setHeaderViewColor(R.color.color_2e84ba, R.color.color_2e84ba, R.color.color_FFFFFF);
+        mRecyclerView.setHeaderViewColor(R.color.color_2e84ba, R.color.color_2e84ba, R.color.color_FFFFFF);
         //设置底部加载颜色-loading动画颜色,文字颜色,footer的背景颜色
         mRecyclerView.setFooterViewColor(R.color.color_2e84ba, R.color.color_2e84ba, R.color.color_2e84ba);
         //设置底部加载文字提示
@@ -142,31 +125,31 @@ public class ACT_NursingProgress extends BaseActivity {
             outRect.left = 15;
             outRect.right = 15;
             //header占了一个位置，故从位置1开始显示实际的item
-//            if (itemPosition <= mColumnNum) {
-//                outRect.top = 15;//设计图recyclerview距离上方控件为44px
-//            } else {
-//                outRect.top = 15;
-//            }
-//            if (itemPosition % 4 == 0) {
-//                //右边第一列
-//                outRect.right = 30;
-//            } else if ((itemPosition - 1) % mColumnNum == 0) {
-//                //左边第一列
-//                outRect.left = 30;
-//            }
-            //header占了一个位置，故从位置1开始显示实际的item
-            if (itemPosition + 1 <= mColumnNum) {
+            if (itemPosition <= mColumnNum) {
                 outRect.top = 15;//设计图recyclerview距离上方控件为44px
             } else {
                 outRect.top = 15;
             }
-            if ((itemPosition + 1) % 4 == 0) {
+            if (itemPosition % 4 == 0) {
                 //右边第一列
                 outRect.right = 30;
-            } else if ((itemPosition) % mColumnNum == 0) {
+            } else if ((itemPosition - 1) % mColumnNum == 0) {
                 //左边第一列
                 outRect.left = 30;
             }
+//            //header占了一个位置，故从位置1开始显示实际的item
+//            if (itemPosition + 1 <= mColumnNum) {
+//                outRect.top = 15;//设计图recyclerview距离上方控件为44px
+//            } else {
+//                outRect.top = 15;
+//            }
+//            if ((itemPosition + 1) % 4 == 0) {
+//                //右边第一列
+//                outRect.right = 30;
+//            } else if ((itemPosition) % mColumnNum == 0) {
+//                //左边第一列
+//                outRect.left = 30;
+//            }
         }
     }
 
@@ -198,7 +181,10 @@ public class ACT_NursingProgress extends BaseActivity {
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
                 userNurseLis.get(1).setWarningLevel(1);
                 userNurseLis.get(6).setWarningLevel(2);
-                userNurseLis.get(10).setWarningLevel(3);
+                userNurseLis.get(11).setWarningLevel(3);
+                userNurseLis.get(1).setNumA(20);
+                userNurseLis.get(6).setNumA(20);
+                userNurseLis.get(11).setNumA(30);
                 mAdapter.update(userNurseLis, true);
                 UserNurseListEntity userNurseBean = bean.getUser().get(0);
                 Elog.e("TAG" + "userNurse=" + userNurseBean.getBuildingName());

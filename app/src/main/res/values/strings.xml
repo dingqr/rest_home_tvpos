@@ -26,5 +26,10 @@
     <string name="string_handled">已处理</string>
     <string name="string_unhandled">未处理</string>
     <string name="string_unit_month">月</string>
+    <string name="string_age">年龄：</string>
+    <string name="string_sex">性别:</string>
+    <string name="string_three_fall_down">三级跌倒</string>
+    <string name="string_two_fall_down">二级跌倒</string>
+    <string name="string_one_fall_down">一级跌倒</string>
 
 </resources>

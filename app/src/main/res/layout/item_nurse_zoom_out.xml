@@ -110,11 +110,13 @@
                 android:src="@drawable/ic_item_arrow_right" />
 
             <ImageView
+                android:id="@+id/iv_warning_level_zoom"
                 android:layout_width="42px"
                 android:layout_height="42px"
-                android:src="@drawable/ic_circle_bule" />
+                android:src="@drawable/ic_warning_blue_zoom" />
 
             <TextView
+                android:id="@+id/tv_warning_note_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -127,12 +129,34 @@
         </com.zhy.autolayout.AutoLinearLayout>
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_content"
+    <com.zhy.autolayout.AutoFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="30px"
         android:layout_marginBottom="36px"
-        android:layout_marginLeft="40px"
-        android:layout_marginTop="36px"
-        android:text="我是进度条" />
+        android:layout_marginTop="18px">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="25px"
+            android:background="#feeed2"></View>
+
+        <com.smart.tvpos.widgets.GradientProgressBar
+            android:id="@+id/progressBarZoom"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+        <!--<com.smart.tvpos.widgets.GradientProgressBar-->
+        <!--android:id="@+id/progressBarZoom"-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:max="100"-->
+        <!--android:progress="80"-->
+        <!--android:progressDrawable="@drawable/bg_grdient_progress_zoom"-->
+        <!--android:visibility="visible" />-->
+    </com.zhy.autolayout.AutoFrameLayout>
 </com.zhy.autolayout.AutoLinearLayout>

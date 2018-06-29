@@ -2,7 +2,6 @@
     android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
     android:orientation="vertical">
     <!--android:focusable="true"-->
     <!--normal的view-->
