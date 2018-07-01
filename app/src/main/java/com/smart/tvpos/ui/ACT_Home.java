@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
@@ -71,14 +70,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     UpCurveChartView mUpCurveView;
     @Bind(R.id.curveViewDown)
     DownCurveChartView mDowncurveView;
-    @Bind(R.id.iv_jiangzhe)
-    ImageView ivJiangzhe;
-    @Bind(R.id.iv_shanghai)
-    ImageView ivShanghai;
-    @Bind(R.id.fl_jiangzhe)
-    RelativeLayout flJiangzhe;
-    @Bind(R.id.fl_shanghai)
-    RelativeLayout flShanghai;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
@@ -98,39 +89,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     @Override
     protected void initViewsAndEvents() {
-        int[] location = new int[2];
-        ivJiangzhe.getLocationOnScreen(location);
-        int x = location[0];
-        int y = location[1];
-        Elog.e("jiangzhe", "jiangzhe" + "x=" + x + "--" + "y=" + y);
-        Elog.e("jiangzhe", "jiangzhe" + "left=" + ivJiangzhe.getLeft() + "--" + "bottom=" + ivJiangzhe.getBottom());
-        Elog.e("shanghai", "shanghai" + "left=" + ivShanghai.getLeft() + "--" + "bottom=" + ivShanghai.getBottom());
-        //在地图上添加分院的点
-        //江浙沪
-        RelativeLayout.LayoutParams jiangzhelayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        ImageView circleJiangzhe = new ImageView(mContext);
-        circleJiangzhe.setImageResource(R.drawable.ic_circle_jiangzhe);
-        //不起作用
-        //        jiangzhelayoutParams.setMargins(200, 100, 0, 0);
-        jiangzhelayoutParams.topMargin = 300;
-        jiangzhelayoutParams.leftMargin = 300;
-        circleJiangzhe.setLayoutParams(jiangzhelayoutParams);
-        flJiangzhe.addView(circleJiangzhe, 10, 10);
-//
-//        ImageView circleJiangzhe1= new ImageView(mContext);
-//        circleJiangzhe1.setImageResource(R.drawable.ic_circle_jiangzhe);
-//        jiangzhelayoutParams.setMargins(220, 120, 0, 0);
-//        circleJiangzhe1.setLayoutParams(jiangzhelayoutParams);
-//        flJiangzhe.addView(circleJiangzhe, 10, 10);
-
-
-        //上海
-//        RelativeLayout.LayoutParams shanghailayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        ImageView circleShanghai = new ImageView(mContext);
-//        circleShanghai.setImageResource(R.drawable.ic_circle_shanghai);
-//        shanghailayoutParams.setMargins(200, 200, 0, 0);
-//        circleShanghai.setLayoutParams(shanghailayoutParams);
-//        flShanghai.addView(circleJiangzhe, 10, 10);
         initPopupWindow();
 
         initChartView();
