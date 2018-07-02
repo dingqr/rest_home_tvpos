@@ -826,9 +826,23 @@
     </com.zhy.autolayout.AutoLinearLayout>
     <!--图表统计右-->
     <!--护理进度-start-->
-    <com.smart.tvpos.widgets.PieMarkChatView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="234px"
+        android:layout_height="234px"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/bg_nurse_progress_style_one" />
+
+        <com.smart.tvpos.widgets.PieMarkChatView
+            android:layout_width="92px"
+            android:layout_height="92px"
+            android:layout_marginLeft="72px"
+            android:layout_marginTop="72px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
     <!--护理进度-end-->
 </com.zhy.autolayout.AutoRelativeLayout>
