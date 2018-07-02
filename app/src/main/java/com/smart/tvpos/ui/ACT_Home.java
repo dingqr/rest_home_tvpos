@@ -14,6 +14,7 @@ import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
+import com.smart.tvpos.adapter.ADA_CircleNurseProgress;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
@@ -27,6 +28,7 @@ import com.smart.tvpos.bean.TrendDataEntity;
 import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.mvp.HomePresenter;
 import com.smart.tvpos.mvp.IHomeView;
+import com.smart.tvpos.widgets.BanSlideGridView;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
 import com.smart.tvpos.widgets.DownCurveChartView;
@@ -71,12 +73,15 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     UpCurveChartView mUpCurveView;
     @Bind(R.id.curveViewDown)
     DownCurveChartView mDowncurveView;
+    @Bind(R.id.gridview)
+    BanSlideGridView gridviewNurseProgress;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
     private String[] memuTitle = {"数据监控", "概览", "护理进度"};
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
     private HomePresenter mPresenter;
+    private ADA_CircleNurseProgress mAdapterNurseProgress;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -96,6 +101,9 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         //联网获取数据
         requestNet();
+
+        mAdapterNurseProgress = new ADA_CircleNurseProgress(mContext);
+        gridviewNurseProgress.setAdapter(mAdapterNurseProgress);
     }
 
     /**
@@ -553,10 +561,10 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        for (int i = 0; i < dataList.size(); i++) {
-            //分院名称
-            Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
-        }
+//        for (int i = 0; i < dataList.size(); i++) {
+//            //分院名称
+//            Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
+//        }
     }
 
     @Override
@@ -564,10 +572,13 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        for (int i = 0; i < dataList.size(); i++) {
-            //分院名称
-            Elog.e("TAG", "dataList-item=" + dataList.get(i).getItemName());
-        }
+        dataList.get(0).setNumD(10);
+        dataList.get(1).setNumD(2);
+        dataList.get(2).setNumD(16);
+        dataList.get(3).setNumD(5);
+        dataList.get(4).setNumD(8);
+        dataList.get(5).setNumD(20);
+        mAdapterNurseProgress.update(dataList,true);
     }
 
 }

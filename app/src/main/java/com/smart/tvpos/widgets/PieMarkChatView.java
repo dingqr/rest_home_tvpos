@@ -2,7 +2,6 @@ package com.smart.tvpos.widgets;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -11,10 +10,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.smart.framework.library.common.utils.DP2PX;
+import com.smart.tvpos.R;
 
 /**
  * Created by JoJo on 2018/7/1.
@@ -28,7 +29,7 @@ import com.smart.framework.library.common.utils.DP2PX;
 
 public class PieMarkChatView extends View {
     private Context mContext;
-    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mPaint;
     private float mRotate;
     private Matrix mMatrix = new Matrix();
     private Shader mShader;
@@ -44,6 +45,7 @@ public class PieMarkChatView extends View {
     private int mCircleKeduWidth = 10;
     //内圆的半径
     private int mInnerRadius = 36;
+    private int mCurrentProgress;
 
     public PieMarkChatView(Context context) {
         this(context, null);
@@ -63,14 +65,6 @@ public class PieMarkChatView extends View {
 //                Color.GREEN}, null);
         //设置渐变
         //        mPaint.setShader(mShader);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(mCircleKeduWidth);
-        mPaint.setAntiAlias(true);
-        //表盘每个刻度的宽度时6px,间隙为1px
-        PathEffect effect = new DashPathEffect(new float[]{6, 1, 6, 1}, 1);
-        //设置画笔path,达到刻度的效果
-        mPaint.setPathEffect(effect);
-        mPaint.setColor(Color.parseColor("#3662a0"));
     }
 
     /**
@@ -100,10 +94,22 @@ public class PieMarkChatView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        //绘制圆盘刻度的画笔
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(mCircleKeduWidth);
+        mPaint.setAntiAlias(true);
+        //表盘每个刻度的宽度时6px,间隙为1px
+        PathEffect effect = new DashPathEffect(new float[]{6, 1, 6, 1}, 1);
+        //设置画笔path,达到刻度的效果
+        mPaint.setPathEffect(effect);
+        mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_3662a0));
+
+        //绘制圆盘中间的文字
         centerTextPaint = new Paint();
         centerTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         centerTextPaint.setStyle(Paint.Style.STROKE);
-        centerTextPaint.setColor(Color.parseColor("#68fdfe"));
+        centerTextPaint.setColor(ContextCompat.getColor(mContext, R.color.color_68fdfe));
         centerTextPaint.setTextSize(DP2PX.dip2px(mContext, 20));
 
 
@@ -121,19 +127,29 @@ public class PieMarkChatView extends View {
 //        }
         //不断绘制，达到动画的效果
 //        invalidate();
-        //绘制刻度
+        //绘制第一个圆盘
         canvas.drawCircle(startX, startY, mInnerRadius, mPaint);
-        mPaint.setColor(Color.parseColor("#2af0ae"));
+        mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_2af0ae));
         //20为画笔所占的宽度
         RectF rectF = new RectF(0 + mCircleKeduWidth, 0 + mCircleKeduWidth, 2 * mInnerRadius + mCircleKeduWidth, 2 * mInnerRadius + mCircleKeduWidth); //正方形背景
-        //绘制圆弧进度——userCenter true:显示圆中的水平横线
-        canvas.drawArc(rectF, 0, 30, false, mPaint); //画弧
+        //绘制第二个圆，圆弧进度——userCenter true:显示圆中的水平横线
+        canvas.drawArc(rectF, 0, mCurrentProgress * 1f / 100 * 360, false, mPaint); //画弧
 
         //文字的边界矩形
         textBoundRect = new Rect();
         //绘制中心的百分比文字
-        String data = 30 + "";
+        String data = mCurrentProgress + "";
         centerTextPaint.getTextBounds(data, 0, data.length(), textBoundRect);
         canvas.drawText(data, startX - textBoundRect.width() / 2, startY + textBoundRect.height() / 2, centerTextPaint);
+    }
+
+    /**
+     * 刷新当前进度:1-100
+     *
+     * @param progress
+     */
+    public void setCurrentProgress(int progress) {
+        this.mCurrentProgress = progress;
+        invalidate();
     }
 }
