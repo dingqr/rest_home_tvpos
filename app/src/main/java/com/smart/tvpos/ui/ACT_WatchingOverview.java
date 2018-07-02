@@ -109,6 +109,7 @@ public class ACT_WatchingOverview extends BaseActivity {
     private void requestNet() {
         requestWarningShow("warningShow");
         requestWarningNewList("warningNewList");
+        requestBuildingList("building");
         showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
     }
 
@@ -173,6 +174,40 @@ public class ACT_WatchingOverview extends BaseActivity {
                 Elog.e("TAG", "warningNewList=" + warningNewList.get(0).getTitle());
 
                 setStaffName(warningNewList);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+    /**
+     * 3.	当前分院的楼宇,楼层
+     *
+     * @param requestType building
+     */
+    private void requestBuildingList(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+
+            @Override
+            public void onReqSuccess(String dataBean) {
+//                if (dataBean == null || dataBean.getNum() == null || dataBean.getNum().size() == 0) {
+//                    return;
+//                }
+//                List<NewWarningEntity> warningNewList = dataBean.getNum();
+//                mAdapter.update(warningNewList, true);
+                Elog.e("TAG", "building=" + dataBean);
+//
             }
 
             @Override

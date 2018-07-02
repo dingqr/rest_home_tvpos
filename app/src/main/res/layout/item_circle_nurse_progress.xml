@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="喂早饭"
+            android:textColor="#b2cddb"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="护理任务1"
+            android:textColor="#b2cddb"
+            android:textSize="10sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <!--护理进度-start-->
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="248px"
+        android:layout_height="248px"
+        android:layout_marginLeft="56px"
+        android:layout_marginTop="20px">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/bg_nurse_progress_style_one" />
+
+        <com.smart.tvpos.widgets.PieMarkChatView
+            android:layout_width="92px"
+            android:layout_height="92px"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="68px" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

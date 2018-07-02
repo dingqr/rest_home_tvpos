@@ -17,6 +17,9 @@
     <string name="string_one_level">一级</string>
     <string name="string_two_level">二级</string>
     <string name="string_three_level">三级</string>
+    <string name="string_four_level">四级</string>
+    <string name="string_five_level">五级</string>
+    <string name="string_six_level">六级</string>
     <string name="string_huliyuan">护理员</string>
     <string name="string_hushi">护士</string>
     <string name="string_yishi">医师</string>

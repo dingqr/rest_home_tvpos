@@ -827,8 +827,8 @@
     <!--图表统计右-->
     <!--护理进度-start-->
     <com.zhy.autolayout.AutoRelativeLayout
-        android:layout_width="234px"
-        android:layout_height="234px"
+        android:layout_width="248px"
+        android:layout_height="248px"
         android:layout_centerInParent="true">
 
         <ImageView
@@ -840,9 +840,20 @@
         <com.smart.tvpos.widgets.PieMarkChatView
             android:layout_width="92px"
             android:layout_height="92px"
-            android:layout_marginLeft="72px"
-            android:layout_marginTop="72px" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="68px" />
     </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.smart.tvpos.widgets.BanSlideGridView
+        android:id="@+id/gridview"
+        android:layout_width="660px"
+        android:layout_height="660px"
+        android:layout_below="@+id/ll_total_data"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50px"
+        android:horizontalSpacing="60px"
+        android:numColumns="2"
+        android:verticalSpacing="30px"></com.smart.tvpos.widgets.BanSlideGridView>
 
     <!--护理进度-end-->
 </com.zhy.autolayout.AutoRelativeLayout>

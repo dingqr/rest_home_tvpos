@@ -173,11 +173,12 @@ public class ACT_NursingProgress extends BaseActivity {
 
             @Override
             public void onReqSuccess(UserNurseDataEntity bean) {
-                setHeaderTitle(TextUtils.isEmpty(bean.getBranch()) ? "" : bean.getBranch());
                 hideLoading();
                 if (bean == null || bean.getUser() == null || bean.getUser().size() == 0) {
                     return;
                 }
+                setHeaderTitle(TextUtils.isEmpty(bean.getBranch()) ? "" : bean.getBranch());
+
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
                 userNurseLis.get(1).setWarningLevel(1);
                 userNurseLis.get(6).setWarningLevel(2);

@@ -20,6 +20,7 @@ import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
+import com.smart.tvpos.bean.JobItemEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
 import com.smart.tvpos.bean.TrendDataEntity;
@@ -235,6 +236,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mPresenter.getStaffData("staff");
         //8.分院地址
         mPresenter.getBranchAddress("branchList");
+        //9.分院护理进度
+        mPresenter.getNurseProgressList("jobItem");
     }
 
 
@@ -441,7 +444,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         }
         List<Integer> nurseLevelChartcolorList = new ArrayList<>();
         //专户，一级，二级，三级
-        int[] colors = {R.color.color_55c7f2, R.color.color_5ffefd, R.color.color_e36853, R.color.color_7c80fe};
+        int[] colors = {R.color.color_55c7f2, R.color.color_5ffefd, R.color.color_e36853, R.color.color_7c80fe, R.color.color_7c80fe, R.color.color_7c80fe, R.color.color_7c80fe};
         // 百分比
         List<Float> nurseLevelChartRateList = new ArrayList<>();
         List<String> showTextList = new ArrayList<>();
@@ -472,6 +475,19 @@ public class ACT_Home extends BaseActivity implements IHomeView {
                 nurseLevelChartcolorList.add(colors[3]);
                 showTextList.add(MyApplication.getContext().getString(R.string.string_three_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
             }
+            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_four_level))) {
+                nurseLevelChartcolorList.add(colors[4]);
+                showTextList.add(MyApplication.getContext().getString(R.string.string_four_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
+            }
+            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_five_level))) {
+                nurseLevelChartcolorList.add(colors[5]);
+                showTextList.add(MyApplication.getContext().getString(R.string.string_five_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
+            }
+            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_six_level))) {
+                nurseLevelChartcolorList.add(colors[6]);
+                showTextList.add(MyApplication.getContext().getString(R.string.string_six_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
+            }
+
         }
         chartviewNurselevel.setShow(nurseLevelChartcolorList, nurseLevelChartRateList, true, true);
         chartviewNurselevel.setShowTextList(showTextList);
@@ -540,6 +556,17 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         for (int i = 0; i < dataList.size(); i++) {
             //分院名称
             Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
+        }
+    }
+
+    @Override
+    public void getNurseProgressList(List<JobItemEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < dataList.size(); i++) {
+            //分院名称
+            Elog.e("TAG", "dataList-item=" + dataList.get(i).getItemName());
         }
     }
 

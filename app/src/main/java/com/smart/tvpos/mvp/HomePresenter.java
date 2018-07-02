@@ -12,6 +12,7 @@ import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
+import com.smart.tvpos.bean.JobItemEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
 import com.smart.tvpos.bean.TrendDataEntity;
@@ -48,7 +49,6 @@ public class HomePresenter implements IHomePresenter {
     public void getHeaderData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<HomeHeadEntity>() {
@@ -79,7 +79,6 @@ public class HomePresenter implements IHomePresenter {
     public void getAdmitLivingData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<AdmitLivingEntity>() {
@@ -110,7 +109,6 @@ public class HomePresenter implements IHomePresenter {
     public void getLivingUserData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
@@ -142,7 +140,6 @@ public class HomePresenter implements IHomePresenter {
     public void getAlertData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<WarningEntity>() {
@@ -174,7 +171,6 @@ public class HomePresenter implements IHomePresenter {
     public void getLivingTrendData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
@@ -207,7 +203,6 @@ public class HomePresenter implements IHomePresenter {
     public void getUserNurseData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<NurseLevelEntity>>() {
@@ -239,7 +234,6 @@ public class HomePresenter implements IHomePresenter {
     public void getStaffData(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<StaffEntity>>() {
@@ -261,6 +255,9 @@ public class HomePresenter implements IHomePresenter {
             }
         });
     }
+    /**
+     * 8：分院的护理进度
+     */
 
     /**
      * 分院的地址
@@ -270,7 +267,6 @@ public class HomePresenter implements IHomePresenter {
     public void getBranchAddress(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "branchList");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<BranchAddressEntity>>() {
@@ -279,6 +275,36 @@ public class HomePresenter implements IHomePresenter {
             public void onReqSuccess(List<BranchAddressEntity> result) {
                 Elog.e("TAG", "branchList=" + result);
                 mView.getBranchAddress(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 9.	分院已完成/未完成项目
+     * @param requestType jobItem
+     */
+    @Override
+    public void getNurseProgressList(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<JobItemEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<JobItemEntity> result) {
+                Elog.e("TAG", "jobItem=" + result);
+                mView.getNurseProgressList(result);
             }
 
             @Override

@@ -76,7 +76,7 @@ public class PieMarkChatView extends View {
     /**
      * 测量
      */
-//    @Override
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -100,7 +100,6 @@ public class PieMarkChatView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         centerTextPaint = new Paint();
         centerTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         centerTextPaint.setStyle(Paint.Style.STROKE);
@@ -128,7 +127,7 @@ public class PieMarkChatView extends View {
         //20为画笔所占的宽度
         RectF rectF = new RectF(0 + mCircleKeduWidth, 0 + mCircleKeduWidth, 2 * mInnerRadius + mCircleKeduWidth, 2 * mInnerRadius + mCircleKeduWidth); //正方形背景
         //绘制圆弧进度——userCenter true:显示圆中的水平横线
-        canvas.drawArc(rectF, 0, 180, false, mPaint); //画弧
+        canvas.drawArc(rectF, 0, 30, false, mPaint); //画弧
 
         //文字的边界矩形
         textBoundRect = new Rect();

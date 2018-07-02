@@ -42,7 +42,7 @@ public class UpCurveChartView extends View {
     //X轴刻度间距(px)
     private int xAxisSpace = 90;
     //Y轴刻度集合
-    private int[] mYAxisData = new int[]{0, 2, 4, 6};
+    private int[] mYAxisData = new int[]{0, 10, 20, 30};
     //X轴刻度集合
     private ArrayList<String> mXAxisData = new ArrayList<>();
     //最大刻度值
@@ -65,6 +65,7 @@ public class UpCurveChartView extends View {
     private int keduTextSpace = 4;
     //X轴的偏移量
     private int xOffset = 46;
+
     public UpCurveChartView(Context context) {
         this(context, null);
     }
@@ -248,7 +249,7 @@ public class UpCurveChartView extends View {
      *
      * @param mIncressUserList
      */
-    public void setData(ArrayList<Integer> mIncressUserList,ArrayList<String> xAxisData) {
+    public void setData(ArrayList<Integer> mIncressUserList, ArrayList<String> xAxisData) {
         this.mRealDatas = mIncressUserList;
         this.mXAxisData = xAxisData;
         postInvalidate();
