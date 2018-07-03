@@ -82,6 +82,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
     private HomePresenter mPresenter;
     private ADA_CircleNurseProgress mAdapterNurseProgress;
+    private int[] upYAxisData;
+    private int[] downYAxisData;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -243,7 +245,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //7. 员工统计
         mPresenter.getStaffData("staff");
         //8.分院地址
-        mPresenter.getBranchAddress("branchList");
+//        mPresenter.getBranchAddress("branchList");
         //9.分院护理进度
         mPresenter.getNurseProgressList("jobItem");
     }
@@ -421,6 +423,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         ArrayList<Integer> branchNewAddList = new ArrayList<>();
         //新增用户
         ArrayList<Integer> userNewAddList = new ArrayList<>();
+        //横坐标最多显示5个
         if (dataList.size() > 5) {
             for (int i = 0; i < 5; i++) {
                 TrendDataEntity bean = dataList.get(i);
@@ -436,8 +439,48 @@ public class ACT_Home extends BaseActivity implements IHomeView {
                 branchNewAddList.add(bean.getBranchNewN());
             }
         }
-        mUpCurveView.setData(userNewAddList, xAxisData);
-        mDowncurveView.setData(branchNewAddList);
+        //根据最大值生成对应的Y轴坐标范围
+        gennerateMaxAxisDataList(branchNewAddList, userNewAddList);
+        mUpCurveView.setData(userNewAddList, xAxisData, upYAxisData);
+        mDowncurveView.setData(branchNewAddList, downYAxisData);
+    }
+
+    /**
+     * 根据最大值生成上下曲线图对应的Y轴坐标范围(范围刻度最大为4个)
+     *
+     * @param branchNewAddList
+     * @param userNewAddList
+     */
+    //范围刻度最大为4个
+    private int maxKeduValue = 4;
+
+    private void gennerateMaxAxisDataList(ArrayList<Integer> branchNewAddList, ArrayList<Integer> userNewAddList) {
+        //新增用户数据的最大值
+        Integer maxUserX = Collections.max(userNewAddList);
+        if (maxUserX % 2 == 0) {
+            maxUserX = maxUserX + 2;
+        } else {
+            maxUserX = maxUserX + 1;
+        }
+        //新增养老院数据的最大值
+        Integer maxBranchX = Collections.max(branchNewAddList);
+        if (maxBranchX % 2 == 0) {
+            maxBranchX = maxUserX + 2;
+        } else {
+            maxBranchX = maxBranchX + 1;
+        }
+
+        int userSpace = maxUserX / maxKeduValue == 0 ? 1 : (maxUserX / maxKeduValue);
+        int branchSpace = maxBranchX / maxKeduValue == 0 ? 1 : (maxBranchX / maxKeduValue);
+        //刻度集合为maxKeduValue+1(0刻度占一个)
+        upYAxisData = new int[maxKeduValue + 1];
+        downYAxisData = new int[maxKeduValue + 1];
+        upYAxisData[0] = 0;
+        downYAxisData[0] = 0;
+        for (int i = 1; i < 5; i++) {
+            upYAxisData[i] = upYAxisData[i - 1] + userSpace;
+            downYAxisData[i] = downYAxisData[i - 1] + branchSpace;
+        }
     }
 
     /**
@@ -452,7 +495,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         }
         List<Integer> nurseLevelChartcolorList = new ArrayList<>();
         //专户，一级，二级，三级
-        int[] colors = {R.color.color_55c7f2, R.color.color_5ffefd, R.color.color_e36853, R.color.color_7c80fe, R.color.color_7c80fe, R.color.color_7c80fe, R.color.color_7c80fe};
+        int[] colors = {R.color.color_55c7f2, R.color.color_5ffefd, R.color.color_e36853, R.color.color_7c80fe, R.color.color_f1b133, R.color.color_34617e, R.color.color_2e84ba};
         // 百分比
         List<Float> nurseLevelChartRateList = new ArrayList<>();
         List<String> showTextList = new ArrayList<>();
@@ -578,7 +621,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         dataList.get(3).setNumD(5);
         dataList.get(4).setNumD(8);
         dataList.get(5).setNumD(20);
-        mAdapterNurseProgress.update(dataList,true);
+        mAdapterNurseProgress.update(dataList, true);
     }
 
 }

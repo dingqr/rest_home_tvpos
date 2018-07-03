@@ -694,7 +694,7 @@
                             android:textSize="5sp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="6px"
                             android:drawableLeft="@drawable/ic_two_level"
@@ -710,6 +710,36 @@
                             android:drawableLeft="@drawable/ic_three_level"
                             android:drawablePadding="8px"
                             android:text="@string/string_three_level"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_60_69"
+                            android:drawablePadding="8px"
+                            android:text="@string/string_four_level"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_60_down"
+                            android:drawablePadding="8px"
+                            android:text="@string/string_five_level"
+                            android:textColor="@color/color_a9c6d6"
+                            android:textSize="5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6px"
+                            android:drawableLeft="@drawable/ic_70_79"
+                            android:drawablePadding="8px"
+                            android:text="@string/string_six_level"
                             android:textColor="@color/color_a9c6d6"
                             android:textSize="5sp" />
 

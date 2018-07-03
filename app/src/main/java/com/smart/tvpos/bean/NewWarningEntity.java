@@ -1,5 +1,6 @@
 package com.smart.tvpos.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,22 +120,6 @@ public class NewWarningEntity {
     private String allStaff;//展示的所有护工，、隔开
     private String headImg;//老人头像
 
-    public String getHeadImg() {
-        return headImg;
-    }
-
-    public void setHeadImg(String headImg) {
-        this.headImg = headImg;
-    }
-
-    public String getAllStaff() {
-        return allStaff;
-    }
-
-    public void setAllStaff(String allStaff) {
-        this.allStaff = allStaff;
-    }
-
     public int getId() {
         return id;
     }
@@ -144,7 +129,7 @@ public class NewWarningEntity {
     }
 
     public String getTitle() {
-        return title;
+        return title == null ? "" : title;
     }
 
     public void setTitle(String title) {
@@ -168,7 +153,7 @@ public class NewWarningEntity {
     }
 
     public String getTypeChild() {
-        return typeChild;
+        return typeChild == null ? "" : typeChild;
     }
 
     public void setTypeChild(String typeChild) {
@@ -232,7 +217,7 @@ public class NewWarningEntity {
     }
 
     public String getContactNo() {
-        return contactNo;
+        return contactNo == null ? "" : contactNo;
     }
 
     public void setContactNo(String contactNo) {
@@ -240,7 +225,7 @@ public class NewWarningEntity {
     }
 
     public String getContactType() {
-        return contactType;
+        return contactType == null ? "" : contactType;
     }
 
     public void setContactType(String contactType) {
@@ -248,7 +233,7 @@ public class NewWarningEntity {
     }
 
     public String getContactBegin() {
-        return contactBegin;
+        return contactBegin == null ? "" : contactBegin;
     }
 
     public void setContactBegin(String contactBegin) {
@@ -256,7 +241,7 @@ public class NewWarningEntity {
     }
 
     public String getContactEnd() {
-        return contactEnd;
+        return contactEnd == null ? "" : contactEnd;
     }
 
     public void setContactEnd(String contactEnd) {
@@ -264,7 +249,7 @@ public class NewWarningEntity {
     }
 
     public String getContactFile() {
-        return contactFile;
+        return contactFile == null ? "" : contactFile;
     }
 
     public void setContactFile(String contactFile) {
@@ -280,7 +265,7 @@ public class NewWarningEntity {
     }
 
     public String getLiveType() {
-        return liveType;
+        return liveType == null ? "" : liveType;
     }
 
     public void setLiveType(String liveType) {
@@ -312,7 +297,7 @@ public class NewWarningEntity {
     }
 
     public String getOutStatus() {
-        return outStatus;
+        return outStatus == null ? "" : outStatus;
     }
 
     public void setOutStatus(String outStatus) {
@@ -352,7 +337,7 @@ public class NewWarningEntity {
     }
 
     public String getOutAudit() {
-        return outAudit;
+        return outAudit == null ? "" : outAudit;
     }
 
     public void setOutAudit(String outAudit) {
@@ -448,7 +433,7 @@ public class NewWarningEntity {
     }
 
     public String getIsPayment() {
-        return isPayment;
+        return isPayment == null ? "" : isPayment;
     }
 
     public void setIsPayment(String isPayment) {
@@ -456,7 +441,7 @@ public class NewWarningEntity {
     }
 
     public String getCreated() {
-        return created;
+        return created == null ? "" : created;
     }
 
     public void setCreated(String created) {
@@ -464,7 +449,7 @@ public class NewWarningEntity {
     }
 
     public String getUpdated() {
-        return updated;
+        return updated == null ? "" : updated;
     }
 
     public void setUpdated(String updated) {
@@ -480,7 +465,7 @@ public class NewWarningEntity {
     }
 
     public String getUserName() {
-        return userName;
+        return userName == null ? "" : userName;
     }
 
     public void setUserName(String userName) {
@@ -488,7 +473,7 @@ public class NewWarningEntity {
     }
 
     public String getBedName() {
-        return bedName;
+        return bedName == null ? "" : bedName;
     }
 
     public void setBedName(String bedName) {
@@ -544,11 +529,30 @@ public class NewWarningEntity {
     }
 
     public List<StaffBean> getStaff() {
+        if (staff == null) {
+            return new ArrayList<>();
+        }
         return staff;
     }
 
     public void setStaff(List<StaffBean> staff) {
         this.staff = staff;
+    }
+
+    public String getAllStaff() {
+        return allStaff == null ? "" : allStaff;
+    }
+
+    public void setAllStaff(String allStaff) {
+        this.allStaff = allStaff;
+    }
+
+    public String getHeadImg() {
+        return headImg == null ? "" : headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 
     /**
@@ -574,7 +578,7 @@ public class NewWarningEntity {
         }
 
         public String getName() {
-            return name;
+            return name == null ? "" : name;
         }
 
         public void setName(String name) {

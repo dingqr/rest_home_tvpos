@@ -255,7 +255,7 @@
 
     <TextView
         android:id="@+id/tv_floor"
-        android:layout_width="wrap_content"
+        android:layout_width="112px"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/ll_head"
         android:layout_below="@+id/ll_head"
@@ -271,10 +271,26 @@
         android:textColor="@color/color_FFFFFF"
         android:textSize="10sp" />
 
-    <TextView
+    <ListView
+        android:id="@+id/floorList"
         android:layout_width="wrap_content"
+        android:layout_height="230px"
+        android:layout_alignLeft="@+id/tv_floor"
+        android:layout_alignRight="@+id/tv_floor"
+        android:layout_below="@+id/tv_floor"
+        android:layout_marginTop="2px"
+        android:background="@drawable/bg_shape_solid_ffffff_coner_6"
+        android:divider="@null"
+        android:listSelector="@drawable/bg_press_selector_eeeeee"
+        android:scrollbars="none"
+        android:visibility="invisible"></ListView>
+
+    <TextView
+        android:id="@+id/tv_building"
+        android:layout_width="156px"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tv_floor"
+        android:layout_marginRight="2px"
         android:layout_toLeftOf="@+id/tv_floor"
         android:background="@color/color_FFFFFF"
         android:drawablePadding="10px"
@@ -286,6 +302,38 @@
         android:text="住养大楼"
         android:textColor="@color/color_b9b9b9"
         android:textSize="10sp" />
+
+    <ListView
+        android:id="@+id/buildingList"
+        android:layout_width="wrap_content"
+        android:layout_height="230px"
+        android:layout_alignLeft="@+id/tv_building"
+        android:layout_alignRight="@+id/tv_building"
+        android:layout_below="@+id/tv_building"
+        android:layout_marginTop="2px"
+        android:background="@drawable/bg_shape_solid_ffffff_coner_6"
+        android:divider="@null"
+        android:listSelector="@drawable/bg_press_selector_eeeeee"
+        android:scrollbars="none"
+        android:visibility="invisible"></ListView>
+
+    <!--<View-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="6px"-->
+    <!--android:layout_alignLeft="@+id/buildingList"-->
+    <!--android:layout_alignRight="@+id/buildingList"-->
+    <!--android:layout_below="@+id/buildingList"-->
+    <!--android:background="@drawable/bg_shape_gradient_line_corner_6"-->
+    <!--android:visibility="gone"></View>-->
+
+    <!--<View-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="6px"-->
+    <!--android:layout_alignLeft="@+id/floorList"-->
+    <!--android:layout_alignRight="@+id/floorList"-->
+    <!--android:layout_below="@+id/floorList"-->
+    <!--android:background="@drawable/bg_shape_gradient_line_corner_6"-->
+    <!--android:visibility="gone"></View>-->
 
     <!--时间-->
     <com.zhy.autolayout.AutoLinearLayout

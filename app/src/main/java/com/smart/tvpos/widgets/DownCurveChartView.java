@@ -244,10 +244,11 @@ public class DownCurveChartView extends View {
      * 传入数据，重新绘制图表
      *
      * @param mIncressUserList
+     * @param downYAxisData
      */
-    public void setData(ArrayList<Integer> mIncressUserList) {
+    public void setData(ArrayList<Integer> mIncressUserList, int[] downYAxisData) {
         this.mRealDatas = mIncressUserList;
-//        this.mXAxisData = xAxisData;
+        this.mYAxisData = downYAxisData;
         postInvalidate();
     }
 }

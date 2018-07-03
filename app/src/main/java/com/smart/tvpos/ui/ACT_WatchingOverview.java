@@ -3,6 +3,9 @@ package com.smart.tvpos.ui;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -17,7 +20,11 @@ import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
+import com.smart.tvpos.adapter.ADA_BuildingList;
+import com.smart.tvpos.adapter.ADA_FloorList;
 import com.smart.tvpos.adapter.ADA_NewWarningList;
+import com.smart.tvpos.bean.BuildingEntity;
+import com.smart.tvpos.bean.FloorEntity;
 import com.smart.tvpos.bean.NewWarningEntity;
 import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.bean.WarningNewDataEntity;
@@ -30,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by JoJo on 2018/6/22.
@@ -49,12 +57,46 @@ public class ACT_WatchingOverview extends BaseActivity {
     LRecyclerView mRecyclerView;
     @Bind(R.id.tv_sub_title)
     TextView tvSubTitle;
+    @Bind(R.id.buildingList)
+    ListView listviewbuildingList;
+    @Bind(R.id.floorList)
+    ListView listviewfloorList;
+    @Bind(R.id.tv_building)
+    TextView tvBuilding;
+    @Bind(R.id.tv_floor)
+    TextView tvFloor;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
     private ADA_NewWarningList mAdapter;
+    private ADA_BuildingList mBuildingAdapter;
+    private ADA_FloorList mFloorAdapter;
+    //当前选中的楼层
+    private FloorEntity mSelectFloorEntity;
+    //当前选中的楼宇
+    private BuildingEntity mSelectBuildingEntity;
 
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_watching_overview;
+    }
+
+    @OnClick({R.id.tv_building, R.id.tv_floor, R.id.tv_watching_title})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_building:
+                if (listviewbuildingList.getVisibility() == View.INVISIBLE) {
+                    showBuildingList();
+                } else {
+                    hideBuildingList();
+                }
+                break;
+            case R.id.tv_floor:
+                if (listviewfloorList.getVisibility() == View.INVISIBLE) {
+                    showFloorList();
+                } else {
+                    hideFloorList();
+                }
+                break;
+        }
     }
 
     @Override
@@ -66,7 +108,83 @@ public class ACT_WatchingOverview extends BaseActivity {
     protected void initViewsAndEvents() {
         tvSubTitle.setText("护理进度");
         initRecyclerView();
+        initListView();
+
         requestNet();
+        initListener();
+    }
+
+
+    private void initListView() {
+        mBuildingAdapter = new ADA_BuildingList(mContext);
+        listviewbuildingList.setAdapter(mBuildingAdapter);
+
+        mFloorAdapter = new ADA_FloorList(mContext);
+        listviewfloorList.setAdapter(mFloorAdapter);
+    }
+
+    private void initListener() {
+        listviewbuildingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mSelectBuildingEntity = mBuildingAdapter.getDataList().get(i);
+                mBuildingAdapter.setCheckCurrentItem(i);
+                tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
+                mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
+                //切换时默认显示列表的第一个
+                if (mSelectBuildingEntity.getList().size() > 0) {
+                    tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
+                }
+                if (listviewfloorList.getVisibility() == View.INVISIBLE) {
+                    showFloorList();
+                }
+            }
+        });
+        listviewfloorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mSelectFloorEntity = mFloorAdapter.getDataList().get(i);
+                tvFloor.setText(mSelectFloorEntity.getFloorName());
+                hideFloorList();
+                if (listviewbuildingList.getVisibility() == View.VISIBLE) {
+                    hideBuildingList();
+                }
+                //选中的楼和楼层
+                CommonUtils.makeEventToast(MyApplication.getContext(), mSelectBuildingEntity.getBuildingName() + mSelectFloorEntity.getFloorName(), false);
+            }
+        });
+    }
+
+    /**
+     * 弹出楼宇列表
+     */
+    private void showBuildingList() {
+        listviewbuildingList.setVisibility(View.VISIBLE);
+        listviewbuildingList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+    }
+
+    /*
+     * 隐藏楼宇列表
+     */
+    private void hideBuildingList() {
+        listviewbuildingList.setVisibility(View.INVISIBLE);
+        listviewbuildingList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+    }
+
+    /**
+     * 弹出楼层列表
+     */
+    private void showFloorList() {
+        listviewfloorList.setVisibility(View.VISIBLE);
+        listviewfloorList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+    }
+
+    /**
+     * 隐藏楼层列表
+     */
+    private void hideFloorList() {
+        listviewfloorList.setVisibility(View.INVISIBLE);
+        listviewfloorList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
     }
 
     /**
@@ -187,6 +305,7 @@ public class ACT_WatchingOverview extends BaseActivity {
             }
         });
     }
+
     /**
      * 3.	当前分院的楼宇,楼层
      *
@@ -197,17 +316,23 @@ public class ACT_WatchingOverview extends BaseActivity {
         params.put("a", requestType);
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<BuildingEntity>>() {
 
             @Override
-            public void onReqSuccess(String dataBean) {
-//                if (dataBean == null || dataBean.getNum() == null || dataBean.getNum().size() == 0) {
-//                    return;
-//                }
-//                List<NewWarningEntity> warningNewList = dataBean.getNum();
-//                mAdapter.update(warningNewList, true);
-                Elog.e("TAG", "building=" + dataBean);
-//
+            public void onReqSuccess(List<BuildingEntity> dataList) {
+                if (dataList == null || dataList.size() == 0) {
+                    return;
+                }
+                BuildingEntity buildingEntity = dataList.get(0);
+                Elog.e("TAG", "building=" + buildingEntity.getBuildingName());
+
+                tvBuilding.setText(buildingEntity.getBuildingName());
+                mBuildingAdapter.update(dataList, true);
+
+                if (buildingEntity.getList().size() > 0) {
+                    tvFloor.setText(dataList.get(0).getList().get(0).getFloorName());
+                }
+                mFloorAdapter.update(dataList.get(0).getList(), true);
             }
 
             @Override
