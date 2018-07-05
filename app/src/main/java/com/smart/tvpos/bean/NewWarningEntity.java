@@ -540,7 +540,7 @@ public class NewWarningEntity {
     }
 
     public String getAllStaff() {
-        return allStaff == null ? "" : allStaff;
+        return allStaff == null ? "无" : allStaff;
     }
 
     public void setAllStaff(String allStaff) {

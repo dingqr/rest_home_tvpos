@@ -114,7 +114,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
                 holder.setText(R.id.tv_type_child_zoom, bean.getTypeChild() == null ? "" : bean.getTypeChild());
                 holder.setVisible(R.id.tv_type_child_zoom, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
                 //地点
-                holder.setText(R.id.tv_address_zoom, bean.getBuildingName() + bean.getFloorName() + bean.getRoomName());
+                holder.setText(R.id.tv_address_zoom, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
                 holder.setText(R.id.tv_sex_old_zoom, MyApplication.getContext().getString(R.string.string_age) + bean.getAge() + "    " + MyApplication.getContext().getString(R.string.string_sex) + (TextUtils.isEmpty(bean.getSex()) ? "" : bean.getSex()));
                 RequestOptions requestOptions = new RequestOptions()
                         .placeholder(R.drawable.ic_user_avatar)
@@ -142,13 +142,13 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             //普通的百分比文字的颜色
             progressBarNormal.setTextColor(textcolor[3]);
             progressBarNormal.setLeftMargin(30);
-            progressBarNormal.setLineColor(ContextCompat.getColor(mContext,R.color.color_d8dae1));
+            progressBarNormal.setLineColor(ContextCompat.getColor(mContext, R.color.color_d8dae1));
             if (bean != null) {
                 holder.setText(R.id.tv_name, bean.getUserName() == null ? "" : bean.getUserName());
                 holder.setText(R.id.tv_type_child, bean.getTypeChild() == null ? "" : bean.getTypeChild());
                 holder.setVisible(R.id.tv_type_child, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
                 //地点
-                holder.setText(R.id.tv_address, bean.getBuildingName() + bean.getFloorName() + bean.getRoomName());
+                holder.setText(R.id.tv_address, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
                 holder.setText(R.id.tv_sex_old, MyApplication.getContext().getString(R.string.string_age) + bean.getAge() + "    " + MyApplication.getContext().getString(R.string.string_sex) + (TextUtils.isEmpty(bean.getSex()) ? "" : bean.getSex()));
                 //            holder.setText(R.id.tv_time, bean.getUpdated());
                 RequestOptions requestOptions = new RequestOptions()
