@@ -356,6 +356,7 @@
             android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/tv_current_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -373,7 +374,6 @@
         android:layout_alignLeft="@+id/ll_new_alert_title"
         android:layout_alignRight="@+id/ll_new_alert_title"
         android:layout_below="@+id/ll_new_alert_title"
-        android:layout_marginTop="44px"
         android:overScrollMode="never"
         android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
 </com.zhy.autolayout.AutoRelativeLayout>

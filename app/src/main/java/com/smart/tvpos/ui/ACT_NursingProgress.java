@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.log.Elog;
@@ -94,7 +93,29 @@ public class ACT_NursingProgress extends BaseActivity {
 //        设置外层列表Adapter
         mRecyclerView.setAdapter(mLRecyclerViewAdapter);
         //设置item之间的间距
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration());
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+                //设计图item之间的间距为30
+                outRect.bottom = 15;
+                outRect.top = 15;
+                outRect.left = 15;
+                outRect.right = 15;
+                //header占了一个位置，故从位置1开始显示实际的item
+                if (itemPosition <= mColumnNum) {
+                    outRect.top = 15;//设计图recyclerview距离上方控件为44px
+                } else {
+                    outRect.top = 15;
+                }
+                if (itemPosition % 4 == 0) {
+                    //右边第一列
+                    outRect.right = 30;
+                } else if ((itemPosition - 1) % mColumnNum == 0) {
+                    //左边第一列
+                    outRect.left = 30;
+                }
+            }
+        });
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setChildDrawingOrderCallback(mAdapter);//这句很关键,让获得焦点item浮在其他item上面
         mRecyclerView.setPullRefreshEnabled(false);
@@ -114,49 +135,6 @@ public class ACT_NursingProgress extends BaseActivity {
         mRecyclerView.setFooterViewHint(MyApplication.getContext().getString(R.string.list_footer_loading), MyApplication.getContext().getString(R.string.list_footer_end), MyApplication.getContext().getString(R.string.list_footer_network_error));
     }
 
-    /**
-     * 设置item之间的间距
-     */
-    public class SpaceItemDecoration extends LuRecyclerView.ItemDecoration {
-
-        public SpaceItemDecoration() {
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-            //设计图item之间的间距为30
-            outRect.bottom = 15;
-            outRect.top = 15;
-            outRect.left = 15;
-            outRect.right = 15;
-            //header占了一个位置，故从位置1开始显示实际的item
-            if (itemPosition <= mColumnNum) {
-                outRect.top = 15;//设计图recyclerview距离上方控件为44px
-            } else {
-                outRect.top = 15;
-            }
-            if (itemPosition % 4 == 0) {
-                //右边第一列
-                outRect.right = 30;
-            } else if ((itemPosition - 1) % mColumnNum == 0) {
-                //左边第一列
-                outRect.left = 30;
-            }
-//            //header占了一个位置，故从位置1开始显示实际的item
-//            if (itemPosition + 1 <= mColumnNum) {
-//                outRect.top = 15;//设计图recyclerview距离上方控件为44px
-//            } else {
-//                outRect.top = 15;
-//            }
-//            if ((itemPosition + 1) % 4 == 0) {
-//                //右边第一列
-//                outRect.right = 30;
-//            } else if ((itemPosition) % mColumnNum == 0) {
-//                //左边第一列
-//                outRect.left = 30;
-//            }
-        }
-    }
 
     private void requestNet(boolean isShowLoading) {
         requestWarningShow("userNurse");

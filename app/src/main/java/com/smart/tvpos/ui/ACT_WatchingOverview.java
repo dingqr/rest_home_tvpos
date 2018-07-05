@@ -1,7 +1,9 @@
 package com.smart.tvpos.ui;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -12,11 +14,13 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.github.jdsjlzx.recyclerview.LuRecyclerView;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.ReceiveConstants;
 import com.smart.framework.library.common.log.Elog;
+import com.smart.framework.library.common.utils.AppDateUtil;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
@@ -54,6 +58,8 @@ public class ACT_WatchingOverview extends BaseActivity {
     TextView tvNumSleep;//离床报警数据
     @Bind(R.id.tv_num_health)
     TextView tvNumHhealth;//生命体征异常报警数据
+    @Bind(R.id.tv_current_time)
+    TextView tvCurrentTime;//系统当前时间
     @Bind(R.id.recyclerview)
     LRecyclerView mRecyclerView;
     @Bind(R.id.tv_sub_title)
@@ -98,9 +104,12 @@ public class ACT_WatchingOverview extends BaseActivity {
         return R.layout.act_watching_overview;
     }
 
-    @OnClick({R.id.tv_building, R.id.tv_floor, R.id.tv_watching_title})
+    @OnClick({R.id.tv_sub_title, R.id.tv_building, R.id.tv_floor, R.id.tv_watching_title})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_sub_title:
+                readyGo(ACT_NursingProgress.class);
+                break;
             case R.id.tv_building:
                 if (listviewbuildingList.getVisibility() == View.INVISIBLE) {
                     showBuildingList();
@@ -127,6 +136,11 @@ public class ACT_WatchingOverview extends BaseActivity {
     protected void initViewsAndEvents() {
         //title（养老院简称）+监控概览
         tvSubTitle.setText("护理进度");
+        //显示系统当前时间
+        String timeStamp = AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_POINT);
+        String week = AppDateUtil.getWeek(AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD));
+        tvCurrentTime.setText(timeStamp + " " + week);
+
         initRecyclerView();
         initListView();
 
@@ -217,8 +231,23 @@ public class ACT_WatchingOverview extends BaseActivity {
         mLRecyclerViewAdapter = new LRecyclerViewAdapter(mAdapter);
         //设置外层列表Adapter
         mRecyclerView.setAdapter(mLRecyclerViewAdapter);
+
+        //设置item之间的间距
+        mRecyclerView.addItemDecoration(new LuRecyclerView.ItemDecoration() {
+
+            @Override
+            public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+
+                //header占了一个位置，故从位置1开始显示实际的item
+                if (itemPosition == 1) {
+                    outRect.top = 44;//设计图recyclerview距离上方控件为44px
+                }
+            }
+        });
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new
+
+                LinearLayoutManager(mContext));
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.SysProgress);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SysProgress);
         mRecyclerView.setPullRefreshEnabled(false);
@@ -241,8 +270,24 @@ public class ACT_WatchingOverview extends BaseActivity {
         //设置底部加载颜色-loading动画颜色,文字颜色,footer的背景颜色
         mRecyclerView.setFooterViewColor(R.color.color_2e84ba, R.color.color_2e84ba, R.color.color_FFFFFF);
         //设置底部加载文字提示
-        mRecyclerView.setFooterViewHint(MyApplication.getContext().getString(R.string.list_footer_loading), MyApplication.getContext().getString(R.string.list_footer_end), MyApplication.getContext().getString(R.string.list_footer_network_error));
+        mRecyclerView.setFooterViewHint(MyApplication.getContext().
+
+                getString(R.string.list_footer_loading), MyApplication.
+
+                getContext().
+
+                getString(R.string.list_footer_end), MyApplication.
+
+                getContext().
+
+                getString(R.string.list_footer_network_error));
     }
+
+    /**
+     * 请求数据
+     *
+     * @param isShowLoading
+     */
 
     private void requestNet(boolean isShowLoading) {
         requestWarningShow("warningShow");

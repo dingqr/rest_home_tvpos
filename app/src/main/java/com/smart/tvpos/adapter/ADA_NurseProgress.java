@@ -2,6 +2,7 @@ package com.smart.tvpos.adapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -44,9 +45,10 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
     public ADA_NurseProgress(Activity context) {
         super(context);
         this.context = context;
+        //设置渐变进度条的颜色数组值
         normalColors = new int[]{Color.parseColor("#41a0eb"), Color.parseColor("#6488e5"), Color.parseColor("#7084e4")};
         zoomColors = new int[]{Color.parseColor("#ffffff"), Color.parseColor("#af8f5b"), Color.parseColor("#936622")};
-        //textcolor  #6c100e  956a25  3372ba
+        //设置报警级别对应的百分比文字颜色textcolor  #6c100e  956a25  3372ba
         textcolor = new int[]{Color.parseColor("#6c100e"), Color.parseColor("#956a25"), Color.parseColor("#3372ba"), Color.parseColor("#4791e1")};
     }
 
@@ -106,7 +108,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         //如果是警报的前三级，突出放大显示——（设置某些Item放大-把动画时间置为0 缩放比例：（18*2+264）/264=1.136）
         if (bean.getWarningLevel() != 0) {
             progressBarZoom.setLeftMargin(20 + 30);
-            progressBarZoom.setLineColor(Color.parseColor("#feeed2"));
+            progressBarZoom.setLineColor(ContextCompat.getColor(mContext, R.color.color_feeed2));
             if (bean != null) {
                 holder.setText(R.id.tv_name_zoom, bean.getUserName() == null ? "" : bean.getUserName());
                 holder.setText(R.id.tv_type_child_zoom, bean.getTypeChild() == null ? "" : bean.getTypeChild());
@@ -140,7 +142,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             //普通的百分比文字的颜色
             progressBarNormal.setTextColor(textcolor[3]);
             progressBarNormal.setLeftMargin(30);
-            progressBarNormal.setLineColor(Color.parseColor("#d8dae1"));
+            progressBarNormal.setLineColor(ContextCompat.getColor(mContext,R.color.color_d8dae1));
             if (bean != null) {
                 holder.setText(R.id.tv_name, bean.getUserName() == null ? "" : bean.getUserName());
                 holder.setText(R.id.tv_type_child, bean.getTypeChild() == null ? "" : bean.getTypeChild());

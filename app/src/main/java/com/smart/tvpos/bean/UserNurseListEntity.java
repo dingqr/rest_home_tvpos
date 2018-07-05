@@ -196,7 +196,7 @@ public class UserNurseListEntity {
     }
 
     public int getAge() {
-        return age;
+        return age < 0 ? 0 : age;
     }
 
     public void setAge(int age) {
