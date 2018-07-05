@@ -33,7 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20px"
         android:includeFontPadding="false"
-        android:text="哈福云智慧养老数据监控平台"
+        android:text="@string/string_home_title_zong"
         android:textColor="@color/color_FFFFFF"
         android:textSize="20sp" />
     <!--android:layout_marginTop="30px"-->
@@ -53,7 +53,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:includeFontPadding="false"
-            android:text="2018年05月30日    星期三"
             android:textColor="@color/color_55ddf2"
             android:textSize="12sp" />
 
@@ -565,7 +564,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="10px"
+                        android:layout_marginBottom="6px"
                         android:layout_marginTop="10px"
                         android:orientation="horizontal">
 
@@ -615,11 +614,11 @@
                             android:textSize="7sp" />
                     </com.zhy.autolayout.AutoLinearLayout>
 
-                    <!--curveViewDown-高度为:刻度距离*4=80 + x轴和Y轴刻度值文字大小=10 + 刻度线的长度=10 ==100-->
+                    <!--curveViewDown-高度为:刻度距离*5=100 + 10(x轴和Y轴刻度值文字大小) + 10(刻度线的长度) =100-->
                     <com.smart.tvpos.widgets.UpCurveChartView
                         android:id="@+id/curveViewUp"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="120px"
                         android:layout_below="@+id/ll_title"
                         android:layout_centerHorizontal="true" />
 

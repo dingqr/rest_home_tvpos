@@ -47,7 +47,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/ll_icon"
             android:includeFontPadding="false"
-            android:text="哈佛云分院监控概览"
+            android:text="@string/string_title_watching_overview_zong"
             android:textColor="@color/color_8f9292"
             android:textSize="15sp" />
 

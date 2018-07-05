@@ -10,4 +10,5 @@ public class SharePreConstants {
     public static final String USER_ID = "user_id";
     public static final String USER_NAME = "user_name";
     public static final String LOGOUT = "logout";
+    public static final String TYPE = "type";//分院/总院
 }

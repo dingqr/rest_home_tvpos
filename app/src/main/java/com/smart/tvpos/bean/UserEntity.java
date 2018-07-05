@@ -9,9 +9,18 @@ public class UserEntity {
     private String sign;
     private int id;
     private String name;
+    private String type;// 分院/总院
+
+    public String getType() {
+        return type == null ? "" : type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getSign() {
-        return sign;
+        return sign == null ? "" : sign;
     }
 
     public void setSign(String sign) {
@@ -27,7 +36,7 @@ public class UserEntity {
     }
 
     public String getName() {
-        return name;
+        return name == null ? "" : name;
     }
 
     public void setName(String name) {

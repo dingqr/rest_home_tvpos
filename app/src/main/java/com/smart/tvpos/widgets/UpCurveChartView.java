@@ -133,11 +133,11 @@ public class UpCurveChartView extends View {
 
     private void initData() {
         //外界传入的数据，即为绘制曲线的每个点
-        mRealDatas.add(100);
-        mRealDatas.add(600);
-        mRealDatas.add(400);
-        mRealDatas.add(150);
-        mRealDatas.add(200);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
 
         //X轴数据
         mXAxisData.add("01月");

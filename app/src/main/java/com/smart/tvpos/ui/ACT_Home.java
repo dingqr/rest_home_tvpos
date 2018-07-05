@@ -1,6 +1,10 @@
 package com.smart.tvpos.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.log.Elog;
+import com.smart.framework.library.common.utils.AppDateUtil;
 import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
@@ -49,6 +54,8 @@ import butterknife.OnClick;
  * description：主页：数据监控
  */
 public class ACT_Home extends BaseActivity implements IHomeView {
+    @Bind(R.id.tv_date)
+    TextView tvDate;
     @Bind(R.id.tv_rest_home_num)
     TextView tvRestHomeNum;
     @Bind(R.id.tv_user_num)
@@ -96,7 +103,17 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     }
 
     @Override
+    protected long getRefreshTime() {
+        return 0;
+    }
+
+    @Override
     protected void initViewsAndEvents() {
+        /**
+         * admin账户权限进去时基于设计稿文案不变
+         * 分院账号进去，第一个变为：（养老院简称）+智慧养老大数据监控平台
+         */
+        showView();
         initPopupWindow();
 
         initChartView();
@@ -106,6 +123,27 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         mAdapterNurseProgress = new ADA_CircleNurseProgress(mContext);
         gridviewNurseProgress.setAdapter(mAdapterNurseProgress);
+    }
+
+    private void showView() {
+        //2018年6月13日 [TextView个别字体样式设置](https://blog.csdn.net/bowoolz/article/details/77418262)
+        String timeStamp = AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_POINT);
+        String week = AppDateUtil.getWeek(AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD));
+
+        SpannableString spanString = new SpannableString(timeStamp + "    " + week);
+        ForegroundColorSpan span1 = new ForegroundColorSpan(Color.WHITE);
+        ForegroundColorSpan span2 = new ForegroundColorSpan(Color.WHITE);
+        ForegroundColorSpan span3 = new ForegroundColorSpan(Color.WHITE);
+        ForegroundColorSpan span4 = new ForegroundColorSpan(Color.WHITE);
+        spanString.setSpan(span1, 4, 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spanString.setSpan(span2, 7, 8, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spanString.setSpan(span3, 10, 11, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spanString.setSpan(span4, 15, 17, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        tvDate.setText(spanString);
+//        String str="默认颜色<font color='#FF0000'><small>红颜色</small></font>";
+//        tvDate.setTextSize(18);
+//        tvDate.setText(Html.fromHtml(str));
+//        tvDate.setText(timeStamp + "    " + week);
     }
 
     /**
@@ -280,6 +318,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     public void showBusinessError(ErrorBean error) {
 
     }
+
 
     @Override
     protected boolean isApplyKitKatTranslucency() {

@@ -15,6 +15,7 @@ import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.recyclerview.ProgressStyle;
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
+import com.smart.framework.library.common.ReceiveConstants;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
@@ -74,6 +75,24 @@ public class ACT_WatchingOverview extends BaseActivity {
     //当前选中的楼宇
     private BuildingEntity mSelectBuildingEntity;
 
+    /**
+     * 接收刷新频率的广播
+     *
+     * @param intent
+     * @param bundle
+     */
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
+            requestNet(false);
+        }
+    }
+
+    @Override
+    protected long getRefreshTime() {
+        return 0;
+    }
+
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_watching_overview;
@@ -106,11 +125,12 @@ public class ACT_WatchingOverview extends BaseActivity {
 
     @Override
     protected void initViewsAndEvents() {
+        //title（养老院简称）+监控概览
         tvSubTitle.setText("护理进度");
         initRecyclerView();
         initListView();
 
-        requestNet();
+        requestNet(true);
         initListener();
     }
 
@@ -224,11 +244,13 @@ public class ACT_WatchingOverview extends BaseActivity {
         mRecyclerView.setFooterViewHint(MyApplication.getContext().getString(R.string.list_footer_loading), MyApplication.getContext().getString(R.string.list_footer_end), MyApplication.getContext().getString(R.string.list_footer_network_error));
     }
 
-    private void requestNet() {
+    private void requestNet(boolean isShowLoading) {
         requestWarningShow("warningShow");
         requestWarningNewList("warningNewList");
         requestBuildingList("building");
-        showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
+        if (isShowLoading) {
+            showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
+        }
     }
 
     /**
@@ -323,13 +345,13 @@ public class ACT_WatchingOverview extends BaseActivity {
                 if (dataList == null || dataList.size() == 0) {
                     return;
                 }
-                BuildingEntity buildingEntity = dataList.get(0);
-                Elog.e("TAG", "building=" + buildingEntity.getBuildingName());
+                mSelectBuildingEntity = dataList.get(0);
+                Elog.e("TAG", "building=" + mSelectBuildingEntity.getBuildingName());
 
-                tvBuilding.setText(buildingEntity.getBuildingName());
+                tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
                 mBuildingAdapter.update(dataList, true);
 
-                if (buildingEntity.getList().size() > 0) {
+                if (mSelectBuildingEntity.getList().size() > 0) {
                     tvFloor.setText(dataList.get(0).getList().get(0).getFloorName());
                 }
                 mFloorAdapter.update(dataList.get(0).getList(), true);

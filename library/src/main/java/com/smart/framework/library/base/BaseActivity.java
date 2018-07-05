@@ -3,9 +3,14 @@ package com.smart.framework.library.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 
 import com.smart.framework.library.R;
+import com.smart.framework.library.common.ReceiveConstants;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 
@@ -18,6 +23,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
     protected Toolbar mToolbar;
 
     protected Activity mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +49,94 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
 
     }
 
+    /**
+     * 刷新频率——打开刷新频率：只需getRefreshTime()返回不为0,且接收一下ReceiveConstants.REFRESH_CURRENT_PAGE的广播即可
+     */
+    private Timer mTimer; // 计时器，每1秒执行一次任务
+    private MyTimerTask mTimerTask; // 计时任务，判断是否未操作时间到达5s
+    private long mLastActionTime; // 最近一次的操作时间
+
+    private class MyTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            if (getRefreshTime() == 0)
+                return;
+
+            if (System.currentTimeMillis() - mLastActionTime > getRefreshTime()) {
+                // 停止计时任务
+                stop();
+                // 开始计时
+                start();
+                // 刷新频率
+                sendBroadcast(ReceiveConstants.REFRESH_CURRENT_PAGE);
+            }
+        }
+    }
+
+    /**
+     * 开始计时
+     */
+    protected void start() {
+        mTimer = new Timer();
+        mTimerTask = new MyTimerTask();
+        // 初始化上次操作时间为登录成功的时间
+        mLastActionTime = System.currentTimeMillis();
+        // 每过1s检查一次
+        mTimer.schedule(mTimerTask, 0, 1000);
+    }
+
+    /**
+     * 停止计时任务
+     */
+    protected void stop() {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+        mTimer = null;
+        mTimerTask = null;
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+
+        if (getRefreshTime() != 0) {
+            // 停止计时任务
+            stop();
+            // 开始计时
+            start();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+
+        if (getRefreshTime() != 0) {
+            // 停止计时任务
+            stop();
+        }
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        //用户每次操作，重新记录操作时间
+        if (getRefreshTime() != 0) {
+            mLastActionTime = System.currentTimeMillis();
+            if (mTimer != null) {
+                // 停止计时任务
+                stop();
+                // 开始计时
+                start();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    protected abstract long getRefreshTime();
 
     @Override
     protected void onDestroy() {
@@ -78,7 +160,6 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
     }
 
 
-
     @Override
     public void showLoading(String msg) {
         toggleShowLoading(true, null);
@@ -88,12 +169,6 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
     public void hideLoading() {
         toggleShowLoading(false, null);
     }
-
-//    @Override
-//    public void showBusinessError(ErrorBean error) {
-//        if (null != error.getCode() && error.getCode().equals("10000"))
-//            toggleshowLogin();
-//    }
 
     @Override
     public void showDialogLoading(String msg) {
@@ -106,5 +181,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
     }
 
     protected abstract boolean isApplyKitKatTranslucency();
+
+
 }
 

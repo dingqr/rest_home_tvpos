@@ -34,5 +34,8 @@
     <string name="string_three_fall_down">三级跌倒</string>
     <string name="string_two_fall_down">二级跌倒</string>
     <string name="string_one_fall_down">一级跌倒</string>
+    <!--title-->
+    <string name="string_home_title_zong">哈福云智慧养老数据监控平台</string>
+    <string name="string_title_watching_overview_zong">哈福云分院监控概览</string>
 
 </resources>

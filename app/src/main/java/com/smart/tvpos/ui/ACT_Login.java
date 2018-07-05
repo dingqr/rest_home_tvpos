@@ -129,6 +129,7 @@ public class ACT_Login extends BaseActivity {
                 sharePre.putString(SharePreConstants.USER_SIGN, userEntity.getSign() == null ? "" : userEntity.getSign());
                 sharePre.putString(SharePreConstants.USER_ID, userEntity.getId() + "");
                 sharePre.putString(SharePreConstants.USER_NAME, userEntity.getName());
+                sharePre.putString(SharePreConstants.TYPE, userEntity.getName());
                 sharePre.putBoolean(SharePreConstants.LOGOUT, false);
                 Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
                 Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
@@ -154,6 +155,11 @@ public class ACT_Login extends BaseActivity {
     @Override
     public void showBusinessError(ErrorBean error) {
 
+    }
+
+    @Override
+    protected long getRefreshTime() {
+        return 0;
     }
 
     @Override

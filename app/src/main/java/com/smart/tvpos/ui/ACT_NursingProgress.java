@@ -64,6 +64,11 @@ public class ACT_NursingProgress extends BaseActivity {
     }
 
     @Override
+    protected long getRefreshTime() {
+        return 0;
+    }
+
+    @Override
     protected void getBundleExtras(Bundle extras) {
 
     }
@@ -74,7 +79,7 @@ public class ACT_NursingProgress extends BaseActivity {
         initRecyclerView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
 
-        requestNet();
+        requestNet(true);
     }
 
     /**
@@ -153,9 +158,11 @@ public class ACT_NursingProgress extends BaseActivity {
         }
     }
 
-    private void requestNet() {
+    private void requestNet(boolean isShowLoading) {
         requestWarningShow("userNurse");
-        showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
+        if (isShowLoading) {
+            showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
+        }
     }
 
     /**
@@ -177,8 +184,12 @@ public class ACT_NursingProgress extends BaseActivity {
                 if (bean == null || bean.getUser() == null || bean.getUser().size() == 0) {
                     return;
                 }
-                setHeaderTitle(TextUtils.isEmpty(bean.getBranch()) ? "" : bean.getBranch());
 
+                //显示实际的养老院名称
+                setHeaderTitle(TextUtils.isEmpty(bean.getBranch()) ? "" : bean.getBranch());
+                Elog.e("TAG" + "userNurse=" + bean.getBranch());
+
+                //模拟数据
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
                 userNurseLis.get(1).setWarningLevel(1);
                 userNurseLis.get(6).setWarningLevel(2);
@@ -187,6 +198,8 @@ public class ACT_NursingProgress extends BaseActivity {
                 userNurseLis.get(12).setNumA(100);
                 userNurseLis.get(userNurseLis.size() - 1).setNumF(11);
                 userNurseLis.get(userNurseLis.size() - 1).setNumA(100);
+                userNurseLis.get(userNurseLis.size() - 2).setNumF(90);
+                userNurseLis.get(userNurseLis.size() - 2).setNumA(100);
                 userNurseLis.get(12).setNumA(100);
                 userNurseLis.get(1).setNumA(20);
                 userNurseLis.get(6).setNumA(20);
@@ -196,8 +209,6 @@ public class ACT_NursingProgress extends BaseActivity {
                 userNurseLis.get(4).setNumF(8);
                 userNurseLis.get(4).setNumA(100);
                 mAdapter.update(userNurseLis, true);
-                UserNurseListEntity userNurseBean = bean.getUser().get(0);
-                Elog.e("TAG" + "userNurse=" + userNurseBean.getBuildingName());
             }
 
             @Override
