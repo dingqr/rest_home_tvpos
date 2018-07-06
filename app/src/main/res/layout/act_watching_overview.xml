@@ -333,6 +333,7 @@
         </com.zhy.autolayout.AutoLinearLayout>
 
         <WebView
+            android:id="@+id/webview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_divider"
@@ -364,17 +365,18 @@
 
     <ListView
         android:id="@+id/floorList"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="230px"
         android:layout_alignLeft="@+id/tv_floor"
         android:layout_alignRight="@+id/tv_floor"
         android:layout_below="@+id/tv_floor"
         android:layout_marginTop="2px"
-        android:background="@drawable/bg_shape_solid_ffffff_coner_6"
+        android:background="@drawable/bg_item_gradient_white"
         android:divider="@null"
         android:listSelector="@drawable/bg_press_selector_eeeeee"
+        android:minHeight="230px"
         android:scrollbars="none"
-        android:visibility="invisible"></ListView>
+        android:visibility="visible"></ListView>
 
     <TextView
         android:id="@+id/tv_building"
@@ -396,17 +398,18 @@
 
     <ListView
         android:id="@+id/buildingList"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="230px"
         android:layout_alignLeft="@+id/tv_building"
         android:layout_alignRight="@+id/tv_building"
         android:layout_below="@+id/tv_building"
         android:layout_marginTop="2px"
-        android:background="@drawable/bg_shape_solid_ffffff_coner_6"
+        android:background="@drawable/bg_item_gradient_white"
         android:divider="@null"
         android:listSelector="@drawable/bg_press_selector_eeeeee"
+        android:minHeight="230px"
         android:scrollbars="none"
-        android:visibility="invisible"></ListView>
+        android:visibility="visible"></ListView>
     <!--楼层-->
 
     <!--时间-->

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -72,6 +73,8 @@ public class ACT_WatchingOverview extends BaseActivity {
     TextView tvBuilding;
     @Bind(R.id.tv_floor)
     TextView tvFloor;
+    @Bind(R.id.webview)
+    WebView webview;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
     private ADA_NewWarningList mAdapter;
     private ADA_BuildingList mBuildingAdapter;
@@ -178,6 +181,7 @@ public class ACT_WatchingOverview extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mSelectFloorEntity = mFloorAdapter.getDataList().get(i);
+                mFloorAdapter.setCheckCurrentItem(i);
                 tvFloor.setText(mSelectFloorEntity.getFloorName());
                 hideFloorList();
                 if (listviewbuildingList.getVisibility() == View.VISIBLE) {
