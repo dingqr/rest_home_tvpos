@@ -31,7 +31,7 @@ public class ADA_BuildingList extends CommonAdapterListView<BuildingEntity> {
         holder.setText(R.id.tv_buildingName, bean.getBuildingName());
         if (mCurPosition == position) {
             holder.setTextColor(R.id.tv_buildingName, ContextCompat.getColor(mContext, R.color.color_529af0));
-            holder.setBackgroundColor(R.id.ll_item,ContextCompat.getColor(mContext, R.color.color_eeeeee));
+            holder.setBackgroundRes(R.id.ll_item,R.drawable.bg_grey_building_item);
         } else {
             holder.setTextColor(R.id.tv_buildingName, ContextCompat.getColor(mContext, R.color.color_adadad));
             holder.setBackgroundColor(R.id.ll_item,ContextCompat.getColor(mContext, R.color.color_FFFFFF));
