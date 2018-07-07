@@ -39,6 +39,25 @@ public class WarningEntity {
     private int numMonitoring;
     private int numHealth;
 
+    //离线、活跃人数
+    private int in;//活跃
+    private int out;//离线
+
+    public int getIn() {
+        return in;
+    }
+
+    public void setIn(int in) {
+        this.in = in;
+    }
+
+    public int getOut() {
+        return out;
+    }
+
+    public void setOut(int out) {
+        this.out = out;
+    }
 
     public int getNumY() {
         return numY;

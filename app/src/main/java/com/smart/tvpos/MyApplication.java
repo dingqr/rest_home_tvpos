@@ -51,6 +51,8 @@ public class MyApplication extends BaseApplication {
         if (isLogin) {
             Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
             Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
+            Constants.TYPE = sharePre.getString(SharePreConstants.TYPE);
+            Constants.BRANCH_NAME = sharePre.getString(SharePreConstants.BRANCH_NAME);
             Elog.e("TAG", "USER_ID=" + Constants.USER_ID + "USER_SIGN=" + Constants.USER_SIGN);
         }
     }

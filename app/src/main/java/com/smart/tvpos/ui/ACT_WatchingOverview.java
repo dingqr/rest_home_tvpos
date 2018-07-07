@@ -1,12 +1,18 @@
 package com.smart.tvpos.ui;
 
 import android.graphics.Rect;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -73,6 +79,12 @@ public class ACT_WatchingOverview extends BaseActivity {
     TextView tvBuilding;
     @Bind(R.id.tv_floor)
     TextView tvFloor;
+    @Bind(R.id.tv_floor_name)
+    TextView tvFloorName;
+    @Bind(R.id.tv_active_num)
+    TextView tvActiveNum;
+    @Bind(R.id.tv_offline_num)
+    TextView tvOfflineNum;
     @Bind(R.id.webview)
     WebView webview;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
@@ -151,9 +163,64 @@ public class ACT_WatchingOverview extends BaseActivity {
 
         initRecyclerView();
         initListView();
+        initwebview();
 
         requestNet(true);
         initListener();
+    }
+
+    private void initwebview() {
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webview.getSettings().setDomStorageEnabled(true);
+        webview.setWebChromeClient(new WebChromeClient());
+
+        // 设置WebView可触摸放大缩小
+        webview.getSettings().setBuiltInZoomControls(true); //显示放大缩小 controler
+        webview.getSettings().setSupportZoom(true); //可以缩放
+        webview.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);//默认缩放模式
+//        设置以上无效,使用
+        webview.setInitialScale(100);
+        //设置加载网页时的进度
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+//                if (newProgress == 100) {
+//                    pbLoading.setVisibility(View.GONE);//加载完网页进度条消失
+//                } else {
+//                    pbLoading.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+//                    pbLoading.setProgress(newProgress);//设置进度值
+//                }
+            }
+        });
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            // (1)解决android 6.0 webview加载https出现空白页问题
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//                super.onReceivedSslError(view, handler, error);
+                handler.proceed(); // 接受所有网站的证书
+//                if (error.getPrimaryError() == SslError.SSL_INVALID) {
+//                    handler.proceed();
+//                } else {
+//                    handler.cancel();
+//                }
+            }
+        });
+        /**
+         *  (1)解决android 6.0 webview加载https出现空白页问题
+         *  webview在安卓5.0之前默认允许其加载混合网络协议内容
+         *  在安卓5.0之后，默认不允许加载http与https混合内容，需要设置webview允许其加载混合网络协议内容
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        webview.loadUrl("https://map.baidu.com/");
     }
 
 
@@ -182,18 +249,22 @@ public class ACT_WatchingOverview extends BaseActivity {
                 }
             }
         });
+        //楼层切换
         listviewfloorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mSelectFloorEntity = mFloorAdapter.getDataList().get(i);
                 mFloorAdapter.setCheckCurrentItem(i);
                 tvFloor.setText(mSelectFloorEntity.getFloorName());
+                tvFloorName.setText(mSelectBuildingEntity.getBuildingName() + mSelectFloorEntity.getFloorName());
                 hideFloorList();
                 if (listviewbuildingList.getVisibility() == View.VISIBLE) {
                     hideBuildingList();
                 }
                 //选中的楼和楼层
-                CommonUtils.makeEventToast(MyApplication.getContext(), mSelectBuildingEntity.getBuildingName() + mSelectFloorEntity.getFloorName(), false);
+//                CommonUtils.makeEventToast(MyApplication.getContext(), mSelectBuildingEntity.getBuildingName() + mSelectFloorEntity.getFloorName(), false);
+                //切换楼层时,刷新当前楼层用户床垫在线情况
+                requestBuildingUserList("buildingUser", mSelectFloorEntity.getFloorId());
             }
         });
     }
@@ -302,6 +373,7 @@ public class ACT_WatchingOverview extends BaseActivity {
         requestWarningShow("warningShow");
         requestWarningNewList("warningNewList");
         requestBuildingList("building");
+//        requestBuildingUserList("buildingUser");
         if (isShowLoading) {
             showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
         }
@@ -315,7 +387,6 @@ public class ACT_WatchingOverview extends BaseActivity {
     private void requestWarningShow(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<WarningEntity>() {
@@ -353,7 +424,6 @@ public class ACT_WatchingOverview extends BaseActivity {
     private void requestWarningNewList(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
-        params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<WarningNewDataEntity>() {
@@ -400,15 +470,21 @@ public class ACT_WatchingOverview extends BaseActivity {
                     return;
                 }
                 mSelectBuildingEntity = dataList.get(0);
+                if (mSelectBuildingEntity == null) {
+                    return;
+                }
                 Elog.e("TAG", "building=" + mSelectBuildingEntity.getBuildingName());
 
                 tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
                 mBuildingAdapter.update(dataList, true);
 
                 if (mSelectBuildingEntity.getList().size() > 0) {
-                    tvFloor.setText(dataList.get(0).getList().get(0).getFloorName());
+                    tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
+                    tvFloorName.setText(mSelectBuildingEntity.getBuildingName() + mSelectBuildingEntity.getList().get(0).getFloorName());
+                    //floorId-请求床垫在线离线人数
+                    requestBuildingUserList("buildingUser", mSelectBuildingEntity.getList().get(0).getFloorId());
                 }
-                mFloorAdapter.update(dataList.get(0).getList(), true);
+                mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
             }
 
             @Override
@@ -418,6 +494,43 @@ public class ACT_WatchingOverview extends BaseActivity {
 
             @Override
             public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 4.	当前楼层用户床垫在线情况
+     *
+     * @param requestType buildingUser
+     * @param floorId
+     */
+    private void requestBuildingUserList(String requestType, int floorId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        params.put("floorId", floorId + "");
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<WarningEntity>() {
+
+            @Override
+            public void onReqSuccess(WarningEntity bean) {
+                hideLoading();
+                if (bean != null) {
+                    tvActiveNum.setText("活跃：" + bean.getIn());
+                    tvOfflineNum.setText("离线：" + bean.getOut());
+                }
+            }
+
+            @Override
+            public void onFailure(String result) {
+                hideLoading();
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                hideLoading();
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
         });

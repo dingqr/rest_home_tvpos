@@ -311,6 +311,14 @@
             android:background="@color/color_dcdcdc"></View>
 
 
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_divider"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="18px"></WebView>
+        <!--放大缩小按钮-->
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -331,14 +339,6 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_decrease" />
         </com.zhy.autolayout.AutoLinearLayout>
-
-        <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/view_divider"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="18px"></WebView>
 
     </com.zhy.autolayout.AutoRelativeLayout>
 
@@ -376,7 +376,7 @@
         android:listSelector="@drawable/bg_press_selector_eeeeee"
         android:minHeight="230px"
         android:scrollbars="none"
-        android:visibility="visible"></ListView>
+        android:visibility="invisible"></ListView>
 
     <TextView
         android:id="@+id/tv_building"
@@ -409,7 +409,7 @@
         android:listSelector="@drawable/bg_press_selector_eeeeee"
         android:minHeight="230px"
         android:scrollbars="none"
-        android:visibility="visible"></ListView>
+        android:visibility="invisible"></ListView>
     <!--楼层-->
 
     <!--时间-->
