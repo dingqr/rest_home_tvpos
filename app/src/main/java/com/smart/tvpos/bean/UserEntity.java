@@ -9,7 +9,16 @@ public class UserEntity {
     private String sign;
     private int id;
     private String name;
-    private String type;// 分院/总院
+    private String type;// 返回院所类型:分院,总院,平台
+    private String branchName;//院所名称
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
 
     public String getType() {
         return type == null ? "" : type;

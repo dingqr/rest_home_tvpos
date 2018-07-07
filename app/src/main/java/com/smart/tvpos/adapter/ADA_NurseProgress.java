@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import com.smart.tvpos.widgets.GradientProgressBar;
 //http://ycljf86.iteye.com/blog/2345413  droidtv 开发系列 二 recycleview item放大效果
 //https://www.jb51.net/article/138747.htm Android RecyclerView item选中放大被遮挡问题详解
 //https://blog.csdn.net/qq_35697312/article/details/53018819?locationNum=8&fps=1    androidTV中使用recyclerview并使其item在获取焦点后获取边框，并伴随放大，凸显效果
-public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implements RecyclerView.ChildDrawingOrderCallback {
+public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity>  {
     private Activity context;
     private int[] normalColors;
     private int[] zoomColors;
@@ -214,32 +213,32 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
 //        });
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        this.viewGroup = parent;
-        return super.onCreateViewHolder(parent, viewType);
-    }
-
-    /**
-     * 改变绘制顺序,让获得焦点的最后绘制,从而浮在其他item上面 http://www.aichengxu.com/view/11147419
-     */
-    @Override
-    public int onGetChildDrawingOrder(int childCount, int i) {
-        View focusedChild = viewGroup.getFocusedChild();
-        int focusViewIndex = viewGroup.indexOfChild(focusedChild);
-        if (focusViewIndex == -1) {
-            return i;
-        }
-
-        int focusid = focusViewIndex;
-
-        if (focusViewIndex == i) {
-            focusid = i;
-            return childCount - 1;
-        } else if (i == childCount - 1) {
-            return focusid;
-        } else {
-            return i;
-        }
-    }
+//    @Override
+//    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        this.viewGroup = parent;
+//        return super.onCreateViewHolder(parent, viewType);
+//    }
+//
+//    /**
+//     * 改变绘制顺序,让获得焦点的最后绘制,从而浮在其他item上面 http://www.aichengxu.com/view/11147419
+//     */
+//    @Override
+//    public int onGetChildDrawingOrder(int childCount, int i) {
+//        View focusedChild = viewGroup.getFocusedChild();
+//        int focusViewIndex = viewGroup.indexOfChild(focusedChild);
+//        if (focusViewIndex == -1) {
+//            return i;
+//        }
+//
+//        int focusid = focusViewIndex;
+//
+//        if (focusViewIndex == i) {
+//            focusid = i;
+//            return childCount - 1;
+//        } else if (i == childCount - 1) {
+//            return focusid;
+//        } else {
+//            return i;
+//        }
+//    }
 }

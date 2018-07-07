@@ -135,6 +135,11 @@ public class ACT_WatchingOverview extends BaseActivity {
     @Override
     protected void initViewsAndEvents() {
         //title（养老院简称）+监控概览
+        if (Constants.TYPE.equals("总院")) {
+            setHeaderTitle(MyApplication.getContext().getString(R.string.string_title_watching_overview_zong));
+        } else if (Constants.TYPE.equals("分院")) {
+            setHeaderTitle(Constants.BRANCH_NAME + "监控概览");
+        }
         tvSubTitle.setText("护理进度");
         //显示系统当前时间
         String timeStamp = AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_POINT);

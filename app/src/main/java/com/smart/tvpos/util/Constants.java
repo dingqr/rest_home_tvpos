@@ -2,7 +2,7 @@ package com.smart.tvpos.util;
 
 /**
  * Created by qyd on 2016/12/22.
- *  服务器地址配置文件
+ * 服务器地址配置文件
  */
 
 public class Constants {
@@ -10,7 +10,8 @@ public class Constants {
     //用户标识
     public static String USER_SIGN = "";
     public static String USER_ID = "";
-    public static String TOKEN = "";
+    public static String TYPE = "";
+    public static String BRANCH_NAME = "";
 
 
     /**
@@ -56,15 +57,23 @@ public class Constants {
      */
     public static final String CITY_NAME = "city.name";
 
-    /**调用外置SD卡的权限值*/
+    /**
+     * 调用外置SD卡的权限值
+     */
     public static final int WRITE_EXTERNAL_STORAGE = 10002;
     public static final int READ_EXTERNAL_STORAGE = 10003;
 
-    /**版本更新提醒标示*/
+    /**
+     * 版本更新提醒标示
+     */
     public static final String ALERT_USER_UPDATE = "alert_user_update";
-    /**微信支付签名*/
+    /**
+     * 微信支付签名
+     */
     public static final String WEIXIN_SIGN = "Sign=WXPay";
-    /**微信支付IP*/
+    /**
+     * 微信支付IP
+     */
     public static final String WEIXIN_PAY_IP = "127.0.0.1";
 
     public static final String APP_ID = "wx1c1186c0a19c60db";
@@ -73,5 +82,5 @@ public class Constants {
     //列表每页请求数据
     public static final String DEFAULT_PAGE_SIZE = "20";
     //列表每页请求数据
-    public static final int  DEFAULT_PAGE_INT_SIZE = 20;
+    public static final int DEFAULT_PAGE_INT_SIZE = 20;
 }

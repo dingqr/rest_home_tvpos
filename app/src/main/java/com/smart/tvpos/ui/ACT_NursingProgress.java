@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -75,6 +74,9 @@ public class ACT_NursingProgress extends BaseActivity {
     @Override
     protected void initViewsAndEvents() {
         tvSubTitle.setText("概览");
+        //显示实际的养老院名称
+        setHeaderTitle(Constants.BRANCH_NAME);
+
         initRecyclerView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
 
@@ -117,7 +119,7 @@ public class ACT_NursingProgress extends BaseActivity {
             }
         });
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setChildDrawingOrderCallback(mAdapter);//这句很关键,让获得焦点item浮在其他item上面
+//        mRecyclerView.setChildDrawingOrderCallback(mAdapter);//这句很关键,让获得焦点item浮在其他item上面
         mRecyclerView.setPullRefreshEnabled(false);
         mRecyclerView.setLoadMoreEnabled(false);
         mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -163,8 +165,6 @@ public class ACT_NursingProgress extends BaseActivity {
                     return;
                 }
 
-                //显示实际的养老院名称
-                setHeaderTitle(TextUtils.isEmpty(bean.getBranch()) ? "" : bean.getBranch());
                 Elog.e("TAG" + "userNurse=" + bean.getBranch());
 
                 //模拟数据

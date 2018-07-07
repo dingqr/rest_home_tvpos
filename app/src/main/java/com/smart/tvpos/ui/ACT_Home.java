@@ -33,6 +33,7 @@ import com.smart.tvpos.bean.TrendDataEntity;
 import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.mvp.HomePresenter;
 import com.smart.tvpos.mvp.IHomeView;
+import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.widgets.BanSlideGridView;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
@@ -54,6 +55,8 @@ import butterknife.OnClick;
  * description：主页：数据监控
  */
 public class ACT_Home extends BaseActivity implements IHomeView {
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     @Bind(R.id.tv_date)
     TextView tvDate;
     @Bind(R.id.tv_rest_home_num)
@@ -126,6 +129,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     }
 
     private void showView() {
+        if (Constants.TYPE.equals("总院")) {
+            tvTitle.setText(MyApplication.getContext().getString(R.string.string_home_title_zong));
+        } else if (Constants.TYPE.equals("分院")) {
+            tvTitle.setText(Constants.BRANCH_NAME + "智慧养老大数据监控平台");
+        }
+
         //2018年6月13日 [TextView个别字体样式设置](https://blog.csdn.net/bowoolz/article/details/77418262)
         String timeStamp = AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD_POINT);
         String week = AppDateUtil.getWeek(AppDateUtil.getTimeStamp(System.currentTimeMillis(), AppDateUtil.YYYY_MM_DD));
