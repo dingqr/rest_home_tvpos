@@ -116,6 +116,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
                 //地点
                 holder.setText(R.id.tv_address_zoom, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
                 holder.setText(R.id.tv_sex_old_zoom, MyApplication.getContext().getString(R.string.string_age) + bean.getAge() + "    " + MyApplication.getContext().getString(R.string.string_sex) + (TextUtils.isEmpty(bean.getSex()) ? "" : bean.getSex()));
+                holder.setText(R.id.tv_time_zoom, (bean.getEndTimeMax() == null ? "" : bean.getEndTimeMax()) + "");
                 RequestOptions requestOptions = new RequestOptions()
                         .placeholder(R.drawable.ic_user_avatar)
                         .error(R.drawable.ic_user_avatar)
@@ -150,7 +151,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
                 //地点
                 holder.setText(R.id.tv_address, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
                 holder.setText(R.id.tv_sex_old, MyApplication.getContext().getString(R.string.string_age) + bean.getAge() + "    " + MyApplication.getContext().getString(R.string.string_sex) + (TextUtils.isEmpty(bean.getSex()) ? "" : bean.getSex()));
-                //            holder.setText(R.id.tv_time, bean.getUpdated());
+                holder.setText(R.id.tv_time, (bean.getEndTimeMax() == null ? "" : bean.getEndTimeMax()) + "");
                 RequestOptions requestOptions = new RequestOptions()
                         .placeholder(R.drawable.ic_user_avatar)
                         .error(R.drawable.ic_user_avatar)

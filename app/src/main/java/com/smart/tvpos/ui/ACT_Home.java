@@ -663,12 +663,13 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        dataList.get(0).setNumD(10);
-        dataList.get(1).setNumD(2);
-        dataList.get(2).setNumD(16);
-        dataList.get(3).setNumD(5);
-        dataList.get(4).setNumD(8);
-        dataList.get(5).setNumD(20);
+        //模拟数据
+//        dataList.get(0).setNumD(10);
+//        dataList.get(1).setNumD(2);
+//        dataList.get(2).setNumD(16);
+//        dataList.get(3).setNumD(5);
+//        dataList.get(4).setNumD(8);
+//        dataList.get(5).setNumD(20);
         mAdapterNurseProgress.update(dataList, true);
     }
 

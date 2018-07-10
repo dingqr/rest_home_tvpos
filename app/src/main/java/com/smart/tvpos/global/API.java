@@ -17,6 +17,6 @@ public class API {
     public static final String SERVER_IP = "http://resthome.php-liyong.com/";
     public static final String IMG_SERVER_IP = "http://resthome.php-liyong.com";
 
-    //登录
-    public static final String URL_LOGIN = SERVER_IP + "?a=login";
+    //H5地理围栏
+    public static final String URL_H5 = SERVER_IP + "index.php?m=&c=home&a=warningSet&id=";
 }

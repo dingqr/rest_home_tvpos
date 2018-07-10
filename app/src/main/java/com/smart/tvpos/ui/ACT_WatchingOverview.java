@@ -176,23 +176,11 @@ public class ACT_WatchingOverview extends BaseActivity {
         webview.setWebChromeClient(new WebChromeClient());
 
         // 设置WebView可触摸放大缩小
-        webview.getSettings().setBuiltInZoomControls(true); //显示放大缩小 controler
-        webview.getSettings().setSupportZoom(true); //可以缩放
-        webview.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);//默认缩放模式
-//        设置以上无效,使用
-        webview.setInitialScale(100);
-        //设置加载网页时的进度
-        webview.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-//                if (newProgress == 100) {
-//                    pbLoading.setVisibility(View.GONE);//加载完网页进度条消失
-//                } else {
-//                    pbLoading.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
-//                    pbLoading.setProgress(newProgress);//设置进度值
-//                }
-            }
-        });
+//        webview.getSettings().setBuiltInZoomControls(true); //显示放大缩小 controler
+//        webview.getSettings().setSupportZoom(true); //可以缩放
+//        webview.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);//默认缩放模式
+////        设置以上无效,使用
+//        webview.setInitialScale(100);
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -203,13 +191,7 @@ public class ACT_WatchingOverview extends BaseActivity {
             // (1)解决android 6.0 webview加载https出现空白页问题
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-//                super.onReceivedSslError(view, handler, error);
                 handler.proceed(); // 接受所有网站的证书
-//                if (error.getPrimaryError() == SslError.SSL_INVALID) {
-//                    handler.proceed();
-//                } else {
-//                    handler.cancel();
-//                }
             }
         });
         /**
@@ -220,7 +202,7 @@ public class ACT_WatchingOverview extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-        webview.loadUrl("https://map.baidu.com/");
+        webview.loadUrl(API.URL_H5 +Constants.USER_ID);
     }
 
 

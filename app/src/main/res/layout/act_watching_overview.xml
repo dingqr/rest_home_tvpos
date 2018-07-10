@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="-12px"
                     android:layout_marginTop="-12px"
-                    android:text="33"
+                    android:text="0"
                     android:textColor="#3e3e3e"
                     android:textSize="33sp" />
 
@@ -314,10 +314,12 @@
         <WebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/view_divider"
-            android:layout_marginLeft="40px"
-            android:layout_marginRight="18px"></WebView>
+            android:layout_marginBottom="24px"
+            android:layout_marginLeft="24px"
+            android:layout_marginRight="18px"
+            android:background="@color/color_FFFFFF"></WebView>
         <!--放大缩小按钮-->
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
@@ -325,7 +327,8 @@
             android:layout_below="@+id/view_divider"
             android:layout_marginLeft="60px"
             android:layout_marginTop="28px"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
