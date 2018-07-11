@@ -72,7 +72,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         final GradientProgressBar progressBarNormal = holder.getView(R.id.progressBarNormal);
         GradientProgressBar progressBarZoom = holder.getView(R.id.progressBarZoom);
         //设置itemview的高度固定,以防两种类型的Itemview高度不一致，导致列表的item显示间距和item的高度不一致导致的问题
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 140));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 170));
         rlRoot.setLayoutParams(params);
         View itemNormal = holder.getView(R.id.item_normal);
         View itemZoom = holder.getView(R.id.item_zoom);
@@ -132,7 +132,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             progressBarZoom.setcurrentProgress((bean.getNumF() * 1f / bean.getNumA()) * 100);
 
             //设置放大
-            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.18f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
+            ViewCompat.animate(holder.itemView).scaleX(1.20f).scaleY(1.20f).translationY(DP2PX.dip2px(mContext, 8)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
             //测试item遮挡问题，还未解决，需在实践：https://www.jb51.net/article/138747.htm Android

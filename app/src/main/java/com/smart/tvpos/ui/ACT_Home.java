@@ -15,6 +15,7 @@ import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.AppDateUtil;
+import com.smart.framework.library.common.utils.ScreenUtil;
 import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
@@ -126,6 +127,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         mAdapterNurseProgress = new ADA_CircleNurseProgress(mContext);
         gridviewNurseProgress.setAdapter(mAdapterNurseProgress);
+        Elog.e("TTT", ScreenUtil.getScreenHeight(mContext)+"------"+ScreenUtil.getScreenWidth(mContext));
     }
 
     private void showView() {
@@ -670,7 +672,11 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 //        dataList.get(3).setNumD(5);
 //        dataList.get(4).setNumD(8);
 //        dataList.get(5).setNumD(20);
-        mAdapterNurseProgress.update(dataList, true);
+        if (dataList.size() > 6) {
+            mAdapterNurseProgress.update(dataList.subList(0, 6), true);
+        } else {
+            mAdapterNurseProgress.update(dataList, true);
+        }
     }
 
 }

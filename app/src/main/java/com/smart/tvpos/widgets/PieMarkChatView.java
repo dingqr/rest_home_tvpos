@@ -82,9 +82,9 @@ public class PieMarkChatView extends View {
             mWidth = mInnerRadius * 2 + 2 * mCircleKeduWidth;
         }
         if (heightSpecMode == MeasureSpec.AT_MOST || heightSpecMode == MeasureSpec.UNSPECIFIED) {
-            mHeight = mInnerRadius * 2 + 2 * mCircleKeduWidth;
+            mHeight = mInnerRadius * 2 + 2 * mCircleKeduWidth + 20;
         } else {
-            mHeight = heightSpecSize;
+            mHeight = heightSpecSize + 20;
         }
         setMeasuredDimension(mWidth, mHeight);
         mInnerRadius = (mWidth - 2 * mCircleKeduWidth) / 2;
