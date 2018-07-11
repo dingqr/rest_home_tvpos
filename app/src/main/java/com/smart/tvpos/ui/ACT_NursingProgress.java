@@ -170,23 +170,23 @@ public class ACT_NursingProgress extends BaseActivity {
 
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
                 //模拟数据
-                userNurseLis.get(1).setWarningLevel(1);
-                userNurseLis.get(6).setWarningLevel(2);
-                userNurseLis.get(11).setWarningLevel(3);
-                userNurseLis.get(12).setNumF(91);
-                userNurseLis.get(12).setNumA(100);
-                userNurseLis.get(userNurseLis.size() - 1).setNumF(11);
-                userNurseLis.get(userNurseLis.size() - 1).setNumA(100);
-                userNurseLis.get(userNurseLis.size() - 2).setNumF(90);
-                userNurseLis.get(userNurseLis.size() - 2).setNumA(100);
-                userNurseLis.get(12).setNumA(100);
-                userNurseLis.get(1).setNumA(20);
-                userNurseLis.get(6).setNumA(20);
-                userNurseLis.get(11).setNumA(30);
-                userNurseLis.get(5).setNumF(10);
-                userNurseLis.get(5).setNumA(40);
-                userNurseLis.get(4).setNumF(8);
-                userNurseLis.get(4).setNumA(100);
+//                userNurseLis.get(1).setWarningLevel(1);
+//                userNurseLis.get(6).setWarningLevel(2);
+//                userNurseLis.get(11).setWarningLevel(3);
+//                userNurseLis.get(12).setNumF(91);
+//                userNurseLis.get(12).setNumA(100);
+//                userNurseLis.get(userNurseLis.size() - 1).setNumF(11);
+//                userNurseLis.get(userNurseLis.size() - 1).setNumA(100);
+//                userNurseLis.get(userNurseLis.size() - 2).setNumF(90);
+//                userNurseLis.get(userNurseLis.size() - 2).setNumA(100);
+//                userNurseLis.get(12).setNumA(100);
+//                userNurseLis.get(1).setNumA(20);
+//                userNurseLis.get(6).setNumA(20);
+//                userNurseLis.get(11).setNumA(30);
+//                userNurseLis.get(5).setNumF(10);
+//                userNurseLis.get(5).setNumA(40);
+//                userNurseLis.get(4).setNumF(8);
+//                userNurseLis.get(4).setNumA(100);
                 mAdapter.update(userNurseLis, true);
             }
 
