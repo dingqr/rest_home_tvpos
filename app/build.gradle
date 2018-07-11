@@ -12,7 +12,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
-        debug { storeFile file("debug.keystore") }
         release {
 //            storeFile file('C:/develop/ming_bai.jks')
             storeFile file('resthome.jks')
@@ -23,7 +22,8 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            debuggable true
+            minifyEnabled false
         }
         release {
             shrinkResources true

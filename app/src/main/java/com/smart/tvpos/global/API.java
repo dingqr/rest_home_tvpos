@@ -11,9 +11,10 @@ public class API {
     /**
      * 服务器ip
      */
-
-    // 开发环境
     public static final String BASE_SERVER_IP = "http://resthome.wotaomi.com";
+    //正式环境
+    public static final String API_IP = "http://www.hafuyun.com/";
+    //测试环境
     public static final String SERVER_IP = "http://resthome.php-liyong.com/";
     public static final String IMG_SERVER_IP = "http://resthome.php-liyong.com";
 
