@@ -11,10 +11,26 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    signingConfigs {
+        debug { storeFile file("debug.keystore") }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            storeFile file('C:/develop/ming_bai.jks')
+            storeFile file('resthome.jks')
+            storePassword 'resthome123'
+            keyAlias 'resthome'
+            keyPassword 'resthome123'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            shrinkResources true
+            minifyEnabled true
+            zipAlignEnabled true
+            proguardFile('proguard-rules.pro')
+            signingConfig signingConfigs.release
         }
     }
 }
