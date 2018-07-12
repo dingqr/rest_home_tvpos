@@ -129,7 +129,7 @@ public class ACT_Login extends BaseActivity {
                 sharePre.putString(SharePreConstants.USER_SIGN, userEntity.getSign() == null ? "" : userEntity.getSign());
                 sharePre.putString(SharePreConstants.USER_ID, userEntity.getId() + "");
                 sharePre.putString(SharePreConstants.USER_NAME, userEntity.getName());
-                sharePre.putString(SharePreConstants.TYPE, "总院");
+                sharePre.putString(SharePreConstants.TYPE, userEntity.getType());
                 sharePre.putString(SharePreConstants.BRANCH_NAME, userEntity.getBranchName());
                 sharePre.putBoolean(SharePreConstants.LOGOUT, false);
                 Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
