@@ -528,6 +528,7 @@
 
     <!--图表统计右-->
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_chart_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -963,9 +964,10 @@
         android:id="@+id/fl_jiangzhe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/rl_map_des"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="220px">
+        android:layout_below="@+id/ll_total_data"
+        android:layout_marginLeft="80px"
+        android:layout_toRightOf="@+id/ll_left_chart"
+        android:paddingTop="220px">
 
         <ImageView
             android:id="@+id/iv_jiangzhe"
@@ -978,9 +980,9 @@
         android:id="@+id/rl_shanghai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="250px"
-        android:layout_toRightOf="@+id/fl_jiangzhe">
+        android:layout_below="@+id/ll_total_data"
+        android:layout_toRightOf="@+id/fl_jiangzhe"
+        android:paddingTop="80px">
 
         <ImageView
             android:id="@+id/iv_shanghai"
@@ -993,7 +995,7 @@
             android:layout_width="280px"
             android:layout_height="220px"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="220px"></RelativeLayout>
+            android:layout_marginTop="200px"></RelativeLayout>
     </com.zhy.autolayout.AutoRelativeLayout>
     <!--地图-->
     <!--上海地区所有的养老院-->
@@ -1002,9 +1004,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/rl_shanghai"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/rl_shanghai"
+        android:layout_below="@+id/rl_shanghai"
         android:layout_marginBottom="200px"
-        android:layout_marginLeft="200px"></com.smart.tvpos.widgets.BanSlideListView>
+        android:layout_marginLeft="180px"
+        android:layout_toLeftOf="@+id/ll_8chart_right"></com.smart.tvpos.widgets.BanSlideListView>
 
 </com.zhy.autolayout.AutoRelativeLayout>

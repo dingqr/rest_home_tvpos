@@ -105,8 +105,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     RelativeLayout redPoint;
     @Bind(R.id.listview)
     BanSlideListView listview;
-    private int[] leftMarginArray = new int[]{58, 150 + 5 * 1, 20, 160, 10 + 5 * 1, 48 + 5 * 1, 76 + 5 * 1, 115 + 5 * 1, 66 + 5 * 3, 125, (140 + 5 * 1 + 40), 0 + 5 * 2, 38 + 5 * 2, 66 + 5 * 2, 105 + 5 * 2, 140 + 5 * 2, (140 + 5 * 2 + 40), (140 + 5 * 2 + 40 * 2), 10 + 5 * 3, 38 + 5 * 3, 86, 105 + 5 * 3, 140 + 5 * 3};
-    private int[] topMarginArray = new int[]{0, 2 + 50 * 1, 2, 16, 16 + 50 * 1, 0 + 50 * 1, 14 + 50 * 1, 16 + 50 * 1, 14 + 50 * 3, 16, (2 + 50 * 1 + 40), 16 + 50 * 2, 0 + 50 * 2, 14 + 50 * 2, 16 + 50 * 2, 2 + 50 * 2, (2 + 50 * 2 + 50), (2 + 50 * 2 + 50), 16 + 50 * 3, 0 + 50 * 3, 14, 16 + 50 * 3, 2 + 50 * 3};
+    private int[] leftMarginArray = new int[]{58, 125, 200 + 5 * 1, 30, 160, 10 + 5 * 1, 48 + 5 * 1, 105 + 5 * 2, 115 + 5 * 1, 66 + 5 * 3, 150 + 5 * 1, (140 + 5 * 1 + 40), 0 + 5 * 2, 38 + 5 * 2, 66 + 5 * 2, 76 + 5 * 1, 140 + 5 * 2, (140 + 5 * 2 + 40), (140 + 5 * 2 + 40 * 2), 5 + 5 * 3, 38 + 5 * 3, 86, 105 + 5 * 3, 100 + 5 * 3};
+    private int[] topMarginArray = new int[]{0, 16, 2 + 40 * 1, 20, 16, 16 + 50 * 1, 0 + 50 * 1, 14 + 50 * 1, 16 + 50 * 2, 14 + 50 * 3, 2 + 50 * 1, (2 + 50 * 1 + 40), 16 + 50 * 2, 0 + 50 * 2, 14 + 50 * 2, 16 + 50 * 1, 2 + 50 * 2, (2 + 50 * 2 + 50), (2 + 50 * 2 + 50), 50 * 3, 0 + 50 * 3, 14, 16 + 50 * 3, 2 + 50 * 2};
     //上海地区所有的养老院
     private List<BranchAddressEntity> areaList = new ArrayList<>();
     private Map<String, String> areaPointMap = new HashMap<>();
@@ -714,6 +714,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             params.topMargin = topMarginArray[i];
             point.setLayoutParams(params);
             tvAreaName.setText(areaPointList.get(i));
+//            tvAreaName.setText(i + "");
             redPoint.addView(point);
         }
 
