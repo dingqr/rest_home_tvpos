@@ -5,21 +5,23 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.AppDateUtil;
-import com.smart.framework.library.common.utils.ScreenUtil;
 import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
+import com.smart.tvpos.adapter.ADA_BranchList;
 import com.smart.tvpos.adapter.ADA_CircleNurseProgress;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
 import com.smart.tvpos.bean.AdmitLivingEntity;
@@ -45,7 +47,10 @@ import com.smart.tvpos.widgets.UpCurveChartView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -95,10 +100,25 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     private ADA_CircleNurseProgress mAdapterNurseProgress;
     private int[] upYAxisData;
     private int[] downYAxisData;
+    //暂时处理地图展示
+    @Bind(R.id.red_point)
+    RelativeLayout redPoint;
+    @Bind(R.id.listview)
+    BanSlideListView listview;
+    private int[] leftMarginArray = new int[]{58, 150 + 5 * 1, 20, 160, 10 + 5 * 1, 48 + 5 * 1, 76 + 5 * 1, 115 + 5 * 1, 66 + 5 * 3, 125, (140 + 5 * 1 + 40), 0 + 5 * 2, 38 + 5 * 2, 66 + 5 * 2, 105 + 5 * 2, 140 + 5 * 2, (140 + 5 * 2 + 40), (140 + 5 * 2 + 40 * 2), 10 + 5 * 3, 38 + 5 * 3, 86, 105 + 5 * 3, 140 + 5 * 3};
+    private int[] topMarginArray = new int[]{0, 2 + 50 * 1, 2, 16, 16 + 50 * 1, 0 + 50 * 1, 14 + 50 * 1, 16 + 50 * 1, 14 + 50 * 3, 16, (2 + 50 * 1 + 40), 16 + 50 * 2, 0 + 50 * 2, 14 + 50 * 2, 16 + 50 * 2, 2 + 50 * 2, (2 + 50 * 2 + 50), (2 + 50 * 2 + 50), 16 + 50 * 3, 0 + 50 * 3, 14, 16 + 50 * 3, 2 + 50 * 3};
+    //上海地区所有的养老院
+    private List<BranchAddressEntity> areaList = new ArrayList<>();
+    private Map<String, String> areaPointMap = new HashMap<>();
+    private ADA_BranchList mBranchAdapter;
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.act_home;
+        if (Constants.TYPE.equals("总院")) {
+            return R.layout.act_home_main;
+        } else {
+            return R.layout.act_home;
+        }
     }
 
     @Override
@@ -127,7 +147,10 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         mAdapterNurseProgress = new ADA_CircleNurseProgress(mContext);
         gridviewNurseProgress.setAdapter(mAdapterNurseProgress);
-        Elog.e("TTT", ScreenUtil.getScreenHeight(mContext)+"------"+ScreenUtil.getScreenWidth(mContext));
+
+        mBranchAdapter = new ADA_BranchList(mContext);
+        listview.setAdapter(mBranchAdapter);
+
     }
 
     private void showView() {
@@ -294,7 +317,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //7. 员工统计
         mPresenter.getStaffData("staff");
         //8.分院地址
-//        mPresenter.getBranchAddress("branchList");
+        mPresenter.getBranchAddress("branchList");
         //9.分院护理进度
         mPresenter.getNurseProgressList("jobItem");
     }
@@ -654,10 +677,46 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-//        for (int i = 0; i < dataList.size(); i++) {
-//            //分院名称
-//            Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
-//        }
+        //暂时地图上只标记上海地区
+        for (int i = 0; i < dataList.size(); i++) {
+            BranchAddressEntity bean = dataList.get(i);
+            if (bean.getCityName().equals("上海")) {
+                areaList.add(bean);
+                //重复的areaName,只显示一个。
+                areaPointMap.put(bean.getAreaId() + "", bean.getAreaName());
+            }
+            //分院名称
+            Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
+        }
+        //最多显示五条数据
+        if (areaList.size() > 4) {
+            mBranchAdapter.update(areaList.subList(0, 4), true);
+        } else {
+            mBranchAdapter.update(areaList, true);
+        }
+        initRedPoint();
+    }
+
+    /**
+     * 处理总院账号登录时上海地区养老院地图上的红点显示
+     */
+    private void initRedPoint() {
+        List<String> areaPointList = new ArrayList<>();
+        Set<String> keys = areaPointMap.keySet();
+        for (String key : keys) {
+            areaPointList.add(areaPointMap.get(key));
+        }
+        for (int i = 0; i < areaPointList.size(); i++) {
+            View point = LayoutInflater.from(mContext).inflate(R.layout.redpoint_postion, null);
+            TextView tvAreaName = (TextView) point.findViewById(R.id.tv_areaName);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(30, 30);
+            params.leftMargin = leftMarginArray[i];
+            params.topMargin = topMarginArray[i];
+            point.setLayoutParams(params);
+            tvAreaName.setText(areaPointList.get(i));
+            redPoint.addView(point);
+        }
+
     }
 
     @Override

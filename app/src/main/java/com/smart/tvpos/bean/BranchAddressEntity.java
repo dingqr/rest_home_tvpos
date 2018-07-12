@@ -22,9 +22,23 @@ public class BranchAddressEntity {
     private int id;
     private String cityName;//市
     private String provinceName;//省
+    private String areaId;
+    private String cityId;
+
+    public String getAreaId() {
+        return areaId == null ? "" : areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
+    public String getCityId() {
+        return cityId == null ? "" : cityId;
+    }
 
     public String getName() {
-        return name;
+        return name == null ? "" : name;
     }
 
     public void setName(String name) {
@@ -32,7 +46,7 @@ public class BranchAddressEntity {
     }
 
     public String getAddress() {
-        return address;
+        return address == null ? "" : address;
     }
 
     public void setAddress(String address) {
@@ -40,7 +54,7 @@ public class BranchAddressEntity {
     }
 
     public String getAreaName() {
-        return areaName;
+        return areaName == null ? "" : areaName;
     }
 
     public void setAreaName(String areaName) {
@@ -56,7 +70,7 @@ public class BranchAddressEntity {
     }
 
     public String getCityName() {
-        return cityName;
+        return cityName == null ? "" : cityName;
     }
 
     public void setCityName(String cityName) {
@@ -64,10 +78,14 @@ public class BranchAddressEntity {
     }
 
     public String getProvinceName() {
-        return provinceName;
+        return provinceName == null ? "" : provinceName;
     }
 
     public void setProvinceName(String provinceName) {
         this.provinceName = provinceName;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
     }
 }
