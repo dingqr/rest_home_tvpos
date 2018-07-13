@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:onClick="onActionFinish"
-            android:paddingBottom="32px"
+            android:paddingBottom="37px"
             android:paddingLeft="50px"
             android:paddingRight="52px"
-            android:paddingTop="42px"
+            android:paddingTop="37px"
             android:src="@drawable/ic_back" />
 
         <com.zhy.autolayout.AutoLinearLayout
