@@ -75,7 +75,7 @@ public class ACT_NursingProgress extends BaseActivity {
     protected void initViewsAndEvents() {
         tvSubTitle.setText("概览");
         //显示实际的养老院名称
-        setHeaderTitle(Constants.BRANCH_NAME);
+        setHeaderTitle(Constants.BRANCH_NAME + "护理进度");
 
         initRecyclerView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题

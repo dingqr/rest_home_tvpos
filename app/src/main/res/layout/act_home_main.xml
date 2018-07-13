@@ -261,6 +261,7 @@
                 android:textSize="12sp" />
 
             <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/autoRelativeLayout"
                 android:layout_width="470px"
                 android:layout_height="286px"
                 android:layout_below="@+id/tv_admit_living_title"
@@ -268,7 +269,7 @@
                 android:background="@drawable/bg_four_angle_hign">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="270px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -330,7 +331,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_user_living_title"
@@ -350,7 +351,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -449,7 +450,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_alert_data_title"
@@ -478,7 +479,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -557,7 +558,7 @@
                 android:background="@drawable/bg_four_angle_hign">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="270px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -659,7 +660,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -760,7 +761,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_employee_title"
@@ -779,7 +780,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="430px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -871,142 +872,147 @@
     <!--护理进度-end-->
     <!--地图下方文字-->
     <com.zhy.autolayout.AutoRelativeLayout
-        android:id="@+id/rl_map_des"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="120px"
-        android:layout_marginLeft="50px"
-        android:layout_toRightOf="@+id/ll_left_chart">
-
-        <TextView
-            android:id="@+id/tv_shanghai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4px"
-            android:drawableLeft="@drawable/ic_circle_shanghai"
-            android:drawablePadding="15px"
-            android:text="上海地区"
-            android:textColor="@color/color_b2bcd6"
-            android:textSize="9sp" />
-
-        <TextView
-            android:id="@+id/tv_jiangzhe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_shanghai"
-            android:drawableLeft="@drawable/ic_circle_jiangzhe"
-            android:drawablePadding="15px"
-            android:text="江浙地区"
-            android:textColor="@color/color_b2bcd6"
-            android:textSize="9sp" />
-
-
-        <TextView
-            android:id="@+id/tv_out_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_jiangzhe"
-            android:layout_marginTop="50px"
-            android:text="流失率"
-            android:textColor="@color/color_b2bcd6"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/tv_out_rate_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_jiangzhe"
-            android:layout_marginLeft="16px"
-            android:layout_marginTop="50px"
-            android:layout_toRightOf="@+id/tv_out_rate"
-            android:text="13%"
-            android:textColor="@color/color_60fdfd"
-            android:textSize="10sp" />
-
-        <View
-            android:layout_width="114px"
-            android:layout_height="1px"
-            android:layout_below="@+id/tv_out_rate_value"
-            android:background="@color/color_60fdfd"></View>
-
-        <TextView
-            android:id="@+id/tv_jiangzhe_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_jiangzhe"
-            android:layout_marginLeft="144px"
-            android:layout_marginTop="36px"
-            android:layout_toRightOf="@+id/tv_out_rate"
-            android:drawableLeft="@drawable/ic_jiangzhehu"
-            android:drawablePadding="18px"
-            android:text="江浙沪"
-            android:textColor="@color/color_FFFFFF"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tv_jiangzhe_area"
-            android:layout_below="@+id/tv_shanghai"
-            android:layout_marginLeft="180px"
-            android:layout_toRightOf="@+id/tv_jiangzhe_area"
-            android:drawableLeft="@drawable/ic_shanghai"
-            android:drawablePadding="18px"
-            android:text="上海"
-            android:textColor="@color/color_FFFFFF"
-            android:textSize="18sp" />
-    </com.zhy.autolayout.AutoRelativeLayout>
-    <!--地图下方文字-->
-    <!--地图-->
-    <!--江浙沪-->
-    <RelativeLayout
-        android:id="@+id/fl_jiangzhe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_total_data"
-        android:layout_marginLeft="80px"
-        android:layout_toRightOf="@+id/ll_left_chart"
-        android:paddingTop="220px">
-
-        <ImageView
-            android:id="@+id/iv_jiangzhe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bg_map_jiangzhe" />
-    </RelativeLayout>
-
-    <com.zhy.autolayout.AutoRelativeLayout
-        android:id="@+id/rl_shanghai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_total_data"
-        android:layout_toRightOf="@+id/fl_jiangzhe"
-        android:paddingTop="80px">
-
-        <ImageView
-            android:id="@+id/iv_shanghai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bg_map_shanghai" />
-
+        android:layout_centerInParent="true">
+        <!--地图江浙沪-->
         <RelativeLayout
-            android:id="@+id/red_point"
-            android:layout_width="280px"
-            android:layout_height="220px"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="200px"></RelativeLayout>
-    </com.zhy.autolayout.AutoRelativeLayout>
-    <!--地图-->
-    <!--上海地区所有的养老院-->
-    <com.smart.tvpos.widgets.BanSlideListView
-        android:id="@+id/listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/rl_shanghai"
-        android:layout_below="@+id/rl_shanghai"
-        android:layout_marginBottom="200px"
-        android:layout_marginLeft="180px"
-        android:layout_toLeftOf="@+id/ll_8chart_right"></com.smart.tvpos.widgets.BanSlideListView>
+            android:id="@+id/fl_jiangzhe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="170px">
 
+            <ImageView
+                android:id="@+id/iv_jiangzhe"
+                android:layout_width="360px"
+                android:layout_height="480px"
+                android:src="@drawable/bg_map_jiangzhe" />
+        </RelativeLayout>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_shanghai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/autoRelativeLayout"
+            android:layout_marginLeft="194dp"
+            android:layout_marginStart="194dp"
+            android:layout_marginTop="21dp"
+            android:paddingTop="50px">
+
+            <ImageView
+                android:id="@+id/iv_shanghai"
+                android:layout_width="446px"
+                android:layout_height="552px"
+                android:src="@drawable/bg_map_shanghai" />
+
+            <RelativeLayout
+                android:id="@+id/red_point"
+                android:layout_width="280px"
+                android:layout_height="220px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="200px"></RelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--地图-->
+        <!--地图下方文字-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_map_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="80px"
+            android:paddingLeft="48px">
+
+            <TextView
+                android:id="@+id/tv_shanghai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4px"
+                android:drawableLeft="@drawable/ic_circle_shanghai"
+                android:drawablePadding="15px"
+                android:text="上海地区"
+                android:textColor="@color/color_b2bcd6"
+                android:textSize="9sp" />
+
+            <TextView
+                android:id="@+id/tv_jiangzhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_shanghai"
+                android:drawableLeft="@drawable/ic_circle_jiangzhe"
+                android:drawablePadding="15px"
+                android:text="江浙地区"
+                android:textColor="@color/color_b2bcd6"
+                android:textSize="9sp" />
+
+
+            <TextView
+                android:id="@+id/tv_out_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_jiangzhe"
+                android:layout_marginTop="50px"
+                android:text="流失率"
+                android:textColor="@color/color_b2bcd6"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_out_rate_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_jiangzhe"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="50px"
+                android:layout_toRightOf="@+id/tv_out_rate"
+                android:text="13%"
+                android:textColor="@color/color_60fdfd"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="114px"
+                android:layout_height="1px"
+                android:layout_below="@+id/tv_out_rate_value"
+                android:background="@color/color_60fdfd"></View>
+
+            <TextView
+                android:id="@+id/tv_jiangzhe_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_jiangzhe"
+                android:layout_marginLeft="146px"
+                android:layout_marginTop="36px"
+                android:layout_toRightOf="@+id/tv_out_rate"
+                android:drawableLeft="@drawable/ic_jiangzhehu"
+                android:drawablePadding="18px"
+                android:text="江浙沪"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_jiangzhe_area"
+                android:layout_below="@+id/tv_shanghai"
+                android:layout_marginLeft="180px"
+                android:layout_toRightOf="@+id/tv_jiangzhe_area"
+                android:drawableLeft="@drawable/ic_shanghai"
+                android:drawablePadding="18px"
+                android:text="上海"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="18sp" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--地图下方文字end-->
+
+        <!--上海地区所有的养老院-->
+        <com.smart.tvpos.widgets.BanSlideListView
+            android:id="@+id/listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/rl_shanghai"
+            android:layout_alignRight="@+id/rl_shanghai"
+            android:layout_marginTop="596px"
+            android:paddingLeft="210px"></com.smart.tvpos.widgets.BanSlideListView>
+    </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoRelativeLayout>

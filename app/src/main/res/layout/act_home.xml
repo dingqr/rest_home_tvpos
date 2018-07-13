@@ -268,7 +268,7 @@
                 android:background="@drawable/bg_four_angle_hign">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="270px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -330,7 +330,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_user_living_title"
@@ -350,7 +350,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -449,7 +449,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_alert_data_title"
@@ -478,7 +478,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -556,7 +556,7 @@
                 android:background="@drawable/bg_four_angle_hign">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="270px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -658,7 +658,7 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="436px"
+                    android:layout_width="450px"
                     android:layout_height="236px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
@@ -759,7 +759,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="46px">
+            android:layout_marginTop="30px">
 
             <TextView
                 android:id="@+id/tv_employee_title"

@@ -31,8 +31,8 @@ public class RingChartView extends View {
     private Context mContext;
     private Paint mPaint;
     private int mPaintWidth = 0;        // 画笔的宽
-    private int topMargin = 30;         // 上边距
-    private int leftMargin = 70;        // 左边距
+    private int topMargin = 25;         // 上边距
+    private int leftMargin = 55;        // 左边距
     private Resources mRes;
     private DisplayMetrics dm;
     private int showRateSize = 5; // 展示文字的大小

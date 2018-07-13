@@ -132,10 +132,10 @@ public class DownCurveChartView extends View {
     private void initData() {
         //外界传入的数据，即为绘制曲线的每个点
         mRealDatas.add(0);
-        mRealDatas.add(2);
-        mRealDatas.add(4);
-        mRealDatas.add(2);
-        mRealDatas.add(6);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
+        mRealDatas.add(0);
 
         //X轴数据
 //        mXAxisData.add("01月");
