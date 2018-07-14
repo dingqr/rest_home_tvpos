@@ -181,8 +181,11 @@ public class ACT_NursingProgress extends BaseActivity {
 //                userNurseLis.get(userNurseLis.size() - 2).setNumA(100);
 //                userNurseLis.get(12).setNumA(100);
 //                userNurseLis.get(1).setNumA(20);
+//                userNurseLis.get(1).setNumF(10);
 //                userNurseLis.get(6).setNumA(20);
+//                userNurseLis.get(6).setNumF(20);
 //                userNurseLis.get(11).setNumA(30);
+//                userNurseLis.get(11).setNumF(10);
 //                userNurseLis.get(5).setNumF(10);
 //                userNurseLis.get(5).setNumA(40);
 //                userNurseLis.get(4).setNumF(8);

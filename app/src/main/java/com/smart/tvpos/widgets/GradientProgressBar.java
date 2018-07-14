@@ -97,14 +97,14 @@ public class GradientProgressBar extends View {
             mWidth = 0;
         }
         if (heightSpecMode == MeasureSpec.AT_MOST || heightSpecMode == MeasureSpec.UNSPECIFIED) {
-            mHeight = dipToPx(15);
+            mHeight = dipToPx(23);
         } else {
             mHeight = heightSpecSize;
         }
         setMeasuredDimension(mWidth, mHeight);
         //左右两边30px的间距
         progressBarWidth = (int) (mWidth - (2 * leftMargin));
-        startY = mHeight * 1f * 3 / 4; //控件高度为40px，上方留出10px的margin,20px的文字大小高度，10px进度条的高度
+        startY = mHeight * 1f * 18 / 23; //控件高度为40px，上方留出10px的margin,26px的文字大小高度，10px进度条的高度
     }
 
     @Override

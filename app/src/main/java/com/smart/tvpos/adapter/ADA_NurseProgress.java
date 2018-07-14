@@ -20,6 +20,7 @@ import com.smart.framework.library.adapter.rv.CommonAdapter;
 import com.smart.framework.library.adapter.rv.ViewHolder;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.DP2PX;
+import com.smart.framework.library.common.utils.ScreenUtil;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.bean.UserNurseListEntity;
@@ -72,7 +73,9 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         final GradientProgressBar progressBarNormal = holder.getView(R.id.progressBarNormal);
         GradientProgressBar progressBarZoom = holder.getView(R.id.progressBarZoom);
         //设置itemview的高度固定,以防两种类型的Itemview高度不一致，导致列表的item显示间距和item的高度不一致导致的问题
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 170));
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 170));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
+//        Elog.e("item", "height=" + (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
         rlRoot.setLayoutParams(params);
         View itemNormal = holder.getView(R.id.item_normal);
         View itemZoom = holder.getView(R.id.item_zoom);
@@ -112,7 +115,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             if (bean != null) {
                 holder.setText(R.id.tv_name_zoom, bean.getUserName() == null ? "" : bean.getUserName());
 //                holder.setText(R.id.tv_type_child_zoom, bean.getTypeChild() == null ? "" : bean.getTypeChild());
-                holder.setVisible(R.id.tv_type_child_zoom, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
+                holder.setVisibleHasMesure(R.id.tv_type_child_zoom, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
                 //地点
                 holder.setText(R.id.tv_address_zoom, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
                 holder.setText(R.id.tv_sex_old_zoom, MyApplication.getContext().getString(R.string.string_age) + bean.getAge() + "    " + MyApplication.getContext().getString(R.string.string_sex) + (TextUtils.isEmpty(bean.getSex()) ? "" : bean.getSex()));
@@ -132,7 +135,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             progressBarZoom.setcurrentProgress((bean.getNumF() * 1f / bean.getNumA()) * 100);
 
             //设置放大
-            ViewCompat.animate(holder.itemView).scaleX(1.20f).scaleY(1.20f).translationY(DP2PX.dip2px(mContext, 8)).setDuration(0).start();
+            ViewCompat.animate(holder.itemView).scaleX(1.20f).scaleY(1.20f).translationY(DP2PX.dip2px(mContext, 9)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
             //测试item遮挡问题，还未解决，需在实践：https://www.jb51.net/article/138747.htm Android
@@ -147,7 +150,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
             if (bean != null) {
                 holder.setText(R.id.tv_name, bean.getUserName() == null ? "" : bean.getUserName());
 //                holder.setText(R.id.tv_type_child, bean.getTypeChild() == null ? "" : bean.getTypeChild());
-                holder.setVisible(R.id.tv_type_child, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
+                holder.setVisibleHasMesure(R.id.tv_type_child, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
                 //地点
                 holder.setText(R.id.tv_address, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
                 holder.setText(R.id.tv_sex_old, MyApplication.getContext().getString(R.string.string_age) + bean.getAge() + "    " + MyApplication.getContext().getString(R.string.string_sex) + (TextUtils.isEmpty(bean.getSex()) ? "" : bean.getSex()));
