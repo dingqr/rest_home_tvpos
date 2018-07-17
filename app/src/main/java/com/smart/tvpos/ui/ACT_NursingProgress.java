@@ -17,7 +17,11 @@ import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
+import com.smart.tvpos.adapter.ADA_BuildingList;
+import com.smart.tvpos.adapter.ADA_FloorList;
 import com.smart.tvpos.adapter.ADA_NurseProgress;
+import com.smart.tvpos.bean.BuildingEntity;
+import com.smart.tvpos.bean.FloorEntity;
 import com.smart.tvpos.bean.UserNurseDataEntity;
 import com.smart.tvpos.bean.UserNurseListEntity;
 import com.smart.tvpos.global.API;
@@ -46,7 +50,16 @@ public class ACT_NursingProgress extends BaseActivity {
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
     private ADA_NurseProgress mAdapter;
     private int mColumnNum = 4;
-
+    //当前选中的楼层
+    private FloorEntity mSelectFloorEntity;
+    //当前选中的楼宇
+    private BuildingEntity mSelectBuildingEntity;
+    private ADA_BuildingList mBuildingAdapter;
+    private ADA_FloorList mFloorAdapter;
+//    @Bind(R.id.tv_building)
+//    TextView tvBuilding;
+//    @Bind(R.id.tv_floor)
+//    TextView tvFloor;
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_nursing_progress;
@@ -140,13 +153,14 @@ public class ACT_NursingProgress extends BaseActivity {
 
     private void requestNet(boolean isShowLoading) {
         requestWarningShow("userNurse");
+//        requestBuildingList("building");
         if (isShowLoading) {
             showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
         }
     }
 
     /**
-     * 12.	用户护理进度
+     * 1.	用户护理进度
      *
      * @param requestType userNurse
      */
@@ -156,6 +170,8 @@ public class ACT_NursingProgress extends BaseActivity {
         params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
+//        params.put("buildingId", );
+//        params.put("floorId", );
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<UserNurseDataEntity>() {
 
             @Override
@@ -202,6 +218,53 @@ public class ACT_NursingProgress extends BaseActivity {
             @Override
             public void onReqFailed(ErrorBean error) {
                 hideLoading();
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 2.	当前分院的楼宇,楼层
+     *
+     * @param requestType building
+     */
+    private void requestBuildingList(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<BuildingEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<BuildingEntity> dataList) {
+                if (dataList == null || dataList.size() == 0) {
+                    return;
+                }
+                mSelectBuildingEntity = dataList.get(0);
+                if (mSelectBuildingEntity == null) {
+                    return;
+                }
+                Elog.e("TAG", "building=" + mSelectBuildingEntity.getBuildingName());
+
+//                tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
+                mBuildingAdapter.update(dataList, true);
+
+                if (mSelectBuildingEntity.getList().size() > 0) {
+//                    tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
+//                    tvFloorName.setText(mSelectBuildingEntity.getBuildingName() + mSelectBuildingEntity.getList().get(0).getFloorName());
+//                    //floorId-请求床垫在线离线人数
+//                    requestBuildingUserList("buildingUser", mSelectBuildingEntity.getList().get(0).getFloorId());
+                }
+                mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
         });
