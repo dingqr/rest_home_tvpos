@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -29,6 +32,7 @@ import com.smart.tvpos.manager.ReqCallBack;
 import com.smart.tvpos.manager.RequestManager;
 import com.smart.tvpos.util.Constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,8 +47,6 @@ import butterknife.OnClick;
 public class ACT_NursingProgress extends BaseActivity {
     @Bind(R.id.recyclerview)
     LRecyclerView mRecyclerView;
-    //    @Bind(R.id.recyclerview)
-//    ScaleRecyclerView mRecyclerView;
     @Bind(R.id.tv_sub_title)
     TextView tvSubTitle;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
@@ -56,22 +58,73 @@ public class ACT_NursingProgress extends BaseActivity {
     private BuildingEntity mSelectBuildingEntity;
     private ADA_BuildingList mBuildingAdapter;
     private ADA_FloorList mFloorAdapter;
-//    @Bind(R.id.tv_building)
-//    TextView tvBuilding;
-//    @Bind(R.id.tv_floor)
-//    TextView tvFloor;
+    @Bind(R.id.buildingList)
+    ListView listviewbuildingList;
+    @Bind(R.id.floorList)
+    ListView listviewfloorList;
+    @Bind(R.id.tv_building)
+    TextView tvBuilding;
+    @Bind(R.id.tv_floor)
+    TextView tvFloor;
+
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.act_nursing_progress;
     }
 
-    @OnClick({R.id.tv_sub_title})
+    @OnClick({R.id.tv_sub_title, R.id.tv_building, R.id.tv_floor})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_sub_title:
                 readyGo(ACT_WatchingOverview.class);
                 break;
+            case R.id.tv_building:
+                if (listviewbuildingList.getVisibility() == View.INVISIBLE) {
+                    showBuildingList();
+                } else {
+                    hideBuildingList();
+                }
+                break;
+            case R.id.tv_floor:
+                if (listviewfloorList.getVisibility() == View.INVISIBLE) {
+                    showFloorList();
+                } else {
+                    hideFloorList();
+                }
+                break;
         }
+    }
+
+    /**
+     * 弹出楼宇列表
+     */
+    private void showBuildingList() {
+        listviewbuildingList.setVisibility(View.VISIBLE);
+        listviewbuildingList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+    }
+
+    /*
+     * 隐藏楼宇列表
+     */
+    private void hideBuildingList() {
+        listviewbuildingList.setVisibility(View.INVISIBLE);
+        listviewbuildingList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+    }
+
+    /**
+     * 弹出楼层列表
+     */
+    private void showFloorList() {
+        listviewfloorList.setVisibility(View.VISIBLE);
+        listviewfloorList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+    }
+
+    /**
+     * 隐藏楼层列表
+     */
+    private void hideFloorList() {
+        listviewfloorList.setVisibility(View.INVISIBLE);
+        listviewfloorList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
     }
 
     @Override
@@ -92,8 +145,11 @@ public class ACT_NursingProgress extends BaseActivity {
 
         initRecyclerView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
+        initListView();
 
         requestNet(true);
+
+        initListener();
     }
 
     /**
@@ -150,34 +206,125 @@ public class ACT_NursingProgress extends BaseActivity {
         mRecyclerView.setFooterViewHint(MyApplication.getContext().getString(R.string.list_footer_loading), MyApplication.getContext().getString(R.string.list_footer_end), MyApplication.getContext().getString(R.string.list_footer_network_error));
     }
 
+    private void initListView() {
+        mBuildingAdapter = new ADA_BuildingList(mContext);
+        listviewbuildingList.setAdapter(mBuildingAdapter);
+
+        mFloorAdapter = new ADA_FloorList(mContext);
+        listviewfloorList.setAdapter(mFloorAdapter);
+    }
+
+    private void initListener() {
+        listviewbuildingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mSelectBuildingEntity = mBuildingAdapter.getDataList().get(i);
+                mBuildingAdapter.setCheckCurrentItem(i);
+                tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
+                mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
+                //切换时默认显示列表的第一个
+                if (mSelectBuildingEntity.getList().size() > 0) {
+                    tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
+                }
+                if (listviewfloorList.getVisibility() == View.INVISIBLE) {
+                    showFloorList();
+                }
+            }
+        });
+        //楼层切换
+        listviewfloorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mSelectFloorEntity = mFloorAdapter.getDataList().get(i);
+                mFloorAdapter.setCheckCurrentItem(i);
+                tvFloor.setText(mSelectFloorEntity.getFloorName());
+                hideFloorList();
+                if (listviewbuildingList.getVisibility() == View.VISIBLE) {
+                    hideBuildingList();
+                }
+                //选中的楼和楼层
+//                CommonUtils.makeEventToast(MyApplication.getContext(), mSelectBuildingEntity.getBuildingName() + mSelectFloorEntity.getFloorName(), false);
+                //切换楼层时,刷新当前护理进度数据列表
+                requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mSelectFloorEntity.getFloorId() + "");
+
+            }
+        });
+    }
 
     private void requestNet(boolean isShowLoading) {
-        requestWarningShow("userNurse");
-//        requestBuildingList("building");
+        requestWarningShow("userNurse", "", "");
+        requestBuildingList("building");
         if (isShowLoading) {
             showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
         }
     }
 
     /**
-     * 1.	用户护理进度
+     * 1.	当前分院的楼宇,楼层
+     *
+     * @param requestType building
+     */
+    private void requestBuildingList(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<BuildingEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<BuildingEntity> dataList) {
+                if (dataList == null || dataList.size() == 0) {
+                    return;
+                }
+                mSelectBuildingEntity = dataList.get(0);
+                if (mSelectBuildingEntity == null) {
+                    return;
+                }
+                Elog.e("TAG", "building=" + mSelectBuildingEntity.getBuildingName());
+
+                tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
+                mBuildingAdapter.update(dataList, true);
+
+                if (mSelectBuildingEntity.getList().size() > 0) {
+                    tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
+//                    //默认展示当前大楼一楼的数据
+                    requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mSelectBuildingEntity.getList().get(0).getFloorId() + "");
+                }
+                mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    /**
+     * 2.	用户护理进度
      *
      * @param requestType userNurse
      */
-    private void requestWarningShow(String requestType) {
+    private void requestWarningShow(String requestType, String buildingId, String floorId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
         params.put("name", "hafuadmin");
         params.put("id", Constants.USER_ID);
         params.put("sign", Constants.USER_SIGN);
-//        params.put("buildingId", );
-//        params.put("floorId", );
+        params.put("buildingId", buildingId);
+        params.put("floorId", floorId);
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<UserNurseDataEntity>() {
 
             @Override
             public void onReqSuccess(UserNurseDataEntity bean) {
                 hideLoading();
                 if (bean == null || bean.getUser() == null || bean.getUser().size() == 0) {
+                    mAdapter.update(new ArrayList<UserNurseListEntity>(), true);
                     return;
                 }
 
@@ -218,53 +365,6 @@ public class ACT_NursingProgress extends BaseActivity {
             @Override
             public void onReqFailed(ErrorBean error) {
                 hideLoading();
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
-
-    /**
-     * 2.	当前分院的楼宇,楼层
-     *
-     * @param requestType building
-     */
-    private void requestBuildingList(String requestType) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", requestType);
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<BuildingEntity>>() {
-
-            @Override
-            public void onReqSuccess(List<BuildingEntity> dataList) {
-                if (dataList == null || dataList.size() == 0) {
-                    return;
-                }
-                mSelectBuildingEntity = dataList.get(0);
-                if (mSelectBuildingEntity == null) {
-                    return;
-                }
-                Elog.e("TAG", "building=" + mSelectBuildingEntity.getBuildingName());
-
-//                tvBuilding.setText(mSelectBuildingEntity.getBuildingName());
-                mBuildingAdapter.update(dataList, true);
-
-                if (mSelectBuildingEntity.getList().size() > 0) {
-//                    tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
-//                    tvFloorName.setText(mSelectBuildingEntity.getBuildingName() + mSelectBuildingEntity.getList().get(0).getFloorName());
-//                    //floorId-请求床垫在线离线人数
-//                    requestBuildingUserList("buildingUser", mSelectBuildingEntity.getList().get(0).getFloorId());
-                }
-                mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
         });
