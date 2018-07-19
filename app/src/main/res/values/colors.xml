@@ -55,7 +55,6 @@
     <color name="color_555555">#555555</color>
     <color name="color_adadad">#adadad</color>
     <color name="color_e3e6e5">#e3e6e5</color>
-    <color name="color_4990e3">#4990e3</color>
     <color name="color_2af0ae">#2af0ae</color>
     <color name="color_68fdfe">#68fdfe</color>
     <color name="color_3662a0">#3662a0</color>
@@ -64,4 +63,11 @@
     <color name="color_feeed2">#feeed2</color>
     <color name="color_d8dae1">#d8dae1</color>
     <color name="color_dcdcdc">#dcdcdc</color>
+    <color name="color_d2d2d2">#d2d2d2</color>
+    <color name="color_868686">#868686</color>
+    <!--床垫状态所对应的文字颜色-->
+    <color name="color_4990e3">#4990e3</color>
+    <color name="color_facf88">#facf88</color>
+    <color name="color_c53e3d">#c53e3d</color>
+    <color name="color_bbbbbc">#bbbbbc</color>
 </resources>

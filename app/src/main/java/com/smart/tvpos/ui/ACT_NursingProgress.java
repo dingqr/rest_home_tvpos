@@ -22,7 +22,7 @@ import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_BuildingList;
 import com.smart.tvpos.adapter.ADA_FloorList;
-import com.smart.tvpos.adapter.ADA_NurseProgress;
+import com.smart.tvpos.adapter.ADA_NurseProgressModify;
 import com.smart.tvpos.bean.BuildingEntity;
 import com.smart.tvpos.bean.FloorEntity;
 import com.smart.tvpos.bean.UserNurseDataEntity;
@@ -50,7 +50,7 @@ public class ACT_NursingProgress extends BaseActivity {
     @Bind(R.id.tv_sub_title)
     TextView tvSubTitle;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
-    private ADA_NurseProgress mAdapter;
+    private ADA_NurseProgressModify mAdapter;
     private int mColumnNum = 4;
     //当前选中的楼层
     private FloorEntity mSelectFloorEntity;
@@ -156,7 +156,7 @@ public class ACT_NursingProgress extends BaseActivity {
      * 初始化配置RecyclerView
      */
     private void initRecyclerView() {
-        mAdapter = new ADA_NurseProgress(mContext);
+        mAdapter = new ADA_NurseProgressModify(mContext);
         //配置列表样式
         mLRecyclerViewAdapter = new LRecyclerViewAdapter(mAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mColumnNum);

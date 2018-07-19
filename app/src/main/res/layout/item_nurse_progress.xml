@@ -7,10 +7,10 @@
     <!--normal的view-->
     <include
         android:id="@+id/item_normal"
-        layout="@layout/item_nurse_normal"
+        layout="@layout/item_nurse_normal_modify"
         android:visibility="visible"></include>    <!--放大的view-->
     <include
         android:id="@+id/item_zoom"
-        layout="@layout/item_nurse_zoom_out"
+        layout="@layout/item_nurse_zoom_out_modify"
         android:visibility="gone"></include>
 </com.zhy.autolayout.AutoRelativeLayout>

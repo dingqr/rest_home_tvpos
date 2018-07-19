@@ -68,10 +68,29 @@ public class UserNurseListEntity {
     private String typeChild;//     * typeChild	未解决警报类型
     private int warningLevel; //1:一级 2：二级 3 ：三级
     private float nurseProgress;//护理进度
+    private String heartbeat;//心跳
+    private String breath;//呼吸
+
+    public String getHeartbeat() {
+        return (TextUtils.isEmpty(heartbeat) ? "0" : heartbeat);
+    }
+
+    public void setHeartbeat(String heartbeat) {
+        this.heartbeat = heartbeat;
+    }
+
+    public String getBreath() {
+        return (TextUtils.isEmpty(breath) ? "0" : breath);
+    }
+
+    public void setBreath(String breath) {
+        this.breath = breath;
+    }
+
     private String status;//状态 ['掉线','离床','静卧','体动'] 同理,没有则显示未关联设备
 
     public String getStatus() {
-        return (TextUtils.isEmpty(status) ? "未关联设备" : status);
+        return (TextUtils.isEmpty(status) ? "未关联" : status);
     }
 
     public void setStatus(String status) {
