@@ -47,12 +47,12 @@
             android:paddingRight="16px">
 
             <TextView
-                android:id="@+id/tv_type_child_zoom"
+                android:id="@+id/tv_type_nurse_name_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_little_help_white"
+                android:drawableLeft="@drawable/ic_help_black"
                 android:drawablePadding="10px"
-                android:text="一键求助"
+                android:text="一级护理"
                 android:textColor="#3a3d49"
                 android:textSize="8sp" />
 
@@ -97,6 +97,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
             android:layout_marginTop="40px"
+            android:gravity="end"
             android:orientation="vertical">
 
             <ImageView
@@ -104,16 +105,22 @@
                 android:layout_width="42px"
                 android:layout_height="42px"
                 android:src="@drawable/ic_warning_blue_zoom" />
-
+            <!--暂时固定显示紧急-->
             <TextView
-                android:id="@+id/tv_warning_note_zoom"
+                android:id="@+id/tv_warning_level_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:ellipsize="end"
-                android:lines="2"
-                android:maxEms="2"
-                android:text="三级跌倒"
+                android:paddingRight="8px"
+                android:text="紧急"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tv_thing_zoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8px"
+                android:text="意外走失"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="8sp" />
         </com.zhy.autolayout.AutoLinearLayout>

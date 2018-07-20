@@ -116,8 +116,8 @@
 
             <ImageView
                 android:id="@+id/iv_warning_level_zoom"
-                android:layout_width="42px"
-                android:layout_height="42px"
+                android:layout_width="50px"
+                android:layout_height="50px"
                 android:src="@drawable/ic_warning_blue_zoom" />
 
             <TextView

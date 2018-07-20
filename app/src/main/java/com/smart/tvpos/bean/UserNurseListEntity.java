@@ -70,6 +70,15 @@ public class UserNurseListEntity {
     private float nurseProgress;//护理进度
     private String heartbeat;//心跳
     private String breath;//呼吸
+    private String typeNurseName;//护理级别
+
+    public String getTypeNurseName() {
+        return typeNurseName == null ? "" : typeNurseName;
+    }
+
+    public void setTypeNurseName(String typeNurseName) {
+        this.typeNurseName = typeNurseName;
+    }
 
     public String getHeartbeat() {
         return (TextUtils.isEmpty(heartbeat) ? "0" : heartbeat);
@@ -130,7 +139,7 @@ public class UserNurseListEntity {
     }
 
     public String getUserName() {
-        return userName;
+        return userName == null ? "" : userName;
     }
 
     public void setUserName(String userName) {

@@ -252,7 +252,7 @@ public class ACT_NursingProgress extends BaseActivity {
     }
 
     private void requestNet(boolean isShowLoading) {
-        requestWarningShow("userNurse", "", "");
+//        requestWarningShow("userNurse", "", "");
         requestBuildingList("building");
         if (isShowLoading) {
             showLoading(MyApplication.getContext().getString(R.string.common_loading_message));
@@ -353,6 +353,14 @@ public class ACT_NursingProgress extends BaseActivity {
 //                userNurseLis.get(5).setNumA(40);
 //                userNurseLis.get(4).setNumF(8);
 //                userNurseLis.get(4).setNumA(100);
+
+//                userNurseLis.get(1).setTypeChild("坠床");
+//                userNurseLis.get(3).setTypeChild("跌倒");
+//                userNurseLis.get(4).setTypeChild("突发疾病");
+//                userNurseLis.get(5).setTypeChild("意外事件");
+//                userNurseLis.get(6).setTypeChild("跌倒");
+//                userNurseLis.get(7).setTypeChild("走失");
+//                userNurseLis.get(11).setTypeChild("跌倒");
                 mAdapter.update(userNurseLis, true);
             }
 

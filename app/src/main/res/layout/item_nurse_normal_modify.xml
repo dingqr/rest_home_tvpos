@@ -48,13 +48,13 @@
             android:paddingRight="10px">
 
             <TextView
-                android:id="@+id/tv_type_child"
+                android:id="@+id/tv_type_nurse_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2px"
-                android:drawableLeft="@drawable/ic_little_help"
+                android:drawableLeft="@drawable/ic_help_black"
                 android:drawablePadding="10px"
-                android:text="一键求助"
+                android:text="一级护理"
                 android:textColor="#3a3d49"
                 android:textSize="9sp" />
 

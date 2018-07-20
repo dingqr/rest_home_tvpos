@@ -50,7 +50,8 @@
         android:paddingTop="8px"
         android:text="护理进度"
         android:textColor="#72aaf2"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/iv_user"
@@ -59,7 +60,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="40px"
         android:layout_marginTop="28px"
-        android:src="@drawable/ic_user_default" />
+        android:src="@drawable/ic_user_default"
+        android:visibility="invisible" />
 
 
     <View
