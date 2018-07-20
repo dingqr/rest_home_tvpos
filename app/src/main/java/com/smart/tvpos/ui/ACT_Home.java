@@ -94,9 +94,9 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
-//        private String[] memuTitle = {"数据监控", "概览", "护理进度"};
+    //        private String[] memuTitle = {"数据监控", "概览", "护理进度"};
     private String[] memuTitle = {"数据监控", "护理进度"};
-//        private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
+    //        private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_nurse_progress};
     private HomePresenter mPresenter;
     private ADA_CircleNurseProgress mAdapterNurseProgress;
