@@ -351,7 +351,7 @@
 
                 <com.zhy.autolayout.AutoRelativeLayout
                     android:layout_width="450px"
-                    android:layout_height="236px"
+                    android:layout_height="240px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
 
@@ -479,7 +479,7 @@
 
                 <com.zhy.autolayout.AutoRelativeLayout
                     android:layout_width="450px"
-                    android:layout_height="236px"
+                    android:layout_height="240px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
 
@@ -659,7 +659,7 @@
 
                 <com.zhy.autolayout.AutoRelativeLayout
                     android:layout_width="450px"
-                    android:layout_height="236px"
+                    android:layout_height="240px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
 
@@ -778,8 +778,8 @@
                 android:background="@drawable/bg_four_angle_short">
 
                 <com.zhy.autolayout.AutoRelativeLayout
-                    android:layout_width="430px"
-                    android:layout_height="236px"
+                    android:layout_width="450px"
+                    android:layout_height="240px"
                     android:layout_centerInParent="true"
                     android:background="@color/color_081638">
 
