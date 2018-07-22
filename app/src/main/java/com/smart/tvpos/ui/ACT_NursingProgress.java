@@ -141,7 +141,8 @@ public class ACT_NursingProgress extends BaseActivity {
     protected void initViewsAndEvents() {
         tvSubTitle.setText("概览");
         //显示实际的养老院名称
-        setHeaderTitle(Constants.BRANCH_NAME + "护理进度");
+//        setHeaderTitle(Constants.BRANCH_NAME + "护理进度");
+        setHeaderTitle(Constants.BRANCH_NAME);
 
         initRecyclerView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
@@ -354,13 +355,13 @@ public class ACT_NursingProgress extends BaseActivity {
 //                userNurseLis.get(4).setNumF(8);
 //                userNurseLis.get(4).setNumA(100);
 
-//                userNurseLis.get(1).setTypeChild("坠床");
-//                userNurseLis.get(3).setTypeChild("跌倒");
-//                userNurseLis.get(4).setTypeChild("突发疾病");
-//                userNurseLis.get(5).setTypeChild("意外事件");
-//                userNurseLis.get(6).setTypeChild("跌倒");
-//                userNurseLis.get(7).setTypeChild("走失");
-//                userNurseLis.get(11).setTypeChild("跌倒");
+                userNurseLis.get(1).setTypeChild("坠床");
+                userNurseLis.get(3).setTypeChild("跌倒");
+                userNurseLis.get(4).setTypeChild("突发疾病");
+                userNurseLis.get(5).setTypeChild("意外事件");
+                userNurseLis.get(6).setTypeChild("跌倒");
+                userNurseLis.get(7).setTypeChild("走失");
+                userNurseLis.get(11).setTypeChild("跌倒");
                 mAdapter.update(userNurseLis, true);
             }
 
