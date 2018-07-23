@@ -135,7 +135,12 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
                         .apply(requestOptions)
                         .into(ivUserAvatarZoom);
             }
-            //设置放大
+//            ObjectAnimator//
+//                    .ofFloat(holder.itemView, "scaleY", 1f, 1.16f)
+//                    .ofFloat(holder.itemView, "scaleX", 1f, 1.16f)
+//                    .setDuration(10)//
+//                    .start();
+            //设置放大-Android5.0以下的会出现滑动过程中，item丢失的现象
             ViewCompat.animate(holder.itemView).scaleX(1.15f).scaleY(1.15f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
