@@ -116,10 +116,10 @@ public class ACT_Login extends BaseActivity {
     private void requestLogin() {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", "login");
-        params.put("name", "hafuadmin");
-        params.put("password", "666666");
-//        params.put("name", etPhone.getText().toString());
-//        params.put("password", etPassword.getText().toString());
+//        params.put("name", "hafuadmin");
+//        params.put("password", "666666");
+        params.put("name", etPhone.getText().toString());
+        params.put("password", etPassword.getText().toString());
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<UserEntity>() {
             @Override
             public void onReqSuccess(UserEntity userEntity) {

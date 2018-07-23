@@ -17,7 +17,7 @@
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16px"
+            android:layout_marginRight="8px"
             android:layout_marginTop="42px"
             android:orientation="vertical">
 
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="12px"
+                android:layout_marginBottom="10px"
                 android:src="@drawable/ic_user_avatar" />
 
             <TextView
@@ -37,7 +37,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="王猛"
                 android:textColor="@color/color_adadad"
-                android:textSize="9sp" />
+                android:textSize="10sp" />
         </com.zhy.autolayout.AutoLinearLayout>
 
         <com.zhy.autolayout.AutoLinearLayout
@@ -56,18 +56,18 @@
                 android:drawablePadding="10px"
                 android:text="一级护理"
                 android:textColor="#3a3d49"
-                android:textSize="9sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_sex_old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20px"
+                android:layout_marginBottom="18px"
                 android:layout_marginLeft="22px"
                 android:drawablePadding="10px"
                 android:text="年龄：83    性别：男"
                 android:textColor="@color/color_adadad"
-                android:textSize="9sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_address"
@@ -79,7 +79,7 @@
                 android:drawablePadding="10px"
                 android:text="住养大楼2层205"
                 android:textColor="#3a3d49"
-                android:textSize="9sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -88,7 +88,7 @@
                 android:layout_marginLeft="22px"
                 android:text="2018年06月01日 12:23:02"
                 android:textColor="@color/color_adadad"
-                android:textSize="9sp" />
+                android:textSize="10sp" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -157,7 +157,7 @@
                 android:drawablePadding="14px"
                 android:text="90"
                 android:textColor="@color/color_868686"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_breath"
@@ -168,7 +168,7 @@
                 android:drawablePadding="20px"
                 android:text="15"
                 android:textColor="@color/color_868686"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 

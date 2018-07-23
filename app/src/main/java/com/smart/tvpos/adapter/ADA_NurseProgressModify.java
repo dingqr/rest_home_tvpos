@@ -69,16 +69,16 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
         //事件类型
         TextView tvThingZoom = holder.getView(R.id.tv_thing_zoom);
         //床垫状态
-        holder.setImageResource(R.id.iv_status, getBedStatusImage(bean.getStatus()));
-        holder.setImageResource(R.id.iv_status_zoom, getBedStatusImage(bean.getStatus()));
+        holder.setImageResource(R.id.iv_status, getBedStatusImage(bean.getStatus(), 0));
+        holder.setImageResource(R.id.iv_status_zoom, getBedStatusImage(bean.getStatus(), 1));
         holder.setText(R.id.tv_status, bean.getStatus());
         holder.setText(R.id.tv_status_zoom, bean.getStatus());
-        holder.setTextColor(R.id.tv_status, getBedStatusColor(bean.getStatus()));
-        holder.setTextColor(R.id.tv_status_zoom, getBedStatusColor(bean.getStatus()));
+        holder.setTextColor(R.id.tv_status, getBedStatusColor(bean.getStatus(), 0));
+        holder.setTextColor(R.id.tv_status_zoom, getBedStatusColor(bean.getStatus(), 1));
 
         //设置itemview的高度固定,以防两种类型的Itemview高度不一致，导致列表的item显示间距和item的高度不一致导致的问题
 //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 170));
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtil.getScreenHeight(context) * 0.264f));
 //        Elog.e("item", "height=" + (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
         rlRoot.setLayoutParams(params);
         View itemNormal = holder.getView(R.id.item_normal);
@@ -176,14 +176,25 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
 
     }
 
-    private int[] bedStatus = {R.drawable.ic_jingwo, R.drawable.ic_tidong, R.drawable.ic_lichuang, R.drawable.ic_lixian, R.drawable.ic_weiguanlian};
+    private int[] bedStatus = {R.drawable.ic_lichuang_zoom, R.drawable.ic_jingwo, R.drawable.ic_tidong, R.drawable.ic_lichuang, R.drawable.ic_lixian, R.drawable.ic_weiguanlian};
     private int[] bedStatusColors = {R.color.color_4990e3, R.color.color_facf88, R.color.color_c53e3d, R.color.color_bbbbbc};
 
-    private int getBedStatusImage(String status) {
+    /**
+     * 1:zoom 0:normal
+     *
+     * @param status
+     * @param type
+     * @return
+     */
+    private int getBedStatusImage(String status, int type) {
         if (status.equals("静卧")) {
             return R.drawable.ic_jingwo;
         } else if (status.equals("离床")) {
-            return R.drawable.ic_lichuang;
+            if (type == 0) {
+                return R.drawable.ic_lichuang;
+            } else {
+                return R.drawable.ic_lichuang_zoom;
+            }
         } else if (status.equals("体动")) {
             return R.drawable.ic_tidong;
         } else if (status.equals("离线")) {
@@ -193,13 +204,24 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
         }
     }
 
-    private int getBedStatusColor(String status) {
+    /**
+     * 1:zoom 0:normal
+     *
+     * @param status
+     * @param type
+     * @return
+     */
+    private int getBedStatusColor(String status, int type) {
         if (status.equals("静卧")) {
             return ContextCompat.getColor(mContext, R.color.color_4990e3);
         } else if (status.equals("体动")) {
             return ContextCompat.getColor(mContext, R.color.color_facf88);
         } else if (status.equals("离床")) {
-            return ContextCompat.getColor(mContext, R.color.color_c53e3d);
+            if (type == 0) {
+                return ContextCompat.getColor(mContext, R.color.color_c53e3d);
+            } else {
+                return ContextCompat.getColor(mContext, R.color.color_FFFFFF);
+            }
         } else {
             return ContextCompat.getColor(mContext, R.color.color_bbbbbc);
         }
