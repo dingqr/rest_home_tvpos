@@ -39,8 +39,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-import static android.view.ViewGroup.FOCUS_AFTER_DESCENDANTS;
-
 /**
  * Created by JoJo on 2018/6/23.
  * wechat：18510829974
@@ -147,7 +145,7 @@ public class ACT_NursingProgress extends BaseActivity {
         setHeaderTitle(Constants.BRANCH_NAME);
 
         initRecyclerView();
-        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
+//        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
         initListView();
 
         requestNet(true);

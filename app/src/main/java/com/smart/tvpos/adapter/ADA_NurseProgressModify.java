@@ -135,7 +135,6 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
                         .apply(requestOptions)
                         .into(ivUserAvatarZoom);
             }
-
             //设置放大
             ViewCompat.animate(holder.itemView).scaleX(1.15f).scaleY(1.15f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
@@ -167,7 +166,6 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
                         .apply(requestOptions)
                         .into(ivUserAvatar);
             }
-
             //缩放动画重置
             ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).translationY(0).setDuration(0).start();
             itemNormal.setVisibility(View.VISIBLE);
