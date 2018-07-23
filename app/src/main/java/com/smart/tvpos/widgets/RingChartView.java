@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.smart.framework.library.common.log.Elog;
 import com.smart.tvpos.R;
 
 import java.util.ArrayList;
@@ -207,10 +206,10 @@ public class RingChartView extends View {
         float[] floats = new float[8];
         floats[0] = point.x;
         floats[1] = point.y;
-        Log.e("TAG", "circle-position=" + position);
-        if (lastPoint != null) {
-            Elog.e("TAG", "abs=" + (Math.abs(point.x - lastPoint.x)) + "position=" + position);
-        }
+//        Log.e("TAG", "circle-position=" + position);
+//        if (lastPoint != null) {
+//            Elog.e("TAG", "abs=" + (Math.abs(point.x - lastPoint.x)) + "position=" + position);
+//        }
 //        floats[2] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1;
 //        floats[3] = dip2px(topMargin + ringOuterRidus) + lineYPoint1;
 //        floats[4] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1;

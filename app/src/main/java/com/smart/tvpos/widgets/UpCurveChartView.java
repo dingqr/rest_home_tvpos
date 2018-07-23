@@ -254,6 +254,7 @@ public class UpCurveChartView extends View {
         this.mRealDatas = mIncressUserList;
         this.mXAxisData = xAxisData;
         this.mYAxisData = upYAxisData;
+        initView();
         postInvalidate();
     }
 }

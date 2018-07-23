@@ -249,6 +249,7 @@ public class DownCurveChartView extends View {
     public void setData(ArrayList<Integer> mIncressUserList, int[] downYAxisData) {
         this.mRealDatas = mIncressUserList;
         this.mYAxisData = downYAxisData;
+        initView();
         postInvalidate();
     }
 }
