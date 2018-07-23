@@ -71,14 +71,28 @@
         android:layout_below="@+id/iv_back"
         android:background="@drawable/bg_shape_gradient_line"></View>
 
+    <!--<GridView-->
+        <!--android:id="@+id/gridview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/view_divider"-->
+        <!--android:layout_marginLeft="40px"-->
+        <!--android:layout_marginRight="40px"-->
+        <!--android:horizontalSpacing="30px"-->
+        <!--android:listSelector="@color/color_transparent"-->
+        <!--android:numColumns="4"-->
+        <!--android:overScrollMode="never"-->
+        <!--android:scrollbars="none"-->
+        <!--android:verticalSpacing="30px"></GridView>-->
+
     <com.github.jdsjlzx.recyclerview.LRecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/view_divider"
-        android:background="@color/color_f6f9fb"
-        android:overScrollMode="never"
-        android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
+    android:id="@+id/recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/view_divider"
+    android:background="@color/color_f6f9fb"
+    android:overScrollMode="never"
+    android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
     <!--楼层-->
     <TextView
         android:id="@+id/tv_building"

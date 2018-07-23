@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,8 +16,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.smart.framework.library.adapter.rv.CommonAdapter;
-import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.adapter.lv.CommonAdapterListView;
+import com.smart.framework.library.adapter.lv.ViewHolderListView;
 import com.smart.framework.library.common.utils.DP2PX;
 import com.smart.framework.library.common.utils.ScreenUtil;
 import com.smart.tvpos.MyApplication;
@@ -33,14 +33,14 @@ import com.smart.tvpos.global.API;
 //http://ycljf86.iteye.com/blog/2345413  droidtv 开发系列 二 recycleview item放大效果
 //https://www.jb51.net/article/138747.htm Android RecyclerView item选中放大被遮挡问题详解
 //https://blog.csdn.net/qq_35697312/article/details/53018819?locationNum=8&fps=1    androidTV中使用recyclerview并使其item在获取焦点后获取边框，并伴随放大，凸显效果
-public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> implements RecyclerView.ChildDrawingOrderCallback {
+public class ADA_NurseProgressGridView extends CommonAdapterListView<UserNurseListEntity> {
     private Activity context;
     private int[] normalColors;
     private int[] zoomColors;
     private ViewGroup viewGroup;
     private final int[] textcolor;
 
-    public ADA_NurseProgressModify(Activity context) {
+    public ADA_NurseProgressGridView(Activity context) {
         super(context);
         this.context = context;
         //设置渐变进度条的颜色数组值
@@ -56,7 +56,7 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
     }
 
     @Override
-    protected void convert(final ViewHolder holder, UserNurseListEntity bean, final int position) {
+    protected void convert(ViewHolderListView holder, UserNurseListEntity bean, int position) {
         RelativeLayout rlRoot = holder.getView(R.id.rl_root);
         ImageView ivUserAvatar = holder.getView(R.id.iv_user_avatar);
         ImageView ivUserAvatarZoom = holder.getView(R.id.iv_user_avatar_zoom);
@@ -78,7 +78,7 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
 
         //设置itemview的高度固定,以防两种类型的Itemview高度不一致，导致列表的item显示间距和item的高度不一致导致的问题
 //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 170));
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtil.getScreenHeight(context) * 0.264f));
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtil.getScreenHeight(context) * 0.264f));
 //        Elog.e("item", "height=" + (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
         rlRoot.setLayoutParams(params);
         View itemNormal = holder.getView(R.id.item_normal);
@@ -140,8 +140,8 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
 //                    .ofFloat(holder.itemView, "scaleX", 1f, 1.16f)
 //                    .setDuration(10)//
 //                    .start();
-            //设置放大-RecyclerView滑动过程中，会出现item丢失显示不及时的现象(5.0以上的版本好像是正常显示的)
-            ViewCompat.animate(holder.itemView).scaleX(1.15f).scaleY(1.15f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
+            //设置放大-Android5.0以下的会出现滑动过程中，item丢失的现象
+            ViewCompat.animate(holder.getConvertView()).scaleX(1.15f).scaleY(1.15f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
 //            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
             //测试item遮挡问题，还未解决，需在实践：https://www.jb51.net/article/138747.htm Android
@@ -172,7 +172,7 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
                         .into(ivUserAvatar);
             }
             //缩放动画重置
-            ViewCompat.animate(holder.itemView).scaleX(1).scaleY(1).translationY(0).setDuration(0).start();
+            ViewCompat.animate(holder.getConvertView()).scaleX(1).scaleY(1).translationY(0).setDuration(0).start();
             itemNormal.setVisibility(View.VISIBLE);
             itemZoom.setVisibility(View.GONE);
         }
@@ -227,35 +227,6 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
             }
         } else {
             return ContextCompat.getColor(mContext, R.color.color_bbbbbc);
-        }
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        this.viewGroup = parent;
-        return super.onCreateViewHolder(parent, viewType);
-    }
-
-    /**
-     * 改变绘制顺序,让获得焦点的最后绘制,从而浮在其他item上面 http://www.aichengxu.com/view/11147419
-     */
-    @Override
-    public int onGetChildDrawingOrder(int childCount, int i) {
-        View focusedChild = viewGroup.getFocusedChild();
-        int focusViewIndex = viewGroup.indexOfChild(focusedChild);
-        if (focusViewIndex == -1) {
-            return i;
-        }
-
-        int focusid = focusViewIndex;
-
-        if (focusViewIndex == i) {
-            focusid = i;
-            return childCount - 1;
-        } else if (i == childCount - 1) {
-            return focusid;
-        } else {
-            return i;
         }
     }
 }

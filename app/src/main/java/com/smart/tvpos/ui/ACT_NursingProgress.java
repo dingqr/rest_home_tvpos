@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.smart.framework.library.base.BaseActivity;
@@ -22,6 +21,7 @@ import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_BuildingList;
 import com.smart.tvpos.adapter.ADA_FloorList;
+import com.smart.tvpos.adapter.ADA_NurseProgressGridView;
 import com.smart.tvpos.adapter.ADA_NurseProgressModify;
 import com.smart.tvpos.bean.BuildingEntity;
 import com.smart.tvpos.bean.FloorEntity;
@@ -47,6 +47,8 @@ import butterknife.OnClick;
 public class ACT_NursingProgress extends BaseActivity {
     @Bind(R.id.recyclerview)
     LRecyclerView mRecyclerView;
+    //    @Bind(R.id.gridview)
+//    GridView mGridview;
     @Bind(R.id.tv_sub_title)
     TextView tvSubTitle;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
@@ -66,6 +68,7 @@ public class ACT_NursingProgress extends BaseActivity {
     TextView tvBuilding;
     @Bind(R.id.tv_floor)
     TextView tvFloor;
+    private ADA_NurseProgressGridView mGridAdapter;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -145,12 +148,18 @@ public class ACT_NursingProgress extends BaseActivity {
         setHeaderTitle(Constants.BRANCH_NAME);
 
         initRecyclerView();
+        initGridView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
         initListView();
 
         requestNet(true);
 
         initListener();
+    }
+
+    private void initGridView() {
+//        mGridAdapter = new ADA_NurseProgressGridView(mContext);
+//        mGridview.setAdapter(mGridAdapter);
     }
 
     /**
@@ -192,13 +201,13 @@ public class ACT_NursingProgress extends BaseActivity {
 //        mRecyclerView.setChildDrawingOrderCallback(mAdapter);//这句很关键,让获得焦点item浮在其他item上面
         mRecyclerView.setPullRefreshEnabled(false);
         mRecyclerView.setLoadMoreEnabled(false);
-        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-
-
-            }
-        });
+//        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//
+//
+//            }
+//        });
 //        //设置头部文字颜色
         mRecyclerView.setHeaderViewColor(R.color.color_2e84ba, R.color.color_2e84ba, R.color.color_FFFFFF);
         //设置底部加载颜色-loading动画颜色,文字颜色,footer的背景颜色
@@ -362,6 +371,7 @@ public class ACT_NursingProgress extends BaseActivity {
 //                userNurseLis.get(6).setTypeChild("跌倒");
 //                userNurseLis.get(7).setTypeChild("走失");
 //                userNurseLis.get(11).setTypeChild("跌倒");
+//                mGridAdapter.update(userNurseLis, true);
                 mAdapter.update(userNurseLis, true);
             }
 
