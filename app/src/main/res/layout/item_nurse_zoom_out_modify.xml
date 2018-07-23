@@ -133,7 +133,7 @@
         android:layout_height="1px"
         android:layout_marginLeft="21px"
         android:layout_marginRight="21px"
-        android:layout_marginTop="24px"
+        android:layout_marginTop="30px"
         android:background="@color/color_FFFFFF"></View>
 
     <com.zhy.autolayout.AutoLinearLayout

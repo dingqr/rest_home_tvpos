@@ -200,7 +200,7 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
             }
         } else if (status.equals("体动")) {
             return R.drawable.ic_tidong;
-        } else if (status.equals("离线")) {
+        } else if (status.equals("离线") || status.equals("掉线")) {
             return R.drawable.ic_lixian;
         } else {
             return R.drawable.ic_weiguanlian;

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.smart.framework.library.common.log.Elog;
 import com.smart.tvpos.R;
 
 import java.util.ArrayList;
@@ -169,8 +170,16 @@ public class RingChartView extends View {
     }
 
     private float preRate;
+    private Point lastPoint;
 
     private void drawArcCenterPoint(Canvas canvas, int position) {
+        if (pointArcCenterList.size() > 0) {
+            if (position >= 1) {
+                lastPoint = pointArcCenterList.get(position - 1);
+            } else {
+                lastPoint = pointArcCenterList.get(0);
+            }
+        }
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(mRes.getColor(R.color.color_transparent));
         mPaint.setStrokeWidth(1);
@@ -198,7 +207,10 @@ public class RingChartView extends View {
         float[] floats = new float[8];
         floats[0] = point.x;
         floats[1] = point.y;
-
+        Log.e("TAG", "circle-position=" + position);
+        if (lastPoint != null) {
+            Elog.e("TAG", "abs=" + (Math.abs(point.x - lastPoint.x)) + "position=" + position);
+        }
 //        floats[2] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1;
 //        floats[3] = dip2px(topMargin + ringOuterRidus) + lineYPoint1;
 //        floats[4] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1;
@@ -206,7 +218,19 @@ public class RingChartView extends View {
         //右半圆
         if (point.x >= dip2px(leftMargin + ringOuterRidus)) {
             mPaint.setTextAlign(Paint.Align.LEFT);
-            floats[6] = point.x + 36;
+//            floats[6] = point.x + 36;
+            //防止绘制的文字重叠显示
+            if (lastPoint != null) {
+                int absX = Math.abs(point.x - lastPoint.x);
+                int absY = Math.abs(point.y - lastPoint.y);
+                if (absX > 0 && absX < 10 && absY > 0 && absY < 10) {
+                    floats[6] = point.x + 16;
+                } else {
+                    floats[6] = point.x + 36;
+                }
+            } else {
+                floats[6] = point.x + 36;
+            }
             if (point.y <= dip2px(topMargin + ringOuterRidus)) {
                 //右上角
                 floats[2] = point.x + 10;
@@ -225,8 +249,19 @@ public class RingChartView extends View {
             //左半圆
         } else {
             mPaint.setTextAlign(Paint.Align.RIGHT);
-            floats[6] = point.x - 36;
-
+//            floats[6] = point.x - 36;
+            //防止绘制的文字重叠显示
+            if (lastPoint != null) {
+                int absX = Math.abs(point.x - lastPoint.x);
+                int absY = Math.abs(point.y - lastPoint.y);
+                if (absX > 0 && absX < 10 && absY > 0 && absY < 10) {
+                    floats[6] = point.x - 16;
+                } else {
+                    floats[6] = point.x - 36;
+                }
+            } else {
+                floats[6] = point.x - 36;
+            }
             if (point.y <= dip2px(topMargin + ringOuterRidus)) {
                 //左上角
                 floats[2] = point.x - 10;
