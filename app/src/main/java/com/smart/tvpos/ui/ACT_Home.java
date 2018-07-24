@@ -120,6 +120,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             requestNet();
         }
     }
+
     @Override
     protected int getContentViewLayoutID() {
         if (Constants.TYPE.equals("总院")) {

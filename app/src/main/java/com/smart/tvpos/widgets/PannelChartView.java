@@ -37,9 +37,9 @@ public class PannelChartView extends View {
     private int spanelViewWidth = 56;//柱状条的宽度
     //数据值
     private int[] valueDatas = new int[]{};
-    private int[] keduList = {0, 20, 40, 60, 80, 100};
+    private int[] keduList = {0, 40, 80, 120, 160, 200};
     //每个刻度对应的高度值
-    private int valueSpace = 20;
+    private int valueSpace = 40;
     //绘制柱形图的坐标起点
     private int startx;
     private int starty;
