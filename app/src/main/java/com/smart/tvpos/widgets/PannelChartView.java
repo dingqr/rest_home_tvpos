@@ -37,9 +37,9 @@ public class PannelChartView extends View {
     private int spanelViewWidth = 56;//柱状条的宽度
     //数据值
     private int[] valueDatas = new int[]{};
-    private int[] keduList = {0, 20, 40, 60, 80, 100};
+    private int[] keduList = {0, 40, 80, 120, 160, 200};
     //每个刻度对应的高度值
-    private int valueSpace = 20;
+    private int valueSpace = 40;
     //绘制柱形图的坐标起点
     private int startx;
     private int starty;
@@ -63,7 +63,9 @@ public class PannelChartView extends View {
     private void initView(Context context) {
         //解决4.1版本 以下canvas.drawTextOnPath()不显示问题
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
+        if (keduList.length >= 2) {
+            valueSpace = keduList[1] - keduList[0];
+        }
         //屏幕信息
         DisplayMetrics dm = getResources().getDisplayMetrics();
         ScrHeight = dm.heightPixels;
@@ -99,8 +101,9 @@ public class PannelChartView extends View {
         mPaintWhite.setStrokeWidth(1);
     }
 
-    public void setValueData(int[] valueData) {
+    public void setValueData(int[] valueData, int[] yAxisDataArray) {
         this.valueDatas = valueData;
+        this.keduList = yAxisDataArray;
         //调用postInvalidate不起作用,应该是因为画笔的原因，暂时采用调用initView(mContext)中方法
         initView(mContext);
     }
