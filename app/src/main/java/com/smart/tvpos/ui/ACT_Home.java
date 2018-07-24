@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
-import com.smart.framework.library.common.log.Elog;
+import com.smart.framework.library.common.ReceiveConstants;
 import com.smart.framework.library.common.utils.AppDateUtil;
 import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
@@ -115,6 +115,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     private ADA_BranchList mBranchAdapter;
 
     @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
+            requestNet();
+        }
+    }
+    @Override
     protected int getContentViewLayoutID() {
         if (Constants.TYPE.equals("总院")) {
             return R.layout.act_home_main;
@@ -130,7 +136,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     @Override
     protected long getRefreshTime() {
-        return 0;
+        return 3 * 1000;
     }
 
     @Override
@@ -176,10 +182,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         spanString.setSpan(span3, 10, 11, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spanString.setSpan(span4, 15, 17, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         tvDate.setText(spanString);
-//        String str="默认颜色<font color='#FF0000'><small>红颜色</small></font>";
-//        tvDate.setTextSize(18);
-//        tvDate.setText(Html.fromHtml(str));
-//        tvDate.setText(timeStamp + "    " + week);
     }
 
     /**
@@ -203,12 +205,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        if (position == 1) {
-//                            readyGo(ACT_WatchingOverview.class);
-//                        }
-//                        if (position == 2) {
-//                            readyGo(ACT_NursingProgress.class);
-//                        }
                         if (position == 1) {
                             readyGo(ACT_NursingProgress.class);
                         }
@@ -494,8 +490,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         float unHandledRate = (100 - Float.parseFloat(formatHandledRate));
         String formatUnHandledRate = StringUtil.getFormatPercentRate(unHandledRate);
-        Elog.e("TAG", "handledRate=" + handledRate + "unHandledRate=" + unHandledRate);
-        Elog.e("TAG", "formathandledRate=" + formatHandledRate + "formatUnHandledRate=" + formatUnHandledRate);
         //添加百分比
         alertChartRateList.add(Float.parseFloat(formatHandledRate));
         alertChartRateList.add(Float.parseFloat(formatUnHandledRate));
@@ -710,8 +704,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
                 //重复的areaName,只显示一个。
                 areaPointMap.put(bean.getAreaId() + "", bean.getAreaName());
             }
-            //分院名称
-            Elog.e("TAG", "dataList-item=" + dataList.get(i).getName());
         }
         //最多显示五条数据
         if (areaList.size() > 4) {
@@ -739,7 +731,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             params.topMargin = topMarginArray[i];
             point.setLayoutParams(params);
             tvAreaName.setText(areaPointList.get(i));
-//            tvAreaName.setText(i + "");
             redPoint.addView(point);
         }
 
@@ -750,13 +741,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        //模拟数据
-//        dataList.get(0).setNumD(10);
-//        dataList.get(1).setNumD(2);
-//        dataList.get(2).setNumD(16);
-//        dataList.get(3).setNumD(5);
-//        dataList.get(4).setNumD(8);
-//        dataList.get(5).setNumD(20);
         if (dataList.size() > 6) {
             mAdapterNurseProgress.update(dataList.subList(0, 6), true);
         } else {

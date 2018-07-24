@@ -18,7 +18,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.smart.framework.library.adapter.rv.CommonAdapter;
 import com.smart.framework.library.adapter.rv.ViewHolder;
-import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.DP2PX;
 import com.smart.framework.library.common.utils.ScreenUtil;
 import com.smart.tvpos.MyApplication;
@@ -32,9 +31,6 @@ import com.smart.tvpos.widgets.GradientProgressBar;
  * wechat:18510829974
  * description:
  */
-//http://ycljf86.iteye.com/blog/2345413  droidtv 开发系列 二 recycleview item放大效果
-//https://www.jb51.net/article/138747.htm Android RecyclerView item选中放大被遮挡问题详解
-//https://blog.csdn.net/qq_35697312/article/details/53018819?locationNum=8&fps=1    androidTV中使用recyclerview并使其item在获取焦点后获取边框，并伴随放大，凸显效果
 public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implements RecyclerView.ChildDrawingOrderCallback {
     private Activity context;
     private int[] normalColors;
@@ -69,13 +65,10 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         TextView tvWarningNoteNormal = holder.getView(R.id.tv_warning_note_normal);
         TextView tvWarningNoteZoom = holder.getView(R.id.tv_warning_note_zoom);
 
-        //progressBar
         final GradientProgressBar progressBarNormal = holder.getView(R.id.progressBarNormal);
         GradientProgressBar progressBarZoom = holder.getView(R.id.progressBarZoom);
-        //设置itemview的高度固定,以防两种类型的Itemview高度不一致，导致列表的item显示间距和item的高度不一致导致的问题
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DP2PX.dip2px(mContext, 170));
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
-//        Elog.e("item", "height=" + (int) (ScreenUtil.getScreenHeight(context) * 0.25f));
         rlRoot.setLayoutParams(params);
         View itemNormal = holder.getView(R.id.item_normal);
         View itemZoom = holder.getView(R.id.item_zoom);
@@ -107,14 +100,11 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
 //            tvWarningNoteNormal.setText(MyApplication.getContext().getString(R.string.string_three_fall_down));
             tvWarningNoteZoom.setText(MyApplication.getContext().getString(R.string.string_three_fall_down));
         }
-        Elog.e("TTT", "percent=" + (bean.getNumF() * 1.f / bean.getNumA()) * 100);
-        //如果是警报的前三级，突出放大显示——（设置某些Item放大-把动画时间置为0 缩放比例：（18*2+264）/264=1.136）
         if (bean.getWarningLevel() != 0) {
             progressBarZoom.setLeftMargin(20 + 30);
             progressBarZoom.setLineColor(ContextCompat.getColor(mContext, R.color.color_feeed2));
             if (bean != null) {
                 holder.setText(R.id.tv_name_zoom, bean.getUserName() == null ? "" : bean.getUserName());
-//                holder.setText(R.id.tv_type_child_zoom, bean.getTypeChild() == null ? "" : bean.getTypeChild());
                 holder.setVisibleHasMesure(R.id.tv_type_child_zoom, (!TextUtils.isEmpty(bean.getTypeChild())) ? true : false);
                 //地点
                 holder.setText(R.id.tv_address_zoom, TextUtils.isEmpty((bean.getBuildingName() + bean.getFloorName() + bean.getRoomName())) ? "未知" : (bean.getBuildingName() + bean.getFloorName() + bean.getRoomName()));
@@ -130,16 +120,10 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
                         .apply(requestOptions)
                         .into(ivUserAvatarZoom);
             }
-            //设置放大显示的progressBar
             progressBarZoom.setGradientColor(zoomColors);
             progressBarZoom.setcurrentProgress((bean.getNumF() * 1f / bean.getNumA()) * 100);
 
-            //设置放大
             ViewCompat.animate(holder.itemView).scaleX(1.20f).scaleY(1.20f).translationY(DP2PX.dip2px(mContext, 9)).setDuration(0).start();
-//            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(DP2PX.dip2px(mContext, 5)).setDuration(0).start();
-//            ViewCompat.animate(holder.itemView).scaleX(1.18f).scaleY(1.26f).translationY(1).setDuration(0).start();
-            //测试item遮挡问题，还未解决，需在实践：https://www.jb51.net/article/138747.htm Android
-//            ViewCompat.animate(holder.itemView).scaleX(1.8f).scaleY(1.8f).translationY(10).setDuration(0).start();
             itemNormal.setVisibility(View.GONE);
             itemZoom.setVisibility(View.VISIBLE);
         } else {
