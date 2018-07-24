@@ -412,7 +412,27 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     @Override
     public void getAdmitLivingData(AdmitLivingEntity bean) {
         int[] valueDatas = {bean.getAdminNum(), bean.getInNum(), bean.getOutNum()};
-        mPannelChartView.setValueData(valueDatas);
+        ArrayList<Integer> yAxisData = new ArrayList<>();
+        for (int i = 0; i < valueDatas.length; i++) {
+            yAxisData.add(valueDatas[i]);
+        }
+        //新增用户数据的最大值
+        Integer maxX = Collections.max(yAxisData);
+        if (maxX % 2 == 0) {
+            maxX = maxX + 2;
+        } else {
+            maxX = maxX + 1;
+        }
+        int space = maxX / 5;
+        if (maxX % 5 != 0) {
+            space = space + 2;
+        }
+        int[] yAxisDataArray = new int[5 + 1];
+        yAxisDataArray[0] = 0;
+        for (int i = 1; i < 5 + 1; i++) {
+            yAxisDataArray[i] = yAxisDataArray[i - 1] + space;
+        }
+        mPannelChartView.setValueData(valueDatas, yAxisDataArray);
     }
 
     /**
