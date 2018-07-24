@@ -14,6 +14,7 @@ import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
+import com.smart.framework.library.common.ReceiveConstants;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
@@ -21,7 +22,6 @@ import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_BuildingList;
 import com.smart.tvpos.adapter.ADA_FloorList;
-import com.smart.tvpos.adapter.ADA_NurseProgressGridView;
 import com.smart.tvpos.adapter.ADA_NurseProgressModify;
 import com.smart.tvpos.bean.BuildingEntity;
 import com.smart.tvpos.bean.FloorEntity;
@@ -47,8 +47,6 @@ import butterknife.OnClick;
 public class ACT_NursingProgress extends BaseActivity {
     @Bind(R.id.recyclerview)
     LRecyclerView mRecyclerView;
-    //    @Bind(R.id.gridview)
-//    GridView mGridview;
     @Bind(R.id.tv_sub_title)
     TextView tvSubTitle;
     private LRecyclerViewAdapter mLRecyclerViewAdapter;
@@ -68,7 +66,13 @@ public class ACT_NursingProgress extends BaseActivity {
     TextView tvBuilding;
     @Bind(R.id.tv_floor)
     TextView tvFloor;
-    private ADA_NurseProgressGridView mGridAdapter;
+
+    @Override
+    protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
+            requestNet(false);
+        }
+    }
 
     @Override
     protected int getContentViewLayoutID() {
@@ -148,7 +152,6 @@ public class ACT_NursingProgress extends BaseActivity {
         setHeaderTitle(Constants.BRANCH_NAME);
 
         initRecyclerView();
-        initGridView();
 //        mRecyclerView.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);//父控件和子控件之间的焦点获取的关系,意思是焦点优先级是 父亲在后代后面  不加这行会出现焦点有时丢失的问题
         initListView();
 
@@ -157,10 +160,6 @@ public class ACT_NursingProgress extends BaseActivity {
         initListener();
     }
 
-    private void initGridView() {
-//        mGridAdapter = new ADA_NurseProgressGridView(mContext);
-//        mGridview.setAdapter(mGridAdapter);
-    }
 
     /**
      * 初始化配置RecyclerView
@@ -201,13 +200,6 @@ public class ACT_NursingProgress extends BaseActivity {
 //        mRecyclerView.setChildDrawingOrderCallback(mAdapter);//这句很关键,让获得焦点item浮在其他item上面
         mRecyclerView.setPullRefreshEnabled(false);
         mRecyclerView.setLoadMoreEnabled(false);
-//        mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//
-//
-//            }
-//        });
 //        //设置头部文字颜色
         mRecyclerView.setHeaderViewColor(R.color.color_2e84ba, R.color.color_2e84ba, R.color.color_FFFFFF);
         //设置底部加载颜色-loading动画颜色,文字颜色,footer的背景颜色
@@ -342,36 +334,6 @@ public class ACT_NursingProgress extends BaseActivity {
 
 
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
-                //模拟数据
-//                userNurseLis.get(1).setWarningLevel(1);
-//                userNurseLis.get(6).setWarningLevel(2);
-//                userNurseLis.get(11).setWarningLevel(3);
-//                userNurseLis.get(12).setNumF(91);
-//                userNurseLis.get(12).setNumA(100);
-//                userNurseLis.get(userNurseLis.size() - 1).setNumF(11);
-//                userNurseLis.get(userNurseLis.size() - 1).setNumA(100);
-//                userNurseLis.get(userNurseLis.size() - 2).setNumF(90);
-//                userNurseLis.get(userNurseLis.size() - 2).setNumA(100);
-//                userNurseLis.get(12).setNumA(100);
-//                userNurseLis.get(1).setNumA(20);
-//                userNurseLis.get(1).setNumF(10);
-//                userNurseLis.get(6).setNumA(20);
-//                userNurseLis.get(6).setNumF(20);
-//                userNurseLis.get(11).setNumA(30);
-//                userNurseLis.get(11).setNumF(10);
-//                userNurseLis.get(5).setNumF(10);
-//                userNurseLis.get(5).setNumA(40);
-//                userNurseLis.get(4).setNumF(8);
-//                userNurseLis.get(4).setNumA(100);
-
-//                userNurseLis.get(1).setTypeChild("坠床");
-//                userNurseLis.get(3).setTypeChild("跌倒");
-//                userNurseLis.get(4).setTypeChild("突发疾病");
-//                userNurseLis.get(5).setTypeChild("意外事件");
-//                userNurseLis.get(6).setTypeChild("跌倒");
-//                userNurseLis.get(7).setTypeChild("走失");
-//                userNurseLis.get(11).setTypeChild("跌倒");
-//                mGridAdapter.update(userNurseLis, true);
                 mAdapter.update(userNurseLis, true);
             }
 
