@@ -5,41 +5,27 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.bean.ResultBean;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.SecureRandom;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManagerFactory;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -74,22 +60,6 @@ public class RequestManager {
      * 请求接口实例对象
      */
     private static volatile RequestManager mInstance;
-    /**
-     * get请求
-     */
-    public static final int TYPE_GET = 0;
-    /**
-     * post请求参数为json
-     */
-    public static final int TYPE_POST_JSON = 1;
-    /**
-     * post请求参数为表单
-     */
-    public static final int TYPE_POST_FORM = 2;
-    /**
-     * 编码格式
-     */
-    private static final String ENCODE = "utf-8";
 
     /**
      * okHttpClient 实例
@@ -104,10 +74,6 @@ public class RequestManager {
      * 普通连接的超时时间
      */
     private final int CONNECT_TIMEOIUT = 10;
-    /**
-     * 文件上传的超时时间
-     */
-    private final int CONNECT_TIMEOIUT_FILE = 50;
 
     /**
      * 服务器返回code值
@@ -154,8 +120,6 @@ public class RequestManager {
                         return cookies != null ? cookies : new ArrayList<Cookie>();
                     }
                 })
-                .sslSocketFactory(getSSLSocketFactory(context, "srca.cer"))//添加https
-
                 .build();
         okHttpHandler = new Handler(context.getMainLooper());
     }
@@ -172,7 +136,6 @@ public class RequestManager {
                     .addQueryParameter("m", "api")
                     .addQueryParameter("c", "AdminTv")
                     .build();
-//            Elog.e(TAG, url.url().toString());
             return chain.proceed(request.newBuilder().url(url).build());
         }
     }
@@ -242,157 +205,6 @@ public class RequestManager {
             final Request request = addHeaders().url(requestUrl).build();
 
             Call call = mOkHttpClient.newCall(request);
-            call = onRequest(callBack, call);
-            return call;
-        } catch (Exception e) {
-            Elog.e(TAG, e.toString());
-            requestOnFailure(MyApplication.getInstance().getString(R.string.common_error_parse), callBack);
-        }
-        return null;
-    }
-
-    /**
-     * okHttp post异步请求
-     *
-     * @param actionUrl 接口地址
-     * @param paramsMap 请求参数
-     * @param callBack  请求返回数据回调
-     * @param <T>       数据泛型
-     * @return
-     */
-    public <T> Call requestPostByAsyn(String actionUrl, HashMap<String, String> paramsMap, final ReqCallBack<T> callBack) {
-        try {
-            // 字符串格式
-//            StringBuilder tempParams = new StringBuilder();
-//            int pos = 0;
-//            for (String key : paramsMap.keySet()) {
-//                if (pos > 0) {
-//                    tempParams.append("&");
-//                }
-//                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), ENCODE)));
-////                tempParams.append(String.format("%s=%s", key, paramsMap.get(key)));
-//                pos++;
-//            }
-
-            // JSONObject格式
-            JSONObject json = new JSONObject();
-            for (String key : paramsMap.keySet()) {
-                json.put(key, paramsMap.get(key));
-            }
-
-            String params = json.toString();
-            RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
-            String requestUrl = actionUrl;
-
-            Elog.e(TAG, "Method:post");
-            Elog.e(TAG, "URL:" + requestUrl);
-            Elog.e(TAG, "Params:" + params);
-            final Request request = addHeaders().url(requestUrl).post(body).build();
-            Call call = mOkHttpClient.newCall(request);
-            call = onRequest(callBack, call);
-            return call;
-        } catch (Exception e) {
-            requestOnFailure(MyApplication.getInstance().getString(R.string.common_error_parse), callBack);
-            Elog.e(TAG, e.toString());
-        }
-        return null;
-    }
-
-    /**
-     * okHttp post异步请求,包含Object类型的参数
-     *
-     * @param actionUrl 接口地址
-     * @param parmas    请求参数
-     * @param paramsMap 请求参数，value是Object类型的
-     * @param callBack  请求返回数据回调
-     * @param <T>       数据泛型
-     * @return
-     */
-    public <T> Call requestPostByAsyn(String actionUrl, HashMap<String, String> parmas, HashMap<String, HashMap<String, String>> paramsMap, final ReqCallBack<T> callBack) {
-        try {
-            // JSONObject格式
-            JSONObject json = new JSONObject();
-            for (String key : parmas.keySet()) {
-                json.put(key, parmas.get(key));
-            }
-            if (paramsMap != null) {
-                for (String key : paramsMap.keySet()) {
-                    json.put(key, paramsMap.get(key));
-                }
-            }
-
-            String params = json.toString();
-            RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
-            String requestUrl = actionUrl;
-
-            Elog.e(TAG, "Method:post");
-            Elog.e(TAG, "URL:" + requestUrl);
-            Elog.e(TAG, "Params:" + params);
-            final Request request = addHeaders().url(requestUrl).post(body).build();
-            Call call = mOkHttpClient.newCall(request);
-            call = onRequest(callBack, call);
-            return call;
-        } catch (Exception e) {
-            requestOnFailure(MyApplication.getInstance().getString(R.string.common_error_parse), callBack);
-            Elog.e(TAG, e.toString());
-        }
-        return null;
-    }
-
-    /**
-     * 上传文件
-     *
-     * @param actionUrl 接口地址
-     * @param filePath  本地文件地址
-     */
-    public <T> Call upLoadFile(String actionUrl, String filePath, final ReqCallBack<T> callBack) {
-        //补全请求地址
-//        String requestUrl = String.format("%s/%s", BASE_URL, actionUrl);
-        String requestUrl = actionUrl;
-        //创建File
-        File file = new File(filePath);
-        //创建RequestBody
-        RequestBody body = RequestBody.create(MEDIA_OBJECT_STREAM, file);
-        //创建Request
-        final Request request = new Request.Builder().url(requestUrl).post(body).build();
-        Call call = mOkHttpClient.newBuilder().writeTimeout(CONNECT_TIMEOIUT_FILE, TimeUnit.SECONDS).build().newCall(request);
-        call = onRequest(callBack, call);
-        return call;
-    }
-
-    /**
-     * 上传文件
-     *
-     * @param actionUrl 接口地址
-     * @param paramsMap 参数
-     * @param callBack  回调
-     * @param <T>
-     */
-    public <T> Call upLoadFile(String actionUrl, HashMap<String, Object> paramsMap, final ReqCallBack<T> callBack) {
-        try {
-            //补全请求地址
-//          String requestUrl = String.format("%s/%s", BASE_URL, actionUrl);
-            String requestUrl = actionUrl;
-            MultipartBody.Builder builder = new MultipartBody.Builder();
-            //设置类型
-            builder.setType(MultipartBody.FORM);
-            //追加参数
-            for (String key : paramsMap.keySet()) {
-                Object object = paramsMap.get(key);
-                if (!(object instanceof File)) {
-                    builder.addFormDataPart(key, object.toString());
-                } else {
-                    File file = (File) object;
-                    builder.addFormDataPart(key, file.getName(), RequestBody.create(null, file));
-                }
-            }
-            //创建RequestBody
-            RequestBody body = builder.build();
-            //创建Request
-            final Request request = new Request.Builder().url(requestUrl).post(body).build();
-            //单独设置参数 比如读取超时时间
-            Call call = mOkHttpClient.newBuilder().writeTimeout(CONNECT_TIMEOIUT_FILE, TimeUnit.SECONDS).build().newCall(request);
-
             call = onRequest(callBack, call);
             return call;
         } catch (Exception e) {
@@ -515,30 +327,6 @@ public class RequestManager {
         }
     }
 
-    /**
-     * 统一处理调用失败信息（接口返回的失败信息）
-     *
-     * @param errorMsg
-     * @param callBack
-     * @param <T>
-     */
-//    private <T> void requestOnFailure(final String errorMsg, final ReqCallBack<T> callBack) {
-//        if (null != okHttpHandler) {
-//            okHttpHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (callBack != null) {
-//                        callBack.onReqFailed(errorMsg);
-//                    }
-//                }
-//            });
-//        } else {
-//            if (callBack != null) {
-//                callBack.onReqFailed(errorMsg);
-//            }
-//        }
-//
-//    }
     private <T> void requestOnFailure(final String errorMsg, final ReqCallBack<T> callBack) {
         if (!TextUtils.isEmpty(errorMsg)) {
             this.requestOnFailure(errorMsg, RESPONCE_CODE_500, callBack);
@@ -579,70 +367,6 @@ public class RequestManager {
 
 
     /**
-     * okHttp post同步请求表单提交
-     *
-     * @param actionUrl 接口地址
-     * @param paramsMap 请求参数
-     * @param callBack  请求返回数据回调
-     * @param <T>       数据泛型
-     * @return
-     */
-    private <T> Call requestPostBySynWithForm(String actionUrl, HashMap<String, String> paramsMap, final ReqCallBack<T> callBack) {
-        try {
-            FormBody.Builder builder = new FormBody.Builder();
-            for (String key : paramsMap.keySet()) {
-                builder.add(key, paramsMap.get(key));
-            }
-            RequestBody formBody = builder.build();
-//            String requestUrl = String.format("%s/%s", BASE_URL, actionUrl);
-            String requestUrl = actionUrl;
-            Elog.e(TAG, requestUrl);
-            final Request request = addHeaders().url(requestUrl).post(formBody).build();
-            Call call = mOkHttpClient.newCall(request);
-            call = onRequest(callBack, call);
-            return call;
-        } catch (Exception e) {
-            Elog.e(TAG, e.toString());
-        }
-        return null;
-    }
-
-    /**
-     * okHttp get同步请求
-     *
-     * @param actionUrl 接口地址
-     * @param paramsMap 请求参数
-     */
-    private void requestGetBySyn(String actionUrl, HashMap<String, String> paramsMap) {
-        StringBuilder tempParams = new StringBuilder();
-        try {
-            //处理参数
-            int pos = 0;
-            for (String key : paramsMap.keySet()) {
-                if (pos > 0) {
-                    tempParams.append("&");
-                }
-                //对参数进行URLEncoder
-//                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
-                tempParams.append(String.format("%s=%s", key, paramsMap.get(key)));
-                pos++;
-            }
-            //补全请求地址
-            String requestUrl = String.format("%s/%s", actionUrl, tempParams.toString());
-            //创建一个请求
-            Request request = addHeaders().url(requestUrl).build();
-            //创建一个Call
-            final Call call = mOkHttpClient.newCall(request);
-            //执行请求
-            final Response response = call.execute();
-            response.body().string();
-        } catch (Exception e) {
-            Elog.e(TAG, e.toString());
-        }
-
-    }
-
-    /**
      * 请求头信息
      */
     private final String HEADER_CONNECTION = "keep-alive";
@@ -663,104 +387,6 @@ public class RequestManager {
     private Request.Builder addHeaders() {
         Request.Builder builder = new Request.Builder()
                 .addHeader("Connection", HEADER_CONNECTION);
-//                .addHeader("platform", HEADER_PLATFORM)
-//                .addHeader("phoneModel", Build.MODEL)
-//                .addHeader("systemVersion", Build.VERSION.RELEASE)
-//                .addHeader("appVersion", HEADER_APPVERSION)
-//                .addHeader("token", Constants.USER_SIGN);// TOKEN
         return builder;
     }
-
-    /**
-     * 实现https请求
-     */
-    private static SSLSocketFactory getSSLSocketFactory(Context context, String name) {
-
-
-        if (context == null) {
-            throw new NullPointerException("context == null");
-        }
-
-        //CertificateFactory用来证书生成
-        CertificateFactory certificateFactory;
-        InputStream inputStream = null;
-        Certificate certificate;
-
-        try {
-            inputStream = context.getResources().getAssets().open(name);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-
-            certificateFactory = CertificateFactory.getInstance("X.509");
-            certificate = certificateFactory.generateCertificate(inputStream);
-
-            //Create a KeyStore containing our trusted CAs
-            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry(name, certificate);
-
-            //Create a TrustManager that trusts the CAs in our keyStore
-            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            trustManagerFactory.init(keyStore);
-
-            //Create an SSLContext that uses our TrustManager
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
-            return sslContext.getSocketFactory();
-
-        } catch (Exception e) {
-
-        }
-        return null;
-    }
-
-//    /**
-//     * 设置证书
-//     * @param certificates
-//     */
-//    public void setCertificates(InputStream... certificates)
-//    {
-//        try
-//        {
-//            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-//            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-//            keyStore.load(null);
-//            int index = 0;
-//            for (InputStream certificate : certificates)
-//            {
-//                String certificateAlias = Integer.toString(index++);
-//                keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));
-//
-//                try
-//                {
-//                    if (certificate != null)
-//                        certificate.close();
-//                } catch (IOException e)
-//                {
-//                }
-//            }
-//
-//            SSLContext sslContext = SSLContext.getInstance("TLS");
-//
-//            TrustManagerFactory trustManagerFactory =
-//                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-//
-//            trustManagerFactory.init(keyStore);
-//            sslContext.init
-//                    (
-//                            null,
-//                            trustManagerFactory.getTrustManagers(),
-//                            new SecureRandom()
-//                    );
-//            mOkHttpClient.setSslSocketFactory(sslContext.getSocketFactory());
-//
-//        } catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
 }

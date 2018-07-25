@@ -24,6 +24,7 @@ import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_BranchList;
 import com.smart.tvpos.adapter.ADA_CircleNurseProgress;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
+import com.smart.tvpos.adapter.ADA_NurseLevel;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
@@ -107,13 +108,15 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     RelativeLayout redPoint;
     @Bind(R.id.listview)
     BanSlideListView listview;
+    @Bind(R.id.gridv)
+    BanSlideGridView gridv;
     private int[] leftMarginArray = new int[]{125, 200 + 5 * 1, (140 + 5 * 1 + 40), 30, 160, 10 + 5 * 1, 48 + 5 * 1, 105 + 5 * 2, 115 + 5 * 1, 66 + 5 * 3, 150 + 5 * 1, 58, 0 + 5 * 2, 38 + 5 * 2, 66 + 5 * 2, 76 + 5 * 1, 140 + 5 * 2, (140 + 5 * 2 + 40), (140 + 5 * 2 + 40 * 2), 5 + 5 * 3, 38 + 5 * 3, 86, 105 + 5 * 3, 100 + 5 * 3};
     private int[] topMarginArray = new int[]{16, 2 + 40 * 1, (2 + 50 * 1 + 40), 20, 16, 16 + 50 * 1, 0 + 50 * 1, 14 + 50 * 1, 16 + 50 * 2, 14 + 50 * 3, 2 + 50 * 1, 0, 16 + 50 * 2, 0 + 50 * 2, 14 + 50 * 2, 16 + 50 * 1, 2 + 50 * 2, (2 + 50 * 2 + 50), (2 + 50 * 2 + 50), 50 * 3, 0 + 50 * 3, 14, 16 + 50 * 3, 2 + 50 * 2};
     //上海地区所有的养老院
     private List<BranchAddressEntity> areaList = new ArrayList<>();
     private Map<String, String> areaPointMap = new HashMap<>();
     private ADA_BranchList mBranchAdapter;
-
+    private ADA_NurseLevel mNurseLevelAdapter;
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
@@ -159,7 +162,9 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         mBranchAdapter = new ADA_BranchList(mContext);
         listview.setAdapter(mBranchAdapter);
-
+        //护理级别Adapter
+        mNurseLevelAdapter = new ADA_NurseLevel(mContext);
+        gridv.setAdapter(mNurseLevelAdapter);
     }
 
     private void showView() {
@@ -598,41 +603,32 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             totalCount += dataList.get(i).getNum();
         }
         //根据是否有以下类别,动态添加颜色值,设置显示的文字
-        for (int i = 0; i < dataList.size(); i++) {
-            NurseLevelEntity bean = dataList.get(i);
-            String formatPercentRate = StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100);
-            //添加百分比
-            nurseLevelChartRateList.add(Float.parseFloat(StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100)));
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_special_nurse))) {
-                nurseLevelChartcolorList.add(colors[0]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_special_nurse) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_one_level))) {
-                nurseLevelChartcolorList.add(colors[1]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_one_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_two_level))) {
-                nurseLevelChartcolorList.add(colors[2]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_two_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_three_level))) {
-                nurseLevelChartcolorList.add(colors[3]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_three_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_four_level))) {
-                nurseLevelChartcolorList.add(colors[4]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_four_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_five_level))) {
-                nurseLevelChartcolorList.add(colors[5]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_five_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
-            if (bean.getName().equals(MyApplication.getContext().getString(R.string.string_six_level))) {
-                nurseLevelChartcolorList.add(colors[6]);
-                showTextList.add(MyApplication.getContext().getString(R.string.string_six_level) + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
-            }
+        if (dataList.size() > 7) {
+            //根据是否有以下类别,动态添加颜色值,设置显示的文字
+            for (int i = 0; i < 7; i++) {
+                NurseLevelEntity bean = dataList.get(i);
+                String formatPercentRate = StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100);
+                //添加百分比
+                nurseLevelChartRateList.add(Float.parseFloat(StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100)));
 
+                nurseLevelChartcolorList.add(colors[i]);
+                showTextList.add(bean.getName() + " " + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
+            }
+        } else {
+            //根据是否有以下类别,动态添加颜色值,设置显示的文字
+            for (int i = 0; i < dataList.size(); i++) {
+                NurseLevelEntity bean = dataList.get(i);
+                String formatPercentRate = StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100);
+                //添加百分比
+                nurseLevelChartRateList.add(Float.parseFloat(StringUtil.getFormatPercentRate(bean.getNum() * 1f / totalCount * 100)));
+
+                nurseLevelChartcolorList.add(colors[i]);
+                showTextList.add(bean.getName() + " " + formatPercentRate + MyApplication.getContext().getString(R.string.string_percent_symbol));
+            }
         }
+        mNurseLevelAdapter.update(dataList, true);
+
+        mNurseLevelAdapter.update(dataList, true);
         chartviewNurselevel.setShow(nurseLevelChartcolorList, nurseLevelChartRateList, true, true);
         chartviewNurselevel.setShowTextList(showTextList);
     }
