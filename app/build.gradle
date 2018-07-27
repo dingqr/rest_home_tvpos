@@ -32,6 +32,22 @@ android {
             proguardFile('proguard-rules.pro')
             signingConfig signingConfigs.release
         }
+
+        android.applicationVariants.all { variant ->
+
+            def application = "resthome_tv"
+
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    //这里修改apk文件名
+//                    def fileName = application + '_' + variant.versionName + '_' + variant.versionCode + '.apk'
+                    def fileName = "${application}_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+
     }
 }
 

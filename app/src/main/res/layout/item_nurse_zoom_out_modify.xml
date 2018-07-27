@@ -157,6 +157,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_heart_zoom"
+                android:paddingTop="19px"
+                android:paddingBottom="19px"
                 android:drawablePadding="14px"
                 android:text="90"
                 android:textColor="@color/color_FFFFFF"
@@ -166,6 +168,8 @@
                 android:id="@+id/tv_breath_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="19px"
+                android:paddingBottom="19px"
                 android:layout_marginLeft="16px"
                 android:drawableLeft="@drawable/ic_lung_zoom"
                 android:drawablePadding="20px"
@@ -197,6 +201,8 @@
                     android:id="@+id/iv_status_zoom"
                     android:layout_width="38px"
                     android:layout_height="38px"
+                    android:paddingTop="19px"
+                    android:paddingBottom="19px"
                     android:src="@drawable/ic_jingwo" />
 
                 <TextView
