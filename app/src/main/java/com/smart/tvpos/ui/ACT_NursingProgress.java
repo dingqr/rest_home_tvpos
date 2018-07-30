@@ -177,22 +177,22 @@ public class ACT_NursingProgress extends BaseActivity {
             @Override
             public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
                 //设计图item之间的间距为30
-                outRect.bottom = 15;
-                outRect.top = 15;
-                outRect.left = 15;
-                outRect.right = 15;
+                outRect.bottom = 8;
+                outRect.top = 8;
+                outRect.left = 8;
+                outRect.right = 8;
                 //header占了一个位置，故从位置1开始显示实际的item
                 if (itemPosition <= mColumnNum) {
-                    outRect.top = 15;//设计图recyclerview距离上方控件为44px
+                    outRect.top = 16;//设计图recyclerview距离上方控件为44px
                 } else {
-                    outRect.top = 15;
+                    outRect.top = 16;
                 }
                 if (itemPosition % 4 == 0) {
                     //右边第一列
-                    outRect.right = 30;
+                    outRect.right = 40;
                 } else if ((itemPosition - 1) % mColumnNum == 0) {
                     //左边第一列
-                    outRect.left = 30;
+                    outRect.left = 40;
                 }
             }
         });
