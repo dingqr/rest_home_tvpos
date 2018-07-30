@@ -201,8 +201,6 @@
                     android:id="@+id/iv_status_zoom"
                     android:layout_width="38px"
                     android:layout_height="38px"
-                    android:paddingTop="19px"
-                    android:paddingBottom="19px"
                     android:src="@drawable/ic_jingwo" />
 
                 <TextView
