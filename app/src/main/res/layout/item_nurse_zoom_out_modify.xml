@@ -133,7 +133,7 @@
         android:layout_height="1px"
         android:layout_marginLeft="21px"
         android:layout_marginRight="21px"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="10px"
         android:background="@color/color_FFFFFF"></View>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -203,7 +203,7 @@
                     android:id="@+id/tv_status_zoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/iv_status_zoom"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/iv_status_zoom"
                     android:text="静卧"

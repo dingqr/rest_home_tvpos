@@ -131,8 +131,8 @@
         android:layout_height="1px"
         android:layout_marginLeft="6px"
         android:layout_marginRight="6px"
-        android:layout_marginTop="34px"
-        android:paddingBottom="20px"
+        android:layout_marginTop="20px"
+        android:paddingBottom="10px"
         android:background="@color/color_d2d2d2"></View>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -203,7 +203,7 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/iv_status"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/iv_status"
                     android:text="静卧"
