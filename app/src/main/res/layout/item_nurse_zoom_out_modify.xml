@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/iv_user_avatar_zoom"
-                android:layout_width="90px"
-                android:layout_height="90px"
+                android:layout_width="100px"
+                android:layout_height="100px"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8px"
                 android:src="@drawable/ic_user_avatar" />
@@ -35,7 +35,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="王猛"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="9sp" />
+                android:textSize="12sp" />
         </com.zhy.autolayout.AutoLinearLayout>
 
         <com.zhy.autolayout.AutoLinearLayout
@@ -50,11 +50,12 @@
                 android:id="@+id/tv_type_nurse_name_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10px"
                 android:drawableLeft="@drawable/ic_help_black"
                 android:drawablePadding="10px"
                 android:text="一级护理"
                 android:textColor="#3a3d49"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_sex_old_zoom"
@@ -65,18 +66,19 @@
                 android:drawablePadding="10px"
                 android:text="年龄：83    性别：男"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="9sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_address_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10px"
                 android:baselineAligned="false"
                 android:drawableLeft="@drawable/ic_address_black"
                 android:drawablePadding="10px"
                 android:text="住养大楼2层205"
                 android:textColor="#3a3d49"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_time_zoom"
@@ -86,7 +88,7 @@
                 android:layout_marginLeft="26px"
                 android:text="2018年06月01日 12:23:02"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="9sp" />
+                android:textSize="11sp" />
 
 
         </com.zhy.autolayout.AutoLinearLayout>
@@ -133,7 +135,7 @@
         android:layout_height="1px"
         android:layout_marginLeft="21px"
         android:layout_marginRight="21px"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="25px"
         android:background="@color/color_FFFFFF"></View>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -160,7 +162,7 @@
                 android:drawablePadding="14px"
                 android:text="90"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tv_breath_zoom"
@@ -168,10 +170,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16px"
                 android:drawableLeft="@drawable/ic_lung_zoom"
-                android:drawablePadding="20px"
+                android:drawablePadding="14px"
                 android:text="15"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="14sp" />
+                android:textSize="17sp" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 

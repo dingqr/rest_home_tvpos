@@ -90,7 +90,7 @@ public class ACT_Login extends BaseActivity {
             case R.id.rb_login:
                 if (doVerifyEmpty()) {
                     requestLogin();
-                    showDialogLoading("正在登入...");
+                    showDialogLoading(getResources().getString(R.string.user_login_now));
                 }
                 break;
         }
@@ -124,7 +124,7 @@ public class ACT_Login extends BaseActivity {
             @Override
             public void onReqSuccess(UserEntity userEntity) {
                 dismissDialogLoad();
-                CommonUtils.makeEventToast(MyApplication.getContext(), "登录成功", false);
+                CommonUtils.makeEventToast(MyApplication.getContext(), getResources().getString(R.string.user_login_success), false);
                 //存储用户信息
                 sharePre.putString(SharePreConstants.USER_SIGN, userEntity.getSign() == null ? "" : userEntity.getSign());
                 sharePre.putString(SharePreConstants.USER_ID, userEntity.getId() + "");

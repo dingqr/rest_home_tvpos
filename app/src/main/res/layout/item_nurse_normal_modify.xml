@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/iv_user_avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120px"
+                android:layout_height="120px"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16px"
                 android:src="@drawable/ic_user_avatar" />
@@ -37,13 +37,13 @@
                 android:layout_gravity="center_horizontal"
                 android:text="王猛"
                 android:textColor="@color/color_adadad"
-                android:textSize="24px" />
+                android:textSize="12sp" />
         </com.zhy.autolayout.AutoLinearLayout>
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50px"
+            android:layout_marginTop="52px"
             android:orientation="vertical"
             android:paddingRight="10px">
 
@@ -51,12 +51,12 @@
                 android:id="@+id/tv_type_nurse_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2px"
+                android:layout_marginBottom="10px"
                 android:drawableLeft="@drawable/ic_help_black"
                 android:drawablePadding="10px"
                 android:text="一级护理"
                 android:textColor="#3a3d49"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_sex_old"
@@ -67,28 +67,29 @@
                 android:drawablePadding="10px"
                 android:text="年龄：83    性别：男"
                 android:textColor="@color/color_adadad"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="2px"
+                android:layout_marginBottom="10px"
                 android:baselineAligned="false"
                 android:drawableLeft="@drawable/ic_address_black"
                 android:drawablePadding="10px"
                 android:text="住养大楼2层205"
                 android:textColor="#3a3d49"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6px"
                 android:layout_marginLeft="22px"
                 android:text="2018年06月01日 12:23:02"
                 android:textColor="@color/color_adadad"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -131,8 +132,7 @@
         android:layout_height="1px"
         android:layout_marginLeft="6px"
         android:layout_marginRight="6px"
-        android:layout_marginTop="20px"
-        android:paddingBottom="10px"
+        android:layout_marginTop="22px"
         android:background="@color/color_d2d2d2"></View>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -145,7 +145,7 @@
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_weight="32"
             android:gravity="center"
             android:orientation="horizontal">
@@ -166,10 +166,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16px"
                 android:drawableLeft="@drawable/ic_lung_normal"
-                android:drawablePadding="20px"
+                android:drawablePadding="14px"
                 android:text="15"
                 android:textColor="@color/color_868686"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 

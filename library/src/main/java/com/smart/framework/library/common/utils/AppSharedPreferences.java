@@ -91,4 +91,10 @@ public class AppSharedPreferences {
 	public int getInt(String optName){
 		return settings.getInt(optName, 0);
 	}
+
+	public void remove(String key){
+		if(null != key && settings.contains(key)){
+			settings.edit().remove(key).commit();
+		}
+	}
 }

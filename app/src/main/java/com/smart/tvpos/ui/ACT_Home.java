@@ -6,6 +6,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +18,8 @@ import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.ReceiveConstants;
 import com.smart.framework.library.common.utils.AppDateUtil;
+import com.smart.framework.library.common.utils.AppSharedPreferences;
+import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
@@ -38,6 +41,7 @@ import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.mvp.HomePresenter;
 import com.smart.tvpos.mvp.IHomeView;
 import com.smart.tvpos.util.Constants;
+import com.smart.tvpos.util.SharePreConstants;
 import com.smart.tvpos.widgets.BanSlideGridView;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
@@ -92,6 +96,9 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     DownCurveChartView mDowncurveView;
     @Bind(R.id.gridview)
     BanSlideGridView gridviewNurseProgress;
+    @Bind(R.id.iv_user)
+    ImageView mIvUser;
+    private AppSharedPreferences sharePre;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
@@ -165,6 +172,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //护理级别Adapter
         mNurseLevelAdapter = new ADA_NurseLevel(mContext);
         gridv.setAdapter(mNurseLevelAdapter);
+
+        sharePre = new AppSharedPreferences(this);
     }
 
     private void showView() {
@@ -195,9 +204,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
      */
     private void initPopupWindow() {
         for (int i = 0; i < memuTitle.length; i++) {
-            HomeMenuEntity itemMenu = new HomeMenuEntity();
-            itemMenu.menuIcon = memuIcons[i];
-            itemMenu.menuTxt = memuTitle[i];
+            HomeMenuEntity itemMenu = new HomeMenuEntity(memuIcons[i], memuTitle[i]);
             menuList.add(itemMenu);
         }
         mPopupWindow = new CommonPopupWindow(this, R.layout.popup_home_menu, 192, ViewGroup.LayoutParams.WRAP_CONTENT) {
@@ -223,7 +230,23 @@ public class ACT_Home extends BaseActivity implements IHomeView {
             protected void initEvent() {
             }
         };
-        mPopuplayoutGravity = new CommonPopupWindow.LayoutGravity(CommonPopupWindow.LayoutGravity.ALIGN_ABOVE | CommonPopupWindow.LayoutGravity.TO_RIGHT);
+        mPopuplayoutGravity = new CommonPopupWindow.LayoutGravity(
+                CommonPopupWindow.LayoutGravity.ALIGN_ABOVE | CommonPopupWindow.LayoutGravity.TO_RIGHT);
+    }
+
+    private void doLogout(){
+        //存储用户信息
+        sharePre.remove(SharePreConstants.USER_SIGN);
+        sharePre.remove(SharePreConstants.USER_ID);
+        sharePre.remove(SharePreConstants.USER_NAME);
+        sharePre.remove(SharePreConstants.TYPE);
+        sharePre.remove(SharePreConstants.BRANCH_NAME);
+        sharePre.putBoolean(SharePreConstants.LOGOUT, true);
+        Constants.USER_ID = null;
+        Constants.USER_SIGN = null;
+        Constants.TYPE = null;
+        Constants.BRANCH_NAME = null;
+        MyApplication.isLogin = false;
     }
 
     /**
@@ -330,13 +353,55 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     }
 
 
-    @OnClick({R.id.iv_menu})
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        super.onOptionsMenuClosed(menu);
+    }
+
+    @OnClick({R.id.iv_menu, R.id.iv_user})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_menu:
                 mPopupWindow.showBashOfAnchor(ivMenu, mPopuplayoutGravity, 0, 0);
                 break;
+            case R.id.iv_user:
+                showRightMenuView();
+                break;
         }
+    }
+
+    private void showRightMenuView(){
+
+        HomeMenuEntity logoutMenu = new HomeMenuEntity(R.drawable.ic_menu_logout, getResources().getString(R.string.right_menu_logout));
+        final List<HomeMenuEntity> rightMenu = new ArrayList<>();
+        rightMenu.add(logoutMenu);
+        CommonPopupWindow.LayoutGravity rightPopuplayoutGravity = new CommonPopupWindow.LayoutGravity(
+                CommonPopupWindow.LayoutGravity.ALIGN_BOTTOM | CommonPopupWindow.LayoutGravity.TO_LEFT);
+        CommonPopupWindow logoutPopWindow = new CommonPopupWindow(this, R.layout.popup_home_menu, 192, ViewGroup.LayoutParams.WRAP_CONTENT) {
+            @Override
+            protected void initView() {
+                View view = getContentView();
+                BanSlideListView logoutView = (BanSlideListView) view.findViewById(R.id.listview);
+                ADA_HomeMenu adapter = new ADA_HomeMenu(mContext);
+                logoutView.setAdapter(adapter);
+                adapter.update(rightMenu, true);
+                logoutView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        doLogout();
+                        mPopupWindow.mInstance.dismiss();
+                        readyGo(ACT_Login.class);
+                        finish();
+                    }
+                });
+            }
+
+            @Override
+            protected void initEvent() {
+
+            }
+        };
+        logoutPopWindow.showBashOfAnchor(mIvUser, rightPopuplayoutGravity, 0, 0);
     }
 
     @Override

@@ -179,8 +179,8 @@ public class ACT_NursingProgress extends BaseActivity {
                 //设计图item之间的间距为30
                 outRect.bottom = 8;
                 outRect.top = 8;
-                outRect.left = 8;
-                outRect.right = 8;
+                outRect.left = 12;
+                outRect.right = 12;
                 //header占了一个位置，故从位置1开始显示实际的item
                 if (itemPosition <= mColumnNum) {
                     outRect.top = 16;//设计图recyclerview距离上方控件为44px

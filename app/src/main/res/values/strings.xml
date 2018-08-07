@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">助手家</string>
 
+
+    <!--登錄頁面-->
+    <string name="user_login_now">正在登入...</string>
+    <string name="user_login_success">登录成功</string>
+
     <string name="network_loading">正在加载中...</string>
     <string name="network_error">网络不给力，请检查网络设置</string>
 
@@ -37,5 +42,8 @@
     <!--title-->
     <string name="string_home_title_zong">哈福云智慧养老数据监控平台</string>
     <string name="string_title_watching_overview_zong">哈福云分院监控概览</string>
+
+    <!-- Home Menu -->
+    <string name="right_menu_logout">退出</string>
 
 </resources>

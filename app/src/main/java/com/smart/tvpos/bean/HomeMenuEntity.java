@@ -8,4 +8,9 @@ package com.smart.tvpos.bean;
 public class HomeMenuEntity {
     public int menuIcon;
     public String menuTxt;
+
+    public HomeMenuEntity(int menuIcon, String menuTxt){
+        this.menuIcon = menuIcon;
+        this.menuTxt = menuTxt;
+    }
 }
