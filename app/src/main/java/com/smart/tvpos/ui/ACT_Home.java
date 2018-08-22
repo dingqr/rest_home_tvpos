@@ -587,20 +587,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //新增用户
         ArrayList<Integer> userNewAddList = new ArrayList<>();
         //横坐标最多显示5个
-        if (dataList.size() > 5) {
-            for (int i = 0; i < 5; i++) {
-                TrendDataEntity bean = dataList.get(i);
-                xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
-                userNewAddList.add(bean.getUserNewN());
-                branchNewAddList.add(bean.getBranchNewN());
-            }
-        } else {
-            for (int i = 0; i < dataList.size(); i++) {
-                TrendDataEntity bean = dataList.get(i);
-                xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
-                userNewAddList.add(bean.getUserNewN());
-                branchNewAddList.add(bean.getBranchNewN());
-            }
+        int xLength = dataList.size() > 5 ? 5 : dataList.size();
+        for (int i = 0; i < xLength; i++) {
+            TrendDataEntity bean = dataList.get(i);
+            xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
+            userNewAddList.add(bean.getUserNewN());
+            branchNewAddList.add(bean.getBranchNewN());
         }
         //根据最大值生成对应的Y轴坐标范围
         gennerateMaxAxisDataList(branchNewAddList, userNewAddList);

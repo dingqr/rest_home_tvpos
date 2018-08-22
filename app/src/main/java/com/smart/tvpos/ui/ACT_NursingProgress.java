@@ -1,5 +1,6 @@
 package com.smart.tvpos.ui;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.smart.framework.library.base.BaseActivity;
@@ -67,6 +69,8 @@ public class ACT_NursingProgress extends BaseActivity {
     @Bind(R.id.tv_floor)
     TextView tvFloor;
 
+    private List<UserNurseListEntity> elderlyList;
+
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
@@ -110,7 +114,7 @@ public class ACT_NursingProgress extends BaseActivity {
         listviewbuildingList.setAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
     }
 
-    /*
+    /**
      * 隐藏楼宇列表
      */
     private void hideBuildingList() {
@@ -170,6 +174,25 @@ public class ACT_NursingProgress extends BaseActivity {
         mLRecyclerViewAdapter = new LRecyclerViewAdapter(mAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mColumnNum);
         mRecyclerView.setLayoutManager(gridLayoutManager);
+        mLRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                UserNurseListEntity nurseListEntity = elderlyList.get(position);
+                String address = nurseListEntity.getBuildingName()
+                        + nurseListEntity.getFloorName() + nurseListEntity.getRoomName();
+                String avatar = nurseListEntity.getHeadImg();
+
+                Intent intent = new Intent(mContext, ACT_NursingDetail.class);
+                intent.putExtra(Constants.ELDERLY_NAME, nurseListEntity.getUserName());
+                intent.putExtra(Constants.ELDERLY_AGE, nurseListEntity.getAge());
+                intent.putExtra(Constants.ELDERLY_SEX, nurseListEntity.getSex());
+                intent.putExtra(Constants.ELDERLY_NURSING_LEVEL, nurseListEntity.getTypeNurseName());
+                intent.putExtra(Constants.ELDERLY_NURSING_ADDRESS, address);
+                intent.putExtra(Constants.ELDERLY_AVATAR, avatar);
+                intent.putExtra(Constants.ELDERLY_IN_OUT_ID, nurseListEntity.getId());
+                startActivity(intent);
+            }
+        });
 //        设置外层列表Adapter
         mRecyclerView.setAdapter(mLRecyclerViewAdapter);
         //设置item之间的间距
@@ -334,6 +357,7 @@ public class ACT_NursingProgress extends BaseActivity {
 
 
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
+                elderlyList = userNurseLis;
                 mAdapter.update(userNurseLis, true);
             }
 

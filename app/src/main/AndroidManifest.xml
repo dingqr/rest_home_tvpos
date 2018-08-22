@@ -46,6 +46,16 @@
             android:name=".ui.ACT_NursingProgress"
             android:screenOrientation="landscape"
             android:theme="@style/style_full_screen" />
+
+        <activity
+            android:name=".ui.ACT_NursingDetail"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_full_screen" />
+
+        <activity
+            android:name=".ui.ACT_ImagePlayer"
+            android:screenOrientation="landscape"
+            android:theme="@style/style_full_screen" />
     </application>
 
 </manifest>

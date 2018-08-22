@@ -83,4 +83,30 @@ public class Constants {
     public static final String DEFAULT_PAGE_SIZE = "20";
     //列表每页请求数据
     public static final int DEFAULT_PAGE_INT_SIZE = 20;
+
+
+    public final static String ELDERLY_NAME = "elderly_name";
+
+    public final static String ELDERLY_AGE = "elderly_age";
+
+    public final static String ELDERLY_SEX = "elderly_sex";
+
+    public final static String ELDERLY_NURSING_ADDRESS = "elderly_nursing_name";
+
+    public final static String ELDERLY_AVATAR = "elderly_avatar";
+
+    public final static String ELDERLY_NURSING_LEVEL = "elderly_nursing_level";
+
+    public final static String ELDERLY_IN_OUT_ID = "elderly_in_out_id";
+
+    public final static String ORIGIN_SELECTED_PIC_PATH = "origin_selected_pic_path";
+
+    public final static String ORIGIN_SELECTED_PIC_POSITION = "origin_selected_pic_position";
+
+    public final static String ORIGIN_PIC_PATH_LIST = "origin_pic_path_list";
+
+    public final static String ELDERLY_SEX_FEMAIL = "女";
+
+    public final static int[] BloodPressureAxisText = new int[]{0, 50, 100, 150, 200, 250};
+    public final static int[] BloodSugarAxisText = new int[]{0, 5, 10, 15, 20, 25};
 }

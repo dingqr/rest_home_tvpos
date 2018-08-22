@@ -10,6 +10,7 @@ import com.smart.framework.library.bean.ResultBean;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
+import com.smart.tvpos.bean.ElderlyDetailInfoEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -239,7 +240,10 @@ public class RequestManager {
                         String string = response.body().string();
                         Elog.e(TAG, "response ----->" + string);
 //                        ResultBean result = new Gson().fromJson(string, ResultBean.class);
-                        ResultBean result = JSON.parseObject(string, ResultBean.class);
+//                        ResultBean result = JSON.parseObject(string, ResultBean.class);
+                        ResultBean result = new ResultBean();
+                        result.fromJson(string);
+
 
                         if (null != result) {
                             switch (result.errorCode) {
@@ -251,7 +255,13 @@ public class RequestManager {
                                         } else {
                                             if (callBack.type == String.class || callBack.type == Integer.class || callBack.type == Double.class || callBack.type == Float.class) {
                                                 successCallBack((T) data, callBack);
-                                            } else {
+                                            }
+                                            else if (callBack.type == ElderlyDetailInfoEntity.class) {
+                                                ElderlyDetailInfoEntity entity = new ElderlyDetailInfoEntity();
+                                                entity.fromJsonString(data);
+                                                successCallBack((T) entity, callBack);
+                                            }
+                                            else {
                                                 successCallBack((T) JSON.parseObject(data, callBack.type), callBack);
                                             }
                                         }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/arl_toolbar"
+    android:layout_width="match_parent"
+    android:background="@color/color_344d66"
+    android:layout_height="106px">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onActionFinish"
+        android:paddingBottom="32px"
+        android:paddingLeft="50px"
+        android:paddingTop="43px"
+        android:paddingRight="30px"
+        android:src="@drawable/ic_back" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_back"
+        android:includeFontPadding="false"
+        android:paddingTop="40px"
+        android:text="王蒙"
+        android:textColor="@color/color_f0efef"
+        android:textSize="15sp" />
+
+
+    <ImageView
+        android:id="@+id/iv_user"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="30px"
+        android:src="@drawable/ic_user_default" />
+
+</com.zhy.autolayout.AutoRelativeLayout>

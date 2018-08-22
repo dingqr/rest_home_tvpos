@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_nursing_info">
+
+    <TextView
+        android:id="@+id/sleep_report_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="40px"
+        android:text="@string/sleep_report_title"
+        android:textSize="15sp"
+        android:textColor="@color/color_373737"/>
+
+    <TextView
+        android:id="@+id/week_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52px"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="55px"
+        android:text="2018.06.02-08"
+        android:textSize="9sp"
+        android:textColor="@color/color_adadad" />
+
+    <TextView
+        android:id="@+id/sleep_report_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33px"
+        android:layout_marginLeft="50px"
+        android:layout_below="@+id/sleep_report_title"
+        android:drawableLeft="@drawable/icon_sleep_data"
+        android:drawablePadding="14px"
+        android:text="@string/sleep_report_data"
+        android:textSize="12sp"
+        android:textColor="@color/color_373737"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/this_week_average_sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="146px"
+        android:layout_below="@+id/sleep_report_title"
+        android:layout_toRightOf="@+id/sleep_report_data"
+        android:layout_alignTop="@+id/sleep_report_data"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/this_week_sleep_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11.5h"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_373737"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17px"
+            android:text="本周时长(平均)"
+            android:textSize="9sp"
+            android:textColor="@color/color_adadad"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="55px"
+        android:layout_below="@+id/sleep_report_title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/sleep_report_data"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/last_week_sleep_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9.23h"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_373737"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17px"
+            android:layout_below="@+id/last_week_sleep_data"
+            android:layout_alignLeft="@+id/last_week_sleep_data"
+            android:text="上周时长(平均)"
+            android:textSize="9sp"
+            android:textColor="@color/color_adadad"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.smart.tvpos.widgets.SegmentBarChartView
+        android:id="@+id/this_week_sleep_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/this_week_average_sleep"
+        android:layout_marginTop="60px"
+        android:layout_marginLeft="50px"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/this_week_sleep_chart"
+        android:layout_marginBottom="33px"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="76px"
+            android:drawableLeft="@drawable/icon_deep_sleep"
+            android:drawablePadding="12px"
+            android:text="@string/deep_sleep"
+            android:textSize="9sp"
+            android:textColor="@color/color_4c4c4c"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="76px"
+            android:drawableLeft="@drawable/icon_light_sleep"
+            android:drawablePadding="12px"
+            android:text="@string/light_sleep"
+            android:textSize="9sp"
+            android:textColor="@color/color_4c4c4c"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_sober"
+            android:drawablePadding="12px"
+            android:text="@string/be_awake"
+            android:textSize="9sp"
+            android:textColor="@color/color_4c4c4c"/>
+    </LinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

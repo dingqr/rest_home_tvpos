@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/color_1b1b1b">
+
+    <ImageView
+        android:id="@+id/img_pre_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="215px"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/img_pre_button"/>
+
+    <ImageView
+        android:id="@+id/img_show"
+        android:layout_width="929px"
+        android:layout_height="663px"
+        android:layout_marginLeft="221px"
+        android:layout_marginRight="224px"
+        android:layout_marginBottom="262px"/>
+
+    <ImageView
+        android:id="@+id/img_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="213px"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/img_next_button"/>
+</com.zhy.autolayout.AutoLinearLayout>

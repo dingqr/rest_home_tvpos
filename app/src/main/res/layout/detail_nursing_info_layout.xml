@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_nursing_info"
+    android:orientation="horizontal">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/elderly_avatar_detail"
+            android:layout_width="140px"
+            android:layout_height="140px"
+            android:src="@drawable/ic_user_default"
+            android:layout_marginTop="30px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px" />
+
+        <TextView
+            android:id="@+id/elderly_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/elderly_avatar_detail"
+            android:layout_marginTop="32px"
+            android:drawablePadding="10px"
+            android:layout_centerHorizontal="true"
+            android:textSize="17sp"
+            android:textColor="@color/color_373737"
+            android:drawableRight="@drawable/icon_male"
+            android:text="王蒙" />
+
+        <TextView
+            android:id="@+id/elderly_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/elderly_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10px"
+            android:text="78岁"
+            android:textSize="9sp"
+            android:textColor="@color/color_adadad" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="43px"
+        android:layout_marginLeft="29px"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_help"
+                android:layout_marginRight="15px" />
+            <TextView
+                android:id="@+id/nursing_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专户"
+                android:textColor="@color/color_adadad"
+                android:textSize="9sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_address"
+                android:layout_marginRight="15px"/>
+            <TextView
+                android:id="@+id/nursing_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="住养大楼2层205"
+                android:textColor="@color/color_adadad"
+                android:textSize="9sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:id="@+id/nursing_worker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:text="所属护工："
+            android:textColor="@color/color_adadad"
+            android:textSize="9sp" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37px">
+
+            <TextView
+                android:id="@+id/title_common_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_common_record"
+                android:textColor="@color/color_373737"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/latest_common_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14px"
+                android:text="@string/latest_common_record"
+                android:textColor="@color/color_adadad"
+                android:textSize="10sp" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+
+        <com.smart.tvpos.widgets.BanSlideGridView
+            android:id="@+id/list_common_detail_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="5px"
+            android:numColumns="4"
+            android:layout_marginTop="19px"
+            android:visibility="gone">
+        </com.smart.tvpos.widgets.BanSlideGridView>
+
+        <ImageView
+            android:id="@+id/img_present_none"
+            android:layout_width="111px"
+            android:layout_height="111px"
+            android:src="@drawable/icon_present_none"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

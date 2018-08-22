@@ -43,4 +43,10 @@
     <color name="color_b9b9b9">#b9b9b9</color>
     <color name="color_519bef">#519bef</color>
     <color name="color_3aafed">#3aafed</color>
+
+    <!-- Detail -->
+    <color name="color_sub_title_text">#b7b7b7</color>
+    <color name="color_icon_text">#7d7d7d</color>
+    <color name="color_info_text">#7f7f7f</color>
+    <color name="color_divider_line">#eeeeee</color>
 </resources>

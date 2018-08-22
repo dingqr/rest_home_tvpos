@@ -71,4 +71,22 @@
     <color name="color_facf88">#facf88</color>
     <color name="color_c53e3d">#c53e3d</color>
     <color name="color_bbbbbc">#bbbbbc</color>
+    <!-- Nurse Detail -->
+    <color name="color_f0efef">#f0efef</color>
+    <color name="color_f7f8fc">#f7f8fc</color>
+    <color name="color_373737">#373737</color>
+    <color name="color_252424">#252424</color>
+    <color name="color_808080">#808080</color>
+    <color name="color_8a8a8a">#8a8a8a</color>
+    <color name="color_5fbee7">#5fbee7</color>
+    <color name="color_a1a1a1">#a1a1a1</color>
+    <color name="color_37b3e4">#37b3e4</color>
+
+    <color name="color_deep_sleep">#37b2e6</color>
+    <color name="color_light_sleep">#f47663</color>
+    <color name="color_sober">#d5e4f4</color>
+    <color name="color_4c4c4c">#4c4c4c</color>
+    <color name="color_1b1b1b">#e01b1b1b</color>
+    <color name="color_4438b1e5">#4438b1e5</color>
+    <color name="color_44f47564">#44f47564</color>
 </resources>

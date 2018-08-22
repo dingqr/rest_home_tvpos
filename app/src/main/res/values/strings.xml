@@ -46,4 +46,8 @@
     <!-- Home Menu -->
     <string name="right_menu_logout">退出</string>
 
+    <!--Image Show-->
+    <string name="already_first_one">已到达第一张图片</string>
+    <string name="already_last_one">已到达最后一张图片</string>
+
 </resources>
