@@ -73,16 +73,6 @@ public class SegmentBarChartView extends View {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         init();
-
-        initData();
-    }
-
-    private void initData(){
-//test
-        for(int i = 0; i < 7; i++){
-            SleepDataEntity dayData = new SleepDataEntity(3.5f, 5.1f, i+1);
-            weekData.add(dayData);
-        }
     }
 
     public void updateData(List<SleepDataEntity> sleepDatas){

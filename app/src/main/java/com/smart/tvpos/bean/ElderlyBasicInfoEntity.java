@@ -144,6 +144,7 @@ public class ElderlyBasicInfoEntity {
         entity.setNurseName(jsonObject.getString("nurseName"));
         entity.setAge(jsonObject.getString("age"));
         entity.setBirth(jsonObject.getString("birth"));
+        entity.setDisease(jsonObject.getString("disease"));
 
         return entity;
     }

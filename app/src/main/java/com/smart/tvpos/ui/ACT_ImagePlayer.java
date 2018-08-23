@@ -53,25 +53,29 @@ public class ACT_ImagePlayer extends Activity {
     }
 
     private void initView(){
-        imageShow = new ImageView(mContext);
-        btnPre = new ImageView(mContext);
-        btnNext = new ImageView(mContext);
+//        imageShow = new ImageView(mContext);
+//        btnPre = new ImageView(mContext);
+//        btnNext = new ImageView(mContext);
 
         originPicPathList = new ArrayList<>();
     }
 
     private void initData(Bundle extras){
 
-        String originSelectedPicPath = extras.getString(Constants.ORIGIN_SELECTED_PIC_PATH);
+//        String originSelectedPicPath = extras.getString(Constants.ORIGIN_SELECTED_PIC_PATH);
+
+        currentPos = extras.getInt(Constants.ORIGIN_SELECTED_PIC_POSITION);
+        if(currentPos == 3){
+            currentPos = 0;
+        }
+        originPicPathList = extras.getStringArrayList(Constants.ORIGIN_PIC_PATH_LIST);
+
         RequestOptions requestOptions = new RequestOptions()
                 .priority(Priority.HIGH);
         Glide.with(mContext)
-                .load(API.IMG_SERVER_IP + originSelectedPicPath)
+                .load(API.IMG_SERVER_IP + "/" + originPicPathList.get(currentPos))
                 .apply(requestOptions)
                 .into(imageShow);
-        currentPos = extras.getInt(Constants.ORIGIN_SELECTED_PIC_POSITION);
-
-        originPicPathList = extras.getStringArrayList(Constants.ORIGIN_PIC_PATH_LIST);
     }
 
     @OnClick({R.id.img_pre_button, R.id.img_next_button})
@@ -95,8 +99,9 @@ public class ACT_ImagePlayer extends Activity {
 
         RequestOptions requestOptions = new RequestOptions()
                 .priority(Priority.HIGH);
+        String url = API.IMG_SERVER_IP + "/" + originPicPathList.get(--currentPos);
         Glide.with(mContext)
-                .load(API.IMG_SERVER_IP + originPicPathList.get(--currentPos))
+                .load(url)
                 .apply(requestOptions)
                 .into(imageShow);
     }
@@ -110,7 +115,7 @@ public class ACT_ImagePlayer extends Activity {
         RequestOptions requestOptions = new RequestOptions()
                 .priority(Priority.HIGH);
         Glide.with(mContext)
-                .load(API.IMG_SERVER_IP + originPicPathList.get(++currentPos))
+                .load(API.IMG_SERVER_IP + "/" + originPicPathList.get(++currentPos))
                 .apply(requestOptions)
                 .into(imageShow);
     }

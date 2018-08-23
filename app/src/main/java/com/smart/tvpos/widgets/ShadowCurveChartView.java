@@ -65,14 +65,14 @@ public class ShadowCurveChartView extends View {
 
     //根据具体传入的数据，在坐标轴上绘制点
     private Point[] mPoints;
-    private PointF[] mPointsF;
+    private List<PointF> mPointsF;
     //传入的数据，决定绘制的纵坐标值
     private ArrayList<Integer> mYDatas = new ArrayList<>();
     private List<Float> mYFloatDatas = new ArrayList<>();
     private ArrayList<List<Float>> mYDataGroup = new ArrayList<>();
 
-    private int[] colors = new int[] {R.color.color_5fbee7, R.color.color_light_sleep, R.color.color_081638, R.color.yellow_check};
-    private int[] shadowColors = new int[] {R.color.color_4438b1e5, R.color.color_44f47564, R.color.color_081638, R.color.yellow_check};
+    private int[] colors = new int[] {R.color.color_5fbee7, R.color.color_light_sleep, R.color.color_e8af44, R.color.color_5fc6bb};
+    private int[] shadowColors = new int[] {R.color.color_4438b1e5, R.color.color_44f47564, R.color.color_44e8af44, R.color.color_445fc6bb};
 
     public ShadowCurveChartView(Context context) {
         this(context, null);
@@ -164,25 +164,28 @@ public class ShadowCurveChartView extends View {
      *
      * @return
      */
-    private Point[] initPoint() {
-        Point[] points = new Point[mYDatas.size()];
-        for (int i = 0; i < mYDatas.size(); i++) {
-            Integer ybean = mYDatas.get(i);
-            int drawHeight = (int) (originY * 1.0 - (ybean * YAxisUnitLength));
-            int startx = originX + xAxisSpace * i + mCurveStartWidth;
-            points[i] = new Point(startx, drawHeight);
-        }
-        Elog.e("TAG", "originX=" + originX + "---originY=" + originY);
-        return points;
-    }
+//    private Point[] initPoint() {
+//        Point[] points = new Point[mYDatas.size()];
+//        for (int i = 0; i < mYDatas.size(); i++) {
+//            Integer ybean = mYDatas.get(i);
+//            int drawHeight = (int) (originY * 1.0 - (ybean * YAxisUnitLength));
+//            int startx = originX + xAxisSpace * i + mCurveStartWidth;
+//            points[i] = new Point(startx, drawHeight);
+//        }
+//        Elog.e("TAG", "originX=" + originX + "---originY=" + originY);
+//        return points;
+//    }
 
-    private PointF[] initPointF() {
-        PointF[] points = new PointF[mYFloatDatas.size()];
+    private List<PointF> initPointF() {
+        List<PointF> points = new ArrayList<>();
         for (int i = 0; i < mYFloatDatas.size(); i++) {
+            if(mYFloatDatas.get(i).equals(-1f)){
+                continue;
+            }
             float ybean = mYFloatDatas.get(i);
             float drawHeight = (float) (originY * 1.0 - (ybean * YAxisUnitLength));
             float startx = originX + xAxisSpace * i + mCurveStartWidth;
-            points[i] = new PointF(startx, drawHeight);
+            points.add(new PointF(startx, drawHeight));
         }
         Elog.e("TAG", "originX=" + originX + "---originY=" + originY);
         return points;
@@ -222,7 +225,15 @@ public class ShadowCurveChartView extends View {
                 if(mYDataGroup.get(i).size() > 0){
                     mYFloatDatas = mYDataGroup.get(i);
                     mPointsF = initPointF();
-                    drawScrollLine(canvas, i);
+                    if(mPointsF.size() == 0){
+                        return;
+                    }
+                    else if(mPointsF.size() == 1){
+                        drawPoint(canvas, i, 0);
+                    }
+                    else {
+                        drawScrollLine(canvas, i);
+                    }
                 }
             }
 
@@ -236,14 +247,17 @@ public class ShadowCurveChartView extends View {
      * @param canvas
      */
     private void drawScrollLine(Canvas canvas, int line) {
+
+        int pLength = mPointsF.size();
+
         PointF startp;
         PointF endp;
 
-        float xStart = mPointsF[0].x;
-        float yStart = mPointsF[0].y;
+        float xStart = mPointsF.get(0).x;
+        float yStart = mPointsF.get(0).y;
         float maxY = yStart;
-        int pLength = mPointsF.length;
-        float xLast = mPointsF[pLength-1].x;
+
+        float xLast = mPointsF.get(pLength-1).x;
 
         Path path = new Path();
         Path shadowPath = new Path();
@@ -254,8 +268,8 @@ public class ShadowCurveChartView extends View {
         path.moveTo(xStart, yStart);
 
         for (int i = 0; i < pLength - 1; i++) {
-            startp = mPointsF[i];
-            endp = mPointsF[i + 1];
+            startp = mPointsF.get(i);
+            endp = mPointsF.get(i + 1);
 
             maxY = (maxY < startp.y) ? startp.y : maxY;
 
@@ -288,27 +302,35 @@ public class ShadowCurveChartView extends View {
 
         canvas.drawPath(shadowPath, shadowPaint[line]);
         canvas.drawRect(left, top, right, bottom, rectPaint);
-        if(isClicked){
-            canvas.drawCircle(mPointsF[clickedPoint].x, mPointsF[clickedPoint].y, 7, mPaint[line]);
-
-            Paint valuePaint = new Paint();
-            valuePaint.setColor(Color.parseColor("#ffffff"));
-            valuePaint.setStyle(Paint.Style.FILL);
-            float leftV = mPointsF[clickedPoint].x + 15;
-            float topV = mPointsF[clickedPoint].y + 23;
-            float rightV = leftV + 107;
-            float bottomV = mPointsF[clickedPoint].y - 23;
-
-            canvas.drawRect(leftV, topV, rightV, bottomV, valuePaint);
-
-            valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-            valuePaint.setStrokeWidth(1);
-            valuePaint.setColor(ContextCompat.getColor(mContext, colors[line]));
-            valuePaint.setTextAlign(Paint.Align.LEFT);
-            valuePaint.setTextSize(24);
-            DecimalFormat df = new DecimalFormat("###.####");
-            canvas.drawText(df.format(mYFloatDatas.get(clickedPoint)) + yValueUnit, leftV, mPointsF[clickedPoint].y + 10, valuePaint);
+        if(!isClicked) {
+           drawPoint(canvas, line, pLength - 2);
         }
+        else {
+            drawPoint(canvas, line, clickedPoint);
+        }
+    }
+
+    private void drawPoint(Canvas canvas, int line, int pos){
+
+        canvas.drawCircle(mPointsF.get(pos).x, mPointsF.get(pos).y, 7, mPaint[line]);
+
+        Paint valuePaint = new Paint();
+        valuePaint.setColor(Color.parseColor("#ffffff"));
+        valuePaint.setStyle(Paint.Style.FILL);
+        float leftV = mPointsF.get(pos).x + 15;
+        float topV = mPointsF.get(pos).y + 23;
+        float rightV = leftV + 107;
+        float bottomV = mPointsF.get(pos).y - 23;
+
+        canvas.drawRect(leftV, topV, rightV, bottomV, valuePaint);
+
+        valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        valuePaint.setStrokeWidth(1);
+        valuePaint.setColor(ContextCompat.getColor(mContext, colors[line]));
+        valuePaint.setTextAlign(Paint.Align.LEFT);
+        valuePaint.setTextSize(24);
+        DecimalFormat df = new DecimalFormat("###.####");
+        canvas.drawText(df.format(mYFloatDatas.get(pos)) + yValueUnit, leftV, mPointsF.get(pos).y + 10, valuePaint);
     }
 
     @Override
@@ -325,7 +347,12 @@ public class ShadowCurveChartView extends View {
                     if(x - originX - mCurveStartWidth > 0 && x < originX + mXAxisLength
                             && y < originY && y > originY - mYAxisLength){
                         int i = (int) ((x - originX - mCurveStartWidth) / xAxisSpace);
-                        clickedPoint = (x - mPointsF[i].x > mPointsF[i+1].x - x) ? i+1 : i;
+                        if(i >= mPointsF.size() - 1){
+                            clickedPoint = i;
+                        }
+                        else {
+                            clickedPoint = (x - mPointsF.get(i).x > mPointsF.get(i + 1).x - x) ? i+1 : i;
+                        }
 
                         isClicked = true;
 

@@ -49,5 +49,9 @@
     <!--Image Show-->
     <string name="already_first_one">已到达第一张图片</string>
     <string name="already_last_one">已到达最后一张图片</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_h">h</string>
+    <string name="unit_age">岁</string>
 
 </resources>

@@ -99,7 +99,7 @@ public class Constants {
 
     public final static String ELDERLY_IN_OUT_ID = "elderly_in_out_id";
 
-    public final static String ORIGIN_SELECTED_PIC_PATH = "origin_selected_pic_path";
+//    public final static String ORIGIN_SELECTED_PIC_PATH = "origin_selected_pic_path";
 
     public final static String ORIGIN_SELECTED_PIC_POSITION = "origin_selected_pic_position";
 
