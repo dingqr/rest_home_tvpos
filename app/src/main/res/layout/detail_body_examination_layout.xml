@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_data_detail">
 
     <TextView
+        android:id="@+id/body_examination_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50px"
@@ -16,6 +17,7 @@
 
     <RadioGroup
         android:id="@+id/body_examination_report"
+        android:layout_below="@+id/body_examination_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50px"
@@ -46,6 +48,16 @@
             android:background="@drawable/bg_body_examination_report"
             android:textColor="@color/text_body_examination_report"/>
         <RadioButton
+            android:id="@+id/blood_spo2"
+            android:layout_width="75px"
+            android:layout_height="40px"
+            android:text="@string/blood_spo2"
+            android:textSize="9sp"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/bg_body_examination_report"
+            android:textColor="@color/text_body_examination_report"/>
+        <RadioButton
             android:id="@+id/blood_sugar"
             android:layout_width="75px"
             android:layout_height="40px"
@@ -65,16 +77,39 @@
             <!--android:button="@null"-->
             <!--android:background="@drawable/bg_body_examination_report"-->
             <!--android:textColor="@color/text_body_examination_report"/>-->
-        <!--<RadioButton-->
-            <!--android:id="@+id/body_temperature"-->
-            <!--android:layout_width="75px"-->
-            <!--android:layout_height="40px"-->
-            <!--android:text="@string/body_temperature"-->
-            <!--android:textSize="9sp"-->
-            <!--android:gravity="center"-->
-            <!--android:button="@null"-->
-            <!--android:background="@drawable/bg_body_examination_report"-->
-            <!--android:textColor="@color/text_body_examination_report"/>-->
+        <RadioButton
+            android:id="@+id/body_temperature"
+            android:layout_width="75px"
+            android:layout_height="40px"
+            android:text="@string/body_temperature"
+            android:textSize="9sp"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/bg_body_examination_report"
+            android:textColor="@color/text_body_examination_report"/>
+
+        <RadioButton
+            android:id="@+id/heart_rate"
+            android:layout_width="75px"
+            android:layout_height="40px"
+            android:text="@string/heart_rate"
+            android:textSize="9sp"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/bg_body_examination_report"
+            android:textColor="@color/text_body_examination_report"/>
+
+        <RadioButton
+            android:id="@+id/breathe"
+            android:layout_width="75px"
+            android:layout_height="40px"
+            android:text="@string/breathe"
+            android:textSize="9sp"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/bg_body_examination_report"
+            android:textColor="@color/text_body_examination_report"/>
+
         <!--<RadioButton-->
             <!--android:id="@+id/blood_routine"-->
             <!--android:layout_width="75px"-->
@@ -137,10 +172,92 @@
             <!--android:textColor="@color/text_body_examination_report"/>-->
     </RadioGroup>
 
-    <com.smart.tvpos.widgets.ShadowCurveChartView
-        android:id="@+id/curveViewUp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/day_current_show"
+        android:layout_below="@+id/body_examination_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_day_current_show"
+        android:gravity="center"
+        android:text="@string/yesterday"
+        android:textSize="8sp"
+        android:textColor="@color/color_a1a1a1"
         android:layout_marginLeft="50px"
-        android:layout_marginTop="84px"/>
-</com.zhy.autolayout.AutoLinearLayout>
+        android:layout_marginTop="10px"
+        android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/icon_changeable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/body_examination_report"
+        android:layout_marginLeft="118px"
+        android:layout_marginTop="20px"
+        android:src="@drawable/icon_changeable"
+        android:visibility="invisible"/>
+
+    <!--<com.zhy.autolayout.AutoLinearLayout-->
+        <!--android:id="@+id/day_selector"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/bg_day_selector"-->
+        <!--android:layout_marginLeft="50px"-->
+        <!--android:layout_marginTop="10px"-->
+        <!--android:orientation="vertical"-->
+        <!--android:visibility="gone">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/day_selector_yesterday"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="@string/yesterday" />-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/line_divider"-->
+            <!--android:layout_gravity="center_horizontal"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/day_selector_day_before_yesterday"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:text="@string/the_day_before_yesterday" />-->
+    <!--</com.zhy.autolayout.AutoLinearLayout>-->
+
+    <com.smart.tvpos.widgets.ShadowCurveChartView
+        android:id="@+id/shadow_line_chart_view"
+        android:layout_below="@+id/body_examination_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="80px"/>
+
+    <com.smart.tvpos.widgets.LineChartView
+        android:id="@+id/line_chart_view"
+        android:layout_below="@+id/body_examination_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="80px"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/data_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/body_examination_report"
+        android:layout_marginTop="80px"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/data_current_none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/body_examination_report"
+        android:layout_marginTop="150px"
+        android:layout_centerInParent="true"
+        android:src="@drawable/data_current_none"
+        android:visibility="gone" />
+</com.zhy.autolayout.AutoRelativeLayout>

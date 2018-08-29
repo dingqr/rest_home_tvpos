@@ -2,6 +2,7 @@ package com.smart.tvpos.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,6 +21,83 @@ public class DateUtils {
         }
         return dateUtils;
     }
+
+    public int getSecondCountFrom(int startHour, String pattern, String dateStr){
+
+        int result = 0;
+
+        if(null == pattern){
+            pattern = "yyyy-MM-dd HH:mm:ss";
+        }
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat format =   new SimpleDateFormat(pattern);
+        Date date;
+        try {
+            date = format.parse(dateStr);
+            c.setTime(date);
+            int h = c.get(Calendar.HOUR_OF_DAY);
+            int m = c.get(Calendar.MINUTE);
+            int s = c.get(Calendar.SECOND);
+
+            if(startHour > 12){
+                if(h > 12){
+                    result = (h - startHour) * 3600 + m * 60 + s;
+                }
+                else {
+                    result = (h + 24 -startHour) * 3600 + m * 60 + s;
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getDateBefore(int before, String combine){
+        String date;
+
+        Calendar c = Calendar.getInstance();
+        int dayBefore = c.get(Calendar.DAY_OF_MONTH) - before + 1;
+        c.set(Calendar.DAY_OF_MONTH, dayBefore);
+        date = c.get(Calendar.YEAR) + combine + (c.get(Calendar.MONTH) + 1) + combine + c.get(Calendar.DAY_OF_MONTH);
+
+        return date;
+    }
+
+    public ArrayList<String> getTimeListBetween(int begin, int end){
+        ArrayList<String> times = new ArrayList<>();
+
+        if(begin > 12){
+            while (begin < 24){
+                times.add(String.valueOf(begin++));
+            }
+            begin = 0;
+            while (begin <= end){
+                times.add(String.valueOf(begin++));
+            }
+        }
+        return times;
+    }
+
+    public ArrayList<String> getDatesBefore(int before, String combine){
+        ArrayList<String> dates = new ArrayList<>();
+
+        Calendar c = Calendar.getInstance();
+        int dayBefore = c.get(Calendar.DAY_OF_MONTH) - before + 1;
+        c.set(Calendar.DAY_OF_MONTH, dayBefore);
+
+        for(int i = 1; i < before + 1; i++){
+            int month = c.get(Calendar.MONTH) + 1;
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            String data = month + combine + day;
+            dates.add(data);
+
+            c.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return dates;
+    }
+
     public String getMonthDay(String src, String pattern, String combine){
 
         String result = null;
@@ -66,7 +144,6 @@ public class DateUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Calendar c = Calendar.getInstance();
-        c = Calendar.getInstance();
         c.setFirstDayOfWeek(Calendar.SUNDAY);
         c.set(Calendar.HOUR_OF_DAY, 23);
         c.set(Calendar.MINUTE, 59);

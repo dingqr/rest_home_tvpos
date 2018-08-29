@@ -10,7 +10,7 @@
     <include layout="@layout/detail_basic_info_layout"
         android:id="@+id/all_basic_info"
         android:layout_width="1077px"
-        android:layout_height="326px"
+        android:layout_height="350px"
         android:layout_marginLeft="50px"
         android:layout_marginTop="38px"
         android:layout_below="@+id/arl_toolbar" />
@@ -18,7 +18,7 @@
     <include layout="@layout/detail_nursing_info_layout"
         android:id="@+id/all_nursing_info"
         android:layout_width="wrap_content"
-        android:layout_height="326px"
+        android:layout_height="350px"
         android:layout_marginLeft="40px"
         android:layout_marginTop="38px"
         android:layout_marginRight="50px"
@@ -28,18 +28,18 @@
     <include layout="@layout/detail_body_examination_layout"
         android:id="@+id/all_data_detail"
         android:layout_width="1077px"
-        android:layout_height="555px"
+        android:layout_height="600px"
         android:layout_below="@+id/all_basic_info"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="36px"
         android:layout_marginLeft="50px" />
 
     <include layout="@layout/detail_sleep_report_layout"
         android:id="@+id/all_sleep_report"
         android:layout_width="wrap_content"
-        android:layout_height="555px"
+        android:layout_height="600px"
         android:layout_below="@+id/all_nursing_info"
         android:layout_toRightOf="@+id/all_data_detail"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="36px"
         android:layout_marginLeft="40px"
         android:layout_marginRight="50px" />
 

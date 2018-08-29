@@ -24,7 +24,6 @@
         android:layout_toRightOf="@+id/iv_back"
         android:includeFontPadding="false"
         android:paddingTop="40px"
-        android:text="王蒙"
         android:textColor="@color/color_f0efef"
         android:textSize="15sp" />
 

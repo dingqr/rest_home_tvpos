@@ -36,7 +36,7 @@ public class SegmentBarChartView extends View {
     private int XAxisTextSize;
     private int YAxisTextSize;
 
-    private int[] yAxisTextList = {0, 4, 8, 12, 16, 20, 24};
+    private int[] yAxisTextList = {0, 2, 4, 6, 8, 10, 12};
     private String[] xAxisTextList = DateUtils.WEEK;
     private int xAxisTextSpace = 22;//轴与文字之间的间距
     private int yAxisTextSpace = 22;//轴与文字之间的间距
@@ -91,7 +91,7 @@ public class SegmentBarChartView extends View {
 //        XAxisTextSize = DP2PX.dip2px(mContext, 18);
 //        YAxisTextSize = DP2PX.dip2px(mContext, 16);
         XAxisLenth = (barGap + barWidth) * 7 + 20;
-        YAxisLenth = 228 + xAxisTextSpace + XAxisTextSize;
+        YAxisLenth = 220 + xAxisTextSpace + XAxisTextSize;
         XAxisTextSize = 9;
         YAxisTextSize = 8;
         barHight = YAxisLenth - 20;
@@ -172,8 +172,8 @@ public class SegmentBarChartView extends View {
             float left = originX + day * barGap + (day - 1) * barWidth;
             float right = left + barWidth;
             float bottom = originY;
-            float topDeep = bottom - (weekData.get(i).getDeepSleepTime() * barHight / 24);
-            float topLight = topDeep - (weekData.get(i).getLightSleepTime() * barHight / 24);
+            float topDeep = bottom - (weekData.get(i).getDeepSleepTime() * barHight / 12);
+            float topLight = topDeep - (weekData.get(i).getLightSleepTime() * barHight / 12);
             float top = originX - barHight;
 
             canvas.drawRect(left, topDeep, right,bottom, arrPaintArc[0]);

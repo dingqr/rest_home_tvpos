@@ -84,7 +84,6 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
             itemZoom.setBackgroundResource(R.drawable.bg_warning_one);
             ivWarningLevelZoom.setImageResource(R.drawable.ic_warning_red_zoom);
             tvThingZoom.setText(bean.getTypeChild());
-
         }
         if (!TextUtils.isEmpty(bean.getTypeChild())) {
             if (bean != null) {

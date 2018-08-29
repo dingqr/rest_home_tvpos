@@ -3,7 +3,9 @@ package com.smart.tvpos.bean;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
+import com.smart.tvpos.util.CommonUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +16,8 @@ public class ElderlyDetailInfoEntity {
     private List<ElderlyNurseJobEntity> nurseJobList;
     private List<ElderlyHealthDataEntity> healthDataListS;
     private List<ElderlyMattressEntity> mattressList;
-    private String averageT;
-    private String averageL;
+    private int averageT;
+    private int averageL;
 
     public ElderlyBasicInfoEntity getDetails() {
         return details;
@@ -58,18 +60,24 @@ public class ElderlyDetailInfoEntity {
     }
 
     public String getAverageT() {
-        return averageT;
+        float hour = averageT / 60f;
+        DecimalFormat decimalFormat=new DecimalFormat("0.00");
+        String result = decimalFormat.format(hour);
+        return result;
     }
 
-    public void setAverageT(String averageT) {
+    public void setAverageT(int averageT) {
         this.averageT = averageT;
     }
 
     public String getAverageL() {
-        return averageL;
+        float hour = averageL / 60f;
+        DecimalFormat decimalFormat=new DecimalFormat("0.00");
+        String result = decimalFormat.format(hour);
+        return result;
     }
 
-    public void setAverageL(String averageL) {
+    public void setAverageL(int averageL) {
         this.averageL = averageL;
     }
 
@@ -83,26 +91,14 @@ public class ElderlyDetailInfoEntity {
 
         ElderlyBasicInfoEntity basicInfo = new ElderlyBasicInfoEntity();
         details = basicInfo.fromJsonObject(jsonObject.getJSONObject(ElderlyBasicInfoEntity.KEY));
-        nurseJobList = fromJsonArray(jsonObject.getJSONArray(ElderlyNurseJobEntity.KEY), ElderlyNurseJobEntity.class);
+        nurseJobList = CommonUtil.fromJsonArray(jsonObject.getJSONArray(ElderlyNurseJobEntity.KEY), ElderlyNurseJobEntity.class);
 
-        healthDataListS = fromJsonArray(jsonObject.getJSONArray(ElderlyHealthDataEntity.Key), ElderlyHealthDataEntity.class);
-        mattressList = fromJsonArray(jsonObject.getJSONArray(ElderlyMattressEntity.KEY), ElderlyMattressEntity.class);
-        staffList = fromJsonArray(jsonObject.getJSONArray(ElderlyStaffEntity.KEY), ElderlyStaffEntity.class);
+        healthDataListS = CommonUtil.fromJsonArray(jsonObject.getJSONArray(ElderlyHealthDataEntity.Key), ElderlyHealthDataEntity.class);
+        mattressList = CommonUtil.fromJsonArray(jsonObject.getJSONArray(ElderlyMattressEntity.KEY), ElderlyMattressEntity.class);
+        staffList = CommonUtil.fromJsonArray(jsonObject.getJSONArray(ElderlyStaffEntity.KEY), ElderlyStaffEntity.class);
 
-        averageT = jsonObject.getString("averageT");
-        averageL = jsonObject.getString("averageL");
+        averageT = jsonObject.getInteger("averageT");
+        averageL = jsonObject.getInteger("averageL");
         return;
-    }
-
-    private <T> List<T> fromJsonArray(JSONArray jsonArray, Class clazz){
-        List tList = new ArrayList<>();
-        if(null == jsonArray || jsonArray.size() == 0){
-            return tList;
-        }
-
-        for(int i = 0; i < jsonArray.size(); i++){
-            tList.add(JSON.parseObject(jsonArray.get(i).toString(), clazz));
-        }
-        return tList;
     }
 }

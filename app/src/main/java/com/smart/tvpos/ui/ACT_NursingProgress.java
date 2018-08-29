@@ -2,9 +2,11 @@ package com.smart.tvpos.ui;
 
 import android.content.Intent;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.ReceiveConstants;
 import com.smart.framework.library.common.log.Elog;
+import com.smart.framework.library.common.utils.AppSharedPreferences;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.tvpos.MyApplication;
@@ -33,6 +36,8 @@ import com.smart.tvpos.global.API;
 import com.smart.tvpos.manager.ReqCallBack;
 import com.smart.tvpos.manager.RequestManager;
 import com.smart.tvpos.util.Constants;
+import com.smart.tvpos.util.CountDownUtils;
+import com.smart.tvpos.util.SharePreConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +63,7 @@ public class ACT_NursingProgress extends BaseActivity {
     private FloorEntity mSelectFloorEntity;
     //当前选中的楼宇
     private BuildingEntity mSelectBuildingEntity;
+    private String mCurrentFloorId;
     private ADA_BuildingList mBuildingAdapter;
     private ADA_FloorList mFloorAdapter;
     @Bind(R.id.buildingList)
@@ -70,11 +76,12 @@ public class ACT_NursingProgress extends BaseActivity {
     TextView tvFloor;
 
     private List<UserNurseListEntity> elderlyList;
+    private AppSharedPreferences sharePre;
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
-            requestNet(false);
+            requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mCurrentFloorId, true);
         }
     }
 
@@ -140,7 +147,7 @@ public class ACT_NursingProgress extends BaseActivity {
 
     @Override
     protected long getRefreshTime() {
-        return 0;
+        return 15 * 1000;
     }
 
     @Override
@@ -162,6 +169,7 @@ public class ACT_NursingProgress extends BaseActivity {
         requestNet(true);
 
         initListener();
+        sharePre = new AppSharedPreferences(this);
     }
 
 
@@ -270,7 +278,8 @@ public class ACT_NursingProgress extends BaseActivity {
                 //选中的楼和楼层
 //                CommonUtils.makeEventToast(MyApplication.getContext(), mSelectBuildingEntity.getBuildingName() + mSelectFloorEntity.getFloorName(), false);
                 //切换楼层时,刷新当前护理进度数据列表
-                requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mSelectFloorEntity.getFloorId() + "");
+                mCurrentFloorId = mSelectFloorEntity.getFloorId() + "";
+                requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mCurrentFloorId, false);
 
             }
         });
@@ -313,7 +322,8 @@ public class ACT_NursingProgress extends BaseActivity {
                 if (mSelectBuildingEntity.getList().size() > 0) {
                     tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
 //                    //默认展示当前大楼一楼的数据
-                    requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mSelectBuildingEntity.getList().get(0).getFloorId() + "");
+                    requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "",
+                            mSelectBuildingEntity.getList().get(0).getFloorId() + "", false);
                 }
                 mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
             }
@@ -335,7 +345,7 @@ public class ACT_NursingProgress extends BaseActivity {
      *
      * @param requestType userNurse
      */
-    private void requestWarningShow(String requestType, String buildingId, String floorId) {
+    private void requestWarningShow(String requestType, String buildingId, String floorId, boolean isRefresh) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
         params.put("name", "hafuadmin");
@@ -343,6 +353,9 @@ public class ACT_NursingProgress extends BaseActivity {
         params.put("sign", Constants.USER_SIGN);
         params.put("buildingId", buildingId);
         params.put("floorId", floorId);
+        if(isRefresh){
+            params.put("warningOld", sharePre.getString(SharePreConstants.WARNING_N));
+        }
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<UserNurseDataEntity>() {
 
             @Override
@@ -355,10 +368,29 @@ public class ACT_NursingProgress extends BaseActivity {
 
                 Elog.e("TAG" + "userNurse=" + bean.getBranch());
 
-
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
                 elderlyList = userNurseLis;
                 mAdapter.update(userNurseLis, true);
+
+                if(bean.getWarningStr().equals("报警")){
+                    CountDownUtils countDown = new CountDownUtils(15 * 1000, 1000) {
+                        @Override
+                        public void finishTask() {
+
+                            MediaPlayer mediaPlayer = getMediaPlayer();
+                            mediaPlayer.stop();
+                            mediaPlayer.reset();
+                            mediaPlayer.release();
+                            mediaPlayer = null;
+                            Log.i("auqa", "finishTask");
+                        }
+                    };
+
+                    countDown.setMediaPlayer(mContext).warningPlay().start();
+
+                    sharePre.putString(SharePreConstants.WARNING_N, bean.getWarningN());
+                }
+
             }
 
             @Override

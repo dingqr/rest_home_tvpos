@@ -48,7 +48,7 @@
                 android:drawableLeft="@drawable/icon_height"
                 android:drawablePadding="14px"
                 android:text="@string/basic_info_height"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 android:textColor="@color/color_icon_text"/>
 
             <TextView
@@ -58,12 +58,12 @@
                 android:layout_marginTop="35px"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_icon_height"
-                android:text="172cm"
+                android:textColor="@color/color_373737"
                 android:textSize="19sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <View android:layout_width="2px"
-            android:layout_height="180px"
+            android:layout_height="160px"
             android:layout_marginLeft="54px"
             android:layout_marginRight="54px"
             android:background="@color/color_divider_line"/>
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_weight"
                 android:drawablePadding="11px"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 android:text="@string/basic_info_weight"
                 android:textColor="@color/color_icon_text"/>
 
@@ -89,12 +89,12 @@
                 android:layout_marginTop="35px"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_icon_weight"
-                android:text="72kg"
+                android:textColor="@color/color_373737"
                 android:textSize="19sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <View android:layout_width="2px"
-            android:layout_height="180px"
+            android:layout_height="160px"
             android:layout_marginLeft="55px"
             android:layout_marginRight="40px"
             android:background="@color/color_divider_line"/>
@@ -110,7 +110,7 @@
                 android:layout_marginLeft="11px"
                 android:drawableLeft="@drawable/icon_food_prefer"
                 android:drawablePadding="14px"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 android:text="@string/basic_info_food_prefer"
                 android:textColor="@color/color_icon_text"/>
 
@@ -121,12 +121,12 @@
                 android:layout_marginTop="33px"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_icon_food_prefer"
-                android:text="偏甜"
+                android:textColor="@color/color_373737"
                 android:textSize="11sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <View android:layout_width="2px"
-            android:layout_height="180px"
+            android:layout_height="160px"
             android:layout_marginLeft="36px"
             android:layout_marginRight="36px"
             android:background="@color/color_divider_line"/>
@@ -143,7 +143,7 @@
                 android:drawableLeft="@drawable/icon_life_style"
                 android:drawablePadding="14px"
                 android:text="@string/basic_info_life_style"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 android:textColor="@color/color_icon_text"/>
 
             <TextView
@@ -153,12 +153,12 @@
                 android:layout_marginTop="35px"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_icon_life_style"
-                android:text="夜间晚睡"
+                android:textColor="@color/color_373737"
                 android:textSize="11sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <View android:layout_width="2px"
-            android:layout_height="180px"
+            android:layout_height="160px"
             android:layout_marginLeft="36px"
             android:layout_marginRight="36px"
             android:background="@color/color_divider_line"/>
@@ -175,7 +175,7 @@
                 android:drawableLeft="@drawable/icon_personality_character"
                 android:drawablePadding="14px"
                 android:text="@string/basic_info_personality_character"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 android:textColor="@color/color_icon_text"/>
 
             <TextView
@@ -185,12 +185,12 @@
                 android:layout_marginTop="35px"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_icon_personality"
-                android:text="谨小慎微"
+                android:textColor="@color/color_373737"
                 android:textSize="11sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
         <View android:layout_width="2px"
-            android:layout_height="180px"
+            android:layout_height="160px"
             android:layout_marginLeft="36px"
             android:layout_marginRight="36px"
             android:background="@color/color_divider_line"/>
@@ -208,7 +208,7 @@
                 android:drawableLeft="@drawable/icon_common_disease"
                 android:drawablePadding="14px"
                 android:text="@string/basic_info_common_disease"
-                android:textSize="9sp"
+                android:textSize="10sp"
                 android:textColor="@color/color_icon_text"/>
 
             <TextView
@@ -218,7 +218,7 @@
                 android:layout_marginTop="35px"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title_icon_common_disease"
-                android:text="高血压"
+                android:textColor="@color/color_373737"
                 android:textSize="11sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 

@@ -4,15 +4,17 @@
 
     <ImageView
         android:id="@+id/img_common_detail"
-        android:layout_width="111px"
-        android:layout_height="111px" />
+        android:layout_marginTop="5px"
+        android:scaleType="fitXY"
+        android:layout_width="100px"
+        android:layout_height="100px" />
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/last_record_tint"
-        android:layout_width="111px"
-        android:layout_height="111px"
+        android:layout_width="100px"
+        android:layout_height="100px"
         android:background="@color/color_1b1b1b"
-
+        android:layout_marginTop="5px"
         android:visibility="invisible">
 
         <TextView

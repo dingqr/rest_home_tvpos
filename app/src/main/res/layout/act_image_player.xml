@@ -16,10 +16,10 @@
         android:id="@+id/img_show"
         android:layout_width="929px"
         android:layout_height="663px"
+        android:layout_marginBottom="262px"
         android:layout_marginLeft="221px"
         android:layout_marginRight="224px"
-        android:layout_marginBottom="262px"
-        android:layout_marginTop="164px"/>
+        android:layout_marginTop="205px" />
 
     <ImageView
         android:id="@+id/img_next_button"

@@ -41,29 +41,19 @@ public class ACT_ImagePlayer extends Activity {
 
         mContext = this;
 
-        setContentView(R.layout.act_image_read);
+        setContentView(R.layout.act_image_player);
 
         ButterKnife.bind(ACT_ImagePlayer.this);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        initView();
         initData(extras);
 
     }
 
-    private void initView(){
-//        imageShow = new ImageView(mContext);
-//        btnPre = new ImageView(mContext);
-//        btnNext = new ImageView(mContext);
-
-        originPicPathList = new ArrayList<>();
-    }
-
     private void initData(Bundle extras){
 
-//        String originSelectedPicPath = extras.getString(Constants.ORIGIN_SELECTED_PIC_PATH);
-
+        originPicPathList = new ArrayList<>();
         currentPos = extras.getInt(Constants.ORIGIN_SELECTED_PIC_POSITION);
         if(currentPos == 3){
             currentPos = 0;
@@ -78,7 +68,7 @@ public class ACT_ImagePlayer extends Activity {
                 .into(imageShow);
     }
 
-    @OnClick({R.id.img_pre_button, R.id.img_next_button})
+    @OnClick({R.id.img_pre_button, R.id.img_next_button, R.id.img_show})
     public void showPicture(ImageView view) {
         switch (view.getId()) {
             case R.id.img_pre_button:
@@ -87,6 +77,8 @@ public class ACT_ImagePlayer extends Activity {
             case R.id.img_next_button:
                 showNextImg();
                 break;
+            default:
+                    finish();
         }
     }
 

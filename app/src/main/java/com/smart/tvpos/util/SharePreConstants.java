@@ -12,4 +12,5 @@ public class SharePreConstants {
     public static final String LOGOUT = "logout";
     public static final String TYPE = "type";//分院,总院,平台
     public static final String BRANCH_NAME = "BRANCH_NAME";//院所名称
+    public static final String WARNING_N = "warning_n";
 }

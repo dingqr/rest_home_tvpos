@@ -11,6 +11,8 @@ import com.smart.framework.library.common.log.Elog;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
 import com.smart.tvpos.bean.ElderlyDetailInfoEntity;
+import com.smart.tvpos.bean.SleepRealTimeEntity;
+import com.smart.tvpos.util.CommonUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -260,6 +262,11 @@ public class RequestManager {
                                                 ElderlyDetailInfoEntity entity = new ElderlyDetailInfoEntity();
                                                 entity.fromJsonString(data);
                                                 successCallBack((T) entity, callBack);
+                                            }
+                                            else if(callBack.type.toString().equals("java.util.List<com.smart.tvpos.bean.SleepRealTimeEntity>")){
+                                                List<SleepRealTimeEntity> list;
+                                                list = CommonUtil.fromJsonArray(JSON.parseArray(data), SleepRealTimeEntity.class);
+                                                successCallBack((T) list, callBack);
                                             }
                                             else {
                                                 successCallBack((T) JSON.parseObject(data, callBack.type), callBack);

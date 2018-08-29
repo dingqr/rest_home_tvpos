@@ -19,6 +19,8 @@ public class UserNurseDataEntity {
 
     private String branch;
     private List<UserNurseListEntity> user;
+    private String warningStr;
+    private String warningN;
 
     public String getBranch() {
         return branch;
@@ -36,5 +38,19 @@ public class UserNurseDataEntity {
         this.user = user;
     }
 
+    public String getWarningStr() {
+        return warningStr;
+    }
 
+    public void setWarningStr(String warningStr) {
+        this.warningStr = warningStr;
+    }
+
+    public String getWarningN() {
+        return warningN;
+    }
+
+    public void setWarningN(String warningN) {
+        this.warningN = warningN;
+    }
 }
