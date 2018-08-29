@@ -63,6 +63,7 @@ public class ShadowCurveChartView extends View {
     private Paint mPaintText;
 
     private int lineNum = 1;
+    private String[] lineNames;
 
     private boolean isClicked = false;
     private int clickedPoint = -1;
@@ -307,13 +308,17 @@ public class ShadowCurveChartView extends View {
 
         canvas.drawRect(left, top, right, bottom, valuePaint);
 
+        String lineName = "";
+        if(lineNames != null && line < lineNames.length){
+            lineName = lineNames[line] + ":";
+        }
         valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         valuePaint.setStrokeWidth(1);
         valuePaint.setColor(ContextCompat.getColor(mContext, colors[line]));
         valuePaint.setTextAlign(Paint.Align.LEFT);
         valuePaint.setTextSize(24);
         DecimalFormat df = new DecimalFormat("###.####");
-        canvas.drawText(df.format(mYRealDatas.get(pos)) + yValueUnit, left, mPointsF.get(pos).y + 10, valuePaint);
+        canvas.drawText(lineName + df.format(mYRealDatas.get(pos)) + yValueUnit, left, mPointsF.get(pos).y + 10, valuePaint);
     }
 
     @Override
@@ -360,8 +365,8 @@ public class ShadowCurveChartView extends View {
     }
 
 
-    public void updateXAxisText(List<String> xAxisText){
-        this.mXAxisText = xAxisText;
+    public void updateLineName(String[] lineNames){
+        this.lineNames = lineNames;
     }
 
     /**

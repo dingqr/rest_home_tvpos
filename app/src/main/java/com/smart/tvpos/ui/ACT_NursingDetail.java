@@ -218,7 +218,7 @@ public class ACT_NursingDetail extends BaseActivity {
                 hideChartView();
                 dataLoading.setVisibility(View.VISIBLE);
                 Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
-                requestDayRealTimeData(DateUtils.getInstance().getDateBefore(12, "-"), true);
+                requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"), true);
                 break;
             default:
         }
@@ -418,6 +418,7 @@ public class ACT_NursingDetail extends BaseActivity {
                             listGroup.add(mSbpList);
                             listGroup.add(mDbpList);
                             showShadowChartView();
+                            shadowCurveChartView.updateLineName(null);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodPressureAxisText, listGroup.size(), "mmHg");
                         }
                         else {
@@ -425,14 +426,14 @@ public class ACT_NursingDetail extends BaseActivity {
                         }
                         break;
                     case R.id.blood_lipid:
-
-//                        listGroup.add(mFlipidsTrigList);
-//                        listGroup.add(mFlipidsHdlList);
-//                        listGroup.add(mFlipidsLdlList);
-//                        shadowCurveChartView.updateXAxisText(mXAxisTextDate);
-                        if(checkData(mFlipidsCholList.values())){
+                        if(checkData(mFlipidsCholList.values()) || checkData(mFlipidsTrigList.values())
+                                || checkData(mFlipidsHdlList.values()) || checkData(mFlipidsLdlList.values())){
                             showShadowChartView();
                             listGroup.add(mFlipidsCholList);
+                            listGroup.add(mFlipidsTrigList);
+                            listGroup.add(mFlipidsHdlList);
+                            listGroup.add(mFlipidsLdlList);
+                            shadowCurveChartView.updateLineName(Constants.BloodLipidNames);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodLipidAxisText, listGroup.size(), "");
                         }
                         else {
@@ -443,6 +444,7 @@ public class ACT_NursingDetail extends BaseActivity {
                         if(checkData(mSpo2List.values())){
                             showShadowChartView();
                             listGroup.add(mSpo2List);
+                            shadowCurveChartView.updateLineName(null);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodSpo2AxisText, listGroup.size(), "");
                         }
                         else {
@@ -453,6 +455,7 @@ public class ACT_NursingDetail extends BaseActivity {
                         if(checkData(mGluList.values())){
                             showShadowChartView();
                             listGroup.add(mGluList);
+                            shadowCurveChartView.updateLineName(null);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodSugarAxisText, listGroup.size(), "");
                         }
                         else {
@@ -463,6 +466,7 @@ public class ACT_NursingDetail extends BaseActivity {
                         if(checkData(mTempList.values())){
                             showShadowChartView();
                             listGroup.add(mTempList);
+                            shadowCurveChartView.updateLineName(null);
                             shadowCurveChartView.updateData(listGroup, Constants.TemperatureAxisText, listGroup.size(), "");
                         }
                         else {
@@ -486,7 +490,7 @@ public class ACT_NursingDetail extends BaseActivity {
                             hideChartView();
                             dataLoading.setVisibility(View.VISIBLE);
                             Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
-                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(12, "-"),true);
+                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"),true);
                         }
                         break;
                     case R.id.breathe:
@@ -498,14 +502,12 @@ public class ACT_NursingDetail extends BaseActivity {
 //                            lineChartView.updateData(mSleepRealTimeList, Constants.BloodSugarAxisText, dataType, "");
                         }
                         else {
-//                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"));
-                            //tmp
                             requestDay = 1;
                             dayCurrentShow.setText(R.string.yesterday);
                             hideChartView();
                             dataLoading.setVisibility(View.VISIBLE);
                             Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
-                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(12, "-"), true);
+                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"), true);
                         }
                         break;
 //                    case R.id.electrocardiogram:

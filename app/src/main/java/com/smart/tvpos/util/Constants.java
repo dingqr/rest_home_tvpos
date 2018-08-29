@@ -114,4 +114,6 @@ public class Constants {
     public final static int[] TemperatureAxisText = new int[]{0, 15, 30, 45, 60};
     public final static int[] HeartRateAxisText = new int[]{0, 40, 80, 120, 160};
     public final static int[] BreathAxisText = new int[]{0, 15, 30, 45, 60};
+
+    public final static String[] BloodLipidNames = new String[]{"总胆固醇", "甘油三脂", "高密度脂蛋白","低密度脂蛋白"};
 }
