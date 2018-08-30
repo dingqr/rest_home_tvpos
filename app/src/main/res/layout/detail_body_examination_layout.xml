@@ -231,7 +231,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50px"
-        android:layout_marginTop="80px"/>
+        android:layout_marginTop="80px"
+        android:visibility="invisible"/>
 
     <com.smart.tvpos.widgets.LineChartView
         android:id="@+id/line_chart_view"
@@ -259,5 +260,5 @@
         android:layout_marginTop="150px"
         android:layout_centerInParent="true"
         android:src="@drawable/data_current_none"
-        android:visibility="gone" />
+        android:visibility="visible" />
 </com.zhy.autolayout.AutoRelativeLayout>

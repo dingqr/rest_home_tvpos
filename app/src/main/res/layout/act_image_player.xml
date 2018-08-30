@@ -14,11 +14,12 @@
 
     <ImageView
         android:id="@+id/img_show"
+        android:scaleType="fitCenter"
         android:layout_width="929px"
         android:layout_height="663px"
         android:layout_marginBottom="262px"
-        android:layout_marginLeft="221px"
-        android:layout_marginRight="224px"
+        android:layout_marginLeft="200px"
+        android:layout_marginRight="200px"
         android:layout_marginTop="205px" />
 
     <ImageView

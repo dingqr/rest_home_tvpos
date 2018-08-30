@@ -197,6 +197,130 @@ public class ACT_NursingDetail extends BaseActivity {
         requestElderlyData();
         //获取昨天的实时数据
         requestDayRealTimeData(DateUtils.getInstance().getDateBefore(13, "-"), false);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                ArrayList<Map<Integer, Float>> listGroup = new ArrayList<Map<Integer, Float>>();
+                dataType = 0;
+                switch (checkedId) {
+                    case R.id.blood_pressure:
+                        initBodyExaminationView();
+                        break;
+                    case R.id.blood_lipid:
+                        if(checkData(mFlipidsCholList.values()) || checkData(mFlipidsTrigList.values())
+                                || checkData(mFlipidsHdlList.values()) || checkData(mFlipidsLdlList.values())){
+                            showShadowChartView();
+                            listGroup.add(mFlipidsCholList);
+                            listGroup.add(mFlipidsTrigList);
+                            listGroup.add(mFlipidsHdlList);
+                            listGroup.add(mFlipidsLdlList);
+                            shadowCurveChartView.updateDrawSetting(Constants.BloodLipidNames, false);
+                            shadowCurveChartView.updateData(listGroup, Constants.BloodLipidAxisText, listGroup.size(), "");
+                        }
+                        else {
+                            hideChartView(true);
+                        }
+                        break;
+                    case R.id.blood_spo2:
+                        if(checkData(mSpo2List.values())){
+                            showShadowChartView();
+                            listGroup.add(mSpo2List);
+                            shadowCurveChartView.updateDrawSetting(null, false);
+                            shadowCurveChartView.updateData(listGroup, Constants.BloodSpo2AxisText, listGroup.size(), "");
+                        }
+                        else {
+                            hideChartView(true);
+                        }
+                        break;
+                    case R.id.blood_sugar:
+                        if(checkData(mGluList.values())){
+                            showShadowChartView();
+                            listGroup.add(mGluList);
+                            shadowCurveChartView.updateDrawSetting(null, false);
+                            shadowCurveChartView.updateData(listGroup, Constants.BloodSugarAxisText, listGroup.size(), "");
+                        }
+                        else {
+                            hideChartView(true);
+                        }
+                        break;
+                    case R.id.body_temperature:
+                        if(checkData(mTempList.values())){
+                            showShadowChartView();
+                            listGroup.add(mTempList);
+                            shadowCurveChartView.updateDrawSetting(null, false);
+                            shadowCurveChartView.updateData(listGroup, Constants.TemperatureAxisText, listGroup.size(), "");
+                        }
+                        else {
+                            hideChartView(true);
+                        }
+                        break;
+                    case R.id.heart_rate:
+                        dataType = 1;
+                        showLineChartView();
+
+                        //更新数据
+                        if(requestDay == 1 && !mSleepRealTimeList.isEmpty()){
+//                            lineChartView.updateData(mSleepRealTimeList, Constants.HeartRateAxisText, dataType, "");
+//
+//                            //控件布局更新
+//                            showLineChartView();
+                            updateSleepRealTimeView(true);
+                        }
+                        else {
+                            requestDay = 1;
+                            dayCurrentShow.setText(R.string.yesterday);
+                            hideChartView(false);
+                            dataLoading.setVisibility(View.VISIBLE);
+                            Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
+                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"),true);
+                        }
+                        break;
+                    case R.id.breathe:
+                        dataType = 2;
+                        showLineChartView();
+
+                        if(requestDay == 1 && !mSleepRealTimeList.isEmpty()){
+                            updateSleepRealTimeView(true);
+//                            lineChartView.updateData(mSleepRealTimeList, Constants.BloodSugarAxisText, dataType, "");
+                        }
+                        else {
+                            requestDay = 1;
+                            dayCurrentShow.setText(R.string.yesterday);
+                            hideChartView(false);
+                            dataLoading.setVisibility(View.VISIBLE);
+                            Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
+                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"), true);
+                        }
+                        break;
+//                    case R.id.electrocardiogram:
+////                        listGroup.add(mPr2List);
+////                        listGroup.add(mHrList);
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+//                    case R.id.blood_routine:
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+//                    case R.id.urine_routine:
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+//                    case R.id.hemoglobin:
+////                        listGroup.add(mAssxhdbList);
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+//                    case R.id.three_classification:
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+//                    case R.id.biochemistry:
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+//                    case R.id.glycated_hemoglobin:
+//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
+//                        break;
+                }
+            }
+        });
     }
 
     @OnClick(R.id.day_current_show)
@@ -215,7 +339,7 @@ public class ACT_NursingDetail extends BaseActivity {
                     dayCurrentShow.setText(R.string.yesterday);
                     requestDay = 1;
                 }
-                hideChartView();
+                hideChartView(false);
                 dataLoading.setVisibility(View.VISIBLE);
                 Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
                 requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"), true);
@@ -402,144 +526,25 @@ public class ACT_NursingDetail extends BaseActivity {
 
         //默认显示血压
         ArrayList<Map<Integer, Float>> listGroup = new ArrayList<Map<Integer, Float>>();
-        listGroup.add(mSbpList);
-        listGroup.add(mDbpList);
-        shadowCurveChartView.updateData(listGroup, Constants.BloodPressureAxisText, listGroup.size(), "mmHg");
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if(checkData(mSbpList.values()) || checkData(mDbpList.values())){
+            listGroup.add(mSbpList);
+            listGroup.add(mDbpList);
+            showShadowChartView();
+            shadowCurveChartView.updateDrawSetting(null, true);
+            shadowCurveChartView.updateData(listGroup, Constants.BloodPressureAxisText, listGroup.size(), "mmHg");
+        }
+        else {
+            hideChartView(true);
+        }
 
-                ArrayList<Map<Integer, Float>> listGroup = new ArrayList<Map<Integer, Float>>();
-                dataType = 0;
-                switch (checkedId) {
-                    case R.id.blood_pressure:
-                        if(checkData(mSbpList.values()) || checkData(mDbpList.values())){
-                            listGroup.add(mSbpList);
-                            listGroup.add(mDbpList);
-                            showShadowChartView();
-                            shadowCurveChartView.updateDrawSetting(null, true);
-                            shadowCurveChartView.updateData(listGroup, Constants.BloodPressureAxisText, listGroup.size(), "mmHg");
-                        }
-                        else {
-                            hideChartView();
-                        }
-                        break;
-                    case R.id.blood_lipid:
-                        if(checkData(mFlipidsCholList.values()) || checkData(mFlipidsTrigList.values())
-                                || checkData(mFlipidsHdlList.values()) || checkData(mFlipidsLdlList.values())){
-                            showShadowChartView();
-                            listGroup.add(mFlipidsCholList);
-                            listGroup.add(mFlipidsTrigList);
-                            listGroup.add(mFlipidsHdlList);
-                            listGroup.add(mFlipidsLdlList);
-                            shadowCurveChartView.updateDrawSetting(Constants.BloodLipidNames, false);
-                            shadowCurveChartView.updateData(listGroup, Constants.BloodLipidAxisText, listGroup.size(), "");
-                        }
-                        else {
-                            hideChartView();
-                        }
-                        break;
-                    case R.id.blood_spo2:
-                        if(checkData(mSpo2List.values())){
-                            showShadowChartView();
-                            listGroup.add(mSpo2List);
-                            shadowCurveChartView.updateDrawSetting(null, false);
-                            shadowCurveChartView.updateData(listGroup, Constants.BloodSpo2AxisText, listGroup.size(), "");
-                        }
-                        else {
-                            hideChartView();
-                        }
-                        break;
-                    case R.id.blood_sugar:
-                        if(checkData(mGluList.values())){
-                            showShadowChartView();
-                            listGroup.add(mGluList);
-                            shadowCurveChartView.updateDrawSetting(null, false);
-                            shadowCurveChartView.updateData(listGroup, Constants.BloodSugarAxisText, listGroup.size(), "");
-                        }
-                        else {
-                            hideChartView();
-                        }
-                        break;
-                    case R.id.body_temperature:
-                        if(checkData(mTempList.values())){
-                            showShadowChartView();
-                            listGroup.add(mTempList);
-                            shadowCurveChartView.updateDrawSetting(null, false);
-                            shadowCurveChartView.updateData(listGroup, Constants.TemperatureAxisText, listGroup.size(), "");
-                        }
-                        else {
-                            hideChartView();
-                        }
-                        break;
-                    case R.id.heart_rate:
-                        dataType = 1;
-
-                        //更新数据
-                        if(requestDay == 1 && !mSleepRealTimeList.isEmpty()){
-//                            lineChartView.updateData(mSleepRealTimeList, Constants.HeartRateAxisText, dataType, "");
-//
-//                            //控件布局更新
-//                            showLineChartView();
-                            updateSleepRealTimeView(true);
-                        }
-                        else {
-                            requestDay = 1;
-                            dayCurrentShow.setText(R.string.yesterday);
-                            hideChartView();
-                            dataLoading.setVisibility(View.VISIBLE);
-                            Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
-                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"),true);
-                        }
-                        break;
-                    case R.id.breathe:
-                        dataType = 2;
-                        showLineChartView();
-
-                        if(requestDay == 1 && !mSleepRealTimeList.isEmpty()){
-                            updateSleepRealTimeView(true);
-//                            lineChartView.updateData(mSleepRealTimeList, Constants.BloodSugarAxisText, dataType, "");
-                        }
-                        else {
-                            requestDay = 1;
-                            dayCurrentShow.setText(R.string.yesterday);
-                            hideChartView();
-                            dataLoading.setVisibility(View.VISIBLE);
-                            Glide.with(mContext).load(R.drawable.data_loading).into(dataLoading);
-                            requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"), true);
-                        }
-                        break;
-//                    case R.id.electrocardiogram:
-////                        listGroup.add(mPr2List);
-////                        listGroup.add(mHrList);
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-//                    case R.id.blood_routine:
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-//                    case R.id.urine_routine:
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-//                    case R.id.hemoglobin:
-////                        listGroup.add(mAssxhdbList);
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-//                    case R.id.three_classification:
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-//                    case R.id.biochemistry:
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-//                    case R.id.glycated_hemoglobin:
-//                        shadowCurveChartView.updateData(listGroup, mdateList, Constants.BloodPressureAxisText, listGroup.size(), "");
-//                        break;
-                }
-            }
-        });
     }
 
     private boolean checkData(Collection<Float> list){
+
+        if(null == list || list.isEmpty()){
+            return false;
+        }
 
         for(float f : list){
             if(f != -1.0f){
@@ -569,10 +574,12 @@ public class ACT_NursingDetail extends BaseActivity {
         dataCurrentNone.setVisibility(View.GONE);
     }
 
-    private void hideChartView(){
+    private void hideChartView(boolean hideDaySelector){
 
-        dayCurrentShow.setVisibility(View.GONE);
-        iconChange.setVisibility(View.GONE);
+        if(hideDaySelector){
+            dayCurrentShow.setVisibility(View.GONE);
+            iconChange.setVisibility(View.GONE);
+        }
         lineChartView.setVisibility(View.GONE);
         shadowCurveChartView.setVisibility(View.GONE);
 
@@ -586,7 +593,7 @@ public class ACT_NursingDetail extends BaseActivity {
         }
         dataLoading.setVisibility(View.GONE);
         if(mSleepRealTimeList.isEmpty()){
-            hideChartView();
+            hideChartView(false);
         }
         else {
             showLineChartView();

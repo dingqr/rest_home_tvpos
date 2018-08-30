@@ -108,7 +108,7 @@ public class Constants {
     public final static String ELDERLY_SEX_FEMAIL = "女";
 
     public final static int[] BloodPressureAxisText = new int[]{0, 30, 60, 90, 120, 150};
-    public final static int[] BloodLipidAxisText = new int[]{0, 1, 2, 3, 4, 5};
+    public final static int[] BloodLipidAxisText = new int[]{0, 2, 4, 6, 8};
     public final static int[] BloodSugarAxisText = new int[]{0, 5, 10, 15, 20, 25};
     public final static int[] BloodSpo2AxisText = new int[]{0, 30, 60, 90, 120};
     public final static int[] TemperatureAxisText = new int[]{0, 15, 30, 45, 60};
