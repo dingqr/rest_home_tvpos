@@ -196,7 +196,7 @@ public class ACT_NursingDetail extends BaseActivity {
 
         requestElderlyData();
         //获取昨天的实时数据
-        requestDayRealTimeData(DateUtils.getInstance().getDateBefore(12, "-"), false);
+        requestDayRealTimeData(DateUtils.getInstance().getDateBefore(13, "-"), false);
     }
 
     @OnClick(R.id.day_current_show)
@@ -418,7 +418,7 @@ public class ACT_NursingDetail extends BaseActivity {
                             listGroup.add(mSbpList);
                             listGroup.add(mDbpList);
                             showShadowChartView();
-                            shadowCurveChartView.updateLineName(null);
+                            shadowCurveChartView.updateDrawSetting(null, true);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodPressureAxisText, listGroup.size(), "mmHg");
                         }
                         else {
@@ -433,7 +433,7 @@ public class ACT_NursingDetail extends BaseActivity {
                             listGroup.add(mFlipidsTrigList);
                             listGroup.add(mFlipidsHdlList);
                             listGroup.add(mFlipidsLdlList);
-                            shadowCurveChartView.updateLineName(Constants.BloodLipidNames);
+                            shadowCurveChartView.updateDrawSetting(Constants.BloodLipidNames, false);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodLipidAxisText, listGroup.size(), "");
                         }
                         else {
@@ -444,7 +444,7 @@ public class ACT_NursingDetail extends BaseActivity {
                         if(checkData(mSpo2List.values())){
                             showShadowChartView();
                             listGroup.add(mSpo2List);
-                            shadowCurveChartView.updateLineName(null);
+                            shadowCurveChartView.updateDrawSetting(null, false);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodSpo2AxisText, listGroup.size(), "");
                         }
                         else {
@@ -455,7 +455,7 @@ public class ACT_NursingDetail extends BaseActivity {
                         if(checkData(mGluList.values())){
                             showShadowChartView();
                             listGroup.add(mGluList);
-                            shadowCurveChartView.updateLineName(null);
+                            shadowCurveChartView.updateDrawSetting(null, false);
                             shadowCurveChartView.updateData(listGroup, Constants.BloodSugarAxisText, listGroup.size(), "");
                         }
                         else {
@@ -466,7 +466,7 @@ public class ACT_NursingDetail extends BaseActivity {
                         if(checkData(mTempList.values())){
                             showShadowChartView();
                             listGroup.add(mTempList);
-                            shadowCurveChartView.updateLineName(null);
+                            shadowCurveChartView.updateDrawSetting(null, false);
                             shadowCurveChartView.updateData(listGroup, Constants.TemperatureAxisText, listGroup.size(), "");
                         }
                         else {

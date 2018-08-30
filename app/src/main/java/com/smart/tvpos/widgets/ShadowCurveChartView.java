@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Shader;
 import android.support.annotation.Nullable;
@@ -69,10 +68,9 @@ public class ShadowCurveChartView extends View {
     private int clickedPoint = -1;
 
     //根据具体传入的数据，在坐标轴上绘制点
-//    private Point[] mPoints;
     private List<PointF> mPointsF;
+    private ArrayList<List<Float>> mPointsGroup = new ArrayList<>();
     //传入的数据，决定绘制的纵坐标值
-//    private ArrayList<Integer> mYDatas = new ArrayList<>();
     private Map<Integer, Float> mYFloatDatas = new HashMap<>();
     private List<Float> mYRealDatas = new ArrayList<>();
     private List<Integer> mYRealDataPos = new ArrayList<>();
@@ -81,7 +79,7 @@ public class ShadowCurveChartView extends View {
     private int[] colors = new int[] {R.color.color_5fbee7, R.color.color_light_sleep, R.color.color_e8af44, R.color.color_5fc6bb};
     private int[] shadowColors = new int[] {R.color.color_4438b1e5, R.color.color_44f47564, R.color.color_44e8af44, R.color.color_445fc6bb};
 
-    private boolean isDataEmpty;
+    private boolean isShadowPaint = true;
 
     public ShadowCurveChartView(Context context) {
         this(context, null);
@@ -150,7 +148,6 @@ public class ShadowCurveChartView extends View {
 
         //坐标起始点Y轴高度=(originY+mScaleWidth)  下方文字所占高度= DP2PX.dip2px(mContext, keduTextSize)
         int viewHeight = originY + DP2PX.dip2px(mContext, scaleTextSize);
-        //viewHeight=121
         Elog.e("TAG", "viewHeight=" + viewHeight);
     }
 
@@ -204,6 +201,8 @@ public class ShadowCurveChartView extends View {
         }
         //连接所有的数据点,画曲线
         if(mYDataGroup.size() > 0){
+
+            mPointsGroup.clear();
             for(int i = 0; i < lineNum; i++){
                 if(mYDataGroup.get(i).size() > 0){
                     mYFloatDatas = mYDataGroup.get(i);
@@ -217,9 +216,23 @@ public class ShadowCurveChartView extends View {
                     else {
                         drawScrollLine(canvas, i);
                     }
+                    List<Float> datas = new ArrayList<>();
+                    datas.addAll(mYRealDatas);
+                    mPointsGroup.add(datas);
                 }
             }
 
+            if(isClicked){
+                drawPointDescription(canvas, clickedPoint);
+            }
+            else {
+                if(mPointsF.size() == 1){
+                    drawPointDescription(canvas, mYRealDataPos.get(0));
+                }
+                else {
+                    drawPointDescription(canvas, mYRealDataPos.get(mYRealDataPos.size() - 2));
+                }
+            }
             isClicked = false;
         }
     }
@@ -271,20 +284,23 @@ public class ShadowCurveChartView extends View {
         shadowPath.lineTo(xLast, originY);
         canvas.drawPath(path, mPaint[line]);
 
-        Paint rectPaint = new Paint();
-        rectPaint.setColor(Color.parseColor("#ffffff"));
-        rectPaint.setStyle(Paint.Style.FILL);
-        float left = originX + 2;
-        float top = maxY;
-        float right = xLast;
-        float bottom = originY - 2;
-        // 渐变的颜色
-        LinearGradient lg = new LinearGradient(left, top, left, bottom, Color.parseColor("#00ffffff"),
-                Color.parseColor("#efffffff"), Shader.TileMode.CLAMP);
-        rectPaint.setShader(lg);
+        if(isShadowPaint){
+            Paint rectPaint = new Paint();
+            rectPaint.setColor(Color.parseColor("#ffffff"));
+            rectPaint.setStyle(Paint.Style.FILL);
+            float left = originX + 2;
+            float top = maxY;
+            float right = xLast;
+            float bottom = originY - 2;
+            // 渐变的颜色
+            LinearGradient lg = new LinearGradient(left, top, left, bottom, Color.parseColor("#00ffffff"),
+                    Color.parseColor("#efffffff"), Shader.TileMode.CLAMP);
+            rectPaint.setShader(lg);
 
-        canvas.drawPath(shadowPath, shadowPaint[line]);
-        canvas.drawRect(left, top, right, bottom, rectPaint);
+            canvas.drawPath(shadowPath, shadowPaint[line]);
+            canvas.drawRect(left, top, right, bottom, rectPaint);
+        }
+
         if(!isClicked) {
            drawPoint(canvas, line, mYRealDataPos.get(pLength - 2));
         }
@@ -297,28 +313,36 @@ public class ShadowCurveChartView extends View {
 
         int pos = mYRealDataPos.indexOf(clickedPoint);
         canvas.drawCircle(mPointsF.get(pos).x, mPointsF.get(pos).y, 7, mPaint[line]);
+    }
+
+    private void drawPointDescription(Canvas canvas, int clickedPoint){
+
+        int pos = mYRealDataPos.indexOf(clickedPoint);
 
         Paint valuePaint = new Paint();
         valuePaint.setColor(Color.parseColor("#ffffff"));
         valuePaint.setStyle(Paint.Style.FILL);
         float left = mPointsF.get(pos).x + 15;
-        float top = mPointsF.get(pos).y + 23;
-        float right= left + 107;
-        float bottom = mPointsF.get(pos).y - 23;
+        float top = originY - mYAxisLength / 2 - 14 * lineNum;
+//        float right= left + 200;
+//        float bottom = originY - mYAxisLength / 2 + 14 * lineNum;
 
-        canvas.drawRect(left, top, right, bottom, valuePaint);
+//        canvas.drawRect(left, top, right, bottom, valuePaint);
 
-        String lineName = "";
-        if(lineNames != null && line < lineNames.length){
-            lineName = lineNames[line] + ":";
+        for(int line = 0; line < lineNum; line++){
+            String lineName = "";
+            if(lineNames != null && line < lineNames.length){
+                lineName = lineNames[line] + ":";
+            }
+            valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+            valuePaint.setStrokeWidth(1);
+            valuePaint.setColor(ContextCompat.getColor(mContext, colors[line]));
+            valuePaint.setTextAlign(Paint.Align.LEFT);
+            valuePaint.setTextSize(24);
+            DecimalFormat df = new DecimalFormat("###.####");
+            canvas.drawText(lineName + df.format(mPointsGroup.get(line).get(pos)) + yValueUnit, left, top + line * 30, valuePaint);
         }
-        valuePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        valuePaint.setStrokeWidth(1);
-        valuePaint.setColor(ContextCompat.getColor(mContext, colors[line]));
-        valuePaint.setTextAlign(Paint.Align.LEFT);
-        valuePaint.setTextSize(24);
-        DecimalFormat df = new DecimalFormat("###.####");
-        canvas.drawText(lineName + df.format(mYRealDatas.get(pos)) + yValueUnit, left, mPointsF.get(pos).y + 10, valuePaint);
+
     }
 
     @Override
@@ -365,8 +389,9 @@ public class ShadowCurveChartView extends View {
     }
 
 
-    public void updateLineName(String[] lineNames){
+    public void updateDrawSetting(String[] lineNames, boolean isShadowPaint){
         this.lineNames = lineNames;
+        this.isShadowPaint = isShadowPaint;
     }
 
     /**
