@@ -34,6 +34,13 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="style_translucent_full_screen">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/color_1b1b1b</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
     <style name="style_custom_dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>

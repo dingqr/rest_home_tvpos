@@ -55,7 +55,7 @@
         <activity
             android:name=".ui.ACT_ImagePlayer"
             android:screenOrientation="landscape"
-            android:theme="@style/style_full_screen" />
+            android:theme="@style/style_translucent_full_screen" />
     </application>
 
 </manifest>
