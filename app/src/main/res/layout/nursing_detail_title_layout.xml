@@ -26,15 +26,4 @@
         android:paddingTop="40px"
         android:textColor="@color/color_f0efef"
         android:textSize="15sp" />
-
-
-    <ImageView
-        android:id="@+id/iv_user"
-        android:layout_width="40px"
-        android:layout_height="40px"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40px"
-        android:layout_marginTop="30px"
-        android:src="@drawable/ic_user_default" />
-
 </com.zhy.autolayout.AutoRelativeLayout>

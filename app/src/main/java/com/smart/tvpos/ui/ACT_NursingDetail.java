@@ -82,8 +82,6 @@ public class ACT_NursingDetail extends BaseActivity {
     GridView listCommonDetailPicView;
     @Bind(R.id.elderly_avatar_detail)
     ImageView elderlyAvatarView;
-    @Bind(R.id.iv_user)
-    ImageView titleAvatarView;
     @Bind(R.id.img_present_none)
     ImageView imgPresentNone;
 
@@ -391,15 +389,12 @@ public class ACT_NursingDetail extends BaseActivity {
                 .placeholder(R.drawable.ic_user_avatar)
                 .error(R.drawable.ic_user_avatar)
                 .priority(Priority.HIGH)
+                .fitCenter()
                 .transform(new CircleCrop());
         Glide.with(mContext)
                 .load(API.IMG_SERVER_IP + mAvatar)
                 .apply(requestOptions)
                 .into(elderlyAvatarView);
-        Glide.with(mContext)
-                .load(API.IMG_SERVER_IP + mAvatar)
-                .apply(requestOptions)
-                .into(titleAvatarView);
 
         if(Constants.ELDERLY_SEX_FEMAIL.equals(mElderlySex)){
             Drawable drawable = getResources().getDrawable(R.drawable.icon_female);

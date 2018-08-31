@@ -170,6 +170,8 @@ public class ACT_NursingProgress extends BaseActivity {
 
         initListener();
         sharePre = new AppSharedPreferences(this);
+        //Default is 1
+        mCurrentFloorId = "1";
     }
 
 
