@@ -151,6 +151,7 @@ public class ACT_NursingDetail extends BaseActivity {
 
     private static final String REQUSET_ELDERLY_DATA = "userEveryday";
     private static final String REQUSET_REAL_TIME_DATA = "userEveryday_healthData";
+    private static final String TAG = "ACT_NursingDetail";
 
     @Override
     protected long getRefreshTime() {
@@ -196,7 +197,7 @@ public class ACT_NursingDetail extends BaseActivity {
 
         requestElderlyData();
         //获取昨天的实时数据
-        requestDayRealTimeData(DateUtils.getInstance().getDateBefore(13, "-"), false);
+        requestDayRealTimeData(DateUtils.getInstance().getDateBefore(requestDay, "-"), false);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -622,17 +623,19 @@ public class ACT_NursingDetail extends BaseActivity {
                 updateSleepReport(result);
                 updateCommonDetailView(result.getNurseJobList());
                 updateHealthDataList(result.getHealthDataListS());
-                Log.d("aqua", "onReqSuccess: rusult : " + result.toString());
+                Log.d(TAG, "onReqSuccess: rusult : " + result.toString());
             }
 
             @Override
             public void onFailure(String result) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+                Log.e(TAG, "requestElderlyData failure:" +  result);
             }
 
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+                Log.e(TAG, "requestElderlyData failed:" +  error.getMsg());
             }
         });
     }
@@ -652,19 +655,21 @@ public class ACT_NursingDetail extends BaseActivity {
 
                 mSleepRealTimeList = result;
                 updateSleepRealTimeView(updateInstant);
-                Log.d("aqua", "onReqSuccess: rusult : " + result.size());
+                Log.d(TAG, "onReqSuccess: rusult : " + result.size());
             }
 
             @Override
             public void onFailure(String result) {
                 updateSleepRealTimeView(updateInstant);
                 CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+                Log.e(TAG, "requestDayRealTimeData failure:" +  result);
             }
 
             @Override
             public void onReqFailed(ErrorBean error) {
                 updateSleepRealTimeView(updateInstant);
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+                Log.e(TAG, "requestDayRealTimeData failed:" +  error.getMsg());
             }
         });
     }

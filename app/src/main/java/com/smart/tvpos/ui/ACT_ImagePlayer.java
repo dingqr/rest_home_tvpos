@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +15,7 @@ import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.tvpos.R;
 import com.smart.tvpos.global.API;
 import com.smart.tvpos.util.Constants;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class ACT_ImagePlayer extends Activity {
     ImageView btnNext;
     @Bind(R.id.img_show)
     ImageView imageShow;
+    @Bind({R.id.all_full_screen})
+    AutoLinearLayout linearLayout;
 
     private Context mContext;
     private List<String> originPicPathList;
@@ -68,8 +72,8 @@ public class ACT_ImagePlayer extends Activity {
                 .into(imageShow);
     }
 
-    @OnClick({R.id.img_pre_button, R.id.img_next_button, R.id.img_show})
-    public void showPicture(ImageView view) {
+    @OnClick({R.id.img_pre_button, R.id.img_next_button, R.id.all_full_screen})
+    public void showPicture(View view) {
         switch (view.getId()) {
             case R.id.img_pre_button:
                 showPreImg();
