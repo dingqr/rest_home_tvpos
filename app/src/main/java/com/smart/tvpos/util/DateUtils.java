@@ -58,7 +58,7 @@ public class DateUtils {
         String date;
 
         Calendar c = Calendar.getInstance();
-        int dayBefore = c.get(Calendar.DAY_OF_MONTH) - before + 1;
+        int dayBefore = c.get(Calendar.DAY_OF_MONTH) - before;
         c.set(Calendar.DAY_OF_MONTH, dayBefore);
         date = c.get(Calendar.YEAR) + combine + (c.get(Calendar.MONTH) + 1) + combine + c.get(Calendar.DAY_OF_MONTH);
 
