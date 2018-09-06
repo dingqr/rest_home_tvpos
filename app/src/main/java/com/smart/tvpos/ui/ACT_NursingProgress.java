@@ -171,7 +171,7 @@ public class ACT_NursingProgress extends BaseActivity {
         initListener();
         sharePre = new AppSharedPreferences(this);
         //Default is 1
-        mCurrentFloorId = "1";
+        mCurrentFloorId = new String();
     }
 
 
@@ -324,8 +324,9 @@ public class ACT_NursingProgress extends BaseActivity {
                 if (mSelectBuildingEntity.getList().size() > 0) {
                     tvFloor.setText(mSelectBuildingEntity.getList().get(0).getFloorName());
 //                    //默认展示当前大楼一楼的数据
+                    mCurrentFloorId = mSelectBuildingEntity.getList().get(0).getFloorId() + "";
                     requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "",
-                            mSelectBuildingEntity.getList().get(0).getFloorId() + "", false);
+                            mCurrentFloorId, false);
                 }
                 mFloorAdapter.update(mSelectBuildingEntity.getList(), true);
             }
