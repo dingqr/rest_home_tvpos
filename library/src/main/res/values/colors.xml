@@ -50,6 +50,21 @@
     <color name="color_info_text">#7f7f7f</color>
     <color name="color_divider_line">#eeeeee</color>
 
+    <integer-array name="color_group">
+        <item>@color/type_color_1</item>
+        <item>@color/type_color_2</item>
+        <item>@color/type_color_3</item>
+        <item>@color/type_color_4</item>
+        <item>@color/type_color_5</item>
+        <item>@color/type_color_6</item>
+        <item>@color/type_color_7</item>
+        <item>@color/type_color_8</item>
+        <item>@color/type_color_9</item>
+        <item>@color/type_color_10</item>
+        <item>@color/type_color_11</item>
+        <item>@color/type_color_12</item>
+    </integer-array>
+
     <color name="type_color_0">#1e3d64</color>
     <color name="type_color_1">#5cc8ef</color>
     <color name="type_color_2">#69fefd</color>

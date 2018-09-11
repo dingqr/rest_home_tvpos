@@ -19,6 +19,11 @@ public class NurseLevelEntity  {
     private String name;
     private int id;
 
+    public NurseLevelEntity(int nurseId, int num) {
+        this.nurseId = nurseId;
+        this.num = num;
+    }
+
     public int getNurseId() {
         return nurseId;
     }

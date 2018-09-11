@@ -592,7 +592,7 @@
 
                     <!--</com.zhy.autolayout.AutoLinearLayout>-->
 
-                    <com.smart.tvpos.widgets.RingChartView
+                    <com.smart.tvpos.widgets.DashBarChartView
                         android:id="@+id/nurselevelchartview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

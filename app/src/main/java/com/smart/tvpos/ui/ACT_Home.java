@@ -46,6 +46,7 @@ import com.smart.tvpos.util.SharePreConstants;
 import com.smart.tvpos.widgets.BanSlideGridView;
 import com.smart.tvpos.widgets.BanSlideListView;
 import com.smart.tvpos.widgets.CommonPopupWindow;
+import com.smart.tvpos.widgets.DashBarChartView;
 import com.smart.tvpos.widgets.DownCurveChartView;
 import com.smart.tvpos.widgets.PannelChartView;
 import com.smart.tvpos.widgets.RingChartView;
@@ -88,7 +89,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     @Bind(R.id.userlivingchartview)
     RingChartView mChartviewUserLivingView;
     @Bind(R.id.nurselevelchartview)
-    RingChartView chartviewNurselevel;
+    DashBarChartView chartviewNurselevel;
     @Bind(R.id.employeechartview)
     RingChartView mChartviewEmployeeView;
 //    @Bind(R.id.curveViewUp)
