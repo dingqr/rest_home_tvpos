@@ -22,13 +22,13 @@ import java.util.List;
 public interface IHomeView extends BaseView {
     void getHeaderData(HomeHeadEntity bean);
 
-    void getAdmitLivingData(AdmitLivingEntity bean);
+//    void getAdmitLivingData(AdmitLivingEntity bean);
 
     void getLivingUserData(List<ChartCommonEntity> dataList);
 
     void getAlertData(WarningEntity bean);
 
-    void getLivingTrendData(List<TrendDataEntity> dataList);
+//    void getLivingTrendData(List<TrendDataEntity> dataList);
 
     void getUserNurseData(List<NurseLevelEntity> dataList);
 

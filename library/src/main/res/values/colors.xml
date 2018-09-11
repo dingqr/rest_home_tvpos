@@ -49,4 +49,19 @@
     <color name="color_icon_text">#7d7d7d</color>
     <color name="color_info_text">#7f7f7f</color>
     <color name="color_divider_line">#eeeeee</color>
+
+    <color name="type_color_0">#1e3d64</color>
+    <color name="type_color_1">#5cc8ef</color>
+    <color name="type_color_2">#69fefd</color>
+    <color name="type_color_3">#df6a53</color>
+    <color name="type_color_4">#7e85fc</color>
+    <color name="type_color_5">#edae42</color>
+    <color name="type_color_6">#36607e</color>
+    <color name="type_color_7">#3284b9</color>
+    <color name="type_color_8">#3965a3</color>
+    <color name="type_color_9">#8bc899</color>
+    <color name="type_color_10">#19bd98</color>
+    <color name="type_color_11">#277bd2</color>
+    <color name="type_color_12">#1a5dcb</color>
+    <color name="type_color_13">#505fbe</color>
 </resources>

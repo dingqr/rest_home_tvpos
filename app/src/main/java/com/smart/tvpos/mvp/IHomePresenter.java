@@ -8,13 +8,13 @@ package com.smart.tvpos.mvp;
 public interface IHomePresenter {
     void getHeaderData(String requestType);
 
-    void getAdmitLivingData(String requestType);
+//    void getAdmitLivingData(String requestType);
 
     void getLivingUserData(String requestType);
 
     void getAlertData(String requestType);
 
-    void getLivingTrendData(String requestType);
+//    void getLivingTrendData(String requestType);
 
     void getUserNurseData(String requestType);
 

@@ -75,30 +75,30 @@ public class HomePresenter implements IHomePresenter {
      *
      * @param requestType admitInOut
      */
-    @Override
-    public void getAdmitLivingData(String requestType) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", requestType);
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<AdmitLivingEntity>() {
-
-            @Override
-            public void onReqSuccess(AdmitLivingEntity result) {
-                mView.getAdmitLivingData(result);
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
+//    @Override
+//    public void getAdmitLivingData(String requestType) {
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("a", requestType);
+//        params.put("id", Constants.USER_ID);
+//        params.put("sign", Constants.USER_SIGN);
+//        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<AdmitLivingEntity>() {
+//
+//            @Override
+//            public void onReqSuccess(AdmitLivingEntity result) {
+//                mView.getAdmitLivingData(result);
+//            }
+//
+//            @Override
+//            public void onFailure(String result) {
+//                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+//            }
+//
+//            @Override
+//            public void onReqFailed(ErrorBean error) {
+//                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+//            }
+//        });
+//    }
 
     /**
      * 3. 入住用户
@@ -167,31 +167,31 @@ public class HomePresenter implements IHomePresenter {
      *
      * @param requestType branchUserTrend
      */
-    @Override
-    public void getLivingTrendData(String requestType) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("a", requestType);
-        params.put("id", Constants.USER_ID);
-        params.put("sign", Constants.USER_SIGN);
-        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
-
-            @Override
-            public void onReqSuccess(String result) {
-                Elog.e("TAG", "branchUserTrend=" + result);
-                mView.getLivingTrendData(resolveTrendJson(result));
-            }
-
-            @Override
-            public void onFailure(String result) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
-            }
-
-            @Override
-            public void onReqFailed(ErrorBean error) {
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
-            }
-        });
-    }
+//    @Override
+//    public void getLivingTrendData(String requestType) {
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("a", requestType);
+//        params.put("id", Constants.USER_ID);
+//        params.put("sign", Constants.USER_SIGN);
+//        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<String>() {
+//
+//            @Override
+//            public void onReqSuccess(String result) {
+//                Elog.e("TAG", "branchUserTrend=" + result);
+//                mView.getLivingTrendData(resolveTrendJson(result));
+//            }
+//
+//            @Override
+//            public void onFailure(String result) {
+//                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+//            }
+//
+//            @Override
+//            public void onReqFailed(ErrorBean error) {
+//                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+//            }
+//        });
+//    }
 
 
     /**

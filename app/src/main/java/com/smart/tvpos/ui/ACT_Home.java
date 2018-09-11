@@ -28,6 +28,7 @@ import com.smart.tvpos.adapter.ADA_BranchList;
 import com.smart.tvpos.adapter.ADA_CircleNurseProgress;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
 import com.smart.tvpos.adapter.ADA_NurseLevel;
+import com.smart.tvpos.adapter.ADA_NurseProgressItem;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
@@ -80,8 +81,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     TextView tvLiveRate;
     @Bind(R.id.iv_menu)
     ImageView ivMenu;
-    @Bind(R.id.pannelChartView)
-    PannelChartView mPannelChartView;
+//    @Bind(R.id.pannelChartView)
+//    PannelChartView mPannelChartView;
     @Bind(R.id.alertchartview)
     RingChartView mChartviewDataAlertView;
     @Bind(R.id.userlivingchartview)
@@ -90,12 +91,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     RingChartView chartviewNurselevel;
     @Bind(R.id.employeechartview)
     RingChartView mChartviewEmployeeView;
-    @Bind(R.id.curveViewUp)
-    UpCurveChartView mUpCurveView;
-    @Bind(R.id.curveViewDown)
-    DownCurveChartView mDowncurveView;
-    @Bind(R.id.gridview)
-    BanSlideGridView gridviewNurseProgress;
+//    @Bind(R.id.curveViewUp)
+//    UpCurveChartView mUpCurveView;
+//    @Bind(R.id.curveViewDown)
+//    DownCurveChartView mDowncurveView;
+    @Bind(R.id.listView)
+    BanSlideListView listViewNurseProgress;
     @Bind(R.id.iv_user)
     ImageView mIvUser;
     private AppSharedPreferences sharePre;
@@ -107,7 +108,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     //        private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_nurse_progress};
     private HomePresenter mPresenter;
-    private ADA_CircleNurseProgress mAdapterNurseProgress;
+    private ADA_NurseProgressItem mAdapterNurseProgress;
     private int[] upYAxisData;
     private int[] downYAxisData;
     //暂时处理地图展示
@@ -115,8 +116,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     RelativeLayout redPoint;
     @Bind(R.id.listview)
     BanSlideListView listview;
-    @Bind(R.id.gridv)
-    BanSlideGridView gridv;
+//    @Bind(R.id.gridv)
+//    BanSlideGridView gridv;
     private int[] leftMarginArray = new int[]{125, 200 + 5 * 1, (140 + 5 * 1 + 40), 30, 160, 10 + 5 * 1, 48 + 5 * 1, 105 + 5 * 2, 115 + 5 * 1, 66 + 5 * 3, 150 + 5 * 1, 58, 0 + 5 * 2, 38 + 5 * 2, 66 + 5 * 2, 76 + 5 * 1, 140 + 5 * 2, (140 + 5 * 2 + 40), (140 + 5 * 2 + 40 * 2), 5 + 5 * 3, 38 + 5 * 3, 86, 105 + 5 * 3, 100 + 5 * 3};
     private int[] topMarginArray = new int[]{16, 2 + 40 * 1, (2 + 50 * 1 + 40), 20, 16, 16 + 50 * 1, 0 + 50 * 1, 14 + 50 * 1, 16 + 50 * 2, 14 + 50 * 3, 2 + 50 * 1, 0, 16 + 50 * 2, 0 + 50 * 2, 14 + 50 * 2, 16 + 50 * 1, 2 + 50 * 2, (2 + 50 * 2 + 50), (2 + 50 * 2 + 50), 50 * 3, 0 + 50 * 3, 14, 16 + 50 * 3, 2 + 50 * 2};
     //上海地区所有的养老院
@@ -164,14 +165,14 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //联网获取数据
         requestNet();
 
-        mAdapterNurseProgress = new ADA_CircleNurseProgress(mContext);
-        gridviewNurseProgress.setAdapter(mAdapterNurseProgress);
+        mAdapterNurseProgress = new ADA_NurseProgressItem(mContext);
+        listViewNurseProgress.setAdapter(mAdapterNurseProgress);
 
         mBranchAdapter = new ADA_BranchList(mContext);
         listview.setAdapter(mBranchAdapter);
         //护理级别Adapter
         mNurseLevelAdapter = new ADA_NurseLevel(mContext);
-        gridv.setAdapter(mNurseLevelAdapter);
+//        gridv.setAdapter(mNurseLevelAdapter);
 
         sharePre = new AppSharedPreferences(this);
     }
@@ -335,13 +336,13 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //1. 入住养老院数等
         mPresenter.getHeaderData("branchNum");
         //2. 接待入住
-        mPresenter.getAdmitLivingData("admitInOut");
+//        mPresenter.getAdmitLivingData("admitInOut");
         //3. 入住用户
         mPresenter.getLivingUserData("user");
         //4. 近三个月报警数据
         mPresenter.getAlertData("warning");
         //5. 入住养老入住\用户整体趋势
-        mPresenter.getLivingTrendData("branchUserTrend");
+//        mPresenter.getLivingTrendData("branchUserTrend");
         //6. 护理级别
         mPresenter.getUserNurseData("userByNurse");
         //7. 员工统计
@@ -474,33 +475,32 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     /**
      * 2、接待入住
      *
-     * @param bean
      */
-    @Override
-    public void getAdmitLivingData(AdmitLivingEntity bean) {
-        int[] valueDatas = {bean.getAdminNum(), bean.getInNum(), bean.getOutNum()};
-        ArrayList<Integer> yAxisData = new ArrayList<>();
-        for (int i = 0; i < valueDatas.length; i++) {
-            yAxisData.add(valueDatas[i]);
-        }
-        //新增用户数据的最大值
-        Integer maxX = Collections.max(yAxisData);
-        if (maxX % 2 == 0) {
-            maxX = maxX + 2;
-        } else {
-            maxX = maxX + 1;
-        }
-        int space = maxX / 5;
-        if (maxX % 5 != 0) {
-            space = space + 2;
-        }
-        int[] yAxisDataArray = new int[5 + 1];
-        yAxisDataArray[0] = 0;
-        for (int i = 1; i < 5 + 1; i++) {
-            yAxisDataArray[i] = yAxisDataArray[i - 1] + space;
-        }
-        mPannelChartView.setValueData(valueDatas, yAxisDataArray);
-    }
+//    @Override
+//    public void getAdmitLivingData(AdmitLivingEntity bean) {
+//        int[] valueDatas = {bean.getAdminNum(), bean.getInNum(), bean.getOutNum()};
+//        ArrayList<Integer> yAxisData = new ArrayList<>();
+//        for (int i = 0; i < valueDatas.length; i++) {
+//            yAxisData.add(valueDatas[i]);
+//        }
+//        //新增用户数据的最大值
+//        Integer maxX = Collections.max(yAxisData);
+//        if (maxX % 2 == 0) {
+//            maxX = maxX + 2;
+//        } else {
+//            maxX = maxX + 1;
+//        }
+//        int space = maxX / 5;
+//        if (maxX % 5 != 0) {
+//            space = space + 2;
+//        }
+//        int[] yAxisDataArray = new int[5 + 1];
+//        yAxisDataArray[0] = 0;
+//        for (int i = 1; i < 5 + 1; i++) {
+//            yAxisDataArray[i] = yAxisDataArray[i - 1] + space;
+//        }
+////        mPannelChartView.setValueData(valueDatas, yAxisDataArray);
+//    }
 
     /**
      * 3、入住用户
@@ -574,31 +574,30 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     /**
      * 5.	入住养老入住\用户整体趋势
      *
-     * @param dataList branchUserTrend
      */
-    @Override
-    public void getLivingTrendData(List<TrendDataEntity> dataList) {
-        if (dataList == null || dataList.size() == 0) {
-            return;
-        }
-        ArrayList<String> xAxisData = new ArrayList<>();
-        //新增养老院
-        ArrayList<Integer> branchNewAddList = new ArrayList<>();
-        //新增用户
-        ArrayList<Integer> userNewAddList = new ArrayList<>();
-        //横坐标最多显示5个
-        int xLength = dataList.size() > 5 ? 5 : dataList.size();
-        for (int i = 0; i < xLength; i++) {
-            TrendDataEntity bean = dataList.get(i);
-            xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
-            userNewAddList.add(bean.getUserNewN());
-            branchNewAddList.add(bean.getBranchNewN());
-        }
-        //根据最大值生成对应的Y轴坐标范围
-        gennerateMaxAxisDataList(branchNewAddList, userNewAddList);
-        mUpCurveView.setData(userNewAddList, xAxisData, upYAxisData);
-        mDowncurveView.setData(branchNewAddList, downYAxisData);
-    }
+//    @Override
+//    public void getLivingTrendData(List<TrendDataEntity> dataList) {
+//        if (dataList == null || dataList.size() == 0) {
+//            return;
+//        }
+//        ArrayList<String> xAxisData = new ArrayList<>();
+//        //新增养老院
+//        ArrayList<Integer> branchNewAddList = new ArrayList<>();
+//        //新增用户
+//        ArrayList<Integer> userNewAddList = new ArrayList<>();
+//        //横坐标最多显示5个
+//        int xLength = dataList.size() > 5 ? 5 : dataList.size();
+//        for (int i = 0; i < xLength; i++) {
+//            TrendDataEntity bean = dataList.get(i);
+//            xAxisData.add(bean.getKeyName() + MyApplication.getContext().getString(R.string.string_unit_month));
+//            userNewAddList.add(bean.getUserNewN());
+//            branchNewAddList.add(bean.getBranchNewN());
+//        }
+//        //根据最大值生成对应的Y轴坐标范围
+//        gennerateMaxAxisDataList(branchNewAddList, userNewAddList);
+////        mUpCurveView.setData(userNewAddList, xAxisData, upYAxisData);
+////        mDowncurveView.setData(branchNewAddList, downYAxisData);
+//    }
 
     /**
      * 根据最大值生成上下曲线图对应的Y轴坐标范围(范围刻度最大为4个)
@@ -686,8 +685,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mNurseLevelAdapter.update(dataList, true);
 
         mNurseLevelAdapter.update(dataList, true);
-        chartviewNurselevel.setShow(nurseLevelChartcolorList, nurseLevelChartRateList, true, true);
-        chartviewNurselevel.setShowTextList(showTextList);
+//        chartviewNurselevel.setShow(nurseLevelChartcolorList, nurseLevelChartRateList, true, true);
+//        chartviewNurselevel.setShowTextList(showTextList);
     }
 
     /**
@@ -795,11 +794,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        if (dataList.size() > 6) {
-            mAdapterNurseProgress.update(dataList.subList(0, 6), true);
+        if (dataList.size() > 13) {
+            mAdapterNurseProgress.update(dataList.subList(0, 13), true);
         } else {
             mAdapterNurseProgress.update(dataList, true);
         }
+
     }
 
 }
