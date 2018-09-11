@@ -788,6 +788,33 @@
                 </com.zhy.autolayout.AutoRelativeLayout>
             </com.zhy.autolayout.AutoRelativeLayout>
         </com.zhy.autolayout.AutoRelativeLayout>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px">
+
+            <!--雷达图表-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="470px"
+                android:layout_height="250px"
+                android:layout_below="@+id/tv_alert_data_title"
+                android:layout_marginTop="16px"
+                android:background="@drawable/bg_four_angle_short">
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_width="450px"
+                    android:layout_height="240px"
+                    android:layout_centerInParent="true"
+                    android:background="@color/color_081638">
+
+                    <com.smart.tvpos.widgets.RadarChartView
+                        android:id="@+id/body_examination_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
     </com.zhy.autolayout.AutoLinearLayout>
     <!--图表统计右-->
 
@@ -816,12 +843,6 @@
             android:layout_marginTop="44px"
             android:divider="@color/color_transparent"
             android:dividerHeight="15px" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/page_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->

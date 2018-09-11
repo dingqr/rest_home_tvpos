@@ -50,8 +50,6 @@ public class ADA_NurseProgressItem extends CommonAdapterListView<JobItemEntity> 
             float percent = 0.358f;
 
             paramsD.width = (int) (paramsA.width * percent);
-            Log.d("aqua", "width paramsA : " + paramsA.width);
-            Log.d("aqua", "width paramsD : " + paramsD.width);
 
             completePercent.setLayoutParams(paramsD);
             completePercent.setBackgroundResource(drawableSet[position % drawableSet.length]);
