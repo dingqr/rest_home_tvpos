@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_home"
+    android:foreground="@drawable/fg_home"
     android:orientation="vertical">
 
     <ImageView
@@ -248,6 +249,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
+                android:background="@drawable/bg_chart_title"
                 android:text="@string/user_live_in"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
@@ -372,6 +374,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
+                android:background="@drawable/bg_chart_title"
                 android:text="@string/count_employee"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
@@ -475,6 +478,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
+                android:background="@drawable/bg_chart_title"
                 android:text="@string/nursing_level"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
@@ -547,6 +551,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
+                android:background="@drawable/bg_chart_title"
                 android:text="@string/smart_equipment_online_data"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
@@ -625,6 +630,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
+                android:background="@drawable/bg_chart_title"
                 android:text="@string/alert_data"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
@@ -707,6 +713,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/chartview"
+                android:background="@drawable/bg_chart_title"
                 android:text="@string/today_examination"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
@@ -754,6 +761,7 @@
             android:id="@+id/nursing_total_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_chart_title"
             android:text="@string/nursing_total_item"
             android:textColor="@color/color_a3fbfe"
             android:shadowColor="@color/color_a3fbfe"
@@ -772,6 +780,13 @@
             android:divider="@color/color_transparent"
             android:dividerHeight="15px" />
 
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginBottom="20px"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_down"/>
+
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -781,6 +796,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/home_dynamic"
+                android:background="@drawable/bg_chart_title"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
                 android:shadowDx="0.0"
@@ -795,6 +811,7 @@
                 android:layout_toRightOf="@+id/home_dynamic"
                 android:layout_marginLeft="490px"
                 android:text="@string/elderly_warning"
+                android:background="@drawable/bg_chart_title"
                 android:textColor="@color/color_a3fbfe"
                 android:shadowColor="@color/color_a3fbfe"
                 android:shadowDx="0.0"
