@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import com.smart.tvpos.adapter.ADA_NurseProgressItem;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
+import com.smart.tvpos.bean.EquipmentOnlineEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
 import com.smart.tvpos.bean.JobItemEntity;
@@ -84,11 +86,15 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     ImageView ivMenu;
 //    @Bind(R.id.pannelChartView)
 //    PannelChartView mPannelChartView;
+    @Bind(R.id.mattress_online_chart)
+    RingChartView mMattressOnlineView;
+    @Bind(R.id.watch_online_chart)
+    RingChartView mWatchOnlineChartView;
     @Bind(R.id.alertchartview)
     RingChartView mChartviewDataAlertView;
     @Bind(R.id.userlivingchartview)
     RingChartView mChartviewUserLivingView;
-    @Bind(R.id.nurselevelchartview)
+    @Bind(R.id.nursing_level_chart_view)
     DashBarChartView chartviewNurselevel;
     @Bind(R.id.employeechartview)
     RingChartView mChartviewEmployeeView;
@@ -97,16 +103,14 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 //    @Bind(R.id.curveViewDown)
 //    DownCurveChartView mDowncurveView;
     @Bind(R.id.listView)
-    BanSlideListView listViewNurseProgress;
+    ListView listViewNurseProgress;
     @Bind(R.id.iv_user)
     ImageView mIvUser;
     private AppSharedPreferences sharePre;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
     private List<HomeMenuEntity> menuList = new ArrayList();
-    //        private String[] memuTitle = {"数据监控", "概览", "护理进度"};
     private String[] memuTitle = {"数据监控", "护理进度"};
-    //        private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_genneral_view, R.drawable.ic_nurse_progress};
     private int[] memuIcons = {R.drawable.ic_data_watching, R.drawable.ic_nurse_progress};
     private HomePresenter mPresenter;
     private ADA_NurseProgressItem mAdapterNurseProgress;
@@ -352,6 +356,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mPresenter.getBranchAddress("branchList");
         //9.分院护理进度
         mPresenter.getNurseProgressList("jobItem");
+        getEquipmentOnlineData(new EquipmentOnlineEntity());
     }
 
 
@@ -572,9 +577,45 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mChartviewDataAlertView.setShowTextList(showTextList);
     }
 
+    public void getEquipmentOnlineData(EquipmentOnlineEntity bean) {
+
+        // 添加的颜色
+        List<Integer> alertChartcolorList = new ArrayList<>();
+        //未处理
+        alertChartcolorList.add(R.color.color_2b84b9);
+        alertChartcolorList.add(R.color.color_f1b133);
+
+        //  添加的是百分比
+        List<Float> alertChartRateList = new ArrayList<>();
+        List<String> showTextList = new ArrayList<>();
+
+//        float handledRate = (float) (bean.getNumY() * 1.0 / bean.getNumA() * 100);
+        String formatHandledRate = StringUtil.getFormatPercentRate(70);//format 返回的是字符串
+
+//        float unHandledRate = (100 - Float.parseFloat(formatHandledRate));
+        String formatUnHandledRate = StringUtil.getFormatPercentRate(30);
+
+
+        //添加百分比
+        alertChartRateList.add(Float.parseFloat(formatHandledRate));
+        alertChartRateList.add(Float.parseFloat(formatUnHandledRate));
+        //设置显示的text
+        showTextList.add(
+                Float.parseFloat(formatHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+        showTextList.add(
+                Float.parseFloat(formatUnHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+
+
+        mMattressOnlineView.setCommonSize(25, 30, 25, 20);
+        mWatchOnlineChartView.setCommonSize(25, 30, 25, 20);
+        mMattressOnlineView.setShow(alertChartcolorList, alertChartRateList, true, true);
+        mMattressOnlineView.setShowTextList(showTextList);
+        mWatchOnlineChartView.setShow(alertChartcolorList, alertChartRateList, true, true);
+        mWatchOnlineChartView.setShowTextList(showTextList);
+    }
+
     /**
      * 5.	入住养老入住\用户整体趋势
-     *
      */
 //    @Override
 //    public void getLivingTrendData(List<TrendDataEntity> dataList) {

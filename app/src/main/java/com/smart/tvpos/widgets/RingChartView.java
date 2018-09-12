@@ -10,6 +10,9 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -45,25 +48,7 @@ public class RingChartView extends View {
     private int ringPointRidus = 40;    // 点所在圆的半径
 
     private float rate = 0.4f;     //点的外延距离  与  点所在圆半径的长度比率
-    private float extendLineWidth = 10;     //点外延后  折的横线的长度
-    //    private Context mContext;
-//    private Paint mPaint;
-//    private int mPaintWidth = 0;        // 画笔的宽
-//    private int topMargin = 30;         // 上边距
-//    private int leftMargin = 80;        // 左边距
-//    private Resources mRes;
-//    private DisplayMetrics dm;
-//    private int showRateSize = 10; // 展示文字的大小
-//
-//    private int circleCenterX = 96;     // 圆心点X  要与外圆半径相等
-//    private int circleCenterY = 96;     // 圆心点Y  要与外圆半径相等
-//
-//    private int ringOuterRidus = 96;     // 外圆的半径
-//    private int ringInnerRidus = 33;     // 内圆的半径
-//    private int ringPointRidus = 80;    // 点所在圆的半径
-//
-//    private float rate = 0.4f;     //点的外延距离  与  点所在圆半径的长度比率
-//    private float extendLineWidth = 20;     //点外延后  折的横线的长度
+//    private float extendLineWidth = 10;     //点外延后  折的横线的长度
     private RectF rectF;                // 外圆所在的矩形
     private RectF rectFPoint;           // 点所在的矩形
 
@@ -192,43 +177,28 @@ public class RingChartView extends View {
 
         if (preRate / 2 + rateList.get(position) / 2 < 5) {
             //将20改成5,外延线的横向距离会缩短
-            extendLineWidth += 20;
             rate -= 0.05f;
         } else {
-            extendLineWidth = 20;
             rate = 0.4f;
         }
-
-        // 外延画折线
-        float lineXPoint1 = (point.x - dip2px(leftMargin + ringOuterRidus)) * (1 + rate);
-        float lineYPoint1 = (point.y - dip2px(topMargin + ringOuterRidus)) * (1 + rate);
 
         float[] floats = new float[8];
         floats[0] = point.x;
         floats[1] = point.y;
-//        Log.e("TAG", "circle-position=" + position);
-//        if (lastPoint != null) {
-//            Elog.e("TAG", "abs=" + (Math.abs(point.x - lastPoint.x)) + "position=" + position);
-//        }
-//        floats[2] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1;
-//        floats[3] = dip2px(topMargin + ringOuterRidus) + lineYPoint1;
-//        floats[4] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1;
-//        floats[5] = dip2px(topMargin + ringOuterRidus) + lineYPoint1;
         //右半圆
         if (point.x >= dip2px(leftMargin + ringOuterRidus)) {
             mPaint.setTextAlign(Paint.Align.LEFT);
-//            floats[6] = point.x + 36;
             //防止绘制的文字重叠显示
             if (lastPoint != null) {
                 int absX = Math.abs(point.x - lastPoint.x);
                 int absY = Math.abs(point.y - lastPoint.y);
                 if (absX > 0 && absX < 10 && absY > 0 && absY < 10) {
-                    floats[6] = point.x + 16;
+                    floats[6] = point.x + 8;
                 } else {
-                    floats[6] = point.x + 36;
+                    floats[6] = point.x + 28;
                 }
             } else {
-                floats[6] = point.x + 36;
+                floats[6] = point.x + 28;
             }
             if (point.y <= dip2px(topMargin + ringOuterRidus)) {
                 //右上角
@@ -254,12 +224,12 @@ public class RingChartView extends View {
                 int absX = Math.abs(point.x - lastPoint.x);
                 int absY = Math.abs(point.y - lastPoint.y);
                 if (absX > 0 && absX < 10 && absY > 0 && absY < 10) {
-                    floats[6] = point.x - 16;
+                    floats[6] = point.x - 8;
                 } else {
-                    floats[6] = point.x - 36;
+                    floats[6] = point.x - 28;
                 }
             } else {
-                floats[6] = point.x - 36;
+                floats[6] = point.x - 28;
             }
             if (point.y <= dip2px(topMargin + ringOuterRidus)) {
                 //左上角
@@ -277,18 +247,6 @@ public class RingChartView extends View {
                 floats[7] = point.y + 10;
             }
         }
-//        if (point.x >= dip2px(leftMargin + ringOuterRidus)) {
-//            mPaint.setTextAlign(Paint.Align.LEFT);
-//            //floats[6] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1 + dip2px(extendLineWidth);
-//            Log.e("TAG", ">=pointx=" + point.x);
-//            floats[6] = point.x + 36;
-//        } else {
-//            mPaint.setTextAlign(Paint.Align.RIGHT);
-//            floats[6] = point.x - 36;
-//            Log.e("TAG", "pointx=" + point.x);
-//            //floats[6] = dip2px(leftMargin + ringOuterRidus) + lineXPoint1 - dip2px(extendLineWidth);
-//        }
-        //floats[7] = dip2px(topMargin + ringOuterRidus) + lineYPoint1;
         //根据每块的颜色，绘制对应颜色的折线
 //        mPaint.setColor(mRes.getColor(colorList.get(position)));
         mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_b69b4f));
@@ -299,6 +257,19 @@ public class RingChartView extends View {
         //绘制显示的文字,需要根据类型显示不同的文字
         if (mShowTextList.size() > 0) {
             canvas.drawText(mShowTextList.get(position), floats[6], floats[7] + dip2px(showRateSize) / 3, mPaint);
+
+
+//            TextPaint textPaint = new TextPaint();
+//            textPaint.setColor(ContextCompat.getColor(mContext, R.color.color_b69b4f));
+//            textPaint.setTextSize(dip2px(showRateSize));
+//            textPaint.setAntiAlias(true);
+//            StaticLayout layout = new StaticLayout(mShowTextList.get(position), textPaint, 300,
+//                    Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, true);
+//            canvas.save();
+//            canvas.translate(floats[6], floats[7]);
+//            layout.draw(canvas);
+//            canvas.restore();
+
         }
         preRate = rateList.get(position);
     }
@@ -318,7 +289,6 @@ public class RingChartView extends View {
         //利用PathMeasure分别测量出各个点的坐标值coords
         int divisor = 1;
         measure.getPosTan(measure.getLength() / divisor, coords, null);
-//        Log.e("coords:", "x轴:" + coords[0] + " -- y轴:" + coords[1]);
         float x = coords[0];
         float y = coords[1];
         Point point = new Point(Math.round(x), Math.round(y));
@@ -369,7 +339,19 @@ public class RingChartView extends View {
 
     public void setShowTextList(List<String> showTextList) {
         this.mShowTextList = showTextList;
-//        initView();
+        initView();
         postInvalidate();
+    }
+
+    public void setCommonSize(int topMargin, int leftMargin, int ringOuterRidus, int ringInnerRidus){
+        this.topMargin = topMargin;         // 上边距
+        this.leftMargin = leftMargin;        // 左边距
+
+        this.circleCenterX = ringOuterRidus;     // 圆心点X  要与外圆半径相等
+        this.circleCenterY = ringOuterRidus;     // 圆心点Y  要与外圆半径相等
+        this.ringPointRidus = ringOuterRidus;
+
+        this.ringOuterRidus = ringOuterRidus;     // 外圆的半径
+        this.ringInnerRidus = ringInnerRidus;     // 内圆的半径
     }
 }

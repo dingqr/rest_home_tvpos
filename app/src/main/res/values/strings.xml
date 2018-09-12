@@ -14,6 +14,26 @@
     <string name="common_request_fail">服务器错误</string>
     <string name="common_error_parse">解析异常</string>
 
+    <!--主页-->
+    <string name="count_user">用户数</string>
+    <string name="count_family">家庭总数</string>
+    <string name="count_smart_equipment">智能设备</string>
+    <string name="count_use_rate">使用率</string>
+    <string name="count_unit_1">个</string>
+    <string name="count_unit_2">位</string>
+    <string name="symbol_percent">%</string>
+
+    <string name="user_live_in">入住用户</string>
+    <string name="count_employee">员工统计</string>
+    <string name="nursing_level">护理级别</string>
+    <string name="smart_equipment_online_data">智能设备在线情况</string>
+    <string name="alert_data">报警数据</string>
+    <string name="today_examination">当日体检</string>
+    <string name="nursing_total_item">护理总项目</string>
+    <string name="home_dynamic">院内动态</string>
+    <string name="elderly_warning">老人警报</string>
+
+
     <!--Crash异常处理-->
     <string name="arise_exception">亲，出现异常了</string>
     <string name="activate_app_get_code">获取激活码</string>
@@ -33,6 +53,8 @@
     <string name="string_percent_symbol">%</string>
     <string name="string_handled">已处理</string>
     <string name="string_unhandled">未处理</string>
+    <string name="string_online">在线</string>
+    <string name="string_offline">离线</string>
     <string name="string_unit_month">月</string>
     <string name="string_age">年龄：</string>
     <string name="string_sex">性别：</string>

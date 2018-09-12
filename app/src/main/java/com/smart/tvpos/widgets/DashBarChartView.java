@@ -99,11 +99,11 @@ public class DashBarChartView extends View {
         originY = getHeight() - xAxisTextSpace - XAxisTextSize;
 
         XAxisLenth = this.getWidth() - 20 - originX;
-        YAxisLenth = originY -10;
+        YAxisLenth = originY -20;
         barHight = YAxisLenth - yEndOffset;
 
         XAxisUnitLenth = (XAxisLenth - xStartOffset - xEndOffset) / (xAxisTextList.length - 1);
-        YAxisUnitLenth = (YAxisLenth - yEndOffset) / (yAxisTextList.length - 1);
+        YAxisUnitLenth = (YAxisLenth - yEndOffset) / (yAxisTextList.length - 2);
         yAxisUnitValue = YAxisUnitLenth / (yAxisTextList[1] - yAxisTextList[0]);
 
         //绘制X,Y轴坐标的画笔
@@ -158,7 +158,7 @@ public class DashBarChartView extends View {
         //绘制Y轴坐标刻度
         mPaintText.setTextSize(DP2PX.dip2px(mContext, YAxisTextSize));
         for (int i = 0; i < yAxisTextList.length; i++) {
-            float endY = originY - YAxisUnitLenth * i;
+            float endY = originY - YAxisUnitLenth * i + DP2PX.dip2px(mContext, YAxisTextSize) / 2;
             canvas.drawText(yAxisTextList[i] + "", originX - YAxisTextSize - yAxisTextSpace, endY, mPaintText);
         }
         //绘制X轴坐标刻度
