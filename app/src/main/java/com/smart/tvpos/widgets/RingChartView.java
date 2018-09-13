@@ -3,6 +3,7 @@ package com.smart.tvpos.widgets;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.smart.tvpos.R;
+import com.smart.tvpos.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +46,13 @@ public class RingChartView extends View {
     private int circleCenterY = 40;     // 圆心点Y  要与外圆半径相等
 
     private int ringOuterRidus = 40;     // 外圆的半径
-    private int ringInnerRidus = 25;     // 内圆的半径
+    private int ringInnerRidus = 30;     // 内圆的半径
     private int ringPointRidus = 40;    // 点所在圆的半径
 
     private float rate = 0.4f;     //点的外延距离  与  点所在圆半径的长度比率
 //    private float extendLineWidth = 10;     //点外延后  折的横线的长度
     private RectF rectF;                // 外圆所在的矩形
+    private RectF rectShadow;                // 外圆所在的矩形
     private RectF rectFPoint;           // 点所在的矩形
 
     private List<Integer> colorList;
@@ -111,6 +114,12 @@ public class RingChartView extends View {
                 dip2px(circleCenterX + ringOuterRidus + mPaintWidth * 2 + leftMargin),
                 dip2px(circleCenterY + ringOuterRidus + mPaintWidth * 2 + topMargin));
 
+        int shadowLen = (ringOuterRidus - ringInnerRidus) * 2 / 3;
+        rectShadow = new RectF(dip2px(mPaintWidth + leftMargin + shadowLen),
+                dip2px(mPaintWidth + topMargin + shadowLen),
+                dip2px(circleCenterX + ringOuterRidus + mPaintWidth * 2 + leftMargin - shadowLen),
+                dip2px(circleCenterY + ringOuterRidus + mPaintWidth * 2 + topMargin - shadowLen));
+
         rectFPoint = new RectF(dip2px(mPaintWidth + leftMargin + (ringOuterRidus - ringPointRidus)),
                 dip2px(mPaintWidth + topMargin + (ringOuterRidus - ringPointRidus)),
                 dip2px(circleCenterX + ringPointRidus + mPaintWidth * 2 + leftMargin),
@@ -131,8 +140,8 @@ public class RingChartView extends View {
                 drawOuter(canvas, i);
             }
         }
-        mPaint.setStyle(Paint.Style.FILL);
-        if (isRing) {
+        if(isRing){
+            mPaint.setStyle(Paint.Style.FILL);
             drawInner(canvas);
         }
         if (isShowCenterPoint) {
@@ -149,7 +158,6 @@ public class RingChartView extends View {
 
     private void drawInner(Canvas canvas) {
         mPaint.setColor(mRes.getColor(R.color.color_081638));
-//        Log.e("内部圆点:", dip2px(circleCenterX + mPaintWidth * 2 + leftMargin) + " --- " + dip2px(circleCenterY + mPaintWidth * 2 + topMargin));
         canvas.drawCircle(dip2px(circleCenterX + mPaintWidth * 2 + leftMargin), dip2px(circleCenterY + mPaintWidth * 2 + topMargin), dip2px(ringInnerRidus), mPaint);
     }
 
@@ -303,6 +311,12 @@ public class RingChartView extends View {
 //        Log.e("preAngle:", "" + preAngle + "   endAngle:" + endAngle);
         canvas.drawArc(rectF, preAngle, endAngle, true, mPaint);
 //        dealPoint(rectF, preAngle, endAngle, pointList);
+
+        if(isRing){
+            mPaint.setColor(CommonUtil.getColorWithAlpha(0.3f, mRes.getColor(R.color.color_transparent)));
+            mPaint.setStyle(Paint.Style.FILL);
+            canvas.drawArc(rectShadow, preAngle, endAngle, true, mPaint);
+        }
 
         if (isShowRate) {
             drawArcCenterPoint(canvas, position);

@@ -606,8 +606,8 @@ public class ACT_Home extends BaseActivity implements IHomeView {
                 Float.parseFloat(formatUnHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
 
 
-        mMattressOnlineView.setCommonSize(25, 30, 25, 20);
-        mWatchOnlineChartView.setCommonSize(25, 30, 25, 20);
+        mMattressOnlineView.setCommonSize(25, 30, 25, 17);
+        mWatchOnlineChartView.setCommonSize(25, 30, 25, 17);
         mMattressOnlineView.setShow(alertChartcolorList, alertChartRateList, true, true);
         mMattressOnlineView.setShowTextList(showTextList);
         mWatchOnlineChartView.setShow(alertChartcolorList, alertChartRateList, true, true);

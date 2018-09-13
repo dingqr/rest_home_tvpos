@@ -52,7 +52,7 @@ public class DashBarChartView extends View {
 
     private int xStartOffset = 22;//x起始偏移
     private int xEndOffset = 22;//x终点偏移
-    private int yEndOffset = 22;//y终点偏移
+    private int yEndOffset = 0;//y终点偏移
 //    private int barGap = 10;//柱状条之间的间距
     private int barWidth = 14;//柱状条的宽度
     private float barHight;
@@ -96,7 +96,7 @@ public class DashBarChartView extends View {
 
         //坐标原点位置
         originX = YAxisTextSize + yAxisTextSpace;
-        originY = getHeight() - xAxisTextSpace - XAxisTextSize;
+        originY = getHeight() - xAxisTextSpace;
 
         XAxisLenth = this.getWidth() - 20 - originX;
         YAxisLenth = originY -20;
