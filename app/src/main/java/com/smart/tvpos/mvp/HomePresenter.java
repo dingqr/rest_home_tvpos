@@ -1,6 +1,7 @@
 package com.smart.tvpos.mvp;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,11 +12,14 @@ import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
+import com.smart.tvpos.bean.EquipmentStatusEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.JobItemEntity;
+import com.smart.tvpos.bean.LatestWarnEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
 import com.smart.tvpos.bean.TrendDataEntity;
+import com.smart.tvpos.bean.UserHealthDataNum;
 import com.smart.tvpos.bean.WarningEntity;
 import com.smart.tvpos.global.API;
 import com.smart.tvpos.manager.ReqCallBack;
@@ -162,6 +166,31 @@ public class HomePresenter implements IHomePresenter {
         });
     }
 
+    @Override
+    public void getUserHealthDataNum(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<UserHealthDataNum>() {
+
+            @Override
+            public void onReqSuccess(UserHealthDataNum result) {
+                mView.getUserHealthDataNum(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
     /**
      * 5.	入住养老入住\用户整体趋势
      *
@@ -211,6 +240,58 @@ public class HomePresenter implements IHomePresenter {
             public void onReqSuccess(List<NurseLevelEntity> result) {
                 Elog.e("TAG", "nurse=" + result);
                 mView.getUserNurseData(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    @Override
+    public void getBraceletNew(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<EquipmentStatusEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<EquipmentStatusEntity> result) {
+                Elog.e("TAG", "nurse=" + result);
+                mView.getBraceletNew(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    @Override
+    public void getMattressNew(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<EquipmentStatusEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<EquipmentStatusEntity> result) {
+                Elog.e("TAG", "nurse=" + result);
+                mView.getMattressNew(result);
             }
 
             @Override
@@ -319,6 +400,35 @@ public class HomePresenter implements IHomePresenter {
         });
     }
 
+    @Override
+    public void getUserWarning6(String requestType) {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<LatestWarnEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<LatestWarnEntity> result) {
+                Log.d("aqua", "uW6 success :" + result.size());
+                mView.getUserWarning6(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                Log.d("aqua", "uW6 failure :" + result);
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                Log.d("aqua", "uW6 failure :" + error.getMsg());
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
     //入住用户:总数
     public int livingTotal;
 
@@ -349,26 +459,26 @@ public class HomePresenter implements IHomePresenter {
         return mLivingUserList;
     }
 
-    /**
-     * 解析入住养老院\用户整体趋势的json数据
-     *
-     * @param jsonString
-     */
-    private List<TrendDataEntity> resolveTrendJson(String jsonString) {
-        List<TrendDataEntity> mTrendList = new ArrayList<>();
-        Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, TrendDataEntity>>() {
-        }.getType();
-        Map<String, TrendDataEntity> map = new HashMap<>();
-        if (!TextUtils.isEmpty(jsonString)) {
-            map = gson.fromJson(jsonString, type);
-        }
-        for (Map.Entry<String, TrendDataEntity> item : map.entrySet()) {
-            Elog.e("map", item.getKey() + "---|---" + item.getValue().toString());
-            TrendDataEntity bean = item.getValue();
-            bean.setKeyName(item.getKey());
-            mTrendList.add(bean);
-        }
-        return mTrendList;
-    }
+//    /**
+//     * 解析入住养老院\用户整体趋势的json数据
+//     *
+//     * @param jsonString
+//     */
+//    private List<TrendDataEntity> resolveTrendJson(String jsonString) {
+//        List<TrendDataEntity> mTrendList = new ArrayList<>();
+//        Gson gson = new Gson();
+//        Type type = new TypeToken<Map<String, TrendDataEntity>>() {
+//        }.getType();
+//        Map<String, TrendDataEntity> map = new HashMap<>();
+//        if (!TextUtils.isEmpty(jsonString)) {
+//            map = gson.fromJson(jsonString, type);
+//        }
+//        for (Map.Entry<String, TrendDataEntity> item : map.entrySet()) {
+//            Elog.e("map", item.getKey() + "---|---" + item.getValue().toString());
+//            TrendDataEntity bean = item.getValue();
+//            bean.setKeyName(item.getKey());
+//            mTrendList.add(bean);
+//        }
+//        return mTrendList;
+//    }
 }

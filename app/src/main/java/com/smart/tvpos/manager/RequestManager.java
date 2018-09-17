@@ -3,6 +3,7 @@ package com.smart.tvpos.manager;
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.smart.framework.library.bean.ErrorBean;
@@ -137,7 +138,7 @@ public class RequestManager {
             Request request = chain.request();
             HttpUrl url = request.url().newBuilder()
                     .addQueryParameter("m", "api")
-                    .addQueryParameter("c", "AdminTv")
+                    .addQueryParameter("c", "adminTv")
                     .build();
             return chain.proceed(request.newBuilder().url(url).build());
         }
@@ -252,6 +253,7 @@ public class RequestManager {
                                 case RESPONCE_NO_ERROR_CODE:
                                     if (callBack.type != null) {
                                         String data = result.data;
+                                        Log.d("aqua", "onResponse data : " + data + ", result : " + result.toString());
                                         if (null == data || data.equals("")) {
                                             successCallBack(null, callBack);
                                         } else {

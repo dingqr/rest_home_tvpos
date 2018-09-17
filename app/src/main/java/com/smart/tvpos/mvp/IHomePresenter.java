@@ -14,13 +14,19 @@ public interface IHomePresenter {
 
     void getAlertData(String requestType);
 
-//    void getLivingTrendData(String requestType);
+    void getUserHealthDataNum(String requestType);
 
     void getUserNurseData(String requestType);
+
+    void getBraceletNew(String requestType);
+
+    void getMattressNew(String requestType);
 
     void getStaffData(String requestType);
 
     void getBranchAddress(String requestType);
 
     void getNurseProgressList(String requestType);
+
+    void getUserWarning6(String requestType);
 }

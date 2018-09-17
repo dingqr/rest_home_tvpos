@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="366px"
+    android:layout_height="42px"
+    android:id="@+id/ll_warn_item"
+    android:gravity="center_vertical"
+    android:background="@color/color_transparent">
+
+    <TextView
+        android:id="@+id/warn_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10px"
+        android:paddingLeft="8px"
+        android:paddingRight="8px"
+        android:textSize="7sp" />
+
+    <TextView
+        android:id="@+id/warn_who"
+        android:layout_width="50px"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="16px"
+        android:textSize="8sp"
+        android:textColor="@color/color_e3e6e5"/>
+
+    <TextView
+        android:id="@+id/warn_where"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30px"
+        android:textSize="8sp"
+        android:textColor="@color/color_e3e6e5"/>
+
+    <TextView
+        android:id="@+id/warn_what"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="14px"
+        android:textSize="8sp"
+        android:textColor="@color/color_e3e6e5"/>
+
+</com.zhy.autolayout.AutoLinearLayout>

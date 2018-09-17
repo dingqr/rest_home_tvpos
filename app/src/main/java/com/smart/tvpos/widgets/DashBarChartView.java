@@ -38,7 +38,7 @@ public class DashBarChartView extends View {
 
     private int[] yAxisTextList = {0, 50, 100, 150, 200, 250, 300};
     private String[] xAxisTextList;
-    private int xAxisTextSpace = 20;//轴与文字之间的间距
+    private int xAxisTextSpace = 10;//轴与文字之间的间距
     private int yAxisTextSpace = 30;//轴与文字之间的间距
 
     private Paint mAxisPaint;
@@ -99,11 +99,11 @@ public class DashBarChartView extends View {
         originY = getHeight() - xAxisTextSpace;
 
         XAxisLenth = this.getWidth() - 20 - originX;
-        YAxisLenth = originY -20;
+        YAxisLenth = originY -30;
         barHight = YAxisLenth - yEndOffset;
 
         XAxisUnitLenth = (XAxisLenth - xStartOffset - xEndOffset) / (xAxisTextList.length - 1);
-        YAxisUnitLenth = (YAxisLenth - yEndOffset) / (yAxisTextList.length - 2);
+        YAxisUnitLenth = (YAxisLenth - yEndOffset) / (yAxisTextList.length - 1);
         yAxisUnitValue = YAxisUnitLenth / (yAxisTextList[1] - yAxisTextList[0]);
 
         //绘制X,Y轴坐标的画笔
@@ -131,10 +131,6 @@ public class DashBarChartView extends View {
         mPaintWhite.setStyle(Paint.Style.STROKE);
         mPaintWhite.setStrokeWidth(barWidth);
         mPaintWhite.setPathEffect(effect);
-
-        for(int i = 0; i<xAxisTextList.length; i++){
-            listData.add(new NurseLevelEntity(i, 100));
-        }
     }
 
     @Override

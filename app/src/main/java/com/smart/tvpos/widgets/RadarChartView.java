@@ -30,7 +30,7 @@ public class RadarChartView extends View {
 
     private int ringOuterRidus = 40;     // 外圆的半径
 
-    private List<Float> dataList = new ArrayList<>();
+    private List<Integer> dataList = new ArrayList<>();
     private boolean isShowCenterPoint = true;
     //刻度文字
     private List<String> mShowTextList = new ArrayList<>();
@@ -56,15 +56,6 @@ public class RadarChartView extends View {
         mPaint.setAntiAlias(true);
 
         lineColors = mRes.getIntArray(R.array.color_group);
-
-        for(int i = 0; i<5; i++){
-            mShowTextList.add(i * 30 + "");
-        }
-
-        for(int i = 0; i<20; i++){
-            dataList.add(10f + 5 * i);
-        }
-
     }
 
     @Override
@@ -83,6 +74,9 @@ public class RadarChartView extends View {
     private void drawDataLine(Canvas canvas) {
 
         int lineNum = dataList.size();
+        if(lineNum == 0){
+            return;
+        }
         int maxValue = Integer.parseInt(mShowTextList.get(mShowTextList.size() - 1));
         int alfX = 270 / lineNum;
         for(int i = 1; i < lineNum ; i++){
@@ -114,6 +108,9 @@ public class RadarChartView extends View {
 
         mPaint.setColor(mRes.getColor(R.color.color_12284c));
         mPaint.setStyle(Paint.Style.STROKE);
+        if(mShowTextList.size() == 0){
+            return;
+        }
         float unitLen = ringOuterRidus / mShowTextList.size();
         for(int i = 0 ; i < mShowTextList.size(); i++){
 
@@ -139,6 +136,13 @@ public class RadarChartView extends View {
     public void setShowTextList(List<String> showTextList) {
         this.mShowTextList = showTextList;
 //        initView();
+        postInvalidate();
+    }
+
+
+    public void setDataList(List<Integer> dataList) {
+        this.dataList = dataList;
+        initView();
         postInvalidate();
     }
 }

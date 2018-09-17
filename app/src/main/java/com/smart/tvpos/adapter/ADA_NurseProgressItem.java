@@ -38,16 +38,13 @@ public class ADA_NurseProgressItem extends CommonAdapterListView<JobItemEntity> 
 
         View completePercent = holder.getView(R.id.barPercentChatView);
         View allPercent = holder.getView(R.id.barChatView);
-//        PieMarkChatView pieMarkChatView = holder.getView(R.id.pieMarkChatView);
         if (bean != null) {
-//            holder.setImageResource(R.id.iv_bg, position % 2 == 0 ? R.drawable.bg_nurse_progress_style_one : R.drawable.bg_nurse_progress_style_two);
             holder.setText(R.id.tv_item_name, bean.getItemName());
 
             FrameLayout.LayoutParams paramsD = (FrameLayout.LayoutParams) completePercent.getLayoutParams();
             FrameLayout.LayoutParams paramsA = (FrameLayout.LayoutParams) allPercent.getLayoutParams();
 
-//            float percent = bean.getNumD() / bean.getNumA();
-            float percent = 0.358f;
+            float percent = bean.getNumD() / bean.getNumA();
 
             paramsD.width = (int) (paramsA.width * percent);
 

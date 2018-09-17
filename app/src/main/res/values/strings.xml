@@ -53,8 +53,13 @@
     <string name="string_percent_symbol">%</string>
     <string name="string_handled">已处理</string>
     <string name="string_unhandled">未处理</string>
+    <string name="string_solved">已解决</string>
+    <string name="string_unsolved">未解决</string>
     <string name="string_online">在线</string>
     <string name="string_offline">离线</string>
+    <string name="string_off_line">掉线</string>
+    <string name="string_off_bed">离床</string>
+    <string name="string_on_bed">在床</string>
     <string name="string_unit_month">月</string>
     <string name="string_age">年龄：</string>
     <string name="string_sex">性别：</string>
@@ -75,5 +80,21 @@
     <string name="unit_kg">kg</string>
     <string name="unit_h">h</string>
     <string name="unit_age">岁</string>
+
+    <string name="string_sbp">高压</string>
+    <string name="string_dbp">低压</string>
+    <string name="string_spo2">血氧</string>
+    <string name="string_pr2">脉率</string>
+    <string name="string_hr">心率</string>
+    <string name="string_resp_rr">呼吸率</string>
+    <string name="string_glu">血糖</string>
+    <string name="string_temp">体温</string>
+    <string name="string_flipidschol">总胆固醇</string>
+    <string name="string_flipidstrig">甘油三脂</string>
+    <string name="string_flipidshdl">高密度脂蛋白</string>
+    <string name="string_flipidsldl">低密度脂蛋白</string>
+    <string name="string_assxhdb">血红蛋白</string>
+    <string name="string_htc">红细胞压积值</string>
+
 
 </resources>

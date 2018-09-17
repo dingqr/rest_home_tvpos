@@ -2,13 +2,62 @@
 <resources>
 
     <string-array name="nursing_level">
-        <item>专户</item>
-        <item>一级</item>
-        <item>二级</item>
-        <item>三级</item>
-        <item>四级</item>
-        <item>五级</item>
-        <item>六级</item>
-        <item>七级</item>
+        <item>@string/string_special_nurse</item>
+        <item>@string/string_one_level</item>
+        <item>@string/string_two_level</item>
+        <item>@string/string_three_level</item>
+        <item>@string/string_four_level</item>
+        <item>@string/string_five_level</item>
+        <item>@string/string_six_level</item>
+    </string-array>
+
+    <string-array name="arr_age_indicator">
+        <item>60岁以下</item>
+        <item>60-69岁</item>
+        <item>70-79岁</item>
+        <item>80-89岁</item>
+        <item>90-99岁</item>
+        <item>100岁及以上</item>
+    </string-array>
+
+    <string-array name="arr_worker_indicator">
+        <item>@string/string_huliyuan</item>
+        <item>@string/string_hushi</item>
+        <item>@string/string_yishi</item>
+        <item>@string/string_guanlirenyuan</item>
+        <item>@string/string_gongqinrenyuan</item>
+    </string-array>
+
+    <string-array name="arr_mattress_indicator">
+        <item>@string/string_offline</item>
+        <item>@string/string_off_bed</item>
+        <item>@string/string_on_bed</item>
+    </string-array>
+
+    <string-array name="arr_watch_indicator">
+        <item>@string/string_offline</item>
+        <item>@string/string_online</item>
+    </string-array>
+
+    <string-array name="arr_alert_indicator">
+        <item>@string/string_handled</item>
+        <item>@string/string_unhandled</item>
+    </string-array>
+
+    <string-array name="arr_exam_indicator">
+        <item>@string/string_sbp</item>
+        <item>@string/string_dbp</item>
+        <item>@string/string_spo2</item>
+        <item>@string/string_pr2</item>
+        <item>@string/string_hr</item>
+        <item>@string/string_resp_rr</item>
+        <item>@string/string_glu</item>
+        <item>@string/string_temp</item>
+        <item>@string/string_flipidschol</item>
+        <item>@string/string_flipidstrig</item>
+        <item>@string/string_flipidshdl</item>
+        <item>@string/string_flipidsldl</item>
+        <item>@string/string_assxhdb</item>
+        <item>@string/string_htc</item>
     </string-array>
 </resources>

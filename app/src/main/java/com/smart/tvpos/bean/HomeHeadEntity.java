@@ -20,6 +20,8 @@ public class HomeHeadEntity {
     private int numBranch;//养老院数
     private int numIn;//入住床位数
     private int numUser;//入住用户数
+    private int mattressNA;
+    private int mattressN;
 
     public int getNum() {
         return num;
@@ -59,5 +61,21 @@ public class HomeHeadEntity {
 
     public void setNumUser(int numUser) {
         this.numUser = numUser;
+    }
+
+    public int getMattressNA() {
+        return mattressNA;
+    }
+
+    public void setMattressNA(int mattressNA) {
+        this.mattressNA = mattressNA;
+    }
+
+    public int getMattressN() {
+        return mattressN;
+    }
+
+    public void setMattressN(int mattressN) {
+        this.mattressN = mattressN;
     }
 }

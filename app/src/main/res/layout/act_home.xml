@@ -239,7 +239,7 @@
         android:layout_marginTop="140px"
         android:orientation="vertical">
 
-        <!--入住用户-->
+        <!--入住用户 Start-->
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -283,74 +283,10 @@
                         android:layout_marginRight="20px"
                         android:orientation="vertical">
 
-                        <TextView
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chart_indicator_user_in"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_60_down"
-                            android:drawablePadding="8px"
-                            android:text="60岁以下"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_60_69"
-                            android:drawablePadding="8px"
-                            android:text="60-69岁"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_70_79"
-                            android:drawablePadding="8px"
-                            android:text="70-79岁"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_special_level"
-                            android:drawablePadding="8px"
-                            android:text="80-89岁"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_one_level"
-                            android:drawablePadding="8px"
-                            android:text="90-99岁"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_two_level"
-                            android:drawablePadding="8px"
-                            android:text="100岁以上"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_three_level"
-                            android:drawablePadding="8px"
-                            android:text="其他"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
+                            android:layout_height="match_parent" />
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <com.smart.tvpos.widgets.RingChartView
@@ -361,7 +297,7 @@
                 </com.zhy.autolayout.AutoRelativeLayout>
             </com.zhy.autolayout.AutoRelativeLayout>
         </com.zhy.autolayout.AutoRelativeLayout>
-        <!--入住用户-->
+        <!--入住用户 End-->
 
         <!--员工统计-->
         <com.zhy.autolayout.AutoRelativeLayout
@@ -406,56 +342,10 @@
                         android:layout_marginLeft="12px"
                         android:layout_marginRight="20px"
                         android:orientation="vertical">
-
-                        <TextView
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chart_indicator_worker"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_special_level"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_huliyuan"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_one_level"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_hushi"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_60_down"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_yishi"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_three_level"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_guanlirenyuan"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_unhandled"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_gongqinrenyuan"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
+                            android:layout_height="wrap_content" />
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <com.smart.tvpos.widgets.RingChartView
@@ -501,28 +391,19 @@
                     android:layout_height="240px"
                     android:layout_centerInParent="true">
 
-
-                    <!--<com.zhy.autolayout.AutoLinearLayout-->
-                        <!--android:id="@+id/ll_nurse_chart_sign"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentBottom="true"-->
-                        <!--android:layout_marginBottom="10px"-->
-                        <!--android:layout_marginLeft="12px"-->
-                        <!--android:layout_marginRight="20px"-->
-                        <!--android:orientation="horizontal">-->
-
-                        <!--&lt;!&ndash;<com.smart.tvpos.widgets.BanSlideGridView&ndash;&gt;-->
-                            <!--&lt;!&ndash;android:id="@+id/gridv"&ndash;&gt;-->
-                            <!--&lt;!&ndash;android:layout_width="50px"&ndash;&gt;-->
-                            <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
-
-                    <!--</com.zhy.autolayout.AutoLinearLayout>-->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/chart_indicator_nursing_level"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:layout_marginTop="18px"
+                        android:layout_height="20px" />
 
                     <com.smart.tvpos.widgets.DashBarChartView
                         android:id="@+id/nursing_level_chart_view"
+                        android:layout_below="@+id/chart_indicator_nursing_level"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200px"
                         android:layout_marginLeft="15px"
                         android:layout_marginRight="15px"/>
                 </com.zhy.autolayout.AutoRelativeLayout>
@@ -582,28 +463,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="38px"
                         android:layout_marginLeft="12px"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <TextView
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chart_indicator_mattress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chart_indicator_watch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_unhandled"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_unhandled"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_handled"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_handled"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
+                            android:layout_marginLeft="300px"/>
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <com.smart.tvpos.widgets.RingChartView
@@ -665,24 +536,10 @@
                         android:layout_marginRight="40px"
                         android:orientation="vertical">
 
-                        <TextView
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chart_indicator_alert"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="6px"
-                            android:drawableLeft="@drawable/ic_unhandled"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_unhandled"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_handled"
-                            android:drawablePadding="8px"
-                            android:text="@string/string_handled"
-                            android:textColor="@color/color_a9c6d6"
-                            android:textSize="5sp" />
+                            android:layout_height="wrap_content" />
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <com.smart.tvpos.widgets.RingChartView
@@ -731,9 +588,11 @@
                     <com.zhy.autolayout.AutoRelativeLayout
                         android:id="@+id/ll_left_sign"
                         android:layout_width="140px"
-                        android:layout_height="match_parent">
-                        <com.smart.tvpos.widgets.BanSlideListView
-                            android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="6px">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/chart_indicator_exam"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </com.zhy.autolayout.AutoRelativeLayout>
 
@@ -748,7 +607,7 @@
     </com.zhy.autolayout.AutoLinearLayout>
     <!--图表统计右-->
 
-
+    <!--中间数据-->
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -823,6 +682,29 @@
                 android:shadowDy="0.0"
                 android:shadowRadius="8"
                 android:textSize="12sp" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_below="@+id/home_dynamic"
+                android:layout_marginTop="8px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_homedynamic_warn">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/home_dynamic_list"
+                    android:layout_width="360px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14px"
+                    android:layout_marginTop="20px"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/elderly_warning_list"
+                    android:layout_width="360px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25px"
+                    android:layout_marginTop="20px"/>
+
+            </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoRelativeLayout>
     </com.zhy.autolayout.AutoLinearLayout>
     <!--地图无用-隐藏-->
