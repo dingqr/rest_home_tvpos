@@ -46,13 +46,13 @@ public class ADA_LatestWarn extends RecyclerView.Adapter<ADA_LatestWarn.ViewHold
 
         LatestWarnEntity entity = mList.get(position);
 
-        if(!entity.getState().equals(mContext.getResources().getString(R.string.string_new_alert))) {
+        if(entity.getState().equals(mContext.getResources().getString(R.string.string_solved))) {
             //已解决
             holder.textTitle.setText(mContext.getResources().getString(R.string.string_solved));
             holder.textTitle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_view_1_corners));
         }
         else {
-            holder.textTitle.setText(mContext.getResources().getString(R.string.string_unsolved));
+            holder.textTitle.setText(mContext.getResources().getString(R.string.string_new_alert));
             holder.textTitle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
 
         }
