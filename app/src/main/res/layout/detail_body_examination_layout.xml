@@ -31,7 +31,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/blood_pressure"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:checked="true"
@@ -42,7 +42,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/blood_lipid"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:background="@drawable/bg_body_examination_report"
@@ -52,7 +52,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/blood_spo2"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:background="@drawable/bg_body_examination_report"
@@ -62,7 +62,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/blood_sugar"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:background="@drawable/bg_body_examination_report"
@@ -82,7 +82,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/body_temperature"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:background="@drawable/bg_body_examination_report"
@@ -93,7 +93,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/heart_rate"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:background="@drawable/bg_body_examination_report"
@@ -104,7 +104,7 @@
             android:layout_width="75px"
             android:layout_height="40px"
             android:text="@string/breathe"
-            android:textSize="9sp"
+            android:textSize="11sp"
             android:gravity="center"
             android:button="@null"
             android:background="@drawable/bg_body_examination_report"
@@ -172,28 +172,34 @@
             <!--android:textColor="@color/text_body_examination_report"/>-->
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/day_current_show"
-        android:layout_below="@+id/body_examination_report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_day_current_show"
-        android:gravity="center"
-        android:text="@string/yesterday"
-        android:textSize="8sp"
-        android:textColor="@color/color_a1a1a1"
-        android:layout_marginLeft="50px"
-        android:layout_marginTop="10px"
-        android:visibility="invisible" />
-    <ImageView
-        android:id="@+id/icon_changeable"
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/body_examination_report"
-        android:layout_marginLeft="118px"
-        android:layout_marginTop="20px"
-        android:src="@drawable/icon_changeable"
-        android:visibility="invisible"/>
+        android:layout_marginTop="10px">
+        <TextView
+            android:id="@+id/day_current_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_day_current_show"
+            android:gravity="center"
+            android:text="@string/yesterday"
+            android:textSize="8sp"
+            android:textColor="@color/color_a1a1a1"
+            android:layout_marginLeft="50px"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/icon_changeable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/body_examination_report"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8px"
+            android:src="@drawable/icon_changeable"
+            android:visibility="invisible" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
 
     <!--<com.zhy.autolayout.AutoLinearLayout-->
         <!--android:id="@+id/day_selector"-->

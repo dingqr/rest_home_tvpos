@@ -14,7 +14,7 @@ import android.view.View;
 import com.smart.framework.library.common.utils.DP2PX;
 import com.smart.tvpos.MyApplication;
 import com.smart.tvpos.R;
-import com.smart.tvpos.bean.NurseLevelEntity;
+import com.smart.tvpos.interfaces.BarChartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class DashBarChartView extends View {
     private int XAxisTextSize;
     private int YAxisTextSize;
 
-    private int[] yAxisTextList = {0, 50, 100, 150, 200, 250, 300};
+    private int[] yAxisTextList;
     private String[] xAxisTextList;
     private int xAxisTextSpace = 10;//轴与文字之间的间距
     private int yAxisTextSpace = 30;//轴与文字之间的间距
@@ -50,14 +50,14 @@ public class DashBarChartView extends View {
     //柱状条颜色数组
     private int[] barColors;
 
-    private int xStartOffset = 22;//x起始偏移
-    private int xEndOffset = 22;//x终点偏移
+    private int xStartOffset = 40;//x起始偏移
+    private int xEndOffset = 40;//x终点偏移
     private int yEndOffset = 0;//y终点偏移
 //    private int barGap = 10;//柱状条之间的间距
     private int barWidth = 14;//柱状条的宽度
     private float barHight;
 
-    private List<NurseLevelEntity> listData = new ArrayList<NurseLevelEntity>();
+    private List<BarChartEntity> listData = new ArrayList<BarChartEntity>();
 
     public DashBarChartView(Context context) {
         this(context, null);
@@ -78,7 +78,7 @@ public class DashBarChartView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void updateData(List<NurseLevelEntity> sleepDatas){
+    public void updateData(List<BarChartEntity> sleepDatas){
         listData = sleepDatas;
         init();
         postInvalidate();
@@ -90,7 +90,7 @@ public class DashBarChartView extends View {
             mContext = MyApplication.getContext();
         }
 
-        xAxisTextList = mContext.getResources().getStringArray(R.array.nursing_level);
+        xAxisTextList = mContext.getResources().getStringArray(R.array.arr_age_indicator);
         barColors = mContext.getResources().getIntArray(R.array.color_group);
         YAxisTextSize = 10;
 
@@ -102,9 +102,15 @@ public class DashBarChartView extends View {
         YAxisLenth = originY -30;
         barHight = YAxisLenth - yEndOffset;
 
-        XAxisUnitLenth = (XAxisLenth - xStartOffset - xEndOffset) / (xAxisTextList.length - 1);
-        YAxisUnitLenth = (YAxisLenth - yEndOffset) / (yAxisTextList.length - 1);
-        yAxisUnitValue = YAxisUnitLenth / (yAxisTextList[1] - yAxisTextList[0]);
+//        if(null != listData && listData.size() > 0){
+//            yAxisTextList = listData.get(0).getYAxisTextList();
+//        }
+
+        if(null != yAxisTextList){
+            XAxisUnitLenth = (XAxisLenth - xStartOffset - xEndOffset) / (xAxisTextList.length - 1);
+            YAxisUnitLenth = (YAxisLenth - yEndOffset) / (yAxisTextList.length - 1);
+            yAxisUnitValue = YAxisUnitLenth / (yAxisTextList[1] - yAxisTextList[0]);
+        }
 
         //绘制X,Y轴坐标的画笔
         mAxisPaint = new Paint();
@@ -152,6 +158,9 @@ public class DashBarChartView extends View {
         canvas.drawLine(originX, originY, originX, originY - YAxisLenth, mAxisPaint);
 
         //绘制Y轴坐标刻度
+        if(null == yAxisTextList || yAxisTextList.length < 0){
+            return;
+        }
         mPaintText.setTextSize(DP2PX.dip2px(mContext, YAxisTextSize));
         for (int i = 0; i < yAxisTextList.length; i++) {
             float endY = originY - YAxisUnitLenth * i + DP2PX.dip2px(mContext, YAxisTextSize) / 2;
@@ -174,7 +183,7 @@ public class DashBarChartView extends View {
             int day = i + 1;
             float left = originX + xStartOffset + (day - 1) * XAxisUnitLenth;
             float bottom = originY - 1;
-            float topNum = bottom - (listData.get(i).getNum() * yAxisUnitValue);
+            float topNum = bottom - (listData.get(i).getDataNum() * yAxisUnitValue);
             float top = originY - barHight;
 
             mPaint.setColor(barColors[i]);
@@ -186,6 +195,13 @@ public class DashBarChartView extends View {
             pathWhite.moveTo(left, topNum);
             pathWhite.lineTo(left, top);
             canvas.drawPath(pathWhite, mPaintWhite);
+
+            mPaintText.setTextSize(DP2PX.dip2px(mContext, YAxisTextSize * 2));
+            canvas.drawText(listData.get(i).getDataNum() + "", left + barWidth + 1, topNum, mPaintText);
         }
+    }
+
+    public void setYAxisTextList(int[] yAxisTextList) {
+        this.yAxisTextList = yAxisTextList;
     }
 }

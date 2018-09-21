@@ -31,4 +31,39 @@ public class CommonUtil {
         int rgb = 0x00ffffff & baseColor;
         return a + rgb;
     }
+
+    public static int[] formatArithmeticSequence(int maxNum, int size){
+        int dlta = maxNum / size;
+        int[] list = new int[size];
+        if(dlta == 0){
+            for (int i = 0; i < size; ++i){
+                list[i] = 50 * i;
+            }
+        }
+        else {
+            for (int i = 1 ;; i++) {
+                if(dlta < 10){
+                    dlta = 10;
+                    break;
+                }
+                else if(dlta < 20){
+                    dlta = 20;
+                    break;
+                }
+                else if(dlta < 30){
+                    dlta = 30;
+                    break;
+                }
+                else if(dlta < 51 * i) {
+                    dlta = 50 * i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < size; ++i){
+                list[i] = dlta * i;
+            }
+        }
+        return list;
+    }
 }

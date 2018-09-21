@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="2px"
+    android:layout_marginBottom="2px"
     android:layout_marginRight="12px">
 
     <View
@@ -18,5 +20,5 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:textColor="@color/color_a9c6d6"
-        android:textSize="7sp" />
-</LinearLayout>
+        android:textSize="12sp" />
+</com.zhy.autolayout.AutoLinearLayout>

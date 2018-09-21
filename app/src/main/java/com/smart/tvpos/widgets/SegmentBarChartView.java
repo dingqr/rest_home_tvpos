@@ -92,8 +92,8 @@ public class SegmentBarChartView extends View {
 //        YAxisTextSize = DP2PX.dip2px(mContext, 16);
         XAxisLenth = (barGap + barWidth) * 7 + 20;
         YAxisLenth = 220 + xAxisTextSpace + XAxisTextSize;
-        XAxisTextSize = 9;
-        YAxisTextSize = 8;
+        XAxisTextSize = 11;
+        YAxisTextSize = 10;
         barHight = YAxisLenth - 20;
 
         XAxisUnitLenth = (XAxisLenth - 20) / xAxisTextList.length;
@@ -127,7 +127,6 @@ public class SegmentBarChartView extends View {
             arrPaintArc[i].setColor(segmentColors[i]);
             arrPaintArc[i].setStyle(Paint.Style.FILL);
             arrPaintArc[i].setStrokeWidth(1);
-//            arrPaintArc[i].setMaskFilter(PaintBGBlur);
         }
     }
 
@@ -151,7 +150,7 @@ public class SegmentBarChartView extends View {
         //绘制Y轴坐标刻度
         mPaintText.setTextSize(DP2PX.dip2px(mContext, YAxisTextSize));
         for (int i = 0; i < yAxisTextList.length; i++) {
-            float endY = originY - YAxisUnitLenth * i;
+            float endY = originY - YAxisUnitLenth * i + YAxisTextSize / 2;
             canvas.drawText(yAxisTextList[i] + yUnit, originX - YAxisTextSize - yAxisTextSpace, endY, mPaintText);
         }
         //绘制X轴坐标刻度

@@ -81,6 +81,9 @@ public class ACT_NursingProgress extends BaseActivity {
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
+            if(null == mSelectBuildingEntity) {
+                return;
+            }
             requestWarningShow("userNurse", mSelectBuildingEntity.getBuildingId() + "", mCurrentFloorId, true);
         }
     }
@@ -374,7 +377,6 @@ public class ACT_NursingProgress extends BaseActivity {
                 List<UserNurseListEntity> userNurseLis = bean.getUser();
                 elderlyList = userNurseLis;
                 mAdapter.update(userNurseLis, true);
-
                 if(bean.getWarningStr().equals("报警")){
                     CountDownUtils countDown = new CountDownUtils(15 * 1000, 1000) {
                         @Override

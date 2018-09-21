@@ -16,9 +16,9 @@
 
     <!--主页-->
     <string name="count_user">用户数</string>
-    <string name="count_family">家庭总数</string>
+    <string name="count_bed">床位总数</string>
     <string name="count_smart_equipment">智能设备</string>
-    <string name="count_use_rate">使用率</string>
+    <string name="count_use_rate">床位使用率</string>
     <string name="count_unit_1">个</string>
     <string name="count_unit_2">位</string>
     <string name="symbol_percent">%</string>
@@ -28,7 +28,9 @@
     <string name="nursing_level">护理级别</string>
     <string name="smart_equipment_online_data">智能设备在线情况</string>
     <string name="alert_data">报警数据</string>
-    <string name="today_examination">当日体检</string>
+    <string name="week_examination">近期体检</string>
+    <string name="latest_week">最近七天</string>
+    <string name="self_capability">自理能力</string>
     <string name="nursing_total_item">护理总项目</string>
     <string name="home_dynamic">院内动态</string>
     <string name="elderly_warning">老人警报</string>
@@ -55,6 +57,7 @@
     <string name="string_unhandled">未处理</string>
     <string name="string_solved">已解决</string>
     <string name="string_unsolved">未解决</string>
+    <string name="string_new_alert">新警报</string>
     <string name="string_online">在线</string>
     <string name="string_offline">离线</string>
     <string name="string_off_line">掉线</string>
@@ -96,5 +99,5 @@
     <string name="string_assxhdb">血红蛋白</string>
     <string name="string_htc">红细胞压积值</string>
 
-
+    <string name="current_none_warn">暂无警报</string>
 </resources>

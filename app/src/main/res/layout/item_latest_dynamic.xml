@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="364px"
+    android:id="@+id/ll_dynamic_item"
+    android:layout_width="340px"
     android:layout_height="42px"
-    android:gravity="center_vertical"
-    android:background="@drawable/bg_view_14_corners">
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/dynamic_date"
@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10px"
         android:layout_marginRight="12px"
-        android:text="[2018-09-23]"
-        android:textSize="8sp"
+        android:textSize="12sp"
         android:textColor="@color/color_e3e6e5"/>
 
     <TextView
@@ -21,8 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10px"
-        android:text="一级跌倒一级跌倒一级跌倒一级跌倒一级跌倒一级跌倒"
-        android:textSize="8sp"
+        android:textSize="12sp"
         android:textColor="@color/color_e3e6e5"
         android:maxLines="1"
         android:ellipsize="end"/>

@@ -2,12 +2,14 @@ package com.smart.tvpos.mvp;
 
 
 import com.smart.framework.library.base.BaseView;
+import com.smart.tvpos.bean.AbilityNumEntity;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.EquipmentStatusEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.JobItemEntity;
+import com.smart.tvpos.bean.LatestDynamicEntity;
 import com.smart.tvpos.bean.LatestWarnEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
@@ -35,7 +37,7 @@ public interface IHomeView extends BaseView {
 
     void getUserNurseData(List<NurseLevelEntity> dataList);
 
-    void getBraceletNew(List<EquipmentStatusEntity> dataList);
+//    void getBraceletNew(List<EquipmentStatusEntity> dataList);
 
     void getMattressNew(List<EquipmentStatusEntity> dataList);
 
@@ -46,4 +48,8 @@ public interface IHomeView extends BaseView {
     void getNurseProgressList(List<JobItemEntity> dataList);
 
     void getUserWarning6(List<LatestWarnEntity> dataList);
+
+    void getAfficheNew(List<LatestDynamicEntity> dataList);
+
+    void getAbilityNum(List<AbilityNumEntity> result);
 }

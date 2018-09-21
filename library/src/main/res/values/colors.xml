@@ -63,6 +63,13 @@
         <item>@color/type_color_10</item>
         <item>@color/type_color_11</item>
         <item>@color/type_color_12</item>
+        <item>@color/type_color_13</item>
+        <item>@color/type_color_14</item>
+        <item>@color/type_color_15</item>
+        <item>@color/type_color_16</item>
+        <item>@color/type_color_17</item>
+        <item>@color/type_color_18</item>
+        <item>@color/type_color_19</item>
     </integer-array>
 
     <color name="type_color_0">#1e3d64</color>
@@ -80,4 +87,9 @@
     <color name="type_color_12">#1a5dcb</color>
     <color name="type_color_13">#505fbe</color>
     <color name="type_color_14">#04234d</color>
+    <color name="type_color_15">#74f5b3</color>
+    <color name="type_color_16">#b667e8</color>
+    <color name="type_color_17">#d339b8</color>
+    <color name="type_color_18">#eae476</color>
+    <color name="type_color_19">#e5a664</color>
 </resources>

@@ -44,7 +44,7 @@ public class ADA_NurseProgressItem extends CommonAdapterListView<JobItemEntity> 
             FrameLayout.LayoutParams paramsD = (FrameLayout.LayoutParams) completePercent.getLayoutParams();
             FrameLayout.LayoutParams paramsA = (FrameLayout.LayoutParams) allPercent.getLayoutParams();
 
-            float percent = bean.getNumD() / bean.getNumA();
+            float percent = (float) (bean.getNumD() * 1.0 / bean.getNumA() * 1.0);
 
             paramsD.width = (int) (paramsA.width * percent);
 

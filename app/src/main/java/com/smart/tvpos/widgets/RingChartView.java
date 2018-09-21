@@ -36,20 +36,20 @@ public class RingChartView extends View {
     private Context mContext;
     private Paint mPaint;
     private int mPaintWidth = 0;        // 画笔的宽
-    private int topMargin = 25;         // 上边距
-    private int leftMargin = 25;        // 左边距
+    private int topMargin = 45;         // 上边距
+    private int leftMargin = 95;        // 左边距
     private Resources mRes;
     private DisplayMetrics dm;
-    private int showRateSize = 5; // 展示文字的大小
+    private int showRateSize = 14; // 展示文字的大小
 
-    private int circleCenterX = 40;     // 圆心点X  要与外圆半径相等
-    private int circleCenterY = 40;     // 圆心点Y  要与外圆半径相等
+    private int circleCenterX = 70;     // 圆心点X  要与外圆半径相等
+    private int circleCenterY = 70;     // 圆心点Y  要与外圆半径相等
 
-    private int ringOuterRidus = 40;     // 外圆的半径
-    private int ringInnerRidus = 30;     // 内圆的半径
-    private int ringPointRidus = 40;    // 点所在圆的半径
+    private int ringOuterRidus = 70;     // 外圆的半径
+    private int ringInnerRidus = 50;     // 内圆的半径
+    private int ringPointRidus = 70;    // 点所在圆的半径
 
-    private float rate = 0.4f;     //点的外延距离  与  点所在圆半径的长度比率
+//    private float rate = 0.4f;     //点的外延距离  与  点所在圆半径的长度比率
 //    private float extendLineWidth = 10;     //点外延后  折的横线的长度
     private RectF rectF;                // 外圆所在的矩形
     private RectF rectShadow;                // 外圆所在的矩形
@@ -100,32 +100,31 @@ public class RingChartView extends View {
         dm = new DisplayMetrics();
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(dm);
+        Log.d("aqua", "dm.density:" + dm.density);
         int screenWidth = wm.getDefaultDisplay().getWidth();
 //        int height = wm.getDefaultDisplay().getHeight();
 //        leftMargin = (px2dip(screenWidth) - (2 * circleCenterX)) / 2;
 
         mPaint.setColor(getResources().getColor(R.color.color_red));
-        mPaint.setStrokeWidth(dip2px(mPaintWidth));
+        mPaint.setStrokeWidth(mPaintWidth);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
 
-        rectF = new RectF(dip2px(mPaintWidth + leftMargin),
-                dip2px(mPaintWidth + topMargin),
-                dip2px(circleCenterX + ringOuterRidus + mPaintWidth * 2 + leftMargin),
-                dip2px(circleCenterY + ringOuterRidus + mPaintWidth * 2 + topMargin));
+        rectF = new RectF(mPaintWidth + leftMargin, mPaintWidth + topMargin,
+                circleCenterX + ringOuterRidus + mPaintWidth * 2 + leftMargin,
+                circleCenterY + ringOuterRidus + mPaintWidth * 2 + topMargin);
 
         int shadowLen = (ringOuterRidus - ringInnerRidus) * 2 / 3;
-        rectShadow = new RectF(dip2px(mPaintWidth + leftMargin + shadowLen),
-                dip2px(mPaintWidth + topMargin + shadowLen),
-                dip2px(circleCenterX + ringOuterRidus + mPaintWidth * 2 + leftMargin - shadowLen),
-                dip2px(circleCenterY + ringOuterRidus + mPaintWidth * 2 + topMargin - shadowLen));
+        rectShadow = new RectF(mPaintWidth + leftMargin + shadowLen, mPaintWidth + topMargin + shadowLen,
+                circleCenterX + ringOuterRidus + mPaintWidth * 2 + leftMargin - shadowLen,
+                circleCenterY + ringOuterRidus + mPaintWidth * 2 + topMargin - shadowLen);
 
-        rectFPoint = new RectF(dip2px(mPaintWidth + leftMargin + (ringOuterRidus - ringPointRidus)),
-                dip2px(mPaintWidth + topMargin + (ringOuterRidus - ringPointRidus)),
-                dip2px(circleCenterX + ringPointRidus + mPaintWidth * 2 + leftMargin),
-                dip2px(circleCenterY + ringPointRidus + mPaintWidth * 2 + topMargin));
+        rectFPoint = new RectF(mPaintWidth + leftMargin + (ringOuterRidus - ringPointRidus),
+                mPaintWidth + topMargin + (ringOuterRidus - ringPointRidus),
+                circleCenterX + ringPointRidus + mPaintWidth * 2 + leftMargin,
+                circleCenterY + ringPointRidus + mPaintWidth * 2 + topMargin);
 
-        Log.e("矩形点:", dip2px(circleCenterX + ringOuterRidus + mPaintWidth * 2) + " --- " + dip2px(circleCenterY + ringOuterRidus + mPaintWidth * 2));
+        Log.e("矩形点:", circleCenterX + ringOuterRidus + mPaintWidth * 2 + " --- " + circleCenterY + ringOuterRidus + mPaintWidth * 2);
 
     }
 
@@ -133,7 +132,7 @@ public class RingChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         pointList.clear();
-        if (colorList != null) {
+        if (colorList != null && rateList != null) {
             for (int i = 0; i < colorList.size(); i++) {
                 mPaint.setColor(mRes.getColor(colorList.get(i)));
                 mPaint.setStyle(Paint.Style.FILL);
@@ -152,13 +151,12 @@ public class RingChartView extends View {
 
     private void drawCenterPoint(Canvas canvas) {
         mPaint.setColor(mRes.getColor(R.color.color_red));
-//        Log.e("中心点:", dip2px(circleCenterX + mPaintWidth * 2 + leftMargin) + " --- " + dip2px(circleCenterY + mPaintWidth * 2 + topMargin));
-        canvas.drawCircle(dip2px(circleCenterX + mPaintWidth * 2 + leftMargin), dip2px(circleCenterY + mPaintWidth * 2 + topMargin), dip2px(1), mPaint);
+        canvas.drawCircle(circleCenterX + mPaintWidth * 2 + leftMargin, circleCenterY + mPaintWidth * 2 + topMargin, 1, mPaint);
     }
 
     private void drawInner(Canvas canvas) {
         mPaint.setColor(mRes.getColor(R.color.color_081638));
-        canvas.drawCircle(dip2px(circleCenterX + mPaintWidth * 2 + leftMargin), dip2px(circleCenterY + mPaintWidth * 2 + topMargin), dip2px(ringInnerRidus), mPaint);
+        canvas.drawCircle(circleCenterX + mPaintWidth * 2 + leftMargin, circleCenterY + mPaintWidth * 2 + topMargin, ringInnerRidus, mPaint);
     }
 
     private float preRate;
@@ -181,40 +179,36 @@ public class RingChartView extends View {
         dealPoint(rectFPoint, preAngle, (endAngle) / 2, pointArcCenterList);
         Point point = pointArcCenterList.get(position);
         mPaint.setColor(mRes.getColor(R.color.color_FFFFFF));
-//        canvas.drawCircle(point.x, point.y, dip2px(2), mPaint);
-
-        if (preRate / 2 + rateList.get(position) / 2 < 5) {
-            //将20改成5,外延线的横向距离会缩短
-            rate -= 0.05f;
-        } else {
-            rate = 0.4f;
-        }
 
         float[] floats = new float[8];
+        float textX, textY;
         floats[0] = point.x;
         floats[1] = point.y;
         //右半圆
-        if (point.x >= dip2px(leftMargin + ringOuterRidus)) {
+        if (point.x >= leftMargin + ringOuterRidus) {
             mPaint.setTextAlign(Paint.Align.LEFT);
             //防止绘制的文字重叠显示
             if (lastPoint != null) {
                 int absX = Math.abs(point.x - lastPoint.x);
                 int absY = Math.abs(point.y - lastPoint.y);
                 if (absX > 0 && absX < 10 && absY > 0 && absY < 10) {
-                    floats[6] = point.x + 8;
+                    floats[6] = point.x + 5;
                 } else {
-                    floats[6] = point.x + 28;
+                    floats[6] = point.x + 25;
                 }
             } else {
-                floats[6] = point.x + 28;
+                floats[6] = point.x + 25;
             }
-            if (point.y <= dip2px(topMargin + ringOuterRidus)) {
+
+            textX = floats[6];
+            if (point.y <= topMargin + ringOuterRidus) {
                 //右上角
                 floats[2] = point.x + 10;
                 floats[3] = point.y - 10;
                 floats[4] = point.x + 10;
                 floats[5] = point.y - 10;
                 floats[7] = point.y - 10;
+                textY = point.y - 20;
             } else {
                 //右下角
                 floats[2] = point.x + 10;
@@ -222,6 +216,7 @@ public class RingChartView extends View {
                 floats[4] = point.x + 10;
                 floats[5] = point.y + 10;
                 floats[7] = point.y + 10;
+                textY = point.y;
             }
             //左半圆
         } else {
@@ -232,20 +227,22 @@ public class RingChartView extends View {
                 int absX = Math.abs(point.x - lastPoint.x);
                 int absY = Math.abs(point.y - lastPoint.y);
                 if (absX > 0 && absX < 10 && absY > 0 && absY < 10) {
-                    floats[6] = point.x - 8;
+                    floats[6] = point.x - 5;
                 } else {
-                    floats[6] = point.x - 28;
+                    floats[6] = point.x - 25;
                 }
             } else {
-                floats[6] = point.x - 28;
+                floats[6] = point.x - 25;
             }
-            if (point.y <= dip2px(topMargin + ringOuterRidus)) {
+            textX = floats[6] - showRateSize * 4;
+            if (point.y <= topMargin + ringOuterRidus) {
                 //左上角
                 floats[2] = point.x - 10;
                 floats[3] = point.y - 10;
                 floats[4] = point.x - 10;
                 floats[5] = point.y - 10;
                 floats[7] = point.y - 10;
+                textY = point.y - 20;
             } else {
                 //左下角
                 floats[2] = point.x - 10;
@@ -253,6 +250,7 @@ public class RingChartView extends View {
                 floats[4] = point.x - 10;
                 floats[5] = point.y + 10;
                 floats[7] = point.y + 10;
+                textY = point.y;
             }
         }
         //根据每块的颜色，绘制对应颜色的折线
@@ -260,24 +258,29 @@ public class RingChartView extends View {
         mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_b69b4f));
         //画圆饼图每块边上的折线
         canvas.drawLines(floats, mPaint);
-        mPaint.setTextSize(dip2px(showRateSize));
+        mPaint.setTextSize(showRateSize);
         mPaint.setStyle(Paint.Style.STROKE);
         //绘制显示的文字,需要根据类型显示不同的文字
         if (mShowTextList.size() > 0) {
-            canvas.drawText(mShowTextList.get(position), floats[6], floats[7] + dip2px(showRateSize) / 3, mPaint);
+//            canvas.drawText(mShowTextList.get(position), floats[6], floats[7] + dip2px(showRateSize) / 3, mPaint);
 
-
-//            TextPaint textPaint = new TextPaint();
-//            textPaint.setColor(ContextCompat.getColor(mContext, R.color.color_b69b4f));
-//            textPaint.setTextSize(dip2px(showRateSize));
-//            textPaint.setAntiAlias(true);
-//            StaticLayout layout = new StaticLayout(mShowTextList.get(position), textPaint, 300,
-//                    Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, true);
-//            canvas.save();
-//            canvas.translate(floats[6], floats[7]);
-//            layout.draw(canvas);
-//            canvas.restore();
-
+            TextPaint textPaint = new TextPaint();
+            textPaint.setColor(ContextCompat.getColor(mContext, R.color.color_FFFFFF));
+            textPaint.setTextSize(showRateSize);
+            textPaint.setAntiAlias(true);
+            StaticLayout layout = new StaticLayout(mShowTextList.get(position), textPaint, 300,
+                    Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, true);
+            canvas.save();
+            canvas.translate(textX,  textY);
+            layout.draw(canvas);
+            canvas.restore();
+            textPaint.setColor(ContextCompat.getColor(mContext, R.color.color_b69b4f));
+            StaticLayout layoutRate = new StaticLayout(rateList.get(position) + mContext.getString(R.string.symbol_percent),
+                    textPaint, 300, Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, true);
+            canvas.save();
+            canvas.translate(textX,  textY + 13);
+            layoutRate.draw(canvas);
+            canvas.restore();
         }
         preRate = rateList.get(position);
     }
@@ -305,6 +308,9 @@ public class RingChartView extends View {
 
     private void drawOuter(Canvas canvas, int position) {
 //        canvas.drawCircle(circleCenterX, circleCenterY, ringInnerRidus, mPaint);
+        if(position > rateList.size() - 1){
+            return;
+        }
         if (rateList != null) {
             endAngle = getAngle(rateList.get(position));
         }
@@ -340,9 +346,9 @@ public class RingChartView extends View {
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    public int dip2px(float dpValue) {
-        return (int) (dpValue * dm.density + 0.5f);
-    }
+//    public int dip2px(float dpValue) {
+//        return (int) (dpValue * dm.density + 0.5f);
+//    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

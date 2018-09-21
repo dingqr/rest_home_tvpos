@@ -12,8 +12,7 @@
     </string-array>
 
     <string-array name="arr_age_indicator">
-        <item>60岁以下</item>
-        <item>60-69岁</item>
+        <item>70岁以下</item>
         <item>70-79岁</item>
         <item>80-89岁</item>
         <item>90-99岁</item>
@@ -45,8 +44,7 @@
     </string-array>
 
     <string-array name="arr_exam_indicator">
-        <item>@string/string_sbp</item>
-        <item>@string/string_dbp</item>
+        <item>@string/blood_pressure</item>
         <item>@string/string_spo2</item>
         <item>@string/string_pr2</item>
         <item>@string/string_hr</item>

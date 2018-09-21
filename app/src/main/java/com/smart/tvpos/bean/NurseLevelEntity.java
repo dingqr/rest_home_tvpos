@@ -1,11 +1,13 @@
 package com.smart.tvpos.bean;
 
+import com.smart.tvpos.interfaces.BarChartEntity;
+
 /**
  * Created by JoJo on 2018/6/23.
  * wechat：18510829974
  * description：护理级别实体
  */
-public class NurseLevelEntity  {
+public class NurseLevelEntity implements BarChartEntity {
 
     /**
      * nurseId : 1
@@ -17,7 +19,6 @@ public class NurseLevelEntity  {
     private int nurseId;
     private int num;
     private String name;
-//    private int id;
 
     public int getNurseId() {
         return nurseId;
@@ -41,5 +42,10 @@ public class NurseLevelEntity  {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int getDataNum() {
+        return num;
     }
 }

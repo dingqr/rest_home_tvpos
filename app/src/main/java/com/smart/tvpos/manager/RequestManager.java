@@ -246,14 +246,14 @@ public class RequestManager {
 //                        ResultBean result = JSON.parseObject(string, ResultBean.class);
                         ResultBean result = new ResultBean();
                         result.fromJson(string);
-
+//                        Log.d("aqua", "request : " + response.request().toString());
+//                        Log.d("aqua", "request : " + string);
 
                         if (null != result) {
                             switch (result.errorCode) {
                                 case RESPONCE_NO_ERROR_CODE:
                                     if (callBack.type != null) {
                                         String data = result.data;
-                                        Log.d("aqua", "onResponse data : " + data + ", result : " + result.toString());
                                         if (null == data || data.equals("")) {
                                             successCallBack(null, callBack);
                                         } else {

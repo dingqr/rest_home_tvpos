@@ -116,4 +116,13 @@ public class Constants {
     public final static int[] BreathAxisText = new int[]{0, 15, 30, 45, 60};
 
     public final static String[] BloodLipidNames = new String[]{"总胆固醇", "甘油三脂", "高密度脂蛋白","低密度脂蛋白"};
+
+    public final static int LivingUserData = 1;
+    public final static int StaffData = 2;
+    public final static int UserNurseData = 3;
+    public final static int MattressNew = 4;
+    public final static int BraceletNew = 5;
+    public final static int AlertData = 6;
+    public final static int UserHealthDataNum = 7;
+    public final static int AbilityDataNum = 8;
 }

@@ -57,7 +57,6 @@ public abstract class CountDownUtils extends CountDownTimer {
         if(!mMediaPlayer.isPlaying()){
             mMediaPlayer.start();
         }
-        Log.i("aqua", "start play");
         return this;
     }
 

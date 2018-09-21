@@ -55,7 +55,7 @@
                 android:drawablePadding="10px"
                 android:text="一级护理"
                 android:textColor="#3a3d49"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_sex_old_zoom"
@@ -66,7 +66,7 @@
                 android:drawablePadding="10px"
                 android:text="年龄：83    性别：男"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_address_zoom"
@@ -78,7 +78,7 @@
                 android:drawablePadding="10px"
                 android:text="住养大楼2层205"
                 android:textColor="#3a3d49"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_time_zoom"
@@ -93,25 +93,20 @@
 
         </com.zhy.autolayout.AutoLinearLayout>
         <!--跌倒级别-->
-        <com.zhy.autolayout.AutoLinearLayout
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
             android:layout_marginTop="40px"
-            android:gravity="end"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_warning_level_zoom"
-                android:layout_width="42px"
-                android:layout_height="42px"
-                android:src="@drawable/ic_warning_blue_zoom" />
+            android:gravity="end">
             <!--暂时固定显示紧急-->
             <TextView
                 android:id="@+id/tv_warning_level_zoom"
+                android:layout_toLeftOf="@+id/iv_warning_level_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:paddingRight="8px"
                 android:text="紧急"
                 android:textColor="@color/color_FFFFFF"
@@ -119,13 +114,25 @@
 
             <TextView
                 android:id="@+id/tv_thing_zoom"
+                android:layout_toLeftOf="@+id/iv_warning_level_zoom"
+                android:layout_below="@+id/tv_warning_level_zoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="8px"
                 android:text="意外走失"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="8sp" />
-        </com.zhy.autolayout.AutoLinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_warning_level_zoom"
+                android:layout_width="42px"
+                android:layout_height="42px"
+                android:layout_marginLeft="8px"
+                android:layout_marginRight="8px"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_warning_blue_zoom" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
         <!--跌倒级别-->
     </com.zhy.autolayout.AutoRelativeLayout>
 
@@ -162,7 +169,7 @@
                 android:drawablePadding="14px"
                 android:text="90"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="17sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_breath_zoom"
@@ -173,7 +180,7 @@
                 android:drawablePadding="14px"
                 android:text="15"
                 android:textColor="@color/color_FFFFFF"
-                android:textSize="17sp" />
+                android:textSize="20sp" />
 
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -210,7 +217,7 @@
                     android:layout_toRightOf="@+id/iv_status_zoom"
                     android:text="静卧"
                     android:textColor="@color/color_4990e3"
-                    android:textSize="10sp" />
+                    android:textSize="20sp" />
             </com.zhy.autolayout.AutoRelativeLayout>
         </com.zhy.autolayout.AutoLinearLayout>
 

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/iv_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20px"
+        android:layout_height="20px"
         android:layout_centerVertical="true"
         android:layout_marginRight="16px"
         android:src="@drawable/ic_nurse_progress" />
@@ -24,5 +24,5 @@
         android:layout_toRightOf="@+id/iv_menu"
         android:text="数据监控"
         android:textColor="@color/color_FFFFFF"
-        android:textSize="10sp" />
+        android:textSize="15sp" />
 </com.zhy.autolayout.AutoRelativeLayout>

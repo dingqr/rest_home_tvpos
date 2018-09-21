@@ -9,12 +9,14 @@ import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.tvpos.MyApplication;
+import com.smart.tvpos.bean.AbilityNumEntity;
 import com.smart.tvpos.bean.AdmitLivingEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.EquipmentStatusEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.JobItemEntity;
+import com.smart.tvpos.bean.LatestDynamicEntity;
 import com.smart.tvpos.bean.LatestWarnEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
@@ -167,6 +169,32 @@ public class HomePresenter implements IHomePresenter {
     }
 
     @Override
+    public void getAbilityNum(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<AbilityNumEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<AbilityNumEntity> result) {
+                mView.getAbilityNum(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+
+    @Override
     public void getUserHealthDataNum(String requestType) {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", requestType);
@@ -265,7 +293,7 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqSuccess(List<EquipmentStatusEntity> result) {
                 Elog.e("TAG", "nurse=" + result);
-                mView.getBraceletNew(result);
+//                mView.getBraceletNew(result);
             }
 
             @Override
@@ -411,19 +439,42 @@ public class HomePresenter implements IHomePresenter {
 
             @Override
             public void onReqSuccess(List<LatestWarnEntity> result) {
-                Log.d("aqua", "uW6 success :" + result.size());
                 mView.getUserWarning6(result);
             }
 
             @Override
             public void onFailure(String result) {
-                Log.d("aqua", "uW6 failure :" + result);
                 CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
             }
 
             @Override
             public void onReqFailed(ErrorBean error) {
-                Log.d("aqua", "uW6 failure :" + error.getMsg());
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+        });
+    }
+
+    @Override
+    public void getAfficheNew(String requestType) {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<LatestDynamicEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<LatestDynamicEntity> result) {
+                mView.getAfficheNew(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
         });

@@ -8,11 +8,11 @@ package com.smart.tvpos.mvp;
 public interface IHomePresenter {
     void getHeaderData(String requestType);
 
-//    void getAdmitLivingData(String requestType);
-
     void getLivingUserData(String requestType);
 
     void getAlertData(String requestType);
+
+    void getAbilityNum(String requestType);
 
     void getUserHealthDataNum(String requestType);
 
@@ -29,4 +29,6 @@ public interface IHomePresenter {
     void getNurseProgressList(String requestType);
 
     void getUserWarning6(String requestType);
+
+    void getAfficheNew(String requestType);
 }

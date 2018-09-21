@@ -1,10 +1,9 @@
 package com.smart.tvpos.ui;
 
-import android.annotation.TargetApi;
+import android.content.Entity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,21 +33,26 @@ import com.smart.tvpos.R;
 import com.smart.tvpos.adapter.ADA_BranchList;
 import com.smart.tvpos.adapter.ADA_ChartIndicator;
 import com.smart.tvpos.adapter.ADA_HomeMenu;
+import com.smart.tvpos.adapter.ADA_LatestDynamic;
 import com.smart.tvpos.adapter.ADA_LatestWarn;
 import com.smart.tvpos.adapter.ADA_NurseProgressItem;
+import com.smart.tvpos.bean.AbilityNumEntity;
 import com.smart.tvpos.bean.BranchAddressEntity;
 import com.smart.tvpos.bean.ChartCommonEntity;
 import com.smart.tvpos.bean.EquipmentStatusEntity;
 import com.smart.tvpos.bean.HomeHeadEntity;
 import com.smart.tvpos.bean.HomeMenuEntity;
 import com.smart.tvpos.bean.JobItemEntity;
+import com.smart.tvpos.bean.LatestDynamicEntity;
 import com.smart.tvpos.bean.LatestWarnEntity;
 import com.smart.tvpos.bean.NurseLevelEntity;
 import com.smart.tvpos.bean.StaffEntity;
 import com.smart.tvpos.bean.UserHealthDataNum;
 import com.smart.tvpos.bean.WarningEntity;
+import com.smart.tvpos.interfaces.BarChartEntity;
 import com.smart.tvpos.mvp.HomePresenter;
 import com.smart.tvpos.mvp.IHomeView;
+import com.smart.tvpos.util.CommonUtil;
 import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.util.SharePreConstants;
 import com.smart.tvpos.widgets.BanSlideListView;
@@ -60,6 +64,7 @@ import com.smart.tvpos.widgets.RingChartView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,12 +95,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     ImageView ivMenu;
     @Bind(R.id.mattress_online_chart)
     RingChartView mMattressOnlineView;
-    @Bind(R.id.watch_online_chart)
-    RingChartView mWatchOnlineChartView;
-    @Bind(R.id.alertchartview)
-    RingChartView mChartviewDataAlertView;
+//    @Bind(R.id.watch_online_chart)
+//    RingChartView mWatchOnlineChartView;
+    @Bind(R.id.abilityChartView)
+    RingChartView mChartViewDataAblityView;
     @Bind(R.id.userlivingchartview)
-    RingChartView mChartviewUserLivingView;
+    DashBarChartView mChartviewUserLivingView;
     @Bind(R.id.employeechartview)
     RingChartView mChartviewEmployeeView;
     @Bind(R.id.listView)
@@ -115,15 +120,15 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     RecyclerView nurseLevelIndicatorView;
     @Bind(R.id.chart_indicator_mattress)
     RecyclerView mattressIndicatorView;
-    @Bind(R.id.chart_indicator_watch)
-    RecyclerView watchIndicatorView;
-    @Bind(R.id.chart_indicator_alert)
-    RecyclerView alertIndicatorView;
+//    @Bind(R.id.chart_indicator_watch)
+//    RecyclerView watchIndicatorView;
+    @Bind(R.id.chart_indicator_ability)
+    RecyclerView abilityIndicatorView;
     @Bind(R.id.chart_indicator_exam)
     RecyclerView examIndicatorView;
 
     @Bind(R.id.nursing_level_chart_view)
-    DashBarChartView nurseLevelChartView;
+    RingChartView nurseLevelChartView;
     @Bind(R.id.body_examination_view)
     RadarChartView bodyExamChartView;
 
@@ -131,6 +136,10 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     RecyclerView homeDynamicListView;
     @Bind(R.id.elderly_warning_list)
     RecyclerView elderlyWarnListView;
+    @Bind(R.id.no_data)
+    TextView noWarnDataView;
+    @Bind(R.id.current_no_heath_data)
+    TextView noDataView;
     private AppSharedPreferences sharePre;
     private CommonPopupWindow mPopupWindow;
     private CommonPopupWindow.LayoutGravity mPopuplayoutGravity;
@@ -149,12 +158,14 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     private List<String> mUserInIndicatorList;
     private List<String> mWorkerIndicatorList;
     private List<String> mMattressIndicatorList;
-    private List<String> mWatchIndicatorList;
-    private List<String> mAlertIndicatorList;
+//    private List<String> mWatchIndicatorList;
+    private List<String> mAbilityIndicatorList;
     private List<String> mExamIndicatorList;
 
-    private ADA_LatestWarn mAdapterLatestNews;
-    private HomeHeadEntity mTitleBean;
+    private ADA_LatestWarn mAdapterLatestWarn;
+    private ADA_LatestDynamic mAdapterLatestDynamic;
+
+    private int numberUser;
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
@@ -193,118 +204,105 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         initChartIndicator();
 
-        //联网获取数据
-        requestNet();
-
         mAdapterNurseProgress = new ADA_NurseProgressItem(mContext);
         listViewNurseProgress.setAdapter(mAdapterNurseProgress);
 
-        mAdapterLatestNews = new ADA_LatestWarn(mContext);
+        mAdapterLatestWarn = new ADA_LatestWarn(mContext);
+        mAdapterLatestDynamic = new ADA_LatestDynamic(mContext);
 
         mBranchAdapter = new ADA_BranchList(mContext);
         listview.setAdapter(mBranchAdapter);
 
         sharePre = new AppSharedPreferences(this);
+
+        //联网获取数据
+        requestNet();
     }
 
     private void initChartIndicator() {
 
         //初始化 入住用户 颜色指示列表
         mUserInIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_age_indicator));
-        ADA_ChartIndicator userInAdapter = new ADA_ChartIndicator(mUserInIndicatorList, initDrawableList(1));
-        userInIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
+        ADA_ChartIndicator userInAdapter = new ADA_ChartIndicator(mUserInIndicatorList, initDrawableList(Constants.LivingUserData));
+        userInIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.HORIZONTAL, false, true));
         userInIndicatorView.setAdapter(userInAdapter);
 
         //员工统计
         mWorkerIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_worker_indicator));
-        ADA_ChartIndicator workerAdapter = new ADA_ChartIndicator(mWorkerIndicatorList, initDrawableList(2));
-        workerIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
+        ADA_ChartIndicator workerAdapter = new ADA_ChartIndicator(mWorkerIndicatorList, initDrawableList(Constants.StaffData));
+        workerIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
         workerIndicatorView.setAdapter(workerAdapter);
 
         //
         mMattressIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_mattress_indicator));
-        ADA_ChartIndicator mattressAdapter = new ADA_ChartIndicator(mMattressIndicatorList, initDrawableList(4));
-        mattressIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
+        ADA_ChartIndicator mattressAdapter = new ADA_ChartIndicator(mMattressIndicatorList, initDrawableList(Constants.MattressNew));
+        mattressIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
         mattressIndicatorView.setAdapter(mattressAdapter);
 
-        //
-        mWatchIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_watch_indicator));
-        ADA_ChartIndicator watchAdapter = new ADA_ChartIndicator(mWatchIndicatorList, initDrawableList(5));
-        watchIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
-        watchIndicatorView.setAdapter(watchAdapter);
+//        mWatchIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_watch_indicator));
+//        ADA_ChartIndicator watchAdapter = new ADA_ChartIndicator(mWatchIndicatorList, initDrawableList(Constants.BraceletNew));
+//        watchIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
+//        watchIndicatorView.setAdapter(watchAdapter);
 
         //
-        mAlertIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_alert_indicator));
-        ADA_ChartIndicator alertAdapter = new ADA_ChartIndicator(mAlertIndicatorList, initDrawableList(6));
-        alertIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
-        alertIndicatorView.setAdapter(alertAdapter);
-
-        //
+        mAbilityIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_exam_indicator));
         mExamIndicatorList = Arrays.asList(mContext.getResources().getStringArray(R.array.arr_exam_indicator));
-        ADA_ChartIndicator examAdapter = new ADA_ChartIndicator(mExamIndicatorList, initDrawableList(7));
-        examIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
+        ADA_ChartIndicator examAdapter = new ADA_ChartIndicator(mExamIndicatorList, initDrawableList(Constants.UserHealthDataNum));
+        examIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, true, false));
         examIndicatorView.setAdapter(examAdapter);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private List<Drawable> initDrawableList(int type) {
 
         List<Drawable> list = new ArrayList<>();
 
         switch (type){
             case 1:                                                             //入住用户
-                list.add(mContext.getDrawable(R.drawable.bg_view_6_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_5_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_7_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_1_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_2_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_3_corners));
+            case 7:                                                             //当日体检
+            case 8:                                                             //自理能力
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_1_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_2_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_3_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_4_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_6_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_7_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_8_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_9_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_10_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_11_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_12_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_13_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_0_corners));
                 break;
             case 2:                                                             //员工统计
-                list.add(mContext.getDrawable(R.drawable.bg_view_1_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_2_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_6_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_4_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_5_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_1_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_2_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_6_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_4_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
                 break;
             case 3:                                                             //护理级别
-                list.add(mContext.getDrawable(R.drawable.bg_view_1_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_2_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_3_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_4_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_5_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_6_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_7_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_1_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_2_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_3_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_4_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_6_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_7_corners));
                 break;
             case 4:                                                             //床垫在线
-                list.add(mContext.getDrawable(R.drawable.bg_view_2_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_5_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_7_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_2_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_7_corners));
                 break;
             case 5:                                                             //手表在线
-                list.add(mContext.getDrawable(R.drawable.bg_view_2_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_7_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_2_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_7_corners));
                 break;
             case 6:                                                             //报警数据
-                list.add(mContext.getDrawable(R.drawable.bg_view_5_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_7_corners));
-                break;
-            case 7:                                                             //当日体检
-                list.add(mContext.getDrawable(R.drawable.bg_view_1_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_2_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_3_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_4_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_5_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_6_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_7_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_8_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_9_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_10_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_11_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_12_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_13_corners));
-                list.add(mContext.getDrawable(R.drawable.bg_view_0_corners));
-
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
+                list.add(mContext.getResources().getDrawable(R.drawable.bg_view_7_corners));
                 break;
             default: break;
         }
@@ -315,24 +313,28 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     private void updateNurseLevelIndicator(List<String> dataList) {
         // 护理级别指示更新
-        ADA_ChartIndicator nurseLevAdapter = new ADA_ChartIndicator(dataList, initDrawableList(3));
-        nurseLevelIndicatorView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.HORIZONTAL));
+        ADA_ChartIndicator nurseLevAdapter = new ADA_ChartIndicator(dataList, initDrawableList(Constants.UserNurseData));
+        nurseLevelIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
         nurseLevelIndicatorView.setAdapter(nurseLevAdapter);
     }
 
+    private void updateAbilityIndicator(List<String>  dataList){
+        ADA_ChartIndicator abilityAdapter = new ADA_ChartIndicator(dataList, initDrawableList(Constants.AbilityDataNum));
+        abilityIndicatorView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
+        abilityIndicatorView.setAdapter(abilityAdapter);
+    }
 
-
-    private LinearLayoutManager getUnScrollableLayoutManager(int orientation) {
+    private LinearLayoutManager getScrollableLayoutManager(int orientation, final boolean scrollVertically, final boolean scrollHorizontally) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext){
 
             @Override
             public boolean canScrollVertically() {
-                return false;
+                return scrollVertically;
             }
 
             @Override
             public boolean canScrollHorizontally() {
-                return false;
+                return scrollHorizontally;
             }
         };
         layoutManager.setOrientation(orientation);
@@ -427,11 +429,12 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //4. 护理级别
         mPresenter.getUserNurseData("userByNurse");
         //5.智能设备
-        mPresenter.getBraceletNew("braceletNew");
+//        mPresenter.getBraceletNew("braceletNew");
         mPresenter.getMattressNew("mattressNew");
-        //6. 近三个月报警数据
-        mPresenter.getAlertData("warning");
-        //7. 当日体检
+        //6. 自理能力
+//        mPresenter.getAlertData("warning");
+        mPresenter.getAbilityNum("abilityNum");
+        //7. 当日体检--近七天
         mPresenter.getUserHealthDataNum("userHealthDataNum");
         //8.分院地址
         mPresenter.getBranchAddress("branchList");
@@ -439,6 +442,36 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mPresenter.getNurseProgressList("jobItem");
         //老人警报
         mPresenter.getUserWarning6("userWarning6");
+        //院内动态
+//        mPresenter.getAfficheNew("afficheNew");
+        test();
+    }
+
+    private void test() {
+        List<LatestDynamicEntity> dataList = new ArrayList<>();
+        LatestDynamicEntity entity = new LatestDynamicEntity();
+        entity.setCreated(new Date(System.currentTimeMillis()));
+        entity.setTitle("情系中秋节，爱驻敬老院，圆梦老人心愿公益行活动开展");
+        dataList.add(entity);
+        LatestDynamicEntity entity1 = new LatestDynamicEntity();
+        entity1.setCreated(new Date(System.currentTimeMillis()));
+        entity1.setTitle("携手夕阳红，温暖老人心，上海美术学院青年志愿者队“走进敬老院”活动");
+        dataList.add(entity1);
+        LatestDynamicEntity entity2 = new LatestDynamicEntity();
+        entity2.setCreated(new Date(System.currentTimeMillis()));
+        entity2.setTitle("行时代担当与慈善同行，倡议社会公众人人奉献爱心活动顺利举行");
+        dataList.add(entity2);
+        LatestDynamicEntity entity3 = new LatestDynamicEntity();
+        entity3.setCreated(new Date(System.currentTimeMillis()));
+        entity3.setTitle("本院与暖阳行敬老服务队“老吾老以及人之老“交流活动");
+        dataList.add(entity3);
+        LatestDynamicEntity entity4 = new LatestDynamicEntity();
+        entity4.setCreated(new Date(System.currentTimeMillis()));
+        entity4.setTitle("”影响脂肪肝的生活方式”主题健康大讲堂举行");
+        dataList.add(entity4);
+        mAdapterLatestDynamic.updateList(dataList);
+        homeDynamicListView.setAdapter(mAdapterLatestDynamic);
+        homeDynamicListView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
     }
 
 
@@ -550,14 +583,15 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (bean != null) {
             //用户数
             tvRestHomeNum.setText(bean.getNumUser() + "");
-            //家庭总数
-            tvUserNum.setText(bean.getNumUser() + "");
+            numberUser = bean.getNumUser();
+            //床位总数
+            tvUserNum.setText(bean.getNumBed() + "");
             //智能设备
             tvBedroomNum.setText(bean.getMattressNA() + "");
             //使用率
-            tvLiveRate.setText(StringUtil.getFormatPercentRate(bean.getMattressN() * 1f / bean.getMattressNA() * 100));
-
-            mTitleBean= bean;
+            if(bean.getMattressNA() != 0){
+                tvLiveRate.setText(StringUtil.getFormatPercentRate(bean.getNumUser() * 1f / bean.getNumBed() * 100));
+            }
         }
     }
 
@@ -571,28 +605,29 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         //处理集合数据——由于fastjson解析数据，有默认排序，与预期的不符合
         if (dataList != null && dataList.size() > 0) {
             //{"100岁以上":0,"60-69岁":5,"60以下":4,"70-79岁":18,"80-89岁":6,"90-99岁":0,"其他":4}
+            dataList.remove(dataList.size() - 1);
             dataList.add(dataList.size() - 1, dataList.get(0));
             dataList.remove(0);
-            Collections.swap(dataList, 0, 1);
+            int underSixty = dataList.get(1).getValue();
+            int six2sev = dataList.get(0).getValue();
+            dataList.get(1).setValue(underSixty + six2sev);
+            dataList.remove(0);
         }
         //添加色块
         List<Integer> userLivingChartcolorList = new ArrayList<>();
-        int[] colors = {R.color.color_34617e, R.color.color_f1b133, R.color.color_2e84ba, R.color.color_55c7f2, R.color.color_5ffefd, R.color.color_e36853, R.color.color_7c80fe};
+        int[] colors = mContext.getResources().getIntArray(R.array.color_group);
         for (int i = 0; i < colors.length; i++) {
             userLivingChartcolorList.add(colors[i]);
         }
 
-        //  添加百分比
-        List<Float> userLivingChartRateList = new ArrayList<>();
         //设置显示的文字
-        List<String> showTextList = new ArrayList<>();
+        List<BarChartEntity> barChartList = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
             ChartCommonEntity bean = dataList.get(i);
-            userLivingChartRateList.add(bean.value * 1f / mPresenter.livingTotal * 100);
-            showTextList.add(bean.keyName);
+            barChartList.add(bean);
         }
-        mChartviewUserLivingView.setShow(userLivingChartcolorList, userLivingChartRateList, true, true);
-        mChartviewUserLivingView.setShowTextList(showTextList);
+        mChartviewUserLivingView.setYAxisTextList(CommonUtil.formatArithmeticSequence(numberUser, 5));
+        mChartviewUserLivingView.updateData(barChartList);
 
     }
 
@@ -652,70 +687,115 @@ public class ACT_Home extends BaseActivity implements IHomeView {
      */
     @Override
     public void getUserNurseData(List<NurseLevelEntity> dataList) {
-        Log.d("aqua", "size : " + dataList.size() + ",  dataList : " + dataList.toString());
 
         if (dataList == null || dataList.size() == 0) {
             return;
         }
 
-        List<String> nameList = new ArrayList<>();
-        for (int i = 0; i < dataList.size(); i++) {
-            nameList.add(dataList.get(i).getName());
+        // 添加的颜色
+        List<Integer> userLivingChartcolorList = new ArrayList<>();
+        userLivingChartcolorList.add(R.color.type_color_1);
+        userLivingChartcolorList.add(R.color.type_color_2);
+        userLivingChartcolorList.add(R.color.type_color_3);
+        userLivingChartcolorList.add(R.color.type_color_4);
+        userLivingChartcolorList.add(R.color.type_color_5);
+        userLivingChartcolorList.add(R.color.type_color_6);
+        userLivingChartcolorList.add(R.color.type_color_7);
+        userLivingChartcolorList.add(R.color.type_color_8);
+
+        List<Float> userLivingChartRateList = new ArrayList<>();
+//        List<String> nameList = new ArrayList<>();
+        List<String> showTextList = new ArrayList<>();
+
+        //总人数
+        int allNum = 0;
+//        List<NurseLevelEntity> downList = new ArrayList<>();
+        for(int i = 0; i < dataList.size(); ++i) {
+            NurseLevelEntity entity = dataList.get(i);
+
+            //sort dec
+//            if(i > 0){
+//                for(int j = i - 1; j > -1; --j){
+//                    if(entity.getNum() < downList.get(j).getNum()){
+//                        downList.add(j + 1, entity);
+//                        break;
+//                    }
+//                }
+//            }
+//            else {
+//                downList.add(entity);
+//            }
+            allNum += entity.getNum();
         }
 
-        nurseLevelChartView.updateData(dataList);
-        updateNurseLevelIndicator(nameList);
+        float numRate = 0f;
+        for (int i = 0; i < dataList.size(); i++) {
+            NurseLevelEntity entity = dataList.get(i);
+
+            //添加百分比
+            if(allNum !=0){
+                numRate = (float) (entity.getNum() * 1.0 / allNum * 100);
+                String formatNumRate = StringUtil.getFormatPercentRate(numRate);//format 返回的是字符串
+                userLivingChartRateList.add(Float.parseFloat(formatNumRate));
+                showTextList.add(entity.getName());
+            }
+        }
+
+        nurseLevelChartView.setShow(userLivingChartcolorList, userLivingChartRateList, true, true);
+        nurseLevelChartView.setShowTextList(showTextList);
+//        nurseLevelChartView.updateData(charList);
+        updateNurseLevelIndicator(showTextList);
     }
 
     /**
      * 5、智能设备在线情况
      */
-    @Override
-    public void getBraceletNew(List<EquipmentStatusEntity> dataList) {
-
-        // 添加的颜色
-        List<Integer> watchChartColorList = new ArrayList<>();
-        watchChartColorList.add(R.color.type_color_2);
-        watchChartColorList.add(R.color.type_color_7);
-
-        //  添加的是百分比
-        List<Float> watchChartRateList = new ArrayList<>();
-        List<String> showTextList = new ArrayList<>();
-        float onlineRate = 0f, offlineRate = 0f;
-        int onlineNum = 0, offlineNum = 0, allNum = 0;
-        for(EquipmentStatusEntity entity : dataList){
-            allNum += entity.getNum();
-            if(entity.getStatus().equals(mContext.getString(R.string.string_online))){
-                onlineNum = entity.getNum();
-            }
-            if(entity.getStatus().equals(mContext.getString(R.string.string_offline))){
-                offlineNum = entity.getNum();
-            }
-        }
-
-        if(allNum !=0){
-//            onlineRate = (float) (onlineNum * 1.0 / allNum * 100);
-            offlineRate = (float) (offlineNum * 1.0 / allNum * 100);
-        }
-
-        String formatOfflineRate = StringUtil.getFormatPercentRate(offlineRate);//format 返回的是字符串
-        onlineRate = (100 - Float.parseFloat(formatOfflineRate));
-        String formatOnlineRate = StringUtil.getFormatPercentRate(onlineRate);
-
-        //添加百分比
-        watchChartRateList.add(Float.parseFloat(formatOnlineRate));
-        watchChartRateList.add(Float.parseFloat(formatOfflineRate));
-
-        //设置显示的text
-        showTextList.add(
-                Float.parseFloat(formatOnlineRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-        showTextList.add(
-                Float.parseFloat(formatOfflineRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-
-        mWatchOnlineChartView.setCommonSize(25, 30, 25, 17);
-        mWatchOnlineChartView.setShow(watchChartColorList, watchChartRateList, true, true);
-        mWatchOnlineChartView.setShowTextList(showTextList);
-    }
+//    @Override
+//    public void getBraceletNew(List<EquipmentStatusEntity> dataList) {
+//
+//        // 添加的颜色
+//        List<Integer> watchChartColorList = new ArrayList<>();
+//        watchChartColorList.add(R.color.type_color_2);
+//        watchChartColorList.add(R.color.type_color_7);
+//
+//        //  添加的是百分比
+//        List<Float> watchChartRateList = new ArrayList<>();
+//        List<String> showTextList = new ArrayList<>();
+//        float onlineRate = 0f, offlineRate = 0f;
+//        int onlineNum = 0, offlineNum = 0, allNum = 0;
+//        for(EquipmentStatusEntity entity : dataList){
+//            allNum += entity.getNum();
+//            if(entity.getStatus().equals(mContext.getString(R.string.string_online))){
+//                onlineNum = entity.getNum();
+//            }
+//            if(entity.getStatus().equals(mContext.getString(R.string.string_offline))){
+//                offlineNum = entity.getNum();
+//            }
+//        }
+//
+//        if(allNum !=0){
+////            onlineRate = (float) (onlineNum * 1.0 / allNum * 100);
+//            offlineRate = (float) (offlineNum * 1.0 / allNum * 100);
+//        }
+//
+//        String formatOfflineRate = StringUtil.getFormatPercentRate(offlineRate);//format 返回的是字符串
+//        onlineRate = (100 - Float.parseFloat(formatOfflineRate));
+//        String formatOnlineRate = StringUtil.getFormatPercentRate(onlineRate);
+//
+//        //添加百分比
+//        watchChartRateList.add(Float.parseFloat(formatOnlineRate));
+//        watchChartRateList.add(Float.parseFloat(formatOfflineRate));
+//
+//        //设置显示的text
+//        showTextList.add(
+//                Float.parseFloat(formatOnlineRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+//        showTextList.add(
+//                Float.parseFloat(formatOfflineRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+//
+//        mWatchOnlineChartView.setCommonSize(50, 80, 30, 20);
+//        mWatchOnlineChartView.setShow(watchChartColorList, watchChartRateList, true, true);
+//        mWatchOnlineChartView.setShowTextList(showTextList);
+//    }
 
     @Override
     public void getMattressNew(List<EquipmentStatusEntity> dataList) {
@@ -758,14 +838,11 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mattressChartRateList.add(Float.parseFloat(formatOnBedRate));
 
         //设置显示的text
-        showTextList.add(
-                Float.parseFloat(formatOfflineRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-        showTextList.add(
-                Float.parseFloat(formatOffBedRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-        showTextList.add(
-                Float.parseFloat(formatOnBedRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+        showTextList.add(mContext.getString(R.string.string_offline));
+        showTextList.add(mContext.getString(R.string.string_off_bed));
+        showTextList.add(mContext.getString(R.string.string_on_bed));
 
-        mMattressOnlineView.setCommonSize(25, 30, 25, 17);
+//        mMattressOnlineView.setCommonSize(50, 80, 30, 20);
         mMattressOnlineView.setShow(mattressChartColorList, mattressChartRateList, true, true);
         mMattressOnlineView.setShowTextList(showTextList);
     }
@@ -776,29 +853,29 @@ public class ACT_Home extends BaseActivity implements IHomeView {
     @Override
     public void getAlertData(WarningEntity bean) {
 
-        // 添加的颜色
-        List<Integer> alertChartcolorList = new ArrayList<>();
-        //未处理
-        alertChartcolorList.add(R.color.color_2b84b9);
-        alertChartcolorList.add(R.color.color_f1b133);
-
-        //  添加的是百分比
-        List<Float> alertChartRateList = new ArrayList<>();
-        List<String> showTextList = new ArrayList<>();
-
-        float handledRate = (float) (bean.getNumY() * 1.0 / bean.getNumA() * 100);
-        String formatHandledRate = StringUtil.getFormatPercentRate(handledRate);//format 返回的是字符串
-
-        float unHandledRate = (100 - Float.parseFloat(formatHandledRate));
-        String formatUnHandledRate = StringUtil.getFormatPercentRate(unHandledRate);
-        //添加百分比
-        alertChartRateList.add(Float.parseFloat(formatHandledRate));
-        alertChartRateList.add(Float.parseFloat(formatUnHandledRate));
-        //设置显示的text
-        showTextList.add(MyApplication.getContext().getString(R.string.string_handled) + Float.parseFloat(formatHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-        showTextList.add(MyApplication.getContext().getString(R.string.string_unhandled) + Float.parseFloat(formatUnHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
-        mChartviewDataAlertView.setShow(alertChartcolorList, alertChartRateList, true, true);
-        mChartviewDataAlertView.setShowTextList(showTextList);
+//        // 添加的颜色
+//        List<Integer> alertChartcolorList = new ArrayList<>();
+//        //未处理
+//        alertChartcolorList.add(R.color.color_2b84b9);
+//        alertChartcolorList.add(R.color.color_f1b133);
+//
+//        //  添加的是百分比
+//        List<Float> alertChartRateList = new ArrayList<>();
+//        List<String> showTextList = new ArrayList<>();
+//
+//        float handledRate = (float) (bean.getNumY() * 1.0 / bean.getNumA() * 100);
+//        String formatHandledRate = StringUtil.getFormatPercentRate(handledRate);//format 返回的是字符串
+//
+//        float unHandledRate = (100 - Float.parseFloat(formatHandledRate));
+//        String formatUnHandledRate = StringUtil.getFormatPercentRate(unHandledRate);
+//        //添加百分比
+//        alertChartRateList.add(Float.parseFloat(formatHandledRate));
+//        alertChartRateList.add(Float.parseFloat(formatUnHandledRate));
+//        //设置显示的text
+//        showTextList.add(MyApplication.getContext().getString(R.string.string_handled) + "\r\n" + Float.parseFloat(formatHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+//        showTextList.add(MyApplication.getContext().getString(R.string.string_unhandled) + "\r\n" + Float.parseFloat(formatUnHandledRate) + MyApplication.getContext().getString(R.string.string_percent_symbol));
+//        mChartviewDataAlertView.setShow(alertChartcolorList, alertChartRateList, true, true);
+//        mChartviewDataAlertView.setShowTextList(showTextList);
     }
 
     @Override
@@ -812,7 +889,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         }
 
         dataList.add(data.getSbp());
-        dataList.add(data.getDbp());
         dataList.add(data.getSpo2());
         dataList.add(data.getPr2());
         dataList.add(data.getHr());
@@ -826,8 +902,18 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         dataList.add(data.getAssxhdb());
         dataList.add(data.getHtc());
 
+//        int sum = data.getSbp() + data.getDbp() + data.getSpo2() + data.getPr2() + data.getHr()
+//                + data.getResp_rr() + data.getGlu() + data.getTemp() + data.getFlipidsChol()
+//                + data.getFlipidsTrig() + data.getFlipidsHdl() + data.getFlipidsLDL() + data.getAssxhdb()
+//                + data.getHtc();
+        int sum = 100;
+
         bodyExamChartView.setShowTextList(Arrays.asList(arrText));
         bodyExamChartView.setDataList(dataList);
+        if(sum != 0){
+            noDataView.setVisibility(View.GONE);
+            bodyExamChartView.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -890,7 +976,33 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        mAdapterNurseProgress.update(dataList, true);
+        //Merge the same type data
+        Map<String, Integer> mergeDataMap = new HashMap<>();
+        List<JobItemEntity> mergeDataList = new ArrayList<>();
+        for(int i = 0; i < dataList.size(); ++i) {
+            JobItemEntity entity = dataList.get(i);
+            String currentName = entity.getItemName();
+
+            if(mergeDataMap.size() > 0){
+                Set<String> nameSet = mergeDataMap.keySet();
+                if(nameSet.contains(currentName)) {
+                    JobItemEntity exitItem = mergeDataList.get(mergeDataMap.get(currentName));
+                    exitItem.setNumA(exitItem.getNumA() + entity.getNumA());
+                    exitItem.setNumD(exitItem.getNumD() + entity.getNumD());
+                    mergeDataMap.put(exitItem.getItemName(), mergeDataMap.get(currentName));
+                    mergeDataList.set(mergeDataMap.get(currentName), exitItem);
+                }
+                else {
+                    mergeDataList.add(entity);
+                    mergeDataMap.put(entity.getItemName(), mergeDataList.size() - 1);
+                }
+            }
+            else {
+                mergeDataMap.put(entity.getItemName(), 0);
+                mergeDataList.add(entity);
+            }
+        }
+        mAdapterNurseProgress.update(mergeDataList, true);
         listViewNurseProgress.setAdapter(mAdapterNurseProgress);
     }
 
@@ -903,9 +1015,75 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         if (dataList == null || dataList.size() == 0) {
             return;
         }
-        mAdapterLatestNews.updateList(dataList);
-        elderlyWarnListView.setAdapter(mAdapterLatestNews);
-        elderlyWarnListView.setLayoutManager(getUnScrollableLayoutManager(LinearLayoutManager.VERTICAL));
+        mAdapterLatestWarn.updateList(dataList);
+        elderlyWarnListView.setAdapter(mAdapterLatestWarn);
+        elderlyWarnListView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, true, false));
+        elderlyWarnListView.setVisibility(View.VISIBLE);
+        noWarnDataView.setVisibility(View.GONE);
     }
 
+    @Override
+    public void getAfficheNew(List<LatestDynamicEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+           return;
+        }
+        mAdapterLatestDynamic.updateList(dataList);
+        homeDynamicListView.setAdapter(mAdapterLatestDynamic);
+        homeDynamicListView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
+    }
+
+    @Override
+    public void getAbilityNum(List<AbilityNumEntity> result) {
+
+        if(null == result || result.size() < 1){
+            return;
+        }
+        // 添加颜色
+        List<Integer> abilityChartColorList = new ArrayList<>();
+        abilityChartColorList.add(R.color.type_color_1);
+        abilityChartColorList.add(R.color.type_color_2);
+        abilityChartColorList.add(R.color.type_color_3);
+        abilityChartColorList.add(R.color.type_color_4);
+        abilityChartColorList.add(R.color.type_color_5);
+        abilityChartColorList.add(R.color.type_color_6);
+        abilityChartColorList.add(R.color.type_color_7);
+        abilityChartColorList.add(R.color.type_color_8);
+        abilityChartColorList.add(R.color.type_color_9);
+        abilityChartColorList.add(R.color.type_color_10);
+        abilityChartColorList.add(R.color.type_color_11);
+        abilityChartColorList.add(R.color.type_color_12);
+        abilityChartColorList.add(R.color.type_color_13);
+        abilityChartColorList.add(R.color.type_color_0);
+
+        //  添加百分比
+        List<Float> abilityChartRateList = new ArrayList<>();
+        List<String> showTextList = new ArrayList<>();
+//        List<String> indicatorList = new ArrayList<>();
+
+        int totalNum = 0;
+        for(int i = 0; i < result.size(); ++i) {
+//        for(int i = 0; i < 4; ++i) {
+            totalNum += result.get(i).getNum();
+        }
+
+        if(totalNum == 0) return;
+
+        for(int i = 0; i < result.size(); ++i) {
+//        for(int i = 0; i < 4; ++i) {
+            AbilityNumEntity bean = result.get(i);
+            float beanRate = (float) (bean.getNum() * 1.0 / totalNum * 100);
+            String formatBeanRate = StringUtil.getFormatPercentRate(beanRate);
+            abilityChartRateList.add(Float.parseFloat(formatBeanRate));
+            if(bean.getAbilityId().equals("0")){
+                showTextList.add("其他");
+            }
+            else {
+                showTextList.add(bean.getAbilityName());
+            }
+        }
+
+        updateAbilityIndicator(showTextList);
+        mChartViewDataAblityView.setShow(abilityChartColorList, abilityChartRateList, true, true);
+        mChartViewDataAblityView.setShowTextList(showTextList);
+    }
 }

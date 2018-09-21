@@ -32,29 +32,28 @@ public class ADA_LatestWarn extends RecyclerView.Adapter<ADA_LatestWarn.ViewHold
         return viewHolder;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         //限定五条数据
-        if(position > 4){
+        if(position > 29){
             return;
         }
 
         if(position % 2 == 0){
-            holder.llWarnItem.setBackground(mContext.getDrawable(R.drawable.bg_view_14_corners));
+            holder.llWarnItem.setBackground(mContext.getResources().getDrawable(R.drawable.bg_view_14_corners));
         }
 
         LatestWarnEntity entity = mList.get(position);
 
-        if(!entity.getState().equals(mContext.getResources().getString(R.string.string_unsolved))) {
+        if(!entity.getState().equals(mContext.getResources().getString(R.string.string_new_alert))) {
             //已解决
             holder.textTitle.setText(mContext.getResources().getString(R.string.string_solved));
-            holder.textTitle.setBackground(mContext.getDrawable(R.drawable.bg_view_1_corners));
+            holder.textTitle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_view_1_corners));
         }
         else {
             holder.textTitle.setText(mContext.getResources().getString(R.string.string_unsolved));
-            holder.textTitle.setBackground(mContext.getDrawable(R.drawable.bg_view_5_corners));
+            holder.textTitle.setBackground(mContext.getResources().getDrawable(R.drawable.bg_view_5_corners));
 
         }
 
