@@ -395,6 +395,11 @@ public class ACT_WatchingOverview extends BaseActivity {
                 hideLoading();
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public WarningEntity fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -430,6 +435,11 @@ public class ACT_WatchingOverview extends BaseActivity {
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public WarningNewDataEntity fromJson(String resultData) {
+                return null;
             }
         });
     }
@@ -478,6 +488,11 @@ public class ACT_WatchingOverview extends BaseActivity {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<BuildingEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -514,6 +529,11 @@ public class ACT_WatchingOverview extends BaseActivity {
             public void onReqFailed(ErrorBean error) {
                 hideLoading();
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public WarningEntity fromJson(String resultData) {
+                return null;
             }
         });
     }

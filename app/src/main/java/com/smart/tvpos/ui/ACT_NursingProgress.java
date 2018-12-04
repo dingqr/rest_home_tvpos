@@ -343,6 +343,11 @@ public class ACT_NursingProgress extends BaseActivity {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<BuildingEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -408,6 +413,11 @@ public class ACT_NursingProgress extends BaseActivity {
             public void onReqFailed(ErrorBean error) {
                 hideLoading();
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public UserNurseDataEntity fromJson(String resultData) {
+                return null;
             }
         });
     }

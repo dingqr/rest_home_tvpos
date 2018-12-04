@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class LatestDynamicEntity {
     private String id;
-    private String title;
-    private Date created;
+    private String name;
+    private Date partyStart;
 
     public String getId() {
         return id;
@@ -15,19 +15,19 @@ public class LatestDynamicEntity {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getPartyStart() {
+        return partyStart;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setPartyStart(Date partyStart) {
+        this.partyStart = partyStart;
     }
 }

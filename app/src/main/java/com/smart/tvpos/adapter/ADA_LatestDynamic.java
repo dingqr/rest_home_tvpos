@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.smart.tvpos.R;
 import com.smart.tvpos.bean.LatestDynamicEntity;
 import com.smart.tvpos.bean.LatestWarnEntity;
@@ -24,6 +25,7 @@ public class ADA_LatestDynamic extends RecyclerView.Adapter<ADA_LatestDynamic.Vi
 
     private List<LatestDynamicEntity> mList;
     Context mContext;
+    MultiItemTypeAdapter.OnItemClickListener onItemClickListener;
 
     public ADA_LatestDynamic(Context context) {
 
@@ -38,12 +40,12 @@ public class ADA_LatestDynamic extends RecyclerView.Adapter<ADA_LatestDynamic.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        //限定五条数据
-        if(position > 4){
-            return;
-        }
+//        //限定五条数据
+//        if(position > 4){
+//            return;
+//        }
 
         if (Constants.TYPE_PAD_MODEL.equals(Build.MODEL)) {
             holder.textWhen.setTextSize(9);
@@ -54,15 +56,18 @@ public class ADA_LatestDynamic extends RecyclerView.Adapter<ADA_LatestDynamic.Vi
             holder.llDynamicItem.setBackground(mContext.getResources().getDrawable(R.drawable.bg_view_14_corners));
         }
 
-        Log.d("aqua", "mList : " + mList.size());
-        Log.d("aqua", "mList : " + mList.get(position).getCreated());
         LatestDynamicEntity entity = mList.get(position);
         SimpleDateFormat format =   new SimpleDateFormat("yyyy-MM-dd");
-        Date date = entity.getCreated();
+        Date date = entity.getPartyStart();
 
-//        holder.textWhen.setText("[" + format.format(date) + "]");
-        holder.textWhen.setText("[" + DateUtils.getInstance().getDateBefore(position, "-") + "]");
-        holder.textWhat.setText(entity.getTitle());
+        holder.textWhen.setText("[" + format.format(date) + "]");
+        holder.textWhat.setText(entity.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(holder.itemView, holder, position);
+            }
+        });
     }
 
     @Override
@@ -75,6 +80,9 @@ public class ADA_LatestDynamic extends RecyclerView.Adapter<ADA_LatestDynamic.Vi
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(MultiItemTypeAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -33,6 +34,7 @@ import com.smart.tvpos.bean.SleepRealTimeEntity;
 import com.smart.tvpos.global.API;
 import com.smart.tvpos.manager.ReqCallBack;
 import com.smart.tvpos.manager.RequestManager;
+import com.smart.tvpos.util.CommonUtil;
 import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.util.DateUtils;
 import com.smart.tvpos.widgets.LineChartView;
@@ -632,6 +634,11 @@ public class ACT_NursingDetail extends BaseActivity {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
                 Log.e(TAG, "requestElderlyData failed:" +  error.getMsg());
             }
+
+            @Override
+            public ElderlyDetailInfoEntity fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -665,6 +672,13 @@ public class ACT_NursingDetail extends BaseActivity {
                 updateSleepRealTimeView(updateInstant);
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
                 Log.e(TAG, "requestDayRealTimeData failed:" +  error.getMsg());
+            }
+
+            @Override
+            public List<SleepRealTimeEntity> fromJson(String resultData) {
+                List<SleepRealTimeEntity> list;
+                list = CommonUtil.fromJsonArray(JSON.parseArray(resultData), SleepRealTimeEntity.class);
+                return list;
             }
         });
     }

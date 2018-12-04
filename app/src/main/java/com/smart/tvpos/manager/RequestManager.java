@@ -246,8 +246,6 @@ public class RequestManager {
 //                        ResultBean result = JSON.parseObject(string, ResultBean.class);
                         ResultBean result = new ResultBean();
                         result.fromJson(string);
-                        Log.d("aqua", "request : " + response.request().toString());
-                        Log.d("aqua", "request : " + string);
 
                         if (null != result) {
                             switch (result.errorCode) {
@@ -265,13 +263,17 @@ public class RequestManager {
                                                 entity.fromJsonString(data);
                                                 successCallBack((T) entity, callBack);
                                             }
-                                            else if(callBack.type.toString().equals("java.util.List<com.smart.tvpos.bean.SleepRealTimeEntity>")){
-                                                List<SleepRealTimeEntity> list;
-                                                list = CommonUtil.fromJsonArray(JSON.parseArray(data), SleepRealTimeEntity.class);
-                                                successCallBack((T) list, callBack);
-                                            }
+//                                            else if(callBack.type.toString().equals("java.util.List<com.smart.tvpos.bean.SleepRealTimeEntity>")){
+//                                                List<SleepRealTimeEntity> list;
+//                                                list = CommonUtil.fromJsonArray(JSON.parseArray(data), SleepRealTimeEntity.class);
+//                                                successCallBack((T) list, callBack);
+//                                            }
                                             else {
-                                                successCallBack((T) JSON.parseObject(data, callBack.type), callBack);
+                                                T tData = (T) JSON.parseObject(data, callBack.type);
+                                                if (tData == null) {
+                                                    tData = callBack.fromJson(data);
+                                                }
+                                                successCallBack(tData, callBack);
                                             }
                                         }
                                     } else {

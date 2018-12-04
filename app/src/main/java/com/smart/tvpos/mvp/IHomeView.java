@@ -47,6 +47,8 @@ public interface IHomeView extends BaseView {
 
     void getNurseProgressList(List<JobItemEntity> dataList);
 
+    void getParty(List<LatestDynamicEntity> dataList);
+
     void getUserWarning6(List<LatestWarnEntity> dataList);
 
     void getAfficheNew(List<LatestDynamicEntity> dataList);

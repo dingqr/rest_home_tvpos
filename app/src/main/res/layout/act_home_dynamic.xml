@@ -2,76 +2,168 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/all_full_screen"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center_horizontal">
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:id="@+id/news_show"
-        android:layout_width="929px"
-        android:layout_height="533px"
+        android:layout_width="998px"
+        android:layout_height="753px"
         android:layout_marginBottom="262px"
         android:layout_marginTop="205px"
         android:background="@color/color_132450">
 
-        <TextView
-            android:id="@+id/home_dynamic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40px"
-            android:text="@string/home_dynamic"
-            android:textSize="18sp"
-            android:textColor="@color/color_5cdff2"/>
+        <!--<com.zhy.autolayout.AutoLinearLayout-->
+            <!--android:id="@+id/dir_show"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="30px"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:gravity="center_vertical">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/home_dynamic"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="40px"-->
+                <!--android:layout_marginRight="23px"-->
+                <!--android:text="@string/home_dynamic"-->
+                <!--android:textSize="15sp"-->
+                <!--android:textColor="@color/color_5cdff2"/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/icon_dir"-->
+                <!--android:layout_width="17px"-->
+                <!--android:layout_height="17px"-->
+                <!--android:layout_marginRight="12px"-->
+                <!--android:src="@drawable/icon_dir"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/home_dynamic_sub_title"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="15sp"-->
+                <!--android:textColor="@color/color_95adbe"/>-->
+        <!--</com.zhy.autolayout.AutoLinearLayout>-->
 
         <TextView
-            android:id="@+id/home_dynamic_sub_title"
-            android:layout_toRightOf="@+id/home_dynamic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="学雷锋活动"
-            android:textSize="18sp"
-            android:textColor="@color/color_93acbb"/>
-        <TextView
             android:id="@+id/home_dynamic_main_title"
-            android:layout_below="@+id/home_dynamic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
             android:gravity="center_horizontal"
-            android:text="学雷锋活动"
             android:textSize="32sp"
-            android:textColor="@color/color_93acbb"/>
+            android:textColor="@color/color_5bddf0"/>
         <TextView
             android:id="@+id/home_dynamic_time"
             android:layout_below="@+id/home_dynamic_main_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20px"
             android:gravity="center_horizontal"
-            android:text="2018-10-11"
             android:textSize="18sp"
-            android:textColor="@color/color_93acbb"/>
+            android:textColor="@color/color_a2b8c8"/>
 
-        <WebView
-            android:id="@+id/news_home_dynamic"
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/event_content"
             android:layout_below="@+id/home_dynamic_time"
-            android:layout_width="676px"
-            android:layout_height="200px"
-            android:layout_centerHorizontal="true"/>
-
-        <Button
-            android:layout_below="@+id/news_home_dynamic"
-            android:layout_width="146px"
-            android:layout_height="47px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32px"
-            android:background="@color/color_3662a0"
-            android:text="@string/dialog_confirm"
-            android:textColor="@color/color_a3fbfe"
-            android:shadowColor="@color/color_a3fbfe"
-            android:shadowDx="0.0"
-            android:shadowDy="0.0"
-            android:shadowRadius="8"
-            android:textSize="14sp" />
+            android:visibility="gone">
+            <ScrollView
+                android:layout_below="@+id/home_dynamic_time"
+                android:layout_width="823px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="36px"
+                android:layout_centerHorizontal="true"
+                android:scrollIndicators="right"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="outsideOverlay"
+                android:fadeScrollbars="false">
+
+                <TextView
+                    android:id="@+id/event_content_txt_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/color_a2b8c8"/>
+            </ScrollView>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/event_content_with_pic"
+            android:layout_below="@+id/home_dynamic_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible">
+            <ScrollView
+                android:id="@+id/event_content_show"
+                android:layout_below="@+id/home_dynamic_time"
+                android:layout_width="823px"
+                android:layout_height="346px"
+                android:layout_centerHorizontal="true"
+                android:scrollIndicators="right"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="outsideOverlay"
+                android:fadeScrollbars="false">
+
+                <TextView
+                    android:id="@+id/event_content_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/color_a2b8c8"/>
+            </ScrollView>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_below="@+id/event_content_show"
+                android:layout_width="match_parent"
+                android:layout_height="136px"
+                android:layout_marginTop="25px"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon_pre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12px"
+                    android:src="@drawable/icon_pre" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/event_photo_list"
+                    android:layout_width="846px"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/icon_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12px"
+                    android:src="@drawable/icon_next" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_confirm"-->
+            <!--android:layout_below="@+id/event_content"-->
+            <!--android:layout_width="146px"-->
+            <!--android:layout_height="47px"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="32px"-->
+            <!--android:background="@drawable/btn_confirm_hd"-->
+            <!--android:text="@string/dialog_confirm"-->
+            <!--android:textColor="@color/color_a3fbfe"-->
+            <!--android:shadowColor="@color/color_a3fbfe"-->
+            <!--android:shadowDx="0.0"-->
+            <!--android:shadowDy="0.0"-->
+            <!--android:shadowRadius="8"-->
+            <!--android:textSize="14sp" />-->
     </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoLinearLayout>

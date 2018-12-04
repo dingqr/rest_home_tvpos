@@ -1,5 +1,7 @@
 package com.smart.tvpos.util;
 
+import android.content.Context;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
@@ -7,6 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommonUtil {
+
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 
     public static <T> List<T> fromJsonArray(JSONArray jsonArray, Class clazz){
         List tList = new ArrayList<>();

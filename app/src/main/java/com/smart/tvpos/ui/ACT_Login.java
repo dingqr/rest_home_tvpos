@@ -156,6 +156,11 @@ public class ACT_Login extends BaseActivity {
                 dismissDialogLoad();
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public UserEntity fromJson(String resultData) {
+                return null;
+            }
         });
     }
 

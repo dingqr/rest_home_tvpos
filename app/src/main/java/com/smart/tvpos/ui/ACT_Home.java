@@ -1,6 +1,7 @@
 package com.smart.tvpos.ui;
 
 import android.content.Entity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.smart.framework.library.base.BaseActivity;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.ReceiveConstants;
@@ -165,13 +167,14 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     private ADA_LatestWarn mAdapterLatestWarn;
     private ADA_LatestDynamic mAdapterLatestDynamic;
+    private List<LatestDynamicEntity> latestDynamicList;
 
     private int numberUser;
 
     @Override
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
         if (intent == ReceiveConstants.REFRESH_CURRENT_PAGE) {
-            requestNet();
+            refreshNet();
         }
     }
 
@@ -463,36 +466,20 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         mPresenter.getUserWarning6("userWarning6");
         //院内动态
 //        mPresenter.getAfficheNew("afficheNew");
-        test();
+        mPresenter.getParty("party");
     }
 
-    private void test() {
-        List<LatestDynamicEntity> dataList = new ArrayList<>();
-        LatestDynamicEntity entity = new LatestDynamicEntity();
-        entity.setCreated(new Date(System.currentTimeMillis()));
-        entity.setTitle("情系中秋节，爱驻敬老院，圆梦老人心愿公益行活动开展");
-        dataList.add(entity);
-        LatestDynamicEntity entity1 = new LatestDynamicEntity();
-        entity1.setCreated(new Date(System.currentTimeMillis()));
-        entity1.setTitle("携手夕阳红，温暖老人心，上海美术学院青年志愿者队“走进敬老院”活动");
-        dataList.add(entity1);
-        LatestDynamicEntity entity2 = new LatestDynamicEntity();
-        entity2.setCreated(new Date(System.currentTimeMillis()));
-        entity2.setTitle("行时代担当与慈善同行，倡议社会公众人人奉献爱心活动顺利举行");
-        dataList.add(entity2);
-        LatestDynamicEntity entity3 = new LatestDynamicEntity();
-        entity3.setCreated(new Date(System.currentTimeMillis()));
-        entity3.setTitle("本院与暖阳行敬老服务队“老吾老以及人之老“交流活动");
-        dataList.add(entity3);
-        LatestDynamicEntity entity4 = new LatestDynamicEntity();
-        entity4.setCreated(new Date(System.currentTimeMillis()));
-        entity4.setTitle("”影响脂肪肝的生活方式”主题健康大讲堂举行");
-        dataList.add(entity4);
-        mAdapterLatestDynamic.updateList(dataList);
-        homeDynamicListView.setAdapter(mAdapterLatestDynamic);
-        homeDynamicListView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, false, false));
+    private void refreshNet() {
+        mPresenter.getMattressNew("mattressNew");
+        mPresenter.getNurseProgressList("jobItem");
+        mPresenter.getUserWarning6("userWarning6");
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getParty("party");
+    }
 
     @Override
     public void onOptionsMenuClosed(Menu menu) {
@@ -731,19 +718,6 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 //        List<NurseLevelEntity> downList = new ArrayList<>();
         for(int i = 0; i < dataList.size(); ++i) {
             NurseLevelEntity entity = dataList.get(i);
-
-            //sort dec
-//            if(i > 0){
-//                for(int j = i - 1; j > -1; --j){
-//                    if(entity.getNum() < downList.get(j).getNum()){
-//                        downList.add(j + 1, entity);
-//                        break;
-//                    }
-//                }
-//            }
-//            else {
-//                downList.add(entity);
-//            }
             allNum += entity.getNum();
         }
 
@@ -1027,6 +1001,32 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         }
         mAdapterNurseProgress.update(mergeDataList, true);
         listViewNurseProgress.setAdapter(mAdapterNurseProgress);
+    }
+
+    @Override
+    public void getParty(List<LatestDynamicEntity> dataList) {
+        if (dataList == null || dataList.size() == 0) {
+            return;
+        }
+        latestDynamicList = dataList;
+        mAdapterLatestDynamic.updateList(dataList);
+        mAdapterLatestDynamic.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("party_id", latestDynamicList.get(position).getId());
+                intent.putExtra("party_name", latestDynamicList.get(position).getName());
+                intent.putExtra("party_time", latestDynamicList.get(position).getPartyStart());
+                readyGo(ACT_HomeDynamic.class, intent);
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+        homeDynamicListView.setAdapter(mAdapterLatestDynamic);
+        homeDynamicListView.setLayoutManager(getScrollableLayoutManager(LinearLayoutManager.VERTICAL, true, false));
     }
 
     /**

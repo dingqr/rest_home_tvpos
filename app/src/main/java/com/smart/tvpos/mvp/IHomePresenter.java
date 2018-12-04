@@ -28,6 +28,8 @@ public interface IHomePresenter {
 
     void getNurseProgressList(String requestType);
 
+    void getParty(String requestType);
+
     void getUserWarning6(String requestType);
 
     void getAfficheNew(String requestType);

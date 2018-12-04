@@ -39,4 +39,9 @@ public  abstract class ReqCallBack<T> {
      * @param error
      */
     public abstract void onReqFailed(ErrorBean error);
+
+    /**
+     * 自定义数据解析
+     */
+    public abstract T fromJson(String resultData);
 }

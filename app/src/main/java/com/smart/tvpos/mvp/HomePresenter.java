@@ -73,6 +73,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public HomeHeadEntity fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -134,6 +139,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public String fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -165,6 +175,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public WarningEntity fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -189,6 +204,11 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public List<AbilityNumEntity> fromJson(String resultData) {
+                return null;
             }
         });
     }
@@ -215,6 +235,11 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public UserHealthDataNum fromJson(String resultData) {
+                return null;
             }
         });
     }
@@ -279,6 +304,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<NurseLevelEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -305,6 +335,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<EquipmentStatusEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -330,6 +365,11 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public List<EquipmentStatusEntity> fromJson(String resultData) {
+                return null;
             }
         });
     }
@@ -361,6 +401,11 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public List<StaffEntity> fromJson(String resultData) {
+                return null;
             }
         });
     }
@@ -395,6 +440,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<BranchAddressEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -425,6 +475,42 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<JobItemEntity> fromJson(String resultData) {
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public void getParty(String requestType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("a", requestType);
+        params.put("id", Constants.USER_ID);
+        params.put("sign", Constants.USER_SIGN);
+        RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<List<LatestDynamicEntity>>() {
+
+            @Override
+            public void onReqSuccess(List<LatestDynamicEntity> result) {
+                Elog.e("TAG", "jobItem=" + result);
+                mView.getParty(result);
+            }
+
+            @Override
+            public void onFailure(String result) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+            }
+
+            @Override
+            public void onReqFailed(ErrorBean error) {
+                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public List<LatestDynamicEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -451,6 +537,11 @@ public class HomePresenter implements IHomePresenter {
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
             }
+
+            @Override
+            public List<LatestWarnEntity> fromJson(String resultData) {
+                return null;
+            }
         });
     }
 
@@ -476,6 +567,11 @@ public class HomePresenter implements IHomePresenter {
             @Override
             public void onReqFailed(ErrorBean error) {
                 CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+            }
+
+            @Override
+            public List<LatestDynamicEntity> fromJson(String resultData) {
+                return null;
             }
         });
     }
