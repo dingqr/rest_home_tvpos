@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/all_full_screen"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/news_show"
+        android:layout_width="929px"
+        android:layout_height="533px"
+        android:layout_marginBottom="262px"
+        android:layout_marginTop="205px"
+        android:background="@color/color_132450">
+
+        <TextView
+            android:id="@+id/home_dynamic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40px"
+            android:text="@string/home_dynamic"
+            android:textSize="18sp"
+            android:textColor="@color/color_5cdff2"/>
+
+        <TextView
+            android:id="@+id/home_dynamic_sub_title"
+            android:layout_toRightOf="@+id/home_dynamic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="学雷锋活动"
+            android:textSize="18sp"
+            android:textColor="@color/color_93acbb"/>
+        <TextView
+            android:id="@+id/home_dynamic_main_title"
+            android:layout_below="@+id/home_dynamic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="学雷锋活动"
+            android:textSize="32sp"
+            android:textColor="@color/color_93acbb"/>
+        <TextView
+            android:id="@+id/home_dynamic_time"
+            android:layout_below="@+id/home_dynamic_main_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="2018-10-11"
+            android:textSize="18sp"
+            android:textColor="@color/color_93acbb"/>
+
+        <WebView
+            android:id="@+id/news_home_dynamic"
+            android:layout_below="@+id/home_dynamic_time"
+            android:layout_width="676px"
+            android:layout_height="200px"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:layout_below="@+id/news_home_dynamic"
+            android:layout_width="146px"
+            android:layout_height="47px"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32px"
+            android:background="@color/color_3662a0"
+            android:text="@string/dialog_confirm"
+            android:textColor="@color/color_a3fbfe"
+            android:shadowColor="@color/color_a3fbfe"
+            android:shadowDx="0.0"
+            android:shadowDy="0.0"
+            android:shadowRadius="8"
+            android:textSize="14sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

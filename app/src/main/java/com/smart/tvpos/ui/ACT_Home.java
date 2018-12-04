@@ -4,6 +4,7 @@ import android.content.Entity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -215,8 +216,26 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
         sharePre = new AppSharedPreferences(this);
 
+        modifyRingChartView();
+
         //联网获取数据
         requestNet();
+    }
+
+    private void modifyRingChartView() {
+
+        if(Constants.TYPE_PAD_MODEL.equals(Build.MODEL)) {
+            mMattressOnlineView.setCommonSize(30, 55, 45, 35);
+            mChartViewDataAblityView.setCommonSize(30, 55, 45, 35);
+            mChartviewEmployeeView.setCommonSize(30, 55, 45, 35);
+            nurseLevelChartView.setCommonSize(30, 55, 45, 35);
+            bodyExamChartView.setCommonSize(30, 55, 45);
+
+            mMattressOnlineView.setShowRateSize(10);
+            mChartViewDataAblityView.setShowRateSize(10);
+            mChartviewEmployeeView.setShowRateSize(10);
+            nurseLevelChartView.setShowRateSize(10);
+        }
     }
 
     private void initChartIndicator() {
@@ -799,6 +818,10 @@ public class ACT_Home extends BaseActivity implements IHomeView {
 
     @Override
     public void getMattressNew(List<EquipmentStatusEntity> dataList) {
+
+        if(null == dataList || dataList.size() == 0){
+            return;
+        }
 
         // 添加的颜色
         List<Integer> mattressChartColorList = new ArrayList<>();

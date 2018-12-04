@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.smart.tvpos.R;
 import com.smart.tvpos.bean.LatestWarnEntity;
+import com.smart.tvpos.util.Constants;
 
 import java.util.List;
 
@@ -35,9 +36,16 @@ public class ADA_LatestWarn extends RecyclerView.Adapter<ADA_LatestWarn.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        //限定五条数据
+        //限定30条数据
         if(position > 29){
             return;
+        }
+
+        if (Constants.TYPE_PAD_MODEL.equals(Build.MODEL)) {
+            holder.textTitle.setTextSize(9);
+            holder.textWho.setTextSize(9);
+            holder.textWhere.setTextSize(9);
+            holder.textWhat.setTextSize(9);
         }
 
         if(position % 2 == 0){

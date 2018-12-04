@@ -1,6 +1,7 @@
 package com.smart.tvpos.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.smart.tvpos.R;
 import com.smart.tvpos.bean.LatestDynamicEntity;
 import com.smart.tvpos.bean.LatestWarnEntity;
+import com.smart.tvpos.util.Constants;
 import com.smart.tvpos.util.DateUtils;
 
 import java.text.SimpleDateFormat;
@@ -41,6 +43,11 @@ public class ADA_LatestDynamic extends RecyclerView.Adapter<ADA_LatestDynamic.Vi
         //限定五条数据
         if(position > 4){
             return;
+        }
+
+        if (Constants.TYPE_PAD_MODEL.equals(Build.MODEL)) {
+            holder.textWhen.setTextSize(9);
+            holder.textWhat.setTextSize(9);
         }
 
         if(position % 2 == 0){

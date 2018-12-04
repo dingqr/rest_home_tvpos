@@ -191,4 +191,14 @@ public class RadarChartView extends View {
         initView();
         postInvalidate();
     }
+
+    public void setCommonSize(int topMargin, int leftMargin, int ringOuterRidus){
+        this.topMargin = topMargin;         // 上边距
+        this.leftMargin = leftMargin;        // 左边距
+
+        this.circleCenterX = ringOuterRidus;     // 圆心点X  要与外圆半径相等
+        this.circleCenterY = ringOuterRidus;     // 圆心点Y  要与外圆半径相等
+
+        this.ringOuterRidus = ringOuterRidus;     // 外圆的半径
+    }
 }

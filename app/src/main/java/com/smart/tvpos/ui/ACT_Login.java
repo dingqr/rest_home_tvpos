@@ -124,6 +124,10 @@ public class ACT_Login extends BaseActivity {
             @Override
             public void onReqSuccess(UserEntity userEntity) {
                 dismissDialogLoad();
+                if(null == userEntity) {
+                    CommonUtils.makeEventToast(MyApplication.getContext(), getResources().getString(R.string.network_error), false);
+                    return;
+                }
                 CommonUtils.makeEventToast(MyApplication.getContext(), getResources().getString(R.string.user_login_success), false);
                 //存储用户信息
                 sharePre.putString(SharePreConstants.USER_SIGN, userEntity.getSign() == null ? "" : userEntity.getSign());

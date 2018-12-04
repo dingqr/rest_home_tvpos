@@ -374,4 +374,8 @@ public class RingChartView extends View {
         this.ringOuterRidus = ringOuterRidus;     // 外圆的半径
         this.ringInnerRidus = ringInnerRidus;     // 内圆的半径
     }
+
+    public void setShowRateSize(int showRateSize) {
+        this.showRateSize = showRateSize;
+    }
 }

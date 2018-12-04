@@ -13,6 +13,8 @@ public class Constants {
     public static String TYPE = "";
     public static String BRANCH_NAME = "";
 
+    public static final String TYPE_PAD_MODEL = "LP100L1";
+
 
     /**
      * 页面传值时的参数名

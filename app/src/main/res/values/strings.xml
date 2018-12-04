@@ -13,6 +13,7 @@
     <string name="common_onfail">访问失败</string>
     <string name="common_request_fail">服务器错误</string>
     <string name="common_error_parse">解析异常</string>
+    <string name="dialog_confirm">确认</string>
 
     <!--主页-->
     <string name="count_user">用户数</string>

@@ -246,8 +246,8 @@ public class RequestManager {
 //                        ResultBean result = JSON.parseObject(string, ResultBean.class);
                         ResultBean result = new ResultBean();
                         result.fromJson(string);
-//                        Log.d("aqua", "request : " + response.request().toString());
-//                        Log.d("aqua", "request : " + string);
+                        Log.d("aqua", "request : " + response.request().toString());
+                        Log.d("aqua", "request : " + string);
 
                         if (null != result) {
                             switch (result.errorCode) {
