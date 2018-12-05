@@ -85,7 +85,12 @@ public class ADA_NurseProgressModify extends CommonAdapter<UserNurseListEntity> 
             ivWarningLevelZoom.setImageResource(R.drawable.ic_warning_red_zoom);
             tvThingZoom.setText(bean.getTypeChild());
         }
-        if (!TextUtils.isEmpty(bean.getTypeChild())) {
+        else if (!TextUtils.isEmpty(bean.getTypeChildNotice())) {
+            itemZoom.setBackgroundResource(R.drawable.bg_notice_one);
+            ivWarningLevelZoom.setImageResource(R.drawable.ic_notice_zoom);
+            tvThingZoom.setText(bean.getTypeChildNotice());
+        }
+        if (!TextUtils.isEmpty(bean.getTypeChild()) || !TextUtils.isEmpty(bean.getTypeChildNotice())) {
             if (bean != null) {
                 holder.setText(R.id.tv_name_zoom, bean.getUserName() == null ? "" : bean.getUserName());
                 holder.setText(R.id.tv_type_nurse_name_zoom, bean.getTypeNurseName());

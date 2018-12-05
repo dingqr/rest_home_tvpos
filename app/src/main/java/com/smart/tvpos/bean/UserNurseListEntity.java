@@ -71,6 +71,7 @@ public class UserNurseListEntity {
     private String heartbeat;//心跳
     private String breath;//呼吸
     private String typeNurseName;//护理级别
+    private String typeChildNotice;//     * typeChildNotice	提示类型
 
     public String getTypeNurseName() {
         return typeNurseName == null ? "" : typeNurseName;
@@ -272,5 +273,13 @@ public class UserNurseListEntity {
 
     public void setTypeChild(String typeChild) {
         this.typeChild = typeChild;
+    }
+
+    public String getTypeChildNotice() {
+        return typeChildNotice;
+    }
+
+    public void setTypeChildNotice(String typeChildNotice) {
+        this.typeChildNotice = typeChildNotice;
     }
 }

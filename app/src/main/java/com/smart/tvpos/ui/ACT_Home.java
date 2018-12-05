@@ -826,7 +826,7 @@ public class ACT_Home extends BaseActivity implements IHomeView {
         String formatOffBedRate = StringUtil.getFormatPercentRate(offBedNumRate);//format 返回的是字符串
         String formatOfflineRate = StringUtil.getFormatPercentRate(offlineRate);//format 返回的是字符串
 
-        onBedRate = (100 - Float.parseFloat(formatOffBedRate) - Float.parseFloat(formatOfflineRate));
+        onBedRate = Math.abs(100 - Float.parseFloat(formatOffBedRate) - Float.parseFloat(formatOfflineRate));
         String formatOnBedRate = StringUtil.getFormatPercentRate(onBedRate);
 
         //添加百分比

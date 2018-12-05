@@ -86,7 +86,7 @@ public class ADA_NurseProgress extends CommonAdapter<UserNurseListEntity> implem
         } else if (bean.getWarningLevel() == 2) {
             progressBarZoom.setTextColor(textcolor[1]);
 
-            itemZoom.setBackgroundResource(R.drawable.bg_warning_two);
+            itemZoom.setBackgroundResource(R.drawable.bg_notice_one);
 //            ivWarningLevelNormal.setImageResource(R.drawable.ic_warning_yellow);
             ivWarningLevelZoom.setImageResource(R.drawable.ic_warning_yellow_zoom);
 //            tvWarningNoteNormal.setText(MyApplication.getContext().getString(R.string.string_two_fall_down));
