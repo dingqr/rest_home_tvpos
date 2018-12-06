@@ -49,8 +49,6 @@ public class RingChartView extends View {
     private int ringInnerRidus = 50;     // 内圆的半径
     private int ringPointRidus = 70;    // 点所在圆的半径
 
-//    private float rate = 0.4f;     //点的外延距离  与  点所在圆半径的长度比率
-//    private float extendLineWidth = 10;     //点外延后  折的横线的长度
     private RectF rectF;                // 外圆所在的矩形
     private RectF rectShadow;                // 外圆所在的矩形
     private RectF rectFPoint;           // 点所在的矩形
@@ -100,10 +98,6 @@ public class RingChartView extends View {
         dm = new DisplayMetrics();
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(dm);
-        Log.d("aqua", "dm.density:" + dm.density);
-        int screenWidth = wm.getDefaultDisplay().getWidth();
-//        int height = wm.getDefaultDisplay().getHeight();
-//        leftMargin = (px2dip(screenWidth) - (2 * circleCenterX)) / 2;
 
         mPaint.setColor(getResources().getColor(R.color.color_red));
         mPaint.setStrokeWidth(mPaintWidth);
@@ -133,7 +127,7 @@ public class RingChartView extends View {
         super.onDraw(canvas);
         pointList.clear();
         if (colorList != null && rateList != null) {
-            for (int i = 0; i < colorList.size(); i++) {
+            for (int i = 0; i < rateList.size(); i++) {
                 mPaint.setColor(mRes.getColor(colorList.get(i)));
                 mPaint.setStyle(Paint.Style.FILL);
                 drawOuter(canvas, i);
@@ -174,7 +168,9 @@ public class RingChartView extends View {
         mPaint.setColor(mRes.getColor(R.color.color_transparent));
         mPaint.setStrokeWidth(1);
         //画圆
-        canvas.drawArc(rectFPoint, preAngle, (endAngle) / 2, true, mPaint);
+        if (rateList.get(position) != 0) {
+            canvas.drawArc(rectFPoint, preAngle, (endAngle) / 2, true, mPaint);
+        }
         //处理每块圆饼弧的中心点，绘制折线，显示对应的文字
         dealPoint(rectFPoint, preAngle, (endAngle) / 2, pointArcCenterList);
         Point point = pointArcCenterList.get(position);
@@ -315,20 +311,24 @@ public class RingChartView extends View {
             endAngle = getAngle(rateList.get(position));
         }
 //        Log.e("preAngle:", "" + preAngle + "   endAngle:" + endAngle);
-        canvas.drawArc(rectF, preAngle, endAngle, true, mPaint);
+        if (rateList.get(position) != 0)
+            canvas.drawArc(rectF, preAngle, endAngle, true, mPaint);
 //        dealPoint(rectF, preAngle, endAngle, pointList);
 
         if(isRing){
             mPaint.setColor(CommonUtil.getColorWithAlpha(0.3f, mRes.getColor(R.color.color_transparent)));
             mPaint.setStyle(Paint.Style.FILL);
-            canvas.drawArc(rectShadow, preAngle, endAngle, true, mPaint);
+            if (rateList.get(position) != 0)
+                canvas.drawArc(rectShadow, preAngle, endAngle, true, mPaint);
         }
 
         if (isShowRate) {
             drawArcCenterPoint(canvas, position);
         }
 
-        preAngle = preAngle + endAngle;
+        if (rateList.get(position) != 0) {
+            preAngle = preAngle + endAngle;
+        }
     }
 
     private float preAngle = -90;
@@ -339,6 +339,7 @@ public class RingChartView extends View {
      * @return
      */
     private float getAngle(float percent) {
+        if (percent == 0) percent = 1;
         float a = 360f / 100f * percent;
         return a;
     }
